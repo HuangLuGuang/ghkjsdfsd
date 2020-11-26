@@ -251,9 +251,11 @@ layui.define("jquery", function(e) {
                 var e, o = this.style.backgroundColor,
                     r = k(P(o)),
                     t = o.slice(o.lastIndexOf(",") + 1, o.length - 1);
+                
+                D = r.h, H = r.s, E = r.b, 3 == (o.match(/[0-9]{1,3}/g) || []).length && (t = 1), W = t, e = 280 * t, L(r.h, r.s, r.b, t)
                 // zxx 2020 11 26
                 console.log(e);
-                D = r.h, H = r.s, E = r.b, 3 == (o.match(/[0-9]{1,3}/g) || []).length && (t = 1), W = t, e = 280 * t, L(r.h, r.s, r.b, t)
+
             })
         })
     }, D.prototype.select = function(e, i, o, r) {

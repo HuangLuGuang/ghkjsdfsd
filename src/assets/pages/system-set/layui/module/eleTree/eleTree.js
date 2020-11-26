@@ -115,6 +115,7 @@ layui.define(["jquery", "laytpl"], function(exports) {
                 // 是否显示连线
                 if (!options.showLine) return '';
                 var s = new String();
+                console.log(s)
                 if (floor !== 0) {
                     s = '<i class="eleTree-node-verticalline" style="left: ' + (9 + options.indent * (floor - 1)) + 'px;"></i>' +
                         '<i class="eleTree-node-horizontalline" style="width: ' + (options.indent - 4) + 'px;left: ' + (9 + options.indent * (floor - 1)) + 'px;"></i>';

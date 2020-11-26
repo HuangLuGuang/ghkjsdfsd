@@ -30,9 +30,10 @@ export class AgTableComponent implements OnInit {
   @Input() private updategetemployee:any;
 
 
+
   gridApi;
   gridColumnApi;
-  paginationPageSize; // 每页多少条数
+  paginationPageSize; // 每页多少条数  = 10
   paginationNumberFormatter;   // 设置每页展示条数
   suppressScrollOnNewData = true; // 更改时网格不要滚动到顶部
   suppressPaginationPanel = true; // 隐藏用于导航的默认ag-Grid控件 即隐藏自带的分页组件
@@ -47,11 +48,13 @@ export class AgTableComponent implements OnInit {
   rowSelection; // 选中行
   frameworkComponents; // 表格渲染组件！
 
+
   // 分页
   current = 1;  // 当前页
   totalPageNumbers=10;  // 总数据条数
   setPageCount = 10;     // 默认每页10条数据
-  private requestPageCount = 2; // 每次请求的数目
+  private requestPageCount = 1; // 每次请求的页数
+  PageSize; // 下拉框中的数据
 
   selectedRows = [];     // 行选择数据
 
@@ -83,8 +86,14 @@ export class AgTableComponent implements OnInit {
   // ---------------
   gridOptions(employee_agGrid){
     this.columnDefs =  employee_agGrid["columnDefs"]// 列字段
-    this.rowData =  employee_agGrid["rowData"]; // 行数据
     this.action =  employee_agGrid["action"]; // 是否操作
+    // this.paginationPageSize = 10;
+    this.paginationPageSize = employee_agGrid["PageSize"];
+    // 每页显示的条数
+    console.log("***************每页显示的条数***********", this.paginationPageSize)
+    this.gridApi.paginationSetPageSize(employee_agGrid["PageSize"]);
+    
+    this.rowData =  employee_agGrid["rowData"]; // 行数据
     this.alltotalPageNumbers = employee_agGrid["totalPageNumbers"]; // 数据库中的总条数
     this.defaultColDef = { // 默认的列设置
       // flex: 1,
@@ -96,10 +105,14 @@ export class AgTableComponent implements OnInit {
       return data.id
     };
     this.context = { componentParent: this };
-    this.paginationPageSize = 10;
+    
     this.rowSelection = 'multiple';
-    this.totalPageNumbers = this.rowData.length
-    console.log("------------------->>>>>>>>>>>>>>>>>>>>",this.columnDefs)
+    this.totalPageNumbers = employee_agGrid.totalPageNumbers
+    // this.totalPageNumbers = employee_agGrid.totalPageNumbers
+    // this.totalPageNumbers = this.rowData.length
+    console.log("employee_agGrid------------------->>>>>>>>>>>>>>>>>>>>",employee_agGrid)
+    console.log("this.paginationPageSize------------------->>>>>>>>>>>>>>>>>>>>",this.paginationPageSize)
+    console.log("this.setPageCount------------------->>>>>>>>>>>>>>>>>>>>",this.setPageCount)
   };
 
   
@@ -119,52 +132,37 @@ export class AgTableComponent implements OnInit {
   }
   
 
-  // 页码改变的回调
-  // pageIndexChange(event) {
-  //   console.log("页码改变回调：event||",event)
-  //   // 页面跳转
-  //   this.gridApi.paginationGoToPage(event - 1);
 
-  //   // 总页数
-  //   let totalPages = this.totalPageNumbers / this.setPageCount;
-  //   // 当前页数
-  //   let currentPage = event - 1;
-  //   // 判断是否触发请求
-  //   if (currentPage + 1 >= totalPages) {
-  //     // 构造请求参数
-  //     const offset = this.totalPageNumbers;
-  //     // 每次请求的条数 * 每页的条数
-  //     const limit = this.requestPageCount * this.setPageCount;
-  //     // this.get_interface_cockpit(limit, offset);
-  //     console.log("页码改变的回调 offset  limit", offset, limit);
-  //     this.nzpageindexchange.emit({offset: offset, limit: limit})
-  //   }
-  // }
   // 页码改变的回调
   pageIndexChange(event) {
-    console.log("页码改变回调：event||",event)
-    const offset = (this.current - 1) * this.setPageCount;
-    const limit = this.setPageCount;
-    this.nzpageindexchange.emit({offset: offset, limit: limit});
+    console.log("----------------当前页数：---\n", this.current);
+    console.log("----------------event：---\n", event);
+    // 页面跳转
+    this.gridApi.paginationGoToPage(event - 1);
+
+    // 总页数
+    let totalPages = this.totalPageNumbers / this.setPageCount;
+    // 当前页数
+    let currentPage = event - 1;
+    // 判断是否触发请求
+    console.log("---页码改变的回调-----当前页数,currentPage, totalPages, this.setPageCount", currentPage,totalPages,this.setPageCount)
+    const offset = (currentPage) * this.setPageCount;
+    // 每次请求的条数 * 每页的条数
+    const limit = this.requestPageCount * this.setPageCount;
+    this.nzpageindexchange.emit({offset: offset, limit: limit, PageSize:this.setPageCount})
   }
 
-  // 每页条数改变的回调
-  pageSizeChange(event) {
-    console.log("ag-table.component.ts==pageSizeChange", event)
-    console.warn("pageSizeChange 每页条数改变的回调>>", event);
-    // 更新每页展示条数
-    this.setPageCount = event;
-    this.gridApi.paginationSetPageSize(Number(event));
-  }
+
+
+ 
 
   // onPageSizeChanged() 改变每页多少条 时触发！
   onPageSizeChanged(){
     console.log("改变条目数量前，setPageCount",this.setPageCount)
-    this.setPageCount = this.paginationPageSize; // 每页多少条数据
-
-    console.log("----------------\nonPageSizeChanged---\n", this.paginationPageSize);
+    this.setPageCount = Number(this.PageSize); // 每页多少条数据
+    console.log("----------------\nonPageSizeChanged---\n", this.PageSize);
     console.log("----------------\当前页数：---\n", this.current);
-    this.gridApi.paginationSetPageSize(Number(this.paginationPageSize));
+    this.gridApi.paginationSetPageSize(Number(this.PageSize));
     // 当改变 每页条目时 执行！将 
     const offset = (this.current - 1) * this.setPageCount;
     const limit = this.setPageCount;
@@ -317,6 +315,7 @@ export class AgTableComponent implements OnInit {
     this.selectedRows = []; // 清除选择的行数据！
     this.rowData = tableDatas.rowData;
     this.totalPageNumbers = tableDatas.rowData.length;
+
     this.alltotalPageNumbers = tableDatas.totalPageNumbers; // 数据库中的总条数
     // this.agGrid.api.setRowData(this.rowData);
     console.log("------------agGrid-------------", this.agGrid)

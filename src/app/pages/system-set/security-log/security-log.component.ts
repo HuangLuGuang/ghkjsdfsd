@@ -119,6 +119,7 @@ export class SecurityLogComponent implements OnInit {
       offset: offset, 
       limit: limit,
     }
+    console.log("请求的参数：PageSize   ", PageSize)
     this.http.callRPC('sys_security_log', 'get_sys_login_log', columns).subscribe((res)=>{
       var get_sys_login_log = res['result']['message'][0]
       if (get_sys_login_log["code"]===1){
@@ -129,6 +130,7 @@ export class SecurityLogComponent implements OnInit {
         this.gridData.push(...message)
         this.tableDatas.rowData = this.gridData;
         this.tableDatas.PageSize = PageSize;
+     
         this.agGrid.init_agGrid(this.tableDatas);
         this.RecordOperation(1, '查看', "安全日志");
       }else{
@@ -174,7 +176,10 @@ export class SecurityLogComponent implements OnInit {
   // nzpageindexchange 页码改变的回调
   nzpageindexchange(event){
     console.log("页码改变的回调", event);
+    this.gridData = [];
+    this.loading = true;
     this.inttable(event);
+    this.loading = false;
   }
 
   // option_record
