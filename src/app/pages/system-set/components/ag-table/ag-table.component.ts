@@ -165,7 +165,6 @@ export class AgTableComponent implements OnInit {
     this.current = current_before>current_after? current_after: current_before;
     console.log("之后的当前页数",this.current); // this.current = this.totalPageNumbers / this.setPageCount
     this.pageIndexChange(this.current);
-    // // 当改变 每页条目时 执行！将 
 
   }
 
