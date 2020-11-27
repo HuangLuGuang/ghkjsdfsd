@@ -78,6 +78,7 @@ export class SecurityLogComponent implements OnInit {
     // 是否 每页多少也，设置为默认值
     this.tableDatas.isno_refresh_page_size = true;
     this.inttable();
+    
     this.refresh = false;
     this.loading = false;
   }
@@ -134,10 +135,9 @@ export class SecurityLogComponent implements OnInit {
         this.gridData.push(...message)
         this.tableDatas.rowData = this.gridData;
         // this.tableDatas.PageSize = PageSize;
-
-        
-     
         this.agGrid.init_agGrid(this.tableDatas);
+        // 刷新table后，改为原来的！
+        this.tableDatas.isno_refresh_page_size = false;
         this.RecordOperation(1, '查看', "安全日志");
       }else{
         this.RecordOperation(0, '查看', "安全日志");

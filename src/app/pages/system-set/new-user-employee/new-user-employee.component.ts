@@ -35,6 +35,8 @@ export class NewUserEmployeeComponent implements OnInit {
   // agGrid
   tableDatas = {
     totalPageNumbers: 0, // 总页数
+    PageSize: 10, // 每页 10条数据
+    isno_refresh_page_size: false, // 是否重新将 每页多少条数据，赋值为默认值
     columnDefs:[ // 列字段 多选：headerCheckboxSelection checkboxSelection
       { field: 'loginname', headerName: '域账号',  headerCheckboxSelection: true, checkboxSelection: true, autoHeight: true, fullWidth: true, minWidth: 30,resizable: true,},
       { field: 'name', headerName: '姓名', resizable: true,},
@@ -358,19 +360,19 @@ export class NewUserEmployeeComponent implements OnInit {
   inttable(event?, loginname?){
     var offset;
     var limit;
-    console.log("event------------------------------------------------", event);
+    var PageSize;
     if (event != undefined){
       offset = event.offset;
       limit = event.limit;
+      PageSize = event.PageSize? Number(event.PageSize):10;
     }else{
       offset = 0;
-      limit = 20;
+      limit = 10;
+      PageSize = 10;
     }
-    // 得到员工信息！
     var columns = {
       offset: offset, 
       limit: limit,
-      loginname: loginname
     }
     
     this.http.callRPC(this.TABLE, this.METHOD, columns).subscribe((result)=>{
@@ -380,11 +382,14 @@ export class NewUserEmployeeComponent implements OnInit {
       this.loading = false;
       if(tabledata["code"] === 1){
         var message = tabledata["message"];
+        this.tableDatas.PageSize = PageSize;
         this.gridData.push(...message)
         this.tableDatas.rowData = this.gridData;
         var totalpagenumbers = tabledata['numbers']? tabledata['numbers'][0]['numbers']: '未得到总条数';
         this.tableDatas.totalPageNumbers = totalpagenumbers;
         this.agGrid.init_agGrid(this.tableDatas); // 告诉组件刷新！
+        // 刷新table后，改为原来的！
+        this.tableDatas.isno_refresh_page_size = false;
         this.RecordOperation('查看', 1,  "用户管理")
       }else{
         this.RecordOperation('查看', 0, "用户管理")

@@ -126,6 +126,8 @@ export class OperationLogComponent implements OnInit, OnDestroy {
         this.gridData.push(...message);
         this.tableDatas.rowData = this.gridData;
         this.agGrid.init_agGrid(this.tableDatas);
+        // 刷新table后，改为原来的！
+        this.tableDatas.isno_refresh_page_size = false;
         this.RecordOperation(1, '查看', "操作日志");
       }else{
         this.RecordOperation(0, '查看', "操作日志");

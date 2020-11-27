@@ -143,7 +143,7 @@ export class AgTableComponent implements OnInit {
     // 总页数
     let totalPages = this.totalPageNumbers / this.setPageCount;
     // 当前页数
-    let currentPage = event - 1;
+    let currentPage = event - 1 < 0? 0: event - 1;
     // 判断是否触发请求
     console.log("---页码改变的回调-----当前页数,currentPage, totalPages, this.setPageCount", currentPage,totalPages,this.setPageCount)
     const offset = (currentPage) * this.setPageCount;
@@ -166,9 +166,6 @@ export class AgTableComponent implements OnInit {
     console.log("之后的当前页数",this.current); // this.current = this.totalPageNumbers / this.setPageCount
     this.pageIndexChange(this.current);
     // // 当改变 每页条目时 执行！将 
-    // const offset = (this.current - 1) * this.setPageCount;
-    // const limit = this.setPageCount;
-    // this.nzpageindexchange.emit({offset: offset, limit: limit, PageSize:this.setPageCount})
 
   }
 

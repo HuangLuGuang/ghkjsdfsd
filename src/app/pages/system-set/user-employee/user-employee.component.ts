@@ -150,6 +150,8 @@ export class UserEmployeeComponent implements OnInit {
   tableDatas = {
     action: false,
     totalPageNumbers: 0, // 总页数
+    PageSize: 10, // 每页 10条数据
+    isno_refresh_page_size: false, // 是否重新将 每页多少条数据，赋值为默认值
     columnDefs:[ // 列字段 多选：headerCheckboxSelection checkboxSelection
       { field: 'name', headerName: '姓名', headerCheckboxSelection: true, checkboxSelection: true, autoHeight: true, fullWidth: true, minWidth: 50,},
       { field: 'loginname', headerName: '域账号',  },
@@ -184,17 +186,23 @@ export class UserEmployeeComponent implements OnInit {
   getemployee(event?){
     var offset;
     var limit;
-    console.log("event------------------------------------------------", event, this.agGrid);
+    var PageSize;
     if (event != undefined){
       offset = event.offset;
       limit = event.limit;
+      PageSize = event.PageSize? Number(event.PageSize):10;
     }else{
       offset = 0;
-      limit = 50;
+      limit = 10;
+      PageSize = 10;
+    }
+    var columns = {
+      offset: offset, 
+      limit: limit,
     }
     // 得到员工信息！
     
-    this.http.callRPC('emeployee', 'get_employee_limit', {offset:offset,limit:limit}).subscribe((result_res)=>{
+    this.http.callRPC('emeployee', 'get_employee_limit', columns).subscribe((result_res)=>{
       var res  = result_res["result"]["message"][0];
       console.log("-=得到员工信息！-=-=-=-=-", res);
       if (res["code"] === 1){
@@ -271,11 +279,15 @@ export class UserEmployeeComponent implements OnInit {
             var unique_result = unique(employee_list, "employeeid")
             unique_group_role(unique_result, "groups_name");
             unique_group_role(unique_result, "role_name");
+            this.tableDatas.PageSize = PageSize;
             this.gridData.push(...unique_result)
             this.tableDatas.rowData = this.gridData;
             var totalpagenumbers = get_employee_limit['numbers']? get_employee_limit['numbers'][0]['numbers']: '未得到总条数';;
             this.tableDatas.totalPageNumbers = totalpagenumbers;
             this.agGrid.init_agGrid(this.tableDatas);
+            // 刷新table后，改为原来的！
+            this.tableDatas.isno_refresh_page_size = false;
+
             function unique(arr, field) { // 根据employeeid去重
               const map = {};
               const res = [];
@@ -442,7 +454,6 @@ export class UserEmployeeComponent implements OnInit {
 
   updategetemployee(event?){
     // this.agGrid.methodFromParent(event);
-    
     this.pagemployee();
     
   }
@@ -452,7 +463,10 @@ export class UserEmployeeComponent implements OnInit {
   // nzpageindexchange 页码改变的回调
   nzpageindexchange(event){
     console.log("页码改变的回调", event);
+    this.gridData = [];
+    this.loading = true;
     this.getemployee(event);
+    this.loading = false;
   }
 
 
