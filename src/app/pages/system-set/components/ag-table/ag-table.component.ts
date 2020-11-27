@@ -90,9 +90,7 @@ export class AgTableComponent implements OnInit {
     // this.paginationPageSize = 10;
     this.paginationPageSize = employee_agGrid["PageSize"];
     // 每页显示的条数
-    console.log("***************每页显示的条数***********", this.paginationPageSize)
     this.gridApi.paginationSetPageSize(employee_agGrid["PageSize"]);
-    
     this.rowData =  employee_agGrid["rowData"]; // 行数据
     this.alltotalPageNumbers = employee_agGrid["totalPageNumbers"]; // 数据库中的总条数
     this.defaultColDef = { // 默认的列设置
@@ -108,11 +106,7 @@ export class AgTableComponent implements OnInit {
     
     this.rowSelection = 'multiple';
     this.totalPageNumbers = employee_agGrid.totalPageNumbers
-    // this.totalPageNumbers = employee_agGrid.totalPageNumbers
     // this.totalPageNumbers = this.rowData.length
-    console.log("employee_agGrid------------------->>>>>>>>>>>>>>>>>>>>",employee_agGrid)
-    console.log("this.paginationPageSize------------------->>>>>>>>>>>>>>>>>>>>",this.paginationPageSize)
-    console.log("this.setPageCount------------------->>>>>>>>>>>>>>>>>>>>",this.setPageCount)
   };
 
   
@@ -135,11 +129,8 @@ export class AgTableComponent implements OnInit {
 
   // 页码改变的回调
   pageIndexChange(event) {
-    console.log("----------------当前页数：---\n", this.current);
-    console.log("----------------event：---\n", event);
     // 页面跳转
     this.gridApi.paginationGoToPage(event - 1);
-
     // 总页数
     let totalPages = this.totalPageNumbers / this.setPageCount;
     // 当前页数
@@ -152,21 +143,15 @@ export class AgTableComponent implements OnInit {
     this.nzpageindexchange.emit({offset: offset, limit: limit, PageSize:this.setPageCount})
   }
 
-
-
- 
-
   // onPageSizeChanged() 改变每页多少条 时触发！
   onPageSizeChanged(){
-    console.log("改变条目数量前，setPageCount",this.setPageCount)
     this.setPageCount = Number(this.PageSize); // 每页多少条数据
-    console.log("----------------\nonPageSizeChanged---\n", this.PageSize);
-    console.log("----------------\当前页数：---\n", this.current);
     this.gridApi.paginationSetPageSize(Number(this.PageSize));
-    // 当改变 每页条目时 执行！将 
-    const offset = (this.current - 1) * this.setPageCount;
-    const limit = this.setPageCount;
-    this.nzpageindexchange.emit({offset: offset, limit: limit, PageSize:this.setPageCount})
+    this.pageIndexChange(this.current)
+    // // 当改变 每页条目时 执行！将 
+    // const offset = (this.current - 1) * this.setPageCount;
+    // const limit = this.setPageCount;
+    // this.nzpageindexchange.emit({offset: offset, limit: limit, PageSize:this.setPageCount})
 
   }
 
