@@ -122,6 +122,8 @@ export class KpiTableComponent implements OnInit {
   refresh_table(){
     this.loading = true;
     this.gridData = [];
+    // 是否 每页多少也，设置为默认值
+    this.tableDatas.isno_refresh_page_size = true;
     this.inttable();
   }
 
@@ -131,6 +133,8 @@ export class KpiTableComponent implements OnInit {
   tableDatas = {
     action: false,
     totalPageNumbers: 0, // 总页数
+    PageSize: 10, // 每页 10条数据
+    isno_refresh_page_size: false, // 是否重新将 每页多少条数据，赋值为默认值
     columnDefs:[ // 列字段 多选：headerCheckboxSelection checkboxSelection , flex: 1 自动填充宽度 pinned: 'left' 固定到左侧！
       { field: 'devicename', headerName: '设备名称', headerCheckboxSelection: true, checkboxSelection: true, autoHeight: true, fullWidth: true, minWidth: 50,resizable: true, },
       { field: 'deviceid', headerName: '设备id',  resizable: true, minWidth: 10},
@@ -166,9 +170,6 @@ export class KpiTableComponent implements OnInit {
 
     ],
     rowData: [ // data
-      // { name: 'Toyota', loginname: 'Celica', role_name: 35000, groups_name: 'add', active: 1, employeeno: "123", email:"123@qq.com", phoneno: "17344996821",pictureurl: null,group: "ZJX", lastsignondate:"2020"},
-      // { name: 'Ford', loginname: 'Mondeo', role_name: 32000, groups_name: 'add', active: 1, employeeno: "123", email:"123@qq.com", phoneno: "17344996821",pictureurl: null,group: "ZJX", lastsignondate:"2020" },
-      // { name: 'Porsche', loginname: 'Boxter', role_name: 72000, groups_name: 'add', active: 1, employeeno: "123", email:"123@qq.com", phoneno: "17344996821",pictureurl: null,group: "ZJX", lastsignondate:"2020" }
     ]
   };
 
@@ -177,12 +178,15 @@ export class KpiTableComponent implements OnInit {
   inttable(event?){
     var offset;
     var limit;
+    var PageSize;
     if (event != undefined){
       offset = event.offset;
       limit = event.limit;
+      PageSize = event.PageSize? Number(event.PageSize):10;
     }else{
       offset = 0;
-      limit = 50;
+      limit = 10;
+      PageSize = 10;
     }
     var colmun = {
       start: '2020-10-1',
@@ -199,11 +203,14 @@ export class KpiTableComponent implements OnInit {
         this.loading = false;
         var message = res["result"]["message"][0]["message"];
         this.add_detail_kpi(message);
+        this.tableDatas.PageSize = PageSize;
         this.gridData.push(...message)
         this.tableDatas.rowData = this.gridData;
         var totalpagenumbers = get_employee_limit['numbers']? get_employee_limit['numbers'][0]['numbers']: '未得到总条数';
         this.tableDatas.totalPageNumbers = totalpagenumbers;
         this.agGrid.init_agGrid(this.tableDatas); // 告诉组件刷新！
+        // 刷新table后，改为原来的！
+        this.tableDatas.isno_refresh_page_size = false;
         this.RecordOperation('查看', 1,  "设备报表")
       }else{
         this.RecordOperation('查看', 0,  "设备报表")
@@ -220,7 +227,7 @@ export class KpiTableComponent implements OnInit {
       limit = event.limit;
     }else{
       offset = 0;
-      limit = 50;
+      limit = 10;
     }
     var colmun = {
       start: '2020-10-1',
@@ -254,8 +261,10 @@ export class KpiTableComponent implements OnInit {
   // nzpageindexchange 页码改变的回调
   nzpageindexchange_ag(event){
     console.log("页码改变的回调", event);
+    this.gridData = [];
     this.loading = true;
     this.inttable(event);
+    this.loading = false;
   }
 
 
