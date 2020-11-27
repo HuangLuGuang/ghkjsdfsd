@@ -17,10 +17,12 @@ import { NzPaginationModule } from 'ng-zorro-antd/pagination';
 import { MySelectTreeComponent } from './my-select-tree/my-select-tree.component';
 import { MySelectTreeTypeComponent } from './my-select-tree-type/my-select-tree-type.component';
 import { MySelectTreeTypeComponent as MySelectTreeTypeComponentType} from './my-select-tree-type/my-select-tree-type.component';
+import { MyDateRangeComponent } from './my-date-range/my-date-range.component';
 @NgModule({
   declarations: [
     MySelectComponent, MySelectGroupComponent, AgTableComponent, AgGridActionComponent, MySelectTreeComponent, MySelectTreeTypeComponent,
     MySelectTreeTypeComponentType,
+    MyDateRangeComponent,
   ],
   imports: [
     CommonModule,
@@ -33,7 +35,8 @@ import { MySelectTreeTypeComponent as MySelectTreeTypeComponentType} from './my-
     NzPaginationModule,
   ],
   exports: [
-    MySelectComponent, MySelectGroupComponent, AgTableComponent,MySelectTreeComponent,MySelectTreeTypeComponentType
+    MySelectComponent, MySelectGroupComponent, AgTableComponent,MySelectTreeComponent,MySelectTreeTypeComponentType,
+    MyDateRangeComponent
   ]
 })
 export class ComponentTModule { }

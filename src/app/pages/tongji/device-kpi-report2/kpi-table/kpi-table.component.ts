@@ -21,7 +21,9 @@ declare let layui;
 })
 export class KpiTableComponent implements OnInit {
   @ViewChild("ag_Grid") agGrid:any;
-
+  @ViewChild("groups") groups_func:any;
+  @ViewChild("eimdevicetpye") eimdevicetpye:any;
+  @ViewChild("data_range") data_range:any;
 
 
 
@@ -35,36 +37,127 @@ export class KpiTableComponent implements OnInit {
   constructor(private publicservice: PublicmethodService, private http: HttpserviceService, 
     private deviceservice: DeviceKpiReport2Service, private router: Router,
     private userinfo: UserInfoService) { 
-    
+    // 选择框
+    this.get_tree_selecetdata();
   }
 
+  
+  groups_placeholder = "请选择科室/功能组";     // 科室/功能组 
+  eimdevicetpye_placeholder = "请选择设备类型"; // eim 设备类型
+  button; // 权限button
+  refresh = false; // 刷新tabel
+
+  init_value = "2010-10-01 - 2020-11-21" // 默认日期
+
   ngOnInit(): void {
+    
     // 初始化agGrid==============
     this.inttable();
     // 初始化agGrid==============
 
-    // 订阅方,得到属性
-    this.deviceservice.currentMessage.subscribe(res=>{
-      console.log("订阅方：", res);
-      if (res){
-        this.download()
-      }
-    });
+    // 得到pathname --在得到button
+    console.log("得到pathname --在得到button\t\t")
+    var roleid = this.userinfo.getEmployeeRoleID();
+    this.publicservice.get_buttons_bypath(roleid).subscribe(result=>{
+      this.button = result;
+      console.log("得到pathname --在得到button\t\t", result)
+      localStorage.setItem("buttons_list", JSON.stringify(result));
+    })
+  }
 
-    // 订阅方得到数据
-    this.deviceservice.currentData.subscribe(res=>{
-      console.log("查询：", res);
-      var columns = {
-        offset: 0, 
-        limit: 20,
-        employeeid: this.userinfo.getEmployeeID(),
-        devicename: res['devicename'],
-        group: res["groups"],
-        start:res["start"],
-        end:res["end"],
-        eimdevicetype:res["eimdevicetype"]
+  ngAfterViewInit(){
+    
+  }
+  
+
+  // plv8请求
+  querst(table: string, method: string, colmun: Object){
+    return new Observable((observe)=>{
+      this.http.callRPC(table, method, colmun).subscribe((result)=>{
+        observe.next(result);
+      })
+
+    })
+  }
+
+  
+
+
+
+  // button按钮
+  action(actionmethod){
+    console.log("++++++++++++++++++++action(actionmethod)++++++++++++++++++++++++++++", actionmethod);
+    var method = actionmethod.split(":")[1];
+    console.log("--------------->method", method)
+    switch (method) {
+      // case 'add':// 没有新增功能！
+      //   this.add("新增");
+      //   break;
+      // case 'del':
+      //   this.del();
+      //   break;
+      // case 'edit':
+      //   this.edit();
+      //   break;
+      case 'query':
+        this.query();
+        break;
+      // case 'import': // 没有导入功能！
+      //   this.import("导入");
+      //   break;
+      case 'download':
+        // this.download('设备KPI报表')
+        this.download()
+        break;
+    }
+
+  }
+
+  // 得到下拉框的数据
+  get_tree_selecetdata(){
+    var columns = {
+      employeeid:this.userinfo.getEmployeeID(),
+    }
+    this.http.callRPC("deveice","dev_get_device_groups",columns).subscribe(result=>{
+      var res = result["result"]["message"][0]
+      console.log("得到下拉框的数据---------------->", res)
+      if (res["code"] === 1){
+        var groups = res["message"][0]["groups"];
+       
+        this.groups_func.init_select_tree(groups);
+        var eimdevicetpyedata = res["message"][0]["type"];
+        this.eimdevicetpye.init_select_trees(eimdevicetpyedata);
       }
-      console.log("查询：", columns);
+    })
+  }
+
+  
+
+  // 搜索按钮
+  query(){
+    // 设备名称 devicename
+    var devicename = $("#devicename").val();
+    // 科室/功能组
+    var groups_data = this.groups_func.getselect();
+    // 设备类型
+    var device_tpye_data = this.eimdevicetpye.getselect();
+    // 日期范围
+    var daterange_data = this.data_range.getselect()
+    // 将科室/功能组，转为列表
+    var groups_data_ = groups_data ===""?[] :groups_data.split(";");
+    // 搜索的 时间范围 daterange 必选，修改为 start end
+    console.log("**************\n")
+    var columns = {
+      offset: 0, 
+      limit: 20,
+      employeeid: this.userinfo.getEmployeeID(),
+      devicename: [devicename],
+      group: groups_data_,
+      start:daterange_data[0],
+      end:daterange_data[1],
+      eimdevicetype:device_tpye_data
+    }
+    console.log("**************\n", columns);
       // 执行搜索函数！
       this.http.callRPC('device', "dev_get_kpi_device_search",columns).subscribe(result=>{
         console.log("执行搜索函数！\n\n\n",result)
@@ -81,35 +174,8 @@ export class KpiTableComponent implements OnInit {
           this.RecordOperation('搜索', 1,  "设备报表")
         }else{this.RecordOperation('搜索', 0,  "设备报表")}
       })
-    })
-
-    // 订阅属性，是否刷新
-    this.deviceservice.is_refresh.subscribe(result=>{
-      if (result){
-        this.refresh_table();
-      }
-    })
-
-
-    
-
+      
   }
-
-  ngAfterViewInit(){
-    
-  }
-  
-
-  // plv8请求
-  querst(table: string, method: string, colmun: Object){
-  return new Observable((observe)=>{
-    this.http.callRPC(table, method, colmun).subscribe((result)=>{
-      observe.next(result);
-    })
-
-  })
-  }
-
 
 
   download(){
@@ -138,7 +204,7 @@ export class KpiTableComponent implements OnInit {
     columnDefs:[ // 列字段 多选：headerCheckboxSelection checkboxSelection , flex: 1 自动填充宽度 pinned: 'left' 固定到左侧！
       { field: 'devicename', headerName: '设备名称', headerCheckboxSelection: true, checkboxSelection: true, autoHeight: true, fullWidth: true, minWidth: 50,resizable: true, },
       { field: 'deviceid', headerName: '设备id',  resizable: true, minWidth: 10},
-      { field: 'group', headerName: '试验室', resizable: true, minWidth: 10},
+      { field: 'groups', headerName: '试验室', resizable: true, minWidth: 10},
       
       { field: 'CustomTime', headerName: '自定义统计时间(默认最近一周)', 
         children:[
