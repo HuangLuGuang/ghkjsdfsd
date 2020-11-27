@@ -74,6 +74,9 @@ export class SecurityLogComponent implements OnInit {
     this.refresh = true;
     this.loading = true;
     this.gridData = [];
+    // 更新每页条数为默认值
+    // 是否 每页多少也，设置为默认值
+    this.tableDatas.isno_refresh_page_size = true;
     this.inttable();
     this.refresh = false;
     this.loading = false;
@@ -89,6 +92,7 @@ export class SecurityLogComponent implements OnInit {
     action: false,
     totalPageNumbers: 0, // 总页数
     PageSize: 10, // 每页 10条数据
+    isno_refresh_page_size: false, // 是否重新将 每页多少条数据，赋值为默认值
     columnDefs:[ // 列字段 多选：headerCheckboxSelection checkboxSelection , flex: 1 自动填充宽度
       // { field: 'application', headerName: '应用', headerCheckboxSelection: true, checkboxSelection: true, autoHeight: true, fullWidth: true, minWidth: 50,resizable: true},
       { field: 'createdby', headerName: '域账号',headerCheckboxSelection: true, checkboxSelection: true, autoHeight: true, fullWidth: true, resizable: true, flex: 1},
@@ -112,7 +116,7 @@ export class SecurityLogComponent implements OnInit {
       PageSize = event.PageSize? Number(event.PageSize):10;
     }else{
       offset = 0;
-      limit = 20;
+      limit = 10;
       PageSize = 10;
     }
     var columns = {
@@ -129,7 +133,9 @@ export class SecurityLogComponent implements OnInit {
         this.tableDatas.PageSize = PageSize;
         this.gridData.push(...message)
         this.tableDatas.rowData = this.gridData;
-        this.tableDatas.PageSize = PageSize;
+        // this.tableDatas.PageSize = PageSize;
+
+        
      
         this.agGrid.init_agGrid(this.tableDatas);
         this.RecordOperation(1, '查看', "安全日志");
@@ -149,7 +155,7 @@ export class SecurityLogComponent implements OnInit {
       limit = event.limit;
     }else{
       offset = 0;
-      limit = 20;
+      limit = 10;
     }
     var columns = {
       offset: offset, 

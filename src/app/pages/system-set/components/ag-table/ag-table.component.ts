@@ -89,6 +89,7 @@ export class AgTableComponent implements OnInit {
     this.action =  employee_agGrid["action"]; // 是否操作
     // this.paginationPageSize = 10;
     this.paginationPageSize = employee_agGrid["PageSize"];
+    
     // 每页显示的条数
     this.gridApi.paginationSetPageSize(employee_agGrid["PageSize"]);
     this.rowData =  employee_agGrid["rowData"]; // 行数据
@@ -107,6 +108,14 @@ export class AgTableComponent implements OnInit {
     this.rowSelection = 'multiple';
     this.totalPageNumbers = employee_agGrid.totalPageNumbers
     // this.totalPageNumbers = this.rowData.length
+
+    // 动态修改--每页的条数
+    if (employee_agGrid["isno_refresh_page_size"]){
+      this.PageSize = employee_agGrid["PageSize"];
+      this.setPageCount = Number(this.PageSize);
+      console.log("--------------动态修改--每页的条数", this.PageSize)
+    }
+
   };
 
   
@@ -143,6 +152,7 @@ export class AgTableComponent implements OnInit {
     this.nzpageindexchange.emit({offset: offset, limit: limit, PageSize:this.setPageCount})
   }
  
+
 
   // onPageSizeChanged() 改变每页多少条 时触发！
   onPageSizeChanged(){
@@ -308,6 +318,8 @@ export class AgTableComponent implements OnInit {
     this.rowData = tableDatas.rowData;
     this.totalPageNumbers = tableDatas.rowData.length;
 
+    
+
     this.alltotalPageNumbers = tableDatas.totalPageNumbers; // 数据库中的总条数
     // this.agGrid.api.setRowData(this.rowData);
     console.log("------------agGrid-------------", this.agGrid)
@@ -318,6 +330,9 @@ export class AgTableComponent implements OnInit {
   init_agGrid(employee_agGrid){
     console.log("---------父组件调用！ 初始化表格--------------",employee_agGrid)
     this.gridOptions(employee_agGrid);
+    // 清空选择的数据
+    this.selectedRows = [];
+    
   }
 
  

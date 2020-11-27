@@ -63,6 +63,8 @@ export class OperationLogComponent implements OnInit, OnDestroy {
     this.refresh = true;
     this.loading = true;
     this.gridData = [];
+    // 是否 每页多少也，设置为默认值
+    this.tableDatas.isno_refresh_page_size = true;
     this.inttable();
     this.refresh = false;
     this.loading = false;
@@ -74,6 +76,8 @@ export class OperationLogComponent implements OnInit, OnDestroy {
   tableDatas = {
     action: false,
     totalPageNumbers: 0, // 总页数
+    PageSize: 10, // 每页 10条数据
+    isno_refresh_page_size: false, // 是否重新将 每页多少条数据，赋值为默认值
     columnDefs:[ // 列字段 多选：headerCheckboxSelection checkboxSelection , flex: 1 自动填充宽度
       // { field: 'application', headerName: '应用', headerCheckboxSelection: true, checkboxSelection: true, autoHeight: true, fullWidth: true, minWidth: 50,resizable: true},
       { field: 'createdby', headerName: '域账号',headerCheckboxSelection: true, checkboxSelection: true, autoHeight: true, fullWidth: true,  resizable: true, flex: 1},
@@ -93,12 +97,15 @@ export class OperationLogComponent implements OnInit, OnDestroy {
   inttable(event?){
     var offset;
     var limit;
+    var PageSize;
     if (event != undefined){
       offset = event.offset;
       limit = event.limit;
+      PageSize = event.PageSize? Number(event.PageSize):10;
     }else{
       offset = 0;
-      limit = 20;
+      limit = 10;
+      PageSize = 10;
     }
     var columns = {
       offset: offset, 
@@ -111,6 +118,7 @@ export class OperationLogComponent implements OnInit, OnDestroy {
         var message = get_sys_transaction_log['message'];
         var totalpagenumbers = get_sys_transaction_log['numbers'][0]['numbers'];
         this.tableDatas.totalPageNumbers = totalpagenumbers;
+        this.tableDatas.PageSize = PageSize;
         // formart result
         message.forEach(row => {
           row["result"] = row["result"] === 1? '成功':'失败';
@@ -135,7 +143,7 @@ export class OperationLogComponent implements OnInit, OnDestroy {
       limit = event.limit;
     }else{
       offset = 0;
-      limit = 20;
+      limit = 10;
     }
     this.http.callRPC('sys_security_log', 'get_sys_transaction_log', {offset: offset, limit: limit}).subscribe((res)=>{
       console.log("get_sys_transaction_log", res)
@@ -167,7 +175,10 @@ export class OperationLogComponent implements OnInit, OnDestroy {
   // nzpageindexchange 页码改变的回调
   nzpageindexchange(event){
     console.log("页码改变的回调", event);
+    this.gridData = [];
+    this.loading = true;
     this.inttable(event);
+    this.loading = false;
   }
 
 
