@@ -19,7 +19,7 @@
 - etc
 
 ## 登录地址、登录密码
-- 地址：setup/adminlogin
+- 地址：setup/eobkxrldmtzypncsifvqwjhaug
 - 用户名：admin/其它用户名
 - 密码：zxx/123456
 

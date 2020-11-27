@@ -142,12 +142,19 @@ export class AgTableComponent implements OnInit {
     const limit = this.requestPageCount * this.setPageCount;
     this.nzpageindexchange.emit({offset: offset, limit: limit, PageSize:this.setPageCount})
   }
+ 
 
   // onPageSizeChanged() 改变每页多少条 时触发！
   onPageSizeChanged(){
     this.setPageCount = Number(this.PageSize); // 每页多少条数据
     this.gridApi.paginationSetPageSize(Number(this.PageSize));
-    this.pageIndexChange(this.current)
+    // 要得到页数，需要总条数 / 每页几条 this.totalPageNumbers / this.setPageCount
+    console.log("之前的当前页数",this.current); // this.current = this.totalPageNumbers / this.setPageCount
+    var current_before = this.current;
+    var current_after = Math.round(this.totalPageNumbers / this.setPageCount); // 向上取整
+    this.current = current_before>current_after? current_after: current_before;
+    console.log("之后的当前页数",this.current); // this.current = this.totalPageNumbers / this.setPageCount
+    this.pageIndexChange(this.current);
     // // 当改变 每页条目时 执行！将 
     // const offset = (this.current - 1) * this.setPageCount;
     // const limit = this.setPageCount;
