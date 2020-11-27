@@ -334,6 +334,8 @@ export class RoleComponent implements OnInit {
     this.refresh = true;
     this.loading = true;
     this.gridData = [];
+    // 是否 每页多少也，设置为默认值
+    this.tableDatas.isno_refresh_page_size = true;
     this.inttable();
     this.loading = false;
     this.refresh = false;
@@ -395,13 +397,13 @@ export class RoleComponent implements OnInit {
 
   // 需要传入参数 1、得到所有的菜单 2、根据当前用户的id得到对应的菜单
   loadMenu(roles?, methods?){
-    console.log("这是 系统设置的  角色  界面！" )
+    // console.log("这是 系统设置的  角色  界面！" )
     return new Observable((observe)=>{
       this.publicservice.getMenu().subscribe((data)=>{
         var roles_ = roles === undefined ? data: roles;
         var method_ = methods === undefined ? 'get_systemset_menu_all': methods;
-        console.log("这是 系统设置的  角色  界面！", roles_, method_)
-        console.log("这是 系统设置的  角色  界面！=================data", data, )
+        // console.log("这是 系统设置的  角色  界面！", roles_, method_)
+        // console.log("这是 系统设置的  角色  界面！=================data", data, )
 
         const colums = {
           languageid: this.http.getLanguageID(),
@@ -413,7 +415,7 @@ export class RoleComponent implements OnInit {
         this.http.callRPC(table, method, colums).subscribe((result)=>{
           
           const baseData = result['result']['message'][0];
-          console.log("sys_role_menu", baseData)
+          // console.log("sys_role_menu", baseData)
           localStorage.setItem(SYSROLEMENU, JSON.stringify(baseData));
           // 得到特定的树状结构数据
           this.sysrolemenu_to_tree_v2(baseData).subscribe((treedata)=>{
@@ -426,7 +428,7 @@ export class RoleComponent implements OnInit {
 
   // 当点击角色是请求菜单
   loadMenu2(roles, methods){
-    console.log("点击角色执行", roles, methods);
+    // console.log("点击角色执行", roles, methods);
     localStorage.setItem("click_col_roles", roles);
     return new Observable((observe)=>{
       const colums = {
@@ -448,7 +450,7 @@ export class RoleComponent implements OnInit {
         const result_allmenu = result['result']['message'][0]["allmenu"];
         const allmenu = JSON.parse(localStorage.getItem(SYSROLEMENU));
         const selectmenu = result['result']['message'][0]["selectmenu"];
-        console.log("------------------------result_allmenu",result_allmenu)
+        // console.log("------------------------result_allmenu",result_allmenu)
         this.sysrolemenu_to_tree_v2(allmenu, selectmenu).subscribe((res)=>{
           observe.next(res)
         });
@@ -480,22 +482,22 @@ export class RoleComponent implements OnInit {
     var that = this;
     var treedata= res["treedata"]
     var selectmenu = res["selectmenu"]
-    console.log("treedata------>",treedata)
-    console.log("selectmenu------>",selectmenu);
+    // console.log("treedata------>",treedata)
+    // console.log("selectmenu------>",selectmenu);
     var selectment_lsit = []; 
     if (selectmenu != []){
       selectmenu.forEach(element => {
         selectment_lsit.push(element["menuitemid"])
       });
     }
-    console.log("selectment_lsit------>",selectment_lsit);
+    // console.log("selectment_lsit------>",selectment_lsit);
     var checkData;
     layui.use(['layer', 'form', 'eleTree'], function(){
       var layer = layui.layer
       ,form = layui.form
       // 渲染
       var eleTree = layui.eleTree;
-      console.log("selectment_lsit------>",selectment_lsit);
+      // console.log("selectment_lsit------>",selectment_lsit);
       var el2=eleTree.render({
         elem: '#menuFengPei',
         data: treedata, 
@@ -507,7 +509,7 @@ export class RoleComponent implements OnInit {
 
 
       });
-      console.log("-=-=-=-=-=-=-=-=-el2-=-=-=-=-=",el2)
+      // console.log("-=-=-=-=-=-=-=-=-el2-=-=-=-=-=",el2)
       // 节点点击事件
       var select_id = selectment_lsit;
       eleTree.on("nodeChecked(treedata)",function(d) {
@@ -545,15 +547,15 @@ export class RoleComponent implements OnInit {
             // 需要
             // el2.setChecked(select_id,true);
           }
-          console.log("点击父节点，默认子节点也选中", select_id)
+          // console.log("点击父节点，默认子节点也选中", select_id)
           
         }else{
           // 取消 el2.unCheckArrNodes(22,24);
           if (d.data["currentData"] != undefined && d.data["currentData"]["children"] != null){
             var children = d.data["currentData"]["children"]
             el2.unExpandNode(d.data["currentData"]["id"]);
-            console.log("-----------currentData----------", d.data["currentData"])
-            console.log("-----------children----------", children)
+            // console.log("-----------currentData----------", d.data["currentData"])
+            // console.log("-----------children----------", children)
             del_unselect(select_id, d.data["currentData"]["id"]);
             children.forEach(element => {
               if (element["children"] != undefined){
@@ -598,7 +600,7 @@ export class RoleComponent implements OnInit {
         if (index != -1){
           select_id.splice(index, 1);
         }
-        console.log("勾选的列表去除，取消勾选的 select_id", select_id)
+        // console.log("勾选的列表去除，取消勾选的 select_id", select_id)
       }
       // el2.setChecked(selectment_lsit)
 
@@ -616,7 +618,7 @@ export class RoleComponent implements OnInit {
         // console.log(el2.getChecked(true,false));
         checkData = el2.getChecked(false,true);
         var roles = localStorage.getItem("click_col_roles");
-        console.log("得到的选中的数据>>>>>>>>>>>>>>>>>>", checkData,roles);
+        // console.log("得到的选中的数据>>>>>>>>>>>>>>>>>>", checkData,roles);
         var selects = [];
         if (checkData.length>0){
           checkData.forEach(element => {
@@ -649,7 +651,7 @@ export class RoleComponent implements OnInit {
             that.RecordOperation('保存菜单分配', 1,"角色id:"+colums["roleid"] + ',' + "菜单id:"+colums["menuitemid"]);
             // 加载树状menu  初始化
             that.loadMenu().subscribe((treedata)=>{
-              console.log("加载树状menu  初始化>>>>>>>>>>>", treedata)
+              // console.log("加载树状menu  初始化>>>>>>>>>>>", treedata)
               that.showTreedata_v2(treedata, true);
               
             });
@@ -670,7 +672,7 @@ export class RoleComponent implements OnInit {
         return false;
       })
 
-      console.log("为什么点击无法保存")
+      // console.log("为什么点击无法保存")
 
     })
 
@@ -696,7 +698,7 @@ export class RoleComponent implements OnInit {
       const table = "menu_item";
       const method = "get_menu_by_roles";
       http.callRPC(table, method, colums).subscribe((result)=>{
-        console.log("---更新button_list！--",result)
+        // console.log("---更新button_list！--",result)
 
         const baseData = result['result']['message'][0];
         var button_list = [];
@@ -717,7 +719,7 @@ export class RoleComponent implements OnInit {
 
   // 根据得到的 sysrolemenu 角色界面的菜单数据得到适用于特定树状结构的数据
   sysrolemenu_to_tree_v2(sysrolemenu, selectmenu?){
-    console.log("<<<<<<<<<<<<<<<<sysrolemenu_to_tree_v2>>>>>>>>>>>>>", sysrolemenu, selectmenu)
+    // console.log("<<<<<<<<<<<<<<<<sysrolemenu_to_tree_v2>>>>>>>>>>>>>", sysrolemenu, selectmenu)
     /*
     * 需要的特定数据格式： 
       [
@@ -812,7 +814,7 @@ export class RoleComponent implements OnInit {
 
   // 重新处理目录 mulu_list
   handle_mulu_list(res_muluList){
-    console.log("最终的目录列表 res_muluList:    start", res_muluList,);
+    // console.log("最终的目录列表 res_muluList:    start", res_muluList,);
     var parentid_exist = [];
     res_muluList.forEach(mulu => {
       if ( mulu["parentid"] !=0 && mulu["parentid"] != null ){
@@ -928,6 +930,8 @@ export class RoleComponent implements OnInit {
   tableDatas = {
     action: false,
     totalPageNumbers: 0, // 总页数
+    PageSize: 10, // 每页 10条数据
+    isno_refresh_page_size: false, // 是否重新将 每页多少条数据，赋值为默认值
     columnDefs:[ // 列字段 多选：headerCheckboxSelection checkboxSelection
       { field: 'role_name', headerName: '角色名称', headerCheckboxSelection: true, checkboxSelection: true, autoHeight: true, fullWidth: true, minWidth: 50,resizable: true,},
       { field: 'role', headerName: '角色名称(en)', resizable: true,},
@@ -948,28 +952,35 @@ export class RoleComponent implements OnInit {
   inttable(event?){
     var offset;
     var limit;
+    var PageSize;
     if (event != undefined){
       offset = event.offset;
       limit = event.limit;
+      PageSize = event.PageSize? Number(event.PageSize):10;
     }else{
       offset = 0;
-      limit = 20;
+      limit = 10;
+      PageSize = 10;
     }
-
+    var columns = {
+      offset: offset, 
+      limit: limit,
+    }
     const table = "role";
     const method = this.GetRole;
-    const colums = {offset: offset, limit: limit}
-    this.http.callRPC(table, method, colums).subscribe((result)=>{
+    this.http.callRPC(table, method, columns).subscribe((result)=>{
       console.log("sys_role--------------------------", result)
       const baseData = result['result']['message'][0];
       if (baseData["code"] === 1){
         // localStorage.setItem(SYSROLE, JSON.stringify(baseData));
-        
+        this.tableDatas.PageSize = PageSize;
         this.gridData.push(...baseData["message"]);
         this.tableDatas.rowData = this.gridData
         var totalpagenumbers = baseData['numbers']? baseData['numbers'][0]['numbers']: '未得到总条数';
         this.tableDatas.totalPageNumbers = totalpagenumbers;
         this.agGrid.init_agGrid(this.tableDatas); // 告诉组件刷新！
+        // 刷新table后，改为原来的！
+        this.tableDatas.isno_refresh_page_size = false;
       }else{
         this.publicservice.showngxtoastr({position: 'toast-top-right', status: 'danger', conent:"得到角色失败" + baseData["message"]});
       }
@@ -1022,7 +1033,10 @@ export class RoleComponent implements OnInit {
   // nzpageindexchange 页码改变的回调
   nzpageindexchange(event){
     console.log("页码改变的回调", event);
+    this.gridData = [];
+    this.loading = true;
     this.inttable(event);
+    this.loading = false;
   }
 
 
