@@ -98,7 +98,7 @@ let kpi_detail = {
                         "barGap": "10%",
                         "itemStyle": {
                             "normal": {
-                                "color": '#9fe6b8',
+                                "color": 'rgb(126,255,182)',
                                 "label": {
                                     "show": true,
                                     "textStyle": {
@@ -121,7 +121,7 @@ let kpi_detail = {
                         "stack": "总量",
                         "itemStyle": {
                             "normal": {
-                                "color": '#fb7293',
+                                "color": 'rgb(0,76,166)',
                                 "barBorderRadius": 0,
                                 "label": {
                                     "show": true,
@@ -141,7 +141,7 @@ let kpi_detail = {
                         "stack": "总量",
                         "itemStyle": {
                             "normal": {
-                                "color": '#37a2da',
+                                "color": 'rgb(175,117,59)',
                                 "barBorderRadius": 0,
                                 "label": {
                                     "show": true,
@@ -161,7 +161,7 @@ let kpi_detail = {
                         "stack": "总量",
                         "itemStyle": {
                             "normal": {
-                                "color": '#ffdb5c',
+                                "color": 'rgb(150,13,48)',
                                 "barBorderRadius": 0,
                                 "label": {
                                     "show": true,
@@ -195,8 +195,9 @@ let kpi_detail = {
         // 配置
         var option = {
 
-            //color: ['#37a2da','#32c5e9','#9fe6b8','#ffdb5c','#ff9f7f','#fb7293','#e7bcf3','#8378ea'],
-            color: ['#37a2da', '#9fe6b8', '#ffdb5c', '#fb7293'],
+            // 按照顺序，运行、停止、非占位、故障 running stop placeon warning
+            // color: ['#37a2da', '#9fe6b8', '#ffdb5c', '#fb7293'], 非占位、运行、停止、故障placeon running stop warning
+            color: ['rgb(175,117,59)', 'rgb(126,255,182)', 'rgb(0,76,166)', 'rgb(150,13,48)'],
             tooltip: {
                 trigger: 'item',
                 formatter: "{a} <br/>{b} : {c} ({d}%)"
@@ -246,19 +247,20 @@ let kpi_detail = {
         var mychart = echarts.init(document.querySelector(element));
         // 配置
         var option = {
-
+            // color: ['#3398DB'],
             // backgroundColor: "#041730",
             tooltip: {
                 trigger: 'axis',
                 // formatter: "{b} : {c}",
                 formatter: function(params, encode, callback) {
+                    console.log("------------params",params)
                     return `${params[0]["name"]}:${params[0]["value"] - 0.5}`;
                 },
                 axisPointer: { // 坐标轴指示器，坐标轴触发有效
                     type: 'shadow' // 默认为直线，可选为：'line' | 'shadow'
                 }
             },
-            "grid": {
+            grid: {
                 "borderWidth": 0,
                 "top": 20,
                 "bottom": 40,
@@ -271,7 +273,6 @@ let kpi_detail = {
                 data: afterdatas.xData,
                 //坐标轴
                 axisLine: {
-
                     lineStyle: {
                         color: '#90979c'
                     }
@@ -282,9 +283,6 @@ let kpi_detail = {
                 //坐标值标注
                 axisLabel: {
                     show: true,
-                    // textStyle: {
-                    //     color: '#fff',
-                    // }
                 }
             },
             yAxis: {
@@ -312,71 +310,13 @@ let kpi_detail = {
                 }
             },
             series: [{
-                name: 'a',
-                tooltip: {
-                    show: false
-                },
+                name: '月运行',
                 type: 'bar',
-                barWidth: 24.5,
-                itemStyle: {
-                    normal: {
-                        color: new echarts.graphic.LinearGradient(0, 1, 0, 0, [{
-                            offset: 0,
-                            // color: "#0B4EC3" // 0% 处的颜色
-                            color: '#5e886d'
-                        }, {
-                            offset: 0.6,
-                            // color: "#138CEB" // 60% 处的颜色
-                            color: "#7baf8d"
-                        }, {
-                            offset: 1,
-                            // color: "#17AAFE" // 100% 处的颜色
-                            color: "#a0deb5"
-                        }], false)
-                    }
+                barWidth: '6%',
+                itemStyle:{
+                    color: 'rgb(126,255,182)' // 运行
                 },
-                data: afterdatas.yData,
-                barGap: 0
-            }, {
-                type: 'bar',
-                barWidth: 8,
-                itemStyle: {
-                    normal: {
-                        color: new echarts.graphic.LinearGradient(0, 1, 0, 0, [{
-                            offset: 0,
-                            // color: "#09337C" // 0% 处的颜色
-                            color: '#8fd0a6'
-                        }, {
-                            offset: 0.6,
-                            // color: "#0761C0" // 60% 处的颜色
-                            color: "#9FE6B8"
-                        }, {
-                            offset: 1,
-                            // color: "#0575DE" // 100% 处的颜色
-                            color: "#a8f1c2"
-                        }], false)
-                    }
-                },
-                barGap: 0,
-                data: afterdatas.yData2
-            }, {
-                name: 'b',
-                tooltip: {
-                    show: false
-                },
-                type: 'pictorialBar',
-                itemStyle: {
-                    borderWidth: 1,
-                    borderColor: '#508261',
-                    color: '#557d63'
-                },
-                symbol: 'path://M 0,0 l 120,0 l -30,60 l -120,0 z',
-                symbolSize: ['30', '12'],
-                symbolOffset: ['0', '-11'],
-                //symbolRotate: -5,
-                symbolPosition: 'end',
-                data: afterdatas.yData,
-                z: 3
+                data: afterdatas.yData
             }]
         }
 
@@ -409,7 +349,7 @@ let kpi_detail = {
                     type: 'shadow' // 默认为直线，可选为：'line' | 'shadow'
                 }
             },
-            "grid": {
+            grid: {
                 "borderWidth": 0,
                 "top": 20,
                 "bottom": 40,
@@ -464,71 +404,13 @@ let kpi_detail = {
                 }
             },
             series: [{
-                name: 'a',
-                tooltip: {
-                    show: false
-                },
+                name: '年运行',
                 type: 'bar',
-                barWidth: 24.5,
-                itemStyle: {
-                    normal: {
-                        color: new echarts.graphic.LinearGradient(0, 1, 0, 0, [{
-                            offset: 0,
-                            // color: "#0B4EC3" // 0% 处的颜色
-                            color: '#5e886d'
-                        }, {
-                            offset: 0.6,
-                            // color: "#138CEB" // 60% 处的颜色
-                            color: "#7baf8d"
-                        }, {
-                            offset: 1,
-                            // color: "#17AAFE" // 100% 处的颜色
-                            color: "#a0deb5"
-                        }], false)
-                    }
+                barWidth: '6%',
+                itemStyle:{
+                    color: 'rgb(126,255,182)' // 运行
                 },
-                data: afterdatas.yData,
-                barGap: 0
-            }, {
-                type: 'bar',
-                barWidth: 8,
-                itemStyle: {
-                    normal: {
-                        color: new echarts.graphic.LinearGradient(0, 1, 0, 0, [{
-                            offset: 0,
-                            // color: "#09337C" // 0% 处的颜色
-                            color: '#8fd0a6'
-                        }, {
-                            offset: 0.6,
-                            // color: "#0761C0" // 60% 处的颜色
-                            color: "#9FE6B8"
-                        }, {
-                            offset: 1,
-                            // color: "#0575DE" // 100% 处的颜色
-                            color: "#a8f1c2"
-                        }], false)
-                    }
-                },
-                barGap: 0,
-                data: afterdatas.yData2
-            }, {
-                name: 'b',
-                tooltip: {
-                    show: false
-                },
-                type: 'pictorialBar',
-                itemStyle: {
-                    borderWidth: 1,
-                    borderColor: '#508261',
-                    color: '#557d63'
-                },
-                symbol: 'path://M 0,0 l 120,0 l -30,60 l -120,0 z',
-                symbolSize: ['30', '12'],
-                symbolOffset: ['0', '-11'],
-                //symbolRotate: -5,
-                symbolPosition: 'end',
-                data: afterdatas.yData,
-                z: 3
+                data: afterdatas.yData
             }]
         }
 

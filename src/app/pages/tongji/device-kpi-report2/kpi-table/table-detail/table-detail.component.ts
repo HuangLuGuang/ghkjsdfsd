@@ -19,7 +19,6 @@ export class TableDetailComponent implements OnInit,ICellRendererAngularComp {
     console.log("===============================\n")
   }
 
-
   // kpi 详情
   kpidetail(){
     // this.router.navigate(['/pages/tongji/deviceKpiReport/kpidetail']);
@@ -27,6 +26,8 @@ export class TableDetailComponent implements OnInit,ICellRendererAngularComp {
     localStorage.setItem('kpi_for_detail', JSON.stringify(this.params.node.data))
     this.router.navigate([this.url])
   }
+
+
 
 
   agInit(params: any): void {

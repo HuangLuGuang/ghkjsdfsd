@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { HttpserviceService } from '../../../../services/http/httpservice.service';
 import { PublicmethodService } from '../../../../services/publicmethod/publicmethod.service';
@@ -14,9 +15,15 @@ export class KpiDetailComponent implements OnInit {
 
   // 得到出入的数据 kpi_for_detail
   kpi_for_detail;
-  constructor( private http: HttpserviceService, private publicservice: PublicmethodService, private deviceservice: DeviceKpiReport2Service ) {
+  constructor( private http: HttpserviceService, 
+    private publicservice: PublicmethodService, 
+    private deviceservice: DeviceKpiReport2Service,
+    private router: Router ) {
     this.kpi_for_detail = JSON.parse(localStorage.getItem("kpi_for_detail"));
   }
+
+  // 参数
+  columns = {}
 
    // plv8请求
   querst(table: string, method: string, colmun: Object){
@@ -36,6 +43,12 @@ export class KpiDetailComponent implements OnInit {
     })
 
     console.log("kpi_detail----", this.kpi_for_detail);
+    this.columns["start"] = this.kpi_for_detail["starttime"]
+    this.columns["end"] = this.kpi_for_detail["endtime"]
+    this.columns["deviceid"] = this.kpi_for_detail["deviceid"]
+
+    console.log("kpi_detail----", this.columns);
+
 
     // 这是 左侧第一个柱状图
     this.init_left_one();
@@ -54,10 +67,15 @@ export class KpiDetailComponent implements OnInit {
   };
 
 
+  // kpi报表
+  kpireport(){
+    this.router.navigate(['/pages/tongji/deviceKpiReport/kpitable'])
+  }
+
   // 初始化 左侧第一个echart设备时间统计
   init_left_one(){
     // 得到数据
-    this.querst("", "dev_get_device_columnar", {start: "2020-10-1", end: "2020-11-21"}).subscribe(res=>{
+    this.querst("", "dev_get_device_columnar", this.columns).subscribe(res=>{
       // 得到 x 轴！
       var resdatas = res['result']['message'][0];
       console.log("左侧第一个：", resdatas)
@@ -89,7 +107,7 @@ export class KpiDetailComponent implements OnInit {
   // 初始化右侧 第一个 echart 百分比
   init_right_ong(){
     // 得到数据
-    this.querst("", "dev_get_device_pie", {start: "2020-10-1", end: "2020-11-21"}).subscribe(res=>{
+    this.querst("", "dev_get_device_pie", this.columns).subscribe(res=>{
       // 得到 x 轴！
       var resdatas = res['result']['message'][0][0];
       
@@ -123,7 +141,7 @@ export class KpiDetailComponent implements OnInit {
   // 初始化左侧 第二个 echart 月份数据
   init_left_two(){
     // 得到数据
-    this.querst("", "dev_get_device_month", {start: "2020-9-1", end: "2020-11-21"}).subscribe(res=>{
+    this.querst("", "dev_get_device_month", this.columns).subscribe(res=>{
       // 得到 x 轴！
       var resdatas = res['result']['message'][0];
       var afterdatas = {};
@@ -147,7 +165,7 @@ export class KpiDetailComponent implements OnInit {
   // 初始化右侧 第二个 echart 年份数据
   init_right_two(){
     // 得到数据
-    this.querst("", "dev_get_device_year", {start: "2020-9-1", end: "2020-11-21"}).subscribe(res=>{
+    this.querst("", "dev_get_device_year", this.columns).subscribe(res=>{
       // 得到 x 轴！
       var resdatas = res['result']['message'][0];
       var afterdatas = {};
