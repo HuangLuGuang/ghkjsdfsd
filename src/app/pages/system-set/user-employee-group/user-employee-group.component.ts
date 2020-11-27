@@ -36,6 +36,8 @@ export class UserEmployeeGroupComponent implements OnInit {
   // agGrid
   tableDatas = {
     totalPageNumbers: 0, // 总页数
+    PageSize: 10, // 每页 10条数据
+    isno_refresh_page_size: false, // 是否重新将 每页多少条数据，赋值为默认值
     columnDefs:[ // 列字段 多选：headerCheckboxSelection checkboxSelection , flex: 1 自动填充宽度
       { field: 'group', headerName: '科室/功能组', headerCheckboxSelection: true, checkboxSelection: true, autoHeight: true, fullWidth: true, minWidth: 50,resizable: true},
       { field: 'group_name', headerName: '科室/功能组(en)',  resizable: true, flex: 1},
@@ -290,6 +292,8 @@ export class UserEmployeeGroupComponent implements OnInit {
     this.refresh = true;
     this.loading = true;
     this.gridData = [];
+    // 是否 每页多少也，设置为默认值
+    this.tableDatas.isno_refresh_page_size = true;
     this.inttable();
     this.loading = false;
     this.refresh = false;
@@ -371,12 +375,15 @@ export class UserEmployeeGroupComponent implements OnInit {
   inttable(event?){
     var offset;
     var limit;
+    var PageSize;
     if (event != undefined){
       offset = event.offset;
       limit = event.limit;
+      PageSize = event.PageSize? Number(event.PageSize):10;
     }else{
       offset = 0;
-      limit = 20;
+      limit = 10;
+      PageSize = 10;
     }
     var columns = {
       offset: offset, 
@@ -389,11 +396,14 @@ export class UserEmployeeGroupComponent implements OnInit {
       this.loading = false;
       if (tabledata["code"]===1){
         var message = result["result"]["message"][0]["message"];
+        this.tableDatas.PageSize = PageSize;
         this.gridData.push(...message)
         this.tableDatas.rowData = this.gridData;
         var totalpagenumbers = tabledata['numbers']? tabledata['numbers'][0]['numbers']: '未得到总条数';
         this.tableDatas.totalPageNumbers = totalpagenumbers;
         this.agGrid.init_agGrid(this.tableDatas); // 告诉组件刷新！
+        // 刷新table后，改为原来的！
+        this.tableDatas.isno_refresh_page_size = false;
         this.RecordOperation(1, '查看', "科室/功能组")
       }else{
         this.RecordOperation(0, '查看', "科室/功能组")
@@ -406,8 +416,10 @@ export class UserEmployeeGroupComponent implements OnInit {
   nzpageindexchange(event){
     console.log("页码改变的回调", event);
     // this.getetabledata(event);
+    this.gridData = [];
     this.loading = true;
     this.inttable(event);
+    this.loading = false;
   }
 
  
