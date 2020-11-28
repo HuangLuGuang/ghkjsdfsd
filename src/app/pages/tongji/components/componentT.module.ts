@@ -10,7 +10,6 @@ import { NbIconModule, NbInputModule, NbSelectModule } from '@nebular/theme';
 
 import {Ng2SmartTableModule} from '@mykeels/ng2-smart-table';
 import { AgTableComponent } from './ag-table/ag-table.component';
-import { AgGridActionComponent } from './ag-table/ag-grid-action/ag-grid-action.component';
 
 import { AgGridModule } from 'ag-grid-angular';
 import { NzPaginationModule } from 'ng-zorro-antd/pagination';
@@ -20,7 +19,7 @@ import { MySelectTreeTypeComponent as MySelectTreeTypeComponentType} from './my-
 import { MyDateRangeComponent } from './my-date-range/my-date-range.component';
 @NgModule({
   declarations: [
-    MySelectComponent, MySelectGroupComponent, AgTableComponent, AgGridActionComponent, MySelectTreeComponent, MySelectTreeTypeComponent,
+    MySelectComponent, MySelectGroupComponent, AgTableComponent, MySelectTreeComponent, MySelectTreeTypeComponent,
     MySelectTreeTypeComponentType,
     MyDateRangeComponent,
   ],

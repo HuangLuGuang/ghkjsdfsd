@@ -17,6 +17,7 @@ const routes: Routes = [
       // { path: 'adminlogin', component: AdminLoginComponent },
       { path: 'eobkxrldmtzypncsifvqwjhaug', component: AdminLoginComponent },
       { path: "login", component: UserLoginComponent },
+      // { path: '', redirectTo: 'eobkxrldmtzypncsifvqwjhaug', pathMatch: 'full '}
       { path: '', redirectTo: 'login', pathMatch: 'full '}
     ]
   }

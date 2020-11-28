@@ -3,6 +3,7 @@ import { PublicmethodService } from '../../../../services/publicmethod/publicmet
 import { HttpserviceService } from '../../../../services/http/httpservice.service'
 import { ManKpiReport2Service } from '../man-hour-kpi-report2.service';
 import { Observable } from 'rxjs';
+import { Router } from '@angular/router';
 
 let kpi_detail = require("../../../../../assets/pages/system-set/js/kpi_detail")
 
@@ -16,8 +17,16 @@ export class ManKpiDetailComponent implements OnInit {
 
   // 得到出入的数据 kpi_for_detail
   kpi_for_detail;
-  constructor( private http: HttpserviceService, private publicservice: PublicmethodService, private mankpiservice: ManKpiReport2Service) {
+  constructor( private http: HttpserviceService, private publicservice: PublicmethodService, private mankpiservice: ManKpiReport2Service,
+    private router: Router) {
     this.kpi_for_detail = JSON.parse(localStorage.getItem("kpi_for_detail"));
+  }
+  // 参数
+  columns = {}
+
+  // kpi报表
+  kpireport(){
+    this.router.navigate(['/pages/tongji/manHourKpiReport/kpitable'])
   }
   
     // plv8请求
@@ -37,6 +46,10 @@ export class ManKpiDetailComponent implements OnInit {
       console.log("mankpiservice 查询：", res)
     })
 
+
+    this.columns["start"] = this.kpi_for_detail["starttime"]
+    this.columns["end"] = this.kpi_for_detail["endtime"]
+    this.columns["deviceid"] = this.kpi_for_detail["deviceid"]
     console.log("kpi_detail----", this.kpi_for_detail);
 
     // 这是 左侧第一个柱状图
@@ -55,18 +68,22 @@ export class ManKpiDetailComponent implements OnInit {
 
   };
 
+  // 销毁组件时，删除 kpi_for_detail
+  ngOnDestroy(){
+    localStorage.removeItem("kpi_for_detail")
+  }
 
   // 初始化 左侧第一个echart设备时间统计
   init_left_one(){
     // 得到数据
-    this.querst("", "dev_get_device_columnar_kpi", {start: "2020-10-1", end: "2020-11-21"}).subscribe(res=>{
+    this.querst("", "dev_get_device_columnar_kpi", this.columns).subscribe(res=>{
       // 得到 x 轴！
       var resdatas = res['result']['message'][0];
       var xData = [];
       var running = [];
       var stop = [];
       var warning = [];
-      var placeout = [];
+      var placeon = [];
 
       var afterdata = {};
       resdatas.forEach(resdata => {
@@ -74,13 +91,13 @@ export class ManKpiDetailComponent implements OnInit {
         running.push(resdata["running"]);
         stop.push(resdata["stop"]);
         warning.push(resdata["warning"]);
-        placeout.push(resdata["placeout"]);
+        placeon.push(resdata["placeon"]);
       });
       afterdata["xData"] = xData;
       afterdata["running"] = running;
       afterdata["stop"] = stop;
       afterdata["warning"] = warning;
-      afterdata["placeout"] = placeout;
+      afterdata["placeon"] = placeon;
 
       // console.log("得到左侧第一个数据： ", afterdata);
       kpi_detail.left_one('.left-one', afterdata);
@@ -90,7 +107,7 @@ export class ManKpiDetailComponent implements OnInit {
   // 初始化右侧 第一个 echart 百分比
   init_right_ong(){
     // 得到数据
-    this.querst("", "dev_get_device_pie_kpi", {start: "2020-10-1", end: "2020-11-21"}).subscribe(res=>{
+    this.querst("", "dev_get_device_pie_kpi", this.columns).subscribe(res=>{
       // 得到 x 轴！
       var resdatas = res['result']['message'][0][0];
       var afterdatas = [];
@@ -102,13 +119,13 @@ export class ManKpiDetailComponent implements OnInit {
             key = "运行"
             break;
           case "stop":
-            key = "停止"
+            key = "空闲"
             break;
           case "warning":
-            key = "故障"
+            key = "维保"
             break;
-          case "placeout":
-            key = "非占位"
+          case "placeon":
+            key = "占位"
             break;
         }
         afterdata["name"] = key;
@@ -123,7 +140,7 @@ export class ManKpiDetailComponent implements OnInit {
   // 初始化左侧 第二个 echart 月份数据
   init_left_two(){
     // 得到数据
-    this.querst("", "dev_get_device_month_kpi", {start: "2020-9-1", end: "2020-11-21"}).subscribe(res=>{
+    this.querst("", "dev_get_device_month_kpi", this.columns).subscribe(res=>{
       // 得到 x 轴！
       var resdatas = res['result']['message'][0];
       var afterdatas = {};
@@ -147,7 +164,7 @@ export class ManKpiDetailComponent implements OnInit {
   // 初始化右侧 第二个 echart 年份数据
   init_right_two(){
     // 得到数据
-    this.querst("", "dev_get_device_year_kpi", {start: "2020-9-1", end: "2020-11-21"}).subscribe(res=>{
+    this.querst("", "dev_get_device_year_kpi", this.columns).subscribe(res=>{
       // 得到 x 轴！
       var resdatas = res['result']['message'][0];
       var afterdatas = {};

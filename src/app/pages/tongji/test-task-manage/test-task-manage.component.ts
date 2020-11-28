@@ -14,6 +14,7 @@ declare let $;
 
 // 要渲染的组件
 import { TaskProgressForAggridComponent } from './task-progress-for-aggrid/task-progress-for-aggrid.component';
+import { UserInfoService } from '../../../services/user-info/user-info.service';
 
 @Component({
   selector: 'ngx-test-task-manage',
@@ -21,53 +22,13 @@ import { TaskProgressForAggridComponent } from './task-progress-for-aggrid/task-
   styleUrls: ['./test-task-manage.component.scss']
 })
 export class TestTaskManageComponent implements OnInit {
-  @ViewChild("departmentselect") departmentselect:any;
-  @ViewChild("device_tpye") device_tpye:any;
-  @ViewChild("asset_number") asset_number:any;
-  @ViewChild("daterange") daterange:any;
   @ViewChild("ag_Grid") agGrid:any;
-
-  // 下拉框---部门
-  departments = {
-    name: "部门信息",
-    placeholder: '请选择部门',
-    groups:[
-      { title: '动力', datas: [{ name: '动力-1' },{ name: '动力-2' },{ name: '动力-3' },{ name: '动力-4' }] },
-      { title: '资产', datas: [{ name: '资产-1' },{ name: '资产-2' },{ name: '资产-3' },{ name: '资产-4' }] },
-      { title: '新能源', datas: [{ name: '新能源-1' },{ name: '新能源-2' },{ name: '新能源-3' },{ name: '新能源-4' }] },
-    ]
-  };
-
-  // 下拉框---设备类型
-  devicetpye = {
-    placeholder: "请选择设备类型",
-    name: '设备类型',
-    datas: [
-      { name: 'GT-2030-123' },
-      { name: 'GT-2030-149' },
-      { name: 'GT-2030-230' },
-      { name: 'GT-2030-359' },
-      { name: 'GT-2030-666' },
-    ]
-  }
-
-  // 下拉框---任务单号
-  testnumber = {
-    placeholder: "请选择任务单号",
-    name: '任务单号',
-    datas: [
-      { name: 'GT1918-1720TM' },
-      { name: 'GT1917-1819TM' },
-      { name: 'GT1916-1919TM' },
-      { name: 'GT1915-2018TM' },
-      { name: 'GT1914-2117TM' },
-      { name: 'GT1913-2216TM' },
-    ]
-  }
+  @ViewChild("taskno") taskno:any;
+  @ViewChild("eimdevicetpye") eimdevicetpye:any;
+  @ViewChild("data_range") data_range:any;
 
   // 导出文件名
   filename;
-  source:LocalDataSource
 
   // 发送给日期
   test_task_manage = {
@@ -83,32 +44,41 @@ export class TestTaskManageComponent implements OnInit {
   // 日期范围
   date_ranges = "device_kpi_date_range"
 
-  // 前端要展示的button 主要是：增、删、改
-  buttons;
-
-  // 前端要展示的buttons 主要是：搜索、导入导出
-  buttons2;
-
-  // 加载table
-  isloding = false;
-
   // 得到table method
   GETTABLE = "dev_get_device_taskinfo";
 
-  constructor(private publicservice: PublicmethodService, private http: HttpserviceService) { }
+  constructor(private publicservice: PublicmethodService, private http: HttpserviceService,
+    private userinfo: UserInfoService) { 
+    // 选择框
+    this.get_tree_selecetdata();
+  }
+
+  groups_placeholder = "请选择任务单号";     // 任务单号
+  eimdevicetpye_placeholder = "请选择设备类型"; // eim 设备类型
+  button; // 权限button
+  refresh = false; // 刷新tabel
+  loading: boolean = false;
+  init_value = "2010-10-01 - 2020-11-21" // 默认日期
 
   ngOnInit(): void {
-
-    // 初始化 权限button
-    this.getbuttons();
-
+    // 初始化日期
     this.initdate();
     
   }
   
   ngAfterViewInit(){
     // 初始化agGrid
-    this.getetabledata();
+    this.inttable();
+
+    // 得到pathname --在得到button
+    console.log("得到pathname --在得到button\t\t")
+    var roleid = this.userinfo.getEmployeeRoleID();
+    this.publicservice.get_buttons_bypath(roleid).subscribe(result=>{
+      this.button = result;
+      console.log("得到pathname --在得到button\t\t", result)
+      localStorage.setItem("buttons_list", JSON.stringify(result));
+    })
+
   }
 
   // 初始化日期范围
@@ -147,92 +117,6 @@ export class TestTaskManageComponent implements OnInit {
     // return date_list;
   }
 
-  
-  // 得到buttons----------------------------------------------------------
-  getbuttons(){
-    // 根据menu_item_role得到 该页面对应的 button！
-    this.publicservice.get_buttons().subscribe((button_list:any[])=>{
-      if (button_list){
-        console.log("^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^");
-        console.log(button_list)
-        console.log("^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^");
-        this.publicservice.get_current_pathname().subscribe(res=>{
-          console.log("get_current_pathname   ", res);
-          var currentmenuid = res["id"];
-          var buttons = [];
-          // 分离搜索、导入、导出
-          var buttons2 = [];
-          
-          button_list.forEach(button => {
-            if (currentmenuid === button["parentid"]){
-              var method = button["permission"].split(":")[1];
-              if ( method === "query" || method === "import" || method === "download" ){
-                buttons2.push(button)
-              }else{
-                buttons.push(button);
-              }
-            }
-          });
-  
-          // 对button进行排序 根据 title(导入、导出), 或者是 permission(menu:import)
-          buttons2.forEach(b=>{
-            switch (b["permission"].split(":")[1]) {
-              case "query":
-                b["order_"] = 0;
-                break;
-              case "import":
-                b["order_"] = 1;
-                break;
-              case "download":
-                b["order_"] = 2;
-                break;
-  
-            }
-          })
-  
-          // -----排序
-          buttons2.sort(function(item1, item2){
-            return item1["order_"] - item2["order_"]
-          });
-  
-          this.buttons = buttons;
-          this.buttons2 = buttons2;
-  
-          console.log("-----------buttons2--------",buttons2);
-          console.log("-----------buttons--------",buttons);
-          
-  
-          // ====================================================
-          var isactions = {};
-          buttons.forEach(button=>{
-            var mdthod = button["permission"].split(":")[1];
-            switch (mdthod) {
-              case "add":
-                break;
-              case "del":
-                isactions["del"] = true
-                break;
-              case "edit":
-                isactions["edit"] = true
-                break;
-              
-            }
-          })
-  
-          if (!isactions["edit"]){
-            isactions["edit"] = false
-          }
-          if (!isactions["del"]){
-            isactions["del"] = false
-          }
-          // localStorage.setItem(device_action, JSON.stringify(isactions));
-          console.log("_________________________________-isactions---------________________",isactions)
-        })
-      }
-
-    })
-  }
-
   // button按钮
   action(actionmethod){
     console.log("++++++++++++++++++++action(actionmethod)++++++++++++++++++++++++++++", actionmethod);
@@ -261,14 +145,67 @@ export class TestTaskManageComponent implements OnInit {
 
   }
 
+  // 得到下拉框的数据
+  get_tree_selecetdata(){
+    var columns = {
+      employeeid:this.userinfo.getEmployeeID(),
+    }
+    this.http.callRPC("deveice","dev_get_device_groups",columns).subscribe(result=>{
+      var res = result["result"]["message"][0]
+      console.log("得到下拉框的数据---------------->", res)
+      if (res["code"] === 1){
+        var groups = res["message"][0]["groups"];
+       
+        this.taskno.init_select_tree(groups);
+        var eimdevicetpyedata = res["message"][0]["type"];
+        this.eimdevicetpye.init_select_trees(eimdevicetpyedata);
+      }
+    })
+  }
+
 
   // 搜索按钮
   query(){
-    var departmentselect_data = this.departmentselect.getselect();
-    var device_tpye_data = this.device_tpye.getselect();
-    var asset_number_data = this.asset_number.getselect();
-    var daterange_data = this.getselect()
-    console.log("<------------搜索----------->", departmentselect_data, device_tpye_data,asset_number_data, daterange_data);
+    // 设备名称 devicename
+    var devicename = $("#devicename").val();
+    // 科室/功能组
+    var groups_data = this.taskno.getselect();
+    // 设备类型
+    var device_tpye_data = this.eimdevicetpye.getselect();
+    // 日期范围
+    var daterange_data = this.data_range.getselect()
+    // 将科室/功能组，转为列表
+    var groups_data_ = groups_data ===""?[] :groups_data.split(";");
+    // 搜索的 时间范围 daterange 必选，修改为 start end
+    console.log("**************\n")
+    var columns = {
+      offset: 0, 
+      limit: 10,
+      employeeid: this.userinfo.getEmployeeID(),
+      devicename: [devicename],
+      group: groups_data_,
+      start:daterange_data[0],
+      end:daterange_data[1],
+      eimdevicetype:device_tpye_data
+    }
+    console.log("**************\n", columns);
+      // 执行搜索函数！
+      this.http.callRPC('device', "dev_get_kpi_device_search",columns).subscribe(result=>{
+        console.log("执行搜索函数！\n\n\n",result)
+        var tabledata = result["result"]["message"][0];
+        this.loading = false;
+        if (tabledata["code"] === 1){
+          var message = tabledata["message"];
+          this.gridData = [];
+          this.gridData.push(...message);
+          this.tableDatas.rowData = this.gridData;
+          var totalpagenumbers = tabledata['numbers']? tabledata['numbers'][0]['numbers']: '未得到总条数';
+          this.tableDatas.totalPageNumbers = totalpagenumbers;
+          this.agGrid.update_agGrid(this.tableDatas); // 告诉组件刷新！
+          this.RecordOperation('搜索', 1,  "设备报表")
+        }else{this.RecordOperation('搜索', 0,  "设备报表")}
+      })
+      
   }
 
   // 导出文件
@@ -276,158 +213,186 @@ export class TestTaskManageComponent implements OnInit {
     this.agGrid.download(title);
   };
 
+  // 刷新tabel
+  refresh_table(){
+    this.loading = true;
+    this.gridData = [];
+    // 是否 每页多少也，设置为默认值
+    this.tableDatas.isno_refresh_page_size = true;
+    this.inttable();
+  }
+
   // 得到buttons----------------------------------------------------------
 
-    // =================================================agGrid
+  // =================================================agGrid
 
-    tableDatas = {
-      action: false,
-      totalPageNumbers: 0, // 总页数
-      CellRender: {
-        task_progress: "TaskProgressForAggridComponent",
-      }, // 这是单元格要渲染的 组件！
-      columnDefs:[ // 列字段 多选：headerCheckboxSelection checkboxSelection , flex: 1 自动填充宽度
-        { field: 'id', headerName: '序号', headerCheckboxSelection: true, checkboxSelection: true, autoHeight: true, fullWidth: true, minWidth: 50,resizable: true, pinned: 'left'},
-        { field: 'devicename', headerName: '设备名称',  resizable: true, minWidth: 10},
-        { field: 'department', headerName: '部门信息', resizable: true, minWidth: 10},
-        { field: 'deviceid', headerName: '设备id',  resizable: true, minWidth: 10},
-        { field: 'belonged', headerName: '负责人',  resizable: true, minWidth: 10},
-        { field: 'tasknum', headerName: '任务单号', resizable: true, minWidth: 10},
-        { field: 'taskchildnum', headerName: '任务子单号', resizable: true, minWidth: 10},
-        
-        // { field: 'departmentInfo', headerName: '自定义统计时间(默认最近一周)', 
-        //   children:[
-        //     { field: 'starttime', headerName: '开始时间', resizable: true},
-        //     { field: 'endtime', headerName: '结束时间', resizable: true},
-        //   ]
-        // },
+  tableDatas = {
+    action: false,
+    totalPageNumbers: 0, // 总页数
+    PageSize: 10, // 每页 10条数据
+    isno_refresh_page_size: false, // 是否重新将 每页多少条数据，赋值为默认值
+    CellRender: {
+      task_progress: "TaskProgressForAggridComponent",
+    }, // 这是单元格要渲染的 组件！
+    columnDefs:[ // 列字段 多选：headerCheckboxSelection checkboxSelection , flex: 1 自动填充宽度
+      { field: 'id', headerName: '序号', headerCheckboxSelection: true, checkboxSelection: true, autoHeight: true, fullWidth: true, minWidth: 50,resizable: true, pinned: 'left'},
+      { field: 'rate', headerName: '任务进度', resizable: true, minWidth: 10, cellRendererFramework: TaskProgressForAggridComponent, pinned: 'left'},
+      { field: 'devicename', headerName: '设备名称',  resizable: true, minWidth: 10},
+      // { field: 'department', headerName: '部门信息', resizable: true, minWidth: 10},
+      { field: 'deviceid', headerName: '设备id',  resizable: true, minWidth: 10},
+      { field: 'belonged', headerName: '负责人',  resizable: true, minWidth: 10},
+      { field: 'tasknum', headerName: '任务单号', resizable: true, minWidth: 10},
+      { field: 'taskchildnum', headerName: '任务子单号', resizable: true, minWidth: 10},
+      
+      // { field: 'departmentInfo', headerName: '自定义统计时间(默认最近一周)', 
+      //   children:[
+      //     { field: 'starttime', headerName: '开始时间', resizable: true},
+      //     { field: 'endtime', headerName: '结束时间', resizable: true},
+      //   ]
+      // },
 
-        { field: 'taskstart', headerName: '试验开始时间', resizable: true, minWidth: 10}, // 自定义设备编号！
-        { field: 'taskend', headerName: '试验结束时间', resizable: true, minWidth: 10},
-        { field: 'numberstime', headerName: '试验持续时长(h)', resizable: true, minWidth: 10},
+      { field: 'taskstart', headerName: '试验开始时间', resizable: true, minWidth: 10}, // 自定义设备编号！
+      { field: 'taskend', headerName: '试验结束时间', resizable: true, minWidth: 10},
+      { field: 'numberstime', headerName: '试验持续时长(h)', resizable: true, minWidth: 10},
 
-        { field: 'rate', headerName: '任务进度', resizable: true, minWidth: 10, cellRendererFramework: TaskProgressForAggridComponent, pinned: 'left'},
 
-        { field: 'lastupdateon', headerName: '数据更新时间', resizable: true, minWidth: 10},
-      ],
-      rowData: [ // data
-      ]
-    };
-  
-    private gridData = [];
+      { field: 'lastupdateon', headerName: '数据更新时间', resizable: true, minWidth: 10},
+    ],
+    rowData: [ // data
+    ]
+  };
 
-    getetabledata(event?){
-      var offset;
-      var limit;
-      if (event != undefined){
-        offset = event.offset;
-        limit = event.limit;
-      }else{
-        offset = 0;
-        limit = 50;
-      }
-      var colmun = {
-        start: '2020-09-1',
-        end: '2020-11-21',
-        offset: offset,
-        limit: limit,
-      }
-      // 得到设备信息！
-      this.http.callRPC('device', this.GETTABLE, colmun).subscribe((res)=>{
-        console.log("得到设备信息=================>", res)
-        var result  = res['result']['message'][0];
-        if (result["code"]===1){
-          this.isloding = false;
-          // 发布组件，编辑用户的组件
-          // this.publicservice.getcomponent(Add_Edit_DeviceManageComponent);
-          // this.publicservice.getmethod("optionCellRenderer");
-          var message = result["message"];
-          this.gridData = [];
-          this.gridData.push(...message)
-          this.tableDatas.rowData = this.gridData;
-          var totalpagenumbers = result['numbers']? result['numbers'][0]['numbers']: '未得到总条数';
-          this.tableDatas.totalPageNumbers = totalpagenumbers;
-          this.agGrid.init_agGrid(this.tableDatas); // 告诉组件刷新！
+  private gridData = [];
 
-        }
-      })
+  inttable(event?){
+    var offset;
+    var limit;
+    var PageSize;
+    if (event != undefined){
+      offset = event.offset;
+      limit = event.limit;
+      PageSize = event.PageSize? Number(event.PageSize):10;
+    }else{
+      offset = 0;
+      limit = 10;
+      PageSize = 10;
     }
-  
-    pageabledata(event?){
-      var offset;
-      var limit;
-      console.log("event------------------------------------------------", event);
-      if (event != undefined){
-        offset = event.offset;
-        limit = event.limit;
-      }else{
-        offset = 0;
-        limit = 50;
-      }
-      var colmun = {
-        start: '2020-10-1',
-        end: '2020-11-21',
-        offset: offset,
-        limit: limit,
-      }
-      this.http.callRPC('device', this.GETTABLE, colmun).subscribe((res)=>{
-        // console.log("get_menu_role", result)
-        var result = res['result']['message'][0]
-  
-        this.isloding = false;
-        // 发布组件，编辑用户的组件
-        // this.publicservice.getcomponent(Add_Edit_DeviceManageComponent);
-        // this.publicservice.getmethod("dev_delete_device");
-  
+    var colmun = {
+      start: this.init_value.split(" - ")[0],
+      end: this.init_value.split(" - ")[1],
+      offset: offset,
+      limit: limit,
+    }
+    // 得到设备信息！
+    this.http.callRPC('device', this.GETTABLE, colmun).subscribe((res)=>{
+      console.log("得到设备信息=================>", res)
+      var result  = res['result']['message'][0];
+      if (result["code"]===1){
+        this.loading = false;
         var message = result["message"];
+        this.gridData = [];
+        this.tableDatas.PageSize = PageSize;
         this.gridData.push(...message)
         this.tableDatas.rowData = this.gridData;
         var totalpagenumbers = result['numbers']? result['numbers'][0]['numbers']: '未得到总条数';
         this.tableDatas.totalPageNumbers = totalpagenumbers;
         this.agGrid.init_agGrid(this.tableDatas); // 告诉组件刷新！
-      })
-    }
-  
-    updatetabledata(event?){
-      var offset;
-      var limit;
-      if (event != undefined){
-        offset = event.offset;
-        limit = event.limit;
+        // 刷新table后，改为原来的！
+        this.tableDatas.isno_refresh_page_size = false;
+        this.RecordOperation('查看', 1,  "试验任务管理")
       }else{
-        offset = 0;
-        limit = 50;
+        this.RecordOperation('查看', 0,  "试验任务管理")
       }
-      var colmun = {
-        start: '2020-10-1',
-        end: '2020-11-21',
-        offset: offset,
-        limit: limit,
-      }
-      // 得到员工信息！
-      this.http.callRPC('deveice', this.GETTABLE, colmun).subscribe((res)=>{
-        var result = res['result']['message'][0]
-        this.isloding = false;
-        // 发布组件，编辑用户的组件
-        // this.publicservice.getcomponent(Add_Edit_DeviceManageComponent);
-        // this.publicservice.getmethod("dev_delete_device");
-        var message = result["message"];
-        this.gridData.push(...message)
-        this.tableDatas.rowData = this.gridData;
-        var totalpagenumbers = result['numbers']? result['numbers'][0]['numbers']: '未得到总条数';
-        this.tableDatas.totalPageNumbers = totalpagenumbers;
-        this.agGrid.update_agGrid(this.tableDatas); // 告诉组件刷新！
-      })
-  
-    }
-        
-  
-    // nzpageindexchange 页码改变的回调
-    nzpageindexchange_ag(event){
-      console.log("页码改变的回调", event);
-      this.pageabledata(event);
-    }
-    // =================================================agGrid
+    })
+  }
 
+  pageabledata(event?){
+    var offset;
+    var limit;
+    console.log("event------------------------------------------------", event);
+    if (event != undefined){
+      offset = event.offset;
+      limit = event.limit;
+    }else{
+      offset = 0;
+      limit = 10;
+    }
+    var colmun = {
+      start: this.init_value.split(" - ")[0],
+      end: this.init_value.split(" - ")[1],
+      offset: offset,
+      limit: limit,
+    }
+    this.http.callRPC('device', this.GETTABLE, colmun).subscribe((res)=>{
+      // console.log("get_menu_role", result)
+      var result = res['result']['message'][0]
+
+      this.loading = false;
+      var message = result["message"];
+      this.gridData.push(...message)
+      this.tableDatas.rowData = this.gridData;
+      var totalpagenumbers = result['numbers']? result['numbers'][0]['numbers']: '未得到总条数';
+      this.tableDatas.totalPageNumbers = totalpagenumbers;
+      this.agGrid.init_agGrid(this.tableDatas); // 告诉组件刷新！
+    })
+  }
+
+  updatetabledata(event?){
+    var offset;
+    var limit;
+    if (event != undefined){
+      offset = event.offset;
+      limit = event.limit;
+    }else{
+      offset = 0;
+      limit = 50;
+    }
+    var colmun = {
+      start: '2020-10-1',
+      end: '2020-11-21',
+      offset: offset,
+      limit: limit,
+    }
+    // 得到员工信息！
+    this.http.callRPC('deveice', this.GETTABLE, colmun).subscribe((res)=>{
+      var result = res['result']['message'][0]
+      this.loading = false;
+      // 发布组件，编辑用户的组件
+      // this.publicservice.getcomponent(Add_Edit_DeviceManageComponent);
+      // this.publicservice.getmethod("dev_delete_device");
+      var message = result["message"];
+      this.gridData.push(...message)
+      this.tableDatas.rowData = this.gridData;
+      var totalpagenumbers = result['numbers']? result['numbers'][0]['numbers']: '未得到总条数';
+      this.tableDatas.totalPageNumbers = totalpagenumbers;
+      this.agGrid.update_agGrid(this.tableDatas); // 告诉组件刷新！
+    })
+
+  }
+      
+
+  // nzpageindexchange 页码改变的回调
+  nzpageindexchange_ag(event){
+    console.log("页码改变的回调", event);
+    this.gridData = [];
+    this.loading = true;
+    this.inttable(event);
+    this.loading = false;
+  }
+  // =================================================agGrid
+
+
+  // option_record
+  RecordOperation(option, result,infodata){
+    if(this.userinfo.getLoginName()){
+      var employeeid = this.userinfo.getEmployeeID();
+      var result = result; // 1:成功 0 失败
+      var transactiontype = option; // '新增用户';
+      var info = infodata;
+      var createdby = this.userinfo.getLoginName();
+      this.publicservice.option_record(employeeid, result,transactiontype,info,createdby);
+    }
+  }
+  
 
 }

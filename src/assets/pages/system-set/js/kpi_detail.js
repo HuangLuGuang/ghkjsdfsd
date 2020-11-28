@@ -40,7 +40,7 @@ let kpi_detail = {
                         color: '#90979c',
                     },
                     // "data": ['running', 'stop', 'placeout', "warning"]
-                    "data": ['运行', '停止', '非占位', "故障"]
+                    "data": ['运行', '空闲', '占位', "维保"]
                 },
 
                 "calculable": true,
@@ -116,7 +116,7 @@ let kpi_detail = {
 
                     {
                         // "name": "stop",
-                        "name": "停止",
+                        "name": "空闲",
                         "type": "bar",
                         "stack": "总量",
                         "itemStyle": {
@@ -136,7 +136,7 @@ let kpi_detail = {
                     },
                     {
                         // "name": "placeout",
-                        "name": "非占位",
+                        "name": "占位",
                         "type": "bar",
                         "stack": "总量",
                         "itemStyle": {
@@ -156,7 +156,7 @@ let kpi_detail = {
                     },
                     {
                         // "name": "warning",
-                        "name": "故障",
+                        "name": "维保",
                         "type": "bar",
                         "stack": "总量",
                         "itemStyle": {
@@ -195,8 +195,8 @@ let kpi_detail = {
         // 配置
         var option = {
 
-            // 按照顺序，运行、停止、非占位、故障 running stop placeon warning
-            // color: ['#37a2da', '#9fe6b8', '#ffdb5c', '#fb7293'], 非占位、运行、停止、故障placeon running stop warning
+            // 按照顺序，运行、空闲、占位、维保 running stop placeon warning
+            // color: ['#37a2da', '#9fe6b8', '#ffdb5c', '#fb7293'], 占位、运行、空闲、维保 placeon running stop warning
             color: ['rgb(175,117,59)', 'rgb(126,255,182)', 'rgb(0,76,166)', 'rgb(150,13,48)'],
             tooltip: {
                 trigger: 'item',

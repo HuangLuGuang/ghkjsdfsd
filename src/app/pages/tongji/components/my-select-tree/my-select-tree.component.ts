@@ -19,20 +19,8 @@ export class MySelectTreeComponent implements OnInit {
     
   }
 
-  keshi = [
-    {
-      id: 1,
-      label: "动力总成技术中心"
-    },
-    {
-      id: 2,
-      label: "新能源"
-    },
-    {
-      id: 3,
-      label: "nvh"
-    }
-  ]
+  
+
 
   ngOnInit(): void {
     // 科室/功能组
@@ -122,6 +110,12 @@ export class MySelectTreeComponent implements OnInit {
   init_select_tree(data){
     var that = this;
     console.log("====data=========",data);
+    // data存在-显示，否则不显示
+    if(data.length >0){
+      $(".tree_isShow").show()
+    }else{
+      $(".tree_isShow").hide()
+    }
     var el5;
     layui.use(['eleTree',],function(){
       var eleTree = layui.eleTree;

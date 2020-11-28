@@ -46,66 +46,9 @@ export class DeviceManageComponent implements OnInit {
   // 导出文件名
   filename;
 
-  // 下拉框---科室/功能组
-  departments = {
-    name: "部门信息",
-    placeholder: '科室/功能组',
-    groups:[
-      { title: '动力', datas: [{ name: '动力-1' },{ name: '动力-2' },{ name: '动力-3' },{ name: '动力-4' }] },
-      { title: '资产', datas: [{ name: '资产-1' },{ name: '资产-2' },{ name: '资产-3' },{ name: '资产-4' }] },
-      { title: '新能源', datas: [{ name: '新能源-1' },{ name: '新能源-2' },{ name: '新能源-3' },{ name: '新能源-4' }] },
-    ]
-  };
-  // 科室/功能组 groups
-  groups = {
-    placeholder: "请选择科室/功能组",
-    datas: [
-      {
-        id: 1,
-        label: "动力总成技术中心"
-      },
-      {
-        id: 2,
-        label: "新能源"
-      },
-      {
-        id: 3,
-        label: "nvh"
-      }
-    ]
-  }
-
   // groups_placeholder eimdevicetpye_placeholder
   groups_placeholder = "请选择科室/功能组";
   eimdevicetpye_placeholder = "请选择eim设备类别"
-
-
-  // 下拉框---设备类型 eimdevicetpye
-  eimdevicetpyedata = {
-    placeholder: "请选择eim设备类别",
-    name: '设备类型',
-    datas: [
-      { name: 'GT-2030-123' },
-      { name: 'GT-2030-149' },
-      { name: 'GT-2030-230' },
-      { name: 'GT-2030-359' },
-      { name: 'GT-2030-666' },
-    ]
-  }
-
-  // 下拉框---资产编号
-  assets = {
-    placeholder: "请选择资产编号",
-    name: '资产编号',
-    datas: [
-      { name: 'GT1918-1720TM' },
-      { name: 'GT1917-1819TM' },
-      { name: 'GT1916-1919TM' },
-      { name: 'GT1915-2018TM' },
-      { name: 'GT1914-2117TM' },
-      { name: 'GT1913-2216TM' },
-    ]
-  }
 
   loading = false;  // 加载
   refresh = false; // 刷新tabel
@@ -379,9 +322,6 @@ export class DeviceManageComponent implements OnInit {
     var groups = this.groups_func.getselect();// 科室/功能组
     var eimdevicetype = this.eimdevicetpye.getselect()?this.eimdevicetpye.getselect():[]; // eim设备类型
     var grops_data = groups != ""? groups.split(";"): [];
-    console.log("<------------搜索-----------devicename>", devicename);
-    console.log("<------------搜索-----------groups>", groups);
-    console.log("<------------搜索-----------eimdevicetpye>", eimdevicetype);
     if (devicename == "" && eimdevicetype.length < 1 && grops_data.length < 1){
       // 未选中
       this.dialogService.open(EditDelTooltipComponent, { closeOnBackdropClick: false, context: { title: '提示', content:   `请选择要搜索的数据！`}} ).onClose.subscribe(
@@ -962,7 +902,7 @@ export class DeviceManageComponent implements OnInit {
       { field: 'group', headerName: '科室', resizable: true, minWidth: 10},
       { field: 'belonged', headerName: '归属人', resizable: true, minWidth: 10},
       { field: 'active', headerName: '是否启用', resizable: true, cellRendererFramework: TranActiveComponent,},
-      { field: 'supplier', headerName: '供应商', resizable: true, minWidth: 10,flex: 1},
+      { field: 'supplier', headerName: '供应商', resizable: true, minWidth: 10},
       { field: 'location', headerName: '存放地点', resizable: true, minWidth: 10},
       // { field: 'devicestatus', headerName: '资产状态', resizable: true, minWidth: 10, cellRendererFramework: StatusForTableComponent},
       { field: 'devicestatus', headerName: '资产状态', resizable: true,minWidth: 50,

@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 
-import { catchError, finalize, tap } from 'rxjs/operators';
+import { catchError, finalize, mergeMap, tap } from 'rxjs/operators';
 
 // http 拦截器!
 import { HttpEvent, HttpInterceptor, HttpHandler, HttpRequest, HttpResponse, HttpErrorResponse }from '@angular/common/http';
@@ -12,6 +12,7 @@ import { Router } from '@angular/router';
 import { NbDialogService } from '@nebular/theme';
 import { ExpiredTokenComponent } from '../../pages-popups/token-diallog/expired-token/expired-token.component';
 import { PublicmethodService } from '../publicmethod/publicmethod.service';
+import { Observable, of } from 'rxjs';
 
 /* 将未受影响的请求传递给下一个请求处理程序。*/
 
@@ -28,7 +29,7 @@ export class HttpInterceptorService implements HttpInterceptor {
   //     return next.handle(req);
   //   }
 
-  intercept(req: HttpRequest<any>, next: HttpHandler) {
+  intercept(req: HttpRequest<any>, next: HttpHandler){
     const started = Date.now();
     let ok: string;
 
@@ -36,11 +37,16 @@ export class HttpInterceptorService implements HttpInterceptor {
     return next.handle(req)
       .pipe(
         tap(
-          // Succeeds when there is a response; ignore other events
           event => ok = event instanceof HttpResponse ? 'succeeded' : '',
-          // Operation failed; error is an HttpErrorResponse
-          // error => ok = 'failed'
-          error => {ok = 'failed'; this.Printerr(error)}
+          error => {
+            ok = 'failed'; 
+            if (error.status != 200){
+              this.Printerr(error);
+              console.log("----不等200拦截器----",error)
+            }else{
+              console.log("----200拦截器----",error)
+            }
+          }
         ),
         // Log when response observable either completes or errors 完成或出现错误时记录日志
         finalize(() => {
@@ -49,7 +55,9 @@ export class HttpInterceptorService implements HttpInterceptor {
              ${ok} in ${elapsed} ms.`;
              console.warn("完成或出现错误时记录日志", msg)
         }),
+        
       );
+    
   }
 
   Printerr(req:HttpErrorResponse){
@@ -76,7 +84,8 @@ export class HttpInterceptorService implements HttpInterceptor {
       //   });
       return 0;
     }else{
-      this.danger()
+      // this.danger()
+      console.warn("网络异常：查看是否断网！")
     }
   }
 

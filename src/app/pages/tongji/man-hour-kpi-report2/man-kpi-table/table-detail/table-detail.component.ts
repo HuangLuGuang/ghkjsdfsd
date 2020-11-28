@@ -22,9 +22,6 @@ export class TableDetailComponent implements OnInit,ICellRendererAngularComp {
     this.router.navigate([this.url])
   }
 
-
-
-
   agInit(params: any): void {
     this.params = params;
   }

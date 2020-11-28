@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { AgGridActionComponent } from './ag-grid-action.component';
+import { TableDetailComponent } from './table-detail.component';
 
-describe('AgGridActionComponent', () => {
-  let component: AgGridActionComponent;
-  let fixture: ComponentFixture<AgGridActionComponent>;
+describe('TableDetailComponent', () => {
+  let component: TableDetailComponent;
+  let fixture: ComponentFixture<TableDetailComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ AgGridActionComponent ]
+      declarations: [ TableDetailComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(AgGridActionComponent);
+    fixture = TestBed.createComponent(TableDetailComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

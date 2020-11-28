@@ -9,6 +9,7 @@ import { DeviceKpiReport2Service } from '../device-kpi-report2-service';
 import { UserInfoService } from '../../../../services/user-info/user-info.service';
 import { TableDetailComponent } from './table-detail/table-detail.component';
 
+
 declare let $;
 
 declare let layui;
@@ -27,12 +28,8 @@ export class KpiTableComponent implements OnInit {
 
 
 
-  // 是否导出
-  isdownload: boolean = false;
   // =============================agGrid
   loading: boolean = false;
-  // kpi_for_detail localstorage 点击的行数据
-
   // =============================agGrid
   constructor(private publicservice: PublicmethodService, private http: HttpserviceService, 
     private deviceservice: DeviceKpiReport2Service, private router: Router,
@@ -149,7 +146,7 @@ export class KpiTableComponent implements OnInit {
     console.log("**************\n")
     var columns = {
       offset: 0, 
-      limit: 20,
+      limit: 10,
       employeeid: this.userinfo.getEmployeeID(),
       devicename: [devicename],
       group: groups_data_,
@@ -192,7 +189,6 @@ export class KpiTableComponent implements OnInit {
     this.tableDatas.isno_refresh_page_size = true;
     this.inttable();
   }
-
   
   // =================================================agGrid
 
@@ -255,8 +251,8 @@ export class KpiTableComponent implements OnInit {
       PageSize = 10;
     }
     var colmun = {
-      start: '2020-10-1',
-      end: '2020-11-21',
+      start: this.init_value.split(" - ")[0],
+      end: this.init_value.split(" - ")[1],
       offset: offset,
       limit: limit,
       employeeid: this.userinfo.getEmployeeID()
@@ -296,8 +292,8 @@ export class KpiTableComponent implements OnInit {
       limit = 10;
     }
     var colmun = {
-      start: '2020-10-1',
-      end: '2020-11-21',
+      start: this.init_value.split(" - ")[0],
+      end: this.init_value.split(" - ")[1],
       offset: offset,
       limit: limit,
     }
@@ -309,6 +305,7 @@ export class KpiTableComponent implements OnInit {
       this.loading = false;
       if (res["code"] === 1){
         var message = result["result"]["message"][0]["message"];
+        this.add_detail_kpi(message);
         this.gridData.push(...message)
         this.tableDatas.rowData = this.gridData;
         var totalpagenumbers = res['numbers']? res['numbers'][0]['numbers']: '未得到总条数';
@@ -362,8 +359,8 @@ export class KpiTableComponent implements OnInit {
   }
 
 
-   // option_record
-   RecordOperation(option, result,infodata){
+  // option_record
+  RecordOperation(option, result,infodata){
     if(this.userinfo.getLoginName()){
       var employeeid = this.userinfo.getEmployeeID();
       var result = result; // 1:成功 0 失败
@@ -372,7 +369,6 @@ export class KpiTableComponent implements OnInit {
       var createdby = this.userinfo.getLoginName();
       this.publicservice.option_record(employeeid, result,transactiontype,info,createdby);
     }
-
   }
  
   // 展示状态

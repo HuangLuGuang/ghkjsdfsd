@@ -28,6 +28,12 @@ export class MySelectTreeTypeComponent implements OnInit {
   // 下拉树示例
   init_select_trees(data){
     console.log("====data=========",data);
+    // data存在-显示，否则不显示
+    if(data.length >0){
+      $(".tree_type_isShow").show()
+    }else{
+      $(".tree_type_isShow").hide()
+    }
     var that = this;
     var el5;
     layui.use(['eleTree',],function(){

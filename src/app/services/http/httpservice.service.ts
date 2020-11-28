@@ -17,8 +17,13 @@ import { ExpiredTokenComponent } from '../../pages-popups/token-diallog/expired-
 })
 export class HttpserviceService {
   
-  constructor(private http: HttpClient, private router: Router, private dialogService:NbDialogService) { }
+  constructor(private http: HttpClient, private router: Router, private dialogService:NbDialogService) {
+    
+
+  }
+
   
+
   
   // GET
   public get(url: string, headers?:any){
@@ -27,7 +32,6 @@ export class HttpserviceService {
     }
     return new Observable((observe)=>{
       this.http.get(url, headers).subscribe((response: any)=>{
-        console.log("^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^observe^^^^^^^^^^^^^^^^^^",response);
         observe.next(response)
       },
       error=>{
@@ -72,12 +76,13 @@ export class HttpserviceService {
             ]
           }
         }
-        console.log("result===>", result)
+        console.log("result===>", result);
+        
         if (error.status === 401){
           var isdialg = localStorage.getItem("token_expired");
           if (JSON.parse(isdialg)){
             localStorage.setItem("token_expired", 'false');
-            this.dialogService.open(ExpiredTokenComponent, { closeOnBackdropClick: false,} ).onClose.subscribe(
+            this.dialogService.open(ExpiredTokenComponent, { closeOnBackdropClick: false, autoFocus:true} ).onClose.subscribe(
               name=>{
                 console.log("token已过期，是否重新登录？",name)
                 if(name){

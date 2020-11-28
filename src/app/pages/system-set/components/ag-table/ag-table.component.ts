@@ -9,6 +9,7 @@ import { NbDialogService } from '@nebular/theme';
 import { UserInfoService } from '../../../../services/user-info/user-info.service';
 import { PublicmethodService } from '../../../../services/publicmethod/publicmethod.service';
 
+declare let $;
 
 interface Data {
   action: boolean,
@@ -65,6 +66,7 @@ export class AgTableComponent implements OnInit {
   action; // 是否操作
   alltotalPageNumbers; // 这是 从数据库得到的总的条数！
 
+
   constructor(private dialogService: NbDialogService, private userinfo: UserInfoService, private publicservice: PublicmethodService) { 
   }
   
@@ -94,6 +96,12 @@ export class AgTableComponent implements OnInit {
     this.gridApi.paginationSetPageSize(employee_agGrid["PageSize"]);
     this.rowData =  employee_agGrid["rowData"]; // 行数据
     this.alltotalPageNumbers = employee_agGrid["totalPageNumbers"]; // 数据库中的总条数
+    
+    if(this.rowData.length>0){
+      $(".isShow").show()
+    }else{
+      $(".isShow").hide()
+    }
     this.defaultColDef = { // 默认的列设置
       // flex: 1,
       editable: false,

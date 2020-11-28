@@ -330,7 +330,7 @@ export class MenuComponent implements OnInit {
         // 更新table！
         this.updatetable(name); // name 表示刷新目录栏
         // 删除 mulu
-        localStorage.removeItem("mulu");
+        localStorage.removeItem(MULU);
         
       }
     })
@@ -715,6 +715,7 @@ export class MenuComponent implements OnInit {
             if(isnotresh){
               // 提示刷新界面
               if(confirm("请刷新界面，已更新目录")){
+                localStorage.removeItem('mulu')
                 location.reload();
               }else{
 

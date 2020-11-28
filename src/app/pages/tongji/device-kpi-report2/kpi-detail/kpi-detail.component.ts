@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { HttpserviceService } from '../../../../services/http/httpservice.service';
@@ -11,7 +11,7 @@ let kpi_detail = require("../../../../../assets/pages/system-set/js/kpi_detail")
   templateUrl: './kpi-detail.component.html',
   styleUrls: ['./kpi-detail.component.scss']
 })
-export class KpiDetailComponent implements OnInit {
+export class KpiDetailComponent implements OnInit, OnDestroy {
 
   // 得到出入的数据 kpi_for_detail
   kpi_for_detail;
@@ -65,6 +65,12 @@ export class KpiDetailComponent implements OnInit {
     
 
   };
+
+  // 销毁组件，删除 kpi_for_detail
+
+  ngOnDestroy(){
+    localStorage.removeItem("kpi_for_detail")
+  }
 
 
   // kpi报表
@@ -120,13 +126,13 @@ export class KpiDetailComponent implements OnInit {
             key = "运行"
             break;
           case "stop":
-            key = "停止"
+            key = "空闲"
             break;
           case "warning":
-            key = "故障"
+            key = "维保"
             break;
           case "placeon":
-            key = "非占位"
+            key = "占位"
             break;
         }
         afterdata["name"] = key;

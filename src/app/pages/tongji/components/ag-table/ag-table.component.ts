@@ -1,7 +1,6 @@
 import { Component, OnInit, Input, ViewChild,Output, EventEmitter } from '@angular/core';
 import { AgGridAngular } from 'ag-grid-angular';
 
-import { AgGridActionComponent } from './ag-grid-action/ag-grid-action.component';
 
 import * as XLSX from 'xlsx';
 import { NbDialogService } from '@nebular/theme';
@@ -71,17 +70,14 @@ export class AgTableComponent implements OnInit {
   alltotalPageNumbers; // 这是 从数据库得到的总的条数！
   context; // 和渲染的组件 数据交互！
 
+
   constructor(private dialogService:NbDialogService, private userinfo: UserInfoService, private publicmethod: PublicmethodService) { 
   }
   
-  // action = { field: 'action', headerName: '操作', cellRendererFramework: AgGridActionComponent, pinned: 'right'};
-  // action = { field: 'action', headerName: '操作', cellRendererFramework: AgGridActionComponent, pinned: 'right'};
-  // action = { field: 'action', headerName: '操作', cellRenderer: 'agGridActionComponent', pinned: 'right'};
   
   ngOnInit(): void {
     // this.gridOptions();
     console.log("agGrid========================", this.agGrid)
-    
   }
   
 
@@ -95,12 +91,15 @@ export class AgTableComponent implements OnInit {
     this.columnDefs =  employee_agGrid["columnDefs"]// 列字段
     this.rowData =  employee_agGrid["rowData"]; // 行数据
     this.action =  employee_agGrid["action"]; // 是否操作
-    
     this.alltotalPageNumbers = employee_agGrid["totalPageNumbers"]; // 数据库中的总条数
     
-    
-    
-    
+    if(this.rowData.length>0){
+      $(".isShow").show()
+    }else{
+      $(".isShow").hide()
+    }
+
+
     // this.paginationPageSize = 10;
     this.paginationPageSize = employee_agGrid["PageSize"];
     this.rowSelection = 'multiple';
@@ -206,12 +205,7 @@ export class AgTableComponent implements OnInit {
     console.log("之后的当前页数",this.current); // this.current = this.totalPageNumbers / this.setPageCount
     this.pageIndexChange(this.current);
   }
-  // onPageSizeChanged2(){
-  //   // 更新每页展示条数
-  //   this.setPageCount = this.paginationPageSize;
-  //   console.log("----------------\nonPageSizeChanged---\n", this.paginationPageSize,"更新每页展示条数", this.setPageCount, "总条数",this.totalPageNumbers)
-  //   this.gridApi.paginationSetPageSize(Number(this.paginationPageSize));
-  // }
+ 
 
   // 父组件调用，得到选中的数据
   getselectedrows(){
@@ -369,6 +363,8 @@ export class AgTableComponent implements OnInit {
   init_agGrid(employee_agGrid){
     console.log("初始化-------父组件调用！ 填充表格=======", employee_agGrid)
     this.gridOptions(employee_agGrid);
+    // 清空选择的数据
+    this.selectedRows = [];
   }
 
 
