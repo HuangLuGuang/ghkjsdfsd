@@ -322,6 +322,8 @@ export class ManKpiTableComponent implements OnInit {
       var totalpagenumbers = get_employee_limit['numbers']? get_employee_limit['numbers'][0]['numbers']: '未得到总条数';
       this.tableDatas.totalPageNumbers = totalpagenumbers;
       this.agGrid.init_agGrid(this.tableDatas); // 告诉组件刷新！
+      // 刷新table后，改为原来的！
+      this.tableDatas.isno_refresh_page_size = false;
     })
   }
 

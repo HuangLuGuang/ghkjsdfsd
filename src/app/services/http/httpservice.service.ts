@@ -79,24 +79,24 @@ export class HttpserviceService {
         console.log("result===>", result);
         
         if (error.status === 401){
-          var isdialg = localStorage.getItem("token_expired");
-          if (JSON.parse(isdialg)){
-            localStorage.setItem("token_expired", 'false');
-            this.dialogService.open(ExpiredTokenComponent, { closeOnBackdropClick: false, autoFocus:true} ).onClose.subscribe(
-              name=>{
-                console.log("token已过期，是否重新登录？",name)
-                if(name){
-                  localStorage.removeItem(ssotoken);
-                  location.href = loginurl;
-                  // localStorage.removeItem('token_expired');
-                  observe.next(result);
-                }else{
-                  observe.next(result);
-                }        
-              });
-          }else{
-            return
-          }
+          // var isdialg = localStorage.getItem("token_expired");
+          // if (JSON.parse(isdialg)){
+          //   localStorage.setItem("token_expired", 'false');
+          //   this.dialogService.open(ExpiredTokenComponent, { closeOnBackdropClick: false, autoFocus:true} ).onClose.subscribe(
+          //     name=>{
+          //       console.log("token已过期，是否重新登录？",name)
+          //       if(name){
+          //         localStorage.removeItem(ssotoken);
+          //         location.href = loginurl;
+          //         // localStorage.removeItem('token_expired');
+          //         observe.next(result);
+          //       }else{
+          //         observe.next(result);
+          //       }        
+          //     });
+          // }else{
+          //   return
+          // }
         }
         observe.next(result)
       })
@@ -167,12 +167,6 @@ export class HttpserviceService {
     };
     return this.http.get(url, hearder);
   }
-
-
-
-      
-
-
 
 }
 

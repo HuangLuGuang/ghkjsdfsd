@@ -84,6 +84,13 @@ export class RoleComponent implements OnInit {
   constructor(private http: HttpserviceService, private localstorageservice: LocalStorageService,
     private dialogService: NbDialogService, private datapipe: DatePipe, private publicservice: PublicmethodService, private userinfo: UserInfoService,
     private router: Router) { 
+    
+    // 得到该页面下的button
+    var roleid = this.userinfo.getEmployeeRoleID();
+    this.publicservice.get_buttons_bypath(roleid).subscribe(result=>{
+      this.button = result;
+      localStorage.setItem("buttons_list", JSON.stringify(result));
+    })
   }
   
   ngOnInit(): void {
@@ -94,12 +101,7 @@ export class RoleComponent implements OnInit {
       this.showTreedata_v2(treedata);
     });
 
-    // 得到该页面下的button
-    var roleid = this.userinfo.getEmployeeRoleID();
-    this.publicservice.get_buttons_bypath(roleid).subscribe(result=>{
-      this.button = result;
-      localStorage.setItem("buttons_list", JSON.stringify(result));
-    })
+    
     
 
     // ====================================agGrid
@@ -171,10 +173,12 @@ export class RoleComponent implements OnInit {
   addrole(){
     this.dialogService.open(AddRoleComponent, {closeOnBackdropClick: false,context: { rowdata: JSON.stringify('add')}}).onClose.subscribe(name=>{
       if (name){
+        
         this.gridData = [];
         this.loading = true;
         this.update_agGrid();
         this.loading = false;
+      }else{
       }
     })
     
@@ -204,7 +208,6 @@ export class RoleComponent implements OnInit {
               this.update_agGrid();
               this.loading = false;
               localStorage.removeItem(SYSROLE);
-
             }else{
             }
           }
@@ -325,6 +328,11 @@ export class RoleComponent implements OnInit {
         }
       })
       this.RecordOperation("搜索", 1, '搜索角色:' + role_name);
+    }else{
+      this.dialogService.open(EditDelTooltipComponent, { closeOnBackdropClick: false, context: { title: '提示', content:   `请选择要搜索的数据！`}} ).onClose.subscribe(
+        name=>{
+          console.log("----name-----", name);
+        })
     }
   }
 
@@ -687,34 +695,7 @@ export class RoleComponent implements OnInit {
     
   }
 
-  // 更新button_list！
-  updatabutton_list(publicservice, http){
-    publicservice.getMenu().subscribe((data)=>{
-      const colums = {
-        languageid: http.getLanguageID(),
-        roles: data
-      };
-      console.log("---更新button_list！--",colums)
-      const table = "menu_item";
-      const method = "get_menu_by_roles";
-      http.callRPC(table, method, colums).subscribe((result)=>{
-        // console.log("---更新button_list！--",result)
 
-        const baseData = result['result']['message'][0];
-        var button_list = [];
-        baseData.forEach(element => {
-          if (element["type"] === 2 ){
-            button_list.push(element);
-          }
-        });
-        localStorage.setItem(menu_button_list, JSON.stringify(button_list));
-      })
-
-
-
-    });
-    
-  }
 
 
   // 根据得到的 sysrolemenu 角色界面的菜单数据得到适用于特定树状结构的数据
@@ -981,8 +962,10 @@ export class RoleComponent implements OnInit {
         this.agGrid.init_agGrid(this.tableDatas); // 告诉组件刷新！
         // 刷新table后，改为原来的！
         this.tableDatas.isno_refresh_page_size = false;
+        this.RecordOperation('查看', 1, "角色管理");
       }else{
         this.publicservice.showngxtoastr({position: 'toast-top-right', status: 'danger', conent:"得到角色失败" + baseData["message"]});
+        this.RecordOperation('更新', 0, "角色管理");
       }
     })
     
@@ -996,7 +979,7 @@ export class RoleComponent implements OnInit {
       limit = event.limit;
     }else{
       offset = 0;
-      limit = 20;
+      limit = 10;
     }
     const table = "role";
     const method = this.GetRole;
@@ -1011,9 +994,12 @@ export class RoleComponent implements OnInit {
         this.tableDatas.totalPageNumbers = totalpagenumbers;
         // this.agGrid.update_agGrid(this.tableDatas); // 告诉组件刷新！
         this.agGrid.update_agGrid(this.tableDatas); // 告诉组件刷新！
-
+        // 刷新table后，改为原来的！
+        this.tableDatas.isno_refresh_page_size = false;
+        this.RecordOperation('更新', 1, "角色管理");
       }else{
         this.publicservice.showngxtoastr({position: 'toast-top-right', status: 'danger', conent:"得到角色失败" + baseData["message"]});
+        this.RecordOperation('更新', 0, "角色管理");
       }
     })
     

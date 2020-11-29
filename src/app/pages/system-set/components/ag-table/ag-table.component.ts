@@ -246,6 +246,7 @@ export class AgTableComponent implements OnInit {
       // var data = this.rowData;
       // var data = this.selectedRows;
       var data = Object.assign([], this.selectedRows);
+      console.log("导出数据data----", data);
       data.forEach(element => {
         if(element["active"] === 1){
           element["active"] = '是'
@@ -255,11 +256,15 @@ export class AgTableComponent implements OnInit {
         var data_item = [];
         if (keys != []){
           for (let k of keys){
-            data_item.push(element[k]);
+            // 去掉数值为null、undefind的
+            var element_value = element[k] == 'null'||element[k] == 'undefind'? "":element[k]
+            data_item.push(element_value);
           }
         }else{
           for (let k in element){
-            data_item.push(element[k]);
+            // 去掉数值为null、undefind的
+            var element_value = element[k] == 'null'||element[k] == 'undefind'? "":element[k]
+            data_item.push(element_value);
           }
         }
         

@@ -20,7 +20,12 @@ export class ActionComponent implements OnInit, ICellRendererAngularComp {
   constructor() { }
 
   ngOnInit(): void {
-    this.isactive();
+  }
+  ngAfterViewInit(){
+    setTimeout(() => {
+      this.isactive();
+    }, 1000);
+
   }
 
   agInit(params: any): void {

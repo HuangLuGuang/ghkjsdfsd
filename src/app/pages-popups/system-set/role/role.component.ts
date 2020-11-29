@@ -209,11 +209,11 @@ export class RoleComponent implements OnInit {
       if (baseData["code"] === 1){
         var option = "新增角色";
         var infodata = '角色名称(en):' + data["role"] + ',' + '角色名称:' + data["role_name"];
-        that.RecordOperation(1,option, infodata)
+        that.RecordOperation(option, 1,infodata)
       }else{
         var option = "新增角色";
         var infodata = '角色名称(en):' + data["role"] + ',' + '角色名称:' + data["role_name"];
-        that.RecordOperation(0,option, infodata)
+        that.RecordOperation(option, 0,infodata)
 
       }
       

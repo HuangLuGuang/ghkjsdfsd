@@ -306,38 +306,7 @@ export class TestTaskManageComponent implements OnInit {
     })
   }
 
-  pageabledata(event?){
-    var offset;
-    var limit;
-    console.log("event------------------------------------------------", event);
-    if (event != undefined){
-      offset = event.offset;
-      limit = event.limit;
-    }else{
-      offset = 0;
-      limit = 10;
-    }
-    var colmun = {
-      start: this.init_value.split(" - ")[0],
-      end: this.init_value.split(" - ")[1],
-      offset: offset,
-      limit: limit,
-    }
-    this.http.callRPC('device', this.GETTABLE, colmun).subscribe((res)=>{
-      // console.log("get_menu_role", result)
-      var result = res['result']['message'][0]
-
-      this.loading = false;
-      var message = result["message"];
-      this.gridData.push(...message)
-      this.tableDatas.rowData = this.gridData;
-      var totalpagenumbers = result['numbers']? result['numbers'][0]['numbers']: '未得到总条数';
-      this.tableDatas.totalPageNumbers = totalpagenumbers;
-      this.agGrid.init_agGrid(this.tableDatas); // 告诉组件刷新！
-    })
-  }
-
-  updatetabledata(event?){
+  update_agGrid(event?){
     var offset;
     var limit;
     if (event != undefined){
@@ -366,6 +335,8 @@ export class TestTaskManageComponent implements OnInit {
       var totalpagenumbers = result['numbers']? result['numbers'][0]['numbers']: '未得到总条数';
       this.tableDatas.totalPageNumbers = totalpagenumbers;
       this.agGrid.update_agGrid(this.tableDatas); // 告诉组件刷新！
+      // 刷新table后，改为原来的！
+      this.tableDatas.isno_refresh_page_size = false;
     })
 
   }
@@ -380,8 +351,6 @@ export class TestTaskManageComponent implements OnInit {
     this.loading = false;
   }
   // =================================================agGrid
-
-
   // option_record
   RecordOperation(option, result,infodata){
     if(this.userinfo.getLoginName()){

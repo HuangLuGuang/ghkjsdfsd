@@ -255,10 +255,13 @@ export class KpiTableComponent implements OnInit {
       end: this.init_value.split(" - ")[1],
       offset: offset,
       limit: limit,
-      employeeid: this.userinfo.getEmployeeID()
+      employeeid: this.userinfo.getEmployeeID(),
+      group: [],
+      devicename: [],
+      eimdevicetype: [],
     }
     // 得到设备信息！
-    this.http.callRPC('device', 'dev_get_kpi_device_limit', colmun).subscribe((res)=>{
+    this.http.callRPC('device', 'dev_get_kpi_device_search', colmun).subscribe((res)=>{
       console.log("得到设备信息=================>", res)
       var get_employee_limit = res['result']['message'][0];
       if(get_employee_limit["code"]===1){
@@ -296,10 +299,14 @@ export class KpiTableComponent implements OnInit {
       end: this.init_value.split(" - ")[1],
       offset: offset,
       limit: limit,
+      employeeid: this.userinfo.getEmployeeID(),
+      group: [],
+      devicename: [],
+      eimdevicetype: [],
     }
     // this.getsecurity('sys_security_log', 'get_security_log_limit', {offset:event.offset,limit:10});
     // 得到员工信息！{offset: offset, limit: limit}
-    this.http.callRPC('device', 'dev_get_kpi_device_limit', colmun).subscribe((result)=>{
+    this.http.callRPC('device', 'dev_get_kpi_device_search', colmun).subscribe((result)=>{
       // console.log("get_menu_role", result)
       var res = result['result']['message'][0];
       this.loading = false;
@@ -311,6 +318,8 @@ export class KpiTableComponent implements OnInit {
         var totalpagenumbers = res['numbers']? res['numbers'][0]['numbers']: '未得到总条数';
         this.tableDatas.totalPageNumbers = totalpagenumbers;
         this.agGrid.update_agGrid(this.tableDatas); // 告诉组件刷新！
+        // 刷新table后，改为原来的！
+        this.tableDatas.isno_refresh_page_size = false;
         this.RecordOperation('更新', 1, "设备报表");
       }else{
         this.RecordOperation('更新', 0, "设备报表");

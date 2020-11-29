@@ -4,7 +4,7 @@ import { NbDialogService, NbToastrService } from '@nebular/theme';
 import { Data } from '../../appconfig';
 
 import { PlatformLocation } from '@angular/common';
-import { Observable } from 'rxjs';
+import { observable, Observable } from 'rxjs';
 import { HttpserviceService } from '../http/httpservice.service';
 import { HttpHeaders } from '@angular/common/http';
 import { loginurl,INFO_API,SYSMENU, ssotoken, menu_button_list} from '../../appconfig';
@@ -463,4 +463,29 @@ export class PublicmethodService {
    
   // -----------------------------------------页面得到 权限buttons
 
+  // 会话过期，弹出提示框
+  session_expiration(){
+    console.log("+++++++++++++++++++会话过期，弹出提示框++++++++++++++++++++");
+    return new Observable((observable)=>{
+      var isdialg = localStorage.getItem("token_expired");
+      console.log("+++++++++++++++++++isdialg++++++++++++++++++++",isdialg)
+      if (JSON.parse(isdialg)){
+        localStorage.setItem("token_expired", 'false');
+        this.dialogService.open(ExpiredTokenComponent, { closeOnBackdropClick: false,} ).onClose.subscribe(
+          name=>{
+            console.log("token已过期，是否重新登录？",name)
+            if(name){
+              localStorage.removeItem(ssotoken);
+              location.href = loginurl;
+              // this.router.navigate([loginurl])
+              // localStorage.removeItem('token_expired');
+            }else{
+            }        
+            observable.next(false); // 表示不可请求
+          });
+      }else{
+        observable.next(true);
+      }
+    })
+  }
 }

@@ -221,7 +221,7 @@ export class UserEmployeeGroupComponent implements OnInit {
                 console.log("sys_delete_groups", res);
                 if (res["code"] === 1){
                   success(publicservice);
-                  this.RecordOperation( 1, "删除科室/功能组", data_info);
+                  this.RecordOperation( 1, "删除科室/功能组(groups)", data_info);
                   // 成功之后，重新请求
                   this.gridData = [];
                   this.loading = true;
@@ -229,7 +229,7 @@ export class UserEmployeeGroupComponent implements OnInit {
                   this.loading = false;
                 }else{
                   var err_date = res["message"]
-                  this.RecordOperation( 0, "删除科室/功能组", String(err_date))
+                  this.RecordOperation( 0, "删除科室/功能组(groups)", String(err_date))
                   danger(publicservice)
                 }
               });
@@ -265,15 +265,20 @@ export class UserEmployeeGroupComponent implements OnInit {
           var totalpagenumbers = res['numbers']? res['numbers'][0]['numbers']: '未得到总条数';
           this.tableDatas.totalPageNumbers = totalpagenumbers;
           this.agGrid.update_agGrid(this.tableDatas); // 告诉组件刷新！
-          this.RecordOperation("搜索", 1, '搜索科室/功能组(groups):' + groups);
+          this.RecordOperation(1, "搜索", '搜索科室/功能组(groups):' + groups);
           if (message.length < 1){
             this.searchdanger(groups)
           }
         }else{
           var data_info = res["message"];
-          this.RecordOperation("搜索", 0, '搜索科室/功能组(groups):' + String(data_info));
+          this.RecordOperation(0, "搜索", '搜索科室/功能组(groups):' + String(data_info));
         }
       })
+    }else{
+      this.dialogService.open(EditDelTooltipComponent, { closeOnBackdropClick: false, context: { title: '提示', content:   `请选择要搜索的数据！`}} ).onClose.subscribe(
+        name=>{
+          console.log("----name-----", name);
+        })
     }
   }
 
@@ -349,7 +354,7 @@ export class UserEmployeeGroupComponent implements OnInit {
       limit = event.limit;
     }else{
       offset = 0;
-      limit = 20;
+      limit = 10;
     }
     var columns = {
       offset: offset, 
@@ -367,7 +372,11 @@ export class UserEmployeeGroupComponent implements OnInit {
         var totalpagenumbers = tabledata['numbers']? tabledata['numbers'][0]['numbers']: '未得到总条数';
         this.tableDatas.totalPageNumbers = totalpagenumbers;
         this.agGrid.update_agGrid(this.tableDatas); // 告诉组件刷新！
+        // 刷新table后，改为原来的！
+        this.tableDatas.isno_refresh_page_size = false;
+        this.RecordOperation(1, '更新', "科室/功能组(groups)");
       }else{
+        this.RecordOperation(0, '更新', "科室/功能组(groups)");
       }
     })
   }
@@ -390,7 +399,7 @@ export class UserEmployeeGroupComponent implements OnInit {
       limit: limit,
     }
     this.http.callRPC('group_', 'sys_get_groups_limit', columns).subscribe((result)=>{
-      console.log("用户组：", result)
+      console.log("科室/功能组(groups)", result)
       var tabledata = result['result']['message'][0]
       console.log("tabledata", tabledata);
       this.loading = false;
@@ -404,9 +413,9 @@ export class UserEmployeeGroupComponent implements OnInit {
         this.agGrid.init_agGrid(this.tableDatas); // 告诉组件刷新！
         // 刷新table后，改为原来的！
         this.tableDatas.isno_refresh_page_size = false;
-        this.RecordOperation(1, '查看', "科室/功能组")
+        this.RecordOperation(1, '查看', "科室/功能组(groups)")
       }else{
-        this.RecordOperation(0, '查看', "科室/功能组")
+        this.RecordOperation(0, '查看', "科室/功能组(groups)")
       }
     })
   }

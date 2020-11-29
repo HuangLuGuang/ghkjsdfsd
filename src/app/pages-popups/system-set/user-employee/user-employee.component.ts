@@ -311,30 +311,36 @@ export class UserEmployeeComponent implements OnInit {
           // -------------------------------------------
           console.log("提交修改的",  send_data_list) //被执行事件的元素DOM对象，一般为button对象
           // 更新修改的数据！ update_employee
-          that.getsecurity("employee", "update_employee",send_data_list).subscribe((res)=>{
-            console.log("更新修改的数据！ update_employee>>>>>>>>>>>>>>>>>>>>>>",res)
-            var res_ = res["result"]["message"][0];
-            switch (res_["code"]) {
-              case 401:
-                that.editdanger("会话结束")
-                that.RecordOperation( 0, "编辑用户",'会话结束')
-                that.dialogRef.close(false)
-                break;
-              case 1:
-                that.editsuccess();
-                var operationdata = "姓名:" + send_data_list[0]["name"] + "," + "域账号:" + send_data_list[0]["loginname"];
-                that.RecordOperation( 1, "编辑用户",operationdata)
-                that.dialogRef.close(true)
-                break;
-              case 0:
-                that.editdanger(res_["message"])
-                that.dialogRef.close(false)
-                that.RecordOperation( 0, "编辑用户",String(res_["message"]))
-                break;
+          // 会话过期
+          that.publicservice.session_expiration().subscribe(result=>{
+            if (result){
+              that.getsecurity("employee", "update_employee",send_data_list).subscribe((res)=>{
+                console.log("更新修改的数据！ update_employee>>>>>>>>>>>>>>>>>>>>>>",res)
+                var res_ = res["result"]["message"][0];
+                switch (res_["code"]) {
+                  case 401:
+                    that.editdanger("会话结束")
+                    that.RecordOperation( 0, "编辑用户",'会话结束')
+                    that.dialogRef.close(false)
+                    break;
+                  case 1:
+                    that.editsuccess();
+                    var operationdata = "姓名:" + send_data_list[0]["name"] + "," + "域账号:" + send_data_list[0]["loginname"];
+                    that.RecordOperation( 1, "编辑用户",operationdata)
+                    that.dialogRef.close(true)
+                    break;
+                  case 0:
+                    that.editdanger(res_["message"])
+                    that.dialogRef.close(false)
+                    that.RecordOperation( 0, "编辑用户",String(res_["message"]))
+                    break;
+    
+                }
+                
+              })
 
             }
-            
-          })
+          });
           return false;
         }else{
           console.log("employeegroupinput》》》》》》》》》》》》》》", data.field)
@@ -395,31 +401,37 @@ export class UserEmployeeComponent implements OnInit {
             that.RecordOperation(0, '新增用户', '警告:没有选择角色')
           }
           else{
-            that.getsecurity("employee", "insert_employee", send_data_list).subscribe((result)=>{
-              var res_ = result['result']["message"][0]["code"];
-              switch (res_) {
-                case 401:
-                  var operationdata = "会话结束";
-                  var option = '新增用户'; 
-                  that.RecordOperation(0, option, operationdata)
-                  dialogRef.close(false);
-                  break;
-                case 1:
-                  // 成功
-                  dialogRef.close(true);
-                  that.success();
-                  var operationdata = "姓名:" + send_data_list[0]["name"] + "," + "域账号:" + send_data_list[0]["loginname"];
-                  var option = '新增用户'; 
-                  that.RecordOperation(1, option, operationdata)
-                  break;
-                case 0:
-                  that.danger(result['result']["message"][0]["message"]);
-                  var option = '新增用户';
-                  var operationdata = String(result['result']["message"][0]["message"])
-                  that.RecordOperation(0, option, operationdata)
-                  break;
+            // 会话过期
+            this.publicmethod.session_expiration().subscribe(result=>{
+              if(result){
+                that.getsecurity("employee", "insert_employee", send_data_list).subscribe((result)=>{
+                  var res_ = result['result']["message"][0]["code"];
+                  switch (res_) {
+                    case 401:
+                      var operationdata = "会话结束";
+                      var option = '新增用户'; 
+                      that.RecordOperation(0, option, operationdata)
+                      dialogRef.close(false);
+                      break;
+                    case 1:
+                      // 成功
+                      dialogRef.close(true);
+                      that.success();
+                      var operationdata = "姓名:" + send_data_list[0]["name"] + "," + "域账号:" + send_data_list[0]["loginname"];
+                      var option = '新增用户'; 
+                      that.RecordOperation(1, option, operationdata)
+                      break;
+                    case 0:
+                      that.danger(result['result']["message"][0]["message"]);
+                      var option = '新增用户';
+                      var operationdata = String(result['result']["message"][0]["message"])
+                      that.RecordOperation(0, option, operationdata)
+                      break;
+                  }
+                  
+                })
+
               }
-              
             })
           }
        
@@ -453,6 +465,7 @@ export class UserEmployeeComponent implements OnInit {
 
   // 请求得到 表get_employee中的数据！
   getsecurity(table: string, method: string, colums: object){
+    
     return new Observable((res)=>{
       this.http.callRPC(table, method, colums).subscribe((result)=>{
         console.log("*************---------------------****************", result)

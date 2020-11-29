@@ -48,7 +48,7 @@ export class DeviceManageComponent implements OnInit {
 
   // groups_placeholder eimdevicetpye_placeholder
   groups_placeholder = "请选择科室/功能组";
-  eimdevicetpye_placeholder = "请选择eim设备类别"
+  eimdevicetpye_placeholder = "请选择设备类别"
 
   loading = false;  // 加载
   refresh = false; // 刷新tabel
@@ -1029,6 +1029,8 @@ export class DeviceManageComponent implements OnInit {
         var totalpagenumbers = tabledata['numbers']? tabledata['numbers'][0]['numbers']: '未得到总条数';
         this.tableDatas.totalPageNumbers = totalpagenumbers;
         this.agGrid.update_agGrid(this.tableDatas); // 告诉组件刷新！
+        // 刷新table后，改为原来的！
+        this.tableDatas.isno_refresh_page_size = false;
         this.RecordOperation('更新', 1, "eim台账");
       }else{this.RecordOperation('更新', 0, "eim台账");}
 
