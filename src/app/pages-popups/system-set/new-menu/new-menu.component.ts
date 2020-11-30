@@ -80,6 +80,7 @@ export class NewMenuComponent implements OnInit {
     // 获取用户名
     var username = this.userinfoservice.getName();
     var isnot_edit = JSON.parse(this.rowdata);
+    console.log("isnot_edit------------->",isnot_edit)
     var hour_mon_sec = this.publicmethod.getcurdate();
     var textid;
 
@@ -118,11 +119,10 @@ export class NewMenuComponent implements OnInit {
           $(".ele5").hide();
       })
       // ----------按钮 上级目录
-
+      
       // 判断是否是编辑-----------------------------------
       if (isnot_edit != 'add'){
         // 编辑
-        console.log("编辑-----------------------------------", isnot_edit);
         // 切换tab
         if (isnot_edit["type"] === 0){
           // 目录
@@ -153,6 +153,7 @@ export class NewMenuComponent implements OnInit {
           $(".caidan_tab").attr("class", "layui-tab-item caidan_tab");
           $(".anniu_tab").attr("class", "layui-tab-item layui-show anniu_tab");
         }
+        console.log("编辑-----------------------------------", isnot_edit);
 
         // 初始化表单
         // 表单赋值--目录
@@ -442,17 +443,43 @@ export class NewMenuComponent implements OnInit {
       // 表单赋值--目录
       
       // =============================监听 输入button 确定
-
       // tab toggle
       element.on('tab(docDemoTabBrief)', function(data){
         // localStorage.setItem(EDIT_MENU_ISMENU, String(data.index))
-        if(data.index == 0){ // 目录
-          // console.log("目录")
-        }
-        if(data.index == 1){ // 菜单
-          // console.log("菜单")
-        }else{
-          // anniuli
+        console.log("当前Tab标题所在的原始DOM元素",this,$(this)); //当前Tab标题所在的原始DOM元素""
+        console.log("得到当前Tab的所在下标",data.index); //得到当前Tab的所在下标
+        console.log("得到当前的Tab大容器",data.elem, data.elem.prevObject.context.innerText); //得到当前的Tab大容器""
+        var innerText = data.elem.prevObject.context.innerText; // 目录，菜单，按钮
+        switch (innerText) {
+          case "目录":
+            $(".mululi").attr("class", "layui-this mululi");
+            $(".caidanli").attr("class", "caidanli");
+            $(".anniuli").attr("class", "anniuli");
+            
+      
+            $(".mulu_tab").attr("class", "layui-tab-item layui-show mulu_tab");
+            $(".caidan_tab").attr("class", "layui-tab-item caidan_tab");
+            $(".anniu_tab").attr("class", "layui-tab-item anniu_tab");
+            break;
+          case "菜单":
+            $(".mululi").attr("class", "mululi");
+            $(".caidanli").attr("class", "layui-this caidanli");
+            $(".anniuli").attr("class", "anniuli");
+            
+            $(".mulu_tab").attr("class", "layui-tab-item  mulu_tab");
+            $(".caidan_tab").attr("class", "layui-tab-item layui-show caidan_tab");
+            $(".anniu_tab").attr("class", "layui-tab-item anniu_tab");
+            break;
+        
+          default:
+            $(".mululi").attr("class", "mululi");
+            $(".caidanli").attr("class", "caidanli");
+            $(".anniuli").attr("class", "layui-this anniuli");
+      
+            $(".mulu_tab").attr("class", "layui-tab-item  mulu_tab");
+            $(".caidan_tab").attr("class", "layui-tab-item caidan_tab");
+            $(".anniu_tab").attr("class", "layui-tab-item layui-show anniu_tab");
+            break;
         }
       });
 
