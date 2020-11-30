@@ -45,7 +45,7 @@ export class TestTaskManageComponent implements OnInit {
   date_ranges = "device_kpi_date_range"
 
   // 得到table method
-  GETTABLE = "dev_get_device_taskinfo";
+  GETTABLE = "dev_get_device_taskinfo_search";
 
   constructor(private publicservice: PublicmethodService, private http: HttpserviceService,
     private userinfo: UserInfoService) { 
@@ -282,6 +282,10 @@ export class TestTaskManageComponent implements OnInit {
       end: this.init_value.split(" - ")[1],
       offset: offset,
       limit: limit,
+      employeeid:this.userinfo.getEmployeeID(),
+      devicename: "",
+      group:[],
+      eimdevicetype:[]
     }
     // 得到设备信息！
     this.http.callRPC('device', this.GETTABLE, colmun).subscribe((res)=>{
@@ -321,6 +325,10 @@ export class TestTaskManageComponent implements OnInit {
       end: '2020-11-21',
       offset: offset,
       limit: limit,
+      employeeid:this.userinfo.getEmployeeID(),
+      devicename: "",
+      group:[],
+      eimdevicetype:[]
     }
     // 得到员工信息！
     this.http.callRPC('deveice', this.GETTABLE, colmun).subscribe((res)=>{

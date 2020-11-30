@@ -1,11 +1,12 @@
-<nb-card style="width: 400px;    z-index:10000 !important" size="tiny" 
+<nb-card style="width: 400px;z-index:10000 !important;right: 40%;position: fixed;top: 40%;" size="tiny" 
     nbSpinnerStatus="danger"
     nbSpinnerSize="large"
     nbSpinnerMessage=""
 >
   <nb-card-header>
     <div class="row">
-      <div class="col-md-4">{{title}}</div>
+      <div class="col-md-4">提示</div>
+      <!-- <div class="col-md-4">{{title}}</div> -->
         <div class="col-md-6"></div>
         <div class="col-md-2" style="text-align: right;">
             <nb-icon icon="close-outline" style="cursor: pointer;" (click)="closedialog()"></nb-icon>
@@ -15,7 +16,8 @@
 
   <nb-card-body>
       <div style="margin-bottom: 12%;">
-        <i class="layui-icon layui-icon-tips" style="font-size: 20px; color: #ff9800;"></i>  {{content}}
+        <i class="layui-icon layui-icon-tips" style="font-size: 20px; color: #ff9800;"></i>  您的登录已失效，请重新登录
+        <!-- <i class="layui-icon layui-icon-tips" style="font-size: 20px; color: #ff9800;"></i>  {{content}} -->
       </div>
     <form class="layui-form" action="" lay-filter="tooltip">
         <div class="layui-form-item">

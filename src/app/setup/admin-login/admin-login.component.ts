@@ -5,7 +5,7 @@ import { Component, OnInit } from '@angular/core';
 
 import { Router } from '@angular/router';
 
-import {  salt, ssotoken, afterloginurl, LOGIN_API, INFO_API, LOGIN_INFO,SSOUSERINFO } from '../../appconfig';
+import {  salt, ssotoken, afterloginurl, LOGIN_API, INFO_API, LOGIN_INFO,SSOUSERINFO, MULU } from '../../appconfig';
 import { HttpserviceService } from '../../services/http/httpservice.service';
 import { HttpHeaders,HttpClient,  } from '@angular/common/http';
 
@@ -50,7 +50,10 @@ export class AdminLoginComponent implements OnInit {
     private http: HttpClient,
     private publicmethodService: PublicmethodService,
     private userInfoService: UserInfoService,
-  ) { }
+  ) {
+    // 删除之前的缓存
+    localStorage.removeItem(MULU);
+   }
 
   ngOnInit(): void {
     // 初始化界面时，检查是否记住密码？

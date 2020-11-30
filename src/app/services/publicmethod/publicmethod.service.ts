@@ -471,7 +471,7 @@ export class PublicmethodService {
       console.log("+++++++++++++++++++isdialg++++++++++++++++++++",isdialg)
       if (JSON.parse(isdialg)){
         localStorage.setItem("token_expired", 'false');
-        this.dialogService.open(ExpiredTokenComponent, { closeOnBackdropClick: false,} ).onClose.subscribe(
+        this.dialogService.open(ExpiredTokenComponent, { closeOnBackdropClick: false, autoFocus: true} ).onClose.subscribe(
           name=>{
             console.log("token已过期，是否重新登录？",name)
             if(name){

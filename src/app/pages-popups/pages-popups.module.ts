@@ -21,6 +21,8 @@ import { AndonComponent } from './andon-manage/andon/andon.component';
 import { ExpiredTokenComponent } from './token-diallog/expired-token/expired-token.component';
 import { NewMenuComponent } from './system-set/new-menu/new-menu.component';
 
+// Menu 导航菜单
+import { NzMenuModule } from 'ng-zorro-antd/menu';
 
 // DateComponent
 @NgModule({
@@ -42,6 +44,8 @@ import { NewMenuComponent } from './system-set/new-menu/new-menu.component';
     NbAutocompleteModule,// pages-popups 使用icon 
     NbSelectModule,
     FormsModule,
+
+    NzMenuModule, // menu
 
   ],
   exports: [

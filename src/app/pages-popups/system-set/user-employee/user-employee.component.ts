@@ -311,12 +311,15 @@ export class UserEmployeeComponent implements OnInit {
           // -------------------------------------------
           console.log("提交修改的",  send_data_list) //被执行事件的元素DOM对象，一般为button对象
           // 更新修改的数据！ update_employee
-          // 会话过期
-          that.publicservice.session_expiration().subscribe(result=>{
-            if (result){
-              that.getsecurity("employee", "update_employee",send_data_list).subscribe((res)=>{
-                console.log("更新修改的数据！ update_employee>>>>>>>>>>>>>>>>>>>>>>",res)
-                var res_ = res["result"]["message"][0];
+         
+          // that.getsecurity("employee", "update_employee",send_data_list).subscribe((res)=>{
+            
+          // })
+          that.http.callRPC("employee", "update_employee",send_data_list).subscribe(result=>{
+            that.publicservice.session_expiration().subscribe(results=>{
+              if (results){
+                console.log("更新修改的数据！ update_employee>>>>>>>>>>>>>>>>>>>>>>",result)
+                var res_ = result["result"]["message"][0];
                 switch (res_["code"]) {
                   case 401:
                     that.editdanger("会话结束")
@@ -334,13 +337,12 @@ export class UserEmployeeComponent implements OnInit {
                     that.dialogRef.close(false)
                     that.RecordOperation( 0, "编辑用户",String(res_["message"]))
                     break;
-    
+      
                 }
-                
-              })
 
-            }
-          });
+              }
+            })
+          })
           return false;
         }else{
           console.log("employeegroupinput》》》》》》》》》》》》》》", data.field)
@@ -401,10 +403,9 @@ export class UserEmployeeComponent implements OnInit {
             that.RecordOperation(0, '新增用户', '警告:没有选择角色')
           }
           else{
-            // 会话过期
-            this.publicmethod.session_expiration().subscribe(result=>{
-              if(result){
-                that.getsecurity("employee", "insert_employee", send_data_list).subscribe((result)=>{
+            that.http.callRPC("employee", "update_employee",send_data_list).subscribe(result=>{
+              that.publicservice.session_expiration().subscribe(results=>{
+                if (results){
                   var res_ = result['result']["message"][0]["code"];
                   switch (res_) {
                     case 401:
@@ -429,10 +430,12 @@ export class UserEmployeeComponent implements OnInit {
                       break;
                   }
                   
-                })
-
-              }
+                }
+              })
             })
+            // that.getsecurity("employee", "insert_employee", send_data_list).subscribe((result)=>{
+              
+            // })
           }
        
           return false; //阻止表单跳转。如果需要表单跳转，去掉这段即可。
@@ -468,9 +471,15 @@ export class UserEmployeeComponent implements OnInit {
     
     return new Observable((res)=>{
       this.http.callRPC(table, method, colums).subscribe((result)=>{
+         // 会话过期
+         this.publicservice.session_expiration().subscribe(result=>{
+          if (result){
+            res.next(result)
+          }
+        });
         console.log("*************---------------------****************", result)
         
-        res.next(result)
+        // res.next(result)
       })
     })
   }

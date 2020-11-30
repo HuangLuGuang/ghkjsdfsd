@@ -6,10 +6,12 @@
     </a>
     <a class="logo" href="#" (click)="navigateHome()"><span id='title'>{{ 'TITLE' | translate  }}</span></a>
   </div>
-  <nb-select [(selected)]="currentTheme"  (selectedChange)="changeTheme($event)" status="primary">
+  <!-- <nb-select [(selected)]="currentTheme"  (selectedChange)="changeTheme($event)" status="primary">
     <nb-option  *ngFor="let theme of themes" [(value)]="theme.value "> {{ theme.name }}</nb-option>
-  </nb-select>
+  </nb-select> -->
 </div>
+
+
 
 <div class="header-container">
   <nb-select [selected]="currentLangue" (selectedChange)="changeLangue($event)" status="primary">

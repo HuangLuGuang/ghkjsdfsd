@@ -56,8 +56,8 @@ export class NewUserEmployeeComponent implements OnInit {
   constructor(private http: HttpserviceService, private userinfo: UserInfoService, private publicmethod: PublicmethodService,
     private dialogService: NbDialogService) { 
       // 会话过期
-      this.publicmethod.session_expiration().subscribe(result=>{
-        if (result){
+      this.publicmethod.session_expiration().subscribe(results=>{
+        if (results){
           this.http.callRPC('', 'sys_get_all_role_and_group', {}).subscribe(result=>{
             console.log("---result-----------------------------------------------", result);
             if (result["result"]["message"][0]["code"]===1){
@@ -251,23 +251,27 @@ export class NewUserEmployeeComponent implements OnInit {
             data_info  = '删除的用户id:' + id_str;
             console.log("要删除的数据:", rowdata)
             this.http.callRPC("employee", "sys_delete_employees",rowdata).subscribe(result=>{
-              this.publicmethod.session_expiration();// 会话过期
-              var res = result["result"]["message"][0];
-              switch (res["code"]) {
-                case 1:
-                  this.RecordOperation("删除用户", 1, data_info);
-                  this.success();
-                  this.gridData = [];
-                  this.loading = true;
-                  this.update_agGrid();
-                  this.loading = false;
-                  break;
-                default:
-                  var err_date = res["message"]
-                  this.RecordOperation("删除用户", 0, String(err_date))
-                  this.danger();
-                  break;
-              }
+              this.publicmethod.session_expiration().subscribe(results=>{
+                if (results){
+                  var res = result["result"]["message"][0];
+                  switch (res["code"]) {
+                    case 1:
+                      this.RecordOperation("删除用户", 1, data_info);
+                      this.success();
+                      this.gridData = [];
+                      this.loading = true;
+                      this.update_agGrid();
+                      this.loading = false;
+                      break;
+                    default:
+                      var err_date = res["message"]
+                      this.RecordOperation("删除用户", 0, String(err_date))
+                      this.danger();
+                      break;
+                  }
+
+                }
+              });// 会话过期
             })
             throw 'error, 删除失败！'
           
@@ -288,7 +292,7 @@ export class NewUserEmployeeComponent implements OnInit {
     }
     switch (rowdata.length) {
       case 1:
-        this.dialogService.open(UserEmployeeComponent, {closeOnBackdropClick: false,context: { rowdata: JSON.stringify(rowdata[0])} }).onClose.subscribe(istrue=>{
+        this.dialogService.open(UserEmployeeComponent, {closeOnBackdropClick: false, autoFocus: true,context: { rowdata: JSON.stringify(rowdata[0])} }).onClose.subscribe(istrue=>{
           if(istrue){
             this.gridData = [];
             this.loading = true;
@@ -298,7 +302,7 @@ export class NewUserEmployeeComponent implements OnInit {
         })
         break;
       default: // EditDelTooltipComponent
-        this.dialogService.open(EditDelTooltipComponent, { closeOnBackdropClick: false,context: { title: '提示', content:   `请选择一行数据！`}} ).onClose.subscribe(
+        this.dialogService.open(EditDelTooltipComponent, { closeOnBackdropClick: false, autoFocus: true,context: { title: '提示', content:   `请选择一行数据！`}} ).onClose.subscribe(
           istrue=>{
             // console.log("----name-----", name)
           }
@@ -321,24 +325,28 @@ export class NewUserEmployeeComponent implements OnInit {
       this.gridData = [];
       this.loading = true;
       this.http.callRPC('employee', 'sys_search_employee', columns).subscribe(result=>{
-        this.publicmethod.session_expiration();// 会话过期
-        var res = result['result']['message'][0];
-        this.loading = false;
-        if(res["code"]===1){
-          var message = res["message"];
-          this.gridData.push(...message)
-          this.tableDatas.rowData = this.gridData;
-          var totalpagenumbers = res['numbers']? res['numbers'][0]['numbers']: '未得到总条数';
-          this.tableDatas.totalPageNumbers = totalpagenumbers;
-          this.agGrid.update_agGrid(this.tableDatas); // 告诉组件刷新！
-          this.RecordOperation("搜索", 1, '搜索用户(域账号):' + loginname);
-          if (message.length < 1){
-            this.searchdanger(loginname)
+        this.publicmethod.session_expiration().subscribe(results=>{
+          if (results){
+
+            var res = result['result']['message'][0];
+            this.loading = false;
+            if(res["code"]===1){
+              var message = res["message"];
+              this.gridData.push(...message)
+              this.tableDatas.rowData = this.gridData;
+              var totalpagenumbers = res['numbers']? res['numbers'][0]['numbers']: '未得到总条数';
+              this.tableDatas.totalPageNumbers = totalpagenumbers;
+              this.agGrid.update_agGrid(this.tableDatas); // 告诉组件刷新！
+              this.RecordOperation("搜索", 1, '搜索用户(域账号):' + loginname);
+              if (message.length < 1){
+                this.searchdanger(loginname)
+              }
+            }else{
+              var data_info = res["message"];
+              this.RecordOperation("搜索", 0, '搜索用户(域账号):' + String(data_info));
+            }
           }
-        }else{
-          var data_info = res["message"];
-          this.RecordOperation("搜索", 0, '搜索用户(域账号):' + String(data_info));
-        }
+        });// 会话过期
       })
       
     }else{
@@ -386,10 +394,10 @@ export class NewUserEmployeeComponent implements OnInit {
       offset: offset, 
       limit: limit,
     }
-    // 会话过期
-    this.publicmethod.session_expiration().subscribe(result=>{
-      if (result){
-        this.http.callRPC(this.TABLE, this.METHOD, columns).subscribe((result)=>{
+    this.http.callRPC(this.TABLE, this.METHOD, columns).subscribe((result)=>{
+      // 会话过期
+      this.publicmethod.session_expiration().subscribe(results=>{
+        if (results){
           console.log("tabledata: ", result)
           var tabledata = result['result']['message'][0]
           console.log("tabledata", tabledata);
@@ -408,11 +416,9 @@ export class NewUserEmployeeComponent implements OnInit {
           }else{
             this.RecordOperation('查看', 0, "用户管理")
           }
-        })
-
-      }
-
-    });
+        }
+      });
+    })
 
 
   }
@@ -433,10 +439,10 @@ export class NewUserEmployeeComponent implements OnInit {
       limit: limit,
       loginname: loginname
     }
-    // 会话过期
-    this.publicmethod.session_expiration().subscribe(result=>{
-      if (result){
-        this.http.callRPC(this.TABLE, this.METHOD, columns).subscribe((result)=>{
+    this.http.callRPC(this.TABLE, this.METHOD, columns).subscribe((result)=>{
+      // 会话过期
+      this.publicmethod.session_expiration().subscribe(results=>{
+        if (results){
           console.log("update----------------->tabledata: ", result)
           var tabledata = result['result']['message'][0]
           console.log("tabledata", tabledata);
@@ -458,11 +464,10 @@ export class NewUserEmployeeComponent implements OnInit {
             console.log("更新tabel失败！", tabledata);
             this.RecordOperation('更新', 0, "用户管理")
           }
-        })
-
-      }
-
-    });
+        }
+      });
+    })
+    
   }
 
   // nzpageindexchange 页码改变的回调
@@ -578,21 +583,25 @@ export class NewUserEmployeeComponent implements OnInit {
       const method = 'insert_employee_list';
       try {
         this.http.callRPC(table, method, datas).subscribe((result)=>{
-          this.publicmethod.session_expiration();// 会话过期
-          console.log("插入设备数据：", result)
-          const status = result['result']["message"][0]['code'];
-          if (status === 1){
-            this.RecordOperation("导入", 1, "用户管理");
-            this.importsuccess();
-            observale.next(true)
-          }else{
-            var data_info = result['result']["message"][0]["message"];
-            console.log("------------------->",data_info)
-            this.RecordOperation("导入", 0, String(data_info));
-            this.importSuccess(result['result']["message"][0]["message"])
-            observale.next(false)
-            throw `error,`+status
-          }
+          this.publicmethod.session_expiration().subscribe(results=>{
+            if (results){
+              console.log("插入设备数据：", result)
+              const status = result['result']["message"][0]['code'];
+              if (status === 1){
+                this.RecordOperation("导入", 1, "用户管理");
+                this.importsuccess();
+                observale.next(true)
+              }else{
+                var data_info = result['result']["message"][0]["message"];
+                console.log("------------------->",data_info)
+                this.RecordOperation("导入", 0, String(data_info));
+                this.importSuccess(result['result']["message"][0]["message"])
+                observale.next(false)
+                throw `error,`+status
+              }
+
+            }
+          });// 会话过期
         })
         
         

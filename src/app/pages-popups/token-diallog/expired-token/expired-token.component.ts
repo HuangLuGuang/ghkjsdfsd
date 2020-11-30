@@ -23,7 +23,12 @@ export class ExpiredTokenComponent implements OnInit,OnDestroy {
   content = "您的登录已失效，请重新登录";
 
   ngAfterViewInit(){
+    this.title = "提示";
+    this.content = "您的登录已失效，请重新登录";
     this.commit();
+    // 模拟鼠标点击
+    var obj = document.getElementsByClassName('col-md-6');
+    // obj.click();
     
   }
 
