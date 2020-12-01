@@ -3,7 +3,6 @@ import { Observable } from 'rxjs';
 import { HttpserviceService } from '../../../../services/http/httpservice.service';
 import { PublicmethodService } from '../../../../services/publicmethod/publicmethod.service';
 import { UserInfoService } from '../../../../services/user-info/user-info.service';
-import { ManKpiReport2Service } from '../man-hour-kpi-report2.service';
 
 import { TableDetailComponent } from './table-detail/table-detail.component';
 
@@ -47,6 +46,8 @@ export class ManKpiTableComponent implements OnInit {
     private userinfo: UserInfoService,
     private publicservice: PublicmethodService
     ) {
+      // 会话过期
+      localStorage.removeItem("alert401flag");
       // 选择框
       this.get_tree_selecetdata();
    }
@@ -218,20 +219,8 @@ export class ManKpiTableComponent implements OnInit {
       { field: 'placeon', headerName: '占位时长(h)', resizable: true, minWidth: 10}, // 自定义设备编号！
       { field: 'warning', headerName: '维保时长(h)', resizable: true, minWidth: 10},
       // { field: 'belonged', headerName: '负责人', resizable: true, minWidth: 10},
-      { field: 'option', headerName: '报表详情', resizable: true, minWidth: 10,pinned: 'right',cellRendererFramework: TableDetailComponent},
-      // 这个是跳转到详情kpi的 https://www.ag-grid.com/javascript-grid-cell-rendering-components/  
-      // {
-      //   field: 'option', 
-      //   headerName: '报表详情', 
-      //   resizable: true, 
-      //   minWidth: 10,
-      //   pinned: 'right',
-      //   cellRenderer: function(params){
-      //     var div = document.createElement('div');
-      //     div.innerHTML = `<a href=${params.value} style="text-decoration: blink;" id="btn-simple">设备详情</a>`
-      //     return div
-      //   }
-      // }
+      { field: 'option', headerName: '报表详情', resizable: true, minWidth: 10,pinned: 'right',cellRendererFramework: TableDetailComponent,width:100},
+
 
     ],
     rowData: [ // data

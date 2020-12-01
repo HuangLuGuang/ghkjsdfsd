@@ -1,6 +1,5 @@
 import { Component, OnDestroy, OnInit,ViewChild } from '@angular/core';
 
-import { menu_button_list } from '../../../appconfig';
 import { HttpserviceService } from '../../../services/http/httpservice.service';
 import { PublicmethodService } from '../../../services/publicmethod/publicmethod.service';
 import { UserInfoService } from '../../../services/user-info/user-info.service';
@@ -16,7 +15,8 @@ export class OperationLogComponent implements OnInit, OnDestroy {
   @ViewChild("agGrid") agGrid: any;
 
   constructor(private publicmethod: PublicmethodService, private http: HttpserviceService, private userinfo: UserInfoService) {
-   }
+    localStorage.removeItem("alert401flag");
+  }
   button; // 权限button
   loading = false;  // 加载
   refresh = false; // 刷新tabel
@@ -111,10 +111,12 @@ export class OperationLogComponent implements OnInit, OnDestroy {
       offset: offset, 
       limit: limit,
     }
+    
     this.http.callRPC('sys_security_log', 'get_sys_transaction_log', columns).subscribe((res)=>{
+      // 会话过期
+      
       var get_sys_transaction_log = res['result']['message'][0]
       if (get_sys_transaction_log["code"]===1){
-        this.loading = false;
         var message = get_sys_transaction_log['message'];
         var totalpagenumbers = get_sys_transaction_log['numbers'][0]['numbers'];
         this.tableDatas.totalPageNumbers = totalpagenumbers;
@@ -129,11 +131,14 @@ export class OperationLogComponent implements OnInit, OnDestroy {
         // 刷新table后，改为原来的！
         this.tableDatas.isno_refresh_page_size = false;
         this.RecordOperation(1, '查看', "操作日志");
+        this.loading = false;
       }else{
         this.RecordOperation(0, '查看', "操作日志");
       }
+      
     })
   }
+
   
   // 更新 表
   update_agGrid(event?){

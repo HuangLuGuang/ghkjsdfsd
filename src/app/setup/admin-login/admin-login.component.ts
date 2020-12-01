@@ -51,8 +51,7 @@ export class AdminLoginComponent implements OnInit {
     private publicmethodService: PublicmethodService,
     private userInfoService: UserInfoService,
   ) {
-    // 删除之前的缓存
-    localStorage.removeItem(MULU);
+    
    }
 
   ngOnInit(): void {

@@ -104,6 +104,8 @@ export class MySelectTreeComponent implements OnInit {
     this.placeholder_title = this.placeholder;
     console.log("****this.placeholder_title************>>>>>",this.placeholder_title);
     $("[name='title']").attr("placeholder", this.placeholder_title);
+
+    $(".tree_isShow").hide();
   }
   
   // 下拉树示例
@@ -114,7 +116,7 @@ export class MySelectTreeComponent implements OnInit {
     if(data.length >0){
       $(".tree_isShow").show()
     }else{
-      $(".tree_isShow").hide()
+      // $(".tree_isShow").hide()
     }
     var el5;
     layui.use(['eleTree',],function(){

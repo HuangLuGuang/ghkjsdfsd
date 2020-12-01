@@ -160,17 +160,43 @@ export class RoleComponent implements OnInit {
             data.field["visible"] = "off"
           }
           console.log("------------新增角色-----------", data.field);
-          var is_success = confirm(data.field, userinfo,http,that);
-          if (is_success){
-            dialogRef.close(true);
-            // 刷新界面
-            localStorage.removeItem(SYSROLE);
-            success(publicservice);
-            
-            return false;
-          }else{
-            danger(publicservice);
-          }
+          // var is_success = confirm(data.field, userinfo,http,that,publicservice);
+
+          console.log("修改--确认",data,userinfo.getName());
+          const colums = {
+            role: data.field["role"],
+            role_name: data.field["role_name"],
+            active: data.field["visible"] === "on"? 1: 0,
+            roledetail: data.field["remark"],
+            // 角色添加只有管理员可以，
+            createdby: userinfo.getName()
+          };
+          console.log("---colums--",colums)
+          const table = "role";
+          const method = 'insert_role';
+          http.callRPC(table, method, colums).subscribe((result)=>{
+            const baseData = result['result']['message'][0];
+            console.log("delete_role", baseData);
+            if (baseData["code"] === 1){
+              var option = "新增角色";
+              var infodata = '角色名称(en):' + data["role"] + ',' + '角色名称:' + data["role_name"];
+              that.RecordOperation(option, 1,infodata);
+              dialogRef.close(true);
+              // 刷新界面
+              localStorage.removeItem(SYSROLE);
+              success(publicservice);
+              // return false;
+            }else{
+              var option = "新增角色";
+              var infodata = '角色名称(en):' + data["role"] + ',' + '角色名称:' + data["role_name"];
+              that.RecordOperation(option, 0,infodata);
+              dialogRef.close(false);
+              danger(publicservice);
+
+            }
+          })
+          return false;
+
         }
 
       });
@@ -190,7 +216,7 @@ export class RoleComponent implements OnInit {
   }
   
   // 确定
-  confirm(data, userinfo,http,that){
+  confirm(data, userinfo,http,that,publicservice){
     console.log("修改--确认",data,userinfo.getName());
     const colums = {
       role: data["role"],
@@ -204,21 +230,22 @@ export class RoleComponent implements OnInit {
     const table = "role";
     const method = 'insert_role';
     http.callRPC(table, method, colums).subscribe((result)=>{
+      // 会话过期
       const baseData = result['result']['message'][0];
       console.log("delete_role", baseData);
       if (baseData["code"] === 1){
         var option = "新增角色";
         var infodata = '角色名称(en):' + data["role"] + ',' + '角色名称:' + data["role_name"];
         that.RecordOperation(option, 1,infodata)
+        return true
       }else{
         var option = "新增角色";
         var infodata = '角色名称(en):' + data["role"] + ',' + '角色名称:' + data["role_name"];
         that.RecordOperation(option, 0,infodata)
-
+        return false
       }
       
     })
-
     
     return true
   }

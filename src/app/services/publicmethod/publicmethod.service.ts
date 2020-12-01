@@ -7,7 +7,7 @@ import { PlatformLocation } from '@angular/common';
 import { observable, Observable } from 'rxjs';
 import { HttpserviceService } from '../http/httpservice.service';
 import { HttpHeaders } from '@angular/common/http';
-import { loginurl,INFO_API,SYSMENU, ssotoken, menu_button_list} from '../../appconfig';
+import { loginurl,INFO_API,SYSMENU, ssotoken, menu_button_list, MULU} from '../../appconfig';
 import {DatePipe} from '@angular/common';  
 
 
@@ -97,6 +97,7 @@ export class PublicmethodService {
         const table = "menu_item";
         const method = "get_systemset_menu_all";
         this.httpservice.callRPC(table, method, colums).subscribe((result)=>{
+          // 会话过期
           const baseData = result['result']['message'][0];
           if (baseData != "T"){
             var menu = this.dataTranslation(baseData);
@@ -113,24 +114,9 @@ export class PublicmethodService {
               }
             }
           }
+          
         })
       });
-      // if (sysmenu.length == 0){
-      // }else{
-        
-      //   for (const i in this.location){
-      //     if (i === 'location'){
-      //       sysmenu.forEach(element => {
-              
-      //         if (element["link"] === this.location[i].pathname){
-      //           observe.next(element)
-      //         }
-      //       })
-            
-      //     }
-      //   }
-      // }
-
 
     });
   }
@@ -247,7 +233,6 @@ export class PublicmethodService {
     var token = JSON.parse(localStorage.getItem(ssotoken))? JSON.parse(localStorage.getItem(ssotoken)): false;
     var opts;
     if (token){
-      console.log("public 得到getmenu-  返回的是用户角色！", token);
       opts = {
         headers: new HttpHeaders({
           'Authorization': 'Bearer ' + token.token  // tslint:disable-line:object-literal-key-quotes
@@ -257,25 +242,22 @@ export class PublicmethodService {
         this.httpservice.get(INFO_API, opts)
         .subscribe(
           userInfo=>{
-          var roles_list = [];
-          console.log("userInfo  =======================", userInfo);
-          if (userInfo["result"]){
-            
-          }else{
-            if (userInfo['userInfo']['roles']) {
-              console.log("*********************\t\t\t",userInfo['userInfo'])
-              const roles = userInfo['userInfo']["roles"];
-              roles.forEach(role => {
-                roles_list.push(role["roleid"]);
-              });
-              observe.next(roles_list)
-            } else {
-              this.toastr({position: 'top-right', status: 'danger', conent:"当前用户菜单权限不足，请联系管理员添加权限！"});
-              observe.next(roles_list)
+            var roles_list = [];
+            if (userInfo["result"]){
+            }else{
+              if (userInfo['userInfo']['roles']) {
+                console.log("*********************\t\t\t",userInfo['userInfo'])
+                const roles = userInfo['userInfo']["roles"];
+                roles.forEach(role => {
+                  roles_list.push(role["roleid"]);
+                });
+                observe.next(roles_list)
+              } else {
+                this.toastr({position: 'top-right', status: 'danger', conent:"当前用户菜单权限不足，请联系管理员添加权限！"});
+                observe.next(roles_list)
+              }
             }
-
-          }
-          
+            
         },error=>{
           alert("err")
           console.warn("userInfo 》》》》》》error",error)
@@ -475,6 +457,8 @@ export class PublicmethodService {
             console.log("token已过期，是否重新登录？",name)
             if(name){
               localStorage.removeItem(ssotoken);
+              // 删除之前的缓存
+              localStorage.removeItem(MULU);
               location.href = loginurl;
               // this.router.navigate([loginurl])
               // localStorage.removeItem('token_expired');
@@ -487,4 +471,6 @@ export class PublicmethodService {
       }
     })
   }
+
 }
+

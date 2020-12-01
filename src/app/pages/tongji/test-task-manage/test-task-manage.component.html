@@ -1,11 +1,15 @@
 
 
-<div class="row">
-    <div class="col-md-12" >
+<div class="row" style="margin: 0 -11px;">
+    <div class="col-md-12"  style="padding: 0 11px;">
         <nb-card>
+            <nb-card-header style="font-size: small;">
+                试验任务管理
+            </nb-card-header>
+
             <nb-card-body>
                 <!-- button -->
-                <div class="row"  style="margin-bottom: 20px;">
+                <div class="row" >
                     <div class="col-md-10">
                         <div class="row">
                             <!-- 设备名称 devicename --> 
@@ -78,7 +82,13 @@
                     </div>
                     
                 </div>
-                <ngx-ag-table #ag_Grid   (nzpageindexchange)="nzpageindexchange_ag($event)"></ngx-ag-table>
+                <div class="row" >
+                    <div class="col-md-12">
+                        <ngx-ag-table #ag_Grid   (nzpageindexchange)="nzpageindexchange_ag($event)"></ngx-ag-table>
+                        
+
+                    </div>
+                </div>
             </nb-card-body>
         </nb-card>
     </div>

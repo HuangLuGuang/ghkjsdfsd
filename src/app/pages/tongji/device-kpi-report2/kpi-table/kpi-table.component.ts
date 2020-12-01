@@ -34,6 +34,9 @@ export class KpiTableComponent implements OnInit {
   constructor(private publicservice: PublicmethodService, private http: HttpserviceService, 
     private deviceservice: DeviceKpiReport2Service, private router: Router,
     private userinfo: UserInfoService) { 
+
+    // 会话过期
+    localStorage.removeItem("alert401flag");
     // 选择框
     this.get_tree_selecetdata();
   }
@@ -201,13 +204,12 @@ export class KpiTableComponent implements OnInit {
       { field: 'devicename', headerName: '设备名称', headerCheckboxSelection: true, checkboxSelection: true, autoHeight: true, fullWidth: true, minWidth: 50,resizable: true, },
       { field: 'deviceid', headerName: '设备id',  resizable: true, minWidth: 10},
       { field: 'groups', headerName: '试验室', resizable: true, minWidth: 10},
-      
-      { field: 'CustomTime', headerName: '自定义统计时间(默认最近一周)', 
-        children:[
-          { field: 'starttime', headerName: '开始时间', resizable: true},
-          { field: 'endtime', headerName: '结束时间', resizable: true},
-        ]
-      },
+      // { field: 'CustomTime', headerName: '自定义统计时间(默认最近一周)', 
+      //   children:[
+      //   ]
+      // },
+      { field: 'starttime', headerName: '开始时间', resizable: true},
+      { field: 'endtime', headerName: '结束时间', resizable: true},
 
 
       { field: 'sumruntime', headerName: '累计运行时长(h)', resizable: true, minWidth: 10},
@@ -216,7 +218,7 @@ export class KpiTableComponent implements OnInit {
       { field: 'ratetime', headerName: '开动率(%)', resizable: true, minWidth: 10}, // 自定义设备编号！
       { field: 'andenstatus', headerName: '实时安灯状态', resizable: true, minWidth: 10},
       // 这个是跳转到详情kpi的 https://www.ag-grid.com/javascript-grid-cell-rendering-components/
-      { field: 'option', headerName: '详情', resizable: true, minWidth: 10, cellRendererFramework: TableDetailComponent, pinned: 'right'},
+      { field: 'option', headerName: '详情', resizable: true, minWidth: 10, cellRendererFramework: TableDetailComponent, pinned: 'right',width:100,},
       // {
       //   field: 'option', 
       //   headerName: '详情', 

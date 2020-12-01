@@ -38,10 +38,11 @@ export class PagesComponent {
     private router: Router){
     // 先注释了
     // this.RecordLogin();
+    this.loadMenu();
   }
     
   ngOnInit() {
-    this.loadMenu();
+    // this.loadMenu();
   }
 
   ngOnDestory(){
@@ -64,43 +65,6 @@ export class PagesComponent {
           const method = "get_menu_by_roles";
           this.httpservice.callRPC(table, method, colums).subscribe((result)=>{
             const baseData = result['result']['message'][0];
-  
-            
-            // 得到具有的按钮列表 ------------------------------
-            var button_list = [];
-            baseData.forEach(element => {
-              if (element["type"] === 2 ){
-                var method = element["permission"].split(":")[1];
-                // info success warning danger  primary
-                switch (method) {
-                  case 'add':
-                    element['class']="info"
-                  break;
-                  case 'del':
-                    element['class']="danger"
-                    break;
-                  case 'edit':
-                    element['class']="warning"
-                    break;
-                  case 'query':
-                    element['class']="success"
-                    break;
-                  case 'import':
-                    element['class']="primary"
-                    break;
-                  case 'download':
-                    element['class']="primary"
-                    break;
-                }
-                button_list.push(element);
-              }
-            });
-            console.log("按钮=====================", button_list)
-            localStorage.setItem(menu_button_list, JSON.stringify(button_list));
-            // 得到具有的按钮列表 ------------------------------
-  
-  
-  
             if (baseData === "T"){
               console.log("?????????????????", baseData)
             }else{
@@ -111,20 +75,14 @@ export class PagesComponent {
                   baseData.splice(index, 1);
                 }
               });
-              console.log("------菜单--目录2222222222：", baseData)
-  
-    
               var menu = this.dataTranslation(baseData);
               localStorage.setItem("mulu", JSON.stringify(menu));
               localStorage.setItem("mulu_language", localStorage.getItem('currentLanguage'));
-    
               this.menu = menu
-  
-             
-  
+              // this.menu.push(...menu)
+              // this.menuservice.addItems(this.menu, 'menu');
             }
           })
-  
           // get_systemset_menu_all  得到系统设置所有要的菜单！
           this.httpservice.callRPC("menu_item", "get_systemset_menu_all", colums).subscribe((result)=>{
             const baseData = result['result']['message'][0];
@@ -132,15 +90,12 @@ export class PagesComponent {
               // 得到sysmenu ----------------------------------
               var sysmenu = this.menuTranslation(baseData);
               localStorage.setItem(SYSMENU, JSON.stringify(sysmenu));
-  
               // 得到sysmenu ----------------------------------
             }
           });
-
         }else{
           this.router.navigate([loginurl]);
         }
-  
       });
     }else{
       this.menuservice.addItems(mulu, 'menu');

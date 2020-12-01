@@ -36,6 +36,9 @@ export class DeviceManageComponent implements OnInit {
   constructor(private publicservice: PublicmethodService, private dialogService: NbDialogService, private http: HttpserviceService, private userinfo: UserInfoService) { 
     // 初始化 科室/功能组(groups)，eim设备类型(eimdevicetpyedata)  dev_get_device_groups
     
+    // 会话过期
+    localStorage.removeItem("alert401flag");
+    
     this.get_tree_selecetdata();
 
   }
@@ -73,7 +76,7 @@ export class DeviceManageComponent implements OnInit {
   ngOnInit(): void {
     // agGrid
     var that = this;
-    this.active = { field: 'action', headerName: '操作', cellRendererFramework: ActionComponent, pinned: 'right',resizable: true,flex: 1,
+    this.active = { field: 'action', headerName: '操作', cellRendererFramework: ActionComponent, pinned: 'right',resizable: true,flex: 1,width:100,
       cellRendererParams: {
         clicked: function(data: any) {
           if (data["active"]==='edit'){

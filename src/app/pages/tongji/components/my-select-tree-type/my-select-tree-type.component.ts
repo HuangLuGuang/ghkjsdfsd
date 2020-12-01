@@ -23,6 +23,8 @@ export class MySelectTreeTypeComponent implements OnInit {
     this.placeholder_title_type = this.placeholder;
     console.log("****this.placeholder_title_type************>>>>>",this.placeholder_title_type);
     $("[name='title_type']").attr("placeholder", this.placeholder_title_type);
+
+    $(".tree_type_isShow").hide()
   }
   
   // 下拉树示例
@@ -32,7 +34,7 @@ export class MySelectTreeTypeComponent implements OnInit {
     if(data.length >0){
       $(".tree_type_isShow").show()
     }else{
-      $(".tree_type_isShow").hide()
+      // $(".tree_type_isShow").hide()
     }
     var that = this;
     var el5;

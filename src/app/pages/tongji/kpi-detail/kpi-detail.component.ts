@@ -12,6 +12,8 @@ export class KpiDetailComponent implements OnInit {
   // 得到出入的数据 kpi_for_detail
   kpi_for_detail;
   constructor( ) {
+    // 会话过期
+    localStorage.removeItem("alert401flag");
     this.kpi_for_detail = JSON.parse(localStorage.getItem("kpi_for_detail"));
    }
 

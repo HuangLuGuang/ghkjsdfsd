@@ -13,7 +13,10 @@ export class GocronComponent implements OnInit {
 
   constructor( private httpservice: HttpserviceService,
                 private http: HttpClient,
-                private dialogService: NbDialogService) { }
+                private dialogService: NbDialogService) {
+                  // 会话过期
+                  localStorage.removeItem("alert401flag");
+                 }
   nzTabPosition = 'task'; // 默认进入任务定时
   listTaskData = [] ;
   listTaskNodeData = [] ;

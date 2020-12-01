@@ -13,7 +13,8 @@ export class SecurityLogComponent implements OnInit {
 
   constructor(private http: HttpserviceService, private publicmethod: PublicmethodService, private userinfo: UserInfoService) { 
 
-    
+    // 会话过期
+    localStorage.removeItem("alert401flag");
 
   }
 
@@ -141,8 +142,8 @@ export class SecurityLogComponent implements OnInit {
         this.RecordOperation(1, '查看', "安全日志");
       }else{
         this.RecordOperation(0, '查看', "安全日志");
-
       }
+      
     })
   }
   

@@ -45,7 +45,7 @@ export class NewUserEmployeeComponent implements OnInit {
       { field: 'groups_name', headerName: '科室/功能组', resizable: true,},
       { field: 'active', headerName: '是否启用', resizable: true, cellRendererFramework: TranActiveComponent,},
       { field: 'email', headerName: '邮箱', resizable: true,},
-      { field: 'lastsignondate', headerName: '更新时间', resizable: true,},
+      { field: 'lastsignondate', headerName: '更新时间', resizable: true,minWidth:10,},
     ],
     rowData: [ // data
     ]
@@ -56,24 +56,22 @@ export class NewUserEmployeeComponent implements OnInit {
   constructor(private http: HttpserviceService, private userinfo: UserInfoService, private publicmethod: PublicmethodService,
     private dialogService: NbDialogService) { 
       // 会话过期
-      this.publicmethod.session_expiration().subscribe(results=>{
-        if (results){
-          this.http.callRPC('', 'sys_get_all_role_and_group', {}).subscribe(result=>{
-            console.log("---result-----------------------------------------------", result);
-            if (result["result"]["message"][0]["code"]===1){
-              var roles_group =  result["result"]["message"][0];
-              localStorage.setItem("roles", JSON.stringify(roles_group["roles"]))
-              localStorage.setItem("groups", JSON.stringify(roles_group["groups"]))
-            }
-          })
+      localStorage.removeItem("alert401flag");
+      this.http.callRPC('', 'sys_get_all_role_and_group', {}).subscribe(result=>{
+        console.log("---result-----------------------------------------------", result);
+        if (result["result"]["message"][0]["code"]===1){
+          var roles_group =  result["result"]["message"][0];
+          localStorage.setItem("roles", JSON.stringify(roles_group["roles"]))
+          localStorage.setItem("groups", JSON.stringify(roles_group["groups"]))
         }
-      });
+      })
+      
   }
 
   ngOnInit(): void {
     // agGrid
     var that = this;
-    this.active = { field: 'action', headerName: '操作', cellRendererFramework: ActionComponent, pinned: 'right',resizable: true,flex: 1,
+    this.active = { field: 'action', headerName: '操作', cellRendererFramework: ActionComponent, pinned: 'right',resizable: true,flex: 1,width:100,
       cellRendererParams: {
         clicked: function(data: any) {
           if (data["active"]==='edit'){
@@ -97,7 +95,7 @@ export class NewUserEmployeeComponent implements OnInit {
     this.tableDatas.columnDefs.push(
       this.active
     )
-    
+
     this.inttable();
    
     
@@ -251,27 +249,22 @@ export class NewUserEmployeeComponent implements OnInit {
             data_info  = '删除的用户id:' + id_str;
             console.log("要删除的数据:", rowdata)
             this.http.callRPC("employee", "sys_delete_employees",rowdata).subscribe(result=>{
-              this.publicmethod.session_expiration().subscribe(results=>{
-                if (results){
-                  var res = result["result"]["message"][0];
-                  switch (res["code"]) {
-                    case 1:
-                      this.RecordOperation("删除用户", 1, data_info);
-                      this.success();
-                      this.gridData = [];
-                      this.loading = true;
-                      this.update_agGrid();
-                      this.loading = false;
-                      break;
-                    default:
-                      var err_date = res["message"]
-                      this.RecordOperation("删除用户", 0, String(err_date))
-                      this.danger();
-                      break;
-                  }
-
-                }
-              });// 会话过期
+              var res = result["result"]["message"][0];
+              switch (res["code"]) {
+                case 1:
+                  this.RecordOperation("删除用户", 1, data_info);
+                  this.success();
+                  this.gridData = [];
+                  this.loading = true;
+                  this.update_agGrid();
+                  this.loading = false;
+                  break;
+                default:
+                  var err_date = res["message"]
+                  this.RecordOperation("删除用户", 0, String(err_date))
+                  this.danger();
+                  break;
+              }
             })
             throw 'error, 删除失败！'
           
@@ -326,28 +319,23 @@ export class NewUserEmployeeComponent implements OnInit {
       this.gridData = [];
       this.loading = true;
       this.http.callRPC('employee', 'sys_search_employee', columns).subscribe(result=>{
-        this.publicmethod.session_expiration().subscribe(results=>{
-          if (results){
-
-            var res = result['result']['message'][0];
-            this.loading = false;
-            if(res["code"]===1){
-              var message = res["message"];
-              this.gridData.push(...message)
-              this.tableDatas.rowData = this.gridData;
-              var totalpagenumbers = res['numbers']? res['numbers'][0]['numbers']: '未得到总条数';
-              this.tableDatas.totalPageNumbers = totalpagenumbers;
-              this.agGrid.update_agGrid(this.tableDatas); // 告诉组件刷新！
-              this.RecordOperation("搜索", 1, '搜索用户(域账号):' + loginname);
-              if (message.length < 1){
-                this.searchdanger(loginname)
-              }
-            }else{
-              var data_info = res["message"];
-              this.RecordOperation("搜索", 0, '搜索用户(域账号):' + String(data_info));
-            }
+        var res = result['result']['message'][0];
+        this.loading = false;
+        if(res["code"]===1){
+          var message = res["message"];
+          this.gridData.push(...message)
+          this.tableDatas.rowData = this.gridData;
+          var totalpagenumbers = res['numbers']? res['numbers'][0]['numbers']: '未得到总条数';
+          this.tableDatas.totalPageNumbers = totalpagenumbers;
+          this.agGrid.update_agGrid(this.tableDatas); // 告诉组件刷新！
+          this.RecordOperation("搜索", 1, '搜索用户(域账号):' + loginname);
+          if (message.length < 1){
+            this.searchdanger(loginname)
           }
-        });// 会话过期
+        }else{
+          var data_info = res["message"];
+          this.RecordOperation("搜索", 0, '搜索用户(域账号):' + String(data_info));
+        }
       })
       
     }else{
@@ -379,7 +367,7 @@ export class NewUserEmployeeComponent implements OnInit {
 
   
   // 初始化table
-  inttable(event?, loginname?){
+  inttable(event?){
     
     var offset;
     var limit;
@@ -399,75 +387,73 @@ export class NewUserEmployeeComponent implements OnInit {
     }
     this.http.callRPC(this.TABLE, this.METHOD, columns).subscribe((result)=>{
       // 会话过期
-      this.publicmethod.session_expiration().subscribe(results=>{
-        if (results){
-          this.loading = true;
-          var tabledata = result['result']['message'][0]
-          if(tabledata["code"] === 1){
-            this.loading = false;
-            var message = tabledata["message"];
-            this.tableDatas.PageSize = PageSize;
-            this.gridData.push(...message)
-            this.tableDatas.rowData = this.gridData;
-            var totalpagenumbers = tabledata['numbers']? tabledata['numbers'][0]['numbers']: '未得到总条数';
-            this.tableDatas.totalPageNumbers = totalpagenumbers;
-            this.agGrid.init_agGrid(this.tableDatas); // 告诉组件刷新！
-            // 刷新table后，改为原来的！
-            this.tableDatas.isno_refresh_page_size = false;
-            this.RecordOperation('查看', 1,  "用户管理")
-          }else{
-            this.RecordOperation('查看', 0, "用户管理")
-          }
-        }
-      });
+      var tabledata = result['result']['message'][0]
+      if(tabledata["code"] === 1){
+        this.loading = true;
+        
+        var message = tabledata["message"];
+        this.tableDatas.PageSize = PageSize;
+        this.gridData.push(...message)
+        this.tableDatas.rowData = this.gridData;
+        var totalpagenumbers = tabledata['numbers']? tabledata['numbers'][0]['numbers']: '未得到总条数';
+        this.tableDatas.totalPageNumbers = totalpagenumbers;
+        this.agGrid.init_agGrid(this.tableDatas); // 告诉组件刷新！
+        // 刷新table后，改为原来的！
+        this.tableDatas.isno_refresh_page_size = false;
+        this.RecordOperation('查看', 1,  "用户管理");
+        this.loading = false;
+      }else{
+        this.RecordOperation('查看', 0, "用户管理")
+      }
+      
     })
 
 
   }
 
   // 更新数据
-  update_agGrid(event?, loginname?){
+  update_agGrid(event?){
     var offset;
     var limit;
+    var PageSize;
     if (event != undefined){
       offset = event.offset;
       limit = event.limit;
+      PageSize = event.PageSize? Number(event.PageSize):10;
     }else{
       offset = 0;
-      limit = 20;
+      limit = 10;
+      PageSize = 10;
     }
     var columns = {
       offset: offset, 
       limit: limit,
-      loginname: loginname
     }
     this.http.callRPC(this.TABLE, this.METHOD, columns).subscribe((result)=>{
       // 会话过期
-      this.publicmethod.session_expiration().subscribe(results=>{
-        if (results){
-          console.log("update----------------->tabledata: ", result)
-          var tabledata = result['result']['message'][0]
-          console.log("tabledata", tabledata);
-          if (tabledata["code"] === 1){
-            console.log("update 更新成功！");
-            // 发布组件，编辑用户的组件
-            var message = tabledata["message"];
-            this.gridData.push(...message)
-            this.tableDatas.rowData = this.gridData;
-            var totalpagenumbers = tabledata['numbers']? tabledata['numbers'][0]['numbers']: '未得到总条数';
-            this.tableDatas.totalPageNumbers = totalpagenumbers;
-            this.agGrid.update_agGrid(this.tableDatas); // 告诉组件刷新！
-            // 刷新table后，改为原来的！
-            this.tableDatas.isno_refresh_page_size = false;
-            
-            this.RecordOperation('更新', 1, "用户管理")
-          }else{
-            // 更新tabel失败！
-            console.log("更新tabel失败！", tabledata);
-            this.RecordOperation('更新', 0, "用户管理")
-          }
-        }
-      });
+      console.log("update----------------->tabledata: ", result)
+      var tabledata = result['result']['message'][0]
+      console.log("tabledata", tabledata);
+      if (tabledata["code"] === 1){
+        console.log("update 更新成功！");
+        // 发布组件，编辑用户的组件
+        this.tableDatas.PageSize = PageSize;
+        var message = tabledata["message"];
+        this.gridData.push(...message)
+        this.tableDatas.rowData = this.gridData;
+        var totalpagenumbers = tabledata['numbers']? tabledata['numbers'][0]['numbers']: '未得到总条数';
+        this.tableDatas.totalPageNumbers = totalpagenumbers;
+        this.agGrid.update_agGrid(this.tableDatas); // 告诉组件刷新！
+        // 刷新table后，改为原来的！
+        this.tableDatas.isno_refresh_page_size = false;
+        
+        this.RecordOperation('更新', 1, "用户管理")
+      }else{
+        // 更新tabel失败！
+        console.log("更新tabel失败！", tabledata);
+        this.RecordOperation('更新', 0, "用户管理")
+      }
+      
     })
     
   }
@@ -476,6 +462,7 @@ export class NewUserEmployeeComponent implements OnInit {
   nzpageindexchange(event){
     console.log("页码改变的回调", event);
     // this.loading = true;
+    this.gridData = [];
     this.inttable(event);
   }
 
@@ -585,25 +572,20 @@ export class NewUserEmployeeComponent implements OnInit {
       const method = 'insert_employee_list';
       try {
         this.http.callRPC(table, method, datas).subscribe((result)=>{
-          this.publicmethod.session_expiration().subscribe(results=>{
-            if (results){
-              console.log("插入设备数据：", result)
-              const status = result['result']["message"][0]['code'];
-              if (status === 1){
-                this.RecordOperation("导入", 1, "用户管理");
-                this.importsuccess();
-                observale.next(true)
-              }else{
-                var data_info = result['result']["message"][0]["message"];
-                console.log("------------------->",data_info)
-                this.RecordOperation("导入", 0, String(data_info));
-                this.importSuccess(result['result']["message"][0]["message"])
-                observale.next(false)
-                throw `error,`+status
-              }
-
-            }
-          });// 会话过期
+          console.log("插入设备数据：", result)
+          const status = result['result']["message"][0]['code'];
+          if (status === 1){
+            this.RecordOperation("导入", 1, "用户管理");
+            this.importsuccess();
+            observale.next(true)
+          }else{
+            var data_info = result['result']["message"][0]["message"];
+            console.log("------------------->",data_info)
+            this.RecordOperation("导入", 0, String(data_info));
+            this.importSuccess(result['result']["message"][0]["message"])
+            observale.next(false)
+            throw `error,`+status
+          }
         })
         
         
@@ -648,6 +630,7 @@ export class NewUserEmployeeComponent implements OnInit {
         phone:data["phoneno"],
       }
       after_datas.push(after_data_);
+      console.log("得到科室/功能组--角色之前！",data)
       var rids_list = this.handle_groups_and_roles(data, "role_name")
       var groups_list = this.handle_groups_and_roles(data, "groups_name")
       rids_list.forEach(item=>{
@@ -659,6 +642,7 @@ export class NewUserEmployeeComponent implements OnInit {
       console.log("===============after_datas==========>",after_datas);
       after_datas_role.push(after_datas)
       console.log("===============rids_list==========>",rids_list);
+      console.log("===============groups_list==========>",groups_list);
     });
     return after_datas_role
   }
@@ -679,7 +663,7 @@ export class NewUserEmployeeComponent implements OnInit {
       }else{
         var get_name = JSON.parse(localStorage.getItem("groups"));
         var key = "gids";
-        var key_name = "groups"
+        var key_name = "group"
         var id = "groupid"
       }
       var rids_list = [];
@@ -693,8 +677,8 @@ export class NewUserEmployeeComponent implements OnInit {
           }
         });
       });
+      console.log("names_____________reslult", names, rids_list);
       return rids_list
-      console.log("names_____________", rids_list);
   }
 
   // 验证每一行数据！ 验证excel导入的数据！
@@ -802,7 +786,8 @@ export class NewUserEmployeeComponent implements OnInit {
   // 验证 email 邮箱
   verify_email(email){
     // sql注入和特殊字符 special_str
-    var rex = /^[a-z0-9._%-]+@([a-z0-9-]+\.)+[a-z]{2,4}$|^1[3|4|5|7|8]\d{9}$/;
+    // var rex = /^[a-z0-9._%-]+@([a-z0-9-]+\.)+[a-z]{2,4}$|^1[3|4|5|7|8]\d{9}$/;
+    var rex = /^[a-z0-9._%-]+@([a-zA-Z0-9-]+\.)+[a-z]{2,4}$|^1[3|4|5|7|8]\d{9}$/;
     if (!rex.test(email)){
       return "邮箱格式不匹配！"
     }

@@ -84,7 +84,8 @@ export class RoleComponent implements OnInit {
   constructor(private http: HttpserviceService, private localstorageservice: LocalStorageService,
     private dialogService: NbDialogService, private datapipe: DatePipe, private publicservice: PublicmethodService, private userinfo: UserInfoService,
     private router: Router) { 
-    
+    // 会话过期
+    localStorage.removeItem("alert401flag");
     // 得到该页面下的button
     var roleid = this.userinfo.getEmployeeRoleID();
     this.publicservice.get_buttons_bypath(roleid).subscribe(result=>{
@@ -106,7 +107,7 @@ export class RoleComponent implements OnInit {
 
     // ====================================agGrid
       var that = this;
-      this.active = { field: 'action', headerName: '操作', cellRendererFramework: ActionComponent, pinned: 'right',
+      this.active = { field: 'action', headerName: '操作', cellRendererFramework: ActionComponent, pinned: 'right',width:100,
         cellRendererParams: {
           clicked: function(data: any) {
             if (data["active"]==='edit'){
@@ -408,11 +409,6 @@ export class RoleComponent implements OnInit {
     // console.log("这是 系统设置的  角色  界面！" )
     return new Observable((observe)=>{
       this.publicservice.getMenu().subscribe((data)=>{
-        var roles_ = roles === undefined ? data: roles;
-        var method_ = methods === undefined ? 'get_systemset_menu_all': methods;
-        // console.log("这是 系统设置的  角色  界面！", roles_, method_)
-        // console.log("这是 系统设置的  角色  界面！=================data", data, )
-
         const colums = {
           languageid: this.http.getLanguageID(),
           roles: data
@@ -430,11 +426,12 @@ export class RoleComponent implements OnInit {
             observe.next(treedata)
           });
         })
+        
       });
     })
   }
 
-  // 当点击角色是请求菜单
+  // 当点击角色行时请求菜单
   loadMenu2(roles, methods){
     // console.log("点击角色执行", roles, methods);
     localStorage.setItem("click_col_roles", roles);
@@ -462,6 +459,7 @@ export class RoleComponent implements OnInit {
         this.sysrolemenu_to_tree_v2(allmenu, selectmenu).subscribe((res)=>{
           observe.next(res)
         });
+        
       })
     })
     
@@ -675,6 +673,7 @@ export class RoleComponent implements OnInit {
             console.log("保存失败的原因：", result, result['result']['message'][0]);
             danger(publicservice);
           }
+          
           
         })
         return false;
@@ -964,9 +963,11 @@ export class RoleComponent implements OnInit {
         this.tableDatas.isno_refresh_page_size = false;
         this.RecordOperation('查看', 1, "角色管理");
       }else{
-        this.publicservice.showngxtoastr({position: 'toast-top-right', status: 'danger', conent:"得到角色失败" + baseData["message"]});
+        
+        this.publicservice.showngxtoastr({position: 'toast-top-right', status: 'danger', conent:"得到角色失败" });
         this.RecordOperation('更新', 0, "角色管理");
       }
+      
     })
     
   }
@@ -998,7 +999,7 @@ export class RoleComponent implements OnInit {
         this.tableDatas.isno_refresh_page_size = false;
         this.RecordOperation('更新', 1, "角色管理");
       }else{
-        this.publicservice.showngxtoastr({position: 'toast-top-right', status: 'danger', conent:"得到角色失败" + baseData["message"]});
+        this.publicservice.showngxtoastr({position: 'toast-top-right', status: 'danger', conent:"更新角色失败"});
         this.RecordOperation('更新', 0, "角色管理");
       }
     })

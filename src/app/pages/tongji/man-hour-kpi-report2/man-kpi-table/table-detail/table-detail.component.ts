@@ -8,7 +8,10 @@ import { ICellRendererAngularComp } from 'ag-grid-angular';
 })
 export class TableDetailComponent implements OnInit,ICellRendererAngularComp {
   private params: any;
-  constructor(private router:Router) { }
+  constructor(private router:Router) {
+    // 会话过期
+    localStorage.removeItem("alert401flag");
+   }
   url; // 设备详情的url
 
 

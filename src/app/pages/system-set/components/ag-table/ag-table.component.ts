@@ -8,6 +8,7 @@ import * as XLSX from 'xlsx';
 import { NbDialogService } from '@nebular/theme';
 import { UserInfoService } from '../../../../services/user-info/user-info.service';
 import { PublicmethodService } from '../../../../services/publicmethod/publicmethod.service';
+import { employee_action } from '../../../../appconfig';
 
 declare let $;
 
@@ -325,13 +326,17 @@ export class AgTableComponent implements OnInit {
     this.agGrid.api.refreshView();
     this.selectedRows = []; // 清除选择的行数据！
     this.rowData = tableDatas.rowData;
-    this.totalPageNumbers = tableDatas.rowData.length;
-
-    
+    // this.totalPageNumbers = tableDatas.rowData.length;
+    this.totalPageNumbers = tableDatas.totalPageNumbers;
 
     this.alltotalPageNumbers = tableDatas.totalPageNumbers; // 数据库中的总条数
     // this.agGrid.api.setRowData(this.rowData);
-    console.log("------------agGrid-------------", this.agGrid)
+    console.log("------------agGrid-------------", this.agGrid);
+    // 动态修改--每页的条数
+    if(tableDatas["isno_refresh_page_size"]){
+      this.PageSize = tableDatas["PageSize"];
+      this.setPageCount = Number(this.PageSize);
+    }
     this.agGrid.api.setRowData(this.rowData);
   }
 

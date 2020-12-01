@@ -25,6 +25,8 @@ export class GocronFormComponent implements OnInit {
               private RPCService: HttpserviceService,
               private dialogService: NbDialogService,
               private http: HttpClient) {
+                // 会话过期
+                localStorage.removeItem("alert401flag");
   }
 
   ngOnInit() {

@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { afterloginurl } from '../../appconfig';
+import { loginurl } from '../../appconfig';
 
 @Component({
   selector: 'ngx-not-found',
@@ -15,7 +15,7 @@ export class NotFoundComponent implements OnInit {
   }
 
   goToHome() {
-    this.router.navigate([afterloginurl])
+    this.router.navigate([loginurl])
   }
 
 }

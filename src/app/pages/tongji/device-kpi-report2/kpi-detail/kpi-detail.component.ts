@@ -19,6 +19,8 @@ export class KpiDetailComponent implements OnInit, OnDestroy {
     private publicservice: PublicmethodService, 
     private deviceservice: DeviceKpiReport2Service,
     private router: Router ) {
+    // 会话过期
+    localStorage.removeItem("alert401flag");
     this.kpi_for_detail = JSON.parse(localStorage.getItem("kpi_for_detail"));
   }
 

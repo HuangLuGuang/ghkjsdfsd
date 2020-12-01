@@ -23,7 +23,10 @@ export class GocronFormNodeComponent implements OnInit {
   constructor(private fb: FormBuilder,
               private RPCService: HttpserviceService,
               private dialogService: NbDialogService,
-              private http: HttpClient ) { }
+              private http: HttpClient ) {
+                // 会话过期
+                localStorage.removeItem("alert401flag");
+               }
 
   ngOnInit() {
     this.initForm();

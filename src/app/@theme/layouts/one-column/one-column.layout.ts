@@ -15,7 +15,7 @@ import { Component } from '@angular/core';
         <ng-content select="nb-menu"></ng-content>
       </nb-sidebar>
 
-      <nb-layout-column style="padding: 11px 20px;">
+      <nb-layout-column style="padding: 11px 11px;">
         <ng-content select="router-outlet"></ng-content>
       </nb-layout-column>
 

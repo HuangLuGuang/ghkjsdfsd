@@ -6,10 +6,11 @@ import { MiscellaneousComponent } from './miscellaneous.component';
 import { NotFoundComponent } from './not-found/not-found.component';
 import { NbButtonModule, NbCardModule, NbLayoutModule } from '@nebular/theme';
 import { ErrorPageComponent } from './error-page/error-page.component';
+import { ForbiddenComponent } from './forbidden/forbidden.component';
 
 
 @NgModule({
-  declarations: [MiscellaneousComponent, NotFoundComponent, ErrorPageComponent],
+  declarations: [MiscellaneousComponent, NotFoundComponent, ErrorPageComponent, ForbiddenComponent],
   imports: [
     CommonModule,
     MiscellaneousRoutingModule,

@@ -401,7 +401,7 @@ export class UserEmployeeComponent implements OnInit {
             that.RecordOperation(0, '新增用户', '警告:没有选择角色')
           }
           else{
-            that.http.callRPC("employee", "update_employee",send_data_list).subscribe(result=>{
+            that.http.callRPC("employee", "insert_employee",send_data_list).subscribe(result=>{
               that.publicservice.session_expiration().subscribe(results=>{
                 if (results){
                   var res_ = result['result']["message"][0]["code"];

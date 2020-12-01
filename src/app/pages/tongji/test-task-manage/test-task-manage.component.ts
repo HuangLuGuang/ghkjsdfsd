@@ -49,6 +49,8 @@ export class TestTaskManageComponent implements OnInit {
 
   constructor(private publicservice: PublicmethodService, private http: HttpserviceService,
     private userinfo: UserInfoService) { 
+    // 会话过期
+    localStorage.removeItem("alert401flag");
     // 选择框
     this.get_tree_selecetdata();
   }
@@ -234,9 +236,9 @@ export class TestTaskManageComponent implements OnInit {
     CellRender: {
       task_progress: "TaskProgressForAggridComponent",
     }, // 这是单元格要渲染的 组件！
-    columnDefs:[ // 列字段 多选：headerCheckboxSelection checkboxSelection , flex: 1 自动填充宽度
-      { field: 'id', headerName: '序号', headerCheckboxSelection: true, checkboxSelection: true, autoHeight: true, fullWidth: true, minWidth: 50,resizable: true, pinned: 'left'},
-      { field: 'rate', headerName: '任务进度', resizable: true, minWidth: 10, cellRendererFramework: TaskProgressForAggridComponent, pinned: 'left'},
+    columnDefs:[ // 列字段 多选：headerCheckboxSelection checkboxSelection , flex: 1 自动填充宽度, pinned: 'left'
+      { field: 'id', headerName: '序号', headerCheckboxSelection: true, checkboxSelection: true, autoHeight: true,  minWidth: 5,maxwidth: 15,resizable: true},
+      { field: 'rate', headerName: '任务进度', resizable: true, minWidth: 10, cellRendererFramework: TaskProgressForAggridComponent,},
       { field: 'devicename', headerName: '设备名称',  resizable: true, minWidth: 10},
       // { field: 'department', headerName: '部门信息', resizable: true, minWidth: 10},
       { field: 'deviceid', headerName: '设备id',  resizable: true, minWidth: 10},

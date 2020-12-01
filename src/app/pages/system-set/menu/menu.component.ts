@@ -48,7 +48,9 @@ export class MenuComponent implements OnInit {
   constructor(private http: HttpserviceService, private localstorageservice: LocalStorageService,
     private publicservice: PublicmethodService, private dialogService: NbDialogService,
     private toastrService: NbToastrService, private router: Router, private userinfo: UserInfoService) { 
-    // local store 得到token id 
+    // 会话过期
+    localStorage.removeItem("alert401flag");
+      // local store 得到token id 
     var token = localStorage.getItem(ssotoken)? JSON.parse(localStorage.getItem(ssotoken)).token: '';
     this.headers = { "Content-Type": "application/json", "indent": "4", "Authorization": "Bearer " + token }
   }
@@ -424,7 +426,7 @@ export class MenuComponent implements OnInit {
           {
               field: 'action',
               title: '操作',
-              width: '200',
+              width: '100',
               align: 'center',
               events: {
                 'click .edit': function (e, value, row, index) {

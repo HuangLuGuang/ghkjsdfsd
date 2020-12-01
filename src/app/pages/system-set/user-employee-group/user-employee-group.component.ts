@@ -52,14 +52,15 @@ export class UserEmployeeGroupComponent implements OnInit {
 
   constructor(private publicmethod: PublicmethodService, private http: HttpserviceService, 
     private dialogService: NbDialogService, private userinfo: UserInfoService) { 
-    
+    // 会话过期
+    localStorage.removeItem("alert401flag");
   }
 
   ngOnInit(): void {
     console.log("----初始化 用户组管理")
     // ====================================agGrid
       var that = this;
-      this.active = { field: 'action', headerName: '操作', cellRendererFramework: ActionComponent, pinned: 'right',
+      this.active = { field: 'action', headerName: '操作', cellRendererFramework: ActionComponent, pinned: 'right',width:100,
         cellRendererParams: {
           clicked: function(data: any) {
             if (data["active"]==='edit'){
@@ -348,13 +349,15 @@ export class UserEmployeeGroupComponent implements OnInit {
   update_agGrid(event?){
     var offset;
     var limit;
-    console.log("event------------------------------------------------", event);
+    var PageSize;
     if (event != undefined){
       offset = event.offset;
       limit = event.limit;
+      PageSize = event.PageSize? Number(event.PageSize):10;
     }else{
       offset = 0;
       limit = 10;
+      PageSize = 10;
     }
     var columns = {
       offset: offset, 
@@ -366,6 +369,7 @@ export class UserEmployeeGroupComponent implements OnInit {
       this.loading = false;
       if (tabledata["code"]===1){
         var message = res["result"]["message"][0]["message"];
+        this.tableDatas.PageSize = PageSize;
         this.gridData = [];
         this.gridData.push(...message)
         this.tableDatas.rowData = this.gridData;
@@ -375,6 +379,8 @@ export class UserEmployeeGroupComponent implements OnInit {
         // 刷新table后，改为原来的！
         this.tableDatas.isno_refresh_page_size = false;
         this.RecordOperation(1, '更新', "科室/功能组(groups)");
+        // 刷新table后，改为原来的！
+        this.tableDatas.isno_refresh_page_size = false;
       }else{
         this.RecordOperation(0, '更新', "科室/功能组(groups)");
       }
