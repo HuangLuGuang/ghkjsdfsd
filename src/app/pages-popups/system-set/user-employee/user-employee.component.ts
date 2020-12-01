@@ -229,8 +229,8 @@ export class UserEmployeeComponent implements OnInit {
       var groups = that.roles_group["groups"];
       
     // 在用户的初始化时，得到，放到缓存中！
-      console.log("----------初始化角色名",res,"\n\n", res)
-      console.log("----------初始化角色名",groups,"\n\n", groups)
+      // console.log("----------初始化角色名",res,"\n\n", res)
+      // console.log("----------初始化角色名",groups,"\n\n", groups)
       // 初始化角色名
       for (let r of res){
         var r_str = `<input type="checkbox" name="${r["rid"]}" title="${r["role_name"]}">`;
@@ -311,9 +311,7 @@ export class UserEmployeeComponent implements OnInit {
           // -------------------------------------------
           console.log("提交修改的",  send_data_list) //被执行事件的元素DOM对象，一般为button对象
           // 更新修改的数据！ update_employee
-         
           // that.getsecurity("employee", "update_employee",send_data_list).subscribe((res)=>{
-            
           // })
           that.http.callRPC("employee", "update_employee",send_data_list).subscribe(result=>{
             that.publicservice.session_expiration().subscribe(results=>{
@@ -345,7 +343,7 @@ export class UserEmployeeComponent implements OnInit {
           })
           return false;
         }else{
-          console.log("employeegroupinput》》》》》》》》》》》》》》", data.field)
+          // console.log("employeegroupinput》》》》》》》》》》》》》》", data.field)
           var send_data = {};
           send_data["employeeid"] = null;
           send_data["active"] = data.field["active"] === 'on'? 1: 0;

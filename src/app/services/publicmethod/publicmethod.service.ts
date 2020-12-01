@@ -468,7 +468,6 @@ export class PublicmethodService {
     console.log("+++++++++++++++++++会话过期，弹出提示框++++++++++++++++++++");
     return new Observable((observable)=>{
       var isdialg = localStorage.getItem("token_expired");
-      console.log("+++++++++++++++++++isdialg++++++++++++++++++++",isdialg)
       if (JSON.parse(isdialg)){
         localStorage.setItem("token_expired", 'false');
         this.dialogService.open(ExpiredTokenComponent, { closeOnBackdropClick: false, autoFocus: true} ).onClose.subscribe(

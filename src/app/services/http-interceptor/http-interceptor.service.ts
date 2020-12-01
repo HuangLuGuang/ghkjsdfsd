@@ -69,19 +69,6 @@ export class HttpInterceptorService implements HttpInterceptor {
       this.router.navigate(['/miscellaneous/500']);
     }else if(status === 401){ // ExpiredTokenComponent
       localStorage.setItem("token_expired", 'true');
-      // var isdialg = localStorage.getItem("token_expired")? localStorage.getItem("token_expired"): 'true';
-      // if (JSON.parse(isdialg)){
-      //   localStorage.setItem("token_expired", 'true');
-      // }else{
-      // }
-      // this.dialogService.open(ExpiredTokenComponent, { closeOnBackdropClick: false,} ).onClose.subscribe(
-      //   name=>{
-      //     console.log("token已过期，是否重新登录？",name)
-      //     if(name){
-      //       this.router.navigate([loginurl])
-      //     }else{
-      //     }        
-      //   });
       return 0;
     }else{
       // this.danger()

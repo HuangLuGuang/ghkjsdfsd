@@ -445,10 +445,6 @@ export class NewMenuComponent implements OnInit {
       // =============================监听 输入button 确定
       // tab toggle
       element.on('tab(docDemoTabBrief)', function(data){
-        // localStorage.setItem(EDIT_MENU_ISMENU, String(data.index))
-        console.log("当前Tab标题所在的原始DOM元素",this,$(this)); //当前Tab标题所在的原始DOM元素""
-        console.log("得到当前Tab的所在下标",data.index); //得到当前Tab的所在下标
-        console.log("得到当前的Tab大容器",data.elem, data.elem.prevObject.context.innerText); //得到当前的Tab大容器""
         var innerText = data.elem.prevObject.context.innerText; // 目录，菜单，按钮
         switch (innerText) {
           case "目录":

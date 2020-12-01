@@ -293,6 +293,7 @@ export class NewUserEmployeeComponent implements OnInit {
     switch (rowdata.length) {
       case 1:
         this.dialogService.open(UserEmployeeComponent, {closeOnBackdropClick: false, autoFocus: true,context: { rowdata: JSON.stringify(rowdata[0])} }).onClose.subscribe(istrue=>{
+          
           if(istrue){
             this.gridData = [];
             this.loading = true;
@@ -368,11 +369,13 @@ export class NewUserEmployeeComponent implements OnInit {
   refresh_table(){
     $("#employeenumber").val('');
     this.refresh = true;
-    this.loading = true;
+    
     this.gridData = [];
     this.inttable();
     this.refresh = false;
   }
+
+  
 
   
   // 初始化table
@@ -398,11 +401,10 @@ export class NewUserEmployeeComponent implements OnInit {
       // 会话过期
       this.publicmethod.session_expiration().subscribe(results=>{
         if (results){
-          console.log("tabledata: ", result)
+          this.loading = true;
           var tabledata = result['result']['message'][0]
-          console.log("tabledata", tabledata);
-          this.loading = false;
           if(tabledata["code"] === 1){
+            this.loading = false;
             var message = tabledata["message"];
             this.tableDatas.PageSize = PageSize;
             this.gridData.push(...message)
@@ -473,7 +475,7 @@ export class NewUserEmployeeComponent implements OnInit {
   // nzpageindexchange 页码改变的回调
   nzpageindexchange(event){
     console.log("页码改变的回调", event);
-    this.loading = true;
+    // this.loading = true;
     this.inttable(event);
   }
 

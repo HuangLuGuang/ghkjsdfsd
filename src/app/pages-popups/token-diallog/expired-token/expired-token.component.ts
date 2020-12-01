@@ -11,9 +11,6 @@ declare let $;
   styleUrls: ['./expired-token.component.scss']
 })
 export class ExpiredTokenComponent implements OnInit,OnDestroy {
-
-  // @Input() title: string;
-  // @Input() content: string;
   constructor(private dialogRef: NbDialogRef<ExpiredTokenComponent>,) { }
 
   ngOnInit(): void {
@@ -26,11 +23,9 @@ export class ExpiredTokenComponent implements OnInit,OnDestroy {
     this.title = "提示";
     this.content = "您的登录已失效，请重新登录";
     this.commit();
-    // 模拟鼠标点击
-    var obj = document.getElementsByClassName('col-md-6');
-    // obj.click();
     
   }
+
 
   ngOnDestroy(){
     // 删除 man-hour-kpi-report2-buttons
@@ -61,8 +56,8 @@ export class ExpiredTokenComponent implements OnInit,OnDestroy {
         // localStorage.setItem("token_expired", 'false');
         return false;
       });
-
     });
+ 
   }
 
 }
