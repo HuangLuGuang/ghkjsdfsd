@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 
 import { MENU_ITEMS } from './pages-menu';
 import {NbMenuItem} from "@nebular/theme";
@@ -19,34 +19,50 @@ import { Router } from '@angular/router';
   styleUrls: ['pages.component.scss'],
   template: `
     <ngx-one-column-layout>
-      <!-- autoCollapse="true" -->
-      <nb-menu [items]="menu" tag="menu"></nb-menu>
+      <nb-menu [items]="menu" tag="menu" autoCollapse="true" (click)="onClickMenu()"></nb-menu>
       <router-outlet></router-outlet>
     </ngx-one-column-layout>
   `,
 })
-export class PagesComponent {
+export class PagesComponent implements OnInit {
 
   // menu = MENU_ITEMS;
   menu: NbMenuItem[] = [];
 
   constructor(private localStorageService: LocalStorageService,
-    private publicservice: PublicmethodService, 
+    private publicservice: PublicmethodService,
     private httpservice: HttpserviceService,
     private menuservice: NbMenuService,
-    private userInfoService:UserInfoService,
-    private router: Router){
+    private userInfoService: UserInfoService,
+    private router: Router) {
     // 先注释了
     // this.RecordLogin();
     this.loadMenu();
   }
-    
+
   ngOnInit() {
     // this.loadMenu();
   }
 
-  ngOnDestory(){
+  ngOnDestory() {
     this.menuservice.addItems([], 'menu');
+  }
+
+  onClickMenu() {
+    this.menuservice.onSubmenuToggle().subscribe(res => {
+
+      const selectMenu = res.item;
+      const parent = selectMenu['parent'];
+      if (parent && parent.children.length) {
+        parent.children.forEach(item => {
+          if (selectMenu.title === item.title) {
+           // item.expanded = selectMenu.title === item.title;
+          } else {
+            item.expanded = false;
+          }
+        });
+      }
+    });
   }
 
   loadMenu(){
@@ -124,7 +140,7 @@ export class PagesComponent {
     return nodeData;
   }
 
-  // 得到sysmenu 
+  // 得到sysmenu
   menuTranslation(baseMenu) {
     // 生成父子数据结构
     console.log("-=-=-=-=-=public-=baseMenu-=-=-=-=",baseMenu)
@@ -140,7 +156,7 @@ export class PagesComponent {
       map["type"] = item.type;
       map["textid"] = item.textid;
       map["permission"] = item.permission === null ? null: item.permission;
-      
+
       if (item.parentid === null){
         map["parentid"] = 0;
       }else{
@@ -148,9 +164,9 @@ export class PagesComponent {
       }
       nodeData.push(map)
     });
-    
-    
-    
+
+
+
     return nodeData;
   }
 
@@ -171,6 +187,6 @@ export class PagesComponent {
 
   }
 
-  
+
 
 }
