@@ -102,16 +102,13 @@ export class MySelectTreeComponent implements OnInit {
   
   ngAfterViewInit(){
     this.placeholder_title = this.placeholder;
-    console.log("****this.placeholder_title************>>>>>",this.placeholder_title);
     $("[name='title']").attr("placeholder", this.placeholder_title);
-
     $(".tree_isShow").hide();
   }
   
   // 下拉树示例
   init_select_tree(data){
     var that = this;
-    console.log("====data=========",data);
     // data存在-显示，否则不显示
     if(data.length >0){
       $(".tree_isShow").show()
@@ -137,16 +134,12 @@ export class MySelectTreeComponent implements OnInit {
             defaultExpandAll: false,
             showCheckbox: true,
             expandOnClickNode: false,
-            highlightCurrent: true
+            highlightCurrent: true,
+            checkOnClickNode: true, // 点击节点时选中节点！
           });
         }
         $(".ele5").toggle();
       })
-      // 节点被点击
-      // eleTree.on("nodeClick(data5)",function(d) {
-      //     $("[name='title']").val(d.data.currentData.label)
-      //     $(".ele5").hide();
-      // });
       
       // 节点被选择
       var select_data = []; //[{id: 3, label: "nvh"},]
@@ -171,7 +164,7 @@ export class MySelectTreeComponent implements OnInit {
         console.log(d.node);    // 点击的dom节点
         console.log(this);      // input对应的dom
     })
-      $(document).on("click",function() {
+    $(document).on("click",function() {
           $(".ele5").hide();
           that.xialaicon = "arrow-ios-downward-outline";
       })

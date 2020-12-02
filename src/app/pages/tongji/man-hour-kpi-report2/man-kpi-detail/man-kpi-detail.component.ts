@@ -24,6 +24,15 @@ export class ManKpiDetailComponent implements OnInit {
   // 参数
   columns = {}
 
+  // 左侧函数
+  left_method1 = "dev_get_device_columnar_kpi"; //工时报表详细柱状图KPI
+  left_method2 = "dev_get_device_month_kpi"; // 工时报表详细月份KPI
+
+  // 右侧函数
+  right_method1 = "dev_get_device_pie_kpi"; // 工时报表详细饼图KPI
+  right_method2 = "dev_get_device_year_kpi"; // 工时报表详细年份KPI
+
+
   // kpi报表
   kpireport(){
     this.router.navigate(['/pages/tongji/manHourKpiReport/kpitable'])
@@ -46,6 +55,7 @@ export class ManKpiDetailComponent implements OnInit {
       console.log("mankpiservice 查询：", res)
     })
 
+    
 
     this.columns["start"] = this.kpi_for_detail["starttime"]
     this.columns["end"] = this.kpi_for_detail["endtime"]
@@ -76,7 +86,7 @@ export class ManKpiDetailComponent implements OnInit {
   // 初始化 左侧第一个echart设备时间统计
   init_left_one(){
     // 得到数据
-    this.querst("", "dev_get_device_columnar_kpi", this.columns).subscribe(res=>{
+    this.querst("", this.left_method1, this.columns).subscribe(res=>{
       // 得到 x 轴！
       var resdatas = res['result']['message'][0];
       var xData = [];
@@ -94,10 +104,12 @@ export class ManKpiDetailComponent implements OnInit {
         placeon.push(resdata["placeon"]);
       });
       afterdata["xData"] = xData;
-      afterdata["running"] = running;
-      afterdata["stop"] = stop;
-      afterdata["warning"] = warning;
-      afterdata["placeon"] = placeon;
+      afterdata["running"] = running; // 运行
+      afterdata["stop"] = stop;       // 空闲
+      afterdata["warning"] = warning; // 占位
+      afterdata["placeon"] = placeon; // 维保
+      // ['运行', '空闲', '占位', "维保"]
+      afterdata["title"] = ['运行', '空闲', '占位', "维保"];
 
       // console.log("得到左侧第一个数据： ", afterdata);
       kpi_detail.left_one('.left-one', afterdata);
@@ -107,7 +119,7 @@ export class ManKpiDetailComponent implements OnInit {
   // 初始化右侧 第一个 echart 百分比
   init_right_ong(){
     // 得到数据
-    this.querst("", "dev_get_device_pie_kpi", this.columns).subscribe(res=>{
+    this.querst("", this.right_method1, this.columns).subscribe(res=>{
       // 得到 x 轴！
       var resdatas = res['result']['message'][0][0];
       var afterdatas = [];
@@ -132,29 +144,27 @@ export class ManKpiDetailComponent implements OnInit {
         afterdata["value"] = resdatas[k];
         afterdatas.push(afterdata)
       }
+      var title = ['运行', '空闲', '占位', "维保"];
       // console.log("得到右侧第一个数据： ", afterdatas);
-      kpi_detail.right_one('.right-one', afterdatas);
+      kpi_detail.right_one('.right-one', {afterdatas:afterdatas,title:title});
     })
   }
 
   // 初始化左侧 第二个 echart 月份数据
   init_left_two(){
     // 得到数据
-    this.querst("", "dev_get_device_month_kpi", this.columns).subscribe(res=>{
+    this.querst("", this.left_method2, this.columns).subscribe(res=>{
       // 得到 x 轴！
       var resdatas = res['result']['message'][0];
       var afterdatas = {};
       var xData = [];
       var yData = [];
-      var yData2 = [];
       resdatas.forEach(data => {
         xData.push(data["dates"] + '月');
-        yData.push(data["runtime"]);
-        yData2.push(data["runtime"] + 0.5);
+        yData.push(data["running"]);
       });
       afterdatas["xData"] = xData;
       afterdatas["yData"] = yData;
-      afterdatas["yData2"] = yData2;
       
       // console.log("得到左侧 第二个数据： ", afterdatas);
       kpi_detail.left_two('.left-two', afterdatas);
@@ -164,21 +174,18 @@ export class ManKpiDetailComponent implements OnInit {
   // 初始化右侧 第二个 echart 年份数据
   init_right_two(){
     // 得到数据
-    this.querst("", "dev_get_device_year_kpi", this.columns).subscribe(res=>{
+    this.querst("", this.right_method2, this.columns).subscribe(res=>{
       // 得到 x 轴！
       var resdatas = res['result']['message'][0];
       var afterdatas = {};
       var xData = [];
       var yData = [];
-      var yData2 = [];
       resdatas.forEach(data => {
         xData.push(data["dates"] + '年');
-        yData.push(data["runtime"]);
-        yData2.push(data["runtime"] + 0.5);
+        yData.push(data["running"]);
       });
       afterdatas["xData"] = xData;
       afterdatas["yData"] = yData;
-      afterdatas["yData2"] = yData2;
       
       // console.log("得到左侧 第二个数据： ", afterdatas);
       kpi_detail.right_two('.right-two', afterdatas);

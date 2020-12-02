@@ -290,6 +290,7 @@ export class NewUserEmployeeComponent implements OnInit {
           if(istrue){
             this.gridData = [];
             this.loading = true;
+            
             this.update_agGrid();
             this.loading = false;
           }

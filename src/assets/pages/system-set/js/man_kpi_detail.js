@@ -141,6 +141,7 @@ let kpi_detail = {
                         "name": afterdata.title[2],
                         "type": "bar",
                         "stack": "总量",
+                        "barMaxWidth": 20,
                         "itemStyle": {
                             "normal": {
                                 "color": 'rgb(175,117,59)',
@@ -161,6 +162,7 @@ let kpi_detail = {
                         "name": afterdata.title[3],
                         "type": "bar",
                         "stack": "总量",
+                        "barMaxWidth": 20,
                         "itemStyle": {
                             "normal": {
                                 "color": 'rgb(150,13,48)',
@@ -193,21 +195,13 @@ let kpi_detail = {
     right_one(element, afterdatas) {
         // 实例化对象
         var mychart = echarts.init(document.querySelector(element));
-        var color = [];
-        if(afterdatas.title.length<4){
-            color = ['rgb(126,255,182)', 'rgb(0,76,166)'];
-        }else(
-            color = ['rgb(175,117,59)', 'rgb(126,255,182)', 'rgb(0,76,166)', 'rgb(150,13,48)']
-        )
+
         // 配置
         var option = {
 
             // 按照顺序，运行、空闲、占位、维保 running stop placeon warning
             // color: ['#37a2da', '#9fe6b8', '#ffdb5c', '#fb7293'], 占位、运行、空闲、维保 placeon running stop warning
-            
-            // color: ['rgb(126,255,182)', 'rgb(0,76,166)'],
-            // color: ['rgb(175,117,59)', 'rgb(126,255,182)', 'rgb(0,76,166)', 'rgb(150,13,48)'],
-            color: color,
+            color: ['rgb(175,117,59)', 'rgb(126,255,182)', 'rgb(0,76,166)', 'rgb(150,13,48)'],
             tooltip: {
                 trigger: 'item',
                 formatter: "{a} <br/>{b} : {c} ({d}%)"
@@ -230,7 +224,7 @@ let kpi_detail = {
                 name: '状态百分比',
                 type: 'pie',
                 radius: [0, 120],
-                data: afterdatas.afterdatas
+                data: afterdatas
                     // data:[
                     //     {value:20, name:'placeout'},
                     //     {value:25, name:'runing'},
@@ -263,8 +257,8 @@ let kpi_detail = {
                 trigger: 'axis',
                 // formatter: "{b} : {c}",
                 formatter: function(params, encode, callback) {
-                    // console.log("------------params",params)
-                    return `${params[0]["name"]}:${params[0]["value"]}`;
+                    console.log("------------params",params)
+                    return `${params[0]["name"]}:${params[0]["value"] - 0.5}`;
                 },
                 axisPointer: { // 坐标轴指示器，坐标轴触发有效
                     type: 'shadow' // 默认为直线，可选为：'line' | 'shadow'
@@ -352,7 +346,7 @@ let kpi_detail = {
                 trigger: 'axis',
                 // formatter: "{b} : {c}",
                 formatter: function(params, encode, callback) {
-                    return `${params[0]["name"]}:${params[0]["value"]}`;
+                    return `${params[0]["name"]}:${params[0]["value"] - 0.5}`;
                 },
 
                 axisPointer: { // 坐标轴指示器，坐标轴触发有效

@@ -153,8 +153,10 @@ export class ManKpiTableComponent implements OnInit {
       eimdevicetype:device_tpye_data
     }
     console.log("**************\n", columns);
-    // 执行搜索函数！
-    this.http.callRPC('device', "dev_get_kpi_device_search",columns).subscribe(result=>{
+    // 执行搜索函数！  
+    var table = this.TABLE;
+    var methond = this.METHOD;
+    this.http.callRPC(table, methond ,columns).subscribe(result=>{
       console.log("执行搜索函数！\n\n\n",result)
       var tabledata = result["result"]["message"][0];
       this.loading = false;
@@ -300,9 +302,7 @@ export class ManKpiTableComponent implements OnInit {
       console.log("device---", get_employee_limit);
 
       this.loading = false;
-      // 发布组件，编辑用户的组件
-      // this.publicservice.getcomponent(Add_Edit_DeviceManageComponent);
-      // this.publicservice.getmethod("dev_delete_device");
+
 
       var message = res["result"]["message"][0]["message"];
       this.add_detail_kpi(message);

@@ -21,7 +21,6 @@ export class MySelectTreeTypeComponent implements OnInit {
 
   ngAfterViewInit(){
     this.placeholder_title_type = this.placeholder;
-    console.log("****this.placeholder_title_type************>>>>>",this.placeholder_title_type);
     $("[name='title_type']").attr("placeholder", this.placeholder_title_type);
 
     $(".tree_type_isShow").hide()
@@ -29,7 +28,6 @@ export class MySelectTreeTypeComponent implements OnInit {
   
   // 下拉树示例
   init_select_trees(data){
-    console.log("====data=========",data);
     // data存在-显示，否则不显示
     if(data.length >0){
       $(".tree_type_isShow").show()
@@ -56,22 +54,17 @@ export class MySelectTreeTypeComponent implements OnInit {
             defaultExpandAll: false,
             showCheckbox: true,
             expandOnClickNode: false,
-            highlightCurrent: true
+            highlightCurrent: true,
+            checkOnClickNode: true, // 点击节点时选中节点！
           });
         }
         $(".eletype").toggle();
       })
-      // 节点被点击
-      // eleTree.on("nodeClick(data5)",function(d) {
-      //     $("[name='title_type']").val(d.data.currentData.label)
-      //     $(".eletype").hide();
-      // });
+
       // 节点被选择
       var select_data = []; //[{id: 3, label: "nvh"},]
       var select_label_list = [];
       eleTree.on("nodeChecked(datatype)",function(d) {
-        console.log(d.data);    // 点击节点对应的数据 
-        console.log(d.isChecked);   // input是否被选中
         // -----------------多选，科室功能组
         if (d.isChecked){
           select_data.push(d.data.currentData);// {id: 3, label: "nvh"}

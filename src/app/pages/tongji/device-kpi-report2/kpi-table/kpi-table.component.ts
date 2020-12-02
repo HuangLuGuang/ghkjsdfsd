@@ -27,6 +27,8 @@ export class KpiTableComponent implements OnInit {
   @ViewChild("data_range") data_range:any;
 
 
+  table = 'device';
+  method = "dev_get_kpi_device_search";
 
   // =============================agGrid
   loading: boolean = false;
@@ -159,7 +161,9 @@ export class KpiTableComponent implements OnInit {
     }
     console.log("**************\n", columns);
       // 执行搜索函数！
-      this.http.callRPC('device', "dev_get_kpi_device_search",columns).subscribe(result=>{
+      var table = this.table;
+      var method = this.method;
+      this.http.callRPC(table, method,columns).subscribe(result=>{
         console.log("执行搜索函数！\n\n\n",result)
         var tabledata = result["result"]["message"][0];
         this.loading = false;
@@ -202,7 +206,7 @@ export class KpiTableComponent implements OnInit {
     isno_refresh_page_size: false, // 是否重新将 每页多少条数据，赋值为默认值
     columnDefs:[ // 列字段 多选：headerCheckboxSelection checkboxSelection , flex: 1 自动填充宽度 pinned: 'left' 固定到左侧！
       { field: 'devicename', headerName: '设备名称', headerCheckboxSelection: true, checkboxSelection: true, autoHeight: true, fullWidth: true, minWidth: 50,resizable: true, },
-      { field: 'deviceid', headerName: '设备id',  resizable: true, minWidth: 10},
+      { field: 'deviceid', headerName: '设备ID',  resizable: true, minWidth: 10},
       { field: 'groups', headerName: '试验室', resizable: true, minWidth: 10},
       // { field: 'CustomTime', headerName: '自定义统计时间(默认最近一周)', 
       //   children:[
@@ -263,7 +267,9 @@ export class KpiTableComponent implements OnInit {
       eimdevicetype: [],
     }
     // 得到设备信息！
-    this.http.callRPC('device', 'dev_get_kpi_device_search', colmun).subscribe((res)=>{
+    var table = this.table;
+    var method = this.method;
+    this.http.callRPC(table, method, colmun).subscribe((res)=>{
       console.log("得到设备信息=================>", res)
       var get_employee_limit = res['result']['message'][0];
       if(get_employee_limit["code"]===1){
@@ -310,7 +316,9 @@ export class KpiTableComponent implements OnInit {
     }
     // this.getsecurity('sys_security_log', 'get_security_log_limit', {offset:event.offset,limit:10});
     // 得到员工信息！{offset: offset, limit: limit}
-    this.http.callRPC('device', 'dev_get_kpi_device_search', colmun).subscribe((result)=>{
+    var table = this.table;
+    var method = this.method;
+    this.http.callRPC(table, method, colmun).subscribe((result)=>{
       // console.log("get_menu_role", result)
       var res = result['result']['message'][0];
       this.loading = false;

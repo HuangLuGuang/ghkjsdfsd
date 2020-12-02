@@ -11,7 +11,7 @@ import { NbMenuService } from '@nebular/theme';
 
 import { UserInfoService } from '../services/user-info/user-info.service';
 
-import { SYSMENU, menu_button_list, loginurl } from '../appconfig';
+import { SYSMENU, loginurl } from '../appconfig';
 import { Router } from '@angular/router';
 
 @Component({
@@ -20,7 +20,7 @@ import { Router } from '@angular/router';
   template: `
     <ngx-one-column-layout>
       <!-- autoCollapse="true" -->
-      <nb-menu [items]="menu" tag="menu"></nb-menu>
+      <nb-menu [items]="menu" tag="menu" autoCollapse="true" (click)="onClickMenu()"></nb-menu>
       <router-outlet></router-outlet>
     </ngx-one-column-layout>
   `,
@@ -169,6 +169,23 @@ export class PagesComponent {
       console.log("============= 存入登录日志并得到菜单",source);
     }
 
+  }
+
+  onClickMenu() {
+    this.menuservice.onSubmenuToggle().subscribe(res => {
+
+      const selectMenu = res.item;
+      const parent = selectMenu['parent'];
+      if (parent && parent.children.length) {
+        parent.children.forEach(item => {
+          if (selectMenu.title === item.title) {
+           // item.expanded = selectMenu.title === item.title;
+          } else {
+            item.expanded = false;
+          }
+        });
+      }
+    });
   }
 
   

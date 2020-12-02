@@ -24,6 +24,14 @@ export class KpiDetailComponent implements OnInit, OnDestroy {
     this.kpi_for_detail = JSON.parse(localStorage.getItem("kpi_for_detail"));
   }
 
+  // 左侧函数
+  left_method1 = "dev_get_device_columnar"; // 设备报表详细柱状图KPI
+  left_method2 = "dev_get_device_month"; // 设备报表详细月份KPI
+
+  // 右侧函数
+  right_method1 = "dev_get_device_pie";  // 设备报表详细饼图KPI
+  right_method2 = "dev_get_device_year"; // 设备报表详细年份KPI
+
   // 参数
   columns = {}
 
@@ -83,31 +91,25 @@ export class KpiDetailComponent implements OnInit, OnDestroy {
   // 初始化 左侧第一个echart设备时间统计
   init_left_one(){
     // 得到数据
-    this.querst("", "dev_get_device_columnar", this.columns).subscribe(res=>{
+    this.querst("", this.left_method1, this.columns).subscribe(res=>{
       // 得到 x 轴！
       var resdatas = res['result']['message'][0];
-      console.log("左侧第一个：", resdatas)
       var xData = [];
       var running = [];
       var stop = [];
-      var warning = [];
-      var placeon = [];
 
       var afterdata = {};
       resdatas.forEach(resdata => {
         xData.push(resdata["dates"]);
         running.push(resdata["running"]);
         stop.push(resdata["stop"]);
-        warning.push(resdata["warning"]);
-        placeon.push(resdata["placeon"]);
       });
       afterdata["xData"] = xData;
       afterdata["running"] = running;
       afterdata["stop"] = stop;
-      afterdata["warning"] = warning;
-      afterdata["placeon"] = placeon;
+      afterdata["title"] = ['运行', '停止'];
 
-      console.log("得到左侧第一个数据： ", afterdata);
+      // console.log("得到左侧第一个数据： ", afterdata);
       kpi_detail.left_one('.left-one', afterdata);
     });
   };
@@ -115,7 +117,7 @@ export class KpiDetailComponent implements OnInit, OnDestroy {
   // 初始化右侧 第一个 echart 百分比
   init_right_ong(){
     // 得到数据
-    this.querst("", "dev_get_device_pie", this.columns).subscribe(res=>{
+    this.querst("", this.right_method1, this.columns).subscribe(res=>{
       // 得到 x 轴！
       var resdatas = res['result']['message'][0][0];
       
@@ -128,44 +130,36 @@ export class KpiDetailComponent implements OnInit, OnDestroy {
             key = "运行"
             break;
           case "stop":
-            key = "空闲"
-            break;
-          case "warning":
-            key = "维保"
-            break;
-          case "placeon":
-            key = "占位"
+            key = "停止"
             break;
         }
         afterdata["name"] = key;
         afterdata["value"] = resdatas[k];
-        afterdatas.push(afterdata)
+        afterdatas.push(afterdata);
       }
+      var title = ['运行', '停止'];
       // console.log("得到右侧第一个数据： ", afterdatas);
-      kpi_detail.right_one('.right-one', afterdatas);
+      kpi_detail.right_one('.right-one', {afterdatas:afterdatas,title:title});
     })
   }
 
   // 初始化左侧 第二个 echart 月份数据
   init_left_two(){
     // 得到数据
-    this.querst("", "dev_get_device_month", this.columns).subscribe(res=>{
+    this.querst("", this.left_method2, this.columns).subscribe(res=>{
       // 得到 x 轴！
       var resdatas = res['result']['message'][0];
       var afterdatas = {};
       var xData = [];
       var yData = [];
-      var yData2 = [];
       resdatas.forEach(data => {
         xData.push(data["dates"] + '月');
-        yData.push(data["runtime"]);
-        yData2.push(data["runtime"] + 0.5);
+        yData.push(data["running"]);
       });
       afterdatas["xData"] = xData;
       afterdatas["yData"] = yData;
-      afterdatas["yData2"] = yData2;
       
-      // console.log("得到左侧 第二个数据： ", afterdatas);
+      console.log("得到左侧 第二个数据： ", afterdatas);
       kpi_detail.left_two('.left-two', afterdatas);
     })
   }
@@ -173,23 +167,20 @@ export class KpiDetailComponent implements OnInit, OnDestroy {
   // 初始化右侧 第二个 echart 年份数据
   init_right_two(){
     // 得到数据
-    this.querst("", "dev_get_device_year", this.columns).subscribe(res=>{
+    this.querst("", this.right_method2, this.columns).subscribe(res=>{
       // 得到 x 轴！
       var resdatas = res['result']['message'][0];
       var afterdatas = {};
       var xData = [];
       var yData = [];
-      var yData2 = [];
       resdatas.forEach(data => {
         xData.push(data["dates"] + '年');
-        yData.push(data["runtime"]);
-        yData2.push(data["runtime"] + 0.5);
+        yData.push(data["running"]);
       });
       afterdatas["xData"] = xData;
       afterdatas["yData"] = yData;
-      afterdatas["yData2"] = yData2;
       
-      // console.log("得到左侧 第二个数据： ", afterdatas);
+      console.log("得到左侧 第二个数据： ", afterdatas);
       kpi_detail.right_two('.right-two', afterdatas);
     })
   }
