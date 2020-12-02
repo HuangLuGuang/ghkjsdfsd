@@ -288,13 +288,15 @@ export class KpiTableComponent implements OnInit {
   update_agGrid(event?){
     var offset;
     var limit;
-    console.log("event------------------------------------------------", event);
+    var PageSize;
     if (event != undefined){
       offset = event.offset;
       limit = event.limit;
+      PageSize = event.PageSize? Number(event.PageSize):10;
     }else{
       offset = 0;
       limit = 10;
+      PageSize = 10;
     }
     var colmun = {
       start: this.init_value.split(" - ")[0],
@@ -315,6 +317,7 @@ export class KpiTableComponent implements OnInit {
       if (res["code"] === 1){
         var message = result["result"]["message"][0]["message"];
         this.add_detail_kpi(message);
+        this.tableDatas.PageSize = PageSize;
         this.gridData.push(...message)
         this.tableDatas.rowData = this.gridData;
         var totalpagenumbers = res['numbers']? res['numbers'][0]['numbers']: '未得到总条数';

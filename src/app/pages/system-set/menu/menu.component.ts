@@ -385,7 +385,7 @@ export class MenuComponent implements OnInit {
           {
             field: 'orderindex',
             title: '排序',
-            sortable: true,
+            // sortable: true,
             align: 'center',
             width: '50',
           },
@@ -396,13 +396,13 @@ export class MenuComponent implements OnInit {
             width: '100',
             formatter: typeFormatter
           },
-          {
-            field: 'permission',
-            title: '权限标识',
-            align: 'center',
-            width: '50',
-            formatter: permissionFormatter
-          },
+          // {
+          //   field: 'permission',
+          //   title: '权限标识',
+          //   align: 'center',
+          //   width: '50',
+          //   formatter: permissionFormatter
+          // },
           {
             field: 'active',
             title: '是否启用',

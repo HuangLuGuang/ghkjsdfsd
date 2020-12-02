@@ -116,6 +116,8 @@ export class AgTableComponent implements OnInit {
 
     // 动态修改--每页的条数
     if (employee_agGrid["isno_refresh_page_size"]){
+      // 改变当前页码
+      this.current = 1;
       this.PageSize = employee_agGrid["PageSize"];
       this.setPageCount = Number(this.PageSize);
       console.log("--------------动态修改--每页的条数", this.PageSize)
@@ -355,7 +357,15 @@ export class AgTableComponent implements OnInit {
     this.totalPageNumbers = tableDatas.rowData.length;
     this.alltotalPageNumbers = tableDatas.totalPageNumbers; // 数据库中的总条数
     // this.agGrid.api.setRowData(this.rowData);
-    console.log("------------agGrid-------------", this.agGrid)
+    console.log("------------agGrid-------------", this.agGrid);
+    // 动态修改--每页的条数
+    if(tableDatas["isno_refresh_page_size"]){
+      // 改变当前页码
+      this.current = 1;
+      this.PageSize = tableDatas["PageSize"];
+      this.setPageCount = Number(this.PageSize);
+    }
+    
     this.agGrid.api.setRowData(this.rowData);
   }
 

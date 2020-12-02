@@ -359,6 +359,8 @@ export class NewUserEmployeeComponent implements OnInit {
     this.refresh = true;
     
     this.gridData = [];
+    // 是否 每页多少也，设置为默认值
+    this.tableDatas.isno_refresh_page_size = true;
     this.inttable();
     this.refresh = false;
   }

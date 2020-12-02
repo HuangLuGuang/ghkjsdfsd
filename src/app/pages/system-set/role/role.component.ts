@@ -975,20 +975,28 @@ export class RoleComponent implements OnInit {
   update_agGrid(event?){
     var offset;
     var limit;
+    var PageSize;
     if (event != undefined){
       offset = event.offset;
       limit = event.limit;
+      PageSize = event.PageSize? Number(event.PageSize):10;
     }else{
       offset = 0;
       limit = 10;
+      PageSize = 10;
+    }
+    var columns = {
+      offset: offset, 
+      limit: limit,
     }
     const table = "role";
     const method = this.GetRole;
-    const colums = {offset: offset, limit: limit}
-    this.http.callRPC(table, method, colums).subscribe((result)=>{
+    // const colums = {offset: offset, limit: limit}
+    this.http.callRPC(table, method, columns).subscribe((result)=>{
       console.log("sys_role--------------------------", result)
       const baseData = result['result']['message'][0];
       if (baseData["code"] === 1){
+        this.tableDatas.PageSize = PageSize;
         this.gridData.push(...baseData["message"]);
         this.tableDatas.rowData = this.gridData;
         var totalpagenumbers = baseData['numbers']? baseData['numbers'][0]['numbers']: '未得到总条数';

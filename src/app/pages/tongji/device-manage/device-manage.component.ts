@@ -1005,12 +1005,15 @@ export class DeviceManageComponent implements OnInit {
   update_agGrid(event?){
     var offset;
     var limit;
+    var PageSize;
     if (event != undefined){
       offset = event.offset;
       limit = event.limit;
+      PageSize = event.PageSize? Number(event.PageSize):10;
     }else{
       offset = 0;
       limit = 10;
+      PageSize = 10;
     }
     var columns = {
       offset: offset, 
@@ -1027,6 +1030,7 @@ export class DeviceManageComponent implements OnInit {
       if (tabledata["code"] === 1){
         var message = result["result"]["message"][0]["message"];
         var after_datas = this.show_table_before(message);
+        this.tableDatas.PageSize = PageSize;
         this.gridData.push(...after_datas)
         this.tableDatas.rowData = this.gridData;
         var totalpagenumbers = tabledata['numbers']? tabledata['numbers'][0]['numbers']: '未得到总条数';

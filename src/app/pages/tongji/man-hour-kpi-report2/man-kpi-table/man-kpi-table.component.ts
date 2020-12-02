@@ -205,12 +205,9 @@ export class ManKpiTableComponent implements OnInit {
       { field: 'group', headerName: '试验室', resizable: true, minWidth: 10},
       { field: 'deviceid', headerName: '设备id',  resizable: true, minWidth: 10},
       
-      { field: 'CustomTime', headerName: '自定义统计时间(默认最近一周)', 
-        children:[
-          { field: 'starttime', headerName: '开始时间', resizable: true},
-          { field: 'endtime', headerName: '结束时间', resizable: true},
-        ]
-      },
+      
+      { field: 'starttime', headerName: '开始时间', resizable: true},
+      { field: 'endtime', headerName: '结束时间', resizable: true},
 
 
       { field: 'running', headerName: '运行时长(h)', resizable: true, minWidth: 10},
@@ -276,12 +273,15 @@ export class ManKpiTableComponent implements OnInit {
   update_agGrid(event?){
     var offset;
     var limit;
+    var PageSize;
     if (event != undefined){
       offset = event.offset;
       limit = event.limit;
+      PageSize = event.PageSize? Number(event.PageSize):10;
     }else{
       offset = 0;
       limit = 10;
+      PageSize = 10;
     }
     var colmun = {
       start: this.init_value.split(" - ")[0],
@@ -306,6 +306,7 @@ export class ManKpiTableComponent implements OnInit {
 
       var message = res["result"]["message"][0]["message"];
       this.add_detail_kpi(message);
+      this.tableDatas.PageSize = PageSize;
       this.gridData.push(...message)
       this.tableDatas.rowData = this.gridData;
       var totalpagenumbers = get_employee_limit['numbers']? get_employee_limit['numbers'][0]['numbers']: '未得到总条数';
