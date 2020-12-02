@@ -22,7 +22,6 @@ export class MySelectTreeTypeComponent implements OnInit {
   ngAfterViewInit(){
     this.placeholder_title_type = this.placeholder;
     $("[name='title_type']").attr("placeholder", this.placeholder_title_type);
-
     $(".tree_type_isShow").hide()
   }
   

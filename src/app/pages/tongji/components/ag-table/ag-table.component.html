@@ -32,16 +32,7 @@
 
 >
 </ag-grid-angular>
-<br>
-<!-- <nz-pagination [(nzPageIndex)]="current" [nzTotal]="totalPageNumbers"
-                   nzShowSizeChangerc
-                   nzShowQuickJumper
-                   (nzPageIndexChange)="pageIndexChange($event)"
-                   (nzPageSizeChange)="pageSizeChange($event)"
-                   [nzShowTotal]="totalTemplate"
-                   
-    > -->
-<div class="row">
+<div class="row" style="margin-top: 10px;">
     <div class="col-md-10" style="text-align: right;">
         <nz-pagination [(nzPageIndex)]="current" [nzTotal]="totalPageNumbers"
                     [nzPageSize] = "setPageCount"
@@ -49,7 +40,6 @@
                    (nzPageIndexChange)="pageIndexChange($event)"
                    
                    [nzShowTotal]="totalTemplate"
-                   
         >
         </nz-pagination>
     </div>

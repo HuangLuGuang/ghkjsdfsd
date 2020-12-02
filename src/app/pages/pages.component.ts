@@ -35,8 +35,7 @@ export class PagesComponent implements OnInit {
     private menuservice: NbMenuService,
     private userInfoService: UserInfoService,
     private router: Router) {
-    // 先注释了
-    // this.RecordLogin();
+
     this.loadMenu();
   }
 

@@ -117,6 +117,15 @@ export class DeviceManageComponent implements OnInit {
     localStorage.removeItem("device_manage_agGrid");
   }
 
+  // 检测输入框值
+  inputvalue = ""; 
+  changeValue(value){
+    console.log("----检测输入框值-----",value, "*********\n\n\n")
+    console.log("----检测输入框值-inputvalue----",this.inputvalue, "*********\n\n\n")
+  }
+  listen_input(id_or_class){
+
+  }
 
   // button按钮
   action(actionmethod){

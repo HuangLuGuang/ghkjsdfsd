@@ -32,17 +32,8 @@
 
 >
 </ag-grid-angular>
-<br>
-<!-- <nz-pagination [(nzPageIndex)]="current" [nzTotal]="totalPageNumbers"
-                   nzShowSizeChanger
-                   nzShowQuickJumper
-                   (nzPageIndexChange)="pageIndexChange($event)"
-                   (nzPageSizeChange)="pageSizeChange($event)"
-                   [nzShowTotal]="totalTemplate"
-    >
-</nz-pagination> -->
 
-<div class="row">
+<div class="row" style="margin-top: 10px;">
     <div class="col-md-10" style="text-align: right;">
         <nz-pagination [(nzPageIndex)]="current" [nzTotal]="totalPageNumbers"
                     [nzPageSize] = "setPageCount"
@@ -68,4 +59,4 @@
     </div>
 </div>
 
-<ng-template #totalTemplate let-total>共 {{ alltotalPageNumbers }} 条, 已选{{selectedRows.length}}条</ng-template>
+<ng-template  #totalTemplate let-total>共 {{ alltotalPageNumbers }} 条, 已选{{selectedRows.length}}条</ng-template>
