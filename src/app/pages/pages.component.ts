@@ -13,6 +13,7 @@ import { UserInfoService } from '../services/user-info/user-info.service';
 
 import { SYSMENU, loginurl } from '../appconfig';
 import { Router } from '@angular/router';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'ngx-pages',
@@ -34,11 +35,15 @@ export class PagesComponent implements OnInit {
     private httpservice: HttpserviceService,
     private menuservice: NbMenuService,
     private userInfoService: UserInfoService,
-    private router: Router) {
-
+    private router: Router, private translate: TranslateService) {
+    this.translate.onLangChange.subscribe((params) => {
+      localStorage.setItem('currentLanguage', params['lang']);
+      this.loadMenu();
+  });
   }
 
   ngOnInit() {
+    this.loadMenu();
   }
 
   ngOnDestory() {
@@ -62,6 +67,52 @@ export class PagesComponent implements OnInit {
     });
   }
 
+  loadMenu(){
+    let roles = [];
+    const userinfoStr = localStorage.getItem('ssouserinfo');
+    const userinfo = userinfoStr ? this.publicservice.uncompileStr(userinfoStr) : null;
+    const roleList = userinfo ? JSON.parse(userinfo)["roles"] : null;
+    if (roleList ? roleList.length : null) {
+      roleList.forEach(val => {
+        roles.push(val["roleid"]);
+      });
+    } else {
+      roles = null;
+    }
+    console.warn("roles>>", roles);
+    const colums = {
+      languageid: this.httpservice.getLanguageID(),
+      roles: roles
+    };
+    const table = "menu_item";
+    const method = "get_menu_by_roles";
+    this.httpservice.callRPC(table, method, colums).subscribe(
+      result => {
+        const baseData = result['result']['message'][0];
+        if (baseData["code"]===1) {
+          // 将菜单信息存储到localStorage
+          this.menu.length = 0;
+          const menuData = this.dataTranslation(baseData["message"]);
+          localStorage.setItem('mulu', JSON.stringify(menuData));
+          this.menuservice.addItems(menuData, 'menu');
+        } else {
+          this.router.navigate([loginurl]);
+        }
+      }
+    );
+
+    // get_systemset_menu_all  得到系统设置所有要的菜单！
+    this.httpservice.callRPC("menu_item", "get_systemset_menu_all", colums).subscribe((result)=>{
+      const baseData = result['result']['message'][0];
+      if (baseData["code"]){
+        // 得到sysmenu ----------------------------------
+        var sysmenu = this.menuTranslation(baseData["message"]);
+        localStorage.setItem(SYSMENU, JSON.stringify(sysmenu));
+        // 得到sysmenu ----------------------------------
+      }
+    });
+
+  }
 
 
 
@@ -134,7 +185,7 @@ export class PagesComponent implements OnInit {
 
 
 
-  
+
 
 
 }
