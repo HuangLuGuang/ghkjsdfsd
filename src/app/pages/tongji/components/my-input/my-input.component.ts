@@ -12,6 +12,7 @@ export class MyInputComponent implements OnInit {
   constructor() { }
 
   ngOnInit(): void {
+    $(".delet_input_value").hide()
     
   }
   
@@ -24,8 +25,30 @@ export class MyInputComponent implements OnInit {
   // 检测输入框值
   inputvalue = ""; 
   changeValue(value){
-    console.log("----检测输入框值-----",value, "*********\n\n\n")
-    console.log("----检测输入框值-inputvalue----",this.inputvalue, "*********\n\n\n")
+    console.log("----检测输入框值-----",value, "*********\n\n\n");
+    console.log("----检测输入框值-inputvalue----",this.inputvalue, "*********\n\n\n");
+    if (this.inputvalue != ""){
+      $(".delet_input_value").show()
+    }else{
+      $(".delet_input_value").hide()
+    }
+    // this.listen_shubiao();
+  }
+
+  // 监听鼠标移入！移入创建、移出删除
+  listen_shubiao(){
+    // input
+    var that = this;
+    $("#employeenumber").mouseenter(function (e) {
+      console.log("******inputvalue", that.inputvalue)
+      if (that.inputvalue != ""){
+        // 说明有值，这就需要在inpu中添加 图标！
+        $(".delet_input_value").show()
+      }
+    }).mouseout(function () {
+      $(".delet_input_value").hide();
+      
+    })
   }
 
   // 得到输入的

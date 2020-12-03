@@ -1,1 +1,7 @@
-<input [(ngModel)]="inputvalue" (ngModelChange)="changeValue($event)" class="layui-input" style="width: 168px;" placeholder="placeholder"  type="text" id="employeenumber">
+<div style="position: relative;padding: 0px;margin: 0px;">
+    <input [(ngModel)]="inputvalue" (ngModelChange)="changeValue($event)" class="layui-input" style="width: 168px;" placeholder="placeholder"  type="text" id="employeenumber">
+    <span class="delet_input_value">
+        <!-- <nb-icon icon="close-circle-outline"></nb-icon> -->
+        <i class="layui-icon layui-icon-close-fill"></i>   
+    </span>
+</div>

@@ -99,8 +99,8 @@ export class PublicmethodService {
         this.httpservice.callRPC(table, method, colums).subscribe((result)=>{
           // 会话过期
           const baseData = result['result']['message'][0];
-          if (baseData != "T"){
-            var menu = this.dataTranslation(baseData);
+          if (baseData["code"]===1){
+            var menu = this.dataTranslation(baseData["message"]);
             localStorage.setItem(SYSMENU, JSON.stringify(menu));
             for (const i in this.location){
               if (i === 'location'){

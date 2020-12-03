@@ -34,9 +34,7 @@ export class HttpInterceptorService implements HttpInterceptor {
             ok = 'failed'; 
             if (error.status != 200){
               this.Printerr(error);
-              console.log("----不等200拦截器----",error)
             }else{
-              console.log("----200拦截器----",error)
             }
           }
         ),
@@ -45,7 +43,7 @@ export class HttpInterceptorService implements HttpInterceptor {
           const elapsed = Date.now() - started;
           const msg = `${req.method} "${req.urlWithParams}"
              ${ok} in ${elapsed} ms.`;
-             console.warn("完成或出现错误时记录日志", msg)
+            //  console.warn("完成或出现错误时记录日志", msg)
         }),
         
       );
@@ -53,7 +51,7 @@ export class HttpInterceptorService implements HttpInterceptor {
   }
 
   Printerr(req:HttpErrorResponse){
-    console.warn("输出,req: ",req);
+    // console.warn("输出,req: ",req);
     // 500 502 503 504   miscellaneous/500
     var status_code = [500,501,502,503,504,505,506,507,508,509]
     var status = req.status;
@@ -67,8 +65,8 @@ export class HttpInterceptorService implements HttpInterceptor {
           if (name) {
             // 删除之前的缓存
             localStorage.removeItem(ssotoken);
-            localStorage.removeItem(MULU);
-            location.href = loginurl;
+            // localStorage.removeItem(MULU);
+            // location.href = loginurl;
             this.router.navigate([loginurl]);
           } else {
           }

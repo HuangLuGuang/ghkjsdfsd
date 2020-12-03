@@ -125,6 +125,7 @@ export class NewMenuComponent implements OnInit {
         // 编辑
         // 切换tab
         if (isnot_edit["type"] === 0){
+          
           // 目录
           $(".mululi").attr("class", "layui-this mululi");
           $(".caidanli").attr("class", "caidanli");
@@ -196,7 +197,8 @@ export class NewMenuComponent implements OnInit {
         })
       }
       // 判断是否是编辑-----------------------------------
-
+      // 目录的图标必填！
+      $("[name='icon]").attr("lay-verify", "required");
       // =============================监听 输入button 确定
       
       //监听提交 --- 目录

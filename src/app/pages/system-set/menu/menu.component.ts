@@ -493,10 +493,6 @@ export class MenuComponent implements OnInit {
     return '-'
     };
 
-    function permissionFormatter(value, row, index) {
-      return `${value}`
-      // return `<span class="label label-success">${value}</span>`
-    }
 
     // 是否启用
     function activeFormatter(value, row, index){
@@ -510,12 +506,7 @@ export class MenuComponent implements OnInit {
       }
     }
 
-    function statusFormatter(value, row, index) {
-    if (value === 1) {
-        return '<span class="label label-success">正常</span>'
-    }
-    return '<span class="label label-default">锁定</span>'
-    }
+
 
 
     // 操作
@@ -545,16 +536,6 @@ export class MenuComponent implements OnInit {
         '</a>',
         '</button>',
       ].join('')
-      // <i class="nb-trash" style="font-size: 35px;"></i>
-
-      // return [
-      //   '<a class="edit btn btn-info" href="javascript:void(0)" title="编辑" style="color:#ffffff; margin-right: 50px; " ">',
-      //   '<i class="nb-edit" style="font-size: 32px; "></i>',
-      //   '</a>  ',
-      //   '<a class="remove btn btn-danger" href="javascript:void(0)" title="删除"   style="color:#ffffff">',
-      //   '<i class="nb-trash"  style="font-size: 32px; "></i>',
-      //   '</a>'
-      // ].join('')
 
     }
 
@@ -614,65 +595,10 @@ export class MenuComponent implements OnInit {
       })
     }
 
-    // 解析menu
-    function analysisMenu(res) {
-      console.log("params: ", res)
-      var mulu = res['msg']['mulu'];
-      var caidan = res['msg']['caidan'];
-      
-      // 菜单
-      var caidan_lsit = [];
-      caidan.forEach(element => {
-        var dict_item = {};
-        dict_item["ck"] = null;
-        dict_item["id"] = element['menu_id'];
-        dict_item["pid"] = Number(element['parent_id']);
-        // 得到上级菜单名称
-        mulu.forEach(m => {
-          if (Number(element['parent_id']) == m['menu_id'])
-          dict_item["parentname"] = m['name'];
-          
-        });
-        dict_item["name"] = element['name'];
-        dict_item["menuurl"] = element['url'];
-        dict_item["permissionValue"] = element['perms'];
-        dict_item["status"] = element['type']; // type
-        caidan_lsit.push(dict_item);
-      });
 
-      // 目录
-      var mulu_lsit = [];
-      mulu.forEach(element => {
-        var dict_item = {};
-        dict_item["ck"] = null;
-        dict_item["id"] = element['menu_id'];
-        dict_item["pid"] = Number(element['parent_id']);
-        dict_item["name"] = element['name'];
-        dict_item["menuurl"] = element['url'];
-        dict_item["permissionValue"] = element['perms'];
-        dict_item["status"] = element['type'];
-        mulu_lsit.push(dict_item)
-      });
-      
-      var data = caidan_lsit.concat(mulu_lsit);
-      // console.log("&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&",data)
-      // $table.bootstrapTable({data: data});
-      $table.bootstrapTable('refreshOptions', {data: data})
-    }
     
 
-    // 出入编辑前的行数据和编辑之后得到的表单数据，输出 整合后的行数据作为最终的含数据！
-    function lastrowdata(oldrowdata, formdata) {
-      console.log("编辑前的行数据", oldrowdata);
-      console.log("编辑之后得到的表单数据", formdata);
-      oldrowdata["link"] = formdata["link"];
-      oldrowdata["title"] = formdata["title"];
-      oldrowdata["orderindex"] = formdata["orderindex"];
-      oldrowdata["type"] = formdata["type"];
-      oldrowdata["icon"] = formdata["icon"];
-      oldrowdata["type"] = formdata["type"];
-      return oldrowdata
-    }
+
 
     // 弹出函数
     function open(row) {

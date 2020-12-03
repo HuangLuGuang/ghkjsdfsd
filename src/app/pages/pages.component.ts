@@ -35,6 +35,7 @@ export class PagesComponent implements OnInit {
     private menuservice: NbMenuService,
     private userInfoService: UserInfoService,
     private router: Router) {
+      // localStorage.removeItem("alert401flag");
 
     // this.loadMenu();
   }
@@ -85,10 +86,11 @@ export class PagesComponent implements OnInit {
     const method = "get_menu_by_roles";
     this.httpservice.callRPC(table, method, colums).subscribe(
       result => {
+        console.log("得到系统设置所有要的菜单-------->",result)
         const baseData = result['result']['message'][0];
-        if (baseData.length) {
+        if (baseData["code"]===1) {
           // 将菜单信息存储到localStorage
-          this.menu = this.dataTranslation(baseData);
+          this.menu = this.dataTranslation(baseData["message"]);
           localStorage.setItem('mulu', JSON.stringify(this.menu));
           this.menuservice.addItems(this.menu, 'menu');
         } else {
@@ -99,10 +101,11 @@ export class PagesComponent implements OnInit {
 
     // get_systemset_menu_all  得到系统设置所有要的菜单！
     this.httpservice.callRPC("menu_item", "get_systemset_menu_all", colums).subscribe((result)=>{
+      
       const baseData = result['result']['message'][0];
-      if (baseData != "T"){
+      if (baseData["code"]===1){
         // 得到sysmenu ----------------------------------
-        var sysmenu = this.menuTranslation(baseData);
+        var sysmenu = this.menuTranslation(baseData["message"]);
         localStorage.setItem(SYSMENU, JSON.stringify(sysmenu));
         // 得到sysmenu ----------------------------------
       }
@@ -113,6 +116,7 @@ export class PagesComponent implements OnInit {
 
 
   dataTranslation(baseMenu) {
+    console.log("得到sysmenu", baseMenu)
     // 生成父子数据结构
     let map = {};
     baseMenu.forEach(item => {
@@ -136,6 +140,7 @@ export class PagesComponent implements OnInit {
 
   // 得到sysmenu
   menuTranslation(baseMenu) {
+    
     // 生成父子数据结构
     let nodeData = [];
     baseMenu.forEach(item => {
