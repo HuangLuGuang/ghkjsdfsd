@@ -13,6 +13,7 @@ import { UserInfoService } from '../services/user-info/user-info.service';
 
 import { SYSMENU, loginurl } from '../appconfig';
 import { Router } from '@angular/router';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'ngx-pages',
@@ -34,9 +35,12 @@ export class PagesComponent implements OnInit {
     private httpservice: HttpserviceService,
     private menuservice: NbMenuService,
     private userInfoService: UserInfoService,
-    private router: Router) {
+    private router: Router, private translate: TranslateService) {
 
-    // this.loadMenu();
+    this.translate.onLangChange.subscribe((params) => {
+      localStorage.setItem('currentLanguage', params['lang']);
+      this.loadMenu();
+  });
   }
 
   ngOnInit() {
@@ -88,9 +92,10 @@ export class PagesComponent implements OnInit {
         const baseData = result['result']['message'][0];
         if (baseData.length) {
           // 将菜单信息存储到localStorage
-          this.menu = this.dataTranslation(baseData);
-          localStorage.setItem('mulu', JSON.stringify(this.menu));
-          this.menuservice.addItems(this.menu, 'menu');
+          this.menu.length = 0;
+          const menuData = this.dataTranslation(baseData);
+          localStorage.setItem('mulu', JSON.stringify(menuData));
+          this.menuservice.addItems(menuData, 'menu');
         } else {
           this.router.navigate([loginurl]);
         }
@@ -107,9 +112,9 @@ export class PagesComponent implements OnInit {
         // 得到sysmenu ----------------------------------
       }
     });
-    
+
   }
-  
+
 
 
   dataTranslation(baseMenu) {
@@ -179,7 +184,7 @@ export class PagesComponent implements OnInit {
 
 
 
-  
+
 
 
 }

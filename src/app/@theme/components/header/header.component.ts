@@ -11,7 +11,7 @@ import { TranslateService } from '@ngx-translate/core';
 import { AuthService } from '../../../setup/auth/auth.service';
 import { Router } from '@angular/router';
 import { LocalStorageService } from '../../../services/local-storage/local-storage.service';
-import { ssotoken,  loginurl, MULU, SYSMENU, SYSMENUEDIT, SSOUSERINFO, SYSROLE, SYSROLEMENU,menu_button_list,employee_action, LOGIN_INFO, ECHARTS_RESIZE } from '../../../appconfig'; 
+import { ssotoken,  loginurl, MULU, SYSMENU, SYSMENUEDIT, SSOUSERINFO, SYSROLE, SYSROLEMENU,menu_button_list,employee_action, LOGIN_INFO, ECHARTS_RESIZE } from '../../../appconfig';
 import { UserInfoService } from '../../../services/user-info/user-info.service';
 
 import { HttpHeaders,HttpClient,  } from '@angular/common/http';
@@ -51,7 +51,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
   currentTheme = 'default';
 
-  
+
 
 
 
@@ -91,7 +91,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
     this.currentLangue = localStorage.getItem('currentLanguage') == null ? this.currentLangue : localStorage.getItem('currentLanguage') ;
     this.translate.setDefaultLang(this.currentLangue);
     localStorage.setItem('currentLanguage', this.currentLangue);
-    
+
     console.log("当前语言",this.currentLangue);
     // var currentTheme = this.localStorageService.get("currentTheme");
     // if (currentTheme == null){
@@ -101,13 +101,13 @@ export class HeaderComponent implements OnInit, OnDestroy {
     //   this.currentTheme = currentTheme.currentTheme;
     // }
     // console.log("currentTheme--->", this.currentTheme)
-    
-    
+
+
   }
 
   ngOnInit() {
     this.currentTheme = this.themeService.currentTheme;
-    
+
     this.userService.getUsers()
       .pipe(takeUntil(this.destroy$))
       .subscribe((users: any) => {
@@ -133,7 +133,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
       )
       .subscribe(themeName => this.currentTheme = themeName);
       this.menuService.onItemClick().subscribe((event)=>{
-        console.log("event", event); 
+        console.log("event", event);
         this.alet_is_logout(event.item.title)
       })
        //进入项目时面板的图表的初始化宽度的问题发的消息
@@ -187,18 +187,18 @@ export class HeaderComponent implements OnInit, OnDestroy {
     if (langueName == 'en-US'){
       this.userMenu = [ { title: 'Log out' } ];
       console.log("您选择的语言是： 英文！",this.themes);
-      
+
 
     }else{
       console.log("您选择的语言是： 中文！");
-      
+
       this.userMenu = [ { title: '退出登录'} ];
 
     }
     console.log("this.currentTheme  ", this.currentTheme);
-    location.reload();
+    // location.reload();
 
-    
+
   }
 
   // 注销用户、修改密码
@@ -210,13 +210,13 @@ export class HeaderComponent implements OnInit, OnDestroy {
       localStorage.removeItem(MULU);
       localStorage.removeItem(SYSMENU);
 
-      
+
       // localStorage.removeItem(ssotoken);
 
       // this.router.navigate([loginurl]);
-      
+
       // 根据admin_app_token 是否存在，判断是admin 私用 还是单点 adminloginurl
-      
+
       // 获取用户名
       var username = this.userinfoservice.getName();
       var login_info = localStorage.getItem(LOGIN_INFO);
@@ -229,7 +229,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
         localStorage.removeItem(SSOUSERINFO);
         localStorage.removeItem(SYSROLE);
         localStorage.removeItem(SYSROLEMENU);
-        
+
         // // menu_button_list,employee_action
         localStorage.removeItem(menu_button_list);
         localStorage.removeItem(employee_action);
@@ -271,7 +271,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
         localStorage.removeItem(SYSROLEMENU);
       }
 
-      
+
 
     }
 
