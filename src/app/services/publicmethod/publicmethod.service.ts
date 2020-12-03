@@ -230,44 +230,24 @@ export class PublicmethodService {
     /*
     * 应该是根据用户名对应的roleid
     */
-    var token = JSON.parse(localStorage.getItem(ssotoken))? JSON.parse(localStorage.getItem(ssotoken)): false;
-    var opts;
-    if (token){
-      opts = {
-        headers: new HttpHeaders({
-          'Authorization': 'Bearer ' + token.token  // tslint:disable-line:object-literal-key-quotes
-        })
-      };
-      return new Observable((observe)=>{
-        this.httpservice.get(INFO_API, opts)
-        .subscribe(
-          userInfo=>{
-            var roles_list = [];
-            if (userInfo["result"]){
-            }else{
-              if (userInfo['userInfo']['roles']) {
-                console.log("*********************\t\t\t",userInfo['userInfo'])
-                const roles = userInfo['userInfo']["roles"];
-                roles.forEach(role => {
-                  roles_list.push(role["roleid"]);
-                });
-                observe.next(roles_list)
-              } else {
-                this.toastr({position: 'top-right', status: 'danger', conent:"当前用户菜单权限不足，请联系管理员添加权限！"});
-                observe.next(roles_list)
-              }
-            }
-            
-        },error=>{
-          alert("err")
-          console.warn("userInfo 》》》》》》error",error)
-        }
-        )
-      })
-    }else{
-      this.router.navigate([loginurl]);
-    }
+   return new Observable((observe)=>{
+     let roles = [];
+     const userinfoStr = localStorage.getItem('ssouserinfo');
+     const userinfo = userinfoStr ? this.uncompileStr(userinfoStr) : null;
+     console.warn("userinfo>>", userinfo);
+     const roleList = userinfo ? JSON.parse(userinfo)["roles"] : null;
+     if (roleList ? roleList.length : null) {
+       roleList.forEach(val => {
+         roles.push(val["roleid"]);
+       });
+     } else {
+       roles = null;
+     }
+     observe.next(roles);
+   })
+    
   }
+
 
 
   // 得到当前日期和时间

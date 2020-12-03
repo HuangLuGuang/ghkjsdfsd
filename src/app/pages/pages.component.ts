@@ -36,11 +36,11 @@ export class PagesComponent implements OnInit {
     private userInfoService: UserInfoService,
     private router: Router) {
 
-    this.loadMenu();
+    // this.loadMenu();
   }
 
   ngOnInit() {
-    // this.loadMenu();
+    this.loadMenu();
   }
 
   ngOnDestory() {
@@ -65,57 +65,52 @@ export class PagesComponent implements OnInit {
   }
 
   loadMenu(){
-    var mulu = localStorage.getItem('mulu') == null ? [] : JSON.parse(localStorage.getItem('mulu'));
-    var mulu_language = localStorage.getItem('mulu_language') == null ? 'zh_CN' : localStorage.getItem('mulu_language');
-    if(mulu.length == 0 || mulu_language != localStorage.getItem('currentLanguage')){
-      this.publicservice.getMenu().subscribe((data)=>{
-        console.log("-----------------data", data)
-        if (data){
-          const colums = {
-            languageid: this.httpservice.getLanguageID(),
-            roles: data
-          };
-          console.log("---colums--",colums)
-          const table = "menu_item";
-          const method = "get_menu_by_roles";
-          this.httpservice.callRPC(table, method, colums).subscribe((result)=>{
-            const baseData = result['result']['message'][0];
-            if (baseData === "T"){
-              console.log("?????????????????", baseData)
-            }else{
-              console.log("------菜单--目录：", baseData)
-              // 过滤 link、icon 同时 为 null的，及不是菜单的
-              baseData.forEach((element, index) => {
-                if (element["icon"] === null && element["link"] === null){
-                  baseData.splice(index, 1);
-                }
-              });
-              var menu = this.dataTranslation(baseData);
-              localStorage.setItem("mulu", JSON.stringify(menu));
-              localStorage.setItem("mulu_language", localStorage.getItem('currentLanguage'));
-              this.menu = menu
-              // this.menu.push(...menu)
-              // this.menuservice.addItems(this.menu, 'menu');
-            }
-          })
-          // get_systemset_menu_all  得到系统设置所有要的菜单！
-          this.httpservice.callRPC("menu_item", "get_systemset_menu_all", colums).subscribe((result)=>{
-            const baseData = result['result']['message'][0];
-            if (baseData != "T"){
-              // 得到sysmenu ----------------------------------
-              var sysmenu = this.menuTranslation(baseData);
-              localStorage.setItem(SYSMENU, JSON.stringify(sysmenu));
-              // 得到sysmenu ----------------------------------
-            }
-          });
-        }else{
+    let roles = [];
+    const userinfoStr = localStorage.getItem('ssouserinfo');
+    const userinfo = userinfoStr ? this.publicservice.uncompileStr(userinfoStr) : null;
+    const roleList = userinfo ? JSON.parse(userinfo)["roles"] : null;
+    if (roleList ? roleList.length : null) {
+      roleList.forEach(val => {
+        roles.push(val["roleid"]);
+      });
+    } else {
+      roles = null;
+    }
+    console.warn("roles>>", roles);
+    const colums = {
+      languageid: this.httpservice.getLanguageID(),
+      roles: roles
+    };
+    const table = "menu_item";
+    const method = "get_menu_by_roles";
+    this.httpservice.callRPC(table, method, colums).subscribe(
+      result => {
+        const baseData = result['result']['message'][0];
+        if (baseData.length) {
+          // 将菜单信息存储到localStorage
+          this.menu = this.dataTranslation(baseData);
+          localStorage.setItem('mulu', JSON.stringify(this.menu));
+          this.menuservice.addItems(this.menu, 'menu');
+        } else {
           this.router.navigate([loginurl]);
         }
-      });
-    }else{
-      this.menuservice.addItems(mulu, 'menu');
-    }
+      }
+    );
+
+    // get_systemset_menu_all  得到系统设置所有要的菜单！
+    this.httpservice.callRPC("menu_item", "get_systemset_menu_all", colums).subscribe((result)=>{
+      const baseData = result['result']['message'][0];
+      if (baseData != "T"){
+        // 得到sysmenu ----------------------------------
+        var sysmenu = this.menuTranslation(baseData);
+        localStorage.setItem(SYSMENU, JSON.stringify(sysmenu));
+        // 得到sysmenu ----------------------------------
+      }
+    });
+    
   }
+  
+
 
   dataTranslation(baseMenu) {
     // 生成父子数据结构
@@ -142,7 +137,6 @@ export class PagesComponent implements OnInit {
   // 得到sysmenu
   menuTranslation(baseMenu) {
     // 生成父子数据结构
-    console.log("-=-=-=-=-=public-=baseMenu-=-=-=-=",baseMenu)
     let nodeData = [];
     baseMenu.forEach(item => {
       let map = {};
@@ -163,9 +157,6 @@ export class PagesComponent implements OnInit {
       }
       nodeData.push(map)
     });
-
-
-
     return nodeData;
   }
 

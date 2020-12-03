@@ -10,7 +10,8 @@
             <div class="col-lg-9" style="display: flex;">
                 <!-- input 设备名称输入框 -->
                 <div class="example-items-rows button_item"  *ngIf="button?.query">
-                    <input [(ngModel)]="inputvalue" (ngModelChange)="changeValue($event)" class="layui-input" style="width: 168px;" placeholder="请输入设备名称"  type="text" id="employeenumber">
+                    <!-- <input [(ngModel)]="inputvalue" (ngModelChange)="changeValue($event)" class="layui-input" style="width: 168px;" placeholder="请输入设备名称"  type="text" id="employeenumber"> -->
+                    <ngx-my-input #myinput [placeholder]="myinput_placeholder"></ngx-my-input>
                 </div>
 
                 <!-- 科室/功能组 --> 

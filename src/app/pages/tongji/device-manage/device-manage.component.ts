@@ -51,7 +51,8 @@ export class DeviceManageComponent implements OnInit {
 
   // groups_placeholder eimdevicetpye_placeholder
   groups_placeholder = "请选择科室/功能组";
-  eimdevicetpye_placeholder = "请选择设备类别"
+  eimdevicetpye_placeholder = "请选择设备类别";
+  myinput_placeholder = "请输入设备名称";
 
   loading = false;  // 加载
   refresh = false; // 刷新tabel
@@ -117,15 +118,13 @@ export class DeviceManageComponent implements OnInit {
     localStorage.removeItem("device_manage_agGrid");
   }
 
-  // 检测输入框值
-  inputvalue = ""; 
-  changeValue(value){
-    console.log("----检测输入框值-----",value, "*********\n\n\n")
-    console.log("----检测输入框值-inputvalue----",this.inputvalue, "*********\n\n\n")
-  }
-  listen_input(id_or_class){
+  // // 检测输入框值
+  // inputvalue = ""; 
+  // changeValue(value){
+  //   console.log("----检测输入框值-----",value, "*********\n\n\n")
+  //   console.log("----检测输入框值-inputvalue----",this.inputvalue, "*********\n\n\n")
+  // }
 
-  }
 
   // button按钮
   action(actionmethod){

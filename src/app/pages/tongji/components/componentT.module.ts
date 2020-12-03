@@ -17,11 +17,13 @@ import { MySelectTreeComponent } from './my-select-tree/my-select-tree.component
 import { MySelectTreeTypeComponent } from './my-select-tree-type/my-select-tree-type.component';
 import { MySelectTreeTypeComponent as MySelectTreeTypeComponentType} from './my-select-tree-type/my-select-tree-type.component';
 import { MyDateRangeComponent } from './my-date-range/my-date-range.component';
+import { MyInputComponent } from './my-input/my-input.component';
 @NgModule({
   declarations: [
     MySelectComponent, MySelectGroupComponent, AgTableComponent, MySelectTreeComponent, MySelectTreeTypeComponent,
     MySelectTreeTypeComponentType,
     MyDateRangeComponent,
+    MyInputComponent,
   ],
   imports: [
     CommonModule,
@@ -35,7 +37,8 @@ import { MyDateRangeComponent } from './my-date-range/my-date-range.component';
   ],
   exports: [
     MySelectComponent, MySelectGroupComponent, AgTableComponent,MySelectTreeComponent,MySelectTreeTypeComponentType,
-    MyDateRangeComponent
+    MyDateRangeComponent,
+    MyInputComponent
   ]
 })
 export class ComponentTModule { }
