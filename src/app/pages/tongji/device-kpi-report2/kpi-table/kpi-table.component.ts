@@ -25,6 +25,7 @@ export class KpiTableComponent implements OnInit {
   @ViewChild("groups") groups_func:any;
   @ViewChild("eimdevicetpye") eimdevicetpye:any;
   @ViewChild("data_range") data_range:any;
+  @ViewChild("myinput") myinput:any;
 
 
   table = 'device';
@@ -46,6 +47,7 @@ export class KpiTableComponent implements OnInit {
   
   groups_placeholder = "请选择科室/功能组";     // 科室/功能组 
   eimdevicetpye_placeholder = "请选择设备类型"; // eim 设备类型
+  myinput_placeholder = "请输入设备名称"
   button; // 权限button
   refresh = false; // 刷新tabel
 
@@ -133,12 +135,24 @@ export class KpiTableComponent implements OnInit {
     })
   }
 
-  
+  // input 传入的值
+  inpuvalue(inpuvalue){
+    if (inpuvalue != ""){
+      console.log("传入的值设备名称----->",inpuvalue);
+      this.query(inpuvalue);
+    }
+  }
 
   // 搜索按钮
-  query(){
+  query(inpuvalue?){
+    var devicename;
+    if (inpuvalue){
+      devicename = inpuvalue;
+    }else{
+      devicename = this.myinput?.getinput();// 设备名称
+    }
     // 设备名称 devicename
-    var devicename = $("#devicename").val();
+    // var devicename = $("#devicename").val();
     // 科室/功能组
     var groups_data = this.groups_func.getselect();
     // 设备类型
@@ -181,6 +195,7 @@ export class KpiTableComponent implements OnInit {
       
   }
 
+ 
 
   download(){
     console.log("这是----download，kpi 报表");

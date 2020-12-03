@@ -21,13 +21,17 @@ input:hover{
     position: absolute;
     top: 11px;
     right: 1px;
+    i{
+        position: absolute;
+        height: 100%;
+        right: 5px;
+        top: -7px;
+    }
 }
-        i{
-            position: absolute;
-            height: 100%;
-            right: 5px;
-            top: -5px;
-        }
 .delet_input_value:hover{
     display: block;
+
+}
+i:hover{
+    cursor: pointer;
 }

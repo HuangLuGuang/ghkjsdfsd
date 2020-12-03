@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 
 declare let $;
 
@@ -9,6 +9,9 @@ declare let $;
 })
 export class MyInputComponent implements OnInit {
   @Input('placeholder') myinput_placeholder:string;
+  @Output() private inpuvalue = new EventEmitter<string>();
+
+
   constructor() { }
 
   ngOnInit(): void {
@@ -25,8 +28,6 @@ export class MyInputComponent implements OnInit {
   // 检测输入框值
   inputvalue = ""; 
   changeValue(value){
-    console.log("----检测输入框值-----",value, "*********\n\n\n");
-    console.log("----检测输入框值-inputvalue----",this.inputvalue, "*********\n\n\n");
     if (this.inputvalue != ""){
       $(".delet_input_value").show()
     }else{
@@ -35,11 +36,18 @@ export class MyInputComponent implements OnInit {
     // this.listen_shubiao();
   }
 
+  // 点击图标删除数据
+  del_input_value(){
+    this.inputvalue = "";
+    $(".delet_input_value").hide();
+    this.inpuvalue.emit("");
+  }
+
   // 监听鼠标移入！移入创建、移出删除
   listen_shubiao(){
     // input
     var that = this;
-    $("#employeenumber").mouseenter(function (e) {
+    $("div").mouseenter(function (e) {
       console.log("******inputvalue", that.inputvalue)
       if (that.inputvalue != ""){
         // 说明有值，这就需要在inpu中添加 图标！
@@ -55,6 +63,25 @@ export class MyInputComponent implements OnInit {
   getinput(){
     return this.inputvalue
   }
+
+  // 监听enter
+  onCodeup(event){
+    var keycode = event.keyCode?event.keyCode: 0;
+    switch (keycode) {
+      case 13:
+        // enter, 得到输入值，调用父组件函数搜索
+        var inpuvalue = this.getinput();
+        console.log("enter:",inpuvalue)
+        this.inpuvalue.emit(inpuvalue);
+        break;
+      case 27:
+        break;
+      default:
+        break;
+    }
+  }
+
+  
   
 
 }

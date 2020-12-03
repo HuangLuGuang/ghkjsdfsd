@@ -52,7 +52,9 @@ export class UserLoginComponent implements OnInit {
     private http: HttpClient,
     private publicmethodService: PublicmethodService,
     private userInfoService: UserInfoService,
-  ) { }
+  ) {
+    localStorage.removeItem("alert401flag");
+   }
 
   ngOnInit(): void {
     console.log("统一认证");

@@ -66,8 +66,8 @@ export class HttpInterceptorService implements HttpInterceptor {
             // 删除之前的缓存
             localStorage.removeItem(ssotoken);
             // localStorage.removeItem(MULU);
-            // location.href = loginurl;
-            this.router.navigate([loginurl]);
+            location.href = loginurl;
+            // this.router.navigate([loginurl]);
           } else {
           }
         });

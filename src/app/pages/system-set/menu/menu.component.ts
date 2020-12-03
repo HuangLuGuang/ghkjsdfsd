@@ -631,8 +631,8 @@ export class MenuComponent implements OnInit {
         this.http.callRPC(table, method, colums).subscribe((result)=>{
           console.log("---------------->>>>",result)
           const baseData = result['result']['message'][0];
-          if (baseData != "T"){
-            var menu = this.dataTranslation(baseData);
+          if (baseData["code"]===1){
+            var menu = this.dataTranslation(baseData["message"]);
             localStorage.setItem(SYSMENU, JSON.stringify(menu));
             // 按钮
             var $table = $('#menuTable')
@@ -686,8 +686,8 @@ export class MenuComponent implements OnInit {
           this.http.callRPC(table, method, colums).subscribe((result)=>{
             console.log("---------------->>>>",result)
             const baseData = result['result']['message'][0];
-            if (baseData != "T"){
-              var menu = this.dataTranslation(baseData);
+            if (baseData["code"]===1){
+              var menu = this.dataTranslation(baseData["message"]);
               localStorage.setItem(SYSMENU, JSON.stringify(menu));
               // 按钮
               this.RanderTable(menu);
@@ -750,36 +750,41 @@ export class MenuComponent implements OnInit {
           this.http.callRPC(table, method, colums).subscribe((result)=>{
             console.log("---更新button_list！--",result)
             const baseData = result['result']['message'][0];
-            var button_list = [];
-            baseData.forEach(element => {
-              if (element["type"] === 2 ){
-                var method = element["permission"].split(":")[1];
-                // info success warning danger  primary
-                switch (method) {
-                  case 'add':
-                    element['class']="info"
-                  break;
-                  case 'del':
-                    element['class']="danger"
+            if (baseData["code"] === 1){
+              var button_list = [];
+              baseData["message"].forEach(element => {
+                if (element["type"] === 2 ){
+                  var method = element["permission"].split(":")[1];
+                  // info success warning danger  primary
+                  switch (method) {
+                    case 'add':
+                      element['class']="info"
                     break;
-                  case 'edit':
-                    element['class']="warning"
-                    break;
-                  case 'query':
-                    element['class']="success"
-                    break;
-                  case 'import':
-                    element['class']="primary"
-                    break;
-                  case 'download':
-                    element['class']="primary"
-                    break;
+                    case 'del':
+                      element['class']="danger"
+                      break;
+                    case 'edit':
+                      element['class']="warning"
+                      break;
+                    case 'query':
+                      element['class']="success"
+                      break;
+                    case 'import':
+                      element['class']="primary"
+                      break;
+                    case 'download':
+                      element['class']="primary"
+                      break;
+                  }
+                  button_list.push(element);
                 }
-                button_list.push(element);
-              }
-            });
-            localStorage.setItem(menu_button_list, JSON.stringify(button_list));
-            observe.next(true)
+              });
+              localStorage.setItem(menu_button_list, JSON.stringify(button_list));
+              observe.next(true)
+
+            }else{
+
+            }
           })
         }else{
           // else

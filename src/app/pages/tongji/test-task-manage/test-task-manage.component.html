@@ -14,7 +14,8 @@
                         <!-- 设备名称 devicename --> 
                         <div class="example-items-rows button_item"  *ngIf="button?.query">
                             <div class="gongneng_keshi">
-                                <input nbInput  shape="rectangle"  style="width: 168px;" placeholder="请输入设备名称" status="success" type="text" id="devicename">
+                                <ngx-my-input #myinput (inpuvalue)="inpuvalue($event)"  [placeholder]="myinput_placeholder"></ngx-my-input>
+                                <!-- <input nbInput  shape="rectangle"  style="width: 168px;" placeholder="请输入设备名称" status="success" type="text" id="devicename"> -->
                             </div>
                         </div>
                         

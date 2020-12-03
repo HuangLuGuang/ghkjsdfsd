@@ -417,14 +417,15 @@ export class RoleComponent implements OnInit {
         const table = "menu_item";
         const method = "get_systemset_menu_all";
         this.http.callRPC(table, method, colums).subscribe((result)=>{
-          
           const baseData = result['result']['message'][0];
-          // console.log("sys_role_menu", baseData)
-          localStorage.setItem(SYSROLEMENU, JSON.stringify(baseData));
-          // 得到特定的树状结构数据
-          this.sysrolemenu_to_tree_v2(baseData).subscribe((treedata)=>{
-            observe.next(treedata)
-          });
+          if (baseData["code"]===1){
+            localStorage.setItem(SYSROLEMENU, JSON.stringify(baseData["message"]));
+            // 得到特定的树状结构数据
+            this.sysrolemenu_to_tree_v2(baseData["message"]).subscribe((treedata)=>{
+              observe.next(treedata)
+            });
+
+          }
         })
         
       });

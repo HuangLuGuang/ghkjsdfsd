@@ -31,6 +31,7 @@ export class DeviceManageComponent implements OnInit {
 
   @ViewChild("groups") groups_func:any;
   @ViewChild("eimdevicetpye") eimdevicetpye:any;
+  @ViewChild("myinput") myinput:any;
   @ViewChild("ag_Grid") agGrid:any;
 
   constructor(private publicservice: PublicmethodService, private dialogService: NbDialogService, private http: HttpserviceService, private userinfo: UserInfoService) { 
@@ -117,13 +118,6 @@ export class DeviceManageComponent implements OnInit {
   ngOnDestroy(){
     localStorage.removeItem("device_manage_agGrid");
   }
-
-  // // 检测输入框值
-  // inputvalue = ""; 
-  // changeValue(value){
-  //   console.log("----检测输入框值-----",value, "*********\n\n\n")
-  //   console.log("----检测输入框值-inputvalue----",this.inputvalue, "*********\n\n\n")
-  // }
 
 
   // button按钮
@@ -286,7 +280,6 @@ export class DeviceManageComponent implements OnInit {
   }
 
   refresh_table(){
-    $("#employeenumber").val('')
     this.refresh = true;
     this.loading = true;
     this.gridData = [];
@@ -296,9 +289,10 @@ export class DeviceManageComponent implements OnInit {
     this.refresh = false;
 
     // 取消选择的数据 delselect
-    $("#employeenumber").val("");
-    this.groups_func.delselect();
-    this.eimdevicetpye.delselect();
+    // $("#employeenumber").val("");
+    // this.myinput.del_input_value();
+    // this.groups_func.delselect();
+    // this.eimdevicetpye.delselect();
   }
 
   // 得到下拉框的数据
@@ -327,11 +321,25 @@ export class DeviceManageComponent implements OnInit {
     input.click();
   }
 
+  // input 传入的值
+  inpuvalue(inpuvalue){
+    if (inpuvalue != ""){
+      console.log("传入的值设备名称----->",inpuvalue);
+      this.query(inpuvalue);
+    }
+  }
   // 搜索按钮
-  query(){
-    var devicename = $("#employeenumber").val()?$("#employeenumber").val(): "";// 设备名称
-    var groups = this.groups_func.getselect();// 科室/功能组
-    var eimdevicetype = this.eimdevicetpye.getselect()?this.eimdevicetpye.getselect():[]; // eim设备类型
+  query(inpuvalue?){
+    var devicename;
+    if (inpuvalue){
+      devicename = inpuvalue;
+    }else{
+      devicename = this.myinput?.getinput();// 设备名称
+    }
+    // var devicename = this.myinput?.getinput();// 设备名称
+    console.log("设备名称----->",devicename)
+    var groups = this.groups_func?.getselect();// 科室/功能组
+    var eimdevicetype = this.eimdevicetpye?.getselect()?this.eimdevicetpye?.getselect():[]; // eim设备类型
     var grops_data = groups != ""? groups.split(";"): [];
     if (devicename == "" && eimdevicetype.length < 1 && grops_data.length < 1){
       // 未选中
@@ -369,6 +377,7 @@ export class DeviceManageComponent implements OnInit {
       })
     }
   }
+  // 监听回车，得到输入框中值，然后搜索，
 
   // 导出文件
   download(title){
