@@ -5,7 +5,7 @@ import { catchError, finalize, mergeMap, tap } from 'rxjs/operators';
 // http 拦截器!
 import { HttpEvent, HttpInterceptor, HttpHandler, HttpRequest, HttpResponse, HttpErrorResponse }from '@angular/common/http';
 
-import { loginurl,ssotoken,MULU }from '../../appconfig';
+import { loginurl,ssotoken,MULU,SSOUSERINFO }from '../../appconfig';
 
 // 路由
 import { Router } from '@angular/router';
@@ -59,20 +59,20 @@ export class HttpInterceptorService implements HttpInterceptor {
       this.router.navigate(['/miscellaneous/500']);
     } else if (status === 401) { // ExpiredTokenComponent
       const alert401flag = localStorage.getItem('alert401flag');
+      localStorage.removeItem(ssotoken);
       if (alert401flag !== 'true') {
         this.dialogService.open(ExpiredTokenComponent, { closeOnBackdropClick: false,} ).onClose.subscribe(
-        name => {
-          if (name) {
-            // 删除之前的缓存
-            localStorage.removeItem(ssotoken);
-            // localStorage.removeItem(MULU);
-            location.href = loginurl;
-            // this.router.navigate([loginurl]);
-          } else {
-          }
-        });
-      }
+          name => {
+            if (name) {
+              // 删除之前的缓存
+              // this.router.navigate([loginurl]);
+              location.href = loginurl;
+            } else {
+            }
+          });
+        }
       localStorage.setItem('alert401flag', 'true');
+      
       return 0;
     }else{
       // this.danger()

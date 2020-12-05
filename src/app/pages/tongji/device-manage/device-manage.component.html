@@ -6,25 +6,22 @@
     </nb-card-header>
     <nb-card-body>
         <!-- buttons -->
-        <div class="row" style="height: 42px;">
+        <div class="row" >
             <div class="col-lg-9" style="display: flex;">
                 <!-- input 设备名称输入框 -->
                 <div class="example-items-rows button_item"  *ngIf="button?.query">
-                    <!-- <input [(ngModel)]="inputvalue" (ngModelChange)="changeValue($event)" class="layui-input" style="width: 168px;" placeholder="请输入设备名称"  type="text" id="employeenumber"> -->
                     <ngx-my-input #myinput (inpuvalue)="inpuvalue($event)"  [placeholder]="myinput_placeholder"></ngx-my-input>
                 </div>
 
                 <!-- 科室/功能组 --> 
                 <div class="example-items-rows button_item " >
                     <div class="gongneng_keshi">
-                        <!-- <ngx-my-select-group #departmentselect [selectdatas]="departments"></ngx-my-select-group> -->
                         <ngx-my-select-tree #groups [placeholder]="groups_placeholder"></ngx-my-select-tree>
                     </div>
                 </div>
                 <!-- eim设备类别下拉框 -->
                 <div class="example-items-rows button_item" >
                     <div class="gongneng_keshi">
-                        <!-- <ngx-my-select #eimdevicetpye [selectdatas]="eimdevicetpyedata"></ngx-my-select> -->
                         <ngx-my-select-tree-type #eimdevicetpye [placeholder]="eimdevicetpye_placeholder"></ngx-my-select-tree-type>
                     </div>
 

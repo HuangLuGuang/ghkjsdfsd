@@ -42,7 +42,6 @@ export class AuthService {
       return true
     }
     else{
-
       this.isLoggedIn = false;
       return false;
     }

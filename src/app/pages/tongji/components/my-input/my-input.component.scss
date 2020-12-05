@@ -1,4 +1,4 @@
-input{
+#employeenumber{
     // line-height: 29px;
     height: 32px;
     position: relative;
@@ -7,7 +7,7 @@ input{
     border-width: 1.5px;
     padding-right: 18px;
 }
-input:hover{
+#employeenumber:hover{
     // cursor: pointer;
     height: 32px;
     border-color: rgb(0,214,143) !important;
@@ -19,13 +19,16 @@ input:hover{
 .delet_input_value{
     height: 100%;
     position: absolute;
-    top: 11px;
+    top: 0px;
     right: 1px;
+    width: 16px;
+    padding-top: 6px;
     i{
-        position: absolute;
+        // position: absolute;
+        position: revert;
         height: 100%;
         right: 5px;
-        top: -7px;
+        top: -8px;
     }
 }
 .delet_input_value:hover{

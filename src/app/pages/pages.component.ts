@@ -11,7 +11,7 @@ import { NbMenuService } from '@nebular/theme';
 
 import { UserInfoService } from '../services/user-info/user-info.service';
 
-import { SYSMENU, loginurl } from '../appconfig';
+import { SYSMENU, loginurl,ssotoken } from '../appconfig';
 import { Router } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
 
@@ -39,7 +39,8 @@ export class PagesComponent implements OnInit {
     this.translate.onLangChange.subscribe((params) => {
       localStorage.setItem('currentLanguage', params['lang']);
       this.loadMenu();
-  });
+    });
+    
   }
 
   ngOnInit() {
@@ -95,8 +96,9 @@ export class PagesComponent implements OnInit {
           const menuData = this.dataTranslation(baseData["message"]);
           localStorage.setItem('mulu', JSON.stringify(menuData));
           this.menuservice.addItems(menuData, 'menu');
-        } else {
-          this.router.navigate([loginurl]);
+        } 
+        else {
+          // this.router.navigate([loginurl]);
         }
       }
     );

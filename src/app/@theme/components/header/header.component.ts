@@ -277,12 +277,14 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
   }
 
+
    // 记录登出
    RecordLogin(){
 
     if(this.userinfoservice.getLoginName()){
       // const source = this.userinfoservice.getSourceid();        // 本机IP地址
-      const source = this.userinfoservice.getClientip();        // 客户端IP地址,
+      // const source = this.userinfoservice.getClientip();        // 客户端IP地址,
+      const source = this.userinfoservice.getUserip();        // 客户端IP地址,
       const employeeid = this.userinfoservice.getEmployeeID();  // employeeid
       // result 1
       // info 登录

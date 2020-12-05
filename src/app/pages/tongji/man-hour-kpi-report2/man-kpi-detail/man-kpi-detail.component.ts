@@ -171,6 +171,7 @@ export class ManKpiDetailComponent implements OnInit {
     })
   }
 
+  
   // 初始化右侧 第二个 echart 年份数据
   init_right_two(){
     // 得到数据

@@ -91,5 +91,11 @@ export class UserInfoService {
     return userinfo ? JSON.parse(userinfo)['clintip'] : null;
   }
 
+  // 获取真实的用户ip
+  getUserip(){
+    const userinfo = this.getUserInfo();
+    return userinfo? JSON.parse(userinfo)['user_ip']:null
+  }
+
   
 }
