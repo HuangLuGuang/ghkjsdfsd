@@ -18,7 +18,7 @@ import {
   NbMenuModule,
   NbSidebarModule,
   NbToastrModule,
-  NbWindowModule,
+  NbWindowModule
 
   
 } from '@nebular/theme';
@@ -43,6 +43,7 @@ import { ComponentTModule } from './pages/tongji/components/componentT.module'
 
 import { AgGridModule } from 'ag-grid-angular';
 import { httpInterceptorProviders } from './services/http-interceptor';
+import { EmqClientModule } from './services/emq-client/emq-client.module';
 
 @NgModule({
   declarations: [AppComponent],
@@ -78,7 +79,7 @@ import { httpInterceptorProviders } from './services/http-interceptor';
 
     ComponentTModule, // 自定义共享模块
     AgGridModule.withComponents([]),
-    
+    EmqClientModule
     
   ],
   bootstrap: [AppComponent],

@@ -34,7 +34,8 @@ export class EquipmentBoardComponent implements OnInit {
     // window.addEventListener('resize',d=>{
     //   console.log(d)
     // })
-
+    // document.getElementsByTagName('ngx-equipment-board')[0].setAttribute('style','height:100%');
+    
   }
 
   checkFull() {
@@ -75,6 +76,13 @@ export class EquipmentBoardComponent implements OnInit {
     this.dateInterval = setInterval(f=>{
       this.date = this.getDate();
     },1000)
+  }
+  
+	//获取当前时间字符串
+  get_now_date_str(){
+	  let d = this.date;
+	  return d.year+'-'+(d.month+1<10?'0'+d.month:d.month)+'-'+(d.day<10?'0'+d.day:d.day)+' '+(d.hours<10?'0'+d.hours:d.hours)+':'
+	  +(d.minute<10?'0'+d.minute:d.minute)+':'+(d.second<10?'0'+d.second:d.second);
   }
 
   //组件销毁

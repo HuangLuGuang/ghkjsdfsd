@@ -63,7 +63,7 @@ let expLayouteChart = {
             myChart.resize();
         }
 
-        if (option && typeof option === "object") {
+        if (option_p_c && typeof option_p_c === "object") {
             myChart.setOption(option_p_c);
             myChart.resize();
         }
@@ -127,7 +127,7 @@ let expLayouteChart = {
             myChart.resize();
         }
 
-        if (option && typeof option === "object") {
+        if (option_c && typeof option_c === "object") {
             myChart.setOption(option_c);
             myChart.resize();
         }

@@ -1,11 +1,12 @@
     /* 滚动条添加样式 */
+    
     .nb-theme-default nb-layout ::-webkit-scrollbar-thumb {
         background-color: rgb(110, 4, 4) !important;
     }
-    .nb-theme-default nb-layout ::-webkit-scrollbar-thumb:hover{
+    
+    .nb-theme-default nb-layout ::-webkit-scrollbar-thumb:hover {
         cursor: pointer !important;
     }
-
     /* 这是map地图中，自定义的css */
     
     #alert_a:hover {
@@ -153,51 +154,84 @@
     /* 亮度变暗 */
     
     .dark {
-        -webkit-filter: brightness(0.7);
-        filter: brightness(0.7);
+        -webkit-filter: brightness(0.3);
+        filter: brightness(0.3);
     }
     /* 亮度变亮 */
     
     .bright {
-        -webkit-filter: brightness(1.7);
-        filter: brightness(1.7);
+        -webkit-filter: brightness(1.5);
+        filter: brightness(1.5);
     }
     
     .ant-progress-bg {
         height: 12px !important;
     }
-    /* flipclock ul样式 */
+    /* 看板设备介绍 */
     
-    .flip-clock-wrapper ul {
-        width: 8% !important;
-        height: 65px !important;
+    .equipments_table {
+        display: flex;
+        text-align: center;
+        font-size: 0.4vh;
+        width: 99%;
     }
     
-    .flip-clock-wrapper ul li a div div.inn {
-        font-size: 24px !important;
-        line-height: 24px !important;
-        padding-top: 20px !important;
+    .column_20 {
+        width: 20%;
     }
     
-    .flip-clock-divider {
-        width: 12px !important;
+    .column_27 {
+        width: 27%;
     }
     
-    .flip-clock-divider {
-        width: 4px!important;
+    .column_31 {
+        width: 31%;
     }
     
-    .flip-clock-dot.top {
-        top: 17px !important;
+    .column_35 {
+        width: 35%;
     }
     
-    .flip-clock-dot {
-        left: -1px !important;
-        width: 4px;
+    .column_42 {
+        width: 42%;
     }
     
-    .flip-clock-dot.bottom {
-        bottom: 44px !important;
+    .column_65 {
+        width: 65%;
+    }
+    
+    .column_69 {
+        width: 69%;
+    }
+    
+    .border_1px {
+        border: 1px solid;
+    }
+    
+    .border_top_1px {
+        border-top: 1px solid;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+    
+    .equipments_table_title {
+        padding-right: 10px;
+    }
+    
+    .flip {
+        transform: rotateY(0deg);
+        animation: flip_animation 1.5s;
+        animation-fill-mode: forwards;
+    }
+    
+    @keyframes flip_animation {
+        0% {
+            transform: rotateY(90deg)
+        }
+        50% {
+            transform: rotateY(0deg)
+        }
     }
     /* 高度百分比 */
     
