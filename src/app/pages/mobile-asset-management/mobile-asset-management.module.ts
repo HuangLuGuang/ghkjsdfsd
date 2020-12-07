@@ -17,6 +17,9 @@ import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { HttpClient } from '@angular/common/http';
 import { MapComponent } from './components/map/map.component';
 import { DeviceTraceComponent } from './components/device-trace/device-trace.component';
+import { ComponentTModule } from './components/componentT.module';
+import { NzPaginationModule } from 'ng-zorro-antd';
+import { AgGridModule } from 'ag-grid-angular';
 
 // Aot requires an export function for factories
 export function HttpLoaderFactory(http: HttpClient) {
@@ -25,7 +28,7 @@ export function HttpLoaderFactory(http: HttpClient) {
 
 
 @NgModule({
-  declarations: [MobileAssetManagementComponent, LocationMonitoringComponent, AllComponent, InlineComponent, NoinlineComponent, MapComponent,  DeviceTraceComponent],
+  declarations: [MobileAssetManagementComponent, LocationMonitoringComponent, AllComponent, InlineComponent, NoinlineComponent, MapComponent,  DeviceTraceComponent,],
   imports: [
     CommonModule,
     ReactiveFormsModule,
@@ -45,6 +48,12 @@ export function HttpLoaderFactory(http: HttpClient) {
     NbContextMenuModule,
     NbSpinnerModule,
     NbMenuModule,
+
+    NzPaginationModule,
+    AgGridModule,
+    ComponentTModule,
+
+
 
 
     // Translate

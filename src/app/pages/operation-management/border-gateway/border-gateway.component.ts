@@ -16,6 +16,7 @@ export class BorderGatewayComponent implements OnInit {
   @ViewChild("daterange") daterange:any;
 
   @ViewChild("mytable") mytable: any;
+  @ViewChild("ag_Grid") agGrid: any;
 
   
   // 下拉框---部门
@@ -61,6 +62,43 @@ export class BorderGatewayComponent implements OnInit {
 
   source:LocalDataSource
 
+// agGrid
+tableDatas = {
+  totalPageNumbers: 0, // 总页数
+  PageSize: 10, // 每页 10条数据
+  isno_refresh_page_size: false, // 是否重新将 每页多少条数据，赋值为默认值
+  columnDefs:[ // 列字段 多选：headerCheckboxSelection checkboxSelection
+    { field: 'id', headerName: '序号',  headerCheckboxSelection: true, checkboxSelection: true, autoHeight: true, fullWidth: true, minWidth: 30,resizable: true,},
+    { field: 'deviceName', headerName: '设备名称', resizable: true,},
+    { field: 'edgeGatewayId', headerName: '边缘网关编号', resizable: true,},
+    { field: 'edgeGatewayStatus', headerName: '边缘网关开关状态', resizable: true,},
+    { field: 'dateGatherStatus', headerName: '数据采集状态', resizable: true,},
+    // { field: 'active', headerName: '是否启用', resizable: true, cellRendererFramework: TranActiveComponent,},
+    { field: 'ipAddress', headerName: 'IP地址', resizable: true,},
+    { field: 'continueTime', headerName: '持续时间', resizable: true,minWidth:10,},
+    { field: 'heartTime', headerName: '心跳时间', resizable: true,minWidth:10,},
+  ],
+  rowData: [ // data
+  ]
+};
+
+message = [
+  {id: '1', deviceName: "AVL电机测试台架",edgeGatewayId: '110001768',departmentInfo:"新能源电机试验室",edgeGatewayStatus:"开机",dateGatherStatus: "运行",ipAddress: '192.168.8.108', continueTime: '44', heartTime:'2020-08-17'},
+  {id: '2', deviceName: "AVL电机测试台架",edgeGatewayId: '110001768',departmentInfo:"新能源电机试验室",edgeGatewayStatus:"开机",dateGatherStatus: "停止",ipAddress: '192.168.8.108', continueTime: '44', heartTime:'2020-08-17'},
+  {id: '3', deviceName: "AVL电机测试台架",edgeGatewayId: '110001768',departmentInfo:"新能源电机试验室",edgeGatewayStatus:"开机",dateGatherStatus: "维护",ipAddress: '192.168.8.108', continueTime: '44', heartTime:'2020-08-17'},
+  {id: '4', deviceName: "AVL电机测试台架",edgeGatewayId: '110001768',departmentInfo:"新能源电机试验室",edgeGatewayStatus:"开机",dateGatherStatus: "故障",ipAddress: '192.168.8.108', continueTime: '44', heartTime:'2020-08-17'},
+  {id: '5', deviceName: "AVL电机测试台架",edgeGatewayId: '110001768',departmentInfo:"新能源电机试验室",edgeGatewayStatus:"开机",dateGatherStatus: "运行",ipAddress: '192.168.8.108', continueTime: '44', heartTime:'2020-08-17'},
+  {id: '6', deviceName: "AVL电机测试台架",edgeGatewayId: '110001768',departmentInfo:"新能源电机试验室",edgeGatewayStatus:"开机",dateGatherStatus: "运行",ipAddress: '192.168.8.108', continueTime: '44', heartTime:'2020-08-17'},
+  {id: '7', deviceName: "AVL电机测试台架",edgeGatewayId: '110001768',departmentInfo:"新能源电机试验室",edgeGatewayStatus:"开机",dateGatherStatus: "运行",ipAddress: '192.168.8.108', continueTime: '44', heartTime:'2020-08-17'},
+  {id: '8', deviceName: "AVL电机测试台架",edgeGatewayId: '110001768',departmentInfo:"新能源电机试验室",edgeGatewayStatus:"开机",dateGatherStatus: "运行",ipAddress: '192.168.8.108', continueTime: '44', heartTime:'2020-08-17'},
+  {id: '9', deviceName: "AVL电机测试台架",edgeGatewayId: '110001768',departmentInfo:"新能源电机试验室",edgeGatewayStatus:"开机",dateGatherStatus: "运行",ipAddress: '192.168.8.108', continueTime: '44', heartTime:'2020-08-17'},
+  {id: '10', deviceName: "AVL电机测试台架",edgeGatewayId: '110001768',departmentInfo:"新能源电机试验室",edgeGatewayStatus:"开机",dateGatherStatus: "运行",ipAddress: '192.168.8.108', continueTime: '44', heartTime:'2020-08-17'},
+  {id: '11', deviceName: "AVL电机测试台架",edgeGatewayId: '110001768',departmentInfo:"新能源电机试验室",edgeGatewayStatus:"开机",dateGatherStatus: "维护",ipAddress: '192.168.8.108', continueTime: '44', heartTime:'2020-08-17'},
+  {id: '12', deviceName: "AVL电机测试台架",edgeGatewayId: '110001768',departmentInfo:"新能源电机试验室",edgeGatewayStatus:"开机",dateGatherStatus: "故障",ipAddress: '192.168.8.108', continueTime: '44', heartTime:'2020-08-17'},
+  {id: '13', deviceName: "AVL电机测试台架",edgeGatewayId: '110001768',departmentInfo:"新能源电机试验室",edgeGatewayStatus:"开机",dateGatherStatus: "故障",ipAddress: '192.168.8.108', continueTime: '44', heartTime:'2020-08-17'},
+];
+
+private gridData = [];
 
 
   // 设备报表KPI报表 table数据
@@ -87,7 +125,7 @@ export class BorderGatewayComponent implements OnInit {
       {id: '11', deviceName: "AVL电机测试台架",edgeGatewayId: '110001768',departmentInfo:"新能源电机试验室",edgeGatewayStatus:"开机",dateGatherStatus: "维护",ipAddress: '192.168.8.108', continueTime: '44', heartTime:'2020-08-17'},
       {id: '12', deviceName: "AVL电机测试台架",edgeGatewayId: '110001768',departmentInfo:"新能源电机试验室",edgeGatewayStatus:"开机",dateGatherStatus: "故障",ipAddress: '192.168.8.108', continueTime: '44', heartTime:'2020-08-17'},
       {id: '13', deviceName: "AVL电机测试台架",edgeGatewayId: '110001768',departmentInfo:"新能源电机试验室",edgeGatewayStatus:"开机",dateGatherStatus: "故障",ipAddress: '192.168.8.108', continueTime: '44', heartTime:'2020-08-17'},
-    ]
+    ];
   }
 
 
@@ -107,5 +145,6 @@ export class BorderGatewayComponent implements OnInit {
   download(title){
     this.mytable.download(title);
   }
+
 
 }

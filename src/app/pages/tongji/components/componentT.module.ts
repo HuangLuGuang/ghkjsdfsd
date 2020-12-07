@@ -21,7 +21,8 @@ import { MyInputComponent } from './my-input/my-input.component';
 import { MyInputTwoComponent } from './my-input-two/my-input-two.component';
 @NgModule({
   declarations: [
-    MySelectComponent, MySelectGroupComponent, AgTableComponent, MySelectTreeComponent, MySelectTreeTypeComponent,
+    MySelectComponent, MySelectGroupComponent, 
+    AgTableComponent, MySelectTreeComponent, MySelectTreeTypeComponent,
     MySelectTreeTypeComponentType,
     MyDateRangeComponent,
     MyInputComponent,

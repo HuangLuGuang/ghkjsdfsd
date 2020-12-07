@@ -90,6 +90,7 @@ export class PagesComponent implements OnInit {
       result => {
         const baseData = result['result']['message'][0];
         if (baseData["code"]===1) {
+          console.log("result mulu>>>>",result)
           // 将菜单信息存储到localStorage
           this.menu.length = 0;
           const menuData = this.dataTranslation(baseData["message"]);
@@ -104,6 +105,7 @@ export class PagesComponent implements OnInit {
 
     // get_systemset_menu_all  得到系统设置所有要的菜单！
     this.httpservice.callRPC("menu_item", "get_systemset_menu_all", colums).subscribe((result)=>{
+      console.log("result menu_item>>>>",result)
       const baseData = result['result']['message'][0];
       if (baseData["code"]){
         // 得到sysmenu ----------------------------------

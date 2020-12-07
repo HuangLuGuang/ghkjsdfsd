@@ -64,7 +64,6 @@ export class KpiDetailComponent implements OnInit, OnDestroy {
     
     
     this.layoutService.onInitLayoutSize().subscribe(f=>{
-      // this.initChart();
       // 这是 左侧第一个柱状图
       this.init_left_one();
       

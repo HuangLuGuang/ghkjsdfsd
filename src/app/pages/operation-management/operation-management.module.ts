@@ -14,7 +14,9 @@ import { VideoIntegrationComponent } from './video-integration/video-integration
 import { StatusForTableComponent } from './video-integration/status-for-table/status-for-table.component';
 
 @NgModule({
-  declarations: [OperationManagementComponent, BorderGatewayComponent, MySelectComponent, MySelectGroupComponent, VideoIntegrationComponent, StatusForTableComponent],
+  declarations: [OperationManagementComponent, BorderGatewayComponent,VideoIntegrationComponent, StatusForTableComponent,
+   MySelectComponent, MySelectGroupComponent, 
+  ],
   imports: [
     CommonModule,
     OperationManagementRoutingModule,
@@ -23,6 +25,7 @@ import { StatusForTableComponent } from './video-integration/status-for-table/st
     FormsModule,
     NbCardModule,
     NbSpinnerModule,
+    
 
     Ng2SmartTableModule,
 

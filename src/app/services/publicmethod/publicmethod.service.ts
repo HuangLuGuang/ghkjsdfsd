@@ -88,34 +88,50 @@ export class PublicmethodService {
   public get_current_pathname(){
     return new Observable((observe)=>{
       var sysmenu = localStorage.getItem(SYSMENU) == null ? [] : JSON.parse(localStorage.getItem(SYSMENU));
-      this.getMenu().subscribe((data)=>{
-        const colums = {
-          languageid: this.httpservice.getLanguageID(),
-          roles: data
-        };
-        const table = "menu_item";
-        const method = "get_systemset_menu_all";
-        this.httpservice.callRPC(table, method, colums).subscribe((result)=>{
-          // 会话过期
-          const baseData = result['result']['message'][0];
-          if (baseData["code"]===1){
-            var menu = this.dataTranslation(baseData["message"]);
-            localStorage.setItem(SYSMENU, JSON.stringify(menu));
-            for (const i in this.location){
-              if (i === 'location'){
-                menu.forEach(element => {
-                  
-                  if (element["link"] === this.location[i].pathname){
-                    observe.next(element)
-                  }
-                })
-              
+      if (sysmenu.length<1){
+        this.getMenu().subscribe((data)=>{
+          const colums = {
+            languageid: this.httpservice.getLanguageID(),
+            roles: data
+          };
+          const table = "menu_item";
+          const method = "get_systemset_menu_all";
+          this.httpservice.callRPC(table, method, colums).subscribe((result)=>{
+            // 会话过期
+            const baseData = result['result']['message'][0];
+            if (baseData["code"]===1){
+              var menu = this.dataTranslation(baseData["message"]);
+              localStorage.setItem(SYSMENU, JSON.stringify(menu));
+              for (const i in this.location){
+                if (i === 'location'){
+                  menu.forEach(element => {
+                    // console.log("^^^^^^^element['link]",element["link"])
+                    // console.log("^^^^^^^this.location[i].pathname",this.location[i].pathname)
+                    if (element["link"] === this.location[i].pathname || this.location[i].pathname.search(element["link"]) !=-1){
+                      observe.next(element)
+                    }
+                  })
+                
+                }
               }
             }
+            
+          })
+        });
+
+      }else{
+        for (const i in this.location){
+          if (i === 'location'){
+            sysmenu.forEach(element => {
+              // console.log("^^^^^^^element['link]",element["link"])
+              // console.log("^^^^^^^this.location[i].pathname",this.location[i].pathname)
+              if (element["link"] === this.location[i].pathname || this.location[i].pathname.search(element["link"]) !=-1){
+                observe.next(element)
+              }
+            })
           }
-          
-        })
-      });
+        }
+      }
 
     });
   }
@@ -376,48 +392,51 @@ export class PublicmethodService {
     // 得到pathname --在得到button
     return new Observable((observe)=>{
       this.get_current_pathname().subscribe(result=>{
-        var link = result["link"];
-        console.warn("pathname: ", result, "link: ", link);
-        // 更具link 得到button
-        var table = "menu_item";
-        var method = "get_button";
-        // var columns = {redirecturl: link}
-        var columns = {redirecturl: link, roleid: roleid}
-        this.httpservice.callRPC(table, method, columns).subscribe(result=>{
-          // console.log("get_button: ", result);
-          if(result["result"]["message"][0]["code"] === 1){
-            // console.log("--------->", result["result"]["message"][0]["message"])
-            var button = result["result"]["message"][0]["message"];
-            for(var k in button){
-              // this.button[k]["class"] = this.buttons[k]["class"];
-              switch (k) {
-                case 'add':
-                  button[k]["class"] =  "info";
-                  break;
-                case 'del':
-                  button[k]["class"] =  "danger";
-                  break;
-                case 'edit':
-                  button[k]["class"] =  "warning";
-                  break;
-                case 'query':
-                  button[k]["class"] =  "success";
-                  break;
-                case 'import':
-                  button[k]["class"] =  "info";
-                  break;
-                case 'download':
-                  button[k]["class"] =  "primary";
-                  break;
-              
-                default:
-                  button[k]["class"] =  "primary";
-                  break;
+        if (result["type"] === 1){
+          var link = result["link"];
+          console.warn("pathname: ", result, "link: ", link);
+          // 更具link 得到button
+          var table = "menu_item";
+          var method = "get_button";
+          // var columns = {redirecturl: link}
+          var columns = {redirecturl: link, roleid: roleid}
+          this.httpservice.callRPC(table, method, columns).subscribe(result=>{
+            console.log("get_button: ", result);
+            if(result["result"]["message"][0]["code"] === 1){
+              // console.log("--------->", result["result"]["message"][0]["message"])
+              var button = result["result"]["message"][0]["message"];
+              for(var k in button){
+                // this.button[k]["class"] = this.buttons[k]["class"];
+                switch (k) {
+                  case 'add':
+                    button[k]["class"] =  "info";
+                    break;
+                  case 'del':
+                    button[k]["class"] =  "danger";
+                    break;
+                  case 'edit':
+                    button[k]["class"] =  "warning";
+                    break;
+                  case 'query':
+                    button[k]["class"] =  "success";
+                    break;
+                  case 'import':
+                    button[k]["class"] =  "info";
+                    break;
+                  case 'download':
+                    button[k]["class"] =  "primary";
+                    break;
+                
+                  default:
+                    button[k]["class"] =  "primary";
+                    break;
+                }
               }
+              observe.next(button)
             }
-            observe.next(button)
-          }
-        })
+          })
+
+        }
       });
     })
   }
