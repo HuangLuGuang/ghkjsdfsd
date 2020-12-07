@@ -8,7 +8,8 @@
         <div class="row">
             <div class="col-lg-9" style="display: flex;">
                 <div class="example-items-rows button_item loginname" *ngIf="button?.query">
-                    <input nbInput shape="rectangle"  placeholder="科室/功能组名称" status="success" type="text" id="employeenumber"  [disabled]="button?.query.active == 0? true:false">
+                    <ngx-my-input #myinput (inpuvalue)="inpuvalue($event)"  [placeholder]="myinput_placeholder"></ngx-my-input>
+                    <!-- <input nbInput shape="rectangle"  placeholder="科室/功能组名称" status="success" type="text" id="employeenumber"  [disabled]="button?.query.active == 0? true:false"> -->
                 </div>
     
                 <div class="example-items-rows button_item query" *ngIf="button?.query">

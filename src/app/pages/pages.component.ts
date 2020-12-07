@@ -89,6 +89,7 @@ export class PagesComponent implements OnInit {
     const method = "get_menu_by_roles";
     this.httpservice.callRPC(table, method, colums).subscribe(
       result => {
+        console.warn("result",result)
         const baseData = result['result']['message'][0];
         if (baseData["code"]===1) {
           // 将菜单信息存储到localStorage

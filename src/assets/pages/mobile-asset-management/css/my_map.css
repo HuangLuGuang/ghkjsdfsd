@@ -1,3 +1,11 @@
+    /* 滚动条添加样式 */
+    .nb-theme-default nb-layout ::-webkit-scrollbar-thumb {
+        background-color: rgb(110, 4, 4) !important;
+    }
+    .nb-theme-default nb-layout ::-webkit-scrollbar-thumb:hover{
+        cursor: pointer !important;
+    }
+
     /* 这是map地图中，自定义的css */
     
     #alert_a:hover {

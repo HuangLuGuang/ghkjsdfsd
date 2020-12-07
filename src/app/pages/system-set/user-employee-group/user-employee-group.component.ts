@@ -22,12 +22,16 @@ declare let layui;
 })
 export class UserEmployeeGroupComponent implements OnInit {
   @ViewChild("ag_Grid") agGrid: any;
+  @ViewChild("myinput") myinput: any;
   rowdata;// 要删除、修改的行数据 
   loading = false;// 加载table
   refresh = false; // 刷新
   employee_group_agGrid;
   active; // 操作
   button; // 权限button
+
+  // 输入框
+  myinput_placeholder = "科室/功能组名称";
 
   DelSuccess :any = {position: 'bottom-right', status: 'success', conent:"删除成功!"};
   DellDanger :any = {position: 'bottom-right', status: 'danger', conent:"删除失败！"}
@@ -244,9 +248,19 @@ export class UserEmployeeGroupComponent implements OnInit {
     }
   }
 
+  // input 传入的值
+  inpuvalue(inpuvalue){
+    if (inpuvalue != ""){
+      console.log("传入的值设备名称----->",inpuvalue);
+      this.query(inpuvalue);
+    }
+  }
+
   // button 搜索按钮
-  query(){
-    var groups = $("#employeenumber").val();
+  query(inpuvalue?){
+    // var groups = $("#employeenumber").val();
+    var groups;
+    groups = inpuvalue? inpuvalue: this.myinput.getinput();
     if (groups != ""){
       console.log("button 搜索按钮", groups, "--");
       var columns = {
@@ -294,7 +308,8 @@ export class UserEmployeeGroupComponent implements OnInit {
   }
 
   refresh_table(){
-    $("#employeenumber").val('')
+    // 重置 myinput
+    this.myinput.reset_myinput();
     this.refresh = true;
     this.loading = true;
     this.gridData = [];

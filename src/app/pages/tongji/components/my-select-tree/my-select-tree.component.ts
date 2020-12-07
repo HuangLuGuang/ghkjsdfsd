@@ -15,6 +15,9 @@ export class MySelectTreeComponent implements OnInit {
   placeholder_title;
   select_type = [];
 
+  // el5
+  el5;
+
   constructor() { 
     
   }
@@ -135,8 +138,10 @@ export class MySelectTreeComponent implements OnInit {
             showCheckbox: true,
             expandOnClickNode: false,
             highlightCurrent: true,
+            defaultCheckedKeys: [], // 默认勾选
             checkOnClickNode: true, // 点击节点时选中节点！
           });
+          that.el5 = el5;
         }
         $(".ele5").toggle();
       })
@@ -161,8 +166,8 @@ export class MySelectTreeComponent implements OnInit {
         }
         $("[name='title']").val(select_label_list.join(';'));
 
-        console.log(d.node);    // 点击的dom节点
-        console.log(this);      // input对应的dom
+        // console.log(d.node);    // 点击的dom节点
+        // console.log(this);      // input对应的dom
     })
     $(document).on("click",function() {
           $(".ele5").hide();
@@ -180,5 +185,12 @@ export class MySelectTreeComponent implements OnInit {
     $("[name='title']").val("");
     this.select_type = [];
   }
+  // 清空下拉数据
+  dropselect(){
+    this.delselect();
+    this.el5.unCheckNodes() //取消所有选中的节点
+  }
+
+  
 
 }

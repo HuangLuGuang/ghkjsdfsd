@@ -16,6 +16,9 @@ export class MySelectTreeTypeComponent implements OnInit {
   placeholder_title_type;
   select_type = [];
 
+  // el5
+  el5;
+
   ngOnInit(): void {
   }
 
@@ -56,6 +59,7 @@ export class MySelectTreeTypeComponent implements OnInit {
             highlightCurrent: true,
             checkOnClickNode: true, // 点击节点时选中节点！
           });
+          that.el5 = el5;
         }
         $(".eletype").toggle();
       })
@@ -79,8 +83,8 @@ export class MySelectTreeTypeComponent implements OnInit {
         }
         $("[name='title_type']").val(select_label_list.join(';'));
 
-        console.log(d.node);    // 点击的dom节点
-        console.log(this);      // input对应的dom
+        // console.log(d.node);    // 点击的dom节点
+        // console.log(this);      // input对应的dom
     })
       $(document).on("click",function() {
           $(".eletype").hide();
@@ -99,6 +103,12 @@ export class MySelectTreeTypeComponent implements OnInit {
   delselect(){
     $("[name='title_type']").val("");
     this.select_type = [];
+  }
+
+  // 清空下拉数据
+  dropselect(){
+    this.delselect();
+    this.el5.unCheckNodes() //取消所有选中的节点
   }
 
 }

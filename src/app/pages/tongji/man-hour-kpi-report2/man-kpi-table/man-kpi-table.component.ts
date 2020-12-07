@@ -203,6 +203,12 @@ export class ManKpiTableComponent implements OnInit {
     // 是否 每页多少也，设置为默认值
     this.tableDatas.isno_refresh_page_size = true;
     this.inttable();
+
+    // 取消选择的数据 delselect
+    this.myinput.del_input_value();
+    this.groups_func.dropselect();
+    this.eimdevicetpye.dropselect();
+    
   }
 
 

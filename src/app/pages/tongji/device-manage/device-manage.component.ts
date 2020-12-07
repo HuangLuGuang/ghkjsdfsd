@@ -288,11 +288,12 @@ export class DeviceManageComponent implements OnInit {
     this.inttable();
     this.refresh = false;
 
+
+
     // 取消选择的数据 delselect
-    // $("#employeenumber").val("");
-    // this.myinput.del_input_value();
-    // this.groups_func.delselect();
-    // this.eimdevicetpye.delselect();
+    this.myinput.del_input_value();
+    this.groups_func.dropselect();
+    this.eimdevicetpye.dropselect();
   }
 
   // 得到下拉框的数据

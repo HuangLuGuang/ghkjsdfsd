@@ -23,12 +23,16 @@ type AOA = any[][];
 })
 export class NewUserEmployeeComponent implements OnInit {
   @ViewChild("ag_Grid") agGrid: any;
+  @ViewChild("myinput") myinput: any;
   active;  // aggrid 操作
   loading = false;  // 加载
   refresh = false; // 刷新tabel
   TABLE = "employee"; // table
   METHOD = "sys_get_employee_limit" // method
   button; // 权限button
+
+  // input
+  myinput_placeholder = "域账号";
 
   importdata: AOA = [[1,2], [3,4]]; //导入数据
 
@@ -307,9 +311,19 @@ export class NewUserEmployeeComponent implements OnInit {
 
 
   }
-  query(){
+
+  // input 传入的值
+  inpuvalue(inpuvalue){
+    if (inpuvalue != ""){
+      console.log("传入的值设备名称----->",inpuvalue);
+      this.query(inpuvalue);
+    }
+  }
+  query(inpuvalue?){
     // loginname
-    var loginname = $("#employeenumber").val();
+    // var loginname = $("#employeenumber").val();
+    var loginname;
+    loginname = inpuvalue? inpuvalue: this.myinput.getinput();
     if (loginname != ""){
       console.log("button 搜索按钮", loginname, "--");
       var columns = {
@@ -356,7 +370,8 @@ export class NewUserEmployeeComponent implements OnInit {
     this.agGrid.download(title);
   }
   refresh_table(){
-    $("#employeenumber").val('');
+    // 重置 myinput
+    this.myinput.reset_myinput();
     this.refresh = true;
     
     this.gridData = [];

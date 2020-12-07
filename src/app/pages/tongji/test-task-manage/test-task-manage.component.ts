@@ -207,8 +207,8 @@ export class TestTaskManageComponent implements OnInit {
       eimdevicetype:device_tpye_data
     }
     console.log("**************\n", columns);
-      // 执行搜索函数！
-      this.http.callRPC('device', "dev_get_kpi_device_search",columns).subscribe(result=>{
+      // 执行搜索函数！GETTABLE  dev_get_kpi_device_search
+      this.http.callRPC('device', this.GETTABLE,columns).subscribe(result=>{
         console.log("执行搜索函数！\n\n\n",result)
         var tabledata = result["result"]["message"][0];
         this.loading = false;
@@ -238,6 +238,11 @@ export class TestTaskManageComponent implements OnInit {
     // 是否 每页多少也，设置为默认值
     this.tableDatas.isno_refresh_page_size = true;
     this.inttable();
+
+    // 取消选择的数据 delselect
+    this.myinput.del_input_value();
+    this.taskno.dropselect();
+    this.eimdevicetpye.dropselect();
   }
 
   // 得到buttons----------------------------------------------------------

@@ -38,6 +38,7 @@ import { TranActiveComponent } from '../new-user-employee/tran-active/tran-activ
 export class RoleComponent implements OnInit {
   @ViewChild('dialog') dialog: TemplateRef<any>;
   @ViewChild("agGrid") agGrid: any;
+  @ViewChild("myinput") myinput: any;
   refresh = false; // 刷新tabel
   loading = false;  // 加载
   button; // 权限button
@@ -45,6 +46,10 @@ export class RoleComponent implements OnInit {
   rowdata;
   // 得到日志的plv8函数名
   GetRole = "get_role_limit";
+
+  // input
+  myinput_placeholder = "角色名称";
+
   // 展示状态
   success(publicservice){
     publicservice.showngxtoastr({position: 'toast-top-right', status: 'success', conent:"保存成功!"});
@@ -297,9 +302,18 @@ export class RoleComponent implements OnInit {
     this.RecordOperation("导出"+title, 1, "导出excel表格");
   }
 
+  // input 传入的值
+  inpuvalue(inpuvalue){
+    if (inpuvalue != ""){
+      console.log("传入的值设备名称----->",inpuvalue);
+      this.query(inpuvalue);
+    }
+  }
+  
   // button 搜索按钮
-  query(){
-    var role_name = $("#employeenumber").val();
+  query(inpuvalue?){
+    var role_name;
+    role_name = this.myinput.getinput()
     if (role_name != ""){
       console.log("button 搜索按钮", role_name, "--");
       var columns = {
@@ -339,7 +353,8 @@ export class RoleComponent implements OnInit {
 
   // 刷新
   refresh_table(){
-    $("#employeenumber").val('')
+    // 重置 myinput
+    this.myinput.reset_myinput();
     this.refresh = true;
     this.loading = true;
     this.gridData = [];

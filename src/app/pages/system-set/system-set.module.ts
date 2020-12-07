@@ -30,11 +30,12 @@ import { ActionComponent } from './user-employee/action/action.component';
 import { NewUserEmployeeComponent } from './new-user-employee/new-user-employee.component';
 import { ActionComponent as NewActionComponent } from './new-user-employee/action/action.component';
 import { TranActiveComponent } from './new-user-employee/tran-active/tran-active.component';
+import { MyInputComponent } from './components/my-input/my-input.component';
 
 
 @NgModule({
   declarations: [SystemSetComponent, RoleComponent, MenuComponent, EmployeeComponent,  SecurityLogComponent, UserEmployeeComponent, 
-    UserEmployeeGroupComponent, LayuiTableComponent, AgTableComponent,  OperationLogComponent, GocronComponent, GocronFormComponent, GocronFormNodeComponent, ActionComponent, NewUserEmployeeComponent, NewActionComponent, TranActiveComponent, ],
+    UserEmployeeGroupComponent, LayuiTableComponent, AgTableComponent,  OperationLogComponent, GocronComponent, GocronFormComponent, GocronFormNodeComponent, ActionComponent, NewUserEmployeeComponent, NewActionComponent, TranActiveComponent, MyInputComponent, ],
   imports: [
     CommonModule,
     SystemSetRoutingModule,
