@@ -1,6 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
+import { LayoutService } from '../../../../@core/utils';
 import { HttpserviceService } from '../../../../services/http/httpservice.service';
 import { PublicmethodService } from '../../../../services/publicmethod/publicmethod.service';
 import { DeviceKpiReport2Service } from '../device-kpi-report2-service';
@@ -18,7 +19,8 @@ export class KpiDetailComponent implements OnInit, OnDestroy {
   constructor( private http: HttpserviceService, 
     private publicservice: PublicmethodService, 
     private deviceservice: DeviceKpiReport2Service,
-    private router: Router ) {
+    private router: Router,
+    private layoutService: LayoutService ) {
     // 会话过期
     localStorage.removeItem("alert401flag");
     this.kpi_for_detail = JSON.parse(localStorage.getItem("kpi_for_detail"));
@@ -59,18 +61,25 @@ export class KpiDetailComponent implements OnInit, OnDestroy {
     // console.log("kpi_detail----", this.columns);
 
 
-    // 这是 左侧第一个柱状图
-    this.init_left_one();
     
-    // 这是 右侧第一个饼图 right-one
-    this.init_right_ong();
-
     
-    // 这是左侧第二个饼图 left_two
-    this.init_left_two();
+    this.layoutService.onInitLayoutSize().subscribe(f=>{
+      // this.initChart();
+      // 这是 左侧第一个柱状图
+      this.init_left_one();
+      
+      // 这是 右侧第一个饼图 right-one
+      this.init_right_ong();
+  
+      
+      // 这是左侧第二个饼图 left_two
+      this.init_left_two();
+  
+      // 这是 右侧第二个 柱状图 right-two
+      this.init_right_two();
+    })
 
-    // 这是 右侧第二个 柱状图 right-two
-    this.init_right_two();
+    this.listen_windows_resize();
     
 
   };
@@ -182,6 +191,23 @@ export class KpiDetailComponent implements OnInit, OnDestroy {
       // console.log("得到左侧 第二个数据： ", afterdatas);
       kpi_detail.right_two('.right-two', afterdatas);
     })
+  }
+
+  
+
+
+  // 监听窗口变化来，重置echat的大小！
+  listen_windows_resize(){
+    window.onreset = function (){
+      let left_one = document.querySelector('.left-one');
+      if(left_one) echarts.init(left_one).resize();
+      let right_one = document.querySelector('.right-one');
+      if(right_one) echarts.init(right_one).resize();
+      let left_two = document.querySelector('.left-two');
+      if(left_two) echarts.init(left_two).resize();
+      let right_two = document.querySelector('.right-two');
+      if(right_two) echarts.init(right_two).resize();
+    }
   }
 
 

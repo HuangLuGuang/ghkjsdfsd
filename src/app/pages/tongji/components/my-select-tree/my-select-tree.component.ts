@@ -16,7 +16,7 @@ export class MySelectTreeComponent implements OnInit {
   select_type = [];
 
   // el5
-  el5;
+  el5s;
 
   constructor() { 
     
@@ -118,7 +118,7 @@ export class MySelectTreeComponent implements OnInit {
     }else{
       // $(".tree_isShow").hide()
     }
-    var el5;
+    var el5s;
     layui.use(['eleTree',],function(){
       var eleTree = layui.eleTree;
       $("[name='title']").on("click",function (e) {
@@ -128,10 +128,9 @@ export class MySelectTreeComponent implements OnInit {
         }else{
           that.xialaicon = "arrow-ios-upward-outline";
         }
-
         e.stopPropagation();
-        if(!el5){
-          el5=eleTree.render({
+        if(!el5s){
+          el5s=eleTree.render({
             elem: '.ele5',
             data: data,
             defaultExpandAll: false,
@@ -141,7 +140,7 @@ export class MySelectTreeComponent implements OnInit {
             defaultCheckedKeys: [], // 默认勾选
             checkOnClickNode: true, // 点击节点时选中节点！
           });
-          that.el5 = el5;
+          that.el5s = el5s;
         }
         $(".ele5").toggle();
       })
@@ -165,7 +164,6 @@ export class MySelectTreeComponent implements OnInit {
           }
         }
         $("[name='title']").val(select_label_list.join(';'));
-
         // console.log(d.node);    // 点击的dom节点
         // console.log(this);      // input对应的dom
     })
@@ -188,7 +186,10 @@ export class MySelectTreeComponent implements OnInit {
   // 清空下拉数据
   dropselect(){
     this.delselect();
-    this.el5.unCheckNodes() //取消所有选中的节点
+    var select = this.el5s?.getChecked();
+    if (select != undefined &&select.length>0){
+      this.el5s?.unCheckNodes() //取消所有选中的节点
+    }
   }
 
   

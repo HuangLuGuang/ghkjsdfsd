@@ -1,0 +1,7 @@
+<div style="position: relative;padding: 0px;margin: 0px;">
+    <input class="my_input" (keyup)="onCodeup($event)" [(ngModel)]="inputvalue" (ngModelChange)="changeValue($event)" class="layui-input" style="width: 168px;" placeholder="placeholder"  type="text" id="employeenumber2">
+    <span class="delet_input_value2">
+        <!-- <nb-icon icon="close-circle-outline"></nb-icon> -->
+        <i class="layui-icon layui-icon-close-fill" (click)="del_input_value()"></i>   
+    </span>
+</div>

@@ -51,7 +51,7 @@ export class KpiTableComponent implements OnInit {
   button; // 权限button
   refresh = false; // 刷新tabel
 
-  init_value = "2010-10-01 - 2020-11-21" // 默认日期
+  init_value = "2019-12-01 - 2020-12-21" // 默认日期
 
   ngOnInit(): void {
     
@@ -185,7 +185,10 @@ export class KpiTableComponent implements OnInit {
           var totalpagenumbers = tabledata['numbers']? tabledata['numbers'][0]['numbers']: '未得到总条数';
           this.tableDatas.totalPageNumbers = totalpagenumbers;
           this.agGrid.update_agGrid(this.tableDatas); // 告诉组件刷新！
-          this.RecordOperation('搜索', 1,  "设备报表")
+          this.RecordOperation('搜索', 1,  "设备报表");
+          if (message.length < 1){
+            this.searchdanger();
+          }
         }else{this.RecordOperation('搜索', 0,  "设备报表")}
       })
       
@@ -416,6 +419,10 @@ export class KpiTableComponent implements OnInit {
   }
   warning(){
     this.publicservice.showngxtoastr({position: 'toast-top-right', status: 'warning', conent:"搜索的结果为空!"});
+  }
+
+  searchdanger(){
+    this.publicservice.showngxtoastr({position: 'toast-top-right', status: 'danger', conent:"没有搜索到数据！"});
   }
 
 }

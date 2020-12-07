@@ -18,7 +18,7 @@ export class MyDateRangeComponent implements OnInit {
     this.initdate();
   }
 
-  init_value = "2010-10-01 - 2020-11-21" // 默认日期
+  init_value = "2019-12-01 - 2020-12-21" // 默认日期
 
   // 初始化日期范围
   initdate(){

@@ -18,6 +18,12 @@
                                 <!-- <input nbInput  shape="rectangle"  style="width: 168px;" placeholder="请输入设备名称" status="success" type="text" id="devicename"> -->
                             </div>
                         </div>
+                        <!-- 任务编号 devicename --> 
+                        <div class="example-items-rows button_item"  *ngIf="button?.query">
+                            <div class="gongneng_keshi">
+                                <ngx-my-input-two #myinput2 (inpuvalue2)="inpuvalue2($event)"  [placeholder]="myinput_placeholder2"></ngx-my-input-two>
+                            </div>
+                        </div>
                         
                         <!-- 设备类型 eimdevicetpye-->
                         <div class="example-items-rows button_item"  >
@@ -26,10 +32,10 @@
                             </div>
                         </div>
 
-                        <!-- 任务单号 taskno-->
+                        <!-- 科室/功能组 group-->
                         <div class="example-items-rows button_item"  >
                             <div class="gongneng_keshi">
-                                <ngx-my-select-tree #taskno [placeholder]="groups_placeholder"></ngx-my-select-tree>
+                                <ngx-my-select-tree #group [placeholder]="groups_placeholder"></ngx-my-select-tree>
                             </div>
                         </div>
 

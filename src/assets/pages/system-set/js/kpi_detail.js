@@ -180,12 +180,13 @@ let kpi_detail = {
             }
             // 配置给实例化对象
         mychart.setOption(option);
+        mychart.resize();
 
-        // 让图标跟随屏幕自适应
-        window.addEventListener('resize', f => {
-            console.log("重置的屏幕大小！")
-            myChart.resize();
-        })
+        // // 让图标跟随屏幕自适应
+        // window.addEventListener('resize', f => {
+        //     console.log("重置的屏幕大小！")
+        //     myChart.resize();
+        // })
     },
 
     // right_one  运行/停止/故障/非占位 百分比
@@ -241,12 +242,13 @@ let kpi_detail = {
         };
         // 配置给实例化对象
         mychart.setOption(option);
+        mychart.resize();
 
         // 让图标跟随屏幕自适应
-        window.addEventListener('resize', f => {
-            console.log("重置的屏幕大小！")
-            myChart.resize();
-        })
+        // window.addEventListener('resize', f => {
+        //     console.log("重置的屏幕大小！")
+        //     myChart.resize();
+        // })
 
 
     },
@@ -332,12 +334,13 @@ let kpi_detail = {
 
         // 配置给实例化对象
         mychart.setOption(option);
+        mychart.resize();
 
         // 让图标跟随屏幕自适应
-        window.addEventListener('resize', f => {
-            console.log("重置的屏幕大小！")
-            myChart.resize();
-        })
+        // window.addEventListener('resize', f => {
+        //     console.log("重置的屏幕大小！")
+        //     myChart.resize();
+        // })
     },
 
     // right_two 年份运行时间
@@ -426,12 +429,13 @@ let kpi_detail = {
 
         // 配置给实例化对象
         mychart.setOption(option);
+        mychart.resize();
 
         // 让图标跟随屏幕自适应
-        window.addEventListener('resize', f => {
-            console.log("重置的屏幕大小！")
-            myChart.resize();
-        })
+        // window.addEventListener('resize', f => {
+        //     console.log("重置的屏幕大小！")
+        //     myChart.resize();
+        // })
     },
 
     // 这是 重置echart

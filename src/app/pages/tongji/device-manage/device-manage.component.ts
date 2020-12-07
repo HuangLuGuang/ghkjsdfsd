@@ -369,7 +369,10 @@ export class DeviceManageComponent implements OnInit {
           var totalpagenumbers = tabledata['numbers']? tabledata['numbers'][0]['numbers']: '未得到总条数';
           this.tableDatas.totalPageNumbers = totalpagenumbers;
           this.agGrid.update_agGrid(this.tableDatas); // 告诉组件刷新！
-          this.RecordOperation('搜索', 1,  "eim台账")
+          this.RecordOperation('搜索', 1,  "eim台账");
+          if (message.length < 1){
+            this.searchdanger();
+          }
         }else{this.RecordOperation('搜索', 0,  "eim台账")}
       })
     }
@@ -1076,6 +1079,12 @@ export class DeviceManageComponent implements OnInit {
     }
 
   }
+
+
+  searchdanger(){
+    this.publicservice.showngxtoastr({position: 'toast-top-right', status: 'danger', conent:"没有搜索到数据！"});
+  }
+
 
 }
 

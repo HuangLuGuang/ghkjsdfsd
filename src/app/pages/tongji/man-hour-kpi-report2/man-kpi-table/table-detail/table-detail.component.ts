@@ -16,6 +16,7 @@ export class TableDetailComponent implements OnInit,ICellRendererAngularComp {
 
 
   ngOnInit(): void {
+    console.log("--------------->",this.params.node.data)
     this.url = this.params.node.data.option;
   }
 

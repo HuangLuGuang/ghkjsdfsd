@@ -38,7 +38,7 @@ export class ManKpiTableComponent implements OnInit {
   button; // 权限button
   refresh = false; // 刷新tabel
 
-  init_value = "2010-10-01 - 2020-11-21" // 默认日期
+  init_value = "2019-12-01 - 2020-12-21" // 默认日期
 
   // 用户id
   employeeid = this.userinfo.getEmployeeID()
@@ -176,12 +176,16 @@ export class ManKpiTableComponent implements OnInit {
       if (tabledata["code"] === 1){
         var message = tabledata["message"];
         this.gridData = [];
+        this.add_detail_kpi(message);
         this.gridData.push(...message);
         this.tableDatas.rowData = this.gridData;
         var totalpagenumbers = tabledata['numbers']? tabledata['numbers'][0]['numbers']: '未得到总条数';
         this.tableDatas.totalPageNumbers = totalpagenumbers;
         this.agGrid.update_agGrid(this.tableDatas); // 告诉组件刷新！
-        this.RecordOperation('搜索', 1,  "设备报表")
+        this.RecordOperation('搜索', 1,  "设备报表");
+        if (message.length < 1){
+          this.searchdanger();
+        }
       }else{this.RecordOperation('搜索', 0,  "设备报表")}
     })
       
@@ -366,6 +370,10 @@ export class ManKpiTableComponent implements OnInit {
       var createdby = this.userinfo.getLoginName();
       this.publicservice.option_record(employeeid, result,transactiontype,info,createdby);
     }
+  }
+
+  searchdanger(){
+    this.publicservice.showngxtoastr({position: 'toast-top-right', status: 'danger', conent:"没有搜索到数据！"});
   }
 
 

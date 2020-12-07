@@ -23,10 +23,11 @@ import { UserInfoService } from '../../../services/user-info/user-info.service';
 })
 export class TestTaskManageComponent implements OnInit {
   @ViewChild("ag_Grid") agGrid:any;
-  @ViewChild("taskno") taskno:any;
+  @ViewChild("group") group:any;
   @ViewChild("eimdevicetpye") eimdevicetpye:any;
   @ViewChild("data_range") data_range:any;
   @ViewChild("myinput") myinput:any;
+  @ViewChild("myinput2") myinput2:any;
 
   // 导出文件名
   filename;
@@ -56,13 +57,14 @@ export class TestTaskManageComponent implements OnInit {
     this.get_tree_selecetdata();
   }
 
-  groups_placeholder = "请选择任务单号";     // 任务单号
   eimdevicetpye_placeholder = "请选择设备类型"; // eim 设备类型
-  myinput_placeholder = "请输入设备名称";
+  groups_placeholder = "请选择科室/功能组";     // 科室/功能组
+  myinput_placeholder = "请输入设备名称"; // input 设备名称
+  myinput_placeholder2 = "请输入任务子单号"; // input 任务子单号
   button; // 权限button
   refresh = false; // 刷新tabel
   loading: boolean = false;
-  init_value = "2010-10-01 - 2020-11-21" // 默认日期
+  init_value = "2019-12-01 - 2020-12-21" // 默认日期
 
   ngOnInit(): void {
     // 初始化日期
@@ -152,20 +154,29 @@ export class TestTaskManageComponent implements OnInit {
     }
     this.http.callRPC("deveice","dev_get_device_groups",columns).subscribe(result=>{
       var res = result["result"]["message"][0]
+      console.log("得到下拉框的数据", res)
       if (res["code"] === 1){
         var groups = res["message"][0]["groups"];
+        var type = res["message"][0]["type"];
        
-        this.taskno.init_select_tree(groups);
-        var eimdevicetpyedata = res["message"][0]["type"];
-        this.eimdevicetpye.init_select_trees(eimdevicetpyedata);
+        this.group.init_select_tree(groups);
+        this.eimdevicetpye.init_select_trees(type);
       }
     })
   }
 
-  // input 传入的值
+  // input 传入的值 设备名称
   inpuvalue(inpuvalue){
     if (inpuvalue != ""){
-      this.query(inpuvalue);
+      var data = {devicename: inpuvalue}
+      this.query(data);
+    }
+  }
+  // input 传入的值 试验任务子单号
+  inpuvalue2(inpuvalue2){
+    if (inpuvalue2 != ""){
+      var data = {taskchildnum: inpuvalue2}
+      this.query(data);
     }
   }
 
@@ -173,15 +184,22 @@ export class TestTaskManageComponent implements OnInit {
   // 搜索按钮
   query(inpuvalue?){
     var devicename;
-    if (inpuvalue){
-      devicename = inpuvalue;
+    if (inpuvalue&&inpuvalue["devicename"]){
+      devicename = inpuvalue["devicename"];
     }else{
       devicename = this.myinput?.getinput();// 设备名称
+    }
+    // 任务子单号
+    var taskchildnum;
+    if (inpuvalue&&inpuvalue["taskchildnum"]){
+      taskchildnum = [inpuvalue["taskchildnum"]];
+    }else{
+      taskchildnum = [this.myinput2?.getinput()];// 设备名称
     }
     // 设备名称 devicename
     // var devicename = $("#devicename").val();
     // 科室/功能组
-    var groups_data = this.taskno.getselect();
+    var groups_data = this.group.getselect();
     // 设备类型
     var device_tpye_data = this.eimdevicetpye.getselect();
     // 日期范围
@@ -198,9 +216,10 @@ export class TestTaskManageComponent implements OnInit {
       group: groups_data_,
       start:daterange_data[0],
       end:daterange_data[1],
-      eimdevicetype:device_tpye_data
+      eimdevicetype:device_tpye_data,
+      taskchildnum: taskchildnum
     }
-    // console.log("**************\n", columns);
+    console.log("**************\n", columns);
       // 执行搜索函数！GETTABLE  dev_get_kpi_device_search
       this.http.callRPC('device', this.GETTABLE,columns).subscribe(result=>{
         var tabledata = result["result"]["message"][0];
@@ -214,6 +233,9 @@ export class TestTaskManageComponent implements OnInit {
           this.tableDatas.totalPageNumbers = totalpagenumbers;
           this.agGrid.update_agGrid(this.tableDatas); // 告诉组件刷新！
           this.RecordOperation('搜索', 1,  "设备报表")
+          if (message.length < 1){
+            this.searchdanger();
+          }
         }else{this.RecordOperation('搜索', 0,  "设备报表")}
       })
       
@@ -233,8 +255,10 @@ export class TestTaskManageComponent implements OnInit {
     this.inttable();
 
     // 取消选择的数据 delselect
-    this.myinput.del_input_value();
-    this.taskno.dropselect();
+    this.myinput.del_input_value(); // 设备名称
+    this.myinput2.del_input_value(); // 任务子单号
+
+    this.group.dropselect();
     this.eimdevicetpye.dropselect();
   }
 
@@ -301,7 +325,8 @@ export class TestTaskManageComponent implements OnInit {
       employeeid:this.userinfo.getEmployeeID(),
       devicename: "",
       group:[],
-      eimdevicetype:[]
+      eimdevicetype:[],
+      taskchildnum:[]
     }
     // 得到设备信息！
     this.http.callRPC('device', this.GETTABLE, colmun).subscribe((res)=>{
@@ -345,7 +370,8 @@ export class TestTaskManageComponent implements OnInit {
       employeeid:this.userinfo.getEmployeeID(),
       devicename: "",
       group:[],
-      eimdevicetype:[]
+      eimdevicetype:[],
+      taskchildnum:[]
     }
     // 得到员工信息！
     this.http.callRPC('deveice', this.GETTABLE, colmun).subscribe((res)=>{
@@ -386,6 +412,10 @@ export class TestTaskManageComponent implements OnInit {
       var createdby = this.userinfo.getLoginName();
       this.publicservice.option_record(employeeid, result,transactiontype,info,createdby);
     }
+  }
+
+  searchdanger(){
+    this.publicservice.showngxtoastr({position: 'toast-top-right', status: 'danger', conent:"没有搜索到数据！"});
   }
   
 

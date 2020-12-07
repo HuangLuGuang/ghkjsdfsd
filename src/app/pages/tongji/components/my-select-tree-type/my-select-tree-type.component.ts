@@ -16,8 +16,8 @@ export class MySelectTreeTypeComponent implements OnInit {
   placeholder_title_type;
   select_type = [];
 
-  // el5
-  el5;
+  // el5_type
+  el5_type;
 
   ngOnInit(): void {
   }
@@ -37,7 +37,7 @@ export class MySelectTreeTypeComponent implements OnInit {
       // $(".tree_type_isShow").hide()
     }
     var that = this;
-    var el5;
+    var el5_type;
     layui.use(['eleTree',],function(){
       var eleTree = layui.eleTree;
       $("[name='title_type']").on("click",function (e) {
@@ -49,8 +49,8 @@ export class MySelectTreeTypeComponent implements OnInit {
         }
 
         e.stopPropagation();
-        if(!el5){
-          el5=eleTree.render({
+        if(!el5_type){
+          el5_type=eleTree.render({
             elem: '.eletype',
             data: data,
             defaultExpandAll: false,
@@ -59,7 +59,7 @@ export class MySelectTreeTypeComponent implements OnInit {
             highlightCurrent: true,
             checkOnClickNode: true, // 点击节点时选中节点！
           });
-          that.el5 = el5;
+          that.el5_type = el5_type;
         }
         $(".eletype").toggle();
       })
@@ -108,7 +108,10 @@ export class MySelectTreeTypeComponent implements OnInit {
   // 清空下拉数据
   dropselect(){
     this.delselect();
-    this.el5.unCheckNodes() //取消所有选中的节点
+    var select_type = this.el5_type?.getChecked();
+    if (select_type != undefined && select_type.length>0){
+      this.el5_type?.unCheckNodes() //取消所有选中的节点
+    }
   }
 
 }
