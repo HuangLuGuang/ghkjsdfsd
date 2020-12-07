@@ -6,7 +6,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AnalyticsService } from './@core/utils/analytics.service';
 import { SeoService } from './@core/utils/seo.service';
-import { mq_config } from './appconfig';
+import { guid2, mq_config } from './appconfig';
 import { EmqClientService } from './services/emq-client/emq-client.service';
 import { MqttBean } from './services/emq-client/mqtt';
 declare let $;
@@ -35,7 +35,7 @@ export class AppComponent implements OnInit {
     let mqBean :MqttBean= {
       hostname: mq_config.hostname,
       port: mq_config.port,
-      clientId: mq_config.clientId,
+      clientId: 'client_'+guid2(),
       mqttConnectFail:this.mqttConnectFail,
     }
     this.mqservice.getmqtt(mqBean);

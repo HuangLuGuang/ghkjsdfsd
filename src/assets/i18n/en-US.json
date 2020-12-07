@@ -15,8 +15,11 @@
     },
     "equipment": {
         "return": "return",
+        "Source": "Source",
         "menu": "menu",
+        "Cleanliness": "Cleanliness",
         "real": "RealTimeExperiment",
+        "CurrentAlarmList": "Current Alarm List",
         "realStatus": "RealTimeExperimentStatus",
         "temperature": "TEMP",
         "humidity": "RH",
@@ -26,8 +29,13 @@
         "realime": "Real",
         "ExperimentNum": "ExperimentNum",
         "StartTime": "StartTime",
+        "endTime": "EndTime",
+        "CarriedOutTime": "CarriedOutTime",
+        "PlanStart": "PlanStart",
         "PlannedRound": "PlannedRound",
         "PLanDuration": "PLanDuration",
+        "PLanTimeRound": "PLanTime/Round",
+        "ActualTimeRound": "ActualTime/Round",
         "schedule": "Schedule",
         "NextExperiment": "NextExperiment",
         "contact": "Contact",
@@ -36,6 +44,7 @@
         "equipmentStatus": "EquipmentStatus",
         "SafetyLampStatus": "SafetyLampStatus",
         "equipIntroduce": "EquipIntroduce",
+        "EquipmentAlarm": "EquipmentAlarm",
         "experimentParams": "ExperimenParameters",
         "OnlineVideo": "OnlineVideo",
         "expInfor": "ExperimentalInformation",
@@ -48,7 +57,9 @@
         "Loglevel": "LogLevel",
         "logInfor": "logInfor",
         "LogWarm": "Log/alarm",
-        "LV1Warm": "FirstLevelAlarm",
+        "LV1Warm": "Level1Warm",
+        "LV2Warm": "Level2Warm",
+        "LV3Warm": "Level3Warm",
         "stationName": "Station Name",
         "stationNameCGF": "Station Name(cgf)",
         "OilSeparator": "OilSeparator",
@@ -59,6 +70,7 @@
         "AVLSpeed": "AVLSpeed",
         "param1": "param1",
         "param2": "param2",
+        "TestProgress": "TestProgress",
         "road": {
             "LeftFront": {
                 "Params": "LeftFrontParams",
@@ -117,9 +129,12 @@
             "MotorEfficiency": "MotorEfficiency",
             "electricCurrent": "ElectricCurrent",
             "Voltage": "Voltage"
+        },
+        "oilsrouce": {
+            "accumulator": "Accumulator",
+            "HPUstatistics-1": "HPUStatistics-1"
         }
     }
-
 
 
 }

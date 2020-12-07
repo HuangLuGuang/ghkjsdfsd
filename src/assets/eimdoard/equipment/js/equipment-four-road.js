@@ -2,7 +2,7 @@ const img = 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAMYAAADGCAYAAACJm/9dA
 
 let equipment_four_road = {
     //设备状态
-    create_device_status(data, myChart, config) {
+    create_device_status(data, myChart, config, title) {
         if (!data) {
             myChart.resize();
             return;
@@ -15,10 +15,24 @@ let equipment_four_road = {
         let seriesData = [];
         this.create_device_status_fun(data, seriesData, legend, borderData, borderHeight);
         // console.log(seriesData);
-        let option_s = this.getoption(xData, borderData, legend, borderHeight, normalColor, seriesData);
-
-        window.onresize = function() {
-            myChart.setOption(option_s, config ? config : {});
+        let option_s = this.getoption(xData, 'fun', legend, borderHeight, normalColor, seriesData);
+        option_s.grid = {
+            left: "3%",
+            top: "30%",
+            right: "3%",
+            bottom: 0,
+            containLabel: true
+        }
+        option_s.yAxis[0].name = '小时';
+        option_s.yAxis[1].name = '%';
+        option_s.title = {
+            show: true,
+            text: title,
+            left: 'center',
+            textStyle: {
+                color: 'white',
+                fontSize: 12,
+            }
         }
         myChart.setOption(option_s, config ? config : {});
         if (!config) myChart.resize();
@@ -36,15 +50,17 @@ let equipment_four_road = {
         if (seriesData.length == 0)
             seriesData.push({ name: '', type: "line", data: [] });
         // console.log(seriesData);
-        let option_q = this.getoption(xData, borderData, legend, borderHeight, normalColor, seriesData);
+        let option_q = this.getoption(xData, 'real', legend, borderHeight, normalColor, seriesData);
         // console.log(JSON.stringify(option_s))
-        window.onresize = function() {
-            myChart.resize();
-        }
-        myChart.setOption(option_q);
-        myChart.resize();
+        // window.addEventListener('resize', f => {
+        // console.log('柱形')
+
+        // if (myChart) myChart.resize();
+        // })
+        myChart.setOption(option_q, config);
+        // myChart.resize();
     },
-    getoption(xData, borderData, legend, borderHeight, normalColor, seriesData) {
+    getoption(xData, n_name, legend, borderHeight, normalColor, seriesData) {
         return {
             // backgroundColor: "#000",
             grid: {
@@ -77,6 +93,7 @@ let equipment_four_road = {
                                 ":" +
                                 params[i].seriesName +
                                 params[i].value +
+                                (params.length - 1 == i && n_name == 'fun' ? '%' : '') +
                                 "<br/>";
                         }
                     }
@@ -103,31 +120,31 @@ let equipment_four_road = {
                 axisTick: {
                     show: false
                 },
-                splitLine: {
-                    show: true,
-                    width: 0.08,
-                    lineStyle: {
-                        type: "solid",
-                        color: "white"
-                    }
-                }
+                // splitLine: {
+                //     show: true,
+                //     width: 0.08,
+                //     lineStyle: {
+                //         type: "solid",
+                //         color: "white"
+                //     }
+                // }
             }],
-            dataZoom: [{
-                    show: false,
-                    realtime: true,
-                    start: 100 - ((10 / (seriesData[0].data.length)) * 100),
-                    end: 100,
-                },
-                {
-                    type: 'inside',
-                    realtime: true,
-                    start: 100 - ((10 / (seriesData[0].data.length)) * 100),
-                    end: 100,
-                }
-            ],
+            // dataZoom: [{
+            //         show: false,
+            //         realtime: true,
+            //         start: 100 - ((10 / (seriesData[0].data.length)) * 100),
+            //         end: 100,
+            //     },
+            //     {
+            //         type: 'inside',
+            //         realtime: true,
+            //         start: 100 - ((10 / (seriesData[0].data.length)) * 100),
+            //         end: 100,
+            //     }
+            // ],
             yAxis: [{
                     type: "value",
-                    name: "%",
+                    name: "",
                     nameTextStyle: {
                         color: normalColor,
                         fontSize: 12
@@ -158,19 +175,10 @@ let equipment_four_road = {
                 },
                 {
                     type: "value",
-                    name: "%",
+                    name: "",
                     nameTextStyle: {
                         color: normalColor,
                         fontSize: 12
-                    },
-                    // min: -100,
-                    // max: 100,
-                    axisLabel: {
-                        formatter: "{value}",
-                        textStyle: {
-                            color: normalColor,
-                            fontSize: 12
-                        }
                     },
                     axisLine: {
                         lineStyle: {
@@ -229,6 +237,9 @@ let equipment_four_road = {
             }, {
                 value: 2,
                 name: '',
+                tooltip: {
+                    show: false
+                },
                 itemStyle: {
                     normal: {
                         label: {
@@ -308,11 +319,7 @@ let equipment_four_road = {
         };
         if (!gauge_data.value) option_p.tooltip.show = false;
         // console.log(JSON.stringify(option_p))
-        window.onresize = function() {
-            myChart.resize();
-        }
         myChart.setOption(option_p);
-        myChart.resize();
     },
     //日志 警告
     create_warning_chart(data, myChart) {
@@ -324,7 +331,6 @@ let equipment_four_road = {
                     type: 'shadow' // 默认为直线，可选为：'line' | 'shadow'
                 },
                 formatter: function(value) {
-                    console.log(value)
                     let str = '',
                         i = 0;
                     if (value.length == 2) {
@@ -778,11 +784,11 @@ let equipment_four_road = {
                 data: [datas]
             }]
         };
-        window.onresize = function() {
-            myChart.resize();
-        }
+        // window.onresize = function() {
+        //     myChart.resize();
+        // }
         myChart.setOption(optionInterval_v2);
-        myChart.resize()
+        myChart.resize();
     },
     //avl 出风回风温湿度
     create_real_electric(data, myChart) {
@@ -1055,11 +1061,11 @@ let equipment_four_road = {
             ]
         };
 
-        window.onresize = function() {
-            Chart.resize();
-        }
+        // window.onresize = function() {
+        //     Chart.resize();
+        // }
         Chart.setOption(option_u);
-        Chart.resize();
+        // Chart.resize();
     },
 
     //生成仪表盘单盘 上汽
@@ -1242,15 +1248,9 @@ let equipment_four_road = {
                     show: true,
                     fontSize: 9,
                     color: 'white', //X轴文字颜色
-                    formatter: function(value) {
-                        let str = "";
-                        // str += value.substring(0, 4) + "\n";
-                        str += value.substring(5, 10);
-                        return str;
-                    }
                 },
                 axisLine: {
-                    show: false //不显示x轴
+                    show: true //不显示x轴
                 },
                 axisTick: {
                     show: false //不显示刻度
@@ -1334,10 +1334,6 @@ let equipment_four_road = {
                     end: 100
                 }
             ];
-
-        window.onresize = function() {
-            myChart.resize();
-        }
         myChart.setOption(option_t);
         myChart.resize();
     },
@@ -1547,12 +1543,12 @@ let equipment_four_road = {
             },
             series: series
         };
+        // window.addEventListener('resize', f => {
+        // console.log('折线')
+
+        // })
         myChart.setOption(option_e, config);
         // myChart.resize();
-        window.onresize = function() {
-            myChart.resize();
-        }
-
     },
 
     // //进度条

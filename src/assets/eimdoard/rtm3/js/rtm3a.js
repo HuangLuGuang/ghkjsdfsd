@@ -75,7 +75,7 @@ let rtm3a = {
             myChart.resize();
         }
 
-        if (option && typeof option === "object") {
+        if (option_s_c && typeof option_s_c === "object") {
             myChart.setOption(option_s_c);
             myChart.resize();
         }
@@ -186,6 +186,7 @@ let rtm3a = {
     },
 
     create_third_chart_line(data, id) {
+        if (!document.getElementById(id)) return;
         var myChart = echarts.init(document.getElementById(id));
         var color = ['#F35331', '#2499F8', '#3DF098', '#33B734'];
         //订单完成情况螺旋图
@@ -310,10 +311,6 @@ let rtm3a = {
                 }
             ]
         }
-        window.onresize = function() {
-            this.console.log("重置的屏幕大小！")
-            myChart.resize();
-        }
 
         myChart.setOption(option_t_c_l);
         myChart.resize();
@@ -321,90 +318,58 @@ let rtm3a = {
 
     //半圆加百分比
     create_semicircle(data, myChart) {
-        var colorSet = [
-            [data / 100, 'green'],
-            [1, '#15337C']
-        ];
 
         let option_s = {
             // backgroundColor: '#0E1327',
-            series: [{ //内圆
-                    type: 'pie',
-                    radius: '85%',
-                    center: ['50%', '50%'],
-                    z: 0,
-                    itemStyle: {
-                        normal: {
-                            color: new echarts.graphic.RadialGradient(.5, .5, 1, [{
-                                offset: 0,
-                                color: 'rgba(17,24,43,0)'
-                            }, ], false),
-                            label: {
-                                show: false
-                            },
-                            labelLine: {
-                                show: false
-                            }
-                        },
-                    },
-                    hoverAnimation: false,
-                    label: {
-                        show: false,
-                    },
-                    tooltip: {
-                        show: false
-                    },
-                    data: [100],
+            title: {
+                show: true,
+                text: data + '%',
+                textStyle: {
+                    color: 'white'
                 },
+                top: '40%',
+                left: '40%',
+            },
+            polar: {
+                radius: ['70%', '80%'],
+                center: ['50%', '50%'],
+            },
+            // 极坐标系：角度轴
+            angleAxis: {
+                max: 200,
+                show: false,
+                type: 'value',
+                startAngle: 180,
+            },
+            // 极坐标系：径向轴
+            radiusAxis: {
+                type: 'category',
+                show: true,
+                axisLabel: {
+                    show: false,
+                },
+                axisLine: {
+                    show: false,
 
-                {
-                    type: 'gauge',
-                    radius: '85%',
-                    startAngle: '180',
-                    endAngle: '0',
-                    pointer: {
-                        show: false
-                    },
-
-                    data: [{ value: data }],
-                    title: {
-                        show: false,
-                    },
-                    axisLine: {
-                        show: true,
-                        lineStyle: {
-                            color: colorSet,
-                            width: 25,
-                            shadowOffsetX: 0,
-                            shadowOffsetY: 0,
-                            opacity: 1
-                        }
-                    },
-                    axisLabel: {
-                        show: false
-                    },
-                    axisTick: {
-                        show: false
-                    },
-                    detail: {
-                        color: 'green',
-                        offsetCenter: ['0%', '0%'],
-                        formatter: "{value}%",
-                        fontWeight: 'bold',
-
-                    },
-                    splitLine: {
-                        show: false,
-                        length: 25,
-                        lineStyle: {
-                            color: '#00377a',
-                            width: 2,
-                            type: 'solid',
-                        },
-                    },
-                }
-
-            ]
+                },
+                axisTick: {
+                    show: false
+                },
+            },
+            series: [{
+                type: 'bar',
+                data: [{
+                    value: data
+                }],
+                itemStyle: {
+                    color: 'green'
+                },
+                barGap: '-100%',
+                coordinateSystem: 'polar',
+                roundCap: true,
+                cursor: 'auto',
+                z: 2
+            }, ]
         };
 
         window.onresize = function() {

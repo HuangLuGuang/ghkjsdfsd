@@ -1,12 +1,28 @@
-<div id="laboratory" class="row">
+<!-- <div id="laboratory" class="row">
     <div class="col-md-3">
         <div class="title">可动率</div>
         <div id="chart_1" style="width: 100%;height: 200px;">
         </div>
     </div>
-    <div class="col-md-9" id="appearance">
-        <div>
+    <div class="col-md-9">
+        <div id="appearance">
 
         </div>
     </div>
+</div> -->
+
+<div id="appearance">
+    <div *ngFor="let key of objectKeys(list)" [ngStyle]="getStyle(list[key].style)">
+        <ng-container [ngTemplateOutlet]="getTemp(list[key].type)" [ngTemplateOutletContext]="{ $implicit: list[key] }">
+        </ng-container>
+    </div>
 </div>
+<ng-template #message let-value>
+    <div class="height_100 w_100" id="{{ value.id}}"></div>
+</ng-template>
+<ng-template #category let-value>
+    <div class="height_100 w_100">
+        <div class="height_30 w_100" style="background-color: chartreuse;">Message</div>
+        <div class="height_70 w_50" style="border-right: 2px solid chartreuse;"></div>
+    </div>
+</ng-template>

@@ -85,6 +85,7 @@ export class EquipmentAvlComponent implements OnInit {
 
   timer:any;//定时器
   language = '';//语言 空为zh-CN中文
+  subscribeList:any = {};
 
   constructor(private layoutService: LayoutService,private activateInfo:ActivatedRoute) { }
 
@@ -92,11 +93,11 @@ export class EquipmentAvlComponent implements OnInit {
     //获取当前语言
     let language = localStorage.getItem('currentLanguage');
     if(language!='zh-CN')this.language = language;
-    this.layoutService.onInitLayoutSize().subscribe(f=>{
+    this.subscribeList.layout = this.layoutService.onInitLayoutSize().subscribe(f=>{
       this.initChart();
     })
 
-    this.activateInfo.params.subscribe(f =>{
+    this.subscribeList.router = this.activateInfo.params.subscribe(f =>{
       console.log(f);
       if(document.getElementById('head_title'))
         document.getElementById('head_title').innerText = f.title;
@@ -201,20 +202,6 @@ export class EquipmentAvlComponent implements OnInit {
   }
 
   initChart(){
-    let data = {
-      title:['一级警告','二级警告'],
-      yAxis:['周一','周二','周三','周四','周五','周六','周日'],
-      firstData:[120, 132, 101, 134, 90, 230, 210],
-      secondData:[220, 182, 191, 234, 290, 330, 310]
-
-    }
-    if(this.language){
-      data.title = ['LV1Warn','LV2Warn'];
-      data.yAxis = ['Mon','Tue','Wed','Thu','Fri','Sat','Sun'];
-    }
-    let myChart_3 = echarts.init(document.getElementById('warning'));
-    equipment_four_road.create_warning_chart(data,myChart_3);
-
     this.initChart_1();
 
     let myChart_7 = [];
@@ -255,8 +242,9 @@ export class EquipmentAvlComponent implements OnInit {
   ngOnDestroy(){
     clearInterval(this.timer);
     clearInterval(this.timer1)
-
-    
+    for(let key in this.subscribeList){
+      this.subscribeList[key].unsubscribe();
+    }
   }
 
 }

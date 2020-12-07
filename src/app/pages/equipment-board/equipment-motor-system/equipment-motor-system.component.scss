@@ -1,7 +1,8 @@
-#four_road {
+#motor {
     width: 100%;
     height: 100%;
     // height: 900px;
+    min-height: 800px;
     .first_first,
     .first_second,
     .first_third,
@@ -19,10 +20,10 @@
         color: white;
     }
     .thrid {
-        height: 30%;
+        height: 28%;
         width: 100%;
         // box-shadow: 0 0px 1px 3px rgba(50, 84, 129, 1) inset;
-        // padding: 2%;
+        padding: 2%;
         position: relative;
         color: white;
         background: url('/assets/eimdoard/equipment/images/blue_beijing.png') center center;

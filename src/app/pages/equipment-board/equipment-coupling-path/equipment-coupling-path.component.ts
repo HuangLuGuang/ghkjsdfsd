@@ -184,6 +184,8 @@ export class EquipmentCouplingPathComponent implements OnInit {
   timer:any;//定时器
   language = '';//语言 空为zh-CN中文
 
+  subscribeList:any = {};
+
 
   constructor(private layoutService: LayoutService,private activateInfo:ActivatedRoute) { }
 
@@ -192,11 +194,11 @@ export class EquipmentCouplingPathComponent implements OnInit {
     let language = localStorage.getItem('currentLanguage');
     if(language !='zh-CN')this.language = language;
     //左上按钮点击后宽度变化
-    this.layoutService.onInitLayoutSize().subscribe(f=>{
+    this.subscribeList.layout = this.layoutService.onInitLayoutSize().subscribe(f=>{
       this.initChart();
     })
     //路由订阅
-    this.activateInfo.params.subscribe(f =>{
+    this.subscribeList.router = this.activateInfo.params.subscribe(f =>{
       console.log(f);
       if(document.getElementById('head_title'))
         document.getElementById('head_title').innerText = f.title;
@@ -217,7 +219,6 @@ export class EquipmentCouplingPathComponent implements OnInit {
     this.getData();
     setTimeout(() => {
       this.initChart();
-      this.in();
     }, 1000);
   }
 
@@ -242,47 +243,10 @@ export class EquipmentCouplingPathComponent implements OnInit {
     },1000)
     
   }
-  timer1;
-  timer2;
-  in(){
-
-    let myChart_4 = echarts.init(document.getElementById('real_temperature_1'));
-    equipment_four_road.create_real_temperature_v2({value:Math.floor(Math.random() * 101),title:'温度',max:100,setValue:80},myChart_4);
-    let myChart_5 = echarts.init(document.getElementById('real_temperature_2'));
-    equipment_four_road.create_real_temperature_v2({value:Math.floor(Math.random() * 101),title:'温度',max:100,setValue:80},myChart_5);
-
-    this.timer1 = setInterval(f=>{
-      equipment_four_road.create_real_temperature_v2({value:Math.floor(Math.random() * 101),title:'温度',max:100,setValue:80},myChart_4);
-    },3000)
-    this.timer2 = setInterval(f=>{
-      equipment_four_road.create_real_temperature_v2({value:Math.floor(Math.random() * 101),title:'温度',max:100,setValue:80},myChart_5);
-    },3000)
-  }
+  
   
   //初始化表格
   initChart(){
-
-    let data = {
-      title:['一级警告','二级警告'],
-      yAxis:['周一','周二','周三','周四','周五','周六','周日'],
-      firstData:[120, 132, 101, 134, 90, 230, 210],
-      secondData:[220, 182, 191, 234, 290, 330, 310]
-    }
-    if(this.language){
-      data.title = ['LV1Warn','LV2Warn'];
-      data.yAxis = ['Mon','Tue','Wed','Thu','Fri','Sat','Sun'];
-    }
-    let myChart_3 = echarts.init(document.getElementById('warning'));
-    equipment_four_road.create_warning_chart(data,myChart_3);
-
-    let myChart_4 = echarts.init(document.getElementById('real_temperature_1'));
-    equipment_four_road.create_real_temperature_v2({value:Math.floor(Math.random() * 101),title:'温度',max:100,setValue:80},myChart_4);
-
-    let myChart_5 = echarts.init(document.getElementById('real_temperature_2'));
-    equipment_four_road.create_real_temperature_v2({value:Math.floor(Math.random() * 101),title:'温度',max:100,setValue:80},myChart_5);
-
-
-    create_third_chart_line(rtm3a,this);
 
   }
 
@@ -318,7 +282,10 @@ export class EquipmentCouplingPathComponent implements OnInit {
   }
 
   ngOnDestroy(){
-    clearInterval(this.timer)
+    clearInterval(this.timer);
+    for(let key in this.subscribeList){
+      this.subscribeList[key].unsubscribe();
+    }
   }
 
 }

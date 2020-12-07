@@ -1,5 +1,7 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { config } from 'rxjs';
 import { LayoutService } from '../../../@core/utils/layout.service';
+import {resize} from '../../../pages/equipment-board/equipment-board';
 
 let equipment_four_road = require('../../../../assets/eimdoard/equipment/js/equipment-four-road')
 // 引入jquery
@@ -42,6 +44,7 @@ export class ChartCurveV3Component implements OnInit {
 //下拉显示的字段
   languageName = 'name';//默认为中文
 
+
   constructor(private layoutService:LayoutService ) { }
 
   ngOnInit(): void {
@@ -54,6 +57,8 @@ export class ChartCurveV3Component implements OnInit {
         this.layoutService.onInitLayoutSize().subscribe(f=>{
             if(this.myChart)
             this.myChart.resize();
+            let dom = document.getElementById(this.dashboardName);
+            if(dom)echarts.init(dom).resize();
         })
 
         //tag默认选中
@@ -64,8 +69,18 @@ export class ChartCurveV3Component implements OnInit {
             })
         
         }
+        
   }
   ngAfterViewInit (){
+      window.addEventListener('resize',this.chartResize);
+  }
+
+  chartResize=()=>{
+    console.log('chart-v-3刷新')
+    let isthis = this;
+    if(isthis.myChart)isthis.myChart.resize();
+    let dom = document.getElementById(this.dashboardName);
+    if(dom)echarts.init(dom).resize();
   }
 
 
@@ -321,11 +336,12 @@ export class ChartCurveV3Component implements OnInit {
         option.legend = this.myChart.getOption().legend
         // option.dataZoom = this.myChart.getOption().dataZoom
     }
-    window.onresize = function() {
-        if(isthis.myChart)isthis.myChart.setOption(option,echartConfig);
-    }
+    // window.addEventListener('resize',f=>{
+        // console.log('曲线')
+        // if(this.myChart)this.myChart.resize();
+    // })
     this.myChart.setOption(option,echartConfig);
-
+    // this.myChart.resize();
   }
 
   //柱形加折线
@@ -511,5 +527,9 @@ export class ChartCurveV3Component implements OnInit {
     return sColor;
  };
 
+ //组件销毁
+ ngOnDestroy(){
+    window.removeEventListener('resize',this.chartResize);
+  }
 
 }

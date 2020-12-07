@@ -3,11 +3,13 @@
     width: 30%;
     display: flex;
     padding: 2%;
+    align-items: center;
+    justify-content: center;
 }
 
 #circular {
-    width: 20px;
-    height: 20px;
+    width: 30px;
+    height: 30px;
     border-radius: 60px;
     background: rgb(59, 56, 56);
     margin: 15%;

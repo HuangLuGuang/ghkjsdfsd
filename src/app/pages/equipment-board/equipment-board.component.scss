@@ -8,7 +8,7 @@
     -o-background-size: cover;
     background-position: center center;
     text-align: center;
-    font-family: "Microsoft YaHei", 微软雅黑, "MicrosoftJhengHei", 华文细黑, STHeiti, MingLiu;
+    font-family: 微软雅黑;
     // height: 864px;
     // width: 1920px;
     #title_img {
@@ -21,6 +21,8 @@
         margin-left: 0px;
         margin-right: 0px;
         min-height: 54px;
+        height: 5%;
+        position: relative;
     }
     .head {
         display: inline-flex;
@@ -39,20 +41,27 @@
     .return_button_2 {
         background: url('/assets/eimdoard/equipment/images/ret.png') no-repeat;
     }
+    .right_button {
+        position: absolute;
+        right: 0;
+        top: 0;
+        line-height: 35px;
+        display: flex;
+    }
     .title {
         font-size: xx-large;
         color: white;
-        margin-top: 1%;
+        width: 100%;
+        line-height: 46px;
     }
     nb-icon {
-        position: absolute;
         background: rgba(22, 67, 127, 1);
         cursor: pointer;
         width: 53px;
         height: 53px;
     }
     .body {
-        height: 100%;
+        height: 93%;
         width: 100%;
         margin-top: 14px;
         position: relative;
@@ -61,9 +70,9 @@
         // #left_img {
         #center {
             width: 100%;
-            height: 96%;
+            height: 98%;
             margin: 2% 1% 0% 1%;
-            display: flex;
+            display: grid;
         }
     }
 }
