@@ -75,11 +75,9 @@ export class TestTaskManageComponent implements OnInit {
     this.inttable();
 
     // 得到pathname --在得到button
-    console.log("得到pathname --在得到button\t\t")
     var roleid = this.userinfo.getEmployeeRoleID();
     this.publicservice.get_buttons_bypath(roleid).subscribe(result=>{
       this.button = result;
-      console.log("得到pathname --在得到button\t\t", result)
       localStorage.setItem("buttons_list", JSON.stringify(result));
     })
 
@@ -97,9 +95,9 @@ export class TestTaskManageComponent implements OnInit {
         // ,trigger: 'click'//呼出事件改成click
         ,done: function(value, date, endDate){
           localStorage.setItem(date_ranges, JSON.stringify(value))
-          console.log(value); //得到日期生成的值，如：2017-08-18
-          console.log(date); //得到日期时间对象：{year: 2017, month: 8, date: 18, hours: 0, minutes: 0, seconds: 0}
-          console.log(endDate); //得结束的日期时间对象，开启范围选择（range: true）才会返回。对象成员同上。
+          // console.log(value); //得到日期生成的值，如：2017-08-18
+          // console.log(date); //得到日期时间对象：{year: 2017, month: 8, date: 18, hours: 0, minutes: 0, seconds: 0}
+          // console.log(endDate); //得结束的日期时间对象，开启范围选择（range: true）才会返回。对象成员同上。
         }
       });
 
@@ -112,18 +110,16 @@ export class TestTaskManageComponent implements OnInit {
     var date_range = localStorage.getItem(this.date_ranges)? localStorage.getItem(this.date_ranges): false;
     if (date_range){
       var date = JSON.parse(date_range).split(' - ');
-      console.log("date--->", date)
+      // console.log("date--->", date)
       var date_list = date;
       localStorage.removeItem(this.date_ranges)
       return date_list
     }
-    // var date_list = [this.datepipe.transform(this.selectedMoments[0],'yyyy-MM-dd'), this.datepipe.transform(this.selectedMoments[1],'yyyy-MM-dd')];
-    // return date_list;
+   
   }
 
   // button按钮
   action(actionmethod){
-    console.log("++++++++++++++++++++action(actionmethod)++++++++++++++++++++++++++++", actionmethod);
     var method = actionmethod.split(":")[1];
     console.log("--------------->method", method)
     switch (method) {
@@ -156,7 +152,6 @@ export class TestTaskManageComponent implements OnInit {
     }
     this.http.callRPC("deveice","dev_get_device_groups",columns).subscribe(result=>{
       var res = result["result"]["message"][0]
-      console.log("得到下拉框的数据---------------->", res)
       if (res["code"] === 1){
         var groups = res["message"][0]["groups"];
        
@@ -170,7 +165,6 @@ export class TestTaskManageComponent implements OnInit {
   // input 传入的值
   inpuvalue(inpuvalue){
     if (inpuvalue != ""){
-      console.log("传入的值设备名称----->",inpuvalue);
       this.query(inpuvalue);
     }
   }
@@ -195,7 +189,7 @@ export class TestTaskManageComponent implements OnInit {
     // 将科室/功能组，转为列表
     var groups_data_ = groups_data ===""?[] :groups_data.split(";");
     // 搜索的 时间范围 daterange 必选，修改为 start end
-    console.log("**************\n")
+    // console.log("**************\n")
     var columns = {
       offset: 0, 
       limit: 10,
@@ -206,10 +200,9 @@ export class TestTaskManageComponent implements OnInit {
       end:daterange_data[1],
       eimdevicetype:device_tpye_data
     }
-    console.log("**************\n", columns);
+    // console.log("**************\n", columns);
       // 执行搜索函数！GETTABLE  dev_get_kpi_device_search
       this.http.callRPC('device', this.GETTABLE,columns).subscribe(result=>{
-        console.log("执行搜索函数！\n\n\n",result)
         var tabledata = result["result"]["message"][0];
         this.loading = false;
         if (tabledata["code"] === 1){
@@ -262,7 +255,7 @@ export class TestTaskManageComponent implements OnInit {
       { field: 'rate', headerName: '任务进度', resizable: true, minWidth: 10, cellRendererFramework: TaskProgressForAggridComponent,},
       { field: 'devicename', headerName: '设备名称',  resizable: true, minWidth: 10},
       // { field: 'department', headerName: '部门信息', resizable: true, minWidth: 10},
-      { field: 'deviceid', headerName: '设备id',  resizable: true, minWidth: 10},
+      { field: 'deviceid', headerName: '设备ID',  resizable: true, minWidth: 10},
       { field: 'belonged', headerName: '负责人',  resizable: true, minWidth: 10},
       { field: 'tasknum', headerName: '任务单号', resizable: true, minWidth: 10},
       { field: 'taskchildnum', headerName: '任务子单号', resizable: true, minWidth: 10},
@@ -312,7 +305,6 @@ export class TestTaskManageComponent implements OnInit {
     }
     // 得到设备信息！
     this.http.callRPC('device', this.GETTABLE, colmun).subscribe((res)=>{
-      console.log("得到设备信息=================>", res)
       var result  = res['result']['message'][0];
       if (result["code"]===1){
         this.loading = false;
@@ -334,6 +326,8 @@ export class TestTaskManageComponent implements OnInit {
   }
 
   update_agGrid(event?){
+    // 是否 每页多少也，设置为默认值
+    this.tableDatas.isno_refresh_page_size = true;
     var offset;
     var limit;
     if (event != undefined){

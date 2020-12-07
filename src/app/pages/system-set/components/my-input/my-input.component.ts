@@ -20,7 +20,6 @@ export class MyInputComponent implements OnInit {
   }
   
   ngAfterViewInit(){
-    console.log("myinput_placeholder", this.myinput_placeholder)
     $("#employeenumber").attr("placeholder", this.myinput_placeholder)
   }
 
@@ -53,7 +52,6 @@ export class MyInputComponent implements OnInit {
     // input
     var that = this;
     $("div").mouseenter(function (e) {
-      console.log("******inputvalue", that.inputvalue)
       if (that.inputvalue != ""){
         // 说明有值，这就需要在inpu中添加 图标！
         $(".delet_input_value").show()
@@ -76,7 +74,6 @@ export class MyInputComponent implements OnInit {
       case 13:
         // enter, 得到输入值，调用父组件函数搜索
         var inpuvalue = this.getinput();
-        console.log("enter:",inpuvalue)
         this.inpuvalue.emit(inpuvalue);
         break;
       case 27:

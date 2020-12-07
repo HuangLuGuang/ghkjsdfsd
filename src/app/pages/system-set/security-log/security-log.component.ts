@@ -52,7 +52,7 @@ export class SecurityLogComponent implements OnInit {
 
 
   action(actionmethod){
-    // console.log("++++++++++++++++++++action(actionmethod)++++++++++++++++++++++++++++", actionmethod);
+    console.log("++++++++++++++++++++action(actionmethod)++++++++++++++++++++++++++++", actionmethod);
     var method = actionmethod.split(":")[1];
     // ====================================================
     switch (method) {
@@ -164,9 +164,9 @@ export class SecurityLogComponent implements OnInit {
     }
     // 得到员工信息！
     this.http.callRPC('sys_security_log', 'get_sys_login_log', columns).subscribe((res)=>{
-      console.log("get_sys_login_log", res)
+      // console.log("get_sys_login_log", res)
       var get_sys_login_log = res['result']['message'][0]
-      console.log("get_sys_login_log", get_sys_login_log);
+      // console.log("get_sys_login_log", get_sys_login_log);
       if (get_sys_login_log["code"]===1){
         var message = get_sys_login_log["message"];
         var totalpagenumbers = get_sys_login_log['numbers'][0]['numbers'];
@@ -184,7 +184,7 @@ export class SecurityLogComponent implements OnInit {
 
   // nzpageindexchange 页码改变的回调
   nzpageindexchange(event){
-    console.log("页码改变的回调", event);
+    // console.log("页码改变的回调", event);
     this.gridData = [];
     this.loading = true;
     this.inttable(event);

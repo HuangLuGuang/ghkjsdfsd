@@ -52,7 +52,7 @@ export class ManKpiDetailComponent implements OnInit {
     // 得到选则的日期 selectedMoments
     // 订阅方得到数据
     this.mankpiservice.currentData.subscribe(res=>{
-      console.log("mankpiservice 查询：", res)
+      // console.log("mankpiservice 查询：", res)
     })
 
     
@@ -60,7 +60,7 @@ export class ManKpiDetailComponent implements OnInit {
     this.columns["start"] = this.kpi_for_detail["starttime"]
     this.columns["end"] = this.kpi_for_detail["endtime"]
     this.columns["deviceid"] = this.kpi_for_detail["deviceid"]
-    console.log("kpi_detail----", this.kpi_for_detail);
+    // console.log("kpi_detail----", this.kpi_for_detail);
 
     // 这是 左侧第一个柱状图
     this.init_left_one();

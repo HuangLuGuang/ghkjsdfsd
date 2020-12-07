@@ -60,11 +60,11 @@ export class ManKpiTableComponent implements OnInit {
 
 
     // 得到pathname --在得到button
-    console.log("得到pathname --在得到button\t\t")
+    // console.log("得到pathname --在得到button\t\t")
     var roleid = this.userinfo.getEmployeeRoleID();
     this.publicservice.get_buttons_bypath(roleid).subscribe(result=>{
       this.button = result;
-      console.log("得到pathname --在得到button\t\t", result)
+      // console.log("得到pathname --在得到button\t\t", result)
       localStorage.setItem("buttons_list", JSON.stringify(result));
     })
 
@@ -87,7 +87,7 @@ export class ManKpiTableComponent implements OnInit {
   // button按钮
   action(actionmethod){
     var method = actionmethod.split(":")[1];
-    console.log("--------------->method", method)
+    // console.log("--------------->method", method)
     switch (method) {
       // case 'add':
       //   this.add();
@@ -119,7 +119,7 @@ export class ManKpiTableComponent implements OnInit {
     }
     this.http.callRPC("deveice","dev_get_device_groups",columns).subscribe(result=>{
       var res = result["result"]["message"][0]
-      console.log("得到下拉框的数据---------------->", res)
+      // console.log("得到下拉框的数据---------------->", res)
       if (res["code"] === 1){
         var groups = res["message"][0]["groups"];
        
@@ -133,7 +133,7 @@ export class ManKpiTableComponent implements OnInit {
   // input 传入的值
   inpuvalue(inpuvalue){
     if (inpuvalue != ""){
-      console.log("传入的值设备名称----->",inpuvalue);
+      // console.log("传入的值设备名称----->",inpuvalue);
       this.query(inpuvalue);
     }
   }
@@ -157,7 +157,6 @@ export class ManKpiTableComponent implements OnInit {
     // 将科室/功能组，转为列表
     var groups_data_ = groups_data ===""?[] :groups_data.split(";");
     // 搜索的 时间范围 daterange 必选，修改为 start end
-    console.log("**************\n")
     var columns = {
       offset: 0, 
       limit: 10,
@@ -168,12 +167,10 @@ export class ManKpiTableComponent implements OnInit {
       end:daterange_data[1],
       eimdevicetype:device_tpye_data
     }
-    console.log("**************\n", columns);
     // 执行搜索函数！  
     var table = this.TABLE;
     var methond = this.METHOD;
     this.http.callRPC(table, methond ,columns).subscribe(result=>{
-      console.log("执行搜索函数！\n\n\n",result)
       var tabledata = result["result"]["message"][0];
       this.loading = false;
       if (tabledata["code"] === 1){
@@ -227,7 +224,7 @@ export class ManKpiTableComponent implements OnInit {
     columnDefs:[ // 列字段 多选：headerCheckboxSelection checkboxSelection , flex: 1 自动填充宽度 pinned: 'left' 固定左侧
       { field: 'devicename', headerName: '设备名称', headerCheckboxSelection: true, checkboxSelection: true, autoHeight: true, fullWidth: true, minWidth: 50,resizable: true, },
       { field: 'group', headerName: '试验室', resizable: true, minWidth: 10},
-      { field: 'deviceid', headerName: '设备id',  resizable: true, minWidth: 10},
+      { field: 'deviceid', headerName: '设备ID',  resizable: true, minWidth: 10},
       
       
       { field: 'starttime', headerName: '开始时间', resizable: true},
@@ -276,7 +273,7 @@ export class ManKpiTableComponent implements OnInit {
     var table = this.TABLE;
     var methond = this.METHOD;
     this.http.callRPC(table, methond, colmun).subscribe((res)=>{
-      console.log("-----------man-kpi-table---", res)
+      // console.log("-----------man-kpi-table---", res)
       var get_employee_limit = res['result']['message'][0]
 
       this.loading = false;
@@ -295,6 +292,8 @@ export class ManKpiTableComponent implements OnInit {
   }
 
   update_agGrid(event?){
+    // 是否 每页多少也，设置为默认值
+    this.tableDatas.isno_refresh_page_size = true;
     var offset;
     var limit;
     var PageSize;
@@ -321,7 +320,6 @@ export class ManKpiTableComponent implements OnInit {
     // 得到员工信息！{offset: offset, limit: limit}
     this.http.callRPC(this.TABLE, this.METHOD, colmun).subscribe((res)=>{
       var get_employee_limit = res['result']['message'][0]
-      console.log("device---", get_employee_limit);
 
       this.loading = false;
 
@@ -341,7 +339,7 @@ export class ManKpiTableComponent implements OnInit {
 
   // nzpageindexchange 页码改变的回调
   nzpageindexchange_ag(event){
-    console.log("页码改变的回调", event);
+    // console.log("页码改变的回调", event);
     this.gridData = [];
     this.loading = true;
     this.inttable(event);

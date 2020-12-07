@@ -60,11 +60,9 @@ export class KpiTableComponent implements OnInit {
     // 初始化agGrid==============
 
     // 得到pathname --在得到button
-    console.log("得到pathname --在得到button\t\t")
     var roleid = this.userinfo.getEmployeeRoleID();
     this.publicservice.get_buttons_bypath(roleid).subscribe(result=>{
       this.button = result;
-      console.log("得到pathname --在得到button\t\t", result)
       localStorage.setItem("buttons_list", JSON.stringify(result));
     })
   }
@@ -124,7 +122,6 @@ export class KpiTableComponent implements OnInit {
     }
     this.http.callRPC("deveice","dev_get_device_groups",columns).subscribe(result=>{
       var res = result["result"]["message"][0]
-      console.log("得到下拉框的数据---------------->", res)
       if (res["code"] === 1){
         var groups = res["message"][0]["groups"];
        
@@ -162,7 +159,7 @@ export class KpiTableComponent implements OnInit {
     // 将科室/功能组，转为列表
     var groups_data_ = groups_data ===""?[] :groups_data.split(";");
     // 搜索的 时间范围 daterange 必选，修改为 start end
-    console.log("**************\n")
+    // console.log("**************\n")
     var columns = {
       offset: 0, 
       limit: 10,
@@ -173,12 +170,11 @@ export class KpiTableComponent implements OnInit {
       end:daterange_data[1],
       eimdevicetype:device_tpye_data
     }
-    console.log("**************\n", columns);
+    // console.log("**************\n", columns);
       // 执行搜索函数！
       var table = this.table;
       var method = this.method;
       this.http.callRPC(table, method,columns).subscribe(result=>{
-        console.log("执行搜索函数！\n\n\n",result)
         var tabledata = result["result"]["message"][0];
         this.loading = false;
         if (tabledata["code"] === 1){
@@ -290,7 +286,6 @@ export class KpiTableComponent implements OnInit {
     var table = this.table;
     var method = this.method;
     this.http.callRPC(table, method, colmun).subscribe((res)=>{
-      console.log("得到设备信息=================>", res)
       var get_employee_limit = res['result']['message'][0];
       if(get_employee_limit["code"]===1){
         this.loading = false;
@@ -312,6 +307,8 @@ export class KpiTableComponent implements OnInit {
   }
 
   update_agGrid(event?){
+    // 是否 每页多少也，设置为默认值
+    this.tableDatas.isno_refresh_page_size = true;
     var offset;
     var limit;
     var PageSize;

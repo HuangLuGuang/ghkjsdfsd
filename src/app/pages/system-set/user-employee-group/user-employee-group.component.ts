@@ -61,7 +61,6 @@ export class UserEmployeeGroupComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    console.log("----初始化 用户组管理")
     // ====================================agGrid
       var that = this;
       this.active = { field: 'action', headerName: '操作', cellRendererFramework: ActionComponent, pinned: 'right',width:100,
@@ -100,17 +99,14 @@ export class UserEmployeeGroupComponent implements OnInit {
   getsecurity_edit(table: string, method: string, colums: object){
     return new Observable((res)=>{
       this.http.callRPC(table, method, colums).subscribe((result)=>{
-        console.log("用户组 调用plv8函数", result);
         res.next(result)
       })
     })
   }
 
   action(actionmethod){
-    console.log("++++++++++++++++++++action(actionmethod)++++++++++++++++++++++++++++", actionmethod);
     var method = actionmethod.split(":")[1];
     // ====================================================
-    console.log("--------------->method", method)
     switch (method) {
       case 'add':
         this.add();
@@ -142,6 +138,7 @@ export class UserEmployeeGroupComponent implements OnInit {
           // 成功之后，重新请求
           this.gridData = [];
           this.loading = true;
+          
           this.update_agGrid();
           this.loading = false;
         }
@@ -159,9 +156,7 @@ export class UserEmployeeGroupComponent implements OnInit {
     }
     // var rowdata = this.agGrid.getselectedrows();
     
-    console.log("=====this.rowdata",rowdata);
     if ( rowdata.length === 0){
-      console.log("没有选中行数据", rowdata);
       // 提示选择行数据
       this.dialogService.open(EditDelTooltipComponent, { closeOnBackdropClick: false,context: { title: '提示', content:   `请选择一行数据！`}} ).onClose.subscribe(
         name=>{console.log("----name-----", name)}
@@ -195,7 +190,6 @@ export class UserEmployeeGroupComponent implements OnInit {
       rowdata = this.agGrid.getselectedrows();
     }
     if (rowdata.length === 0){
-      console.log("没有选中行数据", rowdata);
       // 提示选择行数据
       this.dialogService.open(EditDelTooltipComponent, { closeOnBackdropClick: false,context: { title: '提示', content:   `请选择一行数据！`}} ).onClose.subscribe(
         name=>{console.log("----name-----", name)}
@@ -223,7 +217,6 @@ export class UserEmployeeGroupComponent implements OnInit {
               
               that.getsecurity_edit('groups', 'sys_delete_groups', rowData, ).subscribe((result)=>{
                 var res = result["result"]["message"][0];
-                console.log("sys_delete_groups", res);
                 if (res["code"] === 1){
                   success(publicservice);
                   this.RecordOperation( 1, "删除科室/功能组(groups)", data_info);
@@ -251,7 +244,6 @@ export class UserEmployeeGroupComponent implements OnInit {
   // input 传入的值
   inpuvalue(inpuvalue){
     if (inpuvalue != ""){
-      console.log("传入的值设备名称----->",inpuvalue);
       this.query(inpuvalue);
     }
   }
@@ -262,7 +254,6 @@ export class UserEmployeeGroupComponent implements OnInit {
     var groups;
     groups = inpuvalue? inpuvalue: this.myinput.getinput();
     if (groups != ""){
-      console.log("button 搜索按钮", groups, "--");
       var columns = {
         offset: 0, 
         limit: 20,
@@ -322,7 +313,6 @@ export class UserEmployeeGroupComponent implements OnInit {
 
   // 点击行执行
   runParent(rowdata){
-    console.log("点击行执行：", rowdata)
     if (rowdata["isSelected"]){
       
       this.getsecurity_edit("group_", "get_group", {}).subscribe(res=>{
@@ -334,7 +324,6 @@ export class UserEmployeeGroupComponent implements OnInit {
           result.forEach(element => {
             if (element["groupid"] === rowdata["selected"][0]["groupid"]){
               this.rowdata = rowdata;
-              console.log("点击行执行：222", rowdata)
             }
           });
         }else{
@@ -362,6 +351,7 @@ export class UserEmployeeGroupComponent implements OnInit {
 
   // update_agGrid 更新数据表
   update_agGrid(event?){
+    this.tableDatas.isno_refresh_page_size = true;
     var offset;
     var limit;
     var PageSize;
@@ -380,22 +370,20 @@ export class UserEmployeeGroupComponent implements OnInit {
     }
     this.http.callRPC('group_', 'sys_get_groups_limit', columns).subscribe((res)=>{
       var tabledata = res['result']['message'][0]
-      console.log("tabledata", tabledata);
       this.loading = false;
       if (tabledata["code"]===1){
         var message = res["result"]["message"][0]["message"];
         this.tableDatas.PageSize = PageSize;
-        this.gridData = [];
+        // this.gridData = [];
         this.gridData.push(...message)
         this.tableDatas.rowData = this.gridData;
         var totalpagenumbers = tabledata['numbers']? tabledata['numbers'][0]['numbers']: '未得到总条数';
         this.tableDatas.totalPageNumbers = totalpagenumbers;
         this.agGrid.update_agGrid(this.tableDatas); // 告诉组件刷新！
+        
         // 刷新table后，改为原来的！
         this.tableDatas.isno_refresh_page_size = false;
         this.RecordOperation(1, '更新', "科室/功能组(groups)");
-        // 刷新table后，改为原来的！
-        this.tableDatas.isno_refresh_page_size = false;
       }else{
         this.RecordOperation(0, '更新', "科室/功能组(groups)");
       }
@@ -420,9 +408,7 @@ export class UserEmployeeGroupComponent implements OnInit {
       limit: limit,
     }
     this.http.callRPC('group_', 'sys_get_groups_limit', columns).subscribe((result)=>{
-      console.log("科室/功能组(groups)", result)
       var tabledata = result['result']['message'][0]
-      console.log("tabledata", tabledata);
       this.loading = false;
       if (tabledata["code"]===1){
         var message = result["result"]["message"][0]["message"];

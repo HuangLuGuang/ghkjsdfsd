@@ -68,9 +68,7 @@ export class AdminLoginComponent implements OnInit {
       this.passwordmd5_salt = Md5.hashStr(this.profileForm.value.password.toString()  + salt );
     }
 
-    console.log("username: ", this.username);
-    console.log("passwordmd5_salt: ", this.passwordmd5_salt);
-    console.log("checked: ", this.checked);
+    
     if (this.checked){
       // 表示记住密码
       var login_info = {
@@ -83,7 +81,6 @@ export class AdminLoginComponent implements OnInit {
 
     // 请求判断是否正确并得到token
     this.httpserviceService.post(LOGIN_API, {"username": this.username, "password": this.passwordmd5_salt}).subscribe((res)=>{
-      console.log("用户登录",res);
       if (res["accessToken"]) {
         this.localStorageService.set(
           ssotoken,
@@ -107,9 +104,7 @@ export class AdminLoginComponent implements OnInit {
             'Authorization': 'Bearer ' + JSON.parse(localStorage.getItem(ssotoken))['token'] // tslint:disable-line:object-literal-key-quotes
           })
         };
-        // console.log("同步， userInfo", userInfo)
         this.http.get(INFO_API, opts).pipe(map(userInfo=>{
-          console.log("============= 存入登录日志并得到菜单", userInfo)
           if (userInfo['userInfo']['roles']) {
             const userinfo = JSON.stringify(userInfo['userInfo']);
             localStorage.removeItem(SSOUSERINFO);
@@ -126,7 +121,6 @@ export class AdminLoginComponent implements OnInit {
           }, 1000);
         });
       }else{
-        console.log("err>>>> ",res)
         this.publicmethodService.toastr(this.DataDanger)
       }
     })
@@ -158,7 +152,6 @@ export class AdminLoginComponent implements OnInit {
   // 记住密码被点击，执行
   checkboxchange(checked: boolean){
     this.checked = checked;
-    console.log("记住密码被点击，执行", this.checked)
   }
 
   RecordLogin(){
@@ -173,7 +166,6 @@ export class AdminLoginComponent implements OnInit {
       const createdby = this.userInfoService.getLoginName();     // 登录名
       this.publicmethodService.record(source, employeeid, 1, '登录', createdby);
       // this.publicservice.record('local', source, employeeid, 1, '登录成功！', createdby);
-      console.log("============= 存入登录日志并得到菜单",source);
     }
 
   }

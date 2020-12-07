@@ -93,7 +93,7 @@ export class MenuComponent implements OnInit {
     var button_list = localStorage.getItem(menu_button_list)? JSON.parse(localStorage.getItem(menu_button_list)): false;
     if (button_list){
       this.publicservice.get_current_pathname().subscribe(res=>{
-        console.log("get_current_pathname   ", res);
+        // console.log("get_current_pathname   ", res);
         var currentmenuid = res["id"];
         var buttons = [];
         button_list.forEach(button => {
@@ -128,18 +128,18 @@ export class MenuComponent implements OnInit {
         // -----------------------------------------------------------------------------------
         this.buttons = buttons;
         this.isactions = isactions;
-        console.log("_________________________________-this.buttons---------________________",this.buttons);
-        console.log("_________________________________-this.isactions---------________________",this.isactions);
+        // console.log("_________________________________-this.buttons---------________________",this.buttons);
+        // console.log("_________________________________-this.isactions---------________________",this.isactions);
       })
     }
   }
 
 
   action(actionmethod){
-    console.log("++++++++++++++++++++action(actionmethod)++++++++++++++++++++++++++++", actionmethod);
+    // console.log("++++++++++++++++++++action(actionmethod)++++++++++++++++++++++++++++", actionmethod);
     var method = actionmethod.split(":")[1];
     // ====================================================
-    console.log("--------------->method", method)
+    // console.log("--------------->method", method)
     switch (method) {
       case 'add':
         this.updatabutton_list().subscribe(res=>{
@@ -189,7 +189,7 @@ export class MenuComponent implements OnInit {
     var that = this
     var dialogService = this.dialogService;
     var $table = $('#menuTable');
-    console.log("根据id得到行数据  ",$table.bootstrapTable('getData'));
+    // console.log("根据id得到行数据  ",$table.bootstrapTable('getData'));
     var method = 'add';
     open(method);
     
@@ -210,7 +210,7 @@ export class MenuComponent implements OnInit {
     var $table = $('#menuTable');
     // var rowmenu = localStorage.getItem("clickrow");
     var rowmenu = $table.bootstrapTable('getSelections');
-    console.log("--获取选中的行数据--", rowmenu)
+    // console.log("--获取选中的行数据--", rowmenu)
 
     var that = this;
 
@@ -221,11 +221,11 @@ export class MenuComponent implements OnInit {
     if (rowmenu.length != 0){
       var row = rowmenu[0];
       var http = this.http;
-      console.log("要删除的行数据！", rowmenu);
+      // console.log("要删除的行数据！", rowmenu);
       
       this.dialogService.open(EditDelTooltipComponent, { closeOnBackdropClick: false,context: { title: '提示', content:   `确定要删除${row.title}吗？`,rowData: JSON.stringify(row)}} ).onClose.subscribe(
         name=>{
-          console.log("----name-----", name);
+          // console.log("----name-----", name);
           if (name){
             this.updatetable(name)
             // 调用删除功能
@@ -239,7 +239,7 @@ export class MenuComponent implements OnInit {
 
       this.dialogService.open(EditDelTooltipComponent, { closeOnBackdropClick: false,context: { title: '提示', content:   `请选择一行数据！`}} ).onClose.subscribe(
         name=>{
-          console.log("----name-----", name);
+          // console.log("----name-----", name);
           
         }
       );
@@ -252,7 +252,7 @@ export class MenuComponent implements OnInit {
       id: row["id"],
       textid: row["textid"]
     };
-    console.log("---colums--",colums)
+    // console.log("---colums--",colums)
     const table = "menu_item";
     const method = "delete_menu_item";
     http.callRPC(table, method, colums).subscribe((result)=>{
@@ -327,7 +327,7 @@ export class MenuComponent implements OnInit {
   open(row) {
     // this.dialogService.open(MenuComponent2,{ closeOnBackdropClick: false,context: { rowdata: JSON.stringify('') } }).onClose.subscribe(name=>{
     this.dialogService.open(NewMenuComponent,{ closeOnBackdropClick: false,context: { rowdata: JSON.stringify(row), title: '编辑目录'  } }).onClose.subscribe(name=>{
-      console.log("-------------name----------------", name);
+      // console.log("-------------name----------------", name);
       if (name){
         // 更新table！
         this.updatetable(name); // name 表示刷新目录栏
@@ -354,7 +354,7 @@ export class MenuComponent implements OnInit {
     var isactions = this.isactions;
     var isactions_new = this.isactions_new;
 
-    console.log("-------------------this.isactions-------------------", isactions, isactions_new);
+    // console.log("-------------------this.isactions-------------------", isactions, isactions_new);
     if (isactions === undefined){
       location.reload();
     }
@@ -434,10 +434,10 @@ export class MenuComponent implements OnInit {
                     
                 },
                 'click .remove': function (e, value, row, index) {
-                    console.log("删除的row数据：", row);
+                    // console.log("删除的row数据：", row);
                     dialogService.open(EditDelTooltipComponent, { closeOnBackdropClick: false,context: { title: '删除菜单提示', content:   `确定要删除${row.title}吗？`,rowData: JSON.stringify(row)}} ).onClose.subscribe(
                       name=>{
-                        console.log("----name-----", name);
+                        // console.log("----name-----", name);
                         if (name){
                           that.updatetable(name)
                           // 调用删除功能
@@ -547,11 +547,11 @@ export class MenuComponent implements OnInit {
         id: row["id"],
         textid: row["textid"]
       };
-      console.log("---colums--",colums)
+      // console.log("---colums--",colums)
       const table = "menu_item";
       const method = "delete_menu_item";
       http.callRPC(table, method, colums).subscribe((result)=>{
-        console.log("删除菜单---=====",result)
+        // console.log("删除菜单---=====",result)
         const status = result['result']['message'][0];
         if (status === 1){
           // 表示删除成功！
@@ -624,12 +624,12 @@ export class MenuComponent implements OnInit {
           languageid: this.http.getLanguageID(),
           roles: data
         };
-        console.log("---colums--",colums)
+        // console.log("---colums--",colums)
         const table = "menu_item";
         // const method = "get_systemset_menu";
         const method = "get_systemset_menu_all";
         this.http.callRPC(table, method, colums).subscribe((result)=>{
-          console.log("---------------->>>>",result)
+          // console.log("---------------->>>>",result)
           const baseData = result['result']['message'][0];
           if (baseData["code"]===1){
             var menu = this.dataTranslation(baseData["message"]);
@@ -666,7 +666,7 @@ export class MenuComponent implements OnInit {
   }
 
   loadMenu(){
-    console.log("这是 系统设置的菜单界面！")
+    // console.log("这是 系统设置的菜单界面！")
     var sysmenu = localStorage.getItem(SYSMENU) == null ? [] : JSON.parse(localStorage.getItem(SYSMENU));
     var mulu_language = localStorage.getItem('mulu_language') == null ? 'zh_CN' : localStorage.getItem('mulu_language');
     if(sysmenu.length == 0 || mulu_language != localStorage.getItem('currentLanguage')){
@@ -679,12 +679,12 @@ export class MenuComponent implements OnInit {
             languageid: this.http.getLanguageID(),
             roles: data
           };
-          console.log("---colums--",colums)
+          // console.log("---colums--",colums)
           const table = "menu_item";
           // const method = "get_systemset_menu";
           const method = "get_systemset_menu_all";
           this.http.callRPC(table, method, colums).subscribe((result)=>{
-            console.log("---------------->>>>",result)
+            // console.log("---------------->>>>",result)
             const baseData = result['result']['message'][0];
             if (baseData["code"]===1){
               var menu = this.dataTranslation(baseData["message"]);
@@ -697,7 +697,7 @@ export class MenuComponent implements OnInit {
       });
     }else{
       var menu = this.dataTranslation(sysmenu);
-      console.log("------menu--目录：", sysmenu);
+      // console.log("------menu--目录：", sysmenu);
       this.RanderTable(menu);
     }
     
@@ -705,7 +705,7 @@ export class MenuComponent implements OnInit {
 
   dataTranslation(baseMenu) {
     // 生成父子数据结构
-    console.log("-=-=-=-=-=-=baseMenu-=-=-=-=",baseMenu)
+    // console.log("-=-=-=-=-=-=baseMenu-=-=-=-=",baseMenu)
     let nodeData = [];
     baseMenu.forEach(item => {
       let map = {};
@@ -737,18 +737,18 @@ export class MenuComponent implements OnInit {
   updatabutton_list(){
     return new Observable((observe)=>{
       this.publicservice.getMenu().subscribe((data)=>{
-        console.log("更新button_list，在修改、新增、删除后！", data);
+        // console.log("更新button_list，在修改、新增、删除后！", data);
         if (data){
           // 
           const colums = {
             languageid: this.http.getLanguageID(),
             roles: data
           };
-          console.log("---更新button_list！--",colums)
+          // console.log("---更新button_list！--",colums)
           const table = "menu_item";
           const method = "get_menu_by_roles";
           this.http.callRPC(table, method, colums).subscribe((result)=>{
-            console.log("---更新button_list！--",result)
+            // console.log("---更新button_list！--",result)
             const baseData = result['result']['message'][0];
             if (baseData["code"] === 1){
               var button_list = [];
@@ -809,9 +809,9 @@ export class MenuComponent implements OnInit {
 
   // option_record  
   RecordOperation(result,transactiontype, infodata){
-    console.warn("==============>", this.userinfo.getLoginName())
-    console.warn("infodata==============>", infodata)
-    console.warn("==============>")
+    // console.warn("==============>", this.userinfo.getLoginName())
+    // console.warn("infodata==============>", infodata)
+    // console.warn("==============>")
     if(this.userinfo.getLoginName()){
       var employeeid = this.userinfo.getEmployeeID();
       var result = result; // 1:成功 0 失败

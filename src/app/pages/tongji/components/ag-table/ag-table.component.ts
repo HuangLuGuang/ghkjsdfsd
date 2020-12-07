@@ -77,7 +77,7 @@ export class AgTableComponent implements OnInit {
   
   ngOnInit(): void {
     // this.gridOptions();
-    console.log("agGrid========================", this.agGrid)
+    // console.log("agGrid========================", this.agGrid)
   }
   
 
@@ -120,7 +120,7 @@ export class AgTableComponent implements OnInit {
       this.current = 1;
       this.PageSize = employee_agGrid["PageSize"];
       this.setPageCount = Number(this.PageSize);
-      console.log("--------------动态修改--每页的条数", this.PageSize)
+      // console.log("--------------动态修改--每页的条数", this.PageSize)
     }
 
   };
@@ -133,21 +133,21 @@ export class AgTableComponent implements OnInit {
 
   // 分页！
   onPaginationChanged(event) {
-    console.warn("onPaginationChanged>>", event);
+    // console.warn("onPaginationChanged>>", event);
   }
 
   // onGridReady
   onGridReady(params) {
-    console.warn("params>>", params);
+    // console.warn("params>>", params);
 
-    console.warn(params);
+    // console.warn(params);
     this.gridApi = params.api;
     this.gridColumnApi = params.columnApi;
   }
 
   // 点击行数据
   onRowClicked(event) {
-    console.log("点击行数据",event);
+    // console.log("点击行数据",event);
     this.clickrow.emit(event.data)
   }
 
@@ -160,39 +160,19 @@ export class AgTableComponent implements OnInit {
     // 当前页数
     let currentPage = event - 1 < 0? 0: event - 1;
     // 判断是否触发请求
-    console.log("---页码改变的回调-----当前页数,currentPage, totalPages, this.setPageCount", currentPage,totalPages,this.setPageCount)
+    // console.log("---页码改变的回调-----当前页数,currentPage, totalPages, this.setPageCount", currentPage,totalPages,this.setPageCount)
     const offset = (currentPage) * this.setPageCount;
     // 每次请求的条数 * 每页的条数
     const limit = this.requestPageCount * this.setPageCount;
     this.nzpageindexchange.emit({offset: offset, limit: limit, PageSize:this.setPageCount})
   }
-  // pageIndexChange(event) {
-  //   // 页面跳转
-  //   this.gridApi.paginationGoToPage(event - 1);
-
-  //   // 总页数
-  //   let totalPages = this.totalPageNumbers / this.setPageCount;
-  //   // 当前页数
-  //   let currentPage = event - 1;
-  //   // 判断是否触发请求
-  //   if (currentPage + 1 >= totalPages) {
-  //     // 构造请求参数
-  //     const offset = this.totalPageNumbers;
-  //     // 每次请求的条数 * 每页的条数
-  //     const limit = this.requestPageCount * this.setPageCount;
-  //     // this.get_interface_cockpit(limit, offset);
-  //     console.log("页码改变的回调 offset  limit", offset, limit);
-  //     this.nzpageindexchange.emit({offset: offset, limit: limit})
-  //   }
-  // }
-
-  // 每页条数改变的回调
+  
   
 
   // 选中行数
   onSelectionChanged(event) {
     this.selectedRows = this.gridApi.getSelectedRows();
-    console.warn(this.selectedRows);
+    // console.warn(this.selectedRows);
   }
 
   // onPageSizeChanged2() 改变每页多少条 时触发！
@@ -200,11 +180,11 @@ export class AgTableComponent implements OnInit {
     this.setPageCount = Number(this.PageSize); // 每页多少条数据
     this.gridApi.paginationSetPageSize(Number(this.PageSize));
     // 要得到页数，需要总条数 / 每页几条 this.totalPageNumbers / this.setPageCount
-    console.log("之前的当前页数",this.current); // this.current = this.totalPageNumbers / this.setPageCount
+    // console.log("之前的当前页数",this.current); // this.current = this.totalPageNumbers / this.setPageCount
     var current_before = this.current;
     var current_after = Math.round(this.totalPageNumbers / this.setPageCount); // 向上取整
     this.current = current_before>current_after? current_after: current_before;
-    console.log("之后的当前页数",this.current); // this.current = this.totalPageNumbers / this.setPageCount
+    // console.log("之后的当前页数",this.current); // this.current = this.totalPageNumbers / this.setPageCount
     this.pageIndexChange(this.current);
   }
  
@@ -229,7 +209,7 @@ export class AgTableComponent implements OnInit {
     const selectedNodes = this.agGrid.api.getSelectedNodes();
     const selectedData = selectedNodes.map(node => node.data );
     const selectedDataStringPresentation = selectedData.map(node => node.name + ' ' + node.loginname).join(', ');
-    console.log("得到选中的数据！", )
+    // console.log("得到选中的数据！", )
     alert(`Selected nodes: ${selectedDataStringPresentation}`);
   }
 
@@ -243,8 +223,8 @@ export class AgTableComponent implements OnInit {
   // 导出功能
   download(title){
     this.filename = title + ".xlsx";
-    console.log("csv名称----", this.filename);
-    console.log("this.columnDefs----", this.columnDefs);
+    // console.log("csv名称----", this.filename);
+    // console.log("this.columnDefs----", this.columnDefs);
     var columns = this.columnDefs;
     var table_header = [];
     var table_data = [];
@@ -265,13 +245,10 @@ export class AgTableComponent implements OnInit {
       }
     }
 
-    // console.log(">>>>>>>>>>>>>>>>>>>导出的table-title",table_header);
-    // console.log(">>>>>>>>>>>>>>>>>>>导出的keys",keys);
-    // console.log(">>>>>>>>>>>>>>>>>>>选中的数据",select_data);
     if (select_data.length != 0){
-      console.log("table_header----", table_header);
+      // console.log("table_header----", table_header);
       table_data.push(table_header);
-      console.log("导出数据>>>>>>>>", select_data);
+      // console.log("导出数据>>>>>>>>", select_data);
       var data = Object.assign([], select_data);
       data.forEach(element => {
         if(element["active"] === 1){
@@ -296,7 +273,7 @@ export class AgTableComponent implements OnInit {
         table_data.push(data_item);
         
       });
-      console.log("table_data=====", table_data);
+      // console.log("table_data=====", table_data);
       this.export(table_data);
       this.selectedRows = [];
       
@@ -313,13 +290,6 @@ export class AgTableComponent implements OnInit {
         }
       );
 
-      // select_data.forEach(element => {
-      //   var data_item = [];
-      //   for (let d in element){
-      //     data_item.push(element[d]);
-      //   }
-      //   table_data.push(data_item);
-      // })
     }
     
 
@@ -360,7 +330,7 @@ export class AgTableComponent implements OnInit {
     this.totalPageNumbers = tableDatas.totalPageNumbers;
     this.alltotalPageNumbers = tableDatas.totalPageNumbers; // 数据库中的总条数
     // this.agGrid.api.setRowData(this.rowData);
-    console.log("------------agGrid-------------", this.agGrid);
+    // console.log("------------agGrid-------------", this.agGrid);
     // 动态修改--每页的条数
 
     if(tableDatas["isno_refresh_page_size"]){
@@ -373,7 +343,7 @@ export class AgTableComponent implements OnInit {
 
   // 父组件调用！ 填充表格
   init_agGrid(employee_agGrid){
-    console.log("初始化-------父组件调用！ 填充表格=======", employee_agGrid)
+    // console.log("初始化-------父组件调用！ 填充表格=======", employee_agGrid)
     this.gridOptions(employee_agGrid);
     // 清空选择的数据
     this.selectedRows = [];
@@ -384,9 +354,9 @@ export class AgTableComponent implements OnInit {
 
   // option_record
   RecordOperation(option, result,infodata){
-    console.warn("==============>", this.userinfo.getLoginName())
-    console.warn("infodata==============>", infodata)
-    console.warn("==============>")
+    // console.warn("==============>", this.userinfo.getLoginName())
+    // console.warn("infodata==============>", infodata)
+    // console.warn("==============>")
     if(this.userinfo.getLoginName()){
       var employeeid = this.userinfo.getEmployeeID();
       var result = result; // 1:成功 0 失败

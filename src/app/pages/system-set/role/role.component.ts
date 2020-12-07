@@ -103,7 +103,7 @@ export class RoleComponent implements OnInit {
     // 加载树状menu  初始化
     this.loadMenu().subscribe((treedata)=>{
       // this.showTreedata(treedata)
-      console.log("加载树状menu  初始化>>>>>>>>>>>", treedata)
+      // console.log("加载树状menu  初始化>>>>>>>>>>>", treedata)
       this.showTreedata_v2(treedata);
     });
 
@@ -148,9 +148,7 @@ export class RoleComponent implements OnInit {
   }
 
   action(actionmethod){
-    console.log("++++++++++++++++++++action(actionmethod)++++++++++++++++++++++++++++", actionmethod);
     var method = actionmethod.split(":")[1];
-    console.log("--------------->method", method)
     switch (method) {
       case 'add':
         this.addrole();
@@ -192,7 +190,7 @@ export class RoleComponent implements OnInit {
 
   // 修改role button 
   editrole(active_data?){
-    console.log("-------------------------->>>>>>>>>>>>>>>", active_data)
+    // console.log("-------------------------->>>>>>>>>>>>>>>", active_data)
     var rowdata;
     if (active_data){
       rowdata = active_data;
@@ -200,14 +198,14 @@ export class RoleComponent implements OnInit {
       rowdata = this.agGrid.getselectedrows();
     }
     // 得到选中的aggrid rowdatas
-    console.log("修改role button ", rowdata);
+    // console.log("修改role button ", rowdata);
     switch (rowdata.length) {
       case 1:
         var rowData = rowdata[0]
         this.dialogService.open(AddRoleComponent, {closeOnBackdropClick: false,context: { rowdata: JSON.stringify(rowData)} }).onClose.subscribe(
           name=>{
-            console.log("修改角色----name-----", name);
-            console.log("修改角色----this.agGrid-----", this.agGrid);
+            // console.log("修改角色----name-----", name);
+            // console.log("修改角色----this.agGrid-----", this.agGrid);
             if (name){
               this.gridData = [];
               this.loading = true;
@@ -242,7 +240,7 @@ export class RoleComponent implements OnInit {
     var DelSuccess = this.delsuccess;
     var DelDanger = this.deldanger;
     if (rowdata.length === 0){
-          console.log("没有选中行数据", rowdata);
+          // console.log("没有选中行数据", rowdata);
           // 提示选择行数据
           this.dialogService.open(EditDelTooltipComponent, { closeOnBackdropClick: false,context: { title: '提示', content:   `请选择一行数据！`}} ).onClose.subscribe(
             name=>{console.log("----name-----", name)}
@@ -250,10 +248,9 @@ export class RoleComponent implements OnInit {
     }else{
       var rowData = rowdata;
       var text = rowData.length > 1 ? "这些": "这条";
-      console.log("-------------------->>>>>>>>>>>>",rowData);   
+      // console.log("-------------------->>>>>>>>>>>>",rowData);   
       this.dialogService.open(EditDelTooltipComponent, { closeOnBackdropClick: false,context: { title: '提示', content:   `确定要删除${text}数据吗？`,rowData: JSON.stringify(rowData)}} ).onClose.subscribe(
         name=>{
-          console.log("----name-----", name);
           if (name){
             try {
               var data_info;
@@ -305,7 +302,6 @@ export class RoleComponent implements OnInit {
   // input 传入的值
   inpuvalue(inpuvalue){
     if (inpuvalue != ""){
-      console.log("传入的值设备名称----->",inpuvalue);
       this.query(inpuvalue);
     }
   }
@@ -315,7 +311,7 @@ export class RoleComponent implements OnInit {
     var role_name;
     role_name = this.myinput.getinput()
     if (role_name != ""){
-      console.log("button 搜索按钮", role_name, "--");
+      // console.log("button 搜索按钮", role_name, "--");
       var columns = {
         offset: 0, 
         limit: 20,
@@ -374,9 +370,9 @@ export class RoleComponent implements OnInit {
 
   // agGrid 点击行时，update 树状菜单！
   clickrow(rowdata){
-    console.log("agGrid---子组件传值---agGrid", rowdata);
+    // console.log("agGrid---子组件传值---agGrid", rowdata);
     var rowData = rowdata["data"]
-    console.log("agGrid---rowData====================", rowData);
+    // console.log("agGrid---rowData====================", rowData);
     var roleid = rowData["roleid"];
     // var method = "get_systemset_menu";
     var method = "get_menu_role";
@@ -428,7 +424,7 @@ export class RoleComponent implements OnInit {
           languageid: this.http.getLanguageID(),
           roles: data
         };
-        console.log("---colums--",colums)
+        // console.log("---colums--",colums)
         const table = "menu_item";
         const method = "get_systemset_menu_all";
         this.http.callRPC(table, method, colums).subscribe((result)=>{
@@ -456,11 +452,11 @@ export class RoleComponent implements OnInit {
         languageid: this.http.getLanguageID(),
         roleid: roles
       };
-      console.log("---colums--",colums)
+      // console.log("---colums--",colums)
       const table = "menu_item";
       const method = methods;
       this.http.callRPC(table, method, colums).subscribe((result)=>{
-        console.log("get_menu_role", result);
+        // console.log("get_menu_role", result);
         // 得到button列表！
         var button_list = [];
         result['result']['message'][0]["allmenu"].forEach(element => {
@@ -540,7 +536,7 @@ export class RoleComponent implements OnInit {
         // var select_id = [];
         if (d.isChecked){
           // 表示该节点被选中！判断是否是父节点
-          console.log(d.data["currentData"]);
+          // console.log(d.data["currentData"]);
           // select_id.push(d.data["currentData"]["id"]);
           uniq(select_id, d.data["currentData"]["id"])
           if (d.data["currentData"] != undefined && d.data["currentData"]["children"] != null){
@@ -564,8 +560,8 @@ export class RoleComponent implements OnInit {
                 uniq(select_id, element["id"])
               }
             });
-            console.log("该节点为父节点！字节点", children);
-            console.log("该节点为父节点！当前节点", d.data["currentData"]);
+            // console.log("该节点为父节点！字节点", children);
+            // console.log("该节点为父节点！当前节点", d.data["currentData"]);
             // 需要
             // el2.setChecked(select_id,true);
           }
@@ -596,7 +592,7 @@ export class RoleComponent implements OnInit {
           }else{
             del_unselect(select_id, d.data["currentData"]["id"])
           }
-          console.log("取消的节点", select_id)
+          // console.log("取消的节点", select_id)
         }
         
         el2.setChecked(select_id,true);
@@ -616,7 +612,7 @@ export class RoleComponent implements OnInit {
 
       // 勾选的列表去除，取消勾选的
       function del_unselect(select_id, unselect_id) {
-        console.log("select_id, unselect_id", select_id, unselect_id);
+        // console.log("select_id, unselect_id", select_id, unselect_id);
         // select_id:勾选的列表， unselect：取消勾选的
         var index = select_id.indexOf(unselect_id);
         if (index != -1){
@@ -658,7 +654,6 @@ export class RoleComponent implements OnInit {
         }
         // 更新菜单
         const colums = selects;
-        console.log("---colums--",colums)
         const table = "menu_item";
         const method = "update_menu_role";
         http.callRPC(table, method, colums).subscribe((result)=>{
@@ -817,7 +812,7 @@ export class RoleComponent implements OnInit {
         parentid_exist.push(mulu);
       }
     });
-    console.log("---------------parentid_exist-------------", parentid_exist)
+    // console.log("---------------parentid_exist-------------", parentid_exist)
     res_muluList.forEach(mulu => {
       parentid_exist.forEach(item=>{
         if (mulu['id'] === item["parentid"]){
@@ -868,7 +863,7 @@ export class RoleComponent implements OnInit {
 
 
     // console.log("最终的目录列表 res_muluList:   end", res_muluList);
-    console.log("最终的目录列表 res_muluList_copy:   res_muluList_copy", res_muluList_copy);
+    // console.log("最终的目录列表 res_muluList_copy:   res_muluList_copy", res_muluList_copy);
     return res_muluList_copy
 
     
@@ -965,7 +960,7 @@ export class RoleComponent implements OnInit {
     const table = "role";
     const method = this.GetRole;
     this.http.callRPC(table, method, columns).subscribe((result)=>{
-      console.log("sys_role--------------------------", result)
+      // console.log("sys_role--------------------------", result)
       const baseData = result['result']['message'][0];
       if (baseData["code"] === 1){
         // localStorage.setItem(SYSROLE, JSON.stringify(baseData));
@@ -989,6 +984,8 @@ export class RoleComponent implements OnInit {
   }
   // 更新table update_agGrid
   update_agGrid(event?){
+    // 是否 每页多少也，设置为默认值
+    this.tableDatas.isno_refresh_page_size = true;
     var offset;
     var limit;
     var PageSize;
@@ -1054,9 +1051,9 @@ export class RoleComponent implements OnInit {
   // =================================================agGrid
   // option_record
   RecordOperation(option, result,infodata){
-    console.warn("==============>", this.userinfo.getLoginName())
-    console.warn("infodata==============>", infodata)
-    console.warn("==============>")
+    // console.warn("==============>", this.userinfo.getLoginName())
+    // console.warn("infodata==============>", infodata)
+    // console.warn("==============>")
     if(this.userinfo.getLoginName()){
       var employeeid = this.userinfo.getEmployeeID();
       var result = result; // 1:成功 0 失败

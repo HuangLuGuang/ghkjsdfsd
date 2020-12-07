@@ -51,7 +51,7 @@ export class PublicmethodService {
     var position = data.position;
     var status = data.status;
     var conent = data.conent;
-    console.log("展示状态", data, position, status,conent)
+    // console.log("展示状态", data, position, status,conent)
     switch (status) {
       case "info":
         this.ngxtoastrservice.info(status, conent, {positionClass: position, onActivateTick:true})
@@ -93,7 +93,6 @@ export class PublicmethodService {
           languageid: this.httpservice.getLanguageID(),
           roles: data
         };
-        console.log("---colums--",colums)
         const table = "menu_item";
         const method = "get_systemset_menu_all";
         this.httpservice.callRPC(table, method, colums).subscribe((result)=>{
@@ -385,9 +384,9 @@ export class PublicmethodService {
         // var columns = {redirecturl: link}
         var columns = {redirecturl: link, roleid: roleid}
         this.httpservice.callRPC(table, method, columns).subscribe(result=>{
-          console.log("get_button: ", result);
+          // console.log("get_button: ", result);
           if(result["result"]["message"][0]["code"] === 1){
-            console.log("--------->", result["result"]["message"][0]["message"])
+            // console.log("--------->", result["result"]["message"][0]["message"])
             var button = result["result"]["message"][0]["message"];
             for(var k in button){
               // this.button[k]["class"] = this.buttons[k]["class"];
@@ -427,7 +426,6 @@ export class PublicmethodService {
 
   // 会话过期，弹出提示框
   session_expiration(){
-    console.log("+++++++++++++++++++会话过期，弹出提示框++++++++++++++++++++");
     return new Observable((observable)=>{
       var isdialg = localStorage.getItem("token_expired");
       if (JSON.parse(isdialg)){

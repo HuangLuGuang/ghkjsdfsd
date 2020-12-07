@@ -49,15 +49,14 @@ export class KpiDetailComponent implements OnInit, OnDestroy {
     // 得到选则的日期 selectedMoments
     // 订阅方得到数据
     this.deviceservice.currentData.subscribe(res=>{
-      console.log("查询：", res)
     })
 
-    console.log("kpi_detail----", this.kpi_for_detail);
+    // console.log("kpi_detail----", this.kpi_for_detail);
     this.columns["start"] = this.kpi_for_detail["starttime"]
     this.columns["end"] = this.kpi_for_detail["endtime"]
     this.columns["deviceid"] = this.kpi_for_detail["deviceid"]
 
-    console.log("kpi_detail----", this.columns);
+    // console.log("kpi_detail----", this.columns);
 
 
     // 这是 左侧第一个柱状图
@@ -159,7 +158,7 @@ export class KpiDetailComponent implements OnInit, OnDestroy {
       afterdatas["xData"] = xData;
       afterdatas["yData"] = yData;
       
-      console.log("得到左侧 第二个数据： ", afterdatas);
+      // console.log("得到左侧 第二个数据： ", afterdatas);
       kpi_detail.left_two('.left-two', afterdatas);
     })
   }
@@ -180,7 +179,7 @@ export class KpiDetailComponent implements OnInit, OnDestroy {
       afterdatas["xData"] = xData;
       afterdatas["yData"] = yData;
       
-      console.log("得到左侧 第二个数据： ", afterdatas);
+      // console.log("得到左侧 第二个数据： ", afterdatas);
       kpi_detail.right_two('.right-two', afterdatas);
     })
   }

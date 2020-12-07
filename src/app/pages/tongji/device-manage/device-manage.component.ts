@@ -82,7 +82,6 @@ export class DeviceManageComponent implements OnInit {
       cellRendererParams: {
         clicked: function(data: any) {
           if (data["active"]==='edit'){
-            console.log("********************\n", data["data"])
             that.edit([data["data"]]);
           }else{
             that.del([data["data"]]);
@@ -122,9 +121,7 @@ export class DeviceManageComponent implements OnInit {
 
   // button按钮
   action(actionmethod){
-    console.log("++++++++++++++++++++action(actionmethod)++++++++++++++++++++++++++++", actionmethod);
     var method = actionmethod.split(":")[1];
-    console.log("--------------->method", method)
     switch (method) {
       case 'add':
         this.add();
@@ -150,7 +147,6 @@ export class DeviceManageComponent implements OnInit {
 
   // button add
   add(){
-    console.log("button----add");
     this.dialogService.open(Add_Edit_DeviceManageComponent, { closeOnBackdropClick: false,context: { title: '添加设备', content:  'false'}} ).onClose.subscribe(name=>{
       if (name){
         this.gridData = [];
@@ -172,9 +168,9 @@ export class DeviceManageComponent implements OnInit {
     }else{
       rowdata = this.agGrid.getselectedrows();
     };
-    console.log("删除-eim台账  rowdata", rowdata);
+    // console.log("删除-eim台账  rowdata", rowdata);
     var rowdata_ = this.option_table_before(rowdata);
-    console.log("删除-eim台账  rowdata_", rowdata_);
+    // console.log("删除-eim台账  rowdata_", rowdata_);
 
     if (rowdata_.length === 0){
       // 未选中
@@ -198,7 +194,7 @@ export class DeviceManageComponent implements OnInit {
             });
             var id_str = id_list.join(',');
             data_info  = '删除(eim台账):' + id_str;
-            console.log("要删除的数据:", rowdata)
+            // console.log("要删除的数据:", rowdata)
 
             var table = 'device';
             var method = 'dev_delete_device_list';
@@ -245,7 +241,7 @@ export class DeviceManageComponent implements OnInit {
       rowdata = this.agGrid.getselectedrows();
     };
     var rowdata_ = this.option_table_before(rowdata)
-    console.log("编辑-eim台账----agGrid-----rowdata",rowdata);
+    // console.log("编辑-eim台账----agGrid-----rowdata",rowdata);
     if (rowdata.length === 0){
       // 未选中
       this.dialogService.open(EditDelTooltipComponent, { context: { title: '编辑设备提示', content:   `请选择要需要编辑的的行数！`}} ).onClose.subscribe(
@@ -256,8 +252,8 @@ export class DeviceManageComponent implements OnInit {
         
       }else if (rowdata.length === 1){
         // 选中一条
-        console.log("选中一条", rowdata);
-        console.log("编辑-eim台账----agGrid-----rowdata----处理后的",rowdata_);
+        // console.log("选中一条", rowdata);
+        // console.log("编辑-eim台账----agGrid-----rowdata----处理后的",rowdata_);
       this.dialogService.open(Add_Edit_DeviceManageComponent, { closeOnBackdropClick: false, context: { title: '编辑设备提示', content:   `true`, rowData: JSON.stringify(rowdata_)}} ).onClose.subscribe(
         name=>{
           console.log("----name-----", name);
@@ -303,7 +299,7 @@ export class DeviceManageComponent implements OnInit {
     }
     this.http.callRPC("deveice","dev_get_device_groups",columns).subscribe(result=>{
       var res = result["result"]["message"][0]
-      console.log("得到下拉框的数据---------------->", res)
+      // console.log("得到下拉框的数据---------------->", res)
       if (res["code"] === 1){
         var groups = res["message"][0]["groups"];
        
@@ -338,7 +334,7 @@ export class DeviceManageComponent implements OnInit {
       devicename = this.myinput?.getinput();// 设备名称
     }
     // var devicename = this.myinput?.getinput();// 设备名称
-    console.log("设备名称----->",devicename)
+    // console.log("设备名称----->",devicename)
     var groups = this.groups_func?.getselect();// 科室/功能组
     var eimdevicetype = this.eimdevicetpye?.getselect()?this.eimdevicetpye?.getselect():[]; // eim设备类型
     var grops_data = groups != ""? groups.split(";"): [];
@@ -358,11 +354,11 @@ export class DeviceManageComponent implements OnInit {
         group: grops_data,          // 科室/功能组，可选
         eimdevicetype: eimdevicetype, // 设备类型，可选
       }
-      console.log("搜索------------>",columns);
+      // console.log("搜索------------>",columns);
       // dev_get_device_search 搜索的
       this.http.callRPC('device', 'dev_get_device_search', columns).subscribe((result)=>{
         var tabledata = result['result']['message'][0]
-        console.log("dev_get_device---------------------------->>>", tabledata);
+        // console.log("dev_get_device---------------------------->>>", tabledata);
         this.loading = false;
         if (tabledata["code"]===1){
           var message = result["result"]["message"][0]["message"];
@@ -388,7 +384,7 @@ export class DeviceManageComponent implements OnInit {
   // ----------------------------导入---------------------------
   onFileChange(evt: any){
     const target: DataTransfer = <DataTransfer>(evt.target);
-    console.log("导入：---------------------------", target);
+    // console.log("导入：---------------------------", target);
     const reader: FileReader = new FileReader();
     reader.onload = (e: any) => {
       /* read workbook */
@@ -411,13 +407,13 @@ export class DeviceManageComponent implements OnInit {
 
   // 将sheet_json转换为smart-table 数据格式！ 
   analysis_sheet_to_json_to_ng2(importdata){
-    console.log("这是导入的Excel的原始数据！", importdata, "\n")
+    // console.log("这是导入的Excel的原始数据！", importdata, "\n")
     var rowData_list = importdata.slice(1,importdata.length);
     var excel_title = importdata.slice(0,1)[0];
-    console.log("rowData_list----excel 除了表头的数据>", rowData_list)
-    console.log("excel_title---- excel的表头>", excel_title)
+    // console.log("rowData_list----excel 除了表头的数据>", rowData_list)
+    // console.log("excel_title---- excel的表头>", excel_title)
     var ag_Grid_columns = this.tableDatas.columnDefs.slice(0, excel_title.length);
-    console.log("ag_Grid_columns--------->ag_Grid_columns 的表头", ag_Grid_columns, "\n")
+    // console.log("ag_Grid_columns--------->ag_Grid_columns 的表头", ag_Grid_columns, "\n")
 
     var agGridTitle = [];
     var noexist_title = [];
@@ -432,8 +428,6 @@ export class DeviceManageComponent implements OnInit {
         noexist_title.push(agitem.headerName)
       }
     }
-    console.log("agGridTitle----->", agGridTitle);
-    console.log("noexist_title----->", noexist_title);
 
     if (noexist_title.length >0 ){
       this.importdanger(noexist_title);
@@ -449,10 +443,8 @@ export class DeviceManageComponent implements OnInit {
         }
       });
   
-      console.log("rowData---->", rowData); // 对rowData数据 进行验证！
       var verify_err = [];
       var verify_after = this.verify_rowdatas(rowData, verify_err);  // 验证后的数据 得到的是验证的 错误信息！
-      console.log("----------------------------------------------------------验证后的数据 err", verify_after);
       if (verify_after.length > 0){
         this.verify_import(verify_after);
         this.RecordOperation("导入(eim台账)", 0,'导入excel表');
@@ -460,7 +452,7 @@ export class DeviceManageComponent implements OnInit {
       }else{
         // 插入数据库之前 处理数据
         var datas = this.option_table_before(rowData)
-        console.log("插入数据库之前 处理数据---->", datas);
+        // console.log("插入数据库之前 处理数据---->", datas);
         // 将导入的数据存入数据库
         this.dev_insert_device(datas).subscribe(result=>{
           if (result){
@@ -494,7 +486,7 @@ export class DeviceManageComponent implements OnInit {
       const method = 'dev_insert_device_list';
       try {
         this.http.callRPC(table, method, datas).subscribe((result)=>{
-          console.log("插入设备数据：", result)
+          // console.log("插入设备数据：", result)
           const status = result['result']['message'][0]["code"];
           if (status === 1){
             this.RecordOperation("导入", 1, "eim台账");
@@ -502,7 +494,7 @@ export class DeviceManageComponent implements OnInit {
             observale.next(true)
           }else{
               var data_info = result['result']["message"][0]["message"];
-              console.log("------------------->",data_info)
+              // console.log("------------------->",data_info)
               this.RecordOperation("导入", 0, String(data_info));
               this.importSuccess(result['result']["message"][0]["message"])
               observale.next(false)
@@ -523,8 +515,6 @@ export class DeviceManageComponent implements OnInit {
   // 在展示表格前，处理一下数据
   show_table_before(datas){
     if (datas.length >0){
-      console.log("datas---->", datas)
-      console.log("datas[0]---->", datas[0].devicename)
       var after_datas: DeviceData[] =[];
       var type;
       var devicestatus;
@@ -842,7 +832,7 @@ export class DeviceManageComponent implements OnInit {
   }
   // 验证 groups 科室  改为group
   verify_group(group){
-    console.log("验证 groups 科室  改为group:", group)
+    // console.log("验证 groups 科室  改为group:", group)
     // sql注入和特殊字符 special_str
     var verify_sql_str = this.verify_sql_str(group, '科室');
     if (verify_sql_str != 1){
@@ -1001,7 +991,6 @@ export class DeviceManageComponent implements OnInit {
     }
     this.http.callRPC('device', 'dev_get_device_search', columns).subscribe((result)=>{
       var tabledata = result['result']['message'][0]
-      console.log("dev_get_device---------------------------->>>", tabledata);
       this.loading = false;
       if (tabledata["code"]===1){
         var message = result["result"]["message"][0]["message"];
@@ -1021,6 +1010,8 @@ export class DeviceManageComponent implements OnInit {
   }
 
   update_agGrid(event?){
+    // 是否 每页多少也，设置为默认值
+    this.tableDatas.isno_refresh_page_size = true;
     var offset;
     var limit;
     var PageSize;
@@ -1043,7 +1034,6 @@ export class DeviceManageComponent implements OnInit {
     }
     this.http.callRPC('device', 'dev_get_device_search', columns).subscribe((result)=>{
       var tabledata = result['result']['message'][0]
-      console.log("device---", tabledata);
       this.loading = false;
       if (tabledata["code"] === 1){
         var message = result["result"]["message"][0]["message"];
@@ -1064,7 +1054,6 @@ export class DeviceManageComponent implements OnInit {
 
   // nzpageindexchange 页码改变的回调
   nzpageindexchange_ag(event){
-    console.log("页码改变的回调", event);
     this.gridData = [];
     this.loading = true;
     this.inttable(event);

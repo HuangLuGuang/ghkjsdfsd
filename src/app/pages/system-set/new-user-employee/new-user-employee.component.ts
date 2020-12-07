@@ -62,7 +62,7 @@ export class NewUserEmployeeComponent implements OnInit {
       // 会话过期
       localStorage.removeItem("alert401flag");
       this.http.callRPC('', 'sys_get_all_role_and_group', {}).subscribe(result=>{
-        console.log("---result-----------------------------------------------", result);
+        // console.log("---result-----------------------------------------------", result);
         if (result["result"]["message"][0]["code"]===1){
           var roles_group =  result["result"]["message"][0];
           localStorage.setItem("roles", JSON.stringify(roles_group["roles"]))
@@ -186,10 +186,8 @@ export class NewUserEmployeeComponent implements OnInit {
   }
   
   action(actionmethod){
-    console.log("++++++++++++++++++++action(actionmethod)++++++++++++++++++++++++++++", actionmethod);
     var method = actionmethod.split(":")[1];
     // ====================================================
-    console.log("--------------->method", method)
     switch (method) {
       case 'add':
         this.add();
@@ -251,7 +249,7 @@ export class NewUserEmployeeComponent implements OnInit {
             });
             var id_str = id_list.join(',');
             data_info  = '删除的用户id:' + id_str;
-            console.log("要删除的数据:", rowdata)
+            // console.log("要删除的数据:", rowdata)
             this.http.callRPC("employee", "sys_delete_employees",rowdata).subscribe(result=>{
               var res = result["result"]["message"][0];
               switch (res["code"]) {
@@ -280,7 +278,7 @@ export class NewUserEmployeeComponent implements OnInit {
     }
   }
   edit(active_data?){
-    console.log("编辑用户:",active_data);
+    // console.log("编辑用户:",active_data);
     var rowdata;
     if(active_data){
       rowdata = active_data;
@@ -303,7 +301,7 @@ export class NewUserEmployeeComponent implements OnInit {
       default: // EditDelTooltipComponent
         this.dialogService.open(EditDelTooltipComponent, { closeOnBackdropClick: false, autoFocus: true,context: { title: '提示', content:   `请选择一行数据！`}} ).onClose.subscribe(
           istrue=>{
-            // console.log("----name-----", name)
+            console.log("----istrue-----", istrue)
           }
         );
         break;
@@ -315,7 +313,6 @@ export class NewUserEmployeeComponent implements OnInit {
   // input 传入的值
   inpuvalue(inpuvalue){
     if (inpuvalue != ""){
-      console.log("传入的值设备名称----->",inpuvalue);
       this.query(inpuvalue);
     }
   }
@@ -325,7 +322,7 @@ export class NewUserEmployeeComponent implements OnInit {
     var loginname;
     loginname = inpuvalue? inpuvalue: this.myinput.getinput();
     if (loginname != ""){
-      console.log("button 搜索按钮", loginname, "--");
+      // console.log("button 搜索按钮", loginname, "--");
       var columns = {
         offset: 0, 
         limit: 20,
@@ -431,6 +428,7 @@ export class NewUserEmployeeComponent implements OnInit {
 
   // 更新数据
   update_agGrid(event?){
+    this.tableDatas.isno_refresh_page_size = true;
     var offset;
     var limit;
     var PageSize;
@@ -449,11 +447,10 @@ export class NewUserEmployeeComponent implements OnInit {
     }
     this.http.callRPC(this.TABLE, this.METHOD, columns).subscribe((result)=>{
       // 会话过期
-      console.log("update----------------->tabledata: ", result)
+      // console.log("update----------------->tabledata: ", result)
       var tabledata = result['result']['message'][0]
       console.log("tabledata", tabledata);
       if (tabledata["code"] === 1){
-        console.log("update 更新成功！");
         // 发布组件，编辑用户的组件
         this.tableDatas.PageSize = PageSize;
         var message = tabledata["message"];
@@ -478,7 +475,7 @@ export class NewUserEmployeeComponent implements OnInit {
 
   // nzpageindexchange 页码改变的回调
   nzpageindexchange(event){
-    console.log("页码改变的回调", event);
+    // console.log("页码改变的回调", event);
     // this.loading = true;
     this.gridData = [];
     this.inttable(event);
@@ -487,7 +484,6 @@ export class NewUserEmployeeComponent implements OnInit {
   // ----------------------------导入---------------------------
   onFileChange(evt: any){
     const target: DataTransfer = <DataTransfer>(evt.target);
-    console.log("导入：---------------------------", target);
     const reader: FileReader = new FileReader();
     reader.onload = (e: any) => {
       /* read workbook */
@@ -511,12 +507,12 @@ export class NewUserEmployeeComponent implements OnInit {
   // 将sheet_json转换为smart-table 数据格式！ 
   analysis_sheet_to_json_to_ng2(importdata){
     var rowData_list = importdata.slice(1,importdata.length);
-    console.log("导入-----rowData_list---->", rowData_list)
+    // console.log("导入-----rowData_list---->", rowData_list)
     var excel_title = importdata.slice(0,1)[0];
-    console.log("rowData_list----excel 除了表头的数据>", rowData_list)
-    console.log("excel_title---- excel的表头>", excel_title)
+    // console.log("rowData_list----excel 除了表头的数据>", rowData_list)
+    // console.log("excel_title---- excel的表头>", excel_title)
     var ag_Grid_columns = this.tableDatas.columnDefs.slice(0, excel_title.length);
-    console.log("ag_Grid_columns--------->ag_Grid_columns 的表头", ag_Grid_columns, "\n")
+    // console.log("ag_Grid_columns--------->ag_Grid_columns 的表头", ag_Grid_columns, "\n")
     var agGridTitle = [];
     var noexist_title = [];
     for (let index = 0; index < ag_Grid_columns.length; index++) {
@@ -531,8 +527,8 @@ export class NewUserEmployeeComponent implements OnInit {
       }
     }
 
-    console.log("agGridTitle----->", agGridTitle);
-    console.log("noexist_title----->", noexist_title);
+    // console.log("agGridTitle----->", agGridTitle);
+    // console.log("noexist_title----->", noexist_title);
 
     if (noexist_title.length > 0){
       this.importdanger(noexist_title);
@@ -548,7 +544,7 @@ export class NewUserEmployeeComponent implements OnInit {
         }
         
       });
-      console.log("rowData---->", rowData);
+      // console.log("rowData---->", rowData);
       var verify_err = [];
       var verify_after = this.verify_rowdatas(rowData, verify_err);  // 验证后的数据 得到的是验证的 错误信息！
 
@@ -560,7 +556,7 @@ export class NewUserEmployeeComponent implements OnInit {
         try{
           // 插入数据库之前 处理数据
           var datas = this.option_table_before(rowData)
-          console.log("插入数据库之前 处理数据---->", datas);
+          // console.log("插入数据库之前 处理数据---->", datas);
           // 将导入的数据存入数据库
           this.dev_insert_device(datas).subscribe(result=>{
             if (result){
@@ -590,7 +586,6 @@ export class NewUserEmployeeComponent implements OnInit {
       const method = 'insert_employee_list';
       try {
         this.http.callRPC(table, method, datas).subscribe((result)=>{
-          console.log("插入设备数据：", result)
           const status = result['result']["message"][0]['code'];
           if (status === 1){
             this.RecordOperation("导入", 1, "用户管理");
@@ -598,7 +593,6 @@ export class NewUserEmployeeComponent implements OnInit {
             observale.next(true)
           }else{
             var data_info = result['result']["message"][0]["message"];
-            console.log("------------------->",data_info)
             this.RecordOperation("导入", 0, String(data_info));
             this.importSuccess(result['result']["message"][0]["message"])
             observale.next(false)
@@ -648,7 +642,7 @@ export class NewUserEmployeeComponent implements OnInit {
         phone:data["phoneno"],
       }
       after_datas.push(after_data_);
-      console.log("得到科室/功能组--角色之前！",data)
+      // console.log("得到科室/功能组--角色之前！",data)
       var rids_list = this.handle_groups_and_roles(data, "role_name")
       var groups_list = this.handle_groups_and_roles(data, "groups_name")
       rids_list.forEach(item=>{
@@ -657,10 +651,10 @@ export class NewUserEmployeeComponent implements OnInit {
       groups_list.forEach(item=>{
         after_datas.push(item);
       })
-      console.log("===============after_datas==========>",after_datas);
+      // console.log("===============after_datas==========>",after_datas);
       after_datas_role.push(after_datas)
-      console.log("===============rids_list==========>",rids_list);
-      console.log("===============groups_list==========>",groups_list);
+      // console.log("===============rids_list==========>",rids_list);
+      // console.log("===============groups_list==========>",groups_list);
     });
     return after_datas_role
   }
@@ -695,7 +689,7 @@ export class NewUserEmployeeComponent implements OnInit {
           }
         });
       });
-      console.log("names_____________reslult", names, rids_list);
+      // console.log("names_____________reslult", names, rids_list);
       return rids_list
   }
 

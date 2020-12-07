@@ -144,7 +144,6 @@ export class OperationLogComponent implements OnInit, OnDestroy {
   update_agGrid(event?){
     var offset;
     var limit;
-    console.log("event------------------------------------------------", event);
     if (event != undefined){
       offset = event.offset;
       limit = event.limit;
@@ -153,9 +152,9 @@ export class OperationLogComponent implements OnInit, OnDestroy {
       limit = 10;
     }
     this.http.callRPC('sys_security_log', 'get_sys_transaction_log', {offset: offset, limit: limit}).subscribe((res)=>{
-      console.log("get_sys_transaction_log", res)
+      // console.log("get_sys_transaction_log", res)
       var get_sys_transaction_log = res['result']['message'][0]
-      console.log("get_sys_transaction_log", get_sys_transaction_log);
+      // console.log("get_sys_transaction_log", get_sys_transaction_log);
       if (get_sys_transaction_log["code"]===1){
         this.loading = false;
         // 发布组件，编辑用户的组件
@@ -183,7 +182,7 @@ export class OperationLogComponent implements OnInit, OnDestroy {
 
   // nzpageindexchange 页码改变的回调
   nzpageindexchange(event){
-    console.log("页码改变的回调", event);
+    // console.log("页码改变的回调", event);
     this.gridData = [];
     this.loading = true;
     this.inttable(event);

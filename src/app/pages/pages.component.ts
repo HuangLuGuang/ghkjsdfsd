@@ -80,7 +80,6 @@ export class PagesComponent implements OnInit {
     } else {
       roles = null;
     }
-    console.warn("roles>>", roles);
     const colums = {
       languageid: this.httpservice.getLanguageID(),
       roles: roles
@@ -89,7 +88,6 @@ export class PagesComponent implements OnInit {
     const method = "get_menu_by_roles";
     this.httpservice.callRPC(table, method, colums).subscribe(
       result => {
-        console.warn("result",result)
         const baseData = result['result']['message'][0];
         if (baseData["code"]===1) {
           // 将菜单信息存储到localStorage
@@ -120,7 +118,7 @@ export class PagesComponent implements OnInit {
 
 
   dataTranslation(baseMenu) {
-    console.log("得到sysmenu", baseMenu)
+    // console.log("得到sysmenu", baseMenu)
     // 生成父子数据结构
     let map = {};
     baseMenu.forEach(item => {
@@ -181,7 +179,7 @@ export class PagesComponent implements OnInit {
       const createdby = this.userInfoService.getLoginName();     // 登录名
       this.publicservice.record(source, employeeid, 1, '登录', createdby);
       // this.publicservice.record('local', source, employeeid, 1, '登录成功！', createdby);
-      console.log("============= 存入登录日志并得到菜单",source);
+      // console.log("============= 存入登录日志并得到菜单",source);
     }
 
   }

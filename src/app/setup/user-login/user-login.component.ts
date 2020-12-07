@@ -73,7 +73,6 @@ export class UserLoginComponent implements OnInit {
   onSubmit(){
     if ((this.username === this.profileForm.value.username) &&  this.username != ""){
       this.passwordmd5_salt = this.profileForm.value.password.toString()
-      console.log("this.passwordmd5_salt: ",this.passwordmd5_salt);
       this.username = this.profileForm.value.username;
     }else{
       this.username = this.profileForm.value.username;
@@ -116,9 +115,7 @@ export class UserLoginComponent implements OnInit {
             'Authorization': 'Bearer ' + JSON.parse(localStorage.getItem(ssotoken))['token'] // tslint:disable-line:object-literal-key-quotes
           })
         };
-        // console.log("同步， userInfo", userInfo)
         this.http.get(INFO_API, opts).pipe(map(userInfo=>{
-          console.log("============= 存入登录日志并得到菜单", userInfo)
           if (userInfo['userInfo']['roles']) {
             const userinfo = JSON.stringify(userInfo['userInfo']);
             localStorage.removeItem(SSOUSERINFO);
@@ -134,7 +131,6 @@ export class UserLoginComponent implements OnInit {
         });
         this.publicmethodService.toastr(this.DataSuccess);
       }else{
-        console.log("登录失败err>>>> ",res)
         this.publicmethodService.toastr(this.DataDanger)
       }
     })
@@ -162,7 +158,6 @@ export class UserLoginComponent implements OnInit {
   // 记住密码被点击，执行
   checkboxchange(checked: boolean){
     this.checked = checked;
-    console.log("记住密码被点击，执行", this.checked)
   }
 
   
@@ -188,9 +183,7 @@ export class UserLoginComponent implements OnInit {
         // this.router.navigate([url]);
         // window.location.href = "http://www.baidu.com";
         localStorage.setItem("SSO", "true");  // important notice
-
         window.location.href = url;  // 重定向到外部的url
-        console.log("SSO登录的url：", url);
       }else{
         // console.log("currenturl+++++++++++++", currenturl)
         var ticket_1 = this.getTicket(currenturl, '?');
@@ -202,9 +195,8 @@ export class UserLoginComponent implements OnInit {
         var url_userInfo = `http://geely-uc-sso-protocol-restful.app.dev01.geely.ocp/session-info-new/${ticket}?appKey=${appKey}`;
         var geelyurl = `http://10.190.69.78/geely-info/${ticket}?appKey=${appKey}`
         // 调用get请求的到用户信息
-        console.log("这是代理的地址：", geelyurl)
         this.http.get(geelyurl).subscribe((response: any)=>{
-          console.log("得到统一认证平台的用户信息response：", response);
+          // console.log("得到统一认证平台的用户信息response：", response);
           if (response && response["code"] === "success"){
 
             var ssouserinfo_list = [];
@@ -230,20 +222,20 @@ export class UserLoginComponent implements OnInit {
             ssouserinfo["ticket"] = ticket;      
             ssouserinfo["department"] = 'ZXJ';      // 部门 
             ssouserinfo["password"] =  Md5.hashStr(ssopassword  + salt );;      // 默认的初始密码
-            console.log("处理后的SSo用户信息！");
+            // console.log("处理后的SSo用户信息！");
             ssouserinfo_list.push(ssouserinfo);
             
 
             // 默认角色
             this.createDefaultRole(ssouserinfo_list).subscribe((roleid: any[])=>{
-              console.log("得到默认角色", roleid);
+              // console.log("得到默认角色", roleid);
               roleid.forEach(role_id => {
                 ssouserinfo_default["rids"] = role_id["id"]; // roleid = [{id: 12}]
               });
               ssouserinfo_list.push(ssouserinfo_default);
               // 将数据存入数据库中！
               localStorage.setItem('ssouserinfo', JSON.stringify(ssouserinfo));
-              console.log("需要存入数据库中的数据",ssouserinfo_list)
+              // console.log("需要存入数据库中的数据",ssouserinfo_list)
               // 得到用户名--封装ssotoken
               // 将统一认证得到的用存入用户表！并返回accessToken和refreshToken
               this.insert_ssouser_get_tooken(ssouserinfo_list).subscribe((status)=>{
@@ -277,19 +269,19 @@ export class UserLoginComponent implements OnInit {
   insert_ssouser_get_tooken(ssouserinfo){
     return new Observable((observe)=>{
       var colums = ssouserinfo;
-      console.log("将数据存入数据库---colums--",colums)
+      // console.log("将数据存入数据库---colums--",colums)
       const table = "employee";
       // const method = "insert_employee";
       const method = "insert_employee_from_sso";
       this.httpserviceService.callRPC(table, method, colums).subscribe((result)=>{
-        console.log("将数据存入数据库中，返回的数据", result);
+        // console.log("将数据存入数据库中，返回的数据", result);
         const status = result['result']['message'][0];
         if (status["code"] === 1){
           // 表示入库成功！调用登录接口得到token, 
           // console.log("请求登录！")
           var headers = {headers: new HttpHeaders({"Content-Type": "application/json"})};
           this.httpserviceService.post(LOGIN_API, {"username": ssouserinfo[0]["loginname"], "password": ssouserinfo[0]["password"]},headers).subscribe((res)=>{
-            console.log("请求登录！得到结果", res);
+            // console.log("请求登录！得到结果", res);
             if (res["accessToken"]) {
               // ============= 存入登录日志
               const opts = {
@@ -298,7 +290,7 @@ export class UserLoginComponent implements OnInit {
                 })
               };
               this.http.get(INFO_API, opts).pipe(map(userInfo=>{
-                console.log("============= 存入登录日志并得到菜单", userInfo)
+                // console.log("============= 存入登录日志并得到菜单", userInfo)
                 if (userInfo['userInfo']['roles']) {
                   const userinfo = JSON.stringify(userInfo['userInfo']);
                   localStorage.removeItem(SSOUSERINFO);
@@ -322,7 +314,7 @@ export class UserLoginComponent implements OnInit {
                 picture: "assets/images/man3.png",
                 ticket: ssouserinfo[0]["ticket"]
               }
-              console.log("统一认证，用户登录成功！", ssotoken_value)
+              // console.log("统一认证，用户登录成功！", ssotoken_value)
               localStorage.setItem(ssotoken, JSON.stringify(ssotoken_value));
               observe.next(true);
             }
@@ -349,9 +341,9 @@ export class UserLoginComponent implements OnInit {
         role_name: "默认角色"
       }
       this.httpserviceService.callRPC(table, method, colums).subscribe((res)=>{
-        console.log("创建默认角色，得到存在角色的id", res)
+        // console.log("创建默认角色，得到存在角色的id", res)
         var roleid = res['result']['message'][0];
-        console.log("创建默认角色，得到存在角色的id", roleid)
+        // console.log("创建默认角色，得到存在角色的id", roleid)
         observe.next(roleid)
         
       })
@@ -371,7 +363,6 @@ export class UserLoginComponent implements OnInit {
       const createdby = this.userInfoService.getLoginName();     // 登录名
       this.publicmethodService.record(source, employeeid, 1, '登录', createdby);
       // this.publicservice.record('local', source, employeeid, 1, '登录成功！', createdby);
-      console.log("============= 存入登录日志并得到菜单",source);
     }
 
   }
