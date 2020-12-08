@@ -103,7 +103,7 @@ export class RoleComponent implements OnInit {
     // 加载树状menu  初始化
     this.loadMenu().subscribe((treedata)=>{
       // this.showTreedata(treedata)
-      // console.log("加载树状menu  初始化>>>>>>>>>>>", treedata)
+      console.log("加载树状menu  初始化>>>>>>>>>>>", treedata)
       this.showTreedata_v2(treedata);
     });
 
