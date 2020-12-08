@@ -133,7 +133,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
       )
       .subscribe(themeName => this.currentTheme = themeName);
       this.menuService.onItemClick().subscribe((event)=>{
-        // console.log("event", event);
+        console.log("event", event);
         this.alet_is_logout(event.item.title)
       })
        //进入项目时面板的图表的初始化宽度的问题发的消息

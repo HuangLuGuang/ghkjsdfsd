@@ -2,8 +2,6 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 
-import { MySelectComponent } from '../components/my-select/my-select.component';
-import { MySelectGroupComponent } from '../components/my-select-group/my-select-group.component';
 import { FormsModule } from '@angular/forms';
 import { NbIconModule, NbInputModule, NbSelectModule } from '@nebular/theme';
 
@@ -21,7 +19,6 @@ import { MyInputComponent } from './my-input/my-input.component';
 import { MyInputTwoComponent } from './my-input-two/my-input-two.component';
 @NgModule({
   declarations: [
-    MySelectComponent, MySelectGroupComponent, 
     AgTableComponent, MySelectTreeComponent, MySelectTreeTypeComponent,
     MySelectTreeTypeComponentType,
     MyDateRangeComponent,
@@ -39,7 +36,7 @@ import { MyInputTwoComponent } from './my-input-two/my-input-two.component';
     NzPaginationModule,
   ],
   exports: [
-    MySelectComponent, MySelectGroupComponent, AgTableComponent,MySelectTreeComponent,MySelectTreeTypeComponentType,
+    AgTableComponent,MySelectTreeComponent,MySelectTreeTypeComponentType,
     MyDateRangeComponent,
     MyInputComponent,
     MyInputTwoComponent

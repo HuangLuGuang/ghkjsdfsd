@@ -1,23 +1,15 @@
-<div class="row" style="min-height: 800px">
-    <div class="col-md-1" style="padding: 0px 4px; background: #ffffffb0;">
+<div class="row" style="padding-right: 0px; margin: 0px;">
+    <div class="col-md-1" style="padding: 0px;">
         <nb-card fullWidth>
             <nb-menu [items]="items" >
             </nb-menu>
-            <!-- <a [routerLink]="['/pages/mobile-gps/gpsmodule-manage/assets']">资产管理</a>
-            <a [routerLink]="['/pages/mobile-gps/gpsmodule-manage/assets']">充电管理</a> -->
+            <!-- [href]="items[0]['link']" [href]="items[1]['link']" -->
+            <!-- <a  [status]="assets_status" (click)="gotoassets()" nbButton>{{items[0]['title']}}</a>
+            <a  [status]="power_status" (click)="gotoapower()" nbButton>{{items[1]['title']}}</a> -->
         </nb-card>
     </div>
-    <div class="col-md-11" >
+    <div class="col-md-11"  style="padding-left: 11px; padding-right: 0px;">
         <router-outlet></router-outlet>
     </div>
 </div>
 
-<!-- <nb-layout>
-    <nb-sidebar tag="myLeft">
-        <nb-menu [items]="items" tag="">
-        </nb-menu>
-    </nb-sidebar>
-    <nb-layout-column>
-        <router-outlet></router-outlet>
-    </nb-layout-column>
-</nb-layout> -->

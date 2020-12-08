@@ -11,9 +11,13 @@ import { AgTableComponent } from './ag-table/ag-table.component';
 
 import { AgGridModule } from 'ag-grid-angular';
 import { NzPaginationModule } from 'ng-zorro-antd/pagination';
+import { MyInputComponent } from './my-input/my-input.component';
+import { MyDateRangeComponent } from './my-date-range/my-date-range.component';
 @NgModule({
   declarations: [
     AgTableComponent,
+    MyInputComponent,
+    MyDateRangeComponent,
   ],
   imports: [
     CommonModule,
@@ -27,6 +31,8 @@ import { NzPaginationModule } from 'ng-zorro-antd/pagination';
   ],
   exports: [
     AgTableComponent,
+    MyInputComponent,
+    MyDateRangeComponent,
   ]
 })
 export class ComponentTModule { }

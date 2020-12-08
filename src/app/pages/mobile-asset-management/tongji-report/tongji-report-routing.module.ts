@@ -22,11 +22,11 @@ const routes: Routes = [
         path: "baojing",
         component:AlertReportComponent,
       },
-      // {
-      //   path: '',
-      //   redirectTo: "baojing",
-      //   pathMatch: 'full'
-      // },
+      {
+        path: '',
+        redirectTo: "baojing",
+        pathMatch: 'full'
+      },
     ]
   },
 ];

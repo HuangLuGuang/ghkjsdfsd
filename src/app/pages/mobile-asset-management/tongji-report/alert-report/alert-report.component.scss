@@ -1,5 +1,45 @@
-.myline{
-    border: #ddd2d2 1px solid;
-    height: 1px;
-    margin-top: 10px;
-}
+.my-select{
+    height: 40px;
+    // border: 1px greenyellow solid;
+  }
+  .my-button{
+    text-align: center;
+    // height: 40px;
+    padding-top: 3px;
+    // 导入文件
+    .import{
+        display:none
+    }
+    
+  }
+  
+  .device_manage_table{
+    margin-top: 20px;
+  }
+  .button_item{
+    margin: 0px 10px 10px 0px;
+  }
+  
+  // 导入---导出
+  .my_import{
+  text-align: center;
+  // height: 40px;
+  // 导入文件
+  .import{
+      display:none
+  }
+  
+  }
+  #devicename{
+    line-height: 16px;
+  }
+  
+  // 科室/功能组
+  .gongneng_keshi{
+    width: 168px;
+    // line-height: 29px;
+    line-height: 23px;
+    // border: 1px pink solid;
+  
+  }
+  
