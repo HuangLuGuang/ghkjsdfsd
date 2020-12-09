@@ -1,6 +1,4 @@
 // 设备报警
-import { OperationForTableComponent } from './operation-for-table/operation-for-table.component';
-import { AlertGradeForTableComponent } from './alert-grade-for-table/alert-grade-for-table.component';
 
 export const facility_health_SETTINGS =  {
     actions: {
@@ -67,28 +65,28 @@ export const facility_health_SETTINGS =  {
         title: '处理时间',
         type: 'string',
       },
-      alertGrade: {
-        title: '报警等级',
-        type: 'custom',
-        renderComponent: AlertGradeForTableComponent,
-        onComponentInitFunction(instance) {
-          instance.save.subscribe(row => {
-          console.log("************AlertGradeForTableComponent**************", row)
-          // alert(`${row.name} saved!`)
-          });
-        }
-      },
-      operation: {
-        title: '操作',
-        type: 'custom',
-        renderComponent: OperationForTableComponent,
-        onComponentInitFunction(instance) {
-          instance.save.subscribe(row => {
-          console.log("************OperationForTableComponent**************", row)
-          // alert(`${row.name} saved!`)
-          });
-        }
-      },
+      // alertGrade: {
+      //   title: '报警等级',
+      //   type: 'custom',
+      //   renderComponent: AlertGradeForTableComponent,
+      //   onComponentInitFunction(instance) {
+      //     instance.save.subscribe(row => {
+      //     console.log("************AlertGradeForTableComponent**************", row)
+      //     // alert(`${row.name} saved!`)
+      //     });
+      //   }
+      // },
+      // operation: {
+      //   title: '操作',
+      //   type: 'custom',
+      //   renderComponent: OperationForTableComponent,
+      //   onComponentInitFunction(instance) {
+      //     instance.save.subscribe(row => {
+      //     console.log("************OperationForTableComponent**************", row)
+      //     // alert(`${row.name} saved!`)
+      //     });
+      //   }
+      // },
       
     },
 };

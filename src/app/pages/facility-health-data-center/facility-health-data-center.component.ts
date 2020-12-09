@@ -3,6 +3,8 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { facility_health_SETTINGS } from './facility_health_data_center_table';
 
 import {LocalDataSource} from "@mykeels/ng2-smart-table";
+import { UserInfoService } from '../../services/user-info/user-info.service';
+import { HttpserviceService } from '../../services/http/httpservice.service';
 
 @Component({
   selector: 'ngx-facility-health-data-center',
@@ -10,12 +12,10 @@ import {LocalDataSource} from "@mykeels/ng2-smart-table";
   styleUrls: ['./facility-health-data-center.component.scss']
 })
 export class FacilityHealthDataCenterComponent implements OnInit {
-
-  @ViewChild("departmentselect") departmentselect:any;
-  @ViewChild("device_tpye") device_tpye: any;
-  @ViewChild("asset_number") asset_number: any;
-  @ViewChild("daterange") daterange: any;
   @ViewChild("mytable") mytable: any;
+  @ViewChild("eimdevicetpye") eimdevicetpye: any; // 设备类型下拉框
+  @ViewChild("myinput") myinput: any; // 资产编号输入框
+  @ViewChild("data_range") data_range: any; // 日期选择器
 
   // 下拉框---部门
   departments = {
@@ -29,6 +29,7 @@ export class FacilityHealthDataCenterComponent implements OnInit {
   };
 
   // 下拉框---设备类型
+  eimdevicetpye_placeholder = "请选择设备类型";
   devicetpye = {
     placeholder: "请选择设备类型",
     name: '设备类型',
@@ -41,6 +42,7 @@ export class FacilityHealthDataCenterComponent implements OnInit {
     ]
   }
   // 下拉框---资产编号
+  myinput_placeholder = "请输入资产编号";
   assetnumber = {
     placeholder: "请选择资产编号",
     name: '资产编号',
@@ -53,6 +55,9 @@ export class FacilityHealthDataCenterComponent implements OnInit {
     ]
   }
 
+  loading = false;  // 加载
+  refresh = false; // 刷新tabel
+  button; // 权限button
 
   source:LocalDataSource
   // 设备KPI统计 table数据
@@ -61,7 +66,15 @@ export class FacilityHealthDataCenterComponent implements OnInit {
     source: new LocalDataSource(),
   };
 
-  constructor() { }
+  constructor(private userinfo:UserInfoService,private http:HttpserviceService,
+
+  ) { 
+    // 会话过期
+    localStorage.removeItem("alert401flag");
+    // 下拉框
+    this.get_tree_selecetdata()
+
+  }
 
   ngOnInit(): void {   // 初始化table
     this.table_data.source["data"] = [
@@ -91,21 +104,93 @@ export class FacilityHealthDataCenterComponent implements OnInit {
     ]
   }
 
+  // button按钮
+  action(actionmethod){
+    var method = actionmethod.split(":")[1];
+    switch (method) {
+      // case 'add':
+      //   this.add();
+      //   break;
+      // case 'del':
+      //   this.del();
+      //   break;
+      // case 'edit':
+      //   this.edit();
+      //   break;
+      case 'query':
+        this.query();
+        break;
+      // case 'import':
+      //   this.importfile();
+      //   break;
+      case 'download':
+        this.download('设备报警')
+        break;
+    }
+  }
+
+  // 重置、刷新
+  refresh_table(){
+    this.refresh = true;
+    this.loading = true;
+    // this.gridData = [];
+
+    // 取消选择的数据 delselect
+    this.myinput.del_input_value();
+    // this.groups_func.dropselect();
+    this.eimdevicetpye.dropselect();
+  }
+
+
+  // 得到下拉框的数据
+  get_tree_selecetdata(){
+    var columns = {
+      employeeid:this.userinfo.getEmployeeID(),
+    }
+    this.http.callRPC("deveice","dev_get_device_groups",columns).subscribe(result=>{
+      var res = result["result"]["message"][0]
+      console.log("得到下拉框的数据---------------->", res)
+      if (res["code"] === 1){
+        // var groups = res["message"][0]["groups"];
+        // this.groups_func.init_select_tree(groups);
+        var eimdevicetpyedata = res["message"][0]["type"];
+        this.eimdevicetpye.init_select_trees(eimdevicetpyedata);
+      }
+    })
+  }
+
+  // input 传入的值
+  inpuvalue(inpuvalue){
+    if (inpuvalue != ""){
+      console.log("传入的值设备名称----->",inpuvalue);
+      this.query(inpuvalue);
+    }
+  }
+
   // 搜索按钮
-  query(){
-    var departmentselect_datas = this.departmentselect.getselect();
-    var device_tpye_data = this.device_tpye.getselect();
-    var asset_number_data = this.asset_number.getselect();
-    var daterange_data = this.daterange.getselect();
-    console.log("<------------搜索----------->", departmentselect_datas, device_tpye_data,asset_number_data,daterange_data);
-  
+  query(inpuvalue?){
+    var assetnumber;
+    if (inpuvalue){
+      assetnumber = inpuvalue;
+    }else{
+      assetnumber = this.myinput?.getinput();// 设备名称
+    }
+    // 设备类型
+    var device_tpye_data = this.eimdevicetpye.getselect();
+
+    // 日期范围
+    var daterange_data = this.data_range.getselect()
+    console.log(
+      "搜索：assetnumber", assetnumber, 
+      "daterange_data:",daterange_data,
+      "device_tpye_data",device_tpye_data
+    )
   }
 
-
-  // 导出
+  // 导出文件
   download(title){
-    this.mytable.download(title);
-  }
+    // this.agGrid.download(title);
+  };
 
 
 }

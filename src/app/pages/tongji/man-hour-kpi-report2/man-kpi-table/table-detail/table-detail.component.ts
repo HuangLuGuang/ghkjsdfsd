@@ -21,6 +21,7 @@ export class TableDetailComponent implements OnInit,ICellRendererAngularComp {
 
   // kpi 详情
   kpidetail(){
+    console.log("工时报表--kpi详情", this.params.node.data)
     localStorage.setItem('kpi_for_detail', JSON.stringify(this.params.node.data))
     this.router.navigate([this.url])
   }

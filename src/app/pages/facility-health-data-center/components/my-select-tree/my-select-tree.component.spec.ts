@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { MySelectGroupComponent } from './my-select-group.component';
+import { MySelectTreeComponent } from './my-select-tree.component';
 
-describe('MySelectGroupComponent', () => {
-  let component: MySelectGroupComponent;
-  let fixture: ComponentFixture<MySelectGroupComponent>;
+describe('MySelectTreeComponent', () => {
+  let component: MySelectTreeComponent;
+  let fixture: ComponentFixture<MySelectTreeComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ MySelectGroupComponent ]
+      declarations: [ MySelectTreeComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(MySelectGroupComponent);
+    fixture = TestBed.createComponent(MySelectTreeComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

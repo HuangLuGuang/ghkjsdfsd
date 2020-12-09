@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { DateRangeComponent } from './date-range.component';
+import { MySelectTreeTypeComponent } from './my-select-tree-type.component';
 
-describe('DateRangeComponent', () => {
-  let component: DateRangeComponent;
-  let fixture: ComponentFixture<DateRangeComponent>;
+describe('MySelectTreeTypeComponent', () => {
+  let component: MySelectTreeTypeComponent;
+  let fixture: ComponentFixture<MySelectTreeTypeComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ DateRangeComponent ]
+      declarations: [ MySelectTreeTypeComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(DateRangeComponent);
+    fixture = TestBed.createComponent(MySelectTreeTypeComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

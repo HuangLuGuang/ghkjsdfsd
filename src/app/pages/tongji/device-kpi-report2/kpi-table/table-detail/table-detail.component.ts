@@ -14,10 +14,12 @@ export class TableDetailComponent implements OnInit,ICellRendererAngularComp {
 
   ngOnInit(): void {
     this.url = this.params.node.data.option;
+    // console.warn("设备报表 url>>",this.url)
   }
 
   // kpi 详情
   kpidetail(){
+    console.log("设备报表--kpi详情", this.params.node.data)
     localStorage.setItem('kpi_for_detail', JSON.stringify(this.params.node.data))
     this.router.navigate([this.url])
   }

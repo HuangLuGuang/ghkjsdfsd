@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { AlertGradeForTableComponent } from './alert-grade-for-table.component';
+import { MyDateRangeComponent } from './my-date-range.component';
 
-describe('AlertGradeForTableComponent', () => {
-  let component: AlertGradeForTableComponent;
-  let fixture: ComponentFixture<AlertGradeForTableComponent>;
+describe('MyDateRangeComponent', () => {
+  let component: MyDateRangeComponent;
+  let fixture: ComponentFixture<MyDateRangeComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ AlertGradeForTableComponent ]
+      declarations: [ MyDateRangeComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(AlertGradeForTableComponent);
+    fixture = TestBed.createComponent(MyDateRangeComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

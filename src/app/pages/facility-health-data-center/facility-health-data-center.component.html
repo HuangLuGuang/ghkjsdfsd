@@ -1,60 +1,62 @@
 <nb-card>
+    <nb-card-header style="font-size: small;">
+        设备报警信息
+    </nb-card-header>
+
     <nb-card-body>
+        <!-- 实时报警、历史报警 -->
         <div class="row">
-            <div class="col-md-10"></div>
-            <div class="col-md-2" style="text-align: center;">
-                <button status="info" nbButton style="margin-right: 30px;">实时报警</button>
-                <button status="info" nbButton>历史报警</button>
+            <div class="col-lg-9"></div>
+            <div class="col-lg-3" style="display: flex;">
+                <div style="flex: auto;">
+                </div>
+                <div class="real_time_alert">
+                    <button nbButton status='info' size="small">实时报警</button>
+                </div>
+                <div class="history_time_alert">
+                    <button nbButton status="basize" size="small">历史报警</button>
+                </div>
             </div>
         </div>
-        
-        <div class="row" style="margin-bottom: 10px;">
-            <div class="col-md-2 statusinfo">
-                <ngx-my-select-group #departmentselect [selectdatas]="departments"></ngx-my-select-group>
-            </div>
-        
-            <div class="col-md-2 statusinfo">
-                <ngx-my-select #device_tpye [selectdatas]="devicetpye"></ngx-my-select>
-            </div>
-        
-            <div class="col-md-2 statusinfo">
-                <ngx-my-select #asset_number [selectdatas]="assetnumber"></ngx-my-select>
-            </div>
-        
-            <div class="col-md-2 statusinfo">
-                <ngx-date-range #daterange></ngx-date-range>
-            </div>
-        
-            <div class="col-md-2 statusinfo">
-                <button nbButton status="info" (click)="query()">筛选</button>
-            </div>
-            <div class="col-md-2 statusinfo"></div>
-        </div>
+        <!--  <router-outlet></router-outlet> -->
 
-        <div class="row" style="padding: 0px 15px; margin-top: 10px;">
-            <div class="col-md-1 myline"></div>
-            <div class="col-md-1" style="text-align: center;">全部消息</div>
-            <div class="col-md-10 myline"></div>
-        </div>
+        <!-- buttons -->
+        <div class="row">
 
-        <div class="row" style="margin-top: 10px;">
-            <div class="col-md-10"></div>
-            <div class="col-md-2" style="text-align: right;">
-                <button nbButton status="info" (click)="download('设备报警')">导出</button>
+            <div class="col-lg-9" style="display: flex;">
+                <!-- 设备类型 -->
+                <div class="example-items-rows button_item" >
+                    <div class="gongneng_keshi">
+                        <ngx-my-select-tree-type #eimdevicetpye [placeholder]="eimdevicetpye_placeholder"></ngx-my-select-tree-type>
+                    </div>
+                </div>
+                <!-- 资产编号 -->
+                <div class="example-items-rows button_item"  >
+                    <ngx-my-input #myinput (inpuvalue)="inpuvalue($event)"  [placeholder]="myinput_placeholder"></ngx-my-input>
+                </div>
+                <!-- 日期选择器  *ngIf="button?.query" -->
+                <div class="example-items-rows button_item" >
+                    <ngx-my-date-range #data_range></ngx-my-date-range>
+                </div>
+
+                
             </div>
-        </div>
-
-
-        <div class="row" style="margin-top: 10px; height: 636px;">
-            <div class="col-md-12">
-                <!-- <ngx-my-table-ng2 #mytable  [datas]="table_data"></ngx-my-table-ng2> -->
+            <!-- 导出、重置 -->
+            <div class="col-lg-3">
+                <div style="flex: auto;">
+                </div>
+                
+                <div class=" button_item download" *ngIf="button?.download">
+                    <button nbButton [status]="button?.download.class" size="small" (click)="action(button?.download.permission)"  [disabled]="button?.download.active == 0? true:false"><nb-icon [icon]="button?.download.icon"></nb-icon>{{button?.download.title}}</button>
+                </div>
+                
+                <div class="" style="text-align: right;">
+                    <!-- loader-outline -->
+                    <button nbButton [nbSpinner]="refresh" nbSpinnerStatus="success" size="small" (click)="refresh_table()">
+                        <nb-icon icon="sync-outline"></nb-icon>
+                    </button>
+                </div>
             </div>
         </div>
     </nb-card-body>
 </nb-card>
-
-
-
-<!-- <router-outlet>
-    <h3>111111111111111</h3>
-</router-outlet> -->
