@@ -383,6 +383,7 @@ export class RoleComponent implements OnInit {
     // disabled  激活保存按钮
     var $save = $("#save");
     $save.attr("class", "layui-btn layui-btn-normal");
+    $save.attr("style", "cursor: pointer;");
 
   } 
 
@@ -632,62 +633,68 @@ export class RoleComponent implements OnInit {
 
       // 保存按钮---保存更改后的角色对应的菜单
       form.on('submit(save)', function(data){
-        
-        // console.log(el2.getChecked(true,false));
-        checkData = el2.getChecked(false,true);
-        var roles = localStorage.getItem("click_col_roles");
-        // console.log("得到的选中的数据>>>>>>>>>>>>>>>>>>", checkData,roles);
-        var selects = [];
-        if (checkData.length>0){
-          checkData.forEach(element => {
-            var selects_dict = {};
-            selects_dict["menuitemid"] = element["id"]
-            selects.push(selects_dict)
-          });
-          selects[0]["roleid"] = roles;
+        var is_save = $("#save").attr("class").split(" ")[1];
+        if (is_save === "layui-btn-disabled"){
+          // 不执行
         }else{
-          // checkData 为空
-          var item = {};
-          item["menuitemid"] = null;
-          item["roleid"] = roles;
-          selects.push(item);
-        }
-        // 更新菜单
-        const colums = selects;
-        const table = "menu_item";
-        const method = "update_menu_role";
-        http.callRPC(table, method, colums).subscribe((result)=>{
-          const baseData = result['result']['message'][0];
-          if (baseData === 1){
-            // publicservice.toastr(SavSuccess);
-            success(publicservice);
-            // 成功后更新 menu_button_list
-            // updatabutton_list(publicservice,http);
-            localStorage.removeItem(MULU); // 这个是更新左侧目录栏
-
-            that.RecordOperation('保存菜单分配', 1,"角色id:"+colums["roleid"] + ',' + "菜单id:"+colums["menuitemid"]);
-            // 加载树状menu  初始化
-            that.loadMenu().subscribe((treedata)=>{
-              // console.log("加载树状menu  初始化>>>>>>>>>>>", treedata)
-              that.showTreedata_v2(treedata, true);
-              
+          // 执行保存
+          // console.log(el2.getChecked(true,false));
+          checkData = el2.getChecked(false,true);
+          var roles = localStorage.getItem("click_col_roles");
+          // console.log("得到的选中的数据>>>>>>>>>>>>>>>>>>", checkData,roles);
+          var selects = [];
+          if (checkData.length>0){
+            checkData.forEach(element => {
+              var selects_dict = {};
+              selects_dict["menuitemid"] = element["id"]
+              selects.push(selects_dict)
             });
-
-
-
-            
-
+            selects[0]["roleid"] = roles;
           }else{
-            // publicservice.toastr(SavDanger);
-            var data = String(result['result']['message'][0]["message"])
-            that.RecordOperation('保存菜单分配', 0, "保存失败");
-            console.log("保存失败的原因：", result, result['result']['message'][0]);
-            danger(publicservice);
+            // checkData 为空
+            var item = {};
+            item["menuitemid"] = null;
+            item["roleid"] = roles;
+            selects.push(item);
           }
-          
-          
-        })
-        return false;
+          // 更新菜单
+          const colums = selects;
+          const table = "menu_item";
+          const method = "update_menu_role";
+          http.callRPC(table, method, colums).subscribe((result)=>{
+            const baseData = result['result']['message'][0];
+            if (baseData === 1){
+              // publicservice.toastr(SavSuccess);
+              success(publicservice);
+              // 成功后更新 menu_button_list
+              // updatabutton_list(publicservice,http);
+              localStorage.removeItem(MULU); // 这个是更新左侧目录栏
+  
+              that.RecordOperation('保存菜单分配', 1,"角色id:"+colums["roleid"] + ',' + "菜单id:"+colums["menuitemid"]);
+              // 加载树状menu  初始化
+              that.loadMenu().subscribe((treedata)=>{
+                // console.log("加载树状menu  初始化>>>>>>>>>>>", treedata)
+                that.showTreedata_v2(treedata, true);
+                
+              });
+  
+  
+  
+              
+  
+            }else{
+              // publicservice.toastr(SavDanger);
+              var data = String(result['result']['message'][0]["message"])
+              that.RecordOperation('保存菜单分配', 0, "保存失败");
+              console.log("保存失败的原因：", result, result['result']['message'][0]);
+              danger(publicservice);
+            }
+            
+            
+          })
+          return false;
+        }
+        
       })
 
       // console.log("为什么点击无法保存")
