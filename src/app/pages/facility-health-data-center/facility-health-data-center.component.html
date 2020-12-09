@@ -7,7 +7,7 @@
         <!-- 实时报警、历史报警 -->
         <div class="row">
             <div class="col-lg-9"></div>
-            <div class="col-lg-3" style="display: flex;">
+            <div class="col-lg-3" style="display: flex;margin-bottom: 10px;">
                 <div style="flex: auto;">
                 </div>
                 <div class="real_time_alert">
@@ -39,10 +39,15 @@
                     <ngx-my-date-range #data_range></ngx-my-date-range>
                 </div>
 
+                <!-- 搜索 -->
+                <div class="example-items-rows button_item query" *ngIf="button?.query">
+                    <button nbButton [status]="button?.query.class" size="small" (click)="action(button?.query.permission)"  [disabled]="button?.query.active == 0? true:false"><nb-icon [icon]="button?.query.icon"></nb-icon>{{button?.query.title}}</button>
+                </div>
+
                 
             </div>
             <!-- 导出、重置 -->
-            <div class="col-lg-3">
+            <div class="col-lg-3" style="display: flex;">
                 <div style="flex: auto;">
                 </div>
                 
@@ -56,6 +61,12 @@
                         <nb-icon icon="sync-outline"></nb-icon>
                     </button>
                 </div>
+            </div>
+        </div>
+        <!-- 历史报警table -->
+        <div class="row" [nbSpinner]="loading" nbSpinnerStatus="basic">
+            <div class="col-md-12">
+                <ngx-ag-table #ag_Grid   (nzpageindexchange)="nzpageindexchange_ag($event)"></ngx-ag-table>
             </div>
         </div>
     </nb-card-body>
