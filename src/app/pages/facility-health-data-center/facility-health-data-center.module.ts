@@ -16,10 +16,12 @@ import { FormsModule } from '@angular/forms';
 import { AgTableComponent } from './components/ag-table/ag-table.component';
 import { NzPaginationModule } from 'ng-zorro-antd';
 import { AgGridModule } from 'ag-grid-angular';
+import { RealTimeAlertComponent } from './real-time-alert/real-time-alert.component';
+import { HistoryAlertComponent } from './history-alert/history-alert.component';
 
 
 @NgModule({
-  declarations: [FacilityHealthDataCenterComponent, MySelectTreeComponent, MySelectTreeTypeComponent, MyInputComponent, MyDateRangeComponent, AgTableComponent, 
+  declarations: [FacilityHealthDataCenterComponent, MySelectTreeComponent, MySelectTreeTypeComponent, MyInputComponent, MyDateRangeComponent, AgTableComponent, RealTimeAlertComponent, HistoryAlertComponent, 
   ],
   imports: [
     CommonModule,

@@ -10,8 +10,6 @@ import { UserInfoService } from '../../../../services/user-info/user-info.servic
 import { PublicmethodService } from '../../../../services/publicmethod/publicmethod.service';
 
 
-// TaskProgressForAggridComponent
-import { TaskProgressForAggridComponent } from '../../test-task-manage/task-progress-for-aggrid/task-progress-for-aggrid.component';
 
 
 declare let $;
@@ -317,6 +315,10 @@ export class AgTableComponent implements OnInit {
   };
 
 
+  // this.PageSize   得到选中的页面
+  get_pagesize(){
+    return this.PageSize? this.PageSize: 10;
+  }
 
   // 父组件调用，告诉该组件数值改变了！
   update_agGrid(tableDatas){

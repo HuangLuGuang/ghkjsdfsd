@@ -66,19 +66,27 @@ export class ManKpiDetailComponent implements OnInit {
     
 
     this.layoutService.onInitLayoutSize().subscribe(f=>{
-      // 这是 左侧第一个柱状图
-      this.init_left_one();
-      
-      // 这是 右侧第一个饼图 right-one
-      this.init_right_ong();
-  
-      
-      // 这是左侧第二个饼图 left_two
-      this.init_left_two();
-  
-      // 这是 右侧第二个 柱状图 right-two
-      this.init_right_two();
+      let left_one = document.querySelector('.left-one');
+      if(left_one) echarts.init(left_one).resize();
+      let right_one = document.querySelector('.right-one');
+      if(right_one) echarts.init(right_one).resize();
+      let left_two = document.querySelector('.left-two');
+      if(left_two) echarts.init(left_two).resize();
+      let right_two = document.querySelector('.right-two');
+      if(right_two) echarts.init(right_two).resize();
     })
+    // 这是 左侧第一个柱状图
+    this.init_left_one();
+    
+    // 这是 右侧第一个饼图 right-one
+    this.init_right_ong();
+
+    
+    // 这是左侧第二个饼图 left_two
+    this.init_left_two();
+
+    // 这是 右侧第二个 柱状图 right-two
+    this.init_right_two();
 
     this.listen_windows_resize();
     

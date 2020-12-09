@@ -13,168 +13,168 @@ let kpi_detail = {
                 // backgroundColor: "#344b58",
                 backgroundColor: "#ffffff",
 
-                "tooltip": {
-                    "trigger": "axis",
-                    "axisPointer": {
-                        "type": "shadow",
+                tooltip: {
+                    trigger: "axis",
+                    axisPointer: {
+                        type: "shadow",
                         textStyle: {
                             color: "#fff"
                         }
                     },
                     // formatter: '{b0}: {c0}<br />{b1}: {c1}'
                 },
-                "grid": {
-                    "borderWidth": 0,
-                    "top": 20,
-                    "bottom": 70,
-                    "right": 10,
+                grid: {
+                    borderWidth: 0,
+                    top: 20,
+                    bottom: 70,
+                    right: 10,
                     textStyle: {
                         color: "#fff"
                     }
                 },
 
-                "legend": {
+                legend: {
                     //x: '4%',
                     bottom: "4%",
                     textStyle: {
                         color: '#90979c',
                     },
                     // "data": ['running', 'stop', 'placeout', "warning"]
-                    "data": afterdata.title
+                    data: afterdata.title
                 },
 
-                "calculable": true,
-                "xAxis": [{
-                    "type": "category",
-                    "axisLine": {
+                calculable: true,
+                xAxis: [{
+                    type: "category",
+                    axisLine: {
                         lineStyle: {
                             color: '#90979c'
                         }
                     },
-                    "splitLine": {
-                        "show": false
+                    splitLine: {
+                        show: false
                     },
-                    "axisTick": {
-                        "show": false
+                    axisTick: {
+                        show: false
                     },
-                    "splitArea": {
-                        "show": false
+                    splitArea: {
+                        show: false
                     },
-                    "axisLabel": {
-                        "interval": 0,
-                        "rotate": 35,
-                        "fontSize":9,
+                    axisLabel: {
+                        interval: 0,
+                        rotate: 35,
+                        fontSize:9,
                     },
-                    "data": afterdata.xData,
+                    data: afterdata.xData,
                 }],
-                "yAxis": [{
-                    "type": "value",
-                    "splitLine": {
-                        "show": false
+                yAxis: [{
+                    type: "value",
+                    splitLine: {
+                        show: false
                     },
-                    "axisLine": {
+                    axisLine: {
                         lineStyle: {
                             color: '#90979c'
                         }
                     },
-                    "axisTick": {
-                        "show": false
+                    axisTick: {
+                        show: false
                     },
-                    "axisLabel": {
-                        "interval": 0,
-                        "formatter": '{value} h'
+                    axisLabel: {
+                        interval: 0,
+                        formatter: '{value} h'
                     },
-                    "splitArea": {
-                        "show": false
+                    splitArea: {
+                        show: false
                     },
 
                 }],
 
-                "series": [{
+                series: [{
                         // "name": "running",
-                        "name": afterdata.title[0],
-                        "type": "bar",
-                        "stack": "总量",
-                        "barMaxWidth": 20,
-                        "barGap": "10%",
-                        "itemStyle": {
-                            "normal": {
-                                "color": 'rgb(126,255,182)',
-                                "label": {
-                                    "show": true,
-                                    "textStyle": {
-                                        "color": "#fff"
+                        name: afterdata.title[0],
+                        type: "bar",
+                        stack: "总量",
+                        barMaxWidth: 20,
+                        barGap: "10%",
+                        itemStyle: {
+                            normal: {
+                                color: 'rgb(126,255,182)',
+                                label: {
+                                    show: true,
+                                    textStyle: {
+                                        color: "#fff"
                                     },
-                                    "position": "insideTop",
+                                    position: "insideTop",
                                     formatter: function(p) {
                                         return p.value > 0 ? (p.value) : '';
                                     }
                                 }
                             }
                         },
-                        "data": afterdata.running,
+                        data: afterdata.running,
                     },
 
                     {
                         // "name": "stop",
-                        "name": afterdata.title[1],
-                        "type": "bar",
-                        "stack": "总量",
-                        "barMaxWidth": 20,
-                        "itemStyle": {
-                            "normal": {
-                                "color": 'rgb(0,76,166)',
-                                "barBorderRadius": 0,
-                                "label": {
-                                    "show": true,
-                                    "position": "top",
+                        name: afterdata.title[1],
+                        type: "bar",
+                        stack: "总量",
+                        barMaxWidth: 20,
+                        itemStyle: {
+                            normal: {
+                                color: 'rgb(0,76,166)',
+                                barBorderRadius: 0,
+                                label: {
+                                    show: true,
+                                    position: "top",
                                     formatter: function(p) {
                                         return p.value > 0 ? (p.value) : '';
                                     }
                                 }
                             }
                         },
-                        "data": afterdata.stop
+                        data: afterdata.stop
                     },
                     {
                         // "name": "placeout",
-                        "name": afterdata.title[2],
-                        "type": "bar",
-                        "stack": "总量",
-                        "itemStyle": {
-                            "normal": {
-                                "color": 'rgb(175,117,59)',
-                                "barBorderRadius": 0,
-                                "label": {
-                                    "show": true,
-                                    "position": "top",
+                        name: afterdata.title[2],
+                        type: "bar",
+                        stack: "总量",
+                        itemStyle: {
+                            normal: {
+                                color: 'rgb(175,117,59)',
+                                barBorderRadius: 0,
+                                label: {
+                                    show: true,
+                                    position: "top",
                                     formatter: function(p) {
                                         return p.value > 0 ? (p.value) : '';
                                     }
                                 }
                             }
                         },
-                        "data": afterdata.placeon
+                        data: afterdata.placeon
                     },
                     {
                         // "name": "warning",
-                        "name": afterdata.title[3],
-                        "type": "bar",
-                        "stack": "总量",
-                        "itemStyle": {
-                            "normal": {
-                                "color": 'rgb(150,13,48)',
-                                "barBorderRadius": 0,
-                                "label": {
-                                    "show": true,
-                                    "position": "top",
+                        name: afterdata.title[3],
+                        type: "bar",
+                        stack: "总量",
+                        itemStyle: {
+                            normal: {
+                                color: 'rgb(150,13,48)',
+                                barBorderRadius: 0,
+                                label: {
+                                    show: true,
+                                    position: "top",
                                     formatter: function(p) {
                                         return p.value > 0 ? (p.value) : '';
                                     }
                                 }
                             }
                         },
-                        "data": afterdata.warning
+                        data: afterdata.warning
                     }
                 ]
             }
@@ -273,10 +273,10 @@ let kpi_detail = {
                 }
             },
             grid: {
-                "borderWidth": 0,
-                "top": 20,
-                "bottom": 40,
-                "right": 10,
+                borderWidth: 0,
+                top: 20,
+                bottom: 40,
+                right: 10,
                 textStyle: {
                     color: "#fff"
                 }
@@ -305,7 +305,7 @@ let kpi_detail = {
                 //坐标值标注
                 axisLabel: {
                     show: true,
-                    "formatter": '{value} h'
+                    formatter: '{value} h'
                         // textStyle: {
                         //     color: '#fff',
                         // }
@@ -363,10 +363,10 @@ let kpi_detail = {
                 }
             },
             grid: {
-                "borderWidth": 0,
-                "top": 20,
-                "bottom": 40,
-                "right": 10,
+                borderWidth: 0,
+                top: 20,
+                bottom: 40,
+                right: 10,
                 textStyle: {
                     color: "#fff"
                 }
@@ -386,7 +386,7 @@ let kpi_detail = {
                 //坐标值标注
                 axisLabel: {
                     show: true,
-                    "rotate": 20
+                    rotate: 20
                         // textStyle: {
                         //     color: '#fff',
                         // }
@@ -400,7 +400,7 @@ let kpi_detail = {
                 //坐标值标注
                 axisLabel: {
                     show: true,
-                    "formatter": '{value} h'
+                    formatter: '{value} h'
                         // textStyle: {
                         //     color: '#fff',
                         // }

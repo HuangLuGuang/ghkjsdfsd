@@ -54,7 +54,7 @@ export class AgTableComponent implements OnInit {
   current = 1;  // 当前页
   totalPageNumbers=10;  // 总数据条数
   setPageCount = 10;     // 默认每页10条数据
-  private requestPageCount = 2; // 每次请求的数目
+  private requestPageCount = 1; // 每次请求的数目
   PageSize; // 下拉框中的数据
   
 
@@ -315,6 +315,10 @@ export class AgTableComponent implements OnInit {
   };
 
 
+  // this.PageSize   得到选中的页面
+  get_pagesize(){
+    return this.PageSize? this.PageSize: 10;
+  }
 
   // 父组件调用，告诉该组件数值改变了！
   update_agGrid(tableDatas){

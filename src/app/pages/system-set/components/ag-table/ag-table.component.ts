@@ -318,6 +318,10 @@ export class AgTableComponent implements OnInit {
     this.gridColumnApi = params.columnApi;
   }
 
+  // this.PageSize   得到选中的页面
+  get_pagesize(){
+    return this.PageSize? this.PageSize: 10;
+  }
 
   // 父组件调用，告诉该组件数值改变了！
   update_agGrid(tableDatas){

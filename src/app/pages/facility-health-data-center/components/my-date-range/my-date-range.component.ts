@@ -17,22 +17,29 @@ export class MyDateRangeComponent implements OnInit {
     // 初始化 日期范围！
     this.initdate();
   }
+  ngAfterViewInit(){
+  }
+
+  ngOnDestroy(){
+    $(".datacenter_report_date").remove();
+  }
 
   init_value = "2019-12-01 - 2020-12-21" // 默认日期
 
   // 初始化日期范围
   initdate(){
     var init_value = this.init_value;
+    console.log("初始化日期范围" , init_value)
     var that = this;
     layui.use('laydate', function(){
       var laydate = layui.laydate;
       //日期范围 2010-10-01 2020-11-21
       laydate.render({
-        elem: '#divice_kpi_report_date'
+        elem: '.datacenter_report_date'
         ,range: true
         // 初始化日期范围 
         ,value: init_value
-        // ,trigger: 'click'//呼出事件改成click  控件选择完毕回调
+        ,trigger: 'click' //采用click弹出
         ,done: function(value, date, endDate){
           console.log(value); //得到日期生成的值，如：2017-08-18
           that.init_value = value;
