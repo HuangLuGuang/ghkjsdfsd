@@ -219,7 +219,7 @@ export class NewMenuComponent implements OnInit {
             parentid: isnot_edit["parentid"]?Number(isnot_edit["parentid"]):null,
             orderindex: Number(data.field["orderindex"]),
             type: data.field["type"],
-            icon: data.field["icon"],
+            icon: data.field["icon"] === ""? null: data.field["icon"],
             textid: textid,
             active: data.field["visible"],
           };
@@ -273,9 +273,9 @@ export class NewMenuComponent implements OnInit {
       });
       //监听提交--菜单
       form.on('submit(caidan)', function(data){
-        layer.alert(JSON.stringify(data.field), {
-          title: '菜单'
-        })
+        // layer.alert(JSON.stringify(data.field), {
+        //   title: '菜单'
+        // })
         data.field["type"] = 1;
         // data.field["textid"] = textid;
         data.field["username"] = username;
@@ -292,7 +292,7 @@ export class NewMenuComponent implements OnInit {
             parentid: data.field["parenttitle"]?Number(data.field["parenttitle"]):null,
             orderindex: Number(data.field["orderindex"]),
             type: data.field["type"],
-            icon: data.field["icon"],
+            icon: data.field["icon"] === "null"?null:data.field["icon"],
             textid: textid,
             active: data.field["visible"],
           };
