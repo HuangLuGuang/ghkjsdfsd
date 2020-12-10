@@ -25,6 +25,7 @@ import { EquipmentDetailsComponent } from './equipment-details/equipment-details
 import { EquipmentFourRoadComponent } from './equipment-four-road/equipment-four-road.component';
 import { EquipmentBoardComponent } from './equipment-board.component';
 import { DigitCompletionPipe } from './pipe/digit-completion.pipe';
+import { TwoDriveChassisComponent } from './two-drive-chassis/two-drive-chassis.component';
 
 
 // 组件
@@ -38,7 +39,8 @@ const COMPONENT = [
   TestInformationComponent,
   ExperimentParamsComponent,TestInformationV2Component,
   OilSourceMonitoringComponent,
-  DigitCompletionPipe
+  DigitCompletionPipe,
+  TwoDriveChassisComponent
 ]
 //设备看板模块
 @NgModule({

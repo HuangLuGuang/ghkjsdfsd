@@ -44,6 +44,31 @@ export const colors = [
 ]
 
 
+ //rgb转换16进制
+ export const colorRgb=(sColor,transparency)=>{
+  sColor = sColor.toLowerCase();
+  //十六进制颜色值的正则表达式
+  var reg = /^#([0-9a-fA-f]{3}|[0-9a-fA-f]{6})$/;
+  // 如果是16进制颜色
+  if (sColor && reg.test(sColor)) {
+      if (sColor.length === 4) {
+          var sColorNew = "#";
+          for (var i=1; i<4; i+=1) {
+              sColorNew += sColor.slice(i, i+1).concat(sColor.slice(i, i+1));    
+          }
+          sColor = sColorNew;
+      }
+      //处理六位的颜色值
+      var sColorChange = [];
+      for (var i=1; i<7; i+=2) {
+          sColorChange.push(parseInt("0x"+sColor.slice(i, i+2)));    
+      }
+      sColor = "RGB(" + sColorChange.join(",") + ","+transparency+")";
+  }
+  return sColor;
+};
+
+
 
 
 //时间格式转换
@@ -118,17 +143,24 @@ export const painting_time = (f,time,isthis,arr) =>{
       :x[key] =  arr.map(m =>( dateformat(new Date(m[1]),'dd:hh:ss')));
     }
   });
+
   //进行匹配赋值
-  isthis.click_list.forEach((f,i)=>{
-      isthis[`attrs_${i+1}`][f].forEach((el,j) => {
-      // if(isthis[`attrs_${i+1}`].xData.length != el.value.length)
-      //     el.value.splice(isthis[`attrs_${i+1}`].xData.length);
+  // let c,el;
+  // for(let i = 0;i<isthis.click_list.length;i++){
+  //     c = isthis.click_list[i];
+  //     for(let j = 0;j<isthis[`attrs_${i+1}`][c].length;j++){
+        // el = isthis[`attrs_${i+1}`][c][j];
+  //     }
+  // }
+  isthis.click_list.forEach((c,i)=>{
+      isthis[`attrs_${i+1}`][c].forEach((el,j) => {
+
 
       //判断当前参数是否本次请求内是否有拿到值
-      if(data[el.nameEn.replace(".","").toLocaleLowerCase()]){
+      if(data[el.nameEn.replace(".","").toLocaleLowerCase()] ){
         //将y轴的值放到组装好的对象中
         time == 1?el.value.push(data[el.nameEn.replace(".","").toLocaleLowerCase()][0]):
-        (el.value = [],el.value =  data[el.nameEn.replace(".","").toLocaleLowerCase()]);
+        (el.value = [],el.value =  data[el.nameEn.replace(".","").toLocaleLowerCase()].filter(l=>true));
 
         //将x轴的值放到组装好的对象中
         if(!isthis[`attrs_${i+1}`].xData)isthis[`attrs_${i+1}`].xData = [];
@@ -150,7 +182,9 @@ export const painting_time = (f,time,isthis,arr) =>{
     })
 
   })
-
+    // }
+  // }
+  
   //吧当前所有的全部更新
   arr.forEach((f,i)=>{
     isthis[`chart_${i+1}`].painting({attrs:isthis[`attrs_${i+1}`][isthis.click_list[i]],xData:isthis[`attrs_${i+1}`].xData,index:1});
