@@ -366,6 +366,7 @@ export class RoleComponent implements OnInit {
     // disabled  禁止保存按钮
     var $save = $("#save");
     $save.attr("class", "layui-btn layui-btn-disabled");
+    $save.attr("style", "cursor: not-allowed;");
   }
 
   // agGrid 点击行时，update 树状菜单！

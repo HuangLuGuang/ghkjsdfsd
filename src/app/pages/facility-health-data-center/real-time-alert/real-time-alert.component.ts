@@ -83,14 +83,16 @@ export class RealTimeAlertComponent implements OnInit {
     this.gridData = [];
     // 是否 每页多少也，设置为默认值
     this.tableDatas.isno_refresh_page_size = true;
-    this.inttable();
-    this.loading = false;
-    this.refresh = false;
-
+    
     // 取消选择的数据 delselect
     this.myinput.del_input_value();
     this.groups_func.dropselect();
     this.eimdevicetpye.dropselect();
+
+    this.inttable();
+    this.loading = false;
+    this.refresh = false;
+
   }
 
   // button按钮
@@ -189,7 +191,7 @@ export class RealTimeAlertComponent implements OnInit {
         this.tableDatas.PageSize = columns.limit;
         this.gridData.push(...message)
         this.tableDatas.rowData = this.gridData;
-        var totalpagenumbers = this.gridData.length;
+        var totalpagenumbers = tabledata['numbers']? tabledata['numbers'][0]['numbers']: '未得到总条数';
         this.tableDatas.totalPageNumbers = totalpagenumbers;
         this.agGrid.init_agGrid(this.tableDatas); // 告诉组件刷新！
         this.RecordOperation('搜索', 1, "设备实时报警");

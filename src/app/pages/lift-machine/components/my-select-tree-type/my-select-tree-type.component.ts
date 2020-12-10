@@ -28,6 +28,10 @@ export class MySelectTreeTypeComponent implements OnInit {
     $(".tree_type_isShow").hide()
   }
   
+  // 节点被选择
+  select_data = []; //[{id: 3, label: "nvh"},]
+  select_label_list = [];
+
   // 下拉树示例
   init_select_trees(data){
     // data存在-显示，否则不显示
@@ -65,23 +69,23 @@ export class MySelectTreeTypeComponent implements OnInit {
       })
 
       // 节点被选择
-      var select_data = []; //[{id: 3, label: "nvh"},]
-      var select_label_list = [];
+      // var select_data = []; //[{id: 3, label: "nvh"},]
+      // var select_label_list = [];
       eleTree.on("nodeChecked(datatype)",function(d) {
         // -----------------多选，科室功能组
         if (d.isChecked){
-          select_data.push(d.data.currentData);// {id: 3, label: "nvh"}
-          select_label_list.push(d.data.currentData.label);
+          that.select_data.push(d.data.currentData);// {id: 3, label: "nvh"}
+          that.select_label_list.push(d.data.currentData.label);
           that.select_type.push(d.data.currentData.id)
         }else{
-          var index = select_label_list.indexOf(d.data.currentData.label);
+          var index = that.select_label_list.indexOf(d.data.currentData.label);
           if( index != -1){
-            select_label_list.splice(index, 1); // 删除取消的
+            that.select_label_list.splice(index, 1); // 删除取消的
             that.select_type.splice(index, 1);
           };
           // that.select_type
         }
-        $("[name='title_type']").val(select_label_list.join(';'));
+        $("[name='title_type']").val(that.select_label_list.join(';'));
 
         // console.log(d.node);    // 点击的dom节点
         // console.log(this);      // input对应的dom
@@ -103,6 +107,7 @@ export class MySelectTreeTypeComponent implements OnInit {
   delselect(){
     $("[name='title_type']").val("");
     this.select_type = [];
+    this.select_label_list = [];
   }
 
   // 清空下拉数据

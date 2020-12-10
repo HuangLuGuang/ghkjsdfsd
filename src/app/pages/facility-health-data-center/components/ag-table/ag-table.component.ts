@@ -315,7 +315,7 @@ export class AgTableComponent implements OnInit {
   };
 
 
-  // this.PageSize   得到选中的页面
+  // this.PageSize   得到选中的每页几条数据
   get_pagesize(){
     return this.PageSize? this.PageSize: 10;
   }

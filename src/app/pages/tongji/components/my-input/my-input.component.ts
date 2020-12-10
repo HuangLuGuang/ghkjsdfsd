@@ -18,6 +18,11 @@ export class MyInputComponent implements OnInit {
     $(".delet_input_value").hide()
     
   }
+
+  // employeenumber
+  ngOnDestroy(){
+    $("#employeenumber").remove();
+  }
   
   ngAfterViewInit(){
     $("#employeenumber").attr("placeholder", this.myinput_placeholder)

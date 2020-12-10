@@ -99,7 +99,7 @@ let kpi_detail = {
                         barGap: "10%",
                         itemStyle: {
                             normal: {
-                                color: 'rgb(126,255,182)',
+                                color: 'rgb(78,203,115)', //运行
                                 label: {
                                     show: true,
                                     textStyle: {
@@ -123,7 +123,7 @@ let kpi_detail = {
                         barMaxWidth: 20,
                         itemStyle: {
                             normal: {
-                                color: 'rgb(0,76,166)',
+                                color: 'rgb(58,160,255)', // 空闲
                                 barBorderRadius: 0,
                                 label: {
                                     show: true,
@@ -143,7 +143,7 @@ let kpi_detail = {
                         stack: "总量",
                         itemStyle: {
                             normal: {
-                                color: 'rgb(175,117,59)',
+                                color: 'rgb(249,210,54)', // 占位
                                 barBorderRadius: 0,
                                 label: {
                                     show: true,
@@ -163,7 +163,7 @@ let kpi_detail = {
                         stack: "总量",
                         itemStyle: {
                             normal: {
-                                color: 'rgb(150,13,48)',
+                                color: 'rgb(242,99,123)', // 维保
                                 barBorderRadius: 0,
                                 label: {
                                     show: true,
@@ -196,9 +196,11 @@ let kpi_detail = {
         var mychart = echarts.init(document.querySelector(element));
         var color = [];
         if(afterdatas.title.length<4){
-            color = ['rgb(126,255,182)', 'rgb(0,76,166)'];
+            // 运行、空闲
+            color = ['rgb(78,203,115)', 'rgb(58,160,255)'];
         }else(
-            color = ['rgb(175,117,59)', 'rgb(126,255,182)', 'rgb(0,76,166)', 'rgb(150,13,48)']
+            // 占位、运行、空闲、维保
+            color = ['rgb(249,210,54)', 'rgb(78,203,115)', 'rgb(58,160,255)', 'rgb(242,99,123)']
         )
         // 配置
         var option = {
@@ -326,7 +328,7 @@ let kpi_detail = {
                 type: 'bar',
                 barWidth: '6%',
                 itemStyle:{
-                    color: 'rgb(126,255,182)' // 运行
+                    color: 'rgb(78,203,115)' // 运行
                 },
                 data: afterdatas.yData
             }]
@@ -421,7 +423,7 @@ let kpi_detail = {
                 type: 'bar',
                 barWidth: '6%',
                 itemStyle:{
-                    color: 'rgb(126,255,182)' // 运行
+                    color: 'rgb(78,203,115)' // 运行
                 },
                 data: afterdatas.yData
             }]

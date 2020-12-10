@@ -9,6 +9,8 @@ let kpi_detail = {
         // 配置
         var option = {
             // color: ['#3398DB'],
+            // 运行、空闲、占位、维保
+            color: ['rgb(78,203,115)', 'rgb(58,160,255)', 'rgb(249,210,54)', 'rgb(242,99,123)'],
             tooltip: {
                 trigger: 'axis',
                 axisPointer: {            // 坐标轴指示器，坐标轴触发有效
@@ -74,13 +76,14 @@ let kpi_detail = {
         var mychart = echarts.init(document.querySelector(element));
         var color = [];
         if(afterdatas.title.length<4){
-            color = ['rgb(126,255,182)', 'rgb(0,76,166)'];
+            color = ['rgb(78,203,115)', 'rgb(58,160,255)'];
         }else(
-            color = ['rgb(175,117,59)', 'rgb(126,255,182)', 'rgb(0,76,166)', 'rgb(150,13,48)']
+            // color = ['rgb(175,117,59)', 'rgb(126,255,182)', 'rgb(0,76,166)', 'rgb(150,13,48)']
+            // 占位、运行、空闲、维保
+            color = ['rgb(249,210,54)', 'rgb(78,203,115)', 'rgb(58,160,255)', 'rgb(242,99,123)']
         )
         // 配置
         var option = {
-
             // 按照顺序，运行、空闲、占位、维保 running stop placeon warning
             // color: ['#37a2da', '#9fe6b8', '#ffdb5c', '#fb7293'], 占位、运行、空闲、维保 placeon running stop warning
             
