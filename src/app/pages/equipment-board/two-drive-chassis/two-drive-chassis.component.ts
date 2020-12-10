@@ -1,4 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
+import { Observable } from 'rxjs';
+import { LayoutService } from '../../../@core/utils/layout.service';
+import { colors, rgb_del_red,list_jion,list_copy, colorRgb } from '../equipment-board';
+
+let equipment_four_road = require('../../../../assets/eimdoard/equipment/js/equipment-four-road');
 
 @Component({
   selector: 'ngx-two-drive-chassis',
@@ -6,10 +12,261 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./two-drive-chassis.component.scss']
 })
 export class TwoDriveChassisComponent implements OnInit {
+  attrs = [{ 
+    name: "参数1",nameEn :'param1', unit: "V",value: [],show:true
+    ,color:["#ff2400", "#e47833"]
+  },{ 
+      name: "参数2",nameEn :'param2', unit: "V",value: [],show:true,
+      color:["#ff00ff", "#ff00ff"]
+  },{ 
+      name: "参数3",nameEn :'param3', unit: "V",value: [],show:true,
+      color:["#d9d919", "#d9d919"]
+  },{ 
+    name: "参数4",nameEn :'param4', unit: "V",value: [],show:true,
+    color:["#d9d919", "#d9d919"]
+},{ 
+  name: "参数5",nameEn :'param5', unit: "V",value: [],show:true,
+  color:["#d9d919", "#d9d919"]
+},{ 
+  name: "参数6",nameEn :'param6', unit: "V",value: [],show:true,
+  color:["#d9d919", "#d9d919"]
+}]
+  xData = [];
 
-  constructor() { }
+  attrs_1 = {};
+  attrs_2 = [];
+  attrs_3 = [];
+
+ 
+ 
+
+
+  switchStatus:any ={
+    title:[`Station
+    name`,'开/关',`分油器开`,`分油器高`,'内锁','程序内锁'],
+    data:[['Act1 and Act2',
+    {value:1,color:'green',id:'circle'},{value:1,color:'green',id:'circle'},{value:1,color:'green',id:'circle'},
+    {value:1,color:'white',id:'strip'},{value:1,color:'white',id:'strip'}]]
+  }
+
+  real_data = {
+    arr:[{name:'舱状态',nameEn:'CabinStatus',value:1},{name:'新封系统',nameEn:'NewSealSystem',value:1}
+    ,{name:'转轮排湿',nameEn:'RunnerDehumidi',value:1},{name:'制冷除湿',nameEn:'RefrigeraDehumidifica',value:1}
+    ,{name:'制冷机组1',nameEn:'RefrigerationUnit1',value:1},{name:'制冷机组2',nameEn:'RefrigerationUnit2',value:1},]
+  }
+
+
+
+  discharge = [
+    {value:'12',name:'里程1',nameEn:'',unit:'Km'},
+    {value:'12',name:'里程2',nameEn:'',unit:'Km'},
+    {value:'12',name:'里程3',nameEn:'',unit:'Km'},
+    {value:'12',name:'里程4',nameEn:'',unit:'Km'},
+    {value:'12',name:'风扇转速系数n0',nameEn:'',unit:'%'},
+    {value:'12',name:'风扇转速系数n1',nameEn:'',unit:'%/km/h'},
+    {value:'12',name:'风扇转速系数n3',nameEn:'',unit:'%/(km/h)^2'},
+
+  ]
+
+  img = {
+    url:'assets/eimdoard/equipment/images/两驱底盘.png',
+    name:''
+  }
+
+  list = ['12','34','56'];
+
+  @ViewChild('chart_1')chart_1:any;
+
+  click_list = [];//当前选中的tag
+  deviceid: any;
+
+
+  timer:any;//定时器
+  language = '';//语言 空为zh-CN中文
+  subscribeList:any = {};
+
+  constructor(private layoutService: LayoutService,private activateInfo:ActivatedRoute) { }
 
   ngOnInit(): void {
+    //获取当前语言
+    let language = localStorage.getItem('currentLanguage');
+    if(language!='zh-CN')this.language = language;
+    this.subscribeList.layout = this.layoutService.onInitLayoutSize().subscribe(f=>{
+      this.initChart();
+    })
+
+    this.subscribeList.router = this.activateInfo.params.subscribe(f =>{
+      console.log(f);
+      if(document.getElementById('head_title'))
+        document.getElementById('head_title').innerText = f.title;
+    })
+    let rgb = '';
+    this.attrs.forEach((f,i)=>{
+      if(i > colors.length-1)
+        rgb =  rgb_del_red();
+      else
+        rgb =  colors[i];
+      f.color = [rgb,rgb];
+    })
+
+    this.click_list = [this.list[0],this.list[0],this.list[0]]
+
+    //赋值
+    list_copy(this.list,`attrs_1`,this);
+    this.attrs_2 = JSON.parse(JSON.stringify(this.attrs));
+    this.attrs_3 = JSON.parse(JSON.stringify(this.attrs));
+    this.getData();
+    setTimeout(() => {
+      this.initChart();
+      this.in();
+    }, 1000);
+
+    window.addEventListener('reszie',this.resize)
+  }
+  
+  resize=()=>{
+    let obs = new Observable(f=>{
+      let id = [
+        'electric_chart_0', 'electric_chart_1', 'electric_chart_2', 'electric_chart_3',
+        'real_temperature_4','real_temperature_5',
+        // 'temp_humidity_pressure'
+      ];
+      id.forEach(f=>{
+        if(document.getElementById(f))
+          echarts.init(document.getElementById(f)).resize();
+      })
+      f.next('异步执行完成')
+    })
+    obs.subscribe(f=>{
+      console.log(f)
+    })
+  }
+
+  getData(){
+    // this.http.callRPC('panel_detail','get_device_panel_detail',
+    //   {"deviceid":this.deviceid}).subscribe((f:any) =>{
+
+    //   })
+    
+    let g = 1;
+    this.timer = setInterval(() =>{
+      this.xData.push(g);
+      if(this.xData.length>10)this.xData.splice(0,1);
+      g++;
+
+      list_jion(this.list,'attrs_1',this);
+      [2,3].forEach(f=>{
+        this[`attrs_${f}`].forEach(m =>{
+          m.value.push(parseInt((Math.random()*100).toString()));
+          if(m.value.length >10 )m.value.splice(0,1);
+        })
+      })
+      //只有一个公共组件
+      this.chart_1.painting({attrs:this.attrs_1[this.click_list[0]],xData:this.xData,index:g});
+      let data = this.attrs.filter(f=> f.show);
+      let data_1 = {
+          series:[],
+          xData: []
+      };
+      data.forEach(f=>{
+          f.color.forEach((element,i) => {
+              element = colorRgb(element,i == 0?'0.3':0.7) 
+          });
+          data_1.series.push({
+              name:f[this.language],
+              color:f.color,
+              value:f.value
+          });
+      })
+      data_1.xData = this.xData;
+      if(document.getElementById('discharge_chart')){
+        let myChart_8 = echarts.init(document.getElementById('discharge_chart'));;
+        equipment_four_road.create_broken_line(data_1,myChart_8);
+      }
+
+    },2000)
+    
+  }
+
+  timer1;
+
+  in(){
+    this.timer1 = setInterval(f=>{
+      if(!document.getElementById('real_temperature_5'))
+        equipment_four_road.create_real_disk({value:parseInt((Math.random()*100).toString()),text:this.language?'RealTEMP':'实时温度',unit:'%RH'},
+        echarts.init(document.getElementById('real_temperature_5')));
+      if(!document.getElementById('real_temperature_4'))
+        equipment_four_road.create_real_disk({value:parseInt((Math.random()*100).toString()),text:this.language?'RealRH':'实时湿度',unit:'℃'},
+        document.getElementById('real_temperature_4'));
+      
+     
+    },3000)
+  }
+
+  initChart(){
+    this.initChart_1();
+    // if(document.getElementById('temp_humidity_pressure'))
+    //     equipment_four_road.create_temp_humidity_pressure_gauge({
+      //     temp:{
+      //         value:10,
+      //         max:120,
+      //         color:[
+      //             [0.4, '#203add'],
+      //             [1, '#0d1758']
+      //         ]
+      //     },
+      //     humidity:{
+      //         value:10,
+      //         max:120,
+      //         color:[
+      //             [0.4, '#203add'],
+      //             [1, '#0d1758']
+      //         ]
+      //     },
+      //     pressure:{
+      //         value:10,
+      //         max:120,
+      //         color:[
+      //             [0.4, '#203add'],
+      //             [1, '#0d1758']
+      //         ]
+      //     }
+      // },echarts.init(document.getElementById('temp_humidity_pressure')))
+
+  }
+
+  initChart_1(){
+    if(document.getElementById('real_temperature_4'))
+      equipment_four_road.create_real_disk({value:55,text:this.language?'RealTEMP':'实时温度',unit:'℃'},echarts.init(document.getElementById('real_temperature_4')));
+    if(document.getElementById('real_temperature_5'))
+      equipment_four_road.create_real_disk({value:55,text:this.language?'RealRH':'实时湿度',unit:'%RH'},echarts.init(document.getElementById('real_temperature_5')));
+    
+  }
+
+  getleft(item){
+    return item > 40?item-20+'%':'20%';
+  }
+
+
+  get_td_width(num){
+    return 100/num+'%'
+  }
+
+  
+
+  clicEvent(e,i){
+    //记录选定
+    this.click_list[i-1] = e;
+    this[`chart_${i}`].painting({attrs:this[`attrs_${i}`][e],xData:this.xData});
+  }
+
+  ngOnDestroy(){
+    clearInterval(this.timer);
+    clearInterval(this.timer1)
+    for(let key in this.subscribeList){
+      this.subscribeList[key].unsubscribe();
+    }
+    window.removeEventListener('resize',this.resize)
   }
 
 }

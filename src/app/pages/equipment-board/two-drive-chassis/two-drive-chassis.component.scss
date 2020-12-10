@@ -1,0 +1,253 @@
+#four_road {
+    width: 100%;
+    height: 100%;
+    min-height: 777px;
+    // height: 900px;
+    .first_first,
+    .first_second,
+    .first_third,
+    .sceond_fisrt,
+    .sceond_third,
+    .thrid_scend {
+        // height: 33%;
+        width: 100%;
+        display: flex;
+        // box-shadow: 0 0px 1px 3px rgba(50, 84, 129, 1) inset;
+        background: url('/assets/eimdoard/equipment/images/blue_beijing.png') center center;
+        background-size: cover;
+        -webkit-background-size: cover;
+        -o-background-size: cover;
+        padding: 2%;
+        color: white;
+        position: relative;
+    }
+    .thrid {
+        height: 33%;
+        width: 100%;
+        // box-shadow: 0 0px 1px 3px rgba(50, 84, 129, 1) inset;
+        background: url('/assets/eimdoard/equipment/images/blue_beijing.png') center center;
+        background-size: cover;
+        -webkit-background-size: cover;
+        -o-background-size: cover;
+        padding: 3% 2% 0% 2%;
+        ;
+        color: white;
+        position: relative;
+    }
+    .bo {
+        background: url('/assets/eimdoard/equipment/images/blue_beijing.png') center center;
+        background-size: cover;
+        -webkit-background-size: cover;
+        -o-background-size: cover;
+    }
+    .part_title {
+        position: absolute;
+        // width: 100px;
+        padding: 0% 2%;
+        height: 20px;
+        color: wheat;
+        background: #4472c4;
+        top: 0px;
+        left: 0px;
+        min-width: 80px;
+    }
+    .font_w_too_long {
+        word-break: keep-all;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+    }
+    .first_second_font {
+        text-align: left;
+        padding: 5px 0px 0px 10px;
+        display: flex;
+    }
+    .table {
+        // border: 1px solid rgb(68, 114, 196);
+        color: white;
+        table {
+            width: 100%;
+            height: 100%;
+            .header {
+                // height: 10%;
+                background: rgb(68, 114, 196);
+                td {
+                    width: 33%;
+                    padding: 5px;
+                }
+            }
+            .body {
+                font-size: 12px;
+                .progress_o {
+                    border-radius: 3px;
+                    width: 100%;
+                }
+                td {
+                    padding: 5px;
+                    width: 33%;
+                }
+                .progres_1 {
+                    color: white;
+                    position: relative;
+                }
+                .progres_2 {
+                    position: absolute;
+                    top: 0px;
+                    ;
+                }
+            }
+        }
+        .font_tolong {
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+    }
+    .lattice_layout {
+        margin-top: 10px;
+        display: inherit;
+        position: relative;
+    }
+    .table_bo {
+        border: 1px solid #4472c4;
+    }
+    .center_img {
+        // height: 100;
+        height: 33%;
+        position: relative;
+        margin-top: 10px;
+        #img {
+            height: 100%;
+            width: 100%;
+            // padding-top: 5%;
+            // padding-bottom: 5%;
+            // background: url('/assets/eimdoard/equipment/images/car_2.png');
+            background-size: cover;
+            -webkit-background-size: cover;
+            -o-background-size: cover;
+            background-position: center center;
+        }
+    }
+    .dis_f_w {
+        display: flex;
+        flex-wrap: wrap;
+    }
+    #circular {
+        width: 60%;
+        height: 60%;
+        border-radius: 60px;
+        background: rgb(59, 56, 56);
+        margin: 15%;
+    }
+    .display_f {
+        display: flex;
+    }
+    .h_46_w_30 {
+        height: 46%;
+        width: 30%;
+        display: flex;
+        padding: 2%;
+    }
+    .h_46_w_70 {
+        height: 46%;
+        width: 70%;
+    }
+    #strip {
+        width: 23px;
+        height: 6px;
+        background: white;
+        border-radius: 2px;
+        margin: 25%;
+    }
+    #circle {
+        width: 20px;
+        height: 20px;
+        background: #7fee1d;
+        border-radius: 60px;
+        // margin-left: 10%;
+    }
+    .white_font {
+        color: white;
+        font-size: 12px;
+        margin-bottom: 5px;
+    }
+    .display_wrap {
+        display: flex;
+        flex-wrap: wrap;
+    }
+    #real_temperature_4,
+    #real_temperature_5,
+    #real_temperature_6 {
+        width: 25%;
+        height: 100%;
+    }
+    #operating_status {
+        width: 100%;
+        height: 100%;
+    }
+    .operating_status_div {
+        position: absolute;
+    }
+    .font_w_20 {
+        font-size: 12px;
+        width: 20%;
+        div {
+            // 超出显示省略号
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+    }
+    .discharge {
+        color: white;
+        margin-left: 1%;
+        .div_blue {
+            background: #4472c4;
+        }
+    }
+    #discharge_chart {
+        height: 100%;
+        // background: url('/assets/eimdoard/equipment/images/car_3.png') no-repeat;
+        // background-size: 61% 100%;
+        // background-position-x: 132px;
+    }
+    #discharge_chart_2 {
+        height: 100%;
+    }
+    .width_20 {
+        width: 20%;
+    }
+    .width_21 {
+        width: 21%;
+    }
+    .width_23 {
+        width: 23%;
+    }
+    .width_25 {
+        width: 25%;
+    }
+    .width_30 {
+        width: 30%;
+    }
+    .width_33 {
+        width: 33%;
+    }
+    .width_50 {
+        width: 50%;
+    }
+    .width_70 {
+        width: 70%;
+    }
+    .h_46_w_100 {
+        height: 46%;
+        width: 100%;
+    }
+    .overflow_height_85 {
+        height: 85%;
+        overflow: auto;
+    }
+    ngx-chart-curve {
+        width: 100%;
+    }
+}

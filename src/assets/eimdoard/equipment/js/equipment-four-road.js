@@ -1994,7 +1994,7 @@ let equipment_four_road = {
                         rich: {},
                         offsetCenter: [0, '65%'],
                         formatter: function(value) {
-                            return (value + "RH");
+                            return (value + "%RH");
                         }
                     },
                     data: [{

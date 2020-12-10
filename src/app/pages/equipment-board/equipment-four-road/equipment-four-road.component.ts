@@ -114,7 +114,7 @@ export class EquipmentFourRoadComponent implements OnInit {
   xData:[]
     };
   attrs_3:any = {"equipment.dataChannelList":[{ 
-      name: "左后输出",nameEn :'RightFrontDisplacement', unit: "V",value: [],show:true
+      name: "右前位移",nameEn :'RightFrontDisplacement', unit: "V",value: [],show:true
       ,color:["", ""]
     }],
     xData:[]};
