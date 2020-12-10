@@ -33,7 +33,7 @@ export class UserEmployeeGroupComponent implements OnInit {
   ngOnInit(): void {
     // 添加用户组
     var isnot_edit = JSON.parse(this.rowdata);
-    console.log("添加用户组\n\n", isnot_edit)
+    // console.log("添加用户组\n\n", isnot_edit)
     if (isnot_edit != 'add'){
       // 编辑 科室/功能组
       this.title = "编辑科室/功能组"
@@ -52,7 +52,6 @@ export class UserEmployeeGroupComponent implements OnInit {
     var publicmethod = this.publicmethod;
     var dialogRef = this.dialogRef;
     var success = this.success;
-    var danger = this.danger;
     var editsuccess = this.editsuccess;
     var editdanger = this.editdanger;
 
@@ -130,7 +129,7 @@ export class UserEmployeeGroupComponent implements OnInit {
 
       form.on("submit(submit)", function(data){
         //获取表单区域所有值
-        console.log("v======获取表单区域所有值",data.field) //当前容器的全部表单字段，名值对形式：{name: value}
+        // console.log("v======获取表单区域所有值",data.field) //当前容器的全部表单字段，名值对形式：{name: value}
         var send_data = data.field;
         send_data["active"] = send_data["active"] === "on"? 1: 0;
         // 是否编辑
@@ -160,7 +159,7 @@ export class UserEmployeeGroupComponent implements OnInit {
           // 更新修改的数据！ insert_group 
           getsecurity("employee", "insert_group",send_data,http).subscribe((res)=>{
             if (res ===1 ){
-              success(publicmethod)
+              that.success()
               dialogRef.close(true);
               var option = "新增"
               var infodata = "科室/功能组:" + send_data["group"] + "," + "科室/功能组(en):" + send_data["group_name"];
@@ -171,7 +170,8 @@ export class UserEmployeeGroupComponent implements OnInit {
               var option = "新增"
               var infodata = "科室/功能组:" + send_data["group"] + "," + "科室/功能组(en):" + send_data["group_name"];
               that.RecordOperation(0, option, infodata);
-              danger(publicmethod)
+              var data = res
+              that.danger(data)
             }
           })
         }
@@ -203,11 +203,11 @@ export class UserEmployeeGroupComponent implements OnInit {
   }
 
   // 展示状态
-  success(publicservice){
-    publicservice.showngxtoastr({position: 'toast-top-right', status: 'success', conent:"添加成功!"});
+  success(){
+    this.publicmethod.showngxtoastr({position: 'toast-top-right', status: 'success', conent:"添加成功!"});
   }
-  danger(publicservice){
-    publicservice.showngxtoastr({position: 'toast-top-right', status: 'danger', conent:"添加失败!"});
+  danger(data){
+    this.publicmethod.showngxtoastr({position: 'toast-top-right', status: 'danger', conent:"添加失败:" + data});
   }
   // 展示状态
   editsuccess(publicservice){

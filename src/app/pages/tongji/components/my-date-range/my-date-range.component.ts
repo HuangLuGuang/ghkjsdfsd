@@ -20,6 +20,10 @@ export class MyDateRangeComponent implements OnInit {
 
   init_value = "2019-12-01 - 2020-12-21" // 默认日期
 
+  ngOnDestroy(){
+    $(".divice_kpi_report_date").remove();
+  }
+
   // 初始化日期范围
   initdate(){
     var init_value = this.init_value;
@@ -28,7 +32,7 @@ export class MyDateRangeComponent implements OnInit {
       var laydate = layui.laydate;
       //日期范围 2010-10-01 2020-11-21
       laydate.render({
-        elem: '#divice_kpi_report_date'
+        elem: '.divice_kpi_report_date'
         ,range: true
         // 初始化日期范围 
         ,value: init_value
@@ -50,7 +54,7 @@ export class MyDateRangeComponent implements OnInit {
   getselect(){
     var date_range = this.init_value;
     var date = date_range.split(' - ');
-    console.log("date--->", date)
+    // console.log("date--->", date)
     var date_list = date[0]===""?[]:date;
     return date_list
   }

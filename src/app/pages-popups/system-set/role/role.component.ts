@@ -69,8 +69,8 @@ export class RoleComponent implements OnInit {
       // 验证 表单
       form.verify({
         role: function(value, item){
-          console.log("验证、表单: employeeno",AddRole["role"]);
-          console.log("验证、表单: value",value);
+          // console.log("验证、表单: employeeno",AddRole["role"]);
+          // console.log("验证、表单: value",value);
           // sql注入和特殊字符 special_str
           var special_sql = AddRole['special_sql']["special_sql"];
           var special_str = AddRole['special_sql']["special_str"];
@@ -132,13 +132,13 @@ export class RoleComponent implements OnInit {
             createdby: rowdata["createdby"],
           };
   
-          console.log("---colums--",colums)
+          // console.log("---colums--",colums)
           const table = "role";
           const method = 'update_role';
           http.callRPC(table, method, colums).subscribe((result)=>{
-            console.log("更新角色数据：", result)
+            // console.log("更新角色数据：", result)
             const status = result['result']['message'][0];
-            console.log("更新角色数据：status", status)
+            // console.log("更新角色数据：status", status)
             if (status["code"] === 1){
               localStorage.removeItem(SYSROLE);
               dialogRef.close(true)
@@ -159,10 +159,10 @@ export class RoleComponent implements OnInit {
           if (!data.field["visible"]){
             data.field["visible"] = "off"
           }
-          console.log("------------新增角色-----------", data.field);
+          // console.log("------------新增角色-----------", data.field);
           // var is_success = confirm(data.field, userinfo,http,that,publicservice);
 
-          console.log("修改--确认",data,userinfo.getName());
+          // console.log("修改--确认",data,userinfo.getName());
           const colums = {
             role: data.field["role"],
             role_name: data.field["role_name"],
@@ -171,12 +171,12 @@ export class RoleComponent implements OnInit {
             // 角色添加只有管理员可以，
             createdby: userinfo.getName()
           };
-          console.log("---colums--",colums)
+          // console.log("---colums--",colums)
           const table = "role";
           const method = 'insert_role';
           http.callRPC(table, method, colums).subscribe((result)=>{
             const baseData = result['result']['message'][0];
-            console.log("delete_role", baseData);
+            // console.log("delete_role", baseData);
             if (baseData["code"] === 1){
               var option = "新增角色";
               var infodata = '角色名称(en):' + data["role"] + ',' + '角色名称:' + data["role_name"];
@@ -217,7 +217,7 @@ export class RoleComponent implements OnInit {
   
   // 确定
   confirm(data, userinfo,http,that,publicservice){
-    console.log("修改--确认",data,userinfo.getName());
+    // console.log("修改--确认",data,userinfo.getName());
     const colums = {
       role: data["role"],
       role_name: data["role_name"],
@@ -226,13 +226,13 @@ export class RoleComponent implements OnInit {
       // 角色添加只有管理员可以，
       createdby: userinfo.getName()
     };
-    console.log("---colums--",colums)
+    // console.log("---colums--",colums)
     const table = "role";
     const method = 'insert_role';
     http.callRPC(table, method, colums).subscribe((result)=>{
       // 会话过期
       const baseData = result['result']['message'][0];
-      console.log("delete_role", baseData);
+      // console.log("delete_role", baseData);
       if (baseData["code"] === 1){
         var option = "新增角色";
         var infodata = '角色名称(en):' + data["role"] + ',' + '角色名称:' + data["role_name"];

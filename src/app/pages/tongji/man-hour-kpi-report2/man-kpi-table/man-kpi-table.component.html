@@ -25,7 +25,8 @@
         
 
         <!-- 日期 -->
-        <div class="example-items-rows button_item"  *ngIf="button?.query">
+        <!-- <div class="example-items-rows button_item"  *ngIf="button?.query"> -->
+        <div class="example-items-rows button_item" [ngClass]="button?.query?'ngClass_show':'ngClass_hide'">
             <ngx-my-date-range #data_range></ngx-my-date-range>
         </div>
 

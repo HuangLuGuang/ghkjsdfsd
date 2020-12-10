@@ -133,7 +133,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
       )
       .subscribe(themeName => this.currentTheme = themeName);
       this.menuService.onItemClick().subscribe((event)=>{
-        console.log("event", event);
+        // console.log("event", event);
         this.alet_is_logout(event.item.title)
       })
        //进入项目时面板的图表的初始化宽度的问题发的消息
@@ -179,23 +179,23 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
   // 语言切换
   changeLangue(langueName: string){
-    console.log("您选择的语言是： ", langueName);
+    // console.log("您选择的语言是： ", langueName);
     localStorage.setItem('currentLanguage', langueName);
     // en-US  zh-CN
     this.translate.use(langueName);
     // this.themeService.changeTheme(this.themeService.currentTheme);
     if (langueName == 'en-US'){
       this.userMenu = [ { title: 'Log out' } ];
-      console.log("您选择的语言是： 英文！",this.themes);
+      // console.log("您选择的语言是： 英文！",this.themes);
 
 
     }else{
-      console.log("您选择的语言是： 中文！");
+      // console.log("您选择的语言是： 中文！");
 
       this.userMenu = [ { title: '退出登录'} ];
 
     }
-    console.log("this.currentTheme  ", this.currentTheme);
+    // console.log("this.currentTheme  ", this.currentTheme);
     // location.reload();
 
 

@@ -28,7 +28,7 @@ export class NewUserEmployeeComponent implements OnInit {
   loading = false;  // 加载
   refresh = false; // 刷新tabel
   TABLE = "employee"; // table
-  METHOD = "sys_get_employee_limit" // method
+  METHOD = "sys_search_employee" // method
   button; // 权限button
 
   // input
@@ -211,7 +211,7 @@ export class NewUserEmployeeComponent implements OnInit {
   }
   add(){
     this.dialogService.open(UserEmployeeComponent,{closeOnBackdropClick: false,context: { rowdata: JSON.stringify('add'), res: JSON.stringify(''), goups: JSON.stringify('')}}).onClose.subscribe(istrue=>{
-      console.error("istrue 新增",istrue)
+      // console.error("istrue 新增",istrue)
       if(istrue){
         this.gridData = [];
         this.loading = true;
@@ -325,12 +325,14 @@ export class NewUserEmployeeComponent implements OnInit {
       // console.log("button 搜索按钮", loginname, "--");
       var columns = {
         offset: 0, 
-        limit: 20,
-        loginname: loginname
+        limit: this.agGrid.get_pagesize(),
+        loginname: [loginname]
       }
       this.gridData = [];
       this.loading = true;
-      this.http.callRPC('employee', 'sys_search_employee', columns).subscribe(result=>{
+      var table = this.TABLE;
+      var method = this.METHOD;
+      this.http.callRPC(table, method, columns).subscribe(result=>{
         var res = result['result']['message'][0];
         this.loading = false;
         if(res["code"]===1){
@@ -380,10 +382,19 @@ export class NewUserEmployeeComponent implements OnInit {
 
   
 
-  
+  // 初始化前确保 搜索条件 
+  inittable_before(){
+    var loginname = this.myinput?.getinput()?this.myinput?.getinput():"";
+    return {
+      limit: this.agGrid.get_pagesize(),
+      loginname:loginname,
+      employeeid: this.userinfo.getEmployeeID(),
+    }
+  }
+
   // 初始化table
   inttable(event?){
-    
+    var inittable_before = this.inittable_before();
     var offset;
     var limit;
     var PageSize;
@@ -393,12 +404,13 @@ export class NewUserEmployeeComponent implements OnInit {
       PageSize = event.PageSize? Number(event.PageSize):10;
     }else{
       offset = 0;
-      limit = 10;
-      PageSize = 10;
+      limit = inittable_before.limit;
+      PageSize = inittable_before.limit;
     }
     var columns = {
       offset: offset, 
       limit: limit,
+      loginname:[inittable_before.loginname]
     }
     this.http.callRPC(this.TABLE, this.METHOD, columns).subscribe((result)=>{
       // 会话过期
@@ -428,6 +440,8 @@ export class NewUserEmployeeComponent implements OnInit {
 
   // 更新数据
   update_agGrid(event?){
+    var inittable_before = this.inittable_before();
+
     this.tableDatas.isno_refresh_page_size = true;
     var offset;
     var limit;
@@ -438,18 +452,19 @@ export class NewUserEmployeeComponent implements OnInit {
       PageSize = event.PageSize? Number(event.PageSize):10;
     }else{
       offset = 0;
-      limit = 10;
-      PageSize = 10;
+      limit = inittable_before.limit;
+      PageSize = inittable_before.limit;
     }
     var columns = {
       offset: offset, 
       limit: limit,
+      loginname: [inittable_before.loginname]
     }
     this.http.callRPC(this.TABLE, this.METHOD, columns).subscribe((result)=>{
       // 会话过期
       // console.log("update----------------->tabledata: ", result)
       var tabledata = result['result']['message'][0]
-      console.log("tabledata", tabledata);
+      // console.log("tabledata", tabledata);
       if (tabledata["code"] === 1){
         // 发布组件，编辑用户的组件
         this.tableDatas.PageSize = PageSize;

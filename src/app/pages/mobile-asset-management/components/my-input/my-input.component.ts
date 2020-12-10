@@ -19,6 +19,11 @@ export class MyInputComponent implements OnInit {
     
   }
   
+  // employeenumber
+  ngOnDestroy(){
+    $("#employeenumber").remove();
+  }
+  
   ngAfterViewInit(){
     $("#employeenumber").attr("placeholder", this.myinput_placeholder)
   }

@@ -96,7 +96,7 @@ export class ActionComponent implements OnInit, ICellRendererAngularComp {
   }
 
   edit(rowData){
-    console.log("=============编辑============", {active: 'edit', rowData});
+    // console.log("=============编辑============", {active: 'edit', rowData});
     // 用户
     this.params.data = {active: 'edit', data: rowData}
     this.params.clicked(this.params.data);
@@ -104,7 +104,7 @@ export class ActionComponent implements OnInit, ICellRendererAngularComp {
   
   
   remove(rowData){
-    console.log("=============删除============", {active: 'remove', rowData});
+    // console.log("=============删除============", {active: 'remove', rowData});
     this.params.data = {active: 'remove', data: rowData}
     this.params.clicked(this.params.data);
   }

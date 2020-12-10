@@ -54,7 +54,7 @@ export class AgTableComponent implements OnInit {
   current = 1;  // 当前页
   totalPageNumbers=10;  // 总数据条数
   setPageCount = 10;     // 默认每页10条数据
-  private requestPageCount = 2; // 每次请求的数目
+  private requestPageCount = 1; // 每次请求的数目
   PageSize; // 下拉框中的数据
   
 

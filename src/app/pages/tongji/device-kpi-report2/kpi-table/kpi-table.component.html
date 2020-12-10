@@ -3,7 +3,8 @@
 <div class="row">
     <div class="col-lg-9" style="display: flex;">
         <!-- 设备名称 devicename --> 
-        <div class="example-items-rows button_item"  *ngIf="button?.query">
+        <!-- <div class="example-items-rows button_item"  *ngIf="button?.query"> -->
+        <div class="example-items-rows button_item"  ngClass="button?.query?ngClass_show:ngClass_hide">
             <div class="gongneng_keshi">
                 <ngx-my-input #myinput (inpuvalue)="inpuvalue($event)"  [placeholder]="myinput_placeholder"></ngx-my-input>
                 <!-- <input nbInput  shape="rectangle"  style="width: 168px;" placeholder="请输入设备名称" status="success" type="text" id="devicename"> -->
@@ -26,7 +27,8 @@
         
 
         <!-- 日期 -->
-        <div class="example-items-rows button_item" *ngIf="button?.query">
+        <!-- <div class="example-items-rows button_item" *ngIf="button?.query"> -->
+        <div class="example-items-rows button_item " [ngClass]="button?.query?'ngClass_show':'ngClass_hide'">
             <ngx-my-date-range #data_range></ngx-my-date-range>
         </div>
 

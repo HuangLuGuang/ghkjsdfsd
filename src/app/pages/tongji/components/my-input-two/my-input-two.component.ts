@@ -16,7 +16,6 @@ export class MyInputTwoComponent implements OnInit {
 
   ngOnInit(): void {
     $(".delet_input_value2").hide()
-    console.log("--------myinput_placeholder-----", this.myinput_placeholder)
   }
   
   ngAfterViewInit(){

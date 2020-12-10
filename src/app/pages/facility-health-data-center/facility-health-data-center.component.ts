@@ -90,8 +90,8 @@ export class FacilityHealthDataCenterComponent implements OnInit {
     // 得到当前的url
     this.publicservice.get_current_url().subscribe((result:string)=>{
       var last_pathname = result.split('/');
-      console.log("得到当前的url", result, last_pathname,last_pathname.length);
-      console.log("last_pathname[last_pathname.length]", last_pathname[last_pathname.length -1]);
+      // console.log("得到当前的url", result, last_pathname,last_pathname.length);
+      // console.log("last_pathname[last_pathname.length]", last_pathname[last_pathname.length -1]);
       if (last_pathname[last_pathname.length - 1] === "real_time"){
         this.real_time = "info";
         this.history = "basic";

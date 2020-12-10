@@ -91,9 +91,8 @@ export class UserEmployeeComponent implements OnInit {
     if ( isnot_edit != 'add'){
       that.title = '编辑用户'
       // 编辑！
-      console.log("LLLLLLLLLLLLLLLLLLLLLL\n")
-      console.log("LLLLLLLLLLLLLLLLLLLLLL\n",JSON.parse(this.rowdata))
-      console.log("LLLLLLLLLthat.roles_groupLLLLLLLLLLLLL\n",that.roles_group)
+      // console.log("LLLLLLLLLLLLLLLLLLLLLL\n",JSON.parse(this.rowdata))
+      // console.log("LLLLLLLLLthat.roles_groupLLLLLLLLLLLLL\n",that.roles_group)
       // 填充from的对象
       var formdata = {}
       var rowdata = JSON.parse(this.rowdata);
@@ -116,7 +115,7 @@ export class UserEmployeeComponent implements OnInit {
       var rids:any[] = rowdata["rids"];
       formdata[res["rid"]] = true
       // res 所以的角色，rids选择的角色
-      console.log("===============res=================\n",res, rids)
+      // console.log("===============res=================\n",res, rids)
       res.forEach(re => {
         rids.forEach(element => {
           if (element["rid"] === re["rid"]){
@@ -147,10 +146,6 @@ export class UserEmployeeComponent implements OnInit {
       form.verify({
         // 员工编号
         employeeno: function(value, item){
-          console.log("验证、表单: AddEmployee",AddEmployee);
-          console.log("验证、表单: employeeno",AddEmployee["employeeno"]);
-          console.log("验证、表单: value",value);
-          console.log("验证、表单: item",item);
           // sql注入和特殊字符 special_str
           var special_sql = AddEmployee['special_sql']["special_sql"];
           var special_str = AddEmployee['special_sql']["special_str"];
@@ -297,26 +292,26 @@ export class UserEmployeeComponent implements OnInit {
             send_group_item["group"] = item;
             send_group_item_list.push(send_group_item)
           })
-          console.log("employee_group,   send_group_item_list,   ", groups,  send_group_item_list )
+          // console.log("employee_group,   send_group_item_list,   ", groups,  send_group_item_list )
           groups.forEach(group=>{
             var select_group_item = {};
             send_group_item_list.forEach(select=>{
               if (select["groupid"] && group["groupid"] == select["group"].split('_')[0]){
                 select_group_item["gids"] = group["groupid"];
-                console.log("select_group_item", select_group_item)
+                // console.log("select_group_item", select_group_item)
                 send_data_list.push(select_group_item);
               }
             })
           })
           // -------------------------------------------
-          console.log("提交修改的",  send_data_list) //被执行事件的元素DOM对象，一般为button对象
+          // console.log("提交修改的",  send_data_list) //被执行事件的元素DOM对象，一般为button对象
           // 更新修改的数据！ update_employee
           // that.getsecurity("employee", "update_employee",send_data_list).subscribe((res)=>{
           // })
           that.http.callRPC("employee", "update_employee",send_data_list).subscribe(result=>{
             that.publicservice.session_expiration().subscribe(results=>{
               if (results){
-                console.log("更新修改的数据！ update_employee>>>>>>>>>>>>>>>>>>>>>>",result)
+                // console.log("更新修改的数据！ update_employee>>>>>>>>>>>>>>>>>>>>>>",result)
                 var res_ = result["result"]["message"][0];
                 switch (res_["code"]) {
                   case 401:
@@ -373,13 +368,13 @@ export class UserEmployeeComponent implements OnInit {
             send_group_item["group"] = item;
             send_group_item_list.push(send_group_item)
           })
-          console.log("employee_group,   send_group_item_list,   ", groups,  send_group_item_list )
+          // console.log("employee_group,   send_group_item_list,   ", groups,  send_group_item_list )
           groups.forEach(group=>{
             send_group_item_list.forEach(select=>{
               if (select["groupid"] && group["groupid"] == select["group"].split('_')[0]){
                 var select_group_item = {};
                 select_group_item["gids"] = group["groupid"];
-                console.log("select_group_item", select_group_item)
+                // console.log("select_group_item", select_group_item)
                 send_data_list.push(select_group_item);
               }
             })
@@ -394,7 +389,7 @@ export class UserEmployeeComponent implements OnInit {
           send_data["active"] = 1;      
           send_data["department"] = data.field["department"];      // 部门 
           send_data["password"] =  Md5.hashStr(ssopassword  + salt );;      // 默认的初始密码
-          console.log("新增",send_data_list) //被执行事件的元素DOM对象，一般为button对象
+          // console.log("新增",send_data_list) //被执行事件的元素DOM对象，一般为button对象
           if (send_data_list.length <= 1){
             // publicservice.toastr(SavWarning);
             that.warning();
@@ -475,7 +470,6 @@ export class UserEmployeeComponent implements OnInit {
             res.next(result)
           }
         });
-        console.log("*************---------------------****************", result)
         
         // res.next(result)
       })

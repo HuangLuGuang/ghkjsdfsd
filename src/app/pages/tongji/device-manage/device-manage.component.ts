@@ -102,7 +102,7 @@ export class DeviceManageComponent implements OnInit {
 
     // ===============agGrid
 
-    this.inttable();
+    // this.inttable();
     // ===============agGrid
   }
 
@@ -110,7 +110,7 @@ export class DeviceManageComponent implements OnInit {
     this.tableDatas.columnDefs.push(
       this.active
     );
-    
+    this.inttable();
 
   }
 
@@ -281,15 +281,18 @@ export class DeviceManageComponent implements OnInit {
     this.gridData = [];
     // 是否 每页多少也，设置为默认值
     this.tableDatas.isno_refresh_page_size = true;
-    this.inttable();
-    this.refresh = false;
-
-
 
     // 取消选择的数据 delselect
     this.myinput.del_input_value();
     this.groups_func.dropselect();
     this.eimdevicetpye.dropselect();
+
+    this.inttable();
+    this.refresh = false;
+
+
+
+    
   }
 
   // 得到下拉框的数据
@@ -342,15 +345,15 @@ export class DeviceManageComponent implements OnInit {
       // 未选中
       this.dialogService.open(EditDelTooltipComponent, { closeOnBackdropClick: false, context: { title: '提示', content:   `请选择要搜索的数据！`}} ).onClose.subscribe(
         name=>{
-          console.log("----name-----", name);
+          // console.log("----name-----", name);
         }
       );
     }else{
       var columns = {
         offset: 0, 
-        limit: 20,
+        limit: this.agGrid.get_pagesize(),
         employeeid: this.userinfo.getEmployeeID(),
-        devicename: devicename,
+        devicename: [devicename],
         group: grops_data,          // 科室/功能组，可选
         eimdevicetype: eimdevicetype, // 设备类型，可选
       }
@@ -971,7 +974,30 @@ export class DeviceManageComponent implements OnInit {
 
   private gridData = [];
   
+
+
+  // 初始化前确保 搜索条件 
+  inittable_before(){
+    var devicename = this.myinput?.getinput()===undefined?"":this.myinput?.getinput();// 设备名称
+    // 科室/功能组
+    var groups_data = this.groups_func?.getselect();
+    // 设备类型
+    var device_tpye_data = this.eimdevicetpye?.getselect();
+    // 将科室/功能组，转为列表
+    var groups_data_ = groups_data ===""?[] :groups_data.split(";");
+   
+    return {
+      limit: this.agGrid.get_pagesize(),
+      employeeid: this.userinfo.getEmployeeID(),
+      devicename: [devicename],
+      group: groups_data_,
+      eimdevicetype:device_tpye_data
+    }
+
+  }
+
   inttable(event?){
+    var inittable_before = this.inittable_before();
     var offset;
     var limit;
     var PageSize;
@@ -981,16 +1007,16 @@ export class DeviceManageComponent implements OnInit {
       PageSize = event.PageSize? Number(event.PageSize):10;
     }else{
       offset = 0;
-      limit = 10;
-      PageSize = 10;
+      limit = inittable_before.limit;
+      PageSize = inittable_before.limit;
     }
     var columns = {
       offset: offset, 
       limit: limit,
-      employeeid: this.userinfo.getEmployeeID(),
-      devicename: '',
-      eimdevicetype: [], // 设备类型，可选
-      group: []          // 科室/功能组，可选
+      employeeid: inittable_before.employeeid,
+      devicename: inittable_before.devicename,
+      eimdevicetype: inittable_before.eimdevicetype, // 设备类型，可选
+      group: inittable_before.group          // 科室/功能组，可选
     }
     this.http.callRPC('device', 'dev_get_device_search', columns).subscribe((result)=>{
       var tabledata = result['result']['message'][0]
@@ -1013,6 +1039,8 @@ export class DeviceManageComponent implements OnInit {
   }
 
   update_agGrid(event?){
+    var inittable_before = this.inittable_before();
+    
     // 是否 每页多少也，设置为默认值
     this.tableDatas.isno_refresh_page_size = true;
     var offset;
@@ -1024,16 +1052,16 @@ export class DeviceManageComponent implements OnInit {
       PageSize = event.PageSize? Number(event.PageSize):10;
     }else{
       offset = 0;
-      limit = 10;
-      PageSize = 10;
+      limit = inittable_before.limit;
+      PageSize = inittable_before.limit;
     }
     var columns = {
       offset: offset, 
       limit: limit,
-      employeeid: this.userinfo.getEmployeeID(),
-      devicename: '',
-      eimdevicetype: [], // 设备类型，可选
-      group: []          // 科室/功能组，可选
+      employeeid: inittable_before.employeeid,
+      devicename: inittable_before.devicename,
+      eimdevicetype: inittable_before.eimdevicetype, // 设备类型，可选
+      group: inittable_before.group          // 科室/功能组，可选
     }
     this.http.callRPC('device', 'dev_get_device_search', columns).subscribe((result)=>{
       var tabledata = result['result']['message'][0]

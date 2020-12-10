@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { NbDialogService } from '@nebular/theme';
 
 import { ICellRendererAngularComp } from 'ag-grid-angular';
 
@@ -8,7 +7,6 @@ declare let layui;
 
 declare let $;
 
-import { employeegroup_action } from '../../../../appconfig';
 
 @Component({
   selector: 'ngx-action',
@@ -38,9 +36,9 @@ export class ActionComponent implements OnInit, ICellRendererAngularComp {
 
   // 调用父方法
   public device_info(item) {
-    console.log("-----------------item-------------------", item)
+    // console.log("-----------------item-------------------", item)
     var rowData = this.params.node.data
-    console.log("-----------------params-------------------", this.params)
+    // console.log("-----------------params-------------------", this.params)
     switch (item) {
       case "edit":
         this.edit(rowData);
@@ -51,7 +49,7 @@ export class ActionComponent implements OnInit, ICellRendererAngularComp {
     }
 
     
-    console.log("解析值：《《《《《《《《《《《《《《《《《《《《《《", this.params.context)
+    // console.log("解析值：《《《《《《《《《《《《《《《《《《《《《《", this.params.context)
     
   }
 
@@ -102,7 +100,7 @@ export class ActionComponent implements OnInit, ICellRendererAngularComp {
   }
 
   edit(rowData){
-    console.log("=============编辑============", {active: 'edit', rowData});
+    // console.log("=============编辑============", {active: 'edit', rowData});
     // 用户
     this.params.data = {active: 'edit', data: [rowData]}
     this.params.clicked(this.params.data);
@@ -110,7 +108,7 @@ export class ActionComponent implements OnInit, ICellRendererAngularComp {
   
   
   remove(rowData){
-    console.log("=============删除============", {active: 'remove', rowData});
+    // console.log("=============删除============", {active: 'remove', rowData});
     this.params.data = {active: 'remove', data: [rowData]}
     this.params.clicked(this.params.data);
   }

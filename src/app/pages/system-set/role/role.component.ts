@@ -45,7 +45,7 @@ export class RoleComponent implements OnInit {
   // 要删除、修改的行数据 
   rowdata;
   // 得到日志的plv8函数名
-  GetRole = "get_role_limit";
+  GetRole = "sys_search_role";
 
   // input
   myinput_placeholder = "角色名称";
@@ -103,7 +103,7 @@ export class RoleComponent implements OnInit {
     // 加载树状menu  初始化
     this.loadMenu().subscribe((treedata)=>{
       // this.showTreedata(treedata)
-      console.log("加载树状menu  初始化>>>>>>>>>>>", treedata)
+      // console.log("加载树状menu  初始化>>>>>>>>>>>", treedata)
       this.showTreedata_v2(treedata);
     });
 
@@ -111,18 +111,18 @@ export class RoleComponent implements OnInit {
     
 
     // ====================================agGrid
-      var that = this;
-      this.active = { field: 'action', headerName: '操作', cellRendererFramework: ActionComponent, pinned: 'right',width:100,
-        cellRendererParams: {
-          clicked: function(data: any) {
-            if (data["active"]==='edit'){
-              that.editrole([data["data"]]);
-            }else{
-              that.remove([data["data"]]);
-            }
+    var that = this;
+    this.active = { field: 'action', headerName: '操作', cellRendererFramework: ActionComponent, pinned: 'right',width:100,
+      cellRendererParams: {
+        clicked: function(data: any) {
+          if (data["active"]==='edit'){
+            that.editrole([data["data"]]);
+          }else{
+            that.remove([data["data"]]);
           }
-        },
-      }
+        }
+      },
+    }
       
   }
   
@@ -314,8 +314,8 @@ export class RoleComponent implements OnInit {
       // console.log("button 搜索按钮", role_name, "--");
       var columns = {
         offset: 0, 
-        limit: 20,
-        role_name: role_name
+        limit: this.agGrid.get_pagesize(),
+        role_name: [role_name]
       }
       this.gridData = [];
       this.loading = true;
@@ -338,7 +338,6 @@ export class RoleComponent implements OnInit {
           this.RecordOperation("搜索", 0, '角色名称(role_name):' + String(data_info));
         }
       })
-      this.RecordOperation("搜索", 1, '搜索角色:' + role_name);
     }else{
       this.dialogService.open(EditDelTooltipComponent, { closeOnBackdropClick: false, context: { title: '提示', content:   `请选择要搜索的数据！`}} ).onClose.subscribe(
         name=>{
@@ -948,7 +947,19 @@ export class RoleComponent implements OnInit {
 
   private gridData = [];
   
+  // 初始化前确保 搜索条件 
+  inittable_before(){
+    var role_name = this.myinput?.getinput()?this.myinput?.getinput():"";
+    return {
+      limit: this.agGrid.get_pagesize(),
+      role_name:role_name,
+      employeeid: this.userinfo.getEmployeeID(),
+    }
+
+  }
+
   inttable(event?){
+    var inittable_before = this.inittable_before();
     var offset;
     var limit;
     var PageSize;
@@ -958,12 +969,13 @@ export class RoleComponent implements OnInit {
       PageSize = event.PageSize? Number(event.PageSize):10;
     }else{
       offset = 0;
-      limit = 10;
-      PageSize = 10;
+      limit = inittable_before.limit;
+      PageSize = inittable_before.limit;
     }
     var columns = {
       offset: offset, 
       limit: limit,
+      role_name: [inittable_before.role_name]
     }
     const table = "role";
     const method = this.GetRole;
@@ -992,6 +1004,8 @@ export class RoleComponent implements OnInit {
   }
   // 更新table update_agGrid
   update_agGrid(event?){
+    var inittable_before = this.inittable_before();
+
     // 是否 每页多少也，设置为默认值
     this.tableDatas.isno_refresh_page_size = true;
     var offset;
@@ -1003,18 +1017,19 @@ export class RoleComponent implements OnInit {
       PageSize = event.PageSize? Number(event.PageSize):10;
     }else{
       offset = 0;
-      limit = 10;
-      PageSize = 10;
+      limit = inittable_before.limit;
+      PageSize = inittable_before.limit;
     }
     var columns = {
       offset: offset, 
       limit: limit,
+      role_name: [inittable_before.role_name]
     }
     const table = "role";
     const method = this.GetRole;
     // const colums = {offset: offset, limit: limit}
     this.http.callRPC(table, method, columns).subscribe((result)=>{
-      console.log("sys_role--------------------------", result)
+      // console.log("sys_role--------------------------", result)
       const baseData = result['result']['message'][0];
       if (baseData["code"] === 1){
         this.tableDatas.PageSize = PageSize;

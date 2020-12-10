@@ -80,7 +80,7 @@ export class NewMenuComponent implements OnInit {
     // 获取用户名
     var username = this.userinfoservice.getName();
     var isnot_edit = JSON.parse(this.rowdata);
-    console.log("isnot_edit------------->",isnot_edit)
+    // console.log("isnot_edit------------->",isnot_edit)
     var hour_mon_sec = this.publicmethod.getcurdate();
     var textid;
 
@@ -154,7 +154,7 @@ export class NewMenuComponent implements OnInit {
           $(".caidan_tab").attr("class", "layui-tab-item caidan_tab");
           $(".anniu_tab").attr("class", "layui-tab-item layui-show anniu_tab");
         }
-        console.log("编辑-----------------------------------", isnot_edit);
+        // console.log("编辑-----------------------------------", isnot_edit);
 
         // 初始化表单
         // 表单赋值--目录
@@ -552,7 +552,7 @@ export class NewMenuComponent implements OnInit {
     var $html = $('.cdk-global-scrollblock');
     $html.addClass("nb-global-scrollblock");
     // console.log("*************************",$event,html, $html.attr("class", "cdk-global-scrollblock nb-global-scrollblock"));
-    console.log("*************************")
+    // console.log("*************************")
     // this.filteredOptions$ = this.getFilteredOptions($event);
     
   }
@@ -564,7 +564,7 @@ export class NewMenuComponent implements OnInit {
   //  这是是 layui扩展treeSelect
   anniuparentmenu_treeSelect(){
     var sysymenu = JSON.parse(localStorage.getItem(SYSMENU));
-    console.log("这是是 layui扩展treeSelect", sysymenu);
+    // console.log("这是是 layui扩展treeSelect", sysymenu);
     var mulu_list = [];
     var caidan_list = [];
     var anniu_list = [];
@@ -644,9 +644,6 @@ export class NewMenuComponent implements OnInit {
 
   // option_record  
   RecordOperation(result,transactiontype, infodata){
-    console.warn("==============>", this.userinfoservice.getLoginName())
-    console.warn("infodata==============>", infodata)
-    console.warn("==============>")
     if(this.userinfoservice.getLoginName()){
       var employeeid = this.userinfoservice.getEmployeeID();
       var result = result; // 1:成功 0 失败

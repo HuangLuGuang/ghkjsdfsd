@@ -36,7 +36,7 @@ export class DeviceManageComponent implements OnInit {
           }
           this.http.callRPC('device',"sys_get_groups_limit", columns).subscribe(result=>{
             var res = result["result"]["message"][0];
-            console.log("sys_get_groups_limit------------------------>>>", res);
+            // console.log("sys_get_groups_limit------------------------>>>", res);
             if (res["code"] === 1){
               this.groups = res["message"];
               localStorage.setItem("Device_Groups", JSON.stringify(res["message"]));
@@ -58,25 +58,18 @@ export class DeviceManageComponent implements OnInit {
   ]
   
   ngAfterViewInit(){
-    console.log("编辑----添加",this.rowData)
-    console.log("编辑----添加  content---",this.content)
-
-     
-
+    // console.log("编辑----添加",this.rowData)
+    // console.log("编辑----添加  content---",this.content)
 
     // form 表单
     this.layuiform();
 
-    
-
   }
-
   // get groups
   get_groups(){
     var groups = JSON.parse(localStorage.getItem("Device_Groups"));
     this.groups = groups
   }
-
   // form表单
   layuiform(){
     var content = JSON.parse(this.content); // 'true': 表示edit 'false':表示add
@@ -105,8 +98,8 @@ export class DeviceManageComponent implements OnInit {
       form.verify({
         // 设备名称 验证：devicename character(20)
         devicename: function(value, item){
-          console.log("验证、表单: devicename",Device["devicename"]);
-          console.log("验证、表单: value",value);
+          // console.log("验证、表单: devicename",Device["devicename"]);
+          // console.log("验证、表单: value",value);
           // sql注入和特殊字符 special_str
           var special_sql = Device['special_sql']["special_sql"];
           var special_str = Device['special_sql']["special_str"];
@@ -408,7 +401,7 @@ export class DeviceManageComponent implements OnInit {
       var danger;
       var method;
       if (content){ // true: 表示edit
-        console.log("---------------------------------表示edit---------------------------------------------")
+        // console.log("---------------------------------表示edit---------------------------------------------")
         success = editsuccess;
         danger = editdanger;
         
@@ -437,7 +430,7 @@ export class DeviceManageComponent implements OnInit {
         // 初始化表单
         form.val("device", formdatar); 
         // 初始化createdon（创建时间）、purchaseon (购置日期)
-        console.log('----------------------编辑---------------', formdatar);
+        // console.log('----------------------编辑---------------', formdatar);
 
         var createdon = formdatar["createdon"];
         var purchaseon = formdatar["purchaseon"];
@@ -445,7 +438,6 @@ export class DeviceManageComponent implements OnInit {
       }else{ // false: 表示add
         form.val("device", {groups: JSON.parse(localStorage.getItem("Device_Groups"))})
 
-       
         method = "dev_insert_device";
         success = addsuccess;
         danger = adddanger;
@@ -501,7 +493,7 @@ export class DeviceManageComponent implements OnInit {
         // layer.alert(JSON.stringify(data.field), {
         //   title: '得到的编辑表单的数据'
         // })
-        console.log('data.field["active"]==================+++++++++++++++', data.field["active"])
+        // console.log('data.field["active"]==================+++++++++++++++', data.field["active"])
         if (data.field["active"] != undefined){
           data.field["active"] = 1;
         }else{
@@ -532,14 +524,14 @@ export class DeviceManageComponent implements OnInit {
         }
         
 
-        console.log("---data.field--",data.field)
+        // console.log("---data.field--",data.field)
         
-        console.log("---colums--",colums, method);
+        // console.log("---colums--",colums, method);
         
 
         const table = "device";
         http.callRPC(table, method, colums).subscribe((result)=>{
-          console.log("更新设备数据：", result)
+          // console.log("更新设备数据：", result)
           const status = result['result']['message'][0]["code"];
           if (status === 1){
             success(publicservice)
@@ -600,9 +592,6 @@ export class DeviceManageComponent implements OnInit {
 
   // option_record
   RecordOperation(option, result,infodata){
-    console.warn("==============>", this.userinfo.getLoginName())
-    console.warn("infodata==============>", infodata)
-    console.warn("==============>")
     if(this.userinfo.getLoginName()){
       var employeeid = this.userinfo.getEmployeeID();
       var result = result; // 1:成功 0 失败

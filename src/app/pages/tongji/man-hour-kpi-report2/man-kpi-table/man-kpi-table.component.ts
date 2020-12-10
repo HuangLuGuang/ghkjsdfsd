@@ -1,5 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
+import { NbDialogService } from '@nebular/theme';
 import { Observable } from 'rxjs';
+import { EditDelTooltipComponent } from '../../../../pages-popups/prompt-diallog/edit-del-tooltip/edit-del-tooltip.component';
 import { HttpserviceService } from '../../../../services/http/httpservice.service';
 import { PublicmethodService } from '../../../../services/publicmethod/publicmethod.service';
 import { UserInfoService } from '../../../../services/user-info/user-info.service';
@@ -46,7 +48,8 @@ export class ManKpiTableComponent implements OnInit {
 
   constructor(private http: HttpserviceService, 
     private userinfo: UserInfoService,
-    private publicservice: PublicmethodService
+    private publicservice: PublicmethodService,
+    private dialogService: NbDialogService,
     ) {
       // 会话过期
       localStorage.removeItem("alert401flag");
@@ -55,8 +58,7 @@ export class ManKpiTableComponent implements OnInit {
    }
 
   ngOnInit(): void {
-    // 初始化aggrid
-    this.inttable();
+    
 
 
     // 得到pathname --在得到button
@@ -70,6 +72,11 @@ export class ManKpiTableComponent implements OnInit {
 
     
 
+  }
+
+  ngAfterViewInit(){
+    // 初始化aggrid
+    this.inttable();
   }
 
 
@@ -157,37 +164,53 @@ export class ManKpiTableComponent implements OnInit {
     // 将科室/功能组，转为列表
     var groups_data_ = groups_data ===""?[] :groups_data.split(";");
     // 搜索的 时间范围 daterange 必选，修改为 start end
-    var columns = {
-      offset: 0, 
-      limit: 10,
-      employeeid: this.employeeid,
-      devicename: [devicename],
-      group: groups_data_,
-      start:daterange_data[0],
-      end:daterange_data[1],
-      eimdevicetype:device_tpye_data
-    }
-    // 执行搜索函数！  
-    var table = this.TABLE;
-    var methond = this.METHOD;
-    this.http.callRPC(table, methond ,columns).subscribe(result=>{
-      var tabledata = result["result"]["message"][0];
-      this.loading = false;
-      if (tabledata["code"] === 1){
-        var message = tabledata["message"];
-        this.gridData = [];
-        this.add_detail_kpi(message);
-        this.gridData.push(...message);
-        this.tableDatas.rowData = this.gridData;
-        var totalpagenumbers = tabledata['numbers']? tabledata['numbers'][0]['numbers']: '未得到总条数';
-        this.tableDatas.totalPageNumbers = totalpagenumbers;
-        this.agGrid.update_agGrid(this.tableDatas); // 告诉组件刷新！
-        this.RecordOperation('搜索', 1,  "设备报表");
-        if (message.length < 1){
-          this.searchdanger();
+    if (daterange_data.length < 1){
+      this.dialogService.open(EditDelTooltipComponent, { closeOnBackdropClick: false, context: { title: '提示', content:   `日期范围必选！`}} ).onClose.subscribe(
+        name=>{
+          console.log("----name-----", name);
         }
-      }else{this.RecordOperation('搜索', 0,  "设备报表")}
-    })
+      );
+    }
+    else if(devicename == "" && device_tpye_data.length < 1 && groups_data_.length < 1){
+      this.dialogService.open(EditDelTooltipComponent, { closeOnBackdropClick: false, context: { title: '提示', content:   `请选择要搜索的数据！`}} ).onClose.subscribe(
+        name=>{
+          // console.log("----name-----", name);
+        }
+      );
+    }else{
+      var columns = {
+        offset: 0, 
+        limit: this.agGrid.get_pagesize(),
+        employeeid: this.employeeid,
+        devicename: [devicename],
+        group: groups_data_,
+        start:daterange_data[0],
+        end:daterange_data[1],
+        eimdevicetype:device_tpye_data
+      }
+      // 执行搜索函数！  
+      var table = this.TABLE;
+      var methond = this.METHOD;
+      this.http.callRPC(table, methond ,columns).subscribe(result=>{
+        var tabledata = result["result"]["message"][0];
+        this.loading = false;
+        if (tabledata["code"] === 1){
+          var message = tabledata["message"];
+          this.gridData = [];
+          this.add_detail_kpi(message);
+          this.gridData.push(...message);
+          this.tableDatas.rowData = this.gridData;
+          var totalpagenumbers = tabledata['numbers']? tabledata['numbers'][0]['numbers']: '未得到总条数';
+          this.tableDatas.totalPageNumbers = totalpagenumbers;
+          this.agGrid.update_agGrid(this.tableDatas); // 告诉组件刷新！
+          this.RecordOperation('搜索', 1,  "设备报表");
+          if (message.length < 1){
+            this.searchdanger();
+          }
+        }else{this.RecordOperation('搜索', 0,  "设备报表")}
+      })
+    }
+
       
   }
 
@@ -203,12 +226,16 @@ export class ManKpiTableComponent implements OnInit {
     this.gridData = [];
     // 是否 每页多少也，设置为默认值
     this.tableDatas.isno_refresh_page_size = true;
-    this.inttable();
 
     // 取消选择的数据 delselect
     this.myinput.del_input_value();
     this.groups_func.dropselect();
     this.eimdevicetpye.dropselect();
+
+
+    this.inttable();
+
+
     
   }
 
@@ -251,7 +278,31 @@ export class ManKpiTableComponent implements OnInit {
 
   private gridData = [];
   
+  // 初始化前确保 搜索条件 
+  inittable_before(){
+    var devicename = this.myinput?.getinput()===undefined?"":this.myinput?.getinput();// 设备名称
+    // 科室/功能组
+    var groups_data = this.groups_func?.getselect();
+    // 设备类型
+    var device_tpye_data = this.eimdevicetpye?.getselect();
+    // 日期范围
+    var daterange_data = this.data_range?.getselect()
+    // 将科室/功能组，转为列表
+    var groups_data_ = groups_data ===""?[] :groups_data.split(";");
+    return {
+      limit: this.agGrid.get_pagesize(),
+      employeeid: this.userinfo.getEmployeeID(),
+      devicename: [devicename],
+      group: groups_data_,
+      eimdevicetype:device_tpye_data,
+      start:daterange_data[0],
+      end:daterange_data[1],
+    }
+
+  }
+
   inttable(event?){
+    var inittable_before = this.inittable_before();
     var offset;
     var limit;
     var PageSize;
@@ -261,18 +312,18 @@ export class ManKpiTableComponent implements OnInit {
       PageSize = event.PageSize? Number(event.PageSize):10;
     }else{
       offset = 0;
-      limit = 10;
-      PageSize = 10;
+      limit = inittable_before.limit;
+      PageSize = inittable_before.limit;
     }
     var colmun = {
-      start: this.init_value.split(" - ")[0],
-      end: this.init_value.split(" - ")[1],
+      start: inittable_before.start,
+      end: inittable_before.end,
       offset: offset,
       limit: limit,
       employeeid: this.employeeid,
-      devicename:[],
-      group:[],
-      eimdevicetype:[]
+      devicename:inittable_before.devicename,
+      group:inittable_before.group,
+      eimdevicetype:inittable_before.eimdevicetype
     }
     var table = this.TABLE;
     var methond = this.METHOD;

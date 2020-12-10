@@ -24,7 +24,7 @@ export class MyInputComponent implements OnInit {
   }
   
   ngAfterViewInit(){
-    console.log("myinput_placeholder------------->",this.myinput_placeholder)
+    // console.log("myinput_placeholder------------->",this.myinput_placeholder)
     $("#employeenumber").attr("placeholder", this.myinput_placeholder)
   }
 

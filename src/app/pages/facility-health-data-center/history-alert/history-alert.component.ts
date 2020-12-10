@@ -14,12 +14,16 @@ let datacenter = require("../../../../assets/pages/system-set/js/datacenter_echa
 export class HistoryAlertComponent implements OnInit {
   @ViewChild("ag_Grid") agGrid: any;
   @ViewChild("eimdevicetpye") eimdevicetpye: any; // 设备类型下拉框
+  @ViewChild("groups") groups_func: any; // 设备类型下拉框
   @ViewChild("myinput") myinput: any; // 资产编号输入框
   @ViewChild("data_range") data_range: any; // 日期选择器
   // 下拉框---设备类型
   eimdevicetpye_placeholder = "请选择设备类型";
   // 下拉框---资产编号
   myinput_placeholder = "请输入资产编号";
+
+  // 科室/功能组
+  groups_placeholder = "请选中科室/功能组"; // 下拉框---科室功能组
 
   constructor(private userinfo:UserInfoService,private publicservice: PublicmethodService,
     private http: HttpserviceService, private layoutService: LayoutService
@@ -466,14 +470,17 @@ export class HistoryAlertComponent implements OnInit {
     this.gridData = [];
     // 是否 每页多少也，设置为默认值
     this.tableDatas.isno_refresh_page_size = true;
+
+    // 取消选择的数据 delselect
+    this.myinput.del_input_value();
+    this.groups_func.dropselect();
+    this.eimdevicetpye.dropselect();
+    
     this.inttable();
     this.loading = false;
     this.refresh = false;
 
-    // 取消选择的数据 delselect
-    this.myinput.del_input_value();
-    // this.groups_func.dropselect();
-    this.eimdevicetpye.dropselect();
+    
   }
 
   // button按钮
@@ -508,10 +515,11 @@ export class HistoryAlertComponent implements OnInit {
     }
     this.http.callRPC("deveice","dev_get_device_groups",columns).subscribe(result=>{
       var res = result["result"]["message"][0]
-      console.log("得到下拉框的数据---------------->", res)
+      // console.log("得到下拉框的数据---------------->", res)
       if (res["code"] === 1){
-        // var groups = res["message"][0]["groups"];
-        // this.groups_func.init_select_tree(groups);
+        var groups = res["message"][0]["groups"];
+        this.groups_func.init_select_tree(groups);
+
         var eimdevicetpyedata = res["message"][0]["type"];
         this.eimdevicetpye.init_select_trees(eimdevicetpyedata);
       }
@@ -521,7 +529,7 @@ export class HistoryAlertComponent implements OnInit {
   // input 传入的值
   inpuvalue(inpuvalue){
     if (inpuvalue != ""){
-      console.log("传入的值设备名称----->",inpuvalue);
+      // console.log("传入的值设备名称----->",inpuvalue);
       this.query(inpuvalue);
     }
   }

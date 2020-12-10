@@ -51,7 +51,7 @@ export class EditDelTooltipComponent implements OnInit {
     var rowData = this.rowData;
 
     layui.use(['layer','form'], function(){
-      console.log("单层----",rowData)
+      // console.log("单层----",rowData)
       var layer = layui.layer;
       var form = layui.form;
       form.render();

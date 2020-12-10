@@ -30,6 +30,9 @@ export class UserEmployeeGroupComponent implements OnInit {
   active; // 操作
   button; // 权限button
 
+  METHOD = "sys_search_groups";
+  TABLE = "groups_"
+
   // 输入框
   myinput_placeholder = "科室/功能组名称";
 
@@ -56,6 +59,14 @@ export class UserEmployeeGroupComponent implements OnInit {
 
   constructor(private publicmethod: PublicmethodService, private http: HttpserviceService, 
     private dialogService: NbDialogService, private userinfo: UserInfoService) { 
+
+    // 得到pathname --在得到button
+    var roleid = this.userinfo.getEmployeeRoleID();
+    this.publicmethod.get_buttons_bypath(roleid).subscribe(result=>{
+      this.button = result;
+      localStorage.setItem("buttons_list", JSON.stringify(result));
+    })
+
     // 会话过期
     localStorage.removeItem("alert401flag");
   }
@@ -75,12 +86,7 @@ export class UserEmployeeGroupComponent implements OnInit {
         },
       }
     // ====================================agGrid
-    // 得到pathname --在得到button
-    var roleid = this.userinfo.getEmployeeRoleID();
-    this.publicmethod.get_buttons_bypath(roleid).subscribe(result=>{
-      this.button = result;
-      localStorage.setItem("buttons_list", JSON.stringify(result));
-    })
+    
     
   }
   ngAfterViewInit(){
@@ -159,11 +165,11 @@ export class UserEmployeeGroupComponent implements OnInit {
     if ( rowdata.length === 0){
       // 提示选择行数据
       this.dialogService.open(EditDelTooltipComponent, { closeOnBackdropClick: false,context: { title: '提示', content:   `请选择一行数据！`}} ).onClose.subscribe(
-        name=>{console.log("----name-----", name)}
+        // name=>{console.log("----name-----", name)}
       );
     }else if (rowdata.length > 1){
       this.dialogService.open(EditDelTooltipComponent, { closeOnBackdropClick: false,context: { title: '提示', content:   `请选择一行数据！`}} ).onClose.subscribe(
-        name=>{console.log("----name-----", name)}
+        // name=>{console.log("----name-----", name)}
       );
     }
     else{
@@ -192,7 +198,7 @@ export class UserEmployeeGroupComponent implements OnInit {
     if (rowdata.length === 0){
       // 提示选择行数据
       this.dialogService.open(EditDelTooltipComponent, { closeOnBackdropClick: false,context: { title: '提示', content:   `请选择一行数据！`}} ).onClose.subscribe(
-        name=>{console.log("----name-----", name)}
+        // name=>{console.log("----name-----", name)}
       );
       // this.dialogService.open(EditUserEmployeeGroupComponent, { context: { rowdata: JSON.stringify(this.rowdata), res: JSON.stringify(res)} })
     }else {
@@ -204,7 +210,7 @@ export class UserEmployeeGroupComponent implements OnInit {
       var danger = this.danger;
       this.dialogService.open(EditDelTooltipComponent, { closeOnBackdropClick: false,context: { title: '提示', content:   `确定要删除${rownum}数据吗？`,rowData: JSON.stringify(rowData)}} ).onClose.subscribe(
         name=>{
-          console.log("----name-----", name);
+          // console.log("----name-----", name);
           if (name){
             try {
               var data_info;
@@ -256,12 +262,14 @@ export class UserEmployeeGroupComponent implements OnInit {
     if (groups != ""){
       var columns = {
         offset: 0, 
-        limit: 20,
-        groups: groups
+        limit: this.agGrid.get_pagesize(),
+        group: [groups]
       }
       this.gridData = [];
       this.loading = true;
-      this.http.callRPC('employee', 'sys_search_groups', columns).subscribe(result=>{
+      var table = this.TABLE;
+      var method = this.METHOD;
+      this.http.callRPC(table, method, columns).subscribe(result=>{
         var res = result['result']['message'][0];
         this.loading = false;
         if(res["code"]===1){
@@ -283,7 +291,7 @@ export class UserEmployeeGroupComponent implements OnInit {
     }else{
       this.dialogService.open(EditDelTooltipComponent, { closeOnBackdropClick: false, context: { title: '提示', content:   `请选择要搜索的数据！`}} ).onClose.subscribe(
         name=>{
-          console.log("----name-----", name);
+          // console.log("----name-----", name);
         })
     }
   }
@@ -351,6 +359,8 @@ export class UserEmployeeGroupComponent implements OnInit {
 
   // update_agGrid 更新数据表
   update_agGrid(event?){
+    var inittable_before = this.inittable_before();
+
     this.tableDatas.isno_refresh_page_size = true;
     var offset;
     var limit;
@@ -361,14 +371,17 @@ export class UserEmployeeGroupComponent implements OnInit {
       PageSize = event.PageSize? Number(event.PageSize):10;
     }else{
       offset = 0;
-      limit = 10;
-      PageSize = 10;
+      limit = inittable_before.limit;
+      PageSize = inittable_before.limit;
     }
     var columns = {
       offset: offset, 
       limit: limit,
+      group: [inittable_before.groups],
     }
-    this.http.callRPC('group_', 'sys_get_groups_limit', columns).subscribe((res)=>{
+    var table = this.TABLE;
+    var method = this.METHOD;
+    this.http.callRPC(table, method, columns).subscribe((res)=>{
       var tabledata = res['result']['message'][0]
       this.loading = false;
       if (tabledata["code"]===1){
@@ -389,8 +402,19 @@ export class UserEmployeeGroupComponent implements OnInit {
       }
     })
   }
+  // 初始化前确保 搜索条件 
+  inittable_before(){
+    var groups = this.myinput?.getinput()?this.myinput.getinput():"";
+    return {
+      limit: this.agGrid.get_pagesize(),
+      groups:groups,
+      employeeid: this.userinfo.getEmployeeID(),
+    }
+
+  }
   // 初始化table
   inttable(event?){
+    var inittable_before = this.inittable_before();
     var offset;
     var limit;
     var PageSize;
@@ -400,14 +424,17 @@ export class UserEmployeeGroupComponent implements OnInit {
       PageSize = event.PageSize? Number(event.PageSize):10;
     }else{
       offset = 0;
-      limit = 10;
-      PageSize = 10;
+      limit = inittable_before.limit;
+      PageSize = inittable_before.limit;
     }
     var columns = {
       offset: offset, 
       limit: limit,
+      group: [inittable_before.groups],
     }
-    this.http.callRPC('group_', 'sys_get_groups_limit', columns).subscribe((result)=>{
+    var table = this.TABLE;
+    var method = this.METHOD;
+    this.http.callRPC(table, method, columns).subscribe((result)=>{
       var tabledata = result['result']['message'][0]
       this.loading = false;
       if (tabledata["code"]===1){
@@ -430,7 +457,7 @@ export class UserEmployeeGroupComponent implements OnInit {
 
   // nzpageindexchange 页码改变的回调
   nzpageindexchange(event){
-    console.log("页码改变的回调", event);
+    // console.log("页码改变的回调", event);
     // this.getetabledata(event);
     this.gridData = [];
     this.loading = true;
@@ -446,7 +473,6 @@ export class UserEmployeeGroupComponent implements OnInit {
 
   // option_record  
   RecordOperation(result,transactiontype, infodata){
-    console.warn("用户组==============>", this.userinfo.getLoginName())
     if(this.userinfo.getLoginName()){
       var employeeid = this.userinfo.getEmployeeID();
       var result = result; // 1:成功 0 失败

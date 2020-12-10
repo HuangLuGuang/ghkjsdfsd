@@ -4,7 +4,7 @@ let kpi_detail = {
     left_one(element, afterdata) {
         // 实例化对象
         var mychart = echarts.init(document.querySelector(element));
-        console.log("左侧第一个",afterdata)
+        // console.log("左侧第一个",afterdata)
 
         // 配置
         var option = {
@@ -20,11 +20,13 @@ let kpi_detail = {
             grid: {
                 left: '3%',
                 right: '4%',
-                bottom: '9%',
+                bottom: '12%',
+                top: '9%',
                 containLabel: true
             },
             legend: {
                 bottom: "-1%",
+                itemHeight: 5,
                 textStyle: {
                     color: '#90979c',
                 },
@@ -104,6 +106,7 @@ let kpi_detail = {
                 left: 0,
                 align: 'left',
                 top: 'bottom',
+                // itemHeight: 5,
                 textStyle: {
                     color: '#8C8C8C'
                 },
@@ -111,7 +114,7 @@ let kpi_detail = {
             series: [{
                 name: '状态百分比',
                 type: 'pie',
-                radius: [100, 120],
+                radius: [30, 50],
                 data: afterdatas.afterdatas
                     // data:[
                     //     {value:20, name:'placeout'},
@@ -136,7 +139,7 @@ let kpi_detail = {
 
     // 这是 重置echart
     resize() {
-        console.log("这是 重置echart");
+        // console.log("这是 重置echart");
         left_one_chart.resize();
         right_one_chart.resize();
     }

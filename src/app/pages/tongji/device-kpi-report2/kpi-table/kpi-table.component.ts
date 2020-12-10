@@ -8,6 +8,8 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { DeviceKpiReport2Service } from '../device-kpi-report2-service';
 import { UserInfoService } from '../../../../services/user-info/user-info.service';
 import { TableDetailComponent } from './table-detail/table-detail.component';
+import { NbDialogService } from '@nebular/theme';
+import { EditDelTooltipComponent } from '../../../../pages-popups/prompt-diallog/edit-del-tooltip/edit-del-tooltip.component';
 
 
 declare let $;
@@ -36,8 +38,13 @@ export class KpiTableComponent implements OnInit {
   // =============================agGrid
   constructor(private publicservice: PublicmethodService, private http: HttpserviceService, 
     private deviceservice: DeviceKpiReport2Service, private router: Router,
-    private userinfo: UserInfoService) { 
-
+    private userinfo: UserInfoService, private dialogService: NbDialogService) { 
+    // 得到pathname --在得到button
+    var roleid = this.userinfo.getEmployeeRoleID();
+    this.publicservice.get_buttons_bypath(roleid).subscribe(result=>{
+      this.button = result;
+      localStorage.setItem("buttons_list", JSON.stringify(result));
+    })
     // 会话过期
     localStorage.removeItem("alert401flag");
     // 选择框
@@ -56,19 +63,16 @@ export class KpiTableComponent implements OnInit {
   ngOnInit(): void {
     
     // 初始化agGrid==============
-    this.inttable();
+    // this.inttable();
+    
     // 初始化agGrid==============
 
-    // 得到pathname --在得到button
-    var roleid = this.userinfo.getEmployeeRoleID();
-    this.publicservice.get_buttons_bypath(roleid).subscribe(result=>{
-      this.button = result;
-      localStorage.setItem("buttons_list", JSON.stringify(result));
-    })
+    
   }
 
   ngAfterViewInit(){
     
+    this.inttable();
   }
   
 
@@ -88,9 +92,9 @@ export class KpiTableComponent implements OnInit {
 
   // button按钮
   action(actionmethod){
-    console.log("++++++++++++++++++++action(actionmethod)++++++++++++++++++++++++++++", actionmethod);
+    // console.log("++++++++++++++++++++action(actionmethod)++++++++++++++++++++++++++++", actionmethod);
     var method = actionmethod.split(":")[1];
-    console.log("--------------->method", method)
+    // console.log("--------------->method", method)
     switch (method) {
       // case 'add':// 没有新增功能！
       //   this.add("新增");
@@ -135,7 +139,7 @@ export class KpiTableComponent implements OnInit {
   // input 传入的值
   inpuvalue(inpuvalue){
     if (inpuvalue != ""){
-      console.log("传入的值设备名称----->",inpuvalue);
+      // console.log("传入的值设备名称----->",inpuvalue);
       this.query(inpuvalue);
     }
   }
@@ -158,23 +162,38 @@ export class KpiTableComponent implements OnInit {
     var daterange_data = this.data_range.getselect()
     // 将科室/功能组，转为列表
     var groups_data_ = groups_data ===""?[] :groups_data.split(";");
-    // 搜索的 时间范围 daterange 必选，修改为 start end
-    // console.log("**************\n")
-    var columns = {
-      offset: 0, 
-      limit: 10,
-      employeeid: this.userinfo.getEmployeeID(),
-      devicename: [devicename],
-      group: groups_data_,
-      start:daterange_data[0],
-      end:daterange_data[1],
-      eimdevicetype:device_tpye_data
+    if (daterange_data.length < 1){
+      this.dialogService.open(EditDelTooltipComponent, { closeOnBackdropClick: false, context: { title: '提示', content:   `日期范围必选！`}} ).onClose.subscribe(
+        name=>{
+          console.log("----name-----", name);
+        }
+      );
     }
-    // console.log("**************\n", columns);
+    else if(devicename == "" && device_tpye_data.length < 1 && groups_data_.length < 1){
+      this.dialogService.open(EditDelTooltipComponent, { closeOnBackdropClick: false, context: { title: '提示', content:   `请选择要搜索的数据！`}} ).onClose.subscribe(
+        name=>{
+          console.log("----name-----", name);
+        }
+      );
+    }else{
+      // 搜索的 时间范围 daterange 必选，修改为 start end
+      // console.log("**************\n")
+      var columns = {
+        offset: 0, 
+        limit: this.agGrid.get_pagesize(),
+        employeeid: this.userinfo.getEmployeeID(),
+        devicename: [devicename],
+        group: groups_data_,
+        start:daterange_data[0],
+        end:daterange_data[1],
+        eimdevicetype:device_tpye_data
+      }
+      // console.log("**************\n", columns);
       // 执行搜索函数！
       var table = this.table;
       var method = this.method;
       this.http.callRPC(table, method,columns).subscribe(result=>{
+        // console.log("**************result\n", result);
         var tabledata = result["result"]["message"][0];
         this.loading = false;
         if (tabledata["code"] === 1){
@@ -191,6 +210,8 @@ export class KpiTableComponent implements OnInit {
           }
         }else{this.RecordOperation('搜索', 0,  "设备报表")}
       })
+    }
+
       
   }
 
@@ -208,12 +229,15 @@ export class KpiTableComponent implements OnInit {
     this.gridData = [];
     // 是否 每页多少也，设置为默认值
     this.tableDatas.isno_refresh_page_size = true;
-    this.inttable();
 
     // 取消选择的数据 delselect
     this.myinput.del_input_value();
     this.groups_func.dropselect();
     this.eimdevicetpye.dropselect();
+
+    this.inttable();
+
+    
   }
   
   // =================================================agGrid
@@ -262,7 +286,32 @@ export class KpiTableComponent implements OnInit {
 
   private gridData = [];
   
+  // 初始化前确保 搜索条件 
+  inittable_before(){
+    var devicename = this.myinput?.getinput()===undefined?"":this.myinput?.getinput();// 设备名称
+    // 科室/功能组
+    var groups_data = this.groups_func?.getselect();
+    // 设备类型
+    var device_tpye_data = this.eimdevicetpye?.getselect();
+    // console.log("---groups_data----",groups_data)
+    // 日期范围
+    var daterange_data = this.data_range?.getselect()
+    // 将科室/功能组，转为列表
+    var groups_data_ = groups_data ===""?[] :groups_data.split(";");
+    return {
+      limit: this.agGrid.get_pagesize(),
+      employeeid: this.userinfo.getEmployeeID(),
+      devicename: [devicename],
+      group: groups_data_,
+      eimdevicetype:device_tpye_data,
+      start:daterange_data[0],
+      end:daterange_data[1],
+    }
+
+  }
+
   inttable(event?){
+    var inittable_before = this.inittable_before();
     var offset;
     var limit;
     var PageSize;
@@ -272,18 +321,18 @@ export class KpiTableComponent implements OnInit {
       PageSize = event.PageSize? Number(event.PageSize):10;
     }else{
       offset = 0;
-      limit = 10;
-      PageSize = 10;
+      limit = inittable_before.limit;
+      PageSize = inittable_before.limit;
     }
     var colmun = {
-      start: this.init_value.split(" - ")[0],
-      end: this.init_value.split(" - ")[1],
+      start: inittable_before.start,
+      end: inittable_before.end,
       offset: offset,
       limit: limit,
-      employeeid: this.userinfo.getEmployeeID(),
-      group: [],
-      devicename: [],
-      eimdevicetype: [],
+      employeeid: inittable_before.employeeid,
+      group: inittable_before.group,
+      devicename: inittable_before.devicename,
+      eimdevicetype: inittable_before.eimdevicetype,
     }
     // 得到设备信息！
     var table = this.table;

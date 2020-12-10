@@ -75,7 +75,7 @@ export class MenuComponent implements OnInit {
         button_list["del"] = false;
       }
       this.isactions = button_list;
-      console.log(">>>>>>>>this.isactions_new<<<<<<",this.isactions);
+      // console.log(">>>>>>>>this.isactions_new<<<<<<",this.isactions);
       this.loadMenu();
     });
 

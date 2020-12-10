@@ -37,7 +37,7 @@ const routes: Routes = [
         component: EmployeeComponent,
       },
       {
-        path: 'employeegroup',
+        path: 'groups',
         component: UserEmployeeGroupComponent,
       },
       {

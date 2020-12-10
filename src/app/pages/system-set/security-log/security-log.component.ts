@@ -52,7 +52,7 @@ export class SecurityLogComponent implements OnInit {
 
 
   action(actionmethod){
-    console.log("++++++++++++++++++++action(actionmethod)++++++++++++++++++++++++++++", actionmethod);
+    // console.log("++++++++++++++++++++action(actionmethod)++++++++++++++++++++++++++++", actionmethod);
     var method = actionmethod.split(":")[1];
     // ====================================================
     switch (method) {
@@ -107,8 +107,16 @@ export class SecurityLogComponent implements OnInit {
     ]
   };
 
+  // 初始化前确保 搜索条件 
+  inittable_before(){
+    return {
+      limit: this.agGrid.get_pagesize(),
+      employeeid: this.userinfo.getEmployeeID(),
+    }
+  }
   private gridData = [];
   inttable(event?){
+    var inittable_before = this.inittable_before();
     var offset;
     var limit;
     var PageSize;
@@ -118,14 +126,14 @@ export class SecurityLogComponent implements OnInit {
       PageSize = event.PageSize? Number(event.PageSize):10;
     }else{
       offset = 0;
-      limit = 10;
-      PageSize = 10;
+      limit = inittable_before.limit;
+      PageSize = inittable_before.limit;
     }
     var columns = {
       offset: offset, 
       limit: limit,
     }
-    console.log("请求的参数：PageSize   ", PageSize)
+    // console.log("请求的参数：PageSize   ", PageSize)
     this.http.callRPC('sys_security_log', 'get_sys_login_log', columns).subscribe((res)=>{
       var get_sys_login_log = res['result']['message'][0]
       if (get_sys_login_log["code"]===1){
@@ -149,14 +157,15 @@ export class SecurityLogComponent implements OnInit {
   
   // 更新table
   update_agGrid(event?){
+    var inittable_before = this.inittable_before();
     var offset;
     var limit;
     if (event != undefined){
       offset = event.offset;
       limit = event.limit;
     }else{
-      offset = 0;
-      limit = 10;
+      offset = inittable_before.limit;
+      limit = inittable_before.limit;
     }
     var columns = {
       offset: offset, 

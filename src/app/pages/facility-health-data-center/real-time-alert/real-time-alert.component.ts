@@ -1,4 +1,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
+import { NbDialogService } from '@nebular/theme';
+import { EditDelTooltipComponent } from '../../../pages-popups/prompt-diallog/edit-del-tooltip/edit-del-tooltip.component';
 import { HttpserviceService } from '../../../services/http/httpservice.service';
 import { PublicmethodService } from '../../../services/publicmethod/publicmethod.service';
 import { UserInfoService } from '../../../services/user-info/user-info.service';
@@ -23,7 +25,7 @@ export class RealTimeAlertComponent implements OnInit {
   groups_placeholder = "请选中科室/功能组"; // 下拉框---科室功能组
 
   constructor(private userinfo: UserInfoService, private publicservice: PublicmethodService,
-    private http: HttpserviceService,  
+    private http: HttpserviceService, private dialogService: NbDialogService
   ) {
     // 会话过期
     // localStorage.removeItem("alert401flag");
@@ -83,7 +85,7 @@ export class RealTimeAlertComponent implements OnInit {
     this.gridData = [];
     // 是否 每页多少也，设置为默认值
     this.tableDatas.isno_refresh_page_size = true;
-    
+
     // 取消选择的数据 delselect
     this.myinput.del_input_value();
     this.groups_func.dropselect();
@@ -130,7 +132,7 @@ export class RealTimeAlertComponent implements OnInit {
     }
     this.http.callRPC("deveice","dev_get_device_groups",columns).subscribe(result=>{
       var res = result["result"]["message"][0]
-      console.log("得到下拉框的数据---------------->", res)
+      // console.log("得到下拉框的数据---------------->", res)
       if (res["code"] === 1){
         var groups = res["message"][0]["groups"];
         this.groups_func.init_select_tree(groups);
@@ -144,7 +146,7 @@ export class RealTimeAlertComponent implements OnInit {
   // input 传入的值
   inpuvalue(inpuvalue){
     if (inpuvalue != ""){
-      console.log("传入的值设备名称----->",inpuvalue);
+      // console.log("传入的值设备名称----->",inpuvalue);
       this.query(inpuvalue);
     }
   }
@@ -169,38 +171,56 @@ export class RealTimeAlertComponent implements OnInit {
     // 将科室/功能组，转为列表
     var groups_data_ = groups_data ===""?[] :groups_data.split(";");
 
-    var columns = {
-      offset: 0, 
-      limit: this.agGrid.get_pagesize(),
-      employeeid: this.userinfo.getEmployeeID(),
-      devicename: [devicename],
-      group: groups_data_,
-      start:daterange_data[0],
-      end:daterange_data[1],
-      eimdevicetype:device_tpye_data
-    };
-    var table = this.TABLE;
-    var method = this.METHOD;
-    this.http.callRPC(table, method, columns).subscribe(result=>{
-      console.log("-----------实时报表table---", result);
-      var tabledata = result["result"]["message"][0];
-      if (tabledata["code"]===1){
-        this.loading = false;
-        var message = tabledata["message"];
-        this.gridData = [];
-        this.tableDatas.PageSize = columns.limit;
-        this.gridData.push(...message)
-        this.tableDatas.rowData = this.gridData;
-        var totalpagenumbers = tabledata['numbers']? tabledata['numbers'][0]['numbers']: '未得到总条数';
-        this.tableDatas.totalPageNumbers = totalpagenumbers;
-        this.agGrid.init_agGrid(this.tableDatas); // 告诉组件刷新！
-        this.RecordOperation('搜索', 1, "设备实时报警");
-        // 刷新table后，改为原来的！
-        // this.tableDatas.isno_refresh_page_size = false;
-      }else{
-        this.RecordOperation('搜索', 0, "设备实时报警");
-      }
-    })
+    if (daterange_data.length < 1){
+      this.dialogService.open(EditDelTooltipComponent, { closeOnBackdropClick: false, context: { title: '提示', content:   `日期范围必选！`}} ).onClose.subscribe(
+        name=>{
+          // console.log("----name-----", name);
+        }
+      );
+    }
+    else if(devicename == "" && device_tpye_data.length < 1 && groups_data_.length < 1){
+      this.dialogService.open(EditDelTooltipComponent, { closeOnBackdropClick: false, context: { title: '提示', content:   `请选择要搜索的数据！`}} ).onClose.subscribe(
+        name=>{
+          // console.log("----name-----", name);
+        }
+      );
+    }else{
+      
+
+      var columns = {
+        offset: 0, 
+        limit: this.agGrid.get_pagesize(),
+        employeeid: this.userinfo.getEmployeeID(),
+        devicename: [devicename],
+        group: groups_data_,
+        start:daterange_data[0],
+        end:daterange_data[1],
+        eimdevicetype:device_tpye_data
+      };
+      var table = this.TABLE;
+      var method = this.METHOD;
+      this.http.callRPC(table, method, columns).subscribe(result=>{
+        // console.log("-----------实时报表table---", result);
+        var tabledata = result["result"]["message"][0];
+        if (tabledata["code"]===1){
+          this.loading = false;
+          var message = tabledata["message"];
+          this.gridData = [];
+          this.tableDatas.PageSize = columns.limit;
+          this.gridData.push(...message)
+          this.tableDatas.rowData = this.gridData;
+          var totalpagenumbers = tabledata['numbers']? tabledata['numbers'][0]['numbers']: '未得到总条数';
+          this.tableDatas.totalPageNumbers = totalpagenumbers;
+          this.agGrid.init_agGrid(this.tableDatas); // 告诉组件刷新！
+          this.RecordOperation('搜索', 1, "设备实时报警");
+          // 刷新table后，改为原来的！
+          // this.tableDatas.isno_refresh_page_size = false;
+        }else{
+          this.RecordOperation('搜索', 0, "设备实时报警");
+        }
+      })
+    }
+
 
   }
 
@@ -221,12 +241,7 @@ export class RealTimeAlertComponent implements OnInit {
     var daterange_data = this.data_range.getselect();
     // 将科室/功能组，转为列表
     var groups_data_ = groups_data ===""?[] :groups_data.split(";");
-    console.log(
-      "设备名称", devicename,
-      "科室/功能组", groups_data,
-      "设备类型", device_tpye_data,
-      "日期范围", daterange_data,
-    )
+   
     return {
       limit: this.agGrid.get_pagesize(),
       employeeid: this.userinfo.getEmployeeID(),
@@ -266,7 +281,7 @@ export class RealTimeAlertComponent implements OnInit {
     var table = this.TABLE;
     var method = this.METHOD;
     this.http.callRPC(table, method, columns).subscribe(result=>{
-      console.log("-----------实时报表table---", result);
+      // console.log("-----------实时报表table---", result);
       var tabledata = result["result"]["message"][0];
       if (tabledata["code"]===1){
         this.loading = false;
@@ -275,7 +290,7 @@ export class RealTimeAlertComponent implements OnInit {
         this.gridData.push(...message);
         this.tableDatas.rowData = this.gridData;
         var totalpagenumbers = tabledata['numbers']? tabledata['numbers'][0]['numbers']: '未得到总条数';
-        console.log("totalpagenumbers>>>>>>>>>>>>>>>>",totalpagenumbers)
+        // console.log("totalpagenumbers>>>>>>>>>>>>>>>>",totalpagenumbers)
         this.tableDatas.totalPageNumbers = totalpagenumbers;
         this.agGrid.init_agGrid(this.tableDatas); // 告诉组件刷新！
         // 刷新table后，改为原来的！
@@ -319,7 +334,7 @@ export class RealTimeAlertComponent implements OnInit {
     var method = this.METHOD;
 
     this.http.callRPC(table, method, columns).subscribe(result=>{
-      console.log("-----------实时报表table---", result);
+      // console.log("-----------实时报表table---", result);
       var tabledata = result["result"]["message"][0];
       this.loading = false;
       if (tabledata["code"]===1){
@@ -341,7 +356,7 @@ export class RealTimeAlertComponent implements OnInit {
 
   // nzpageindexchange 页码改变的回调
   nzpageindexchange_ag(event){
-    console.log("-------event",event)
+    // console.log("-------event",event)
     this.gridData = [];
     this.loading = true;
     this.inttable(event);

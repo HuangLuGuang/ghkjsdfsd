@@ -194,7 +194,7 @@ export class TestTaskManageComponent implements OnInit {
     if (inpuvalue&&inpuvalue["taskchildnum"]){
       taskchildnum = [inpuvalue["taskchildnum"]];
     }else{
-      taskchildnum = [this.myinput2?.getinput()];// 设备名称
+      taskchildnum = [this.myinput2?.getinput()];// 任务子单号
     }
     // 设备名称 devicename
     // var devicename = $("#devicename").val();
@@ -210,7 +210,7 @@ export class TestTaskManageComponent implements OnInit {
     // console.log("**************\n")
     var columns = {
       offset: 0, 
-      limit: 10,
+      limit: this.agGrid.get_pagesize(),
       employeeid: this.userinfo.getEmployeeID(),
       devicename: [devicename],
       group: groups_data_,
@@ -219,9 +219,9 @@ export class TestTaskManageComponent implements OnInit {
       eimdevicetype:device_tpye_data,
       taskchildnum: taskchildnum
     }
-    console.log("**************\n", columns);
-      // 执行搜索函数！GETTABLE  dev_get_kpi_device_search
-      this.http.callRPC('device', this.GETTABLE,columns).subscribe(result=>{
+    // console.log("**************\n", columns);
+    // 执行搜索函数！GETTABLE  dev_get_kpi_device_search
+    this.http.callRPC('device', this.GETTABLE,columns).subscribe(result=>{
         var tabledata = result["result"]["message"][0];
         this.loading = false;
         if (tabledata["code"] === 1){
@@ -252,7 +252,6 @@ export class TestTaskManageComponent implements OnInit {
     this.gridData = [];
     // 是否 每页多少也，设置为默认值
     this.tableDatas.isno_refresh_page_size = true;
-    this.inttable();
 
     // 取消选择的数据 delselect
     this.myinput.del_input_value(); // 设备名称
@@ -260,10 +259,13 @@ export class TestTaskManageComponent implements OnInit {
 
     this.group.dropselect();
     this.eimdevicetpye.dropselect();
+
+
+    this.inttable();
+
+    
   }
-
   // 得到buttons----------------------------------------------------------
-
   // =================================================agGrid
 
   tableDatas = {
@@ -304,7 +306,34 @@ export class TestTaskManageComponent implements OnInit {
 
   private gridData = [];
 
+  // 初始化前确保 搜索条件 
+  inittable_before(){
+    var devicename = this.myinput?.getinput()===undefined?"":this.myinput?.getinput();// 设备名称
+    var taskchildnum = this.myinput2?.getinput()===undefined?"":this.myinput2?.getinput();// 任务子单号
+
+    // 科室/功能组
+    var groups_data = this.group?.getselect();
+    // 设备类型
+    var device_tpye_data = this.eimdevicetpye?.getselect();
+    // 日期范围
+    var daterange_data = this.data_range?.getselect()
+    // 将科室/功能组，转为列表
+    var groups_data_ = groups_data ===""?[] :groups_data.split(";");
+    return {
+      limit: this.agGrid.get_pagesize(),
+      employeeid: this.userinfo.getEmployeeID(),
+      devicename: [devicename],
+      taskchildnum: [taskchildnum],
+      group: groups_data_,
+      eimdevicetype:device_tpye_data,
+      start:daterange_data[0],
+      end:daterange_data[1],
+    }
+
+  }
+
   inttable(event?){
+    var inittable_before = this.inittable_before();
     var offset;
     var limit;
     var PageSize;
@@ -314,19 +343,19 @@ export class TestTaskManageComponent implements OnInit {
       PageSize = event.PageSize? Number(event.PageSize):10;
     }else{
       offset = 0;
-      limit = 10;
-      PageSize = 10;
+      limit = inittable_before.limit;
+      PageSize = inittable_before.limit;
     }
     var colmun = {
-      start: this.init_value.split(" - ")[0],
-      end: this.init_value.split(" - ")[1],
+      start: inittable_before.start,
+      end: inittable_before.end,
       offset: offset,
       limit: limit,
-      employeeid:this.userinfo.getEmployeeID(),
-      devicename: "",
-      group:[],
-      eimdevicetype:[],
-      taskchildnum:[]
+      employeeid:inittable_before.employeeid,
+      devicename: inittable_before.devicename,
+      group:inittable_before.group,
+      eimdevicetype:inittable_before.eimdevicetype,
+      taskchildnum:inittable_before.taskchildnum
     }
     // 得到设备信息！
     this.http.callRPC('device', this.GETTABLE, colmun).subscribe((res)=>{
@@ -395,7 +424,7 @@ export class TestTaskManageComponent implements OnInit {
 
   // nzpageindexchange 页码改变的回调
   nzpageindexchange_ag(event){
-    console.log("页码改变的回调", event);
+    // console.log("页码改变的回调", event);
     this.gridData = [];
     this.loading = true;
     this.inttable(event);

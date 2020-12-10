@@ -26,7 +26,7 @@ export class UserInfoService {
 
   getName() {
     const userinfo = this.getUserInfo();
-    console.log("--userinfo------", userinfo)
+    // console.log("--userinfo------", userinfo)
     return userinfo ? JSON.parse(userinfo)['name'] : null;
   }
 

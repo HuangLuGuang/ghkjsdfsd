@@ -93,8 +93,17 @@ export class OperationLogComponent implements OnInit, OnDestroy {
 
   private gridData = [];
 
+  // 初始化前确保 搜索条件 
+  inittable_before(){
+    return {
+      limit: this.agGrid.get_pagesize(),
+      employeeid: this.userinfo.getEmployeeID(),
+    }
+  }
+
   // 初始化table
   inttable(event?){
+    var inittable_before  = this.inittable_before();
     var offset;
     var limit;
     var PageSize;
@@ -104,8 +113,8 @@ export class OperationLogComponent implements OnInit, OnDestroy {
       PageSize = event.PageSize? Number(event.PageSize):10;
     }else{
       offset = 0;
-      limit = 10;
-      PageSize = 10;
+      limit = inittable_before.limit;
+      PageSize = inittable_before.limit;
     }
     var columns = {
       offset: offset, 
@@ -142,14 +151,15 @@ export class OperationLogComponent implements OnInit, OnDestroy {
   
   // 更新 表
   update_agGrid(event?){
+    var inittable_before  = this.inittable_before();
     var offset;
     var limit;
     if (event != undefined){
       offset = event.offset;
       limit = event.limit;
     }else{
-      offset = 0;
-      limit = 10;
+      offset = inittable_before.limit;
+      limit = inittable_before.limit;
     }
     this.http.callRPC('sys_security_log', 'get_sys_transaction_log', {offset: offset, limit: limit}).subscribe((res)=>{
       // console.log("get_sys_transaction_log", res)

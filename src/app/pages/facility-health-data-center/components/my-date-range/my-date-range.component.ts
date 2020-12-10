@@ -29,7 +29,7 @@ export class MyDateRangeComponent implements OnInit {
   // 初始化日期范围
   initdate(){
     var init_value = this.init_value;
-    console.log("初始化日期范围" , init_value)
+    // console.log("初始化日期范围" , init_value)
     var that = this;
     layui.use('laydate', function(){
       var laydate = layui.laydate;
@@ -57,7 +57,7 @@ export class MyDateRangeComponent implements OnInit {
   getselect(){
     var date_range = this.init_value;
     var date = date_range.split(' - ');
-    console.log("date--->", date)
+    // console.log("date--->", date)
     var date_list = date[0]===""?[]:date;
     return date_list
   }
