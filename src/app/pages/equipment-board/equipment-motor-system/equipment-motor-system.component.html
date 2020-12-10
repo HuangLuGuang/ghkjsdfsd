@@ -4,12 +4,12 @@
             <div class="first_first" style="height: 32%;position: relative;">
                 <ngx-equipment-status [device]='deviceid' style="display: flex;width: 100%;"></ngx-equipment-status>
             </div>
-            <div class="first_second lattice_layout height_30">
+            <div class="first_second lattice_layout height_28">
                 <div class="part_title">{{'equipment.expInfor'|translate}}</div>
                 <ngx-test-information [device]='deviceid' style="width: 100%;"></ngx-test-information>
 
             </div>
-            <div class="dis_f_w first_third lattice_layout height_32">
+            <div class="dis_f_w first_third lattice_layout height_33">
                 <ngx-log-warm [device]='deviceid' style="display: flex;width: 100%;flex-wrap: wrap;"></ngx-log-warm>
 
             </div>
@@ -28,15 +28,15 @@
                 <div class="part_title">{{'equipment.experimentParams'|translate}}</div>
                 <div class="circularD">
                     <div class="lay">
-                        <div class="title">冷却水</div>
+                        <div class="title">{{ 'equipment.motor.coolingWater'|translate }}</div>
                         <div id="coolingWater"></div>
                     </div>
                     <div class="lay">
-                        <div class="title">轴箱温度1</div>
+                        <div class="title">{{ 'equipment.motor.AxleBoxTemp'|translate }}1</div>
                         <div id="AxleBoxTemperature1"></div>
                     </div>
                     <div class="lay">
-                        <div class="title">轴箱温度2</div>
+                        <div class="title">{{ 'equipment.motor.AxleBoxTemp'|translate }}2</div>
                         <div id="AxleBoxTemperature2"></div>
                     </div>
                     <div id="circularD_chart" class="height_50" style="width: 100%;"></div>
@@ -48,62 +48,64 @@
             <div class="thrid">
                 <div class="part_title">{{'equipment.experimentParams'|translate}}</div>
                 <div>
-                    实时<br>环境<br>温度
+                    {{'equipment.realime'|translate}}<br>{{'equipment.ambient'|translate}}<br>{{'equipment.temperature'|translate}}
                 </div>
                 <div id="temperature">
                 </div>
                 <div>
-                    实时<br>环境<br>湿度
+                    {{'equipment.realime'|translate}}<br>{{'equipment.ambient'|translate}}<br>{{'equipment.humidity'|translate}}
                 </div>
                 <div id="humidity"></div>
             </div>
 
-            <div class="height_75 bo" style="padding: 0%;margin-top: 10px;">
+            <div class="height_75 bo" style="padding: 0%;margin-top: 10px;position: relative;">
+                <div class="part_title">{{ 'equipment.real'|translate }}{{ 'equipment.motor.MotorParam'|translate }}
+                </div>
                 <div class="height_20 display_f">
-                    <img [src]="img.electric_url" style="width: 40%;margin: 10px;">
+                    <img [src]="img.electric_url" style="width: 40%;margin: 20px 10px 10px 10px;">
                     <div style="width: 60%;">
                         <div class="height_50" style="display: flex;font-size: 12px;">
                             <div class="lay_electric">
-                                <div>(系统效率)</div>
+                                <div>({{'equipment.motor.SystemEfficiency'|translate}})</div>
                                 <div id="electric_1"></div>
                             </div>
                             <div class="lay_electric">
-                                <div>(控制器效率)</div>
+                                <div>({{'equipment.motor.ControllerEfficiency'|translate}})</div>
                                 <div id="electric_2"></div>
                             </div>
                             <div class="lay_electric">
-                                <div>(电机效率)</div>
+                                <div>({{'equipment.motor.MotorEfficiency'|translate}})</div>
                                 <div id="electric_3"></div>
                             </div>
                         </div>
                         <div class="height_50" style="display: flex;justify-content: center;align-items: center;">
                             <div class="height_100" style="width: 40%;">
-                                <div>(控制器输出功率)</div>
+                                <div>({{ 'equipment.motor.ControllerOutputPower'|translate }})</div>
                                 <div id="electric_4"></div>
                             </div>
                             <div class="height_100" style="width: 40%;font-size: 12px;">
-                                <div>(直流功率)</div>
+                                <div>({{ 'equipment.motor.DCpower'|translate }})</div>
                                 <div id="electric_5"></div>
                             </div>
                         </div>
                     </div>
                 </div>
-                <div id="dashboard" class="height_20" style="margin-left: 20%;width: 60%;">
+                <div id="dashboard" class="height_18" style="margin-left: 20%;width: 60%;">
                 </div>
                 <div id="line_chart_12" class="height_20">
                 </div>
-                <div class="height_10">
+                <div class="height_12">
                     <div class="height_50" style="display: flex;flex-wrap: wrap;">
                         <div class="height_100 center" style="width: 30%;">
                             <div class="center">
-                                母线电压
+                                {{'equipment.motor.BusVoltage'|translate}}
                             </div>
                             <div class="height_100 width_70 bord center">12</div>
                         </div>
                         <div style="width: 3%;"></div>
                         <div class="height_100 center" style="width: 30%;">
                             <div class="center">
-                                母线电流
+                                {{'equipment.motor.BusCurrent'|translate}}
                             </div>
                             <div class="height_100 width_70 bord center">12</div>
                         </div>
@@ -111,7 +113,7 @@
 
                         <div class="height_100 center" style="width: 30%;">
                             <div class="center">
-                                直流功率
+                                {{'equipment.motor.DCpower'|translate}}
                             </div>
                             <div class="height_100 width_70 bord center">12</div>
                         </div>
@@ -119,7 +121,7 @@
                     <div class="height_50" style="display: flex;flex-wrap: wrap;">
                         <div class="center" style="width: 30%;">
                             <div class="center">
-                                平均电压
+                                {{'equipment.motor.DCpower'|translate}}
                             </div>
                             <div class="height_100 width_70 bord center">12</div>
                         </div>
@@ -127,7 +129,7 @@
 
                         <div class="height_100 center" style="width: 30%;">
                             <div class="center">
-                                平均电流
+                                {{'equipment.motor.AveVoltage'|translate}}
                             </div>
                             <div class="height_100 width_70 bord center">12</div>
                         </div>
@@ -135,7 +137,8 @@
 
                         <div class="height_100 center" style="width: 30%;">
                             <div class="center">
-                                控制器输出平均功率
+                                {{'equipment.motor.AveOutputPowerOfController'|translate}}
+
                             </div>
                             <div class="height_100 width_70 bord center">12</div>
                         </div>

@@ -278,23 +278,23 @@ color:["#d9d919", "#d9d919"]
   initChart(){
     let chart = document.getElementById('coolingWater');
     if(chart)
-      equipment_four_road.create_real_temperature( {value:12},echarts.init(chart));
+      equipment_four_road.create_real_temperature( {value:12,unit:'℃'},echarts.init(chart));
     chart = document.getElementById('AxleBoxTemperature1');
     if(chart)
-      equipment_four_road.create_real_temperature( {value:12},echarts.init(chart));
+      equipment_four_road.create_real_temperature( {value:12,unit:'℃'},echarts.init(chart));
     chart = document.getElementById('AxleBoxTemperature2');
     if(chart)
-      equipment_four_road.create_real_temperature( {value:12},echarts.init(chart));
+      equipment_four_road.create_real_temperature( {value:12,unit:'℃'},echarts.init(chart));
     chart = document.getElementById('circularD_chart')
     if(chart)
         equipment_four_road.create_real_discharge({attrs:this.attrs,xData:[1,1,1,1,1,1,1,1,1],title:'冷却水、轴箱温度'},echarts.init(chart));
         
     chart = document.getElementById('temperature');
     if(chart)
-      equipment_four_road.create_real_temperature( {value:12},echarts.init(chart));
+      equipment_four_road.create_real_temperature( {value:12,unit:'℃'},echarts.init(chart));
     chart = document.getElementById('humidity');
     if(chart)
-      equipment_four_road.create_real_temperature( {value:12},echarts.init(chart));
+      equipment_four_road.create_real_temperature( {value:12,unit:'RH' },echarts.init(chart));
     [1,2,3,4,5].forEach(f=>{
       chart = document.getElementById('electric_'+f);
       if(chart)

@@ -237,8 +237,11 @@ export const hydraulic_htmlstr = [
   &emsp;Q/JLY J7110490B-2016 J05204 后桥总成（扭力梁）技术条件<br>
   &emsp;Q/JLY J7110371C-2016 J05204 前、后稳定杆总成技术条件等<br>
   `,
-  `<div class="equipments_table">
+  
+  `
   <div class="equipments_table_title" style="padding-right: 10px">3.设备构成及参数</div>
+  <div class="equipments_table">
+  
   <div  class="column_20 border_1px">
     <div>名称</div>
     <div class="border_top_1px">MTS直线缸</div>
@@ -264,7 +267,6 @@ export const  four_road_htmlstr = [
   &emsp;带环境条件的四立柱耐久试验规范<br>
   &emsp;Q/JLY J7210624A-2016<br>
   &emsp;整车四通道轮耦合道路模拟试验规范<br>
-
 `,
 
 ` <div class="equipments_table height_99">
@@ -302,7 +304,6 @@ export const  four_road_htmlstr = [
   //六自由度设备介绍
 export const shock_htmlStr = [
   `
-  
   1.使用标准\规范<br>
   &emsp;Q/JLY J7111070B-2018<br>
   &emsp;悬置系统六自由度道路模拟试验规范<br>
@@ -337,9 +338,9 @@ export const shock_htmlStr = [
 <div class="equipments_table height_99">
 <div class="column_31 border_1px">
   <div class="border_top_1px height_10">名称 name</div>
-  <div class="border_top_1px height_50">旋转角
+  <div class="border_top_1px height_44">旋转角
   Rotations</div>
-  <div class="border_top_1px height_20">台面尺寸 
+  <div class="border_top_1px height_26">台面尺寸 
   Table Size 
   </div>
   <div class="border_top_1px height_20">承载范围Payload
@@ -348,10 +349,10 @@ export const shock_htmlStr = [
 <div class="column_69 border_1px">
   <div  class="border_top_1px height_10">基本参数  Specifications
   </div>
-  <div class="border_top_1px height_49">滚动 – 绕X轴 8.0 deg、俯仰 – 绕Y轴 7.0 deg、偏航 – 绕Z轴 5.5 deg
+  <div class="border_top_1px height_44">滚动 – 绕X轴 8.0 deg、俯仰 – 绕Y轴 7.0 deg、偏航 – 绕Z轴 5.5 deg
   Roll - (X) axis 8.0 deg、Pitch - (Y) axis 7.0 deg、Yaw- (Z) axis 5.5 deg
   </div>
-  <div class="border_top_1px height_20">约为2.2 米 x 2.2米 方台面
+  <div class="border_top_1px height_26">约为2.2 米 x 2.2米 方台面
   approximately 2.2 m x 2.2m square
   </div>
   <div class="border_top_1px height_20">最大负载    1000千克

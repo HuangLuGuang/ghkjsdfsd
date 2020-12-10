@@ -53,6 +53,11 @@ const ROUTERS: Routes = [{
         component:EquipmentMotorSystemComponent
       },
       {
+        //电机系统测试台架-4
+        path:'motor4/:title/:deviceid',
+        component:EquipmentMotorSystemComponent
+      },
+      {
         //AVL转毂+久鼎环境舱+排放分析
         path:'avl/:title',
         component:EquipmentAvlComponent

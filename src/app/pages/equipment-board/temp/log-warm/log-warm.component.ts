@@ -25,10 +25,7 @@ export class LogWarmComponent implements OnInit {
   language = '';
   errorC = true;
   subscribeList:any = {};
-  obser = new Observable(f=>{
-    if(document.getElementById('warning'))echarts.getInstanceByDom(document.getElementById('warning')).resize();
-    f.next('log-warm刷新')
-  }).pipe(take(1));
+  
   
   constructor(private http:HttpserviceService,private layoutService:LayoutService) { }
 
@@ -54,7 +51,12 @@ export class LogWarmComponent implements OnInit {
     window.addEventListener('resize',this.chartResize)
   }
   chartResize=()=>{
-    this.obser.subscribe(f=>{
+    // if(document.getElementById('warning'))echarts.init(document.getElementById('warning')).resize();
+    let obser = new Observable(f=>{
+      if(document.getElementById('warning'))echarts.init(document.getElementById('warning')).resize();
+      f.next('log-warm刷新')
+    }).pipe(take(1));
+    obser.subscribe(f=>{
       console.log(f)
     })
     
@@ -168,6 +170,8 @@ export class LogWarmComponent implements OnInit {
       this.subscribeList[key].unsubscribe();
     }
     window.removeEventListener('resize',this.chartResize)
+    // document.getElementById('warning').removeEventListener('resize',this.chartResize)
+
   }
 
 

@@ -17,8 +17,8 @@ export class ExperimentParamsComponent implements OnInit {
   language ='';
   subscribeList:any = {};
   obser = new Observable(f=>{
-    if(document.getElementById('real_temperature_1'))echarts.getInstanceByDom(document.getElementById('real_temperature_1')).resize();
-    if(document.getElementById('real_temperature_2'))echarts.getInstanceByDom(document.getElementById('real_temperature_2')).resize();
+    if(document.getElementById('real_temperature_1'))echarts.init(document.getElementById('real_temperature_1')).resize();
+    if(document.getElementById('real_temperature_2'))echarts.init(document.getElementById('real_temperature_2')).resize();
     if(document.getElementById('third_second'))echarts.init(document.getElementById('third_second')).resize();
     f.next('experiment-params刷新')
   })

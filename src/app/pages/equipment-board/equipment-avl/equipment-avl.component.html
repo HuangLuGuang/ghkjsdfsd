@@ -9,7 +9,7 @@
                 <ngx-test-information device='device_mts_01' style="width: 100%;"></ngx-test-information>
 
             </div>
-            <div class="dis_f_w first_third lattice_layout height_32" style="min-height: 282px;">
+            <div class="dis_f_w first_third lattice_layout height_32">
                 <ngx-log-warm device='device_mts_01' style="display: flex;width: 100%;flex-wrap: wrap;"></ngx-log-warm>
             </div>
         </div>
@@ -46,14 +46,15 @@
             <div class="thrid">
                 <div class="part_title">{{'equipment.EnvironBinParam'|translate}}</div>
                 <div class="height_25" style="display: flex;">
-                    <div id="real_temperature_4" style="height: 100%;"></div>
+                    <!-- <div id="real_temperature_4" style="height: 100%;"></div>
                     <div id="real_temperature_5" style="height: 100%;"></div>
                     <div id="real_temperature_6" style="height: 100%;"></div>
                     <div class="width_25">
                         <p class="white_font">{{'equipment.temperature'|translate}}{{'equipment.setup'|translate}}:<span style="color: green;">22℃</span></p>
                         <p class="white_font">{{'equipment.humidity'|translate}}{{'equipment.setup'|translate}}:<span>22℃</span></p>
                         <p class="white_font">{{'equipment.pressDiff'|translate}}{{'equipment.setup'|translate}}:<span>22℃</span></p>
-                    </div>
+                    </div> -->
+                    <div style="width: 100%;" id="temp_humidity_pressure"></div>
                 </div>
                 <div class="height_25">
                     <div id="discharge_chart_1" style="height: 100%;"></div>

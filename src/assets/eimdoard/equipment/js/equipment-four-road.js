@@ -352,11 +352,12 @@ let equipment_four_road = {
                 top: "0%",
             },
             grid: {
-                left: '3%',
-                right: '4%',
-                bottom: '3%',
-                containLabel: true,
-                height: '80%'
+                // left: '3%',
+                // right: '4%',
+                bottom: '19%',
+                // containLabel: true,
+                height: '60%',
+                // width: '70%'
             },
             xAxis: [{
                 type: data.xAxis ? 'category' : 'value',
@@ -431,10 +432,11 @@ let equipment_four_road = {
     create_real_temperature(gauge_data, myChart) {
         let angle = 0; //角度，用来做简单的动画效果的
         let value = gauge_data.value;
+        let unit = gauge_data.unit ? gauge_data.unit : '%';
         let optionInterval = {
             // backgroundColor:"#061740",
             title: {
-                text: '{a|' + value + '}{c|%}',
+                text: '{a|' + value + '}{c|' + unit + '}',
                 x: 'center',
                 y: 'center',
                 textStyle: {
@@ -1411,7 +1413,7 @@ let equipment_four_road = {
                             value: 100,
                             itemStyle: {
                                 normal: {
-                                    color: '#E1E8EE'
+                                    color: 'black'
                                 }
                             },
                         }, {
@@ -1828,6 +1830,259 @@ let equipment_four_road = {
             series: service_m
         };
         myChart.setOption(option_motor_chart);
+        myChart.resize();
+    },
+    create_temp_humidity_pressure_gauge(data, myChart) {
+        var dataArry = {
+            one: 500,
+            two: 300,
+            three: 200
+        };
+
+        let option_t_h_p_g = {
+            // backgroundColor: '#040042',
+            series: [{
+                    name: '实时温度',
+                    type: 'gauge',
+                    color: ['#f00'],
+                    min: 0,
+                    max: data.temp.max,
+                    splitNumber: 8,
+                    radius: '90%',
+                    center: ["15%", "55%"],
+                    axisLine: { // 坐标轴线
+                        lineStyle: { // 属性lineStyle控制线条样式
+                            width: 5,
+                            color: data.temp.color
+                        },
+                        backgroundColor: "none"
+                    },
+                    tooltip: {
+                        formatter: function() {
+                            if (dataArry.one) {
+                                return "第一部分:" + dataArry.one;
+                            }
+                        }
+                    },
+                    axisTick: { // 坐标轴小标记
+                        length: 12, // 属性length控制线长
+                        lineStyle: { // 属性lineStyle控制线条样式
+                            color: 'auto'
+                        }
+                    },
+                    splitLine: { // 分隔线
+                        length: 5, // 属性length控制线长
+                        lineStyle: { // 属性lineStyle（详见lineStyle）控制线条样式
+                            color: 'rgba(255,255,255,0.7)',
+                        }
+                    },
+                    axisLabel: {
+                        borderRadius: 1,
+                        color: 'rgba(255,255,255,0.7)',
+                        padding: 1,
+                    },
+                    pointer: {
+                        width: 5
+                    },
+                    title: {
+                        // 其余属性默认使用全局文本样式，详见TEXTSTYLE
+                        // fontWeight: 'bolder',
+                        fontSize: 12,
+                        fontColor: "#FFF",
+                        color: "#FFF",
+                        paddingTop: 10,
+                        offsetCenter: [0, '90%']
+                            // fontStyle: 'italic'
+                    },
+                    itemStyle: {
+                        color: '#1092ff',
+                    },
+                    detail: {
+                        shadowOffsetX: 0,
+                        shadowOffsetY: 0,
+                        // borderWidth: 1,
+                        textBorderColor: '#000',
+                        textBorderWidth: 1,
+                        textShadowBlur: 1,
+                        textShadowColor: '#fff',
+                        textShadowOffsetX: 0,
+                        textShadowOffsetY: 0,
+                        paddingTop: 10,
+                        fontFamily: 'digital',
+                        fontSize: 12,
+                        width: 30,
+                        color: '#fff',
+                        rich: {},
+                        offsetCenter: [0, '65%'],
+                        formatter: function(value) {
+                            console.info(value)
+                            return (value + "℃");
+                        }
+                    },
+                    data: [{
+                        value: data.temp.value,
+                        name: '实时温度'
+                    }]
+                },
+                {
+                    name: '实时湿度',
+                    type: 'gauge',
+                    color: ['#f00'],
+                    min: 0,
+                    max: data.humidity.max,
+                    splitNumber: 8,
+                    radius: '90%',
+                    center: ["50%", "55%"],
+                    axisLine: { // 坐标轴线
+                        lineStyle: { // 属性lineStyle控制线条样式
+                            width: 5,
+                            color: data.humidity.color
+                        },
+                        backgroundColor: "none"
+                    },
+                    axisTick: { // 坐标轴小标记
+                        length: 12, // 属性length控制线长
+                        lineStyle: { // 属性lineStyle控制线条样式
+                            color: 'auto'
+                        }
+                    },
+                    tooltip: {
+                        formatter: function() {
+                            if (dataArry.two) {
+                                return "第二部分:" + dataArry.two;
+                            }
+                        }
+                    },
+                    splitLine: { // 分隔线
+                        length: 5, // 属性length控制线长
+                        lineStyle: { // 属性lineStyle（详见lineStyle）控制线条样式
+                            color: 'rgba(255,255,255,0.7)',
+                        }
+                    },
+                    axisLabel: {
+                        borderRadius: 1,
+                        color: 'rgba(255,255,255,0.7)',
+                        padding: 1,
+                    },
+                    pointer: {
+                        width: 5
+                    },
+                    title: {
+                        fontSize: 12,
+                        fontColor: "#FFF",
+                        color: "#FFF",
+                        paddingTop: 10,
+                        offsetCenter: [0, '90%']
+                    },
+                    itemStyle: {
+                        color: '#1092ff'
+                    },
+                    detail: {
+                        shadowOffsetX: 0,
+                        shadowOffsetY: 0,
+                        textBorderColor: '#000',
+                        textBorderWidth: 1,
+                        textShadowBlur: 1,
+                        textShadowColor: '#fff',
+                        textShadowOffsetX: 0,
+                        textShadowOffsetY: 0,
+                        paddingTop: 10,
+                        fontFamily: 'digital',
+                        fontSize: 12,
+                        width: 12,
+                        color: '#fff',
+                        rich: {},
+                        offsetCenter: [0, '65%'],
+                        formatter: function(value) {
+                            return (value + "RH");
+                        }
+                    },
+                    data: [{
+                        value: data.humidity.value,
+                        name: '实时湿度'
+                    }]
+                },
+                {
+                    name: '压强',
+                    type: 'gauge',
+                    color: ['#f00'],
+                    min: 0,
+                    max: data.pressure.max,
+                    splitNumber: 8,
+                    radius: '90%',
+                    center: ["85%", "55%"],
+                    axisLine: { // 坐标轴线
+                        lineStyle: { // 属性lineStyle控制线条样式
+                            width: 5,
+                            color: data.pressure.color
+                        },
+                        backgroundColor: "none"
+                    },
+                    axisTick: { // 坐标轴小标记
+                        length: 12, // 属性length控制线长
+                        lineStyle: { // 属性lineStyle控制线条样式
+                            color: 'auto'
+                        }
+                    },
+                    splitLine: { // 分隔线
+                        length: 5, // 属性length控制线长
+                        lineStyle: { // 属性lineStyle（详见lineStyle）控制线条样式
+                            color: 'rgba(255,255,255,0.7)',
+                        }
+                    },
+                    pointer: {
+                        width: 5
+                    },
+                    tooltip: {
+                        formatter: function() {
+                            if (dataArry.three) {
+                                return "第三部分:" + dataArry.three;
+                            }
+                        }
+                    },
+                    axisLabel: {
+                        borderRadius: 1,
+                        color: 'rgba(255,255,255,0.7)',
+                        padding: 1,
+                    },
+                    title: {
+                        fontSize: 12,
+                        fontColor: "#FFF",
+                        color: "#FFF",
+                        paddingTop: 10,
+                        offsetCenter: [0, '90%']
+                    },
+                    itemStyle: {
+                        color: '#1092ff'
+                    },
+                    detail: {
+                        shadowOffsetX: 0,
+                        shadowOffsetY: 0,
+                        textBorderColor: '#000',
+                        textBorderWidth: 1,
+                        textShadowBlur: 1,
+                        textShadowColor: '#fff',
+                        textShadowOffsetX: 0,
+                        textShadowOffsetY: 0,
+                        paddingTop: 10,
+                        fontFamily: 'digital',
+                        fontSize: 12,
+                        width: 30,
+                        color: '#fff',
+                        rich: {},
+                        offsetCenter: [0, '65%'],
+                        formatter: function(value) {
+                            return (value * 10 + "Pa");
+                        }
+                    },
+                    data: [{
+                        value: data.pressure.value,
+                        name: '压强'
+                    }]
+                }
+            ]
+        }
+        myChart.setOption(option_t_h_p_g);
         myChart.resize();
     }
 }

@@ -131,7 +131,8 @@ export class EquipmentAvlComponent implements OnInit {
     let obs = new Observable(f=>{
       let id = [
         'electric_chart_0', 'electric_chart_1', 'electric_chart_2', 'electric_chart_3',
-        'real_temperature_4','real_temperature_5','real_temperature_6'
+        // 'real_temperature_4','real_temperature_5','real_temperature_6',
+        'temp_humidity_pressure'
       ];
       id.forEach(f=>{
         if(document.getElementById(f))
@@ -184,15 +185,15 @@ export class EquipmentAvlComponent implements OnInit {
   in(){
     
     this.timer1 = setInterval(f=>{
-      if(!document.getElementById('real_temperature_5'))
-        equipment_four_road.create_real_disk({value:parseInt((Math.random()*100).toString()),text:this.language?'RealTEMP':'实时温度',unit:'%RH'},
-        echarts.init(document.getElementById('real_temperature_5')));
-      if(!document.getElementById('real_temperature_4'))
-        equipment_four_road.create_real_disk({value:parseInt((Math.random()*100).toString()),text:this.language?'RealRH':'实时湿度',unit:'℃'},
-        document.getElementById('real_temperature_4'));
-      if(!document.getElementById('real_temperature_6'))
-        equipment_four_road.create_real_disk({value:parseInt((Math.random()*100).toString()),text:this.language?'CabinPA':'舱内压差',unit:'pa'},
-        document.getElementById('real_temperature_6'));
+      // if(!document.getElementById('real_temperature_5'))
+      //   equipment_four_road.create_real_disk({value:parseInt((Math.random()*100).toString()),text:this.language?'RealTEMP':'实时温度',unit:'%RH'},
+      //   echarts.init(document.getElementById('real_temperature_5')));
+      // if(!document.getElementById('real_temperature_4'))
+      //   equipment_four_road.create_real_disk({value:parseInt((Math.random()*100).toString()),text:this.language?'RealRH':'实时湿度',unit:'℃'},
+      //   document.getElementById('real_temperature_4'));
+      // if(!document.getElementById('real_temperature_6'))
+      //   equipment_four_road.create_real_disk({value:parseInt((Math.random()*100).toString()),text:this.language?'CabinPA':'舱内压差',unit:'pa'},
+      //   document.getElementById('real_temperature_6'));
       
       this.outRenturnWind.forEach((f:any,i:number) => {
         if(!echarts.init(document.getElementById('electric_chart_'+i)))return;
@@ -210,16 +211,43 @@ export class EquipmentAvlComponent implements OnInit {
       myChart_7.push(echarts.init(document.getElementById('electric_chart_'+i)));
       equipment_four_road.create_real_electric({text:f.text,title:this.language?f.titleEn:f.title},myChart_7[i]);
     });
+    if(document.getElementById('temp_humidity_pressure'))
+        equipment_four_road.create_temp_humidity_pressure_gauge({
+          temp:{
+              value:10,
+              max:120,
+              color:[
+                  [0.4, '#203add'],
+                  [1, '#0d1758']
+              ]
+          },
+          humidity:{
+              value:10,
+              max:120,
+              color:[
+                  [0.4, '#203add'],
+                  [1, '#0d1758']
+              ]
+          },
+          pressure:{
+              value:10,
+              max:120,
+              color:[
+                  [0.4, '#203add'],
+                  [1, '#0d1758']
+              ]
+          }
+      },echarts.init(document.getElementById('temp_humidity_pressure')))
 
   }
 
   initChart_1(){
-    if(document.getElementById('real_temperature_4'))
-      equipment_four_road.create_real_disk({value:55,text:this.language?'RealTEMP':'实时温度',unit:'℃'},echarts.init(document.getElementById('real_temperature_4')));
-    if(document.getElementById('real_temperature_5'))
-      equipment_four_road.create_real_disk({value:55,text:this.language?'RealRH':'实时湿度',unit:'%RH'},echarts.init(document.getElementById('real_temperature_5')));
-    if(document.getElementById('real_temperature_6'))
-      equipment_four_road.create_real_disk({value:55,text:this.language?'CabinPA':'舱内压差',unit:'pa'},echarts.init(document.getElementById('real_temperature_6')));
+    // if(document.getElementById('real_temperature_4'))
+    //   equipment_four_road.create_real_disk({value:55,text:this.language?'RealTEMP':'实时温度',unit:'℃'},echarts.init(document.getElementById('real_temperature_4')));
+    // if(document.getElementById('real_temperature_5'))
+    //   equipment_four_road.create_real_disk({value:55,text:this.language?'RealRH':'实时湿度',unit:'%RH'},echarts.init(document.getElementById('real_temperature_5')));
+    // if(document.getElementById('real_temperature_6'))
+    //   equipment_four_road.create_real_disk({value:55,text:this.language?'CabinPA':'舱内压差',unit:'pa'},echarts.init(document.getElementById('real_temperature_6')));
   }
 
   getleft(item){

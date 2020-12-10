@@ -75,7 +75,7 @@ export class EquipmentShockComponent implements OnInit {
   timer:any;//定时器
   language = '';//语言 空为zh-CN中文
 
-   //设备介绍
+   //设备介绍                                                    
   equipIntroduceList = [
     {htmlstr:shock_htmlStr[0],title:'',type:'span_class'},
     {htmlstr:shock_htmlStr[1],title:'设备构成及参数',type:'table_class'},
