@@ -55,7 +55,7 @@ export class EquipmentShockComponent implements OnInit {
 
   //图片
   img = {
-    url:'assets/eimdoard/equipment/images/car_2.png',//中间的图片
+    url:'assets/eimdoard/equipment/images/六自由度.png',//中间的图片
     name:''
   }
 

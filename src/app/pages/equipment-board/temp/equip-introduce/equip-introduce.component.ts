@@ -11,6 +11,7 @@ export class EquipIntroduceComponent implements OnInit {
   @Input() equipIntroduceList = [];
   //当前的页数
   @Input()  eqIntShow = 0;
+  @Input()  title = '';
 
   timer_1:any;
   constructor() { }

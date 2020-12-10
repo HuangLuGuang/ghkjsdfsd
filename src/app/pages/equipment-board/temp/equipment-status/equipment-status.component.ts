@@ -1,4 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { Observable } from 'rxjs';
 import { LayoutService } from '../../../../@core/utils';
 import { HttpserviceService } from '../../../../services/http/httpservice.service';
 import { dateformat } from '../../equipment-board';
@@ -29,6 +30,15 @@ export class EquipmentStatusComponent implements OnInit {
   language;
   subscribeList: any = {};
   interval:any;
+
+  obser = new Observable(f=>{
+    if(document.getElementById('device_status'))echarts.getInstanceByDom(document.getElementById('device_status')).resize();
+    if(document.getElementById('operatingRate'))echarts.getInstanceByDom(document.getElementById('operatingRate')).resize();
+    if(document.getElementById('device_circular_3'))echarts.init(document.getElementById('device_circular_3')).resize();
+    if(document.getElementById('device_circular_2'))echarts.init(document.getElementById('device_circular_2')).resize();
+    if(document.getElementById('device_circular_1'))echarts.init(document.getElementById('device_circular_1')).resize();
+    f.next('equipment-status刷新');
+  })
 
   constructor(private layoutService:LayoutService,private http:HttpserviceService) { }
 
@@ -69,14 +79,13 @@ export class EquipmentStatusComponent implements OnInit {
     window.addEventListener('resize',this.chartResize);
   }
 
+  
 
   chartResize=()=>{
-    console.log('equipment-status刷新');
-    if(document.getElementById('device_status'))echarts.getInstanceByDom(document.getElementById('device_status')).resize();
-    if(document.getElementById('operatingRate'))echarts.getInstanceByDom(document.getElementById('operatingRate')).resize();
-    if(document.getElementById('device_circular_3'))echarts.init(document.getElementById('device_circular_3')).resize();
-    if(document.getElementById('device_circular_2'))echarts.init(document.getElementById('device_circular_2')).resize();
-    if(document.getElementById('device_circular_1'))echarts.init(document.getElementById('device_circular_1')).resize();
+    this.obser.subscribe(f=>{
+      console.log(f)
+    })
+    
   }
 
   initChart(){

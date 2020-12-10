@@ -1,4 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { Observable } from 'rxjs';
 import { LayoutService } from '../../../../@core/utils';
 import { HttpserviceService } from '../../../../services/http/httpservice.service';
 import { dateformat } from '../../equipment-board';
@@ -15,6 +16,12 @@ export class ExperimentParamsComponent implements OnInit {
   timer;
   language ='';
   subscribeList:any = {};
+  obser = new Observable(f=>{
+    if(document.getElementById('real_temperature_1'))echarts.getInstanceByDom(document.getElementById('real_temperature_1')).resize();
+    if(document.getElementById('real_temperature_2'))echarts.getInstanceByDom(document.getElementById('real_temperature_2')).resize();
+    if(document.getElementById('third_second'))echarts.init(document.getElementById('third_second')).resize();
+    f.next('experiment-params刷新')
+  })
   constructor(private http:HttpserviceService,private layoutService:LayoutService) { }
 
   ngOnInit(): void {
@@ -40,10 +47,10 @@ export class ExperimentParamsComponent implements OnInit {
 
 
   chartResize=()=>{
-    console.log('experiment-params刷新');
-    if(document.getElementById('real_temperature_1'))echarts.getInstanceByDom(document.getElementById('real_temperature_1')).resize();
-    if(document.getElementById('real_temperature_2'))echarts.getInstanceByDom(document.getElementById('real_temperature_2')).resize();
-    if(document.getElementById('third_second'))echarts.init(document.getElementById('third_second')).resize();
+    this.obser.subscribe(f=>{
+      console.log(f)
+    })
+    
   }
 
 

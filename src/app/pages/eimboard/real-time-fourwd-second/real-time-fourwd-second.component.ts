@@ -103,7 +103,7 @@ export class RealTimeFourwdSecondComponent implements OnInit {
     this.layoutService.onInitLayoutSize().subscribe(f =>{
       this.initChart();
     })  
-    this.initChart();
+
 
     //路由跳转
     this.activateInfo.queryParams.subscribe(f =>{
@@ -116,6 +116,7 @@ export class RealTimeFourwdSecondComponent implements OnInit {
       this.getMessageData(i);
       i++;
     },3000)
+
   }
 
   //初始化表格
@@ -133,6 +134,16 @@ export class RealTimeFourwdSecondComponent implements OnInit {
   }
 
   ngAfterViewInit(){
+    this.initChart();
+    window.addEventListener('resize',this.resize);
+  }
+  resize=()=>{
+    let id = ['second_chart','third_second','gauge1','gauge2'];
+    id.forEach(f=>{
+      console.log(f)
+      if(document.getElementById(f))
+        echarts.init(document.getElementById(f)).resize();
+    })
   }
 
   //获取实时数据
@@ -312,6 +323,9 @@ export class RealTimeFourwdSecondComponent implements OnInit {
 
   ngOnDestroy(){
     clearInterval(this.messageInterval);
+    window.removeEventListener('resize',this.resize);
+
   }
+
 
 }

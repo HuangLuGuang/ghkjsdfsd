@@ -423,9 +423,7 @@ let equipment_four_road = {
 
             ]
         };
-        window.onresize = function() {
-            myChart.resize();
-        }
+
         myChart.setOption(option_o);
         myChart.resize();
     },
@@ -721,9 +719,6 @@ let equipment_four_road = {
             }
         }
 
-        window.onresize = function() {
-            myChart.resize();
-        }
         myChart.setOption(optionInterval);
         myChart.resize()
     },
@@ -859,9 +854,6 @@ let equipment_four_road = {
                 }]
             }]
         };
-        window.onresize = function() {
-            myChart.resize();
-        }
         myChart.setOption(option_i, )
         myChart.resize();
     },
@@ -1161,10 +1153,6 @@ let equipment_four_road = {
         };
 
         chart.setOption(option_y);
-        window.onresize = function() {
-            console.log('1111')
-            myChart.resize();
-        }
         chart.resize();
     },
 
@@ -1208,12 +1196,18 @@ let equipment_four_road = {
 
             },
             title: {
-                show: false,
-                text: '',
+                show: data_t.title ? true : false,
+                text: data_t.title,
+                left: 'center',
+                top: '5%',
+                textStyle: {
+                    color: 'white',
+                    fontSize: 12
+                }
             },
             grid: {
-                left: '15%',
-                top: '13%',
+                // left: '15%',
+                top: '17%',
                 right: '5%',
                 bottom: '15%',
                 height: '60%',
@@ -1250,7 +1244,10 @@ let equipment_four_road = {
                     color: 'white', //X轴文字颜色
                 },
                 axisLine: {
-                    show: true //不显示x轴
+                    show: false, //不显示x轴
+                    lineStyle: {
+                        color: 'white'
+                    }
                 },
                 axisTick: {
                     show: false //不显示刻度
@@ -1302,13 +1299,15 @@ let equipment_four_road = {
                 },
                 splitLine: {
                     show: false,
-
                 },
                 axisTick: {
                     show: false, //不显示刻度
                 },
                 axisLine: {
-                    show: false,
+                    // show: false,
+                    lineStyle: {
+                        color: 'white'
+                    }
                 },
                 nameTextStyle: {
                     color: "#FFFFFF"
@@ -1458,9 +1457,6 @@ let equipment_four_road = {
             ]
         };
 
-        window.onresize = function() {
-            myChart.resize();
-        }
         myChart.setOption(option_rg);
     },
 
@@ -1739,6 +1735,100 @@ let equipment_four_road = {
                 seriesData.push(obj3);
             }
         });
+    },
+    create_motor_chart(gauge_data, myChart) {
+        let service_m = [];
+        gauge_data.data.forEach(f => {
+            service_m.push({
+                name: f.name,
+                type: "line",
+                symbolSize: 10,
+                symbol: 'circle',
+                itemStyle: {
+                    color: f.color,
+                },
+                markPoint: {
+                    label: {
+                        normal: {
+                            textStyle: {
+                                color: '#fff'
+                            }
+                        }
+                    },
+                    symbolSize: 30,
+                    data: [{
+                        type: 'max',
+                        name: '最大值',
+
+                    }, {
+                        type: 'min',
+                        name: '最小值'
+                    }]
+                },
+                data: f.data,
+            })
+        });
+        let option_motor_chart = {
+            title: {
+
+                show: true,
+                text: gauge_data.title,
+                left: 'center',
+                textStyle: {
+                    color: 'white'
+                }
+            },
+            tooltip: {
+                trigger: "axis",
+                axisPointer: {
+                    type: "shadow",
+                    textStyle: {
+                        color: "#fff"
+                    }
+
+                },
+            },
+            grid: {
+                borderWidth: 0,
+                top: '20%',
+                bottom: '20%',
+                textStyle: {
+                    color: "#fff"
+                }
+            },
+
+            xAxis: [{
+                type: "category",
+                axisLine: {
+                    lineStyle: {
+                        color: "rgba(204,187,225,0.5)",
+                    }
+                },
+                splitLine: {
+                    show: false
+                },
+                axisTick: {
+                    show: false
+                },
+                data: gauge_data.xData,
+            }],
+
+            yAxis: [{
+                type: "value",
+                splitLine: {
+                    show: false
+                },
+                axisLine: {
+                    lineStyle: {
+                        color: "rgba(204,187,225,0.5)",
+                    }
+                },
+
+            }],
+            series: service_m
+        };
+        myChart.setOption(option_motor_chart);
+        myChart.resize();
     }
 }
 

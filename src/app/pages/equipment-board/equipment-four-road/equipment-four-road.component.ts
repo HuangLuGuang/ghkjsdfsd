@@ -133,14 +133,14 @@ export class EquipmentFourRoadComponent implements OnInit {
   switchStatus:any ={
     title:[`stationName`,'OnOff',`OilSeparatorOn`,`HighOilSeparator`,'InternalLock','Programlock'],
     data:[['',
-    {value:1,color:'',id:'circle'},{value:1,color:'',id:'circle'},{value:1,color:'green',id:'circle'},
+    {value:1,color:'#C0C0C0',id:'circle'},{value:1,color:'#C0C0C0',id:'circle'},{value:1,color:'#C0C0C0',id:'circle'},
     {value:1,color:'',id:'strip'},{value:1,color:'',id:'strip'}]]
   }
 
 
 
   img = {
-    url:'assets/eimdoard/equipment/images/car_2.png',
+    url:'assets/eimdoard/equipment/images/四立柱.png',
     name:''
   }
 
@@ -165,7 +165,6 @@ export class EquipmentFourRoadComponent implements OnInit {
   equipIntroduceList = [
     {htmlstr:four_road_htmlstr[0],title:'',type:'span_class'},
     {htmlstr:four_road_htmlstr[1],title:'四立柱参数',type:'table_class'},
-    // {htmlstr:four_road_htmlstr[2],title:'环境仓及光照参数',type:'table_class'}
   ];
   //当前的页数
   eqIntShow = 0;

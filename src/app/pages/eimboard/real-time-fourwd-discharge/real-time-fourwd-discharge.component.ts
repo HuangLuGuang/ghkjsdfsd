@@ -65,7 +65,7 @@ export class RealTimeFourwdDischargeComponent implements OnInit {
       this.initChart();
       i++;
     });
-    
+    this.initChart();
 
     // this.create_right_buttom();
     this.activateInfo.queryParams.subscribe(f =>{
@@ -73,6 +73,20 @@ export class RealTimeFourwdDischargeComponent implements OnInit {
       this.fromRouter = f;
     })
     
+    window.addEventListener('resize',this.resize);
+
+  }
+
+  resize=()=>{
+    let id = [
+      'third_first_one','third_first_two','third_first_three',
+      'echarts_3','box3_right','line_chart_1','line_chart_2',
+      'box3_left','first_second','box3_right'];
+    id.forEach(f=>{
+      console.log(f)
+      if(document.getElementById(f))
+        echarts.init(document.getElementById(f)).resize();
+    })
   }
 
   ngAfterViewInit(){
@@ -241,5 +255,9 @@ export class RealTimeFourwdDischargeComponent implements OnInit {
       sf.toggle(board)
     }
   };
+
+  ngOnDestroy(){
+    window.removeEventListener('resize',this.resize);
+  }
 
 }

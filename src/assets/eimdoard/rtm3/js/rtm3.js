@@ -64,10 +64,6 @@ let rtm3 = {
                 data: gauge_data.seriesData
             }]
         };
-        // console.log(option_f_s)
-        window.addEventListener('resize', f => {
-            myChart.resize();
-        })
         myChart.setOption(option_f_s);
         myChart.resize();
     },
@@ -150,9 +146,6 @@ let rtm3 = {
             }],
             series: gauge_data.seriesData
         };
-        window.addEventListener('resize', f => {
-            myChart.resize();
-        })
         myChart.setOption(option_b_r);
         myChart.resize();
     },
@@ -262,10 +255,6 @@ let rtm3 = {
             ]
         };
 
-        window.addEventListener('resize', f => {
-            plan_chart_1.resize();
-            plan_chart_2.resize();
-        })
         plan_chart_1.setOption(plan_option);
         plan_chart_1.resize();
         plan_chart_2.setOption(plan_option);
@@ -421,9 +410,6 @@ let rtm3 = {
                 }
             ]
         }
-        window.addEventListener('resize', f => {
-            myChart.resize();
-        })
         myChart.setOption(option_t_f);
         myChart.resize();
     },

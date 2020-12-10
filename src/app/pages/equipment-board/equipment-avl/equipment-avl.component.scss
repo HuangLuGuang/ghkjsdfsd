@@ -206,7 +206,12 @@
             margin-left: 16%;
         }
     }
-    #discharge_chart,
+    #discharge_chart {
+        height: 100%;
+        // background: url('/assets/eimdoard/equipment/images/car_3.png') no-repeat;
+        // background-size: 61% 100%;
+        // background-position-x: 132px;
+    }
     #discharge_chart_2 {
         height: 100%;
     }

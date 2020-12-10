@@ -230,37 +230,36 @@ export const create_third_chart_line=(rtm3a,isthis)=>{
 
 //液压伺服设备介绍
 export const hydraulic_htmlstr = [
-  `1.主要功能用途：底盘结构件台架试验如：副车架、摆臂、稳定杆、后桥等<br>
+  `
   2.使用标准\规范 <br>
   &emsp;Q/JLY J7110489B-2016  乘用车前、后副车架总成技术条件 <br>
   &emsp;Q/JLY J7110439D-2016 J05204 悬架摆臂总成类技术条件 <br>
   &emsp;Q/JLY J7110490B-2016 J05204 后桥总成（扭力梁）技术条件<br>
   &emsp;Q/JLY J7110371C-2016 J05204 前、后稳定杆总成技术条件等<br>
-  <div class="equipments_table">
-    <div class="equipments_table_title" style="padding-right: 10px">3.设备构成及参数</div>
-    <div  class="column_20 border_1px">
-      <div>名称</div>
-      <div class="border_top_1px">MTS直线缸</div>
-    </div>
-    <div  class="column_42 border_1px">
-      <div>基本参数</div>
-      <div class="border_top_1px">载荷：±25kN；位移：±125mm</div>
-      <div class="border_top_1px">载荷：±50kN；位移：±125mm</div>
-    </div>
-    <div  class="column_20 border_1px">
-      <div>数量</div>
-      <div class="border_top_1px">4</div>
-      <div class="border_top_1px">2</div>
-    </div>
+  `,
+  `<div class="equipments_table">
+  <div class="equipments_table_title" style="padding-right: 10px">3.设备构成及参数</div>
+  <div  class="column_20 border_1px">
+    <div>名称</div>
+    <div class="border_top_1px">MTS直线缸</div>
   </div>
-  `
+  <div  class="column_42 border_1px">
+    <div>基本参数</div>
+    <div class="border_top_1px">载荷：±25kN；位移：±125mm</div>
+    <div class="border_top_1px">载荷：±50kN；位移：±125mm</div>
+  </div>
+  <div  class="column_20 border_1px">
+    <div>数量</div>
+    <div class="border_top_1px">4</div>
+    <div class="border_top_1px">2</div>
+  </div>
+</div>`
 ]
 
   //四立柱设备介绍
 export const  four_road_htmlstr = [
-  `1、主要功能用途<br>
-  &emsp;验证车身内外饰在振动加高低温及光照条件结构的耐久性能<br>
-  2、使用标准\规范<br>
+  `
+  1、使用标准\规范<br>
   &emsp;Q/JLY J7210680A-2017<br>
   &emsp;带环境条件的四立柱耐久试验规范<br>
   &emsp;Q/JLY J7210624A-2016<br>
@@ -303,9 +302,8 @@ export const  four_road_htmlstr = [
   //六自由度设备介绍
 export const shock_htmlStr = [
   `
-  1.主要功能用途<br>
-  &emsp;主要验证发动机悬置系统的耐久性能，以及其它车辆子系统耐久性能验证如：前端冷却模块、座椅系统、天窗系统等<br>
-  2.使用标准\规范<br>
+  
+  1.使用标准\规范<br>
   &emsp;Q/JLY J7111070B-2018<br>
   &emsp;悬置系统六自由度道路模拟试验规范<br>
   &emsp;Q/JLY J7210623A-2016<br>

@@ -15,8 +15,8 @@
             </tr>
         </table>
     </div>
-    <div class="table_bo overflow_height_85">
-        <table>
+    <div class="table_bo overflow_height_85" style="position: relative;">
+        <table style="position: absolute;">
             <tr class="body" *ngFor="let items of log_warm.data;" style="height: 12px;" [ngStyle]="{'color':items[3] == 1?'red':items[3]==3?'':'yellow'}">
                 <td *ngFor="let item of items;let i = index" style="padding: 0%;height: 20%;" [ngStyle]="{'width':i == 0?'20%':i == 1?'25%':'60%'}">
                     <div class="font_w_too_long" *ngIf="i == 0;else logTemp">{{item | date:'yyyy-MM-dd'}}</div>

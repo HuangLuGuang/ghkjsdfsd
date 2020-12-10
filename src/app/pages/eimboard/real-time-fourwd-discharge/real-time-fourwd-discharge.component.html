@@ -1,4 +1,4 @@
-<div id="rtmv3" style="padding-bottom: 5px;">
+<div id="rtmv3">
     <div class="row">
         <div class="col-md-1">
             <div class="go_back" (click)="goBack()">
@@ -22,7 +22,7 @@
             <div class="first_row ">
                 <div class="title">标题标题</div>
                 <div class="row box_shadow">
-                    <div class="box3_left height_c"></div>
+                    <div id="box3_left" class="box3_left height_c"></div>
                     <div style="width:60%;">
                         <div style="display: flex;font-size: 12px;">
                             <ng-container *ngFor="let item of first_row_data.equipment;let i = index">
@@ -41,7 +41,7 @@
             </div>
             <!--  第一列第二行  -->
             <div class="first_row">
-                <div class="first_second box_shadow"></div>
+                <div id="first_second" class="first_second box_shadow"></div>
             </div>
             <!--  第一列第三行  -->
             <div class="first_row ">

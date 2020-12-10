@@ -1,4 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { Observable } from 'rxjs';
+import { take } from 'rxjs/operators';
 import { LayoutService } from '../../../../@core/utils';
 import { HttpserviceService } from '../../../../services/http/httpservice.service';
 import { dateformat, getMessage } from '../../equipment-board';
@@ -23,6 +25,11 @@ export class LogWarmComponent implements OnInit {
   language = '';
   errorC = true;
   subscribeList:any = {};
+  obser = new Observable(f=>{
+    if(document.getElementById('warning'))echarts.getInstanceByDom(document.getElementById('warning')).resize();
+    f.next('log-warm刷新')
+  }).pipe(take(1));
+  
   constructor(private http:HttpserviceService,private layoutService:LayoutService) { }
 
   ngOnInit(): void {
@@ -47,8 +54,10 @@ export class LogWarmComponent implements OnInit {
     window.addEventListener('resize',this.chartResize)
   }
   chartResize=()=>{
-    console.log('log-warm刷新');
-    if(document.getElementById('warning'))echarts.getInstanceByDom(document.getElementById('warning')).resize();
+    this.obser.subscribe(f=>{
+      console.log(f)
+    })
+    
   }
 
   /**
@@ -80,7 +89,7 @@ export class LogWarmComponent implements OnInit {
    */
   get_device_mts_log_his(){
     //SELECT get_log_warning('{"deviceid":"device_mts_01","recordtime":"2020-11-3"}')
-    this.http.callRPC('get_log_warning','device_monitor.get_log_warning',{"deviceid":this.device,"recordtime":"2020-11-3"}).subscribe((g:any) =>{
+    this.http.callRPC('get_log_warning','device_monitor.get_log_warning',{"deviceid":this.device,"recordtime":this.getFirstDayOfWeek()}).subscribe((g:any) =>{
       console.log(g)
       if(g.result.error || g.result.message[0].code == 0)return;
       let arr = g.result.message[0].message;
