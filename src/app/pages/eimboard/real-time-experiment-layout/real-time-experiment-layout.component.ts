@@ -84,7 +84,20 @@ export class RealTimeExperimentLayoutComponent implements OnInit {
     });
     
     this.initChart();
+    window.addEventListener('resize',this.resize);
+  }
 
+  resize =()=>{
+    let id = [
+      'percentage_1','percentage_2','percentage_3',
+      'third_first_one','third_first_two','third_first_three',
+      'line_chart_1'
+    ];
+    id.forEach(f=>{
+      console.log(f)
+      if(document.getElementById(f))
+        echarts.init(document.getElementById(f)).resize();;
+    })
   }
 
   getData(){
@@ -257,6 +270,7 @@ export class RealTimeExperimentLayoutComponent implements OnInit {
 
   ngOnDestroy(){
     clearInterval(this.messageInterval);
+    window.removeEventListener('resize',this.resize);
   }
 
 }

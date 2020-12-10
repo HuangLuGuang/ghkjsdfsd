@@ -70,10 +70,6 @@ let rtm3a = {
         //   // 显示数值
         //   itemStyle : { normal: {label : {show: true}}}
         // },
-        window.onresize = function() {
-            this.console.log("重置的屏幕大小！")
-            myChart.resize();
-        }
 
         if (option_s_c && typeof option_s_c === "object") {
             myChart.setOption(option_s_c);
@@ -176,10 +172,6 @@ let rtm3a = {
                     }]
                 }
             ]
-        }
-        window.onresize = function() {
-            this.console.log("重置的屏幕大小！")
-            myChart.resize();
         }
         myChart.setOption(option_t_c)
         myChart.resize();

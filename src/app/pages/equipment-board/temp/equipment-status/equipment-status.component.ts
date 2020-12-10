@@ -1,4 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { Observable } from 'rxjs';
 import { LayoutService } from '../../../../@core/utils';
 import { HttpserviceService } from '../../../../services/http/httpservice.service';
 import { dateformat } from '../../equipment-board';
@@ -30,6 +31,15 @@ export class EquipmentStatusComponent implements OnInit {
   subscribeList: any = {};
   interval:any;
 
+  obser = new Observable(f=>{
+    if(document.getElementById('device_status'))echarts.init(document.getElementById('device_status')).resize();
+    if(document.getElementById('operatingRate'))echarts.init(document.getElementById('operatingRate')).resize();
+    if(document.getElementById('device_circular_3'))echarts.init(document.getElementById('device_circular_3')).resize();
+    if(document.getElementById('device_circular_2'))echarts.init(document.getElementById('device_circular_2')).resize();
+    if(document.getElementById('device_circular_1'))echarts.init(document.getElementById('device_circular_1')).resize();
+    f.next('equipment-status刷新');
+  })
+
   constructor(private layoutService:LayoutService,private http:HttpserviceService) { }
 
 
@@ -39,6 +49,9 @@ export class EquipmentStatusComponent implements OnInit {
     this.subscribeList.layout = this.layoutService.onInitLayoutSize().subscribe(f=>{
       if(document.getElementById('device_status'))echarts.init(document.getElementById('device_status')).resize();
       if(document.getElementById('operatingRate'))echarts.init(document.getElementById('operatingRate')).resize();
+      if(document.getElementById('device_circular_3'))echarts.init(document.getElementById('device_circular_3')).resize();
+      if(document.getElementById('device_circular_2'))echarts.init(document.getElementById('device_circular_2')).resize();
+      if(document.getElementById('device_circular_1'))echarts.init(document.getElementById('device_circular_1')).resize();
     })
 
 
@@ -69,14 +82,13 @@ export class EquipmentStatusComponent implements OnInit {
     window.addEventListener('resize',this.chartResize);
   }
 
+  
 
   chartResize=()=>{
-    console.log('equipment-status刷新');
-    if(document.getElementById('device_status'))echarts.getInstanceByDom(document.getElementById('device_status')).resize();
-    if(document.getElementById('operatingRate'))echarts.getInstanceByDom(document.getElementById('operatingRate')).resize();
-    if(document.getElementById('device_circular_3'))echarts.init(document.getElementById('device_circular_3')).resize();
-    if(document.getElementById('device_circular_2'))echarts.init(document.getElementById('device_circular_2')).resize();
-    if(document.getElementById('device_circular_1'))echarts.init(document.getElementById('device_circular_1')).resize();
+    this.obser.subscribe(f=>{
+      console.log(f)
+    })
+    
   }
 
   initChart(){
@@ -99,7 +111,9 @@ export class EquipmentStatusComponent implements OnInit {
     // }
     this.initOperatingRate(undefined);
     let myChart = echarts.init(document.getElementById('device_status'));
-    equipment_four_road.create_device_status(undefined,myChart,undefined,this.language?"AnnualReportOfSafetyLamp":'安灯年度表');
+    equipment_four_road.create_device_status(undefined,myChart,undefined,'安灯年度表');
+    // equipment_four_road.create_device_status(undefined,myChart,undefined,this.language?"AnnualReportOfSafetyLamp":'安灯年度表');
+
 
   }
 
@@ -174,14 +188,18 @@ export class EquipmentStatusComponent implements OnInit {
         ret=g.recordtime.split('-');
         return parseInt(ret[ret.length-1]) == i
       });
-      this.initDeviceCircula({title:this.language?'SafetyLampStatus':'安灯状态',message:this.language?'ThisMonth':'本月',value:[]},'device_circular_2',nowMonthData);
+      this.initDeviceCircula({title:'安灯状态',message:'本月',value:[]},'device_circular_2',nowMonthData);
+      // this.initDeviceCircula({title:this.language?'SafetyLampStatus':'安灯状态',message:this.language?'ThisMonth':'本月',value:[]},'device_circular_2',nowMonthData);
+
       console.log(nowMonthData)
       //获取上月运行情况
       let ListMonthData = f.result.message[0].message.find(g =>  {
         ret=g.recordtime.split('-');
         return  parseInt(ret[ret.length-1]) == i-1
       });
-      this.initDeviceCircula({title:this.language?'SafetyLampStatus':'安灯状态',message:this.language?'LastMonth':'上个月',value:status},'device_circular_1',ListMonthData);
+      this.initDeviceCircula({title:'安灯状态',message:'上个月',value:status},'device_circular_1',ListMonthData);
+      // this.initDeviceCircula({title:this.language?'SafetyLampStatus':'安灯状态',message:this.language?'LastMonth':'上个月',value:status},'device_circular_1',ListMonthData);
+      
       console.log(ListMonthData)
     });
 
@@ -242,7 +260,9 @@ export class EquipmentStatusComponent implements OnInit {
       if(document.getElementById('device_circular_3')){
         let myChart_3 = echarts.init(document.getElementById('device_circular_3'));
         equipment_four_road.create_device_circular(
-          {title:this.language?'LastYearAverage':'上年均值',message:'',value:status},myChart_3);
+          {title:'上年均值',message:'',value:status},myChart_3);
+        // equipment_four_road.create_device_circular(
+        //   {title:this.language?'LastYearAverage':'上年均值',message:'',value:status},myChart_3);
       }
     })
   }
@@ -297,7 +317,9 @@ export class EquipmentStatusComponent implements OnInit {
     };
     data_1.d_arr = data;
     let myChart = echarts.init(document.getElementById('device_status'));
-    equipment_four_road.create_device_status(data_1,myChart,null,this.language?"AnnualReportOfSafetyLamp":'安灯年度表');
+    equipment_four_road.create_device_status(data_1,myChart,null,'安灯年度表');
+    // equipment_four_road.create_device_status(data_1,myChart,null,this.language?"AnnualReportOfSafetyLamp":'安灯年度表');
+
   }
   //渲染圆盘
   initDeviceCircula(data,id,monthdata){

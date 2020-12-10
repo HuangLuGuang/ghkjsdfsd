@@ -71,6 +71,7 @@
         "param1": "参数1",
         "param2": "参数2",
         "TestProgress": "当前实验进度",
+        "StateOfTheDay": "安灯当日状态",
         "road": {
             "LeftFront": {
                 "Params": "左前参数",
@@ -128,7 +129,15 @@
             "MotorParam": "电机参数",
             "MotorEfficiency": "电机效率",
             "electricCurrent": "电流",
-            "Voltage": "电压"
+            "Voltage": "电压",
+            "SystemEfficiency": "系统效率",
+            "ControllerEfficiency": "控制器效率",
+            "ControllerOutputPower": "控制器输出功率",
+            "DCpower": "直流功率",
+            "BusVoltage": "母线电压",
+            "BusCurrent": "母线电流",
+            "AveVoltage": "平均电流",
+            "AveOutputPowerOfController": "控制器输出平均功率"
         },
         "oilsrouce": {
             "accumulator": "蓄能器",

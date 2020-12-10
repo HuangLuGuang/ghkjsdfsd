@@ -158,7 +158,7 @@ export class RealTimeMonitoringUpdateComponent implements OnInit {
       value: 3.64
     }],
   }
-  component_status = true;
+  // component_status = true;
 
   fromRouter: any = {
     url:'',//从哪个页面跳转过来的
@@ -221,17 +221,24 @@ export class RealTimeMonitoringUpdateComponent implements OnInit {
       if(f.deviceid)this.deviceid = f.deviceid;
       this.fromRouter = f;
     })
+
+    
   }
 
 
   ngAfterViewInit(){
     this.layoutService.onInitLayoutSize().subscribe(f =>{
-      var data = {
-        name: '',
-        xdata: [new Date().getHours() + new Date().getMinutes() + new Date().getSeconds()],
-        ydate: [0]
-      }
-      rtmjs.line_date(data);
+      this.resize();
+    })
+    window.addEventListener('resize',this.resize)
+  }
+
+  resize=()=>{
+    let id = ['echart_line','gauge2','gauge1'];
+    id.forEach(f=>{
+      console.log(f);
+      if(document.getElementById(f))
+        echarts.init(document.getElementById(f)).resize();
     })
   }
 
@@ -590,7 +597,8 @@ export class RealTimeMonitoringUpdateComponent implements OnInit {
   ngOnDestroy(){
     console.log("声明周期：组件销毁");
     clearInterval(this.scrollerTable_timer); // 销毁组件时，取消定时任务
-    this.component_status = false;//跳出递归
+    // this.component_status = false;//跳出递归
+    window.removeEventListener('resize',this.resize);
   }
 
 

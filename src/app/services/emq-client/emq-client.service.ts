@@ -5,7 +5,7 @@ import { MqttBean} from "./mqtt";
 declare var  Paho: any;
 
 @Injectable({
-  providedIn: 'root'//单例模式
+  providedIn: 'root'
 })
 export class EmqClientService {
   mqttClient:any;

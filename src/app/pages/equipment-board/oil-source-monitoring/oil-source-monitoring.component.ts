@@ -276,11 +276,11 @@ export class OilSourceMonitoringComponent implements OnInit {
     //获取当前语言
     let language = localStorage.getItem('currentLanguage');
     if(language!='zh-CN')this.language = language;
+    this.initChart();
     //订阅左上角打开关闭
     this.subscribeList.layout = this.layoutService.onInitLayoutSize().subscribe(f=>{
       this.initChart();
     })
-    this.initChart();
     //订阅路由返回的标题
     this.subscribeList.router = this.activateInfo.params.subscribe(f =>{
       console.log(f);
@@ -405,7 +405,7 @@ export class OilSourceMonitoringComponent implements OnInit {
     if(t.s!=60)return;
     t.s=0;
     t.m++;
-    if(t.s!=60)return;
+    if(t.m!=60)return;
     t.m=0;
     t.h++;
   }

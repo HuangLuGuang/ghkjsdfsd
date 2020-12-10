@@ -38,8 +38,23 @@ const ROUTERS: Routes = [{
         component:EquipmentCouplingPathComponent
       },
       {
-        //电机系统测试台架
-        path:'motor/:title',
+        //电机系统测试台架-1
+        path:'motor/:title/:deviceid',
+        component:EquipmentMotorSystemComponent
+      },
+      {
+        //电机系统测试台架-2
+        path:'motor2/:title/:deviceid',
+        component:EquipmentMotorSystemComponent
+      },
+      {
+        //电机系统测试台架-3
+        path:'motor3/:title/:deviceid',
+        component:EquipmentMotorSystemComponent
+      },
+      {
+        //电机系统测试台架-4
+        path:'motor4/:title/:deviceid',
         component:EquipmentMotorSystemComponent
       },
       {

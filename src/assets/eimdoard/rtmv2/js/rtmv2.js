@@ -4,7 +4,7 @@ let rtmv2 = {
     // 实例1 参考 https://gallery.echartsjs.com/editor.html?c=xH1vxib94f
     gauge1(gauge1_data) {
         if (!document.querySelector('.gauge1')) return;
-        var myChart = echarts.init(document.querySelector('.gauge1'));
+        var myChart_1 = echarts.init(document.querySelector('.gauge1'));
         let option_g1 = {
             // backgroundColor: "#ffffff",
             color: ["#37A2DA", "#32C5E9", "#67E0E3"],
@@ -58,14 +58,11 @@ let rtmv2 = {
 
             }]
         };
-        myChart.setOption(option_g1);
-        window.onresize = function() {
-            this.console.log("重置的屏幕大小！")
-            myChart.resize();
-        }
+        myChart_1.setOption(option_g1);
         option_g1.series[0].data[0].value = gauge1_data.value;
         option_g1.series[0].max = gauge1_data.maxValue;
-        myChart.setOption(option_g1);
+        myChart_1.setOption(option_g1);
+        myChart_1.resize();
         // 定时任务
         // timer = setInterval(function(){
         //     option.series[0].data[0].value = (Math.random() * 100).toFixed(2) - 0;
@@ -76,7 +73,7 @@ let rtmv2 = {
     },
     // 实例2 参考 https://gallery.echartsjs.com/editor.html?c=xH1vxib94f
     gauge2(gauge2_data) {
-        var myChart = echarts.init(document.querySelector('.gauge2'));
+        var myChart_2 = echarts.init(document.querySelector('.gauge2'));
         if (!gauge2_data) myChart.resize();
         let option_g2 = {
             // backgroundColor: "#ffffff",
@@ -131,14 +128,12 @@ let rtmv2 = {
 
             }]
         };
-        myChart.setOption(option_g2);
-        window.onresize = function() {
-            this.console.log("重置的屏幕大小！")
-            myChart.resize();
-        }
+        myChart_2.setOption(option_g2);
         option_g2.series[0].data[0].value = gauge2_data.value;
         option_g2.series[0].max = gauge2_data.maxValue;
-        myChart.setOption(option_g2);
+        myChart_2.setOption(option_g2);
+        myChart_2.resize();
+
         // 定时任务
         // timer = setInterval(function(){
         //     option.series[0].data[0].value = (Math.random() * 100).toFixed(2) - 0;
@@ -283,10 +278,6 @@ let rtmv2 = {
         // 配置给实例化对象
         myChart.setOption(option_l_d);
         // 让图标跟随屏幕自适应
-        window.onresize = function() {
-            this.console.log("重置的屏幕大小！")
-            myChart.resize();
-        }
 
         option_l_d.series[0].name = data.name;
         option_l_d.xAxis[0].data = data.xdata;

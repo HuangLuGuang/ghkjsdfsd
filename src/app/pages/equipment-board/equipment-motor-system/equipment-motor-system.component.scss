@@ -3,6 +3,7 @@
     height: 100%;
     // height: 900px;
     min-height: 800px;
+    color: white;
     .first_first,
     .first_second,
     .first_third,
@@ -19,8 +20,38 @@
         padding: 2%;
         color: white;
     }
+    .sceond_third {
+        width: 100%;
+        background: url('/assets/eimdoard/equipment/images/blue_beijing.png') center center;
+        background-size: cover;
+        -webkit-background-size: cover;
+        -o-background-size: cover;
+        color: white;
+        display: inherit;
+        box-shadow: 0px 0px;
+        padding: 0%;
+        margin-top: 10px;
+        .circularD {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            align-items: center;
+            height: 100%;
+            .lay {
+                width: 30%;
+                height: 40%;
+                margin-top: 20px;
+            }
+            #coolingWater,
+            #AxleBoxTemperature1,
+            #AxleBoxTemperature2 {
+                width: 100%;
+                height: 90%
+            }
+        }
+    }
     .thrid {
-        height: 28%;
+        height: 19%;
         width: 100%;
         // box-shadow: 0 0px 1px 3px rgba(50, 84, 129, 1) inset;
         padding: 2%;
@@ -30,6 +61,14 @@
         background-size: cover;
         -webkit-background-size: cover;
         -o-background-size: cover;
+        display: flex;
+        justify-content: space-evenly;
+        align-items: center;
+        #temperature,
+        #humidity {
+            width: 30%;
+            height: 100%;
+        }
     }
     .part_title {
         position: absolute;
@@ -90,7 +129,7 @@
     }
     .center_img {
         // height: 100;
-        height: 33%;
+        height: 32%;
         position: relative;
         margin-top: 10px;
         #img {
@@ -111,6 +150,10 @@
         -o-background-size: cover;
         padding: 2%;
     }
+    .bord {
+        border: 2px solid rgb(68, 114, 196);
+        border-radius: 4px;
+    }
     .display_f {
         display: flex;
     }
@@ -119,6 +162,11 @@
         padding-bottom: 10px;
         color: white;
         background: #4472c4;
+    }
+    .center {
+        display: flex;
+        align-items: center;
+        justify-content: center;
     }
     #third_second {
         width: 100%;
@@ -154,13 +202,9 @@
     #electric_real {
         width: 60%;
     }
-    #electric_chart_5,
-    #electric_chart_4,
-    #electric_chart_3,
-    #electric_chart_2,
-    #electric_chart_1 {
-        width: 100%;
-        height: 80%;
+    .lay_electric {
+        width: 33%;
+        height: 100%;
     }
     #circular {
         width: 60%;
@@ -168,6 +212,14 @@
         border-radius: 60px;
         background: rgb(59, 56, 56);
         margin: 15%;
+    }
+    #electric_1,
+    #electric_2,
+    #electric_3,
+    #electric_4,
+    #electric_5 {
+        width: 100%;
+        height: 70%;
     }
     .dis_f_w {
         display: flex;
@@ -207,6 +259,9 @@
     }
     .width_70 {
         width: 70%;
+    }
+    .width_100 {
+        width: 100%;
     }
     .h_46_w_100 {
         height: 46%;

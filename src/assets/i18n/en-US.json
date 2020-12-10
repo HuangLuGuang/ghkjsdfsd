@@ -18,7 +18,7 @@
         "Source": "Source",
         "menu": "menu",
         "Cleanliness": "Cleanliness",
-        "real": "RealTimeExperiment",
+        "real": "RealTimeTrial",
         "CurrentAlarmList": "Current Alarm List",
         "realStatus": "RealTimeExperimentStatus",
         "temperature": "TEMP",
@@ -71,6 +71,7 @@
         "param1": "param1",
         "param2": "param2",
         "TestProgress": "TestProgress",
+        "StateOfTheDay": "安灯当日状态",
         "road": {
             "LeftFront": {
                 "Params": "LeftFrontParams",
@@ -124,11 +125,21 @@
         },
         "motor": {
             "coolingWater": "CoolingWater",
-            "AxleBoxTemp": "AxleBoxTemperature",
+            "AxleBoxTemp": "AxleBoxTemp",
             "MotorParam": "MotorParam",
-            "MotorEfficiency": "MotorEfficiency",
-            "electricCurrent": "ElectricCurrent",
-            "Voltage": "Voltage"
+            "MotorEfficiency": "Motor Efficiency",
+            "electricCurrent": "Electric Current",
+            "Voltage": "Voltage",
+            "SystemEfficiency": "System Efficiency",
+            "ControllerEfficiency": "Controller Efficiency",
+            "ControllerOutputPower": "Controller OutputPower",
+            "DCpower": "DC power",
+            "BusVoltage": "Bus Voltage",
+            "BusCurrent": "Bus Current",
+            "AveVoltage": "Ave Voltage",
+            "AveOutputPowerOfController": "Ave Output Power Of Controller"
+
+
         },
         "oilsrouce": {
             "accumulator": "Accumulator",

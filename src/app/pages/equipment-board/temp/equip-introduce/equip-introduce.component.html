@@ -1,5 +1,9 @@
 <ng-container *ngFor="let item of equipIntroduceList;let i = index">
     <div class="height_10" *ngIf="eqIntShow == i" [ngStyle]="{}">{{item.title }}</div>
-    <div class="introduce flip {{ item.type }}" [innerHTML]="item.htmlstr" *ngIf="eqIntShow == i">
+    <div *ngIf="eqIntShow == i" style="text-align: left;">
+        主要功能用途<br> &emsp;&emsp;&emsp;{{title}}
+        <br>
+    </div>
+    <div class="introduce flip {{item.type}}" [innerHTML]="item.htmlstr" *ngIf="eqIntShow == i">
     </div>
 </ng-container>

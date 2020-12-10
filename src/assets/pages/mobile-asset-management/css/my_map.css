@@ -173,6 +173,7 @@
         display: flex;
         text-align: center;
         font-size: 0.4vh;
+        position: absolute;
         width: 99%;
     }
     

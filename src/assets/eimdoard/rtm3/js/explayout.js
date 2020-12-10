@@ -58,10 +58,6 @@ let expLayouteChart = {
                 roundCap: 1 //可选项为1和2，不填则采用原有拼接方式
             }]
         }
-        window.onresize = function() {
-            this.console.log("重置的屏幕大小！")
-            myChart.resize();
-        }
 
         if (option_p_c && typeof option_p_c === "object") {
             myChart.setOption(option_p_c);
@@ -122,10 +118,6 @@ let expLayouteChart = {
                 }
             }]
         };
-        window.onresize = function() {
-            this.console.log("重置的屏幕大小！")
-            myChart.resize();
-        }
 
         if (option_c && typeof option_c === "object") {
             myChart.setOption(option_c);
