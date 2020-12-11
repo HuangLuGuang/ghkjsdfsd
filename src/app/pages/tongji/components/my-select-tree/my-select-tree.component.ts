@@ -34,6 +34,9 @@ export class MySelectTreeComponent implements OnInit {
     $("[name='title']").attr("placeholder", this.placeholder_title);
     $(".tree_isShow").hide();
   }
+  ngOnDestroy(){
+    this.dropselect();
+  }
   
   select_data = [];
   select_label_list = [];

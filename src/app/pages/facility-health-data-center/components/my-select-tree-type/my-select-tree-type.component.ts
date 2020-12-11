@@ -27,6 +27,10 @@ export class MySelectTreeTypeComponent implements OnInit {
     $("[name='title_type']").attr("placeholder", this.placeholder_title_type);
     $(".tree_type_isShow").hide()
   }
+
+  ngOnDestroy(){
+    this.dropselect();
+  }
   
   // 节点被选择
   select_data = []; //[{id: 3, label: "nvh"},]

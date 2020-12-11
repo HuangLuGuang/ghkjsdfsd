@@ -87,7 +87,7 @@ export class PublicmethodService {
   // 得到当前的url 文件路径
   public get_current_pathname(){
     return new Observable((observe)=>{
-      var sysmenu = localStorage.getItem(SYSMENU) == null ? [] : JSON.parse(localStorage.getItem(SYSMENU));
+      var sysmenu = localStorage.getItem(SYSMENU) === null ? [] : JSON.parse(localStorage.getItem(SYSMENU));
       if (sysmenu.length<1){
         this.getMenu().subscribe((data)=>{
           const colums = {
@@ -120,6 +120,7 @@ export class PublicmethodService {
         });
 
       }else{
+        console.log("***********sysmenu is exic")
         for (const i in this.location){
           if (i === 'location'){
             sysmenu.forEach(element => {
@@ -281,7 +282,6 @@ export class PublicmethodService {
 
   }
 
-  // 
 
   // 得到时间范围，默认 昨天---今天
 
@@ -314,22 +314,22 @@ export class PublicmethodService {
 
 
   // ==========================================
-    // 非父子组件见的传值
-    // 订阅的属性：用来给订阅方存储数据
-    public currentcomponent = new BehaviorSubject<any>(null);
-  
-    // 订阅的方法：用来接受数据
-    getcomponent(component: any): void{
-      this.currentcomponent.next(component);
-    }
+  // 非父子组件见的传值
+  // 订阅的属性：用来给订阅方存储数据
+  public currentcomponent = new BehaviorSubject<any>(null);
 
-    // 订阅的属性：用来给订阅方存储数据
-    public currentmethod = new BehaviorSubject<string>(null);
+  // 订阅的方法：用来接受数据
+  getcomponent(component: any): void{
+    this.currentcomponent.next(component);
+  }
 
-    // 订阅的方法：用来接受数据
-    getmethod(method: string): void{
-      this.currentmethod.next(method);
-    }
+  // 订阅的属性：用来给订阅方存储数据
+  public currentmethod = new BehaviorSubject<string>(null);
+
+  // 订阅的方法：用来接受数据
+  getmethod(method: string): void{
+    this.currentmethod.next(method);
+  }
   
   // ==========================================
 

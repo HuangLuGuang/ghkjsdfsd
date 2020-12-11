@@ -199,6 +199,7 @@ export class KpiTableComponent implements OnInit {
         if (tabledata["code"] === 1){
           var message = tabledata["message"];
           this.gridData = [];
+          this.add_detail_kpi(message);
           this.gridData.push(...message);
           this.tableDatas.rowData = this.gridData;
           var totalpagenumbers = tabledata['numbers']? tabledata['numbers'][0]['numbers']: '未得到总条数';

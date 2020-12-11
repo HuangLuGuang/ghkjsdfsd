@@ -8,10 +8,9 @@ import { HttpserviceService } from '../services/http/httpservice.service';
 
 import { NbMenuService } from '@nebular/theme';
 
-
 import { UserInfoService } from '../services/user-info/user-info.service';
 
-import { SYSMENU, loginurl,ssotoken } from '../appconfig';
+import { SYSMENU, loginurl,ssotoken, MULU } from '../appconfig';
 import { Router } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
 
@@ -38,12 +37,14 @@ export class PagesComponent implements OnInit {
     private router: Router, private translate: TranslateService) {
     this.translate.onLangChange.subscribe((params) => {
       localStorage.setItem('currentLanguage', params['lang']);
+      
       this.loadMenu();
     });
     
   }
 
   ngOnInit() {
+    console.log("pages.component------------->")
     this.loadMenu();
   }
 
@@ -52,6 +53,7 @@ export class PagesComponent implements OnInit {
   }
 
   onClickMenu() {
+    
     this.menuservice.onSubmenuToggle().subscribe(res => {
 
       const selectMenu = res.item;
@@ -86,34 +88,43 @@ export class PagesComponent implements OnInit {
     };
     const table = "menu_item";
     const method = "get_menu_by_roles";
-    this.httpservice.callRPC(table, method, colums).subscribe(
-      result => {
-        const baseData = result['result']['message'][0];
-        if (baseData["code"]===1) {
-          console.log("result mulu>>>>",result)
-          // 将菜单信息存储到localStorage
-          this.menu.length = 0;
-          const menuData = this.dataTranslation(baseData["message"]);
-          localStorage.setItem('mulu', JSON.stringify(menuData));
-          this.menuservice.addItems(menuData, 'menu');
-        } 
-        else {
-          // this.router.navigate([loginurl]);
+    var menu_ = localStorage.getItem(MULU)?JSON.parse(localStorage.getItem(MULU)):[];
+    if (menu_.length < 1){
+      this.httpservice.callRPC(table, method, colums).subscribe(
+        result => {
+          const baseData = result['result']['message'][0];
+          if (baseData["code"]===1) {
+            console.log("result mulu>>>>",result)
+            // 将菜单信息存储到localStorage
+            this.menu.length = 0;
+            const menuData = this.dataTranslation(baseData["message"]);
+            localStorage.setItem(MULU, JSON.stringify(menuData));
+            this.menuservice.addItems(menuData, 'menu');
+          } 
+          else {
+            // this.router.navigate([loginurl]);
+          }
         }
-      }
-    );
+      );
+    }else{
+      this.menu.length = 0;
+      this.menuservice.addItems(menu_, 'menu');
+    }
 
     // get_systemset_menu_all  得到系统设置所有要的菜单！
-    this.httpservice.callRPC("menu_item", "get_systemset_menu_all", colums).subscribe((result)=>{
-      console.log("result menu_item>>>>",result)
-      const baseData = result['result']['message'][0];
-      if (baseData["code"]){
-        // 得到sysmenu ----------------------------------
-        var sysmenu = this.menuTranslation(baseData["message"]);
-        localStorage.setItem(SYSMENU, JSON.stringify(sysmenu));
-        // 得到sysmenu ----------------------------------
-      }
-    });
+    var sysmenu_ = localStorage.getItem(SYSMENU)? JSON.parse(localStorage.getItem(SYSMENU)):[];
+    if (sysmenu_.length < 1){
+      this.httpservice.callRPC("menu_item", "get_systemset_menu_all", colums).subscribe((result)=>{
+        console.log("result menu_item>>>>",result)
+        const baseData = result['result']['message'][0];
+        if (baseData["code"]){
+          // 得到sysmenu ----------------------------------
+          var sysmenu = this.menuTranslation(baseData["message"]);
+          localStorage.setItem(SYSMENU, JSON.stringify(sysmenu));
+          // 得到sysmenu ----------------------------------
+        }
+      });
+    }
 
   }
 

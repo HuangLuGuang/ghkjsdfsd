@@ -22,6 +22,11 @@ export class MyInputTwoComponent implements OnInit {
     $("#employeenumber2").attr("placeholder", this.myinput_placeholder)
   }
 
+  // employeenumber
+  ngOnDestroy(){
+    $("#employeenumber2").remove();
+  }
+
 
   // 检测输入框值
   inputvalue = ""; 
