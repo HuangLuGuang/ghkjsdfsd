@@ -1,0 +1,50 @@
+
+<nb-card>
+    <nb-card-header style="font-size: small;">
+        试验文件传输
+    </nb-card-header>
+    <nb-card-body>
+        <div class="row">
+            <div class="col-lg-9" style="display: flex;"></div>
+            <div class="col-lg-3" style="display: flex;">
+                <div style="flex: auto;">
+                </div>
+                
+                <!-- 上传按钮 -->
+                <div class=" button_item my_import " *ngIf="button?.import">
+                    <button nbButton [status]="button?.import.class" size="small" (click)="action(button?.import.permission)"  [disabled]="button?.import.active == 0? true:false"><nb-icon [icon]="button?.import.icon"></nb-icon>{{button?.import.title}}</button>
+                    
+                    <nz-upload nzAction="https://www.mocky.io/v2/5cc8019d300000980a055e76" nzDirectory
+                    [nzShowUploadList]="nzShowUploadList"
+                    [(nzFileList)]="fileList"
+                    (nzChange)="uploadStatus($event)"
+                    >
+                        <button nz-button>
+                            <!-- <i nz-icon nzType="upload"></i> {{button?.import.title}} -->
+                            <nb-icon [icon]="button?.import.icon"></nb-icon>{{button?.import.title}}
+                        </button>
+                    </nz-upload>
+
+                </div>
+                
+                <div class="" style="text-align: right;">
+                    <!-- loader-outline -->
+                    <button nbButton [nbSpinner]="refresh" nbSpinnerStatus="success" size="small" (click)="refresh_table()">
+                        <nb-icon icon="sync-outline"></nb-icon>
+                    </button>
+
+                    
+                </div>
+            </div>
+
+        </div>
+
+        <div class="row">
+            <div class="col-lg-12">
+                <ngx-ag-table #ag_Grid   (nzpageindexchange)="nzpageindexchange_ag($event)"></ngx-ag-table>
+            </div>
+        </div>
+
+        <!-- <router-outlet></router-outlet> -->
+    </nb-card-body>
+</nb-card>

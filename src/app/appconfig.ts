@@ -2,7 +2,8 @@ export const url:string = "http://192.168.8.104/eimapi";
 // export const url:string = "http://localhost:8000/api";
 
 // 重定向的url
-export const redirectUrl: string = "http://localhost:4200/pages";
+// export const redirectUrl: string = "http://localhost:4200/pages";
+export const redirectUrl: string = "/pages";
 
 export const salt:string = "YzcmCZNvbXocrsz9dm8e";
 

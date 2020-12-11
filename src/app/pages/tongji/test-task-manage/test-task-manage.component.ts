@@ -154,7 +154,7 @@ export class TestTaskManageComponent implements OnInit {
     }
     this.http.callRPC("deveice","dev_get_device_groups",columns).subscribe(result=>{
       var res = result["result"]["message"][0]
-      console.log("得到下拉框的数据", res)
+      // console.log("得到下拉框的数据", res)
       if (res["code"] === 1){
         var groups = res["message"][0]["groups"];
         var type = res["message"][0]["type"];

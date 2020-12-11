@@ -55,6 +55,12 @@ const routes: Routes = [{
       loadChildren: () => import('./operation-management/operation-management.module')
         .then(m => m.OperationManagementModule),
     },
+    // 文件传输
+    {
+      path: 'eimfile',
+      loadChildren: () => import('./eim-file-upload/eim-file-upload.module')
+        .then(m => m.EimFileUploadModule),
+    },
     // 移动资产管理
     {
       path: 'mobile-gps',
