@@ -12,7 +12,7 @@ export class TestInformationComponent implements OnInit {
   experiment ={
     user:'新工',
     phone:'13499998888',
-    nexttest:'Geely001',
+    nexttest:'001',
     nextdate:'20/11/01-20/11/30',
     // '实验名称','开始时间','计划时长','计划轮次','进度'
     // title:['stationName','StartTime','PLanDuration','PlannedRound','schedule'],
