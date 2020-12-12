@@ -12,7 +12,7 @@ export class TestInformationV2Component implements OnInit {
   experiment ={
     user:'新工',
     phone:'13499998888',
-    nexttest:'Geely001',
+    nexttest:'001',
     nextdate:'20/11/01-20/11/30',
     //试验编号	开始时间	计划时长/轮次	实际时长/轮次
     title:['ExperimentNum','StartTime','PLanTimeRound','ActualTimeRound'],
