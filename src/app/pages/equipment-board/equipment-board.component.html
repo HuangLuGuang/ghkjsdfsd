@@ -1,0 +1,28 @@
+<div id="equipment">
+    <div id="title_img">
+        <div style="position: absolute;">
+            <div class="return_button_1 head" style="width: 82px;height: 40px;float: left;" (click)="menu_btn_click()">
+            </div>
+            <div class="return_button_2 head" style="width: 82px;height: 40px;float: left;" (click)="return_btn_click()">
+            </div>
+        </div>
+        <div class="title">
+            <span id="head_title">{{ title }}</span>
+        </div>
+        <div class="right_button">
+            <div class="head">
+                <span>{{get_now_date_str()}}</span>
+            </div>
+            <nb-icon [icon]="is_not_fullscreen ? 'expand-outline' : 'collapse-outline'" [status]="is_not_fullscreen ? 'warning' : 'info'" (click)="showAllTemplate()"></nb-icon>
+        </div>
+    </div>
+    <div class="body">
+        <div id="left_img">
+        </div>
+        <div id="center">
+            <router-outlet style="display: none;"></router-outlet>
+        </div>
+        <div id="right_img">
+        </div>
+    </div>
+</div>

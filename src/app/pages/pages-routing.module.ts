@@ -26,11 +26,11 @@ const routes: Routes = [{
       .then(m => m.EimboardModule)
     },
     // 设备看板
-    // {
-    //   path: 'equipment',
-    //   loadChildren:() => import('./equipment-board/equipment-board.module')
-    //   .then(m => m.EquipmentBoardModule)
-    // },
+    {
+      path: 'equipment',
+      loadChildren:() => import('./equipment-board/equipment-board.module')
+      .then(m => m.EquipmentBoardModule)
+    },
     // 设备在线
     {
       path: 'deviceinline',

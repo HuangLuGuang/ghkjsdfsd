@@ -1,0 +1,103 @@
+<div id="four_road">
+    <div class="row " style="height: 100%;">
+        <div class="col-md-4" style="padding: 0px 0px 0px 15px;">
+            <div class="first_first" style="height: 33%;position: relative;">
+                <ngx-equipment-status device='device_boyang_01' style="display: flex;width: 100%;"></ngx-equipment-status>
+            </div>
+            <div class="first_second lattice_layout height_28">
+                <div class="part_title">{{'equipment.expInfor'|translate}}</div>
+                <ngx-test-information device='device_mts_01' style="width: 100%;"></ngx-test-information>
+
+            </div>
+            <div class="dis_f_w first_third lattice_layout height_32" style="display: flex;">
+                <ngx-log-warm device='device_mts_01' style="display: flex;width: 100%;flex-wrap: wrap;"></ngx-log-warm>
+
+            </div>
+        </div>
+        <div class="col-md-4" style="padding: 0px 15px;">
+            <div class="sceond_fisrt height_27" style="position: relative;padding-top: 0px;display: inherit;min-height: 220px;">
+                <div class="part_title" style="overflow: auto;">{{ 'equipment.equipIntroduce'|translate}}</div>
+                <ngx-equip-introduce style="width: 88%;" [equipIntroduceList]="equipIntroduceList" title="底盘结构件台架试验如：副车架、摆臂、稳定杆、后桥等"></ngx-equip-introduce>
+            </div>
+            <div class="center_img">
+                <div class="part_title">{{'equipment.OnlineVideo'|translate}}</div>
+                <div style="width: 100%;height: 100%;display: flex;
+            align-items: center;
+            justify-content: center;">
+                    <img id="img" [src]="img.url" [alt]="img.name">
+                </div>
+            </div>
+            <div class="sceond_third">
+                <div class="part_title">{{'equipment.realStatus'|translate}}</div>
+                <div style="width: 70%;display: flex;margin-top: 10px;;">
+                    <div class="table height_100" style="width: 100%;margin-bottom: 0px;">
+                        <div class="table_bo height_21">
+                            <table>
+                                <tr class="header">
+                                    <td *ngFor="let title of switchStatus.title;let i = index" style="word-break: break-all;" [ngStyle]="{'width':get_td_width(switchStatus.title.length,i)}">
+                                        {{"equipment."+title | translate}}
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+                        <div class="table_bo height_78" style="overflow: auto;max-height: 210px;">
+                            <table>
+                                <tr class="body" *ngFor="let items of switchStatus.data">
+                                    <td *ngFor="let item of items;let i = index" style="height: 30px;" [ngStyle]="{'width':get_td_width(switchStatus.title.length,i)}">
+                                        <div class="font_w_too_long" *ngIf="i == 0;else graphical">{{item}}</div>
+                                        <ng-template #graphical>
+                                            <div id="{{item.id}}" [ngStyle]="{'background': item.color}">
+                                            </div>
+                                        </ng-template>
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <div style="height: 100%;width: 30%;">
+                    <div *ngFor="let item of real_list" [ngStyle]="{'height': 100/real_list.length+'%'}">
+                        {{'equipment.OilSeparator'|translate}}{{item.name}}：
+                        <!-- <br> -->
+                        <!-- <div class="display_f" id="oilseparator"> -->
+                        <!-- 关 -->
+                        <!-- <div [ngClass]="{'box_bo_click':getbtnStatus(item,1) }" class="btn">
+                                <div *ngFor="let item of [1,2,3]" class="rectangle" [ngStyle]="{'background':[3].includes(item) && item.on == 0?'red':'white'}">
+                                </div>
+                            </div> -->
+                        <!-- 低 -->
+                        <!-- <div [ngClass]="{'box_bo_click':getbtnStatus(item,2) }" class="btn">
+                                <div *ngFor="let item of [1,2,3]" class="rectangle" [ngStyle]="{'background':[2,3].includes(item)?'white':''}">
+                                </div>
+                            </div> -->
+                        <!-- 高 -->
+                        <!-- <div [ngClass]="{'box_bo_click':getbtnStatus(item,3) }" class="btn">
+                                <div *ngFor="let item of [1,2,3]" class="rectangle" style="background: white;">
+                                </div>
+                            </div> -->
+                        <!-- </div> -->
+                        <span [ngStyle]="{'color':item.on == 0?'red':item.high == 0?'white':'yellow'}">
+                            {{item.on == 0?'关':item.high == 0?'低':'高'}}
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4" style="padding: 0px 15px 0px 0px;">
+            <div class="thrid">
+                <div class="part_title">{{'equipment.experimentParams'|translate}}</div>
+                <ngx-experiment-params device='device_weiss_01' style="width: 100%;"></ngx-experiment-params>
+            </div>
+            <div class="height_32 bo" style="margin-top: 10px;padding: 0%;">
+                <ngx-chart-curve-v3 #chart_2 [chartName]=" 'chart_2' " (clicEvent)="clicEvent($event,2) " dashboardName='dashboard_2' [list]="list_2 "></ngx-chart-curve-v3>
+            </div>
+            <div class="height_32 bo" style="margin-top: 10px;padding: 0%;">
+                <ngx-chart-curve-v3 #chart_1 [chartName]=" 'chart_1' " chartVivid='brokenline' (clicEvent)="clicEvent($event,1) " dashboardName='dashboard_1' [list]="list_1 "></ngx-chart-curve-v3>
+            </div>
+
+        </div>
+    </div>
+
+
+
+</div>
