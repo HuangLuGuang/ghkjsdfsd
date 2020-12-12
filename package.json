@@ -9,6 +9,9 @@
   "bugs": {
     "url": "https://github.com/akveo/ngx-admin/issues"
   },
+
+
+
   "scripts": {
     "ng": "ng",
     "conventional-changelog": "conventional-changelog",

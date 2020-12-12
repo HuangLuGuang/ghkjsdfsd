@@ -12,17 +12,22 @@
                 
                 <!-- 上传按钮 -->
                 <div class=" button_item my_import " *ngIf="button?.import">
-                    <button nbButton [status]="button?.import.class" size="small" (click)="action(button?.import.permission)"  [disabled]="button?.import.active == 0? true:false"><nb-icon [icon]="button?.import.icon"></nb-icon>{{button?.import.title}}</button>
-                    
-                    <nz-upload nzAction="https://www.mocky.io/v2/5cc8019d300000980a055e76" nzDirectory
+                    <!-- <button nbButton [status]="button?.import.class" size="small" (click)="action(button?.import.permission)"  [disabled]="button?.import.active == 0? true:false"><nb-icon [icon]="button?.import.icon"></nb-icon>{{button?.import.title}}</button> -->
+                    <!-- nzDirectory uploadUrl -->
+                    <!-- <nz-upload nzAction="https://www.mocky.io/v2/5cc8019d300000980a055e76"  -->
+                    <nz-upload [nzAction]="uploadUrl" 
+                    [nzDirectory]="nzDirectory"
+                    [nzAccept]="nzFileType"
                     [nzShowUploadList]="nzShowUploadList"
                     [(nzFileList)]="fileList"
                     (nzChange)="uploadStatus($event)"
+                    [nzMultiple]="true"
                     >
-                        <button nz-button>
-                            <!-- <i nz-icon nzType="upload"></i> {{button?.import.title}} -->
+                        <!-- <button nz-button>
+                            <i nz-icon nzType="upload"></i> {{button?.import.title}}
                             <nb-icon [icon]="button?.import.icon"></nb-icon>{{button?.import.title}}
-                        </button>
+                        </button> -->
+                        <button nbButton [status]="button?.import.class" size="small" (click)="action(button?.import.permission)"  [disabled]="button?.import.active == 0? true:false"><nb-icon [icon]="button?.import.icon"></nb-icon>{{button?.import.title}}</button>
                     </nz-upload>
 
                 </div>

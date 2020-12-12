@@ -98,6 +98,7 @@ export class AdminLoginComponent implements OnInit {
         this.loading = true;
         // this.router.navigate([afterloginurl]);
 
+
         // ============= 存入登录日志并得到菜单
         const opts = {
           headers: new HttpHeaders({
@@ -106,6 +107,7 @@ export class AdminLoginComponent implements OnInit {
         };
         this.http.get(INFO_API, opts).pipe(map(userInfo=>{
           if (userInfo['userInfo']['roles']) {
+            console.log("userInfo------------>",userInfo)
             const userinfo = JSON.stringify(userInfo['userInfo']);
             localStorage.removeItem(SSOUSERINFO);
             localStorage.setItem(SSOUSERINFO, userInfo ? this.publicmethodService.compileStr(userinfo) : null);

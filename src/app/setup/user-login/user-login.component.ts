@@ -116,6 +116,7 @@ export class UserLoginComponent implements OnInit {
           })
         };
         this.http.get(INFO_API, opts).pipe(map(userInfo=>{
+          console.log("INFO_API", res)
           if (userInfo['userInfo']['roles']) {
             const userinfo = JSON.stringify(userInfo['userInfo']);
             localStorage.removeItem(SSOUSERINFO);
@@ -166,8 +167,9 @@ export class UserLoginComponent implements OnInit {
     var currenturl = this.publicmethodService.get_current_search();
     var appKey = "6d38d93e-ed9d-406f-a728-86b1a3f0fb47";
     var redirectUrl = "http://10.190.69.78/setup/login"
-    var token = localStorage.getItem(ssotoken)? localStorage.getItem(ssotoken): false;
-    if (token){
+    // var token = localStorage.getItem(ssotoken)? localStorage.getItem(ssotoken): false;
+    var token = localStorage.getItem(ssotoken);
+    if (token){ // 表示token不存在！
       // console.log("非单点登录（因为jili_app_token存在）：", nossotoken)
       this.router.navigate([afterloginurl]);
     }else{
@@ -228,13 +230,14 @@ export class UserLoginComponent implements OnInit {
 
             // 默认角色
             this.createDefaultRole(ssouserinfo_list).subscribe((roleid: any[])=>{
-              // console.log("得到默认角色", roleid);
+              console.log("得到创建的默认角色", roleid);
               roleid.forEach(role_id => {
                 ssouserinfo_default["rids"] = role_id["id"]; // roleid = [{id: 12}]
               });
               ssouserinfo_list.push(ssouserinfo_default);
               // 将数据存入数据库中！
-              localStorage.setItem('ssouserinfo', JSON.stringify(ssouserinfo));
+              // localStorage.setItem('ssouserinfo', this.publicmethodService.compileStr(ssouserinfo));
+              // localStorage.setItem('ssouserinfo', JSON.stringify(ssouserinfo));
               // console.log("需要存入数据库中的数据",ssouserinfo_list)
               // 得到用户名--封装ssotoken
               // 将统一认证得到的用存入用户表！并返回accessToken和refreshToken
@@ -269,20 +272,21 @@ export class UserLoginComponent implements OnInit {
   insert_ssouser_get_tooken(ssouserinfo){
     return new Observable((observe)=>{
       var colums = ssouserinfo;
-      // console.log("将数据存入数据库---colums--",colums)
+      console.log("将数据存入数据库---colums--",colums)
       const table = "employee";
       // const method = "insert_employee";
       const method = "insert_employee_from_sso";
       this.httpserviceService.callRPC(table, method, colums).subscribe((result)=>{
-        // console.log("将数据存入数据库中，返回的数据", result);
+        console.log("将数据存入数据库中insert_employee_from_sso，返回的数据", result);
         const status = result['result']['message'][0];
         if (status["code"] === 1){
           // 表示入库成功！调用登录接口得到token, 
           // console.log("请求登录！")
           var headers = {headers: new HttpHeaders({"Content-Type": "application/json"})};
           this.httpserviceService.post(LOGIN_API, {"username": ssouserinfo[0]["loginname"], "password": ssouserinfo[0]["password"]},headers).subscribe((res)=>{
-            // console.log("请求登录！得到结果", res);
+            console.log("请求登录！得到结果", res);
             if (res["accessToken"]) {
+
               // ============= 存入登录日志
               const opts = {
                 headers: new HttpHeaders({
@@ -290,18 +294,22 @@ export class UserLoginComponent implements OnInit {
                 })
               };
               this.http.get(INFO_API, opts).pipe(map(userInfo=>{
-                // console.log("============= 存入登录日志并得到菜单", userInfo)
+                console.log("userInfo============= 存入登录日志并得到菜单", userInfo)
                 if (userInfo['userInfo']['roles']) {
                   const userinfo = JSON.stringify(userInfo['userInfo']);
                   localStorage.removeItem(SSOUSERINFO);
 
                   localStorage.setItem(SSOUSERINFO, userInfo ? this.publicmethodService.compileStr(userinfo) : null);
+                  this.RecordLogin();
                 } else {
                   this.publicmethodService.toastr({position: 'top-right', status: 'danger', conent:"当前用户菜单权限不足，请联系管理员添加权限！"});
                 }
               })).subscribe(()=>{
                 this.loading = false;
                 this.publicmethodService.toastr(this.DataSuccess);
+                setTimeout(() => {
+                  this.router.navigate([afterloginurl]);
+                }, 1000);
               });
 
               // 说明得到了token

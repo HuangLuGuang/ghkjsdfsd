@@ -8,10 +8,11 @@ import { NzPaginationModule, NzUploadModule } from 'ng-zorro-antd';
 import { AgGridModule } from 'ag-grid-angular';
 
 import { AgTableComponent } from './components/ag-table/ag-table.component';
+import { SendToMadamComponent } from './eim-file-upload/send-to-madam/send-to-madam.component';
 
 
 @NgModule({
-  declarations: [EimFileUploadComponent,AgTableComponent],
+  declarations: [EimFileUploadComponent,AgTableComponent, SendToMadamComponent],
   imports: [
     CommonModule,
     EimFileUploadRoutingModule,

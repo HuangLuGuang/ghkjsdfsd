@@ -47,6 +47,16 @@ export class PagesComponent implements OnInit {
     console.log("pages.component------------->")
     this.loadMenu();
   }
+  
+  ngAfterViewInit(){
+    var menu_:any[] = localStorage.getItem(MULU)?JSON.parse(localStorage.getItem(MULU)):[];
+    setTimeout(() => {
+      this.loadMenu();
+      menu_ = localStorage.getItem(MULU)?JSON.parse(localStorage.getItem(MULU)):[];
+    }, 1000);
+  
+
+  }
 
   ngOnDestory() {
     this.menuservice.addItems([], 'menu');
