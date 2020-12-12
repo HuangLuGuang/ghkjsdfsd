@@ -6,6 +6,7 @@ import { SendToMadamComponent } from './eim-file-upload/send-to-madam/send-to-ma
 
 import { HttpClient, HttpEvent, HttpRequest, HttpResponse } from '@angular/common/http';
 import {UploadXHRArgs} from "ng-zorro-antd";
+import { FileNameComponent } from './eim-file-upload/file-name/file-name.component';
 
 @Component({
   selector: 'ngx-eim-file-upload',
@@ -24,11 +25,12 @@ export class EimFileUploadComponent implements OnInit {
     PageSize: 10, // 每页 10条数据
     isno_refresh_page_size: false, // 是否重新将 每页多少条数据，赋值为默认值
     columnDefs:[ // 列字段 多选：headerCheckboxSelection checkboxSelection , flex: 1 自动填充宽度  pinned: 'left' 固定在左侧！
-      { field: 'filename', headerName: '文件名称', headerCheckboxSelection: true, checkboxSelection: true, autoHeight: true, fullWidth: true, minWidth: 50,resizable: true,},
+      // { field: 'filename', headerName: '文件名称', headerCheckboxSelection: true, checkboxSelection: true, autoHeight: true, fullWidth: true, minWidth: 50,resizable: true,},
+      { field: 'filename', headerName: '文件名称', cellRendererFramework: FileNameComponent ,headerCheckboxSelection: true, checkboxSelection: true, autoHeight: true, fullWidth: true, minWidth: 50,resizable: true,},
       { field: 'filesize', headerName: '文件大小',  resizable: true, minWidth: 10},
       { field: 'people', headerName: '上传人',  resizable: true, minWidth: 10},
       { field: 'time', headerName: '修改时间', resizable: true, minWidth: 10,flex: 1,},
-      { field: 'upload', headerName: '发送至MaDaM',  resizable: true, width: 100, pinned: 'right', cellRendererFramework:SendToMadamComponent},
+      { field: 'upload', headerName: '发送至MaDaM',  resizable: true, width: 150, pinned: 'right', cellRendererFramework:SendToMadamComponent},
     ],
     rowData: [ // data
     ]
@@ -190,7 +192,12 @@ export class EimFileUploadComponent implements OnInit {
   // 初始化table
   inttable(event?){
     console.log("---初始化文件传输table");
-    var message = [{filename: "xxx.png", filesize: 45, time: 1234,upload:"upload"}]
+    var message = [
+      {filesize: "45Mb", time: "2020-12-12 16:05:06",upload:"upload", filename:{filetype: 0, fliename: "用户管理信息",fileicon: "folder-outline"}}, // 目录
+      {filesize: '45Kb', time: "2020-12-12 16:04:05",upload:"upload", filename:{filetype: 1, fliename: "用户管理信息.csv",fileicon: "file-outline"}}, // 文件
+      {filesize: '45Kb', time: "2020-12-12 16:04:05",upload:"upload", filename:{filetype: 2, fliename: "用户管理信息.png",fileicon: "image-outline"}}, // 图片
+    ]
+    // this.add_detail_kpi(message);
     this.gridData.push(...message);
     this.tableDatas.rowData = this.gridData;
     this.tableDatas.totalPageNumbers = 30;
@@ -220,11 +227,15 @@ export class EimFileUploadComponent implements OnInit {
     this.loading = false;
   }
 
-  // 添加每一列
+  // 添加 上传到 MaDaM，上传的文件（文件夹）信息！
   add_detail_kpi(datas:any[]){
-    var option = '/pages/tongji/deviceKpiReport/kpidetail';
+    // MaDaM
+    var upload = '/pages/tongji/deviceKpiReport/kpidetail';
+    // 文件（文件夹）信息
+    var file_or_files = { filename: "用户管理信息.csv", type: 1 }
     datas.forEach(data=>{
-      data["option"] =  option
+      data["upload"] =  upload;
+      data["filename"] = file_or_files;
     })
     
   }

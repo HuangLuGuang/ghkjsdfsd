@@ -10,7 +10,6 @@ import { EquipmentHydraulicPressureComponent } from './equipment-hydraulic-press
 import { EquipmentMotorSystemComponent } from './equipment-motor-system/equipment-motor-system.component';
 import { EquipmentShockComponent } from './equipment-shock/equipment-shock.component';
 import { LaboratoryBoardComponent } from './laboratory-board/laboratory-board.component';
-import { OilSourceMonitoringComponent } from './oil-source-monitoring/oil-source-monitoring.component';
 
 
 //路由
@@ -74,11 +73,7 @@ const ROUTERS: Routes = [{
         path:'avl-etec2/:title/:deviceid',
         component:EquipmentAvlAtecComponent
       },
-      {
-        //油源
-        path:'oilsrouce/:title/:deviceid',
-        component:OilSourceMonitoringComponent
-      },
+      
       {
         path:'detailsDemo/:title/:deviceid',
         component:EquipmentDetailsComponent

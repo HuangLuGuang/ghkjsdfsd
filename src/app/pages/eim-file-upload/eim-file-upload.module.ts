@@ -9,10 +9,11 @@ import { AgGridModule } from 'ag-grid-angular';
 
 import { AgTableComponent } from './components/ag-table/ag-table.component';
 import { SendToMadamComponent } from './eim-file-upload/send-to-madam/send-to-madam.component';
+import { FileNameComponent } from './eim-file-upload/file-name/file-name.component';
 
 
 @NgModule({
-  declarations: [EimFileUploadComponent,AgTableComponent, SendToMadamComponent],
+  declarations: [EimFileUploadComponent,AgTableComponent, SendToMadamComponent, FileNameComponent],
   imports: [
     CommonModule,
     EimFileUploadRoutingModule,

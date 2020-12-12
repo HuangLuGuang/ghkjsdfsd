@@ -14,7 +14,6 @@ import { TestInformationComponent } from './temp/test-information/test-informati
 import { ExperimentParamsComponent } from './temp/experiment-params/experiment-params.component';
 import { TestInformationV2Component } from './temp/test-information-v2/test-information-v2.component';
 import { EquipIntroduceComponent } from './temp/equip-introduce/equip-introduce.component';
-import { OilSourceMonitoringComponent } from './oil-source-monitoring/oil-source-monitoring.component';
 import { EquipmentStatusComponent } from './temp/equipment-status/equipment-status.component';
 import { EquipmentHydraulicPressureComponent } from './equipment-hydraulic-pressure/equipment-hydraulic-pressure.component';
 import { EquipmentShockComponent } from './equipment-shock/equipment-shock.component';
@@ -38,7 +37,6 @@ const COMPONENT = [
   EquipmentStatusComponent,LaboratoryBoardComponent,LogWarmComponent,
   TestInformationComponent,
   ExperimentParamsComponent,TestInformationV2Component,
-  OilSourceMonitoringComponent,
   DigitCompletionPipe,
   EquipmentAvlAtecComponent
 ]
