@@ -283,137 +283,140 @@ export const create_third_chart_line=(rtm3a,isthis)=>{
 
 //液压伺服设备介绍
 export const hydraulic_htmlstr = [
-  `
-  2.使用标准\规范 <br>
-  &emsp;Q/JLY J7110489B-2016  乘用车前、后副车架总成技术条件 <br>
-  &emsp;Q/JLY J7110439D-2016 J05204 悬架摆臂总成类技术条件 <br>
-  &emsp;Q/JLY J7110490B-2016 J05204 后桥总成（扭力梁）技术条件<br>
-  &emsp;Q/JLY J7110371C-2016 J05204 前、后稳定杆总成技术条件等<br>
-  `,
+  '',''
+//   `
+//   2.使用标准\规范 <br>
+//   &emsp;Q/JLY J7110489B-2016  乘用车前、后副车架总成技术条件 <br>
+//   &emsp;Q/JLY J7110439D-2016 J05204 悬架摆臂总成类技术条件 <br>
+//   &emsp;Q/JLY J7110490B-2016 J05204 后桥总成（扭力梁）技术条件<br>
+//   &emsp;Q/JLY J7110371C-2016 J05204 前、后稳定杆总成技术条件等<br>
+//   `,
   
-  `
-  <div class="equipments_table_title" style="padding-right: 10px">3.设备构成及参数</div>
-  <div class="equipments_table">
+//   `
+//   <div class="equipments_table_title" style="padding-right: 10px">3.设备构成及参数</div>
+//   <div class="equipments_table">
   
-  <div  class="column_20 border_1px">
-    <div>名称</div>
-    <div class="border_top_1px">MTS直线缸</div>
-  </div>
-  <div  class="column_42 border_1px">
-    <div>基本参数</div>
-    <div class="border_top_1px">载荷：±25kN；位移：±125mm</div>
-    <div class="border_top_1px">载荷：±50kN；位移：±125mm</div>
-  </div>
-  <div  class="column_20 border_1px">
-    <div>数量</div>
-    <div class="border_top_1px">4</div>
-    <div class="border_top_1px">2</div>
-  </div>
-</div>`
+//   <div  class="column_20 border_1px">
+//     <div>名称</div>
+//     <div class="border_top_1px">MTS直线缸</div>
+//   </div>
+//   <div  class="column_42 border_1px">
+//     <div>基本参数</div>
+//     <div class="border_top_1px">载荷：±25kN；位移：±125mm</div>
+//     <div class="border_top_1px">载荷：±50kN；位移：±125mm</div>
+//   </div>
+//   <div  class="column_20 border_1px">
+//     <div>数量</div>
+//     <div class="border_top_1px">4</div>
+//     <div class="border_top_1px">2</div>
+//   </div>
+// </div>`
 ]
 
   //四立柱设备介绍
 export const  four_road_htmlstr = [
-  `
-  1、使用标准\规范<br>
-  &emsp;Q/JLY J7210680A-2017<br>
-  &emsp;带环境条件的四立柱耐久试验规范<br>
-  &emsp;Q/JLY J7210624A-2016<br>
-  &emsp;整车四通道轮耦合道路模拟试验规范<br>
-`,
+  '',''
+//   `
+//   1、使用标准\规范<br>
+//   &emsp;Q/JLY J7210680A-2017<br>
+//   &emsp;带环境条件的四立柱耐久试验规范<br>
+//   &emsp;Q/JLY J7210624A-2016<br>
+//   &emsp;整车四通道轮耦合道路模拟试验规范<br>
+// `,
 
-` <div class="equipments_table height_99">
-  <div class="column_65 border_1px">
-    <div class="border_top_1px height_10">名称 name</div>
-    <div class="border_top_1px height_11">最大整车重量 Max.GVW	Up to</div>
-    <div class="border_top_1px height_11">轴距 Wheel base</div>
-    <div class="border_top_1px height_11">轮距 Track width</div>
-    <div class="border_top_1px height_11">轮胎宽度 Tire width</div>
-    <div class="border_top_1px height_11">作动器最大承载
-         Actuator Max. Forc</div>
-    <div class="border_top_1px height_11">作动器最大行程
-          Actuator Max. stroke</div>
-    <div class="border_top_1px height_11">作动器最大速度
-         Actuator Max. Velocity</div>
-    <div class="border_top_1px height_11">轮盘最大加速度
-         Max Acceleration</div>
-  </div>
-  <div class="column_35 border_1px">
-    <div class="border_top_1px height_10">基本参数 specifications</div>
-    <div class="border_top_1px height_11">3500kg</div>
-    <div class="border_top_1px height_11">2m-3.5m</div>
-    <div class="border_top_1px height_11">1.2m-1.8m</div>
-    <div class="border_top_1px height_11">13 to 20 inches</div>
-    <div class="border_top_1px height_11">50kN</div>
-    <div class="border_top_1px height_11">±150 mm</div>
-    <div class="border_top_1px height_11">3.0  m/s </div>
-    <div class="border_top_1px height_11">21g</div>
-  </div>
-</div>
-`,
+// ` <div class="equipments_table height_99">
+//   <div class="column_65 border_1px">
+//     <div class="border_top_1px height_10">名称 name</div>
+//     <div class="border_top_1px height_11">最大整车重量 Max.GVW	Up to</div>
+//     <div class="border_top_1px height_11">轴距 Wheel base</div>
+//     <div class="border_top_1px height_11">轮距 Track width</div>
+//     <div class="border_top_1px height_11">轮胎宽度 Tire width</div>
+//     <div class="border_top_1px height_11">作动器最大承载
+//          Actuator Max. Forc</div>
+//     <div class="border_top_1px height_11">作动器最大行程
+//           Actuator Max. stroke</div>
+//     <div class="border_top_1px height_11">作动器最大速度
+//          Actuator Max. Velocity</div>
+//     <div class="border_top_1px height_11">轮盘最大加速度
+//          Max Acceleration</div>
+//   </div>
+//   <div class="column_35 border_1px">
+//     <div class="border_top_1px height_10">基本参数 specifications</div>
+//     <div class="border_top_1px height_11">3500kg</div>
+//     <div class="border_top_1px height_11">2m-3.5m</div>
+//     <div class="border_top_1px height_11">1.2m-1.8m</div>
+//     <div class="border_top_1px height_11">13 to 20 inches</div>
+//     <div class="border_top_1px height_11">50kN</div>
+//     <div class="border_top_1px height_11">±150 mm</div>
+//     <div class="border_top_1px height_11">3.0  m/s </div>
+//     <div class="border_top_1px height_11">21g</div>
+//   </div>
+// </div>
+// `,
 ];
 
 
   //六自由度设备介绍
 export const shock_htmlStr = [
-  `
-  1.使用标准\规范<br>
-  &emsp;Q/JLY J7111070B-2018<br>
-  &emsp;悬置系统六自由度道路模拟试验规范<br>
-  &emsp;Q/JLY J7210623A-2016<br>
-  &emsp;六自由度振动台道路模拟试验规范 <br>
-  `,
-  `
-  <div class="equipments_table height_99">
-  <div class="column_31 border_1px">
-    <div class="border_top_1px height_10">名称 name</div>
-    <div class="border_top_1px height_29">速度 
-    Velocities</div>
-    <div class="border_top_1px height_30">频率
-    Frequency
-    </div>
-    <div class="border_top_1px height_30">位移Displacement </div>
-  </div>
-  <div class="column_69 border_1px">
-    <div  class="border_top_1px height_10">基本参数  Specifications
-    </div>
-    <div class="border_top_1px height_29">垂向1.2m/s、横向0.9m/s、纵向1.0m/s
-    Vertica1.2m/s、Lateral0.9m/s、Longitudinal1.0m/s
-    </div>
-    <div class="border_top_1px height_30">0-80Hz
-    </div>
-    <div class="border_top_1px height_30">垂向±140mm、横向   110mm、纵向  125mm
-    Vertical ±140mm、Lateral  110mm、Longitudinal  125mm
-    </div>
-  </div>
-</div>
-`,`
-<div class="equipments_table height_99">
-<div class="column_31 border_1px">
-  <div class="border_top_1px height_10">名称 name</div>
-  <div class="border_top_1px height_44">旋转角
-  Rotations</div>
-  <div class="border_top_1px height_26">台面尺寸 
-  Table Size 
-  </div>
-  <div class="border_top_1px height_20">承载范围Payload
-  </div>
-</div>
-<div class="column_69 border_1px">
-  <div  class="border_top_1px height_10">基本参数  Specifications
-  </div>
-  <div class="border_top_1px height_44">滚动 – 绕X轴 8.0 deg、俯仰 – 绕Y轴 7.0 deg、偏航 – 绕Z轴 5.5 deg
-  Roll - (X) axis 8.0 deg、Pitch - (Y) axis 7.0 deg、Yaw- (Z) axis 5.5 deg
-  </div>
-  <div class="border_top_1px height_26">约为2.2 米 x 2.2米 方台面
-  approximately 2.2 m x 2.2m square
-  </div>
-  <div class="border_top_1px height_20">最大负载    1000千克
-  Max Payload   1000kg
-  </div>
-</div>
-</div>
-`
+  '',''
+//   `
+//   1.使用标准\规范<br>
+//   &emsp;Q/JLY J7111070B-2018<br>
+//   &emsp;悬置系统六自由度道路模拟试验规范<br>
+//   &emsp;Q/JLY J7210623A-2016<br>
+//   &emsp;六自由度振动台道路模拟试验规范 <br>
+//   `,
+//   `
+//   <div class="equipments_table height_99">
+//   <div class="column_31 border_1px">
+//     <div class="border_top_1px height_10">名称 name</div>
+//     <div class="border_top_1px height_29">速度 
+//     Velocities</div>
+//     <div class="border_top_1px height_30">频率
+//     Frequency
+//     </div>
+//     <div class="border_top_1px height_30">位移Displacement </div>
+//   </div>
+//   <div class="column_69 border_1px">
+//     <div  class="border_top_1px height_10">基本参数  Specifications
+//     </div>
+//     <div class="border_top_1px height_29">垂向1.2m/s、横向0.9m/s、纵向1.0m/s
+//     Vertica1.2m/s、Lateral0.9m/s、Longitudinal1.0m/s
+//     </div>
+//     <div class="border_top_1px height_30">0-80Hz
+//     </div>
+//     <div class="border_top_1px height_30">垂向±140mm、横向   110mm、纵向  125mm
+//     Vertical ±140mm、Lateral  110mm、Longitudinal  125mm
+//     </div>
+//   </div>
+// </div>
+// `,`
+// <div class="equipments_table height_99">
+// <div class="column_31 border_1px">
+//   <div class="border_top_1px height_10">名称 name</div>
+//   <div class="border_top_1px height_44">旋转角
+//   Rotations</div>
+//   <div class="border_top_1px height_26">台面尺寸 
+//   Table Size 
+//   </div>
+//   <div class="border_top_1px height_20">承载范围Payload
+//   </div>
+// </div>
+// <div class="column_69 border_1px">
+//   <div  class="border_top_1px height_10">基本参数  Specifications
+//   </div>
+//   <div class="border_top_1px height_44">滚动 – 绕X轴 8.0 deg、俯仰 – 绕Y轴 7.0 deg、偏航 – 绕Z轴 5.5 deg
+//   Roll - (X) axis 8.0 deg、Pitch - (Y) axis 7.0 deg、Yaw- (Z) axis 5.5 deg
+//   </div>
+//   <div class="border_top_1px height_26">约为2.2 米 x 2.2米 方台面
+//   approximately 2.2 m x 2.2m square
+//   </div>
+//   <div class="border_top_1px height_20">最大负载    1000千克
+//   Max Payload   1000kg
+//   </div>
+// </div>
+// </div>
+// `
 ]
 
 //echarts表格生成后调用
