@@ -1511,21 +1511,19 @@ let equipment_four_road = {
                 buttom: '0%',
                 top: '5%',
                 width: '90%',
-                height: '70%'
+                height: '80%'
             },
-            dataZoom: [{
-                    show: false,
-                    realtime: true,
-                    start: 100 - ((10 / (series[0].data.length)) * 100),
-                    end: 100
+            title: {
+                text: data.title,
+                left: 'center',
+                top: '5%',
+                textStyle: {
+                    color: 'white',
+                    fontSize: 12
                 },
-                {
-                    type: 'inside',
-                    realtime: true,
-                    start: 100 - ((10 / (series[0].data.length)) * 100),
-                    end: 100
-                }
-            ],
+
+            },
+
             xAxis: {
                 data: data.xData,
                 axisLabel: {
@@ -1545,7 +1543,26 @@ let equipment_four_road = {
         // console.log('折线')
 
         // })
-        myChart.setOption(option_e, config);
+        if (config) {
+            option_e.series.dataZoom = [{
+                    show: false,
+                    realtime: true,
+                    start: 100 - ((10 / (series[0].data.length)) * 100),
+                    end: 100
+                },
+                {
+                    type: 'inside',
+                    realtime: true,
+                    start: 100 - ((10 / (series[0].data.length)) * 100),
+                    end: 100
+                }
+            ]
+        }
+        if (config)
+            myChart.setOption(option_e, config);
+        else
+            myChart.setOption(option_e), myChart.resize();
+
         // myChart.resize();
     },
 
@@ -2072,7 +2089,7 @@ let equipment_four_road = {
                         rich: {},
                         offsetCenter: [0, '65%'],
                         formatter: function(value) {
-                            return (value * 10 + "Pa");
+                            return (value + "Pa");
                         }
                     },
                     data: [{
@@ -2083,6 +2100,98 @@ let equipment_four_road = {
             ]
         }
         myChart.setOption(option_t_h_p_g);
+        myChart.resize();
+    },
+    create_temp_h_1_p_gauge(data, myChart) {
+        var dataArry = {
+            one: 500,
+            two: 300,
+            three: 200
+        };
+
+
+        let option_t_31892740 = {
+            series: [{
+                name: '实时湿度',
+                type: 'gauge',
+                color: ['#f00'],
+                min: 0,
+                max: data.max,
+                splitNumber: 2,
+                radius: '90%',
+                center: ["50%", "55%"],
+                axisLine: { // 坐标轴线
+                    lineStyle: { // 属性lineStyle控制线条样式
+                        width: 5,
+                        color: data.color
+                    },
+                    backgroundColor: "none"
+                },
+                axisTick: { // 坐标轴小标记
+                    length: 12, // 属性length控制线长
+                    lineStyle: { // 属性lineStyle控制线条样式
+                        color: 'auto'
+                    }
+                },
+                tooltip: {
+                    formatter: function() {
+                        if (dataArry.two) {
+                            return "第二部分:" + dataArry.two;
+                        }
+                    }
+                },
+                splitLine: { // 分隔线
+                    length: 5, // 属性length控制线长
+                    lineStyle: { // 属性lineStyle（详见lineStyle）控制线条样式
+                        color: 'rgba(255,255,255,0.7)',
+                    }
+                },
+                axisLabel: {
+                    borderRadius: 1,
+                    color: 'rgba(255,255,255,0.7)',
+                    padding: 1,
+                },
+                pointer: {
+                    width: 5
+                },
+                title: {
+                    fontSize: 12,
+                    fontColor: "#FFF",
+                    color: "#FFF",
+                    paddingTop: 10,
+                    offsetCenter: [0, '90%']
+                },
+                itemStyle: {
+                    color: '#1092ff'
+                },
+                detail: {
+                    shadowOffsetX: 0,
+                    shadowOffsetY: 0,
+                    textBorderColor: '#000',
+                    textBorderWidth: 1,
+                    textShadowBlur: 1,
+                    textShadowColor: '#fff',
+                    textShadowOffsetX: 0,
+                    textShadowOffsetY: 0,
+                    paddingTop: 10,
+                    fontFamily: 'digital',
+                    fontSize: 12,
+                    width: 12,
+                    color: '#fff',
+                    rich: {},
+                    offsetCenter: [0, '65%'],
+                    formatter: function(value) {
+                        return (value + data.unit);
+                    }
+                },
+                data: [{
+                    value: data.value,
+                    name: data.name
+                }]
+            }, ]
+        }
+
+        myChart.setOption(option_t_31892740);
         myChart.resize();
     }
 }

@@ -1,0 +1,87 @@
+<div id="four_road">
+    <div class="row" style="height: 100%;">
+        <div class="col-md-4" style="padding: 0px 0px 0px 15px;">
+            <div class="first_first" style="height: 33%;">
+                <ngx-equipment-status device='device_boyang_01' style="display: flex;width: 100%;"></ngx-equipment-status>
+            </div>
+            <div class="first_second lattice_layout" style="height: 30%;">
+                <div class="part_title">{{'equipment.expInfor'|translate}}</div>
+                <ngx-test-information device='device_mts_01' style="width: 100%;"></ngx-test-information>
+
+            </div>
+            <div class="dis_f_w first_third lattice_layout height_32">
+                <ngx-log-warm device='device_mts_01' style="display: flex;width: 100%;flex-wrap: wrap;"></ngx-log-warm>
+            </div>
+        </div>
+        <div class="col-md-4" style="padding: 0px 15px;">
+            <div class="sceond_fisrt height_29">
+                <div class="part_title">{{ 'equipment.equipIntroduce'|translate}}</div>
+                <div style="padding: 20px;overflow: auto;">
+                    设备分三部分：AVL 转股、排放分析仪、环境舱；
+                </div>
+            </div>
+            <div class="center_img">
+                <div class="part_title">{{'equipment.OnlineVideo'|translate}}</div>
+                <div style="width: 100%;height: 100%;display: flex;
+                align-items: center;
+                justify-content: center;">
+                    <img id="img" [src]="img.url" [alt]="img.name">
+                </div>
+            </div>
+            <div class="sceond_third height_33" style="position: relative;flex-wrap: wrap;padding-top: 0%; margin-top: 2%;">
+                <div class="part_title">{{ 'equipment.EmissionAnalyzer'|translate }}</div>
+                <div class="display_wrap height_29" style="width: 100%;margin-top: 17px;justify-content: center;align-items: center;">
+                    <ng-container *ngFor="let item of discharge">
+                        <div class="width_23 discharge">
+                            {{'equipment.'+item.name|translate}}
+                            <div class=" div_blue">
+                                {{item.value}}{{item.unit}}
+                            </div>
+                        </div>
+                    </ng-container>
+                </div>
+                <div class="height_60" style="width: 100%;">
+                    <div id="discharge_chart"></div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4" style="padding: 0px 15px 0px 0px;">
+
+            <div class="thrid">
+                <div class="part_title">{{'equipment.EnvironBinParam'|translate}}</div>
+                <div class="height_50" style="display: flex;justify-content: center;align-items: center;">
+                    <div id="real_temperature_4"></div>
+                    <div id="real_temperature_5"></div>
+                </div>
+                <div class="height_50">
+                    <div id="discharge_chart_1" style="height: 100%;"></div>
+                </div>
+            </div>
+            <div class="height_63 bo" style="margin-top: 14px;position: relative;padding-top: 30px;">
+                <div class="part_title">{{ 'equipment.AVLSpeed'|translate}}</div>
+                <div style="position: absolute;right: 7px; display: flex;align-items: center;top: 0;">
+                    {{ 'equipment.inertia'|translate}}
+                    <div style="border: 2px solid #4472c4;width: 100px;height: 28px;">
+                        1300kg
+                    </div>
+                </div>
+                <div class="height_25 dis_f_w center_center">
+                    <div id="gauge_1"></div>
+                    <div id="gauge_2"></div>
+                    <div id="gauge_3"></div>
+                    <div id="gauge_4"></div>
+                </div>
+                <div class="height_25 dis_f_w center_center">
+                    <div class="width_31 discharge" *ngFor="let item of avl_paramlist">
+                        {{'equipment.'+item.name|translate}}
+                        <div class=" div_blue">
+                            {{item.value}}{{item.unit}}
+                        </div>
+                    </div>
+                </div>
+                <div class="height_25" id="avl_param_chart_1"></div>
+                <div class="height_25" id="avl_param_chart_2"></div>
+            </div>
+        </div>
+    </div>
+</div>

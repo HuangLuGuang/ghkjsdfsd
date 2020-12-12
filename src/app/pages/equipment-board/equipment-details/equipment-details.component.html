@@ -1,0 +1,51 @@
+<div id="four_road">
+    <div class="row" style="height: 100%;">
+        <div class="col-md-4" style="padding: 0px 0px 0px 15px;">
+            <div class="first_first" style="height: 33%;">
+                <ngx-equipment-status device='device_boyang_01' style="display: flex;width: 100%;"></ngx-equipment-status>
+            </div>
+            <div class="first_second lattice_layout" style="height: 27%;">
+                <div class="part_title">{{'equipment.expInfor'|translate}}</div>
+                <ngx-test-information device='device_mts_01' style="width: 100%;"></ngx-test-information>
+
+            </div>
+            <div class="dis_f_w first_third lattice_layout height_32 " style="display: flex;">
+                <!-- <div class="part_title">{{'equipment.LogWarm' | translate}}</div> -->
+                <ngx-log-warm device='device_mts_01' style="display: flex;width: 100%;flex-wrap: wrap;"></ngx-log-warm>
+
+            </div>
+        </div>
+        <div class="col-md-4" style="padding: 0px 15px;">
+            <div class="sceond_fisrt height_27">
+                <div class="part_title">{{ 'equipment.equipIntroduce'|translate}}</div>
+                <div style="padding: 20px;text-align: left;font-size: 12px;overflow: auto;width: 100%;" [innerHTML]="str">
+                </div>
+            </div>
+            <div class="center_img">
+                <div class="part_title">{{'equipment.OnlineVideo'|translate}}</div>
+                <div style="width: 100%;height: 100%;display: flex;
+            align-items: center;
+            justify-content: center;">
+                    <img id="img" [src]="img.url" [alt]="img.name">
+                </div>
+            </div>
+            <div class="height_33 bo" style="margin-top: 10px;">
+                <ngx-chart-curve-v3 #chart_3 [chartName]="'chart_3'" (clicEvent)="clicEvent($event,3)" chartVivid='brokenline' dashboardName='dashboard_3' [list]="list_1"></ngx-chart-curve-v3>
+            </div>
+        </div>
+        <div class="col-md-4" style="padding: 0px 15px 0px 0px;">
+
+            <div class="thrid">
+                <div class="part_title">{{'equipment.experimentParams'|translate}}</div>
+                <ngx-experiment-params device='device_weiss_01' style="width: 100%;"></ngx-experiment-params>
+            </div>
+            <div class="height_32 bo" style="margin-top: 6px;">
+                <ngx-chart-curve-v3 #chart_2 [chartName]="'chart_2'" (clicEvent)="clicEvent($event,2)" dashboardName='dashboard_2' [list]="list_2"></ngx-chart-curve-v3>
+            </div>
+            <div class="height_32 bo" style="margin-top: 6px;">
+                <ngx-chart-curve-v3 #chart_1 [chartName]="'chart_1'" (clicEvent)="clicEvent($event,1)" chartVivid='columnar' dashboardName='dashboard_1' [list]="list_1"></ngx-chart-curve-v3>
+            </div>
+
+        </div>
+    </div>
+</div>
