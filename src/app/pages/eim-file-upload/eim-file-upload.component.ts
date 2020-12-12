@@ -4,6 +4,8 @@ import { PublicmethodService } from '../../services/publicmethod/publicmethod.se
 import { UserInfoService } from '../../services/user-info/user-info.service';
 import { SendToMadamComponent } from './eim-file-upload/send-to-madam/send-to-madam.component';
 
+import { HttpClient, HttpEvent, HttpRequest, HttpResponse } from '@angular/common/http';
+import {UploadXHRArgs} from "ng-zorro-antd";
 
 @Component({
   selector: 'ngx-eim-file-upload',
@@ -36,15 +38,19 @@ export class EimFileUploadComponent implements OnInit {
 
   // 上传文件
   fileList = []; //  设置已上传的内容
-  nzFileType = "file,image"; // 接受上传文件的类型 image/gif  image是文件夹
+  nzFileType = "file,image/jpeg"; // 接受上传文件的类型 image/gif  
   nzShowUploadList = true; // 是否展示UploadList false：不展示
   nzDirectory = false; // 支持上传文件夹
   // uploadUrl = "http://192.168.8.105/api/v1/upload"; // 上传的地址！
-  uploadUrl = "http://localhost:5000/api/v1/upload"; // 上传的地址！
+  // uploadUrl = "http://localhost/upload"; // 上传的地址！
+  uploadUrl = "http://localhost/api/v1/upload"; // 上传的地址！
+  nzName = "file";  // 发到后台的文件参数名
 
+  public documentType;
 
   constructor(private userinfo: UserInfoService, private publicservice: PublicmethodService,
-    private datepipe: DatePipe  
+    private datepipe: DatePipe ,
+    private http: HttpClient,
   ) { 
     // 会话过期
     localStorage.removeItem("alert401flag");
@@ -92,6 +98,7 @@ export class EimFileUploadComponent implements OnInit {
 
   // 上传文件时改变状态
   uploadStatus(filedata){
+    console.log("filedata",filedata)
     const file = filedata.file;
     if (filedata.file.status === 'done'){
       console.warn("上传成功",filedata);
@@ -107,6 +114,44 @@ export class EimFileUploadComponent implements OnInit {
       console.log("--->",event)
       this.update_agGrid(event);
     }
+  }
+
+  // 覆盖默认的上传行为，自定义实现上传！
+  customReq = (item: UploadXHRArgs) => {
+    console.warn(item);
+    const formData = new FormData();
+    formData.append('file', item.file as any);
+    formData.append('username', this.userinfo.getLoginName());
+    formData.append('documenttype', this.documentType);
+    const req = new HttpRequest('POST', item.action, formData);
+    return this.http.request(req).subscribe((event: HttpEvent<{}>) => {
+        if (event instanceof HttpResponse) {
+          console.warn(event.body);
+          const body = event.body;
+          console.log("event.body:",event.body)
+          console.log("item.file:",'file', item.file)
+          if (body['isSuccess']) {
+              item.onSuccess(event.body, item.file, event);
+              // 添加预览的url
+              this.fileList.forEach(file => {
+                  if (body['name'] === file.name) {
+                    file['url'] = this.uploadUrl;
+                    file['thumbUrl'] = this.uploadUrl;
+                    file['uid'] = body['uid'];
+                  }
+              });
+          } else {
+            console.warn(body, this.fileList);
+            const filename = item['file']['name'];
+            
+            this.fileList.forEach(file => {
+                  if (filename === file.name) {
+                    file['status'] = "error";
+                  }
+              });
+          }
+        }
+    });
   }
 
   ngAfterViewInit(){

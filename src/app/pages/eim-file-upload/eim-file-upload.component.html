@@ -22,6 +22,8 @@
                     [(nzFileList)]="fileList"
                     (nzChange)="uploadStatus($event)"
                     [nzMultiple]="true"
+                    [nzName]="nzName"
+                    [nzCustomRequest]="customReq"
                     >
                         <!-- <button nz-button>
                             <i nz-icon nzType="upload"></i> {{button?.import.title}}
