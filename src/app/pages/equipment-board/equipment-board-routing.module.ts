@@ -11,7 +11,6 @@ import { EquipmentMotorSystemComponent } from './equipment-motor-system/equipmen
 import { EquipmentShockComponent } from './equipment-shock/equipment-shock.component';
 import { LaboratoryBoardComponent } from './laboratory-board/laboratory-board.component';
 import { OilSourceMonitoringComponent } from './oil-source-monitoring/oil-source-monitoring.component';
-import { TwoDriveChassisComponent } from './two-drive-chassis/two-drive-chassis.component';
 
 
 //路由
@@ -64,21 +63,7 @@ const ROUTERS: Routes = [{
         path:'avl/:title/:deviceid',
         component:EquipmentAvlComponent
       },
-      {
-        //两驱底盘测功机-1
-        path:'twodrive/:title/:deviceid',
-        component:TwoDriveChassisComponent
-      },
-      {
-        //两驱底盘测功机-2
-        path:'twodrive2/:title/:deviceid',
-        component:TwoDriveChassisComponent
-      },
-      {
-        //四驱底盘测功机（未验收）
-        path:'twodrive3/:title/:deviceid',
-        component:TwoDriveChassisComponent
-      },
+      
       {
         //两驱AVL转毂+ATEC环境舱+排放分析
         path:'avl-etec/:title/:deviceid',

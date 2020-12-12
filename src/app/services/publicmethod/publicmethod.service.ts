@@ -124,10 +124,11 @@ export class PublicmethodService {
         for (const i in this.location){
           if (i === 'location'){
             sysmenu.forEach(element => {
-              // console.log("^^^^^^^element['link]",element["link"])
               // console.log("^^^^^^^this.location[i].pathname",this.location[i].pathname)
               if (element["link"] === this.location[i].pathname || this.location[i].pathname.search(element["link"]) !=-1){
                 observe.next(element)
+              }else{
+                console.log("得到当前的url 文件路径",element)
               }
             })
           }
@@ -436,6 +437,8 @@ export class PublicmethodService {
             }
           })
 
+        }else{
+          console.log("button，必须是在菜单中！",result)
         }
       });
     })

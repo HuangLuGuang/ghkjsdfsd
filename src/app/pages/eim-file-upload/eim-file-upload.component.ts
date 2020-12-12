@@ -56,14 +56,17 @@ export class EimFileUploadComponent implements OnInit {
     localStorage.removeItem("alert401flag");
     // 得到该页面下的button
     var roleid = this.userinfo.getEmployeeRoleID();
+    console.log("this.roleid----->",roleid)
     this.publicservice.get_buttons_bypath(roleid).subscribe(result=>{
       this.button = result;
+      console.log("this.button----->",this.button)
       localStorage.setItem("buttons_list", JSON.stringify(result));
     })
 
   }
 
   ngOnInit(): void {
+    
   }
 
   action(actionmethod){
@@ -160,6 +163,9 @@ export class EimFileUploadComponent implements OnInit {
       this.inttable();
     }, 1000);
     this.loading = false;
+
+    
+
   }
 
   // 重置、刷新
