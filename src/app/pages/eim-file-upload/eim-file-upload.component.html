@@ -5,7 +5,16 @@
     </nb-card-header>
     <nb-card-body>
         <div class="row">
-            <div class="col-lg-9" style="display: flex;"></div>
+            <div class="col-lg-9" style="display: flex;">
+            
+                <div class="example-items-rows button_item"  ngClass="button?.query?ngClass_show:ngClass_hide">
+                    <div class="gongneng_keshi">
+                        <ngx-file-breadcrumb #mybreadcrumb (vreadcrumb_get_files_child)="get_files_child($event)"></ngx-file-breadcrumb>
+                    </div>
+                </div>
+            </div>
+
+
             <div class="col-lg-3" style="display: flex;">
                 <div style="flex: auto;">
                 </div>

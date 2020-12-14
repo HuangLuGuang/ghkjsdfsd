@@ -127,11 +127,13 @@ export class PagesComponent implements OnInit {
       this.httpservice.callRPC("menu_item", "get_systemset_menu_all", colums).subscribe((result)=>{
         console.log("result menu_item>>>>",result)
         const baseData = result['result']['message'][0];
-        if (baseData["code"]){
+        if (baseData["code"] === 1){
           // 得到sysmenu ----------------------------------
           var sysmenu = this.menuTranslation(baseData["message"]);
           localStorage.setItem(SYSMENU, JSON.stringify(sysmenu));
           // 得到sysmenu ----------------------------------
+        }else{
+          localStorage.removeItem(SYSMENU)
         }
       });
     }

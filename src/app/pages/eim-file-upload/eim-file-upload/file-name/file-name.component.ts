@@ -25,4 +25,15 @@ export class FileNameComponent implements OnInit, ICellRendererAngularComp {
     return false;
   }
 
+  // 点击，如果是目录就进入目录
+  get_children(filename){
+    /*
+    * 1、目录 return 0
+    * 2、文件 return 1
+    * 3、图片 return 2
+    */
+   this.params.clicked(filename);
+  }
+
+
 }

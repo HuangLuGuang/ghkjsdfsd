@@ -1,0 +1,6 @@
+<nz-breadcrumb nzSeparator=">" >
+    <nz-breadcrumb-item *ngFor="let item of data">
+      <a *ngIf="item" (click)="goto_click_file(item)">{{item?.filename}}</a>
+    </nz-breadcrumb-item>
+
+</nz-breadcrumb>

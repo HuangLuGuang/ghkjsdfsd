@@ -1,0 +1,20 @@
+.files_row{
+    width: 100%;
+    display: flex;
+}
+
+.file_col_fileicon{
+    margin: 0px;
+    padding-right: 0px;
+    width: 50%;
+    flex: 4;
+}
+.file_col_filename{
+    margin: 0px;
+    padding: 0px;
+    flex: 8;
+}
+.file_col_filename:hover{
+    cursor: pointer;
+    color: rgb(43, 221, 221);
+}

@@ -12,8 +12,8 @@ export class SendToMadamComponent implements OnInit,ICellRendererAngularComp {
   constructor() { }
 
   ngOnInit(): void {
-    var option = this.params.node.data.option;
-    console.log("send To MaDaM: ", option)
+    // var deleat = this.params.node.data.deleat;
+    // console.log("send To MaDaM: ", deleat)
   }
 
   agInit(params: any): void {
@@ -22,6 +22,10 @@ export class SendToMadamComponent implements OnInit,ICellRendererAngularComp {
 
   refresh(): boolean {
     return false;
+  }
+
+  deleat_file(){
+    this.params.clicked(this.params.node.data.deleat);
   }
 
 

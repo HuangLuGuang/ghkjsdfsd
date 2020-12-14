@@ -15,6 +15,7 @@ import { FileNameComponent } from './eim-file-upload/file-name/file-name.compone
 })
 export class EimFileUploadComponent implements OnInit {
   @ViewChild("ag_Grid") agGrid: any;
+  @ViewChild("mybreadcrumb") mybreadcrumb: any; // 面包屑
 
   loading = false;  // 加载
   refresh = false; // 刷新tabel
@@ -26,11 +27,10 @@ export class EimFileUploadComponent implements OnInit {
     isno_refresh_page_size: false, // 是否重新将 每页多少条数据，赋值为默认值
     columnDefs:[ // 列字段 多选：headerCheckboxSelection checkboxSelection , flex: 1 自动填充宽度  pinned: 'left' 固定在左侧！
       // { field: 'filename', headerName: '文件名称', headerCheckboxSelection: true, checkboxSelection: true, autoHeight: true, fullWidth: true, minWidth: 50,resizable: true,},
-      { field: 'filename', headerName: '文件名称', cellRendererFramework: FileNameComponent ,headerCheckboxSelection: true, checkboxSelection: true, autoHeight: true, fullWidth: true, minWidth: 50,resizable: true,},
+      
       { field: 'filesize', headerName: '文件大小',  resizable: true, minWidth: 10},
       { field: 'people', headerName: '上传人',  resizable: true, minWidth: 10},
       { field: 'time', headerName: '修改时间', resizable: true, minWidth: 10,flex: 1,},
-      { field: 'upload', headerName: '发送至MaDaM',  resizable: true, width: 150, pinned: 'right', cellRendererFramework:SendToMadamComponent},
     ],
     rowData: [ // data
     ]
@@ -47,6 +47,9 @@ export class EimFileUploadComponent implements OnInit {
   // uploadUrl = "http://localhost/upload"; // 上传的地址！
   uploadUrl = "http://localhost/api/v1/upload"; // 上传的地址！
   nzName = "file";  // 发到后台的文件参数名
+
+  filename_col;// 文件名称组件
+  del_file_col; // 删除文件组件
 
   public documentType;
 
@@ -68,8 +71,87 @@ export class EimFileUploadComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    var that = this;
+    // 文件名称
+    this.filename_col = { field: 'filename', headerName: '文件名称', cellRendererFramework: FileNameComponent ,width: 300,headerCheckboxSelection: true, checkboxSelection: true, autoHeight: true, fullWidth: true, minWidth: 50,resizable: true,
+      cellRendererParams: {
+        clicked: function(data: any) {
+          console.error("filename: >>",data);
+          // 点击具体文件名称 调用
+          that.get_files_child(data);
+        }
+      },
+    };
+
+    // 删除文件
+    this.del_file_col = { field: 'deleat', headerName: '操作',  resizable: true, width: 150, pinned: 'right', cellRendererFramework:SendToMadamComponent,
+      cellRendererParams:{
+        clicked: function(data: any) {
+          // 点击删除时，调用
+          that.send_to_madam_deleat(data)
+        }
+      }
+    }
+
+    
     
   }
+
+  ngAfterViewInit(){
+    // 初始化table
+    setTimeout(() => {
+      this.inttable();
+    }, 1000);
+    this.loading = false;
+    this.tableDatas.columnDefs.unshift(this.filename_col);
+    this.tableDatas.columnDefs.push(this.del_file_col);
+
+    // // 初始化，面包屑 数据
+    this.init_mybreadcrumb();
+    
+  }
+
+  // 初始化，面包屑 数据
+  init_mybreadcrumb(filesname?){
+    // 初始化，面包屑
+    var test_data = [
+      // { filename: "上传文件"},
+    ];
+    if (filesname){
+      // 表示点击了文件/文件夹
+      test_data.push(filesname)
+    }
+    
+    this.mybreadcrumb.init_breadcrumb(test_data);
+  }
+
+
+  // 目录下的子文件, 当点击目录时，
+  test_files = {
+    "用户管理信息": [
+      {filesize: '20Mb', time: "2020-12-12 16:04:05",deleat:"upload", filename:{filetype: 1, filename: "管理员.docx",fileicon: "file-outline"}}, // 文件
+      {filesize: '20Mb', time: "2020-12-12 16:04:05",deleat:"upload", filename:{filetype: 1, filename: "管理员.docx",fileicon: "file-outline"}}, // 文件
+      {filesize: '5Mb', time: "2020-12-12 16:04:05",deleat:"upload", filename:{filetype: 2, filename: "结构图.docx",fileicon: "image-outline"}}, // 图片
+    ]
+  }
+
+  // file-name 调用 点击文件名称时，调用！
+  get_files_child(filesname){
+
+    console.log("filesname|",filesname,"|",this.test_files)
+    if (filesname["filetype"] === 0 ){ // 目录
+      var file_name = filesname["filename"];
+      var data = this.test_files[file_name];
+      this.update_agGrid(data);
+      // 面包屑 添加 数据
+      this.init_mybreadcrumb(filesname);
+    }
+  }
+  // send-to-madam 点击删除时 调用
+  send_to_madam_deleat(filename){
+    console.log("send-to-madam 点击删除时 调用: ",filename)
+  }
+  
 
   action(actionmethod){
     var method = actionmethod.split(":")[1];
@@ -117,7 +199,7 @@ export class EimFileUploadComponent implements OnInit {
         upload: "XXX"
       }
       console.log("--->",event)
-      this.update_agGrid(event);
+      // this.update_agGrid(event);
     }
   }
 
@@ -159,16 +241,7 @@ export class EimFileUploadComponent implements OnInit {
     });
   }
 
-  ngAfterViewInit(){
-    // 初始化table
-    setTimeout(() => {
-      this.inttable();
-    }, 1000);
-    this.loading = false;
-
-    
-
-  }
+  
 
   // 重置、刷新
   refresh_table(){
@@ -193,11 +266,11 @@ export class EimFileUploadComponent implements OnInit {
   inttable(event?){
     console.log("---初始化文件传输table");
     var message = [
-      {filesize: "45Mb", time: "2020-12-12 16:05:06",upload:"upload", filename:{filetype: 0, fliename: "用户管理信息",fileicon: "folder-outline"}}, // 目录
-      {filesize: '45Kb', time: "2020-12-12 16:04:05",upload:"upload", filename:{filetype: 1, fliename: "用户管理信息.csv",fileicon: "file-outline"}}, // 文件
-      {filesize: '45Kb', time: "2020-12-12 16:04:05",upload:"upload", filename:{filetype: 2, fliename: "用户管理信息.png",fileicon: "image-outline"}}, // 图片
+      {filesize: "45Mb", time: "2020-12-12 16:05:06",deleat:"deleat", filename:{filetype: 0, filename: "用户管理信息",fileicon: "folder-outline"}}, // 目录
+      {filesize: '45Kb', time: "2020-12-12 16:04:05",deleat:"deleat", filename:{filetype: 1, filename: "用户管理信息.csv",fileicon: "file-outline"}}, // 文件
+      {filesize: '45Kb', time: "2020-12-12 16:04:05",deleat:"deleat", filename:{filetype: 2, filename: "用户管理信息.png",fileicon: "image-outline"}}, // 图片
     ]
-    // this.add_detail_kpi(message);
+    this.add_detail_kpi(message);
     this.gridData.push(...message);
     this.tableDatas.rowData = this.gridData;
     this.tableDatas.totalPageNumbers = 30;
@@ -208,7 +281,8 @@ export class EimFileUploadComponent implements OnInit {
   update_agGrid(event?){
     // event 是列数据
     if (event != undefined){
-      this.gridData.push(...[event]);
+      this.gridData = [];
+      this.gridData.push(...event);
       this.tableDatas.rowData = this.gridData;
       this.tableDatas.totalPageNumbers = this.gridData.length;
       this.agGrid.update_agGrid(this.tableDatas); // 告诉组件刷新！
@@ -227,16 +301,12 @@ export class EimFileUploadComponent implements OnInit {
     this.loading = false;
   }
 
-  // 添加 上传到 MaDaM，上传的文件（文件夹）信息！
+  // 添加 删除功能！
   add_detail_kpi(datas:any[]){
-    // MaDaM
-    var upload = '/pages/tongji/deviceKpiReport/kpidetail';
-    // 文件（文件夹）信息
-    var file_or_files = { filename: "用户管理信息.csv", type: 1 }
     datas.forEach(data=>{
-      data["upload"] =  upload;
-      data["filename"] = file_or_files;
+      data["deleat"] =  data["filename"];
     })
+    console.log("添加 删除功能",datas)
     
   }
 
