@@ -46,6 +46,7 @@ export class PagesComponent implements OnInit {
   ngOnInit() {
     console.log("pages.component------------->")
     this.loadMenu();
+    
   }
   
   ngAfterViewInit(){

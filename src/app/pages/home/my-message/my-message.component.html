@@ -1,6 +1,11 @@
-<nb-card>
+<nb-card  style="overflow-x: hidden;overflow-y: hidden;">
     <nb-card-header style="height: 20px; line-height: 5px;">
         我的消息
     </nb-card-header>
-    <nb-card-body></nb-card-body>
+    <nb-card-body >
+        <!-- bootstrap -->
+        <ul class="list-group" style="overflow-x: hidden;min-height: 136px;">
+            <li class="list-group-item " @myMessage0 *ngFor="let item of my_message" >{{item.title}}</li>
+        </ul>
+    </nb-card-body>
 </nb-card>

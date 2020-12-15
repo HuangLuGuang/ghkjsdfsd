@@ -35,6 +35,7 @@ export class MySelectTreeTypeComponent implements OnInit {
   // 节点被选择
   select_data = []; //[{id: 3, label: "nvh"},]
   select_label_list = [];
+  tree_data; // 树结构数据
 
   // 下拉树示例
   init_select_trees(data){
@@ -45,6 +46,7 @@ export class MySelectTreeTypeComponent implements OnInit {
       // $(".tree_type_isShow").hide()
     }
     var that = this;
+    that.tree_data = data;
     var el5_type;
     layui.use(['eleTree',],function(){
       var eleTree = layui.eleTree;
@@ -119,7 +121,8 @@ export class MySelectTreeTypeComponent implements OnInit {
     this.delselect();
     var select_type = this.el5_type?.getChecked();
     if (select_type != undefined && select_type.length>0){
-      this.el5_type?.unCheckNodes() //取消所有选中的节点
+      // this.el5_type?.unCheckNodes() //取消所有选中的节点
+      this.el5_type?.reload({data:this.tree_data}); // 重新加载树
     }
   }
 

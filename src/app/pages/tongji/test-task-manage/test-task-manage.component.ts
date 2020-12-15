@@ -15,6 +15,8 @@ declare let $;
 // 要渲染的组件
 import { TaskProgressForAggridComponent } from './task-progress-for-aggrid/task-progress-for-aggrid.component';
 import { UserInfoService } from '../../../services/user-info/user-info.service';
+import { NbDialogService } from '@nebular/theme';
+import { EditDelTooltipComponent } from '../../../pages-popups/prompt-diallog/edit-del-tooltip/edit-del-tooltip.component';
 
 @Component({
   selector: 'ngx-test-task-manage',
@@ -50,7 +52,7 @@ export class TestTaskManageComponent implements OnInit {
   GETTABLE = "dev_get_device_taskinfo_search";
 
   constructor(private publicservice: PublicmethodService, private http: HttpserviceService,
-    private userinfo: UserInfoService) { 
+    private userinfo: UserInfoService, private dialogService:NbDialogService) { 
     // 会话过期
     localStorage.removeItem("alert401flag");
     // 选择框
@@ -207,21 +209,29 @@ export class TestTaskManageComponent implements OnInit {
     // 将科室/功能组，转为列表
     var groups_data_ = groups_data ===""?[] :groups_data.split(";");
     // 搜索的 时间范围 daterange 必选，修改为 start end
-    // console.log("**************\n")
-    var columns = {
-      offset: 0, 
-      limit: this.agGrid.get_pagesize(),
-      employeeid: this.userinfo.getEmployeeID(),
-      devicename: [devicename],
-      group: groups_data_,
-      start:daterange_data[0],
-      end:daterange_data[1],
-      eimdevicetype:device_tpye_data,
-      taskchildnum: taskchildnum
-    }
-    // console.log("**************\n", columns);
-    // 执行搜索函数！GETTABLE  dev_get_kpi_device_search
-    this.http.callRPC('device', this.GETTABLE,columns).subscribe(result=>{
+    // console.log("**************\n") EditDelTooltipComponent
+
+    if(devicename == "" && device_tpye_data.length < 1 && groups_data_.length < 1 && daterange_data.length < 1){
+      this.dialogService.open(EditDelTooltipComponent, { closeOnBackdropClick: false, context: { title: '提示', content:   `请选择要搜索的数据！`}} ).onClose.subscribe(
+        name=>{
+          // console.log("----name-----", name);
+        }
+      );
+    }else {
+      var columns = {
+        offset: 0, 
+        limit: this.agGrid.get_pagesize(),
+        employeeid: this.userinfo.getEmployeeID(),
+        devicename: [devicename],
+        group: groups_data_,
+        start:daterange_data[0],
+        end:daterange_data[1],
+        eimdevicetype:device_tpye_data,
+        taskchildnum: taskchildnum
+      }
+      // console.log("**************\n", columns);
+      // 执行搜索函数！GETTABLE  dev_get_kpi_device_search
+      this.http.callRPC('device', this.GETTABLE,columns).subscribe(result=>{
         var tabledata = result["result"]["message"][0];
         this.loading = false;
         if (tabledata["code"] === 1){
@@ -238,6 +248,8 @@ export class TestTaskManageComponent implements OnInit {
           }
         }else{this.RecordOperation('搜索', 0,  "设备报表")}
       })
+
+    }
       
   }
 

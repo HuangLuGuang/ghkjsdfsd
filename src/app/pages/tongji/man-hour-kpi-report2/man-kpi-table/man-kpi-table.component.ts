@@ -164,14 +164,8 @@ export class ManKpiTableComponent implements OnInit {
     // 将科室/功能组，转为列表
     var groups_data_ = groups_data ===""?[] :groups_data.split(";");
     // 搜索的 时间范围 daterange 必选，修改为 start end
-    if (daterange_data.length < 1){
-      this.dialogService.open(EditDelTooltipComponent, { closeOnBackdropClick: false, context: { title: '提示', content:   `日期范围必选！`}} ).onClose.subscribe(
-        name=>{
-          console.log("----name-----", name);
-        }
-      );
-    }
-    else if(devicename == "" && device_tpye_data.length < 1 && groups_data_.length < 1){
+    
+    if(devicename == "" && device_tpye_data.length < 1 && groups_data_.length < 1 && daterange_data.length < 1){
       this.dialogService.open(EditDelTooltipComponent, { closeOnBackdropClick: false, context: { title: '提示', content:   `请选择要搜索的数据！`}} ).onClose.subscribe(
         name=>{
           // console.log("----name-----", name);
@@ -347,6 +341,7 @@ export class ManKpiTableComponent implements OnInit {
   }
 
   update_agGrid(event?){
+    var inittable_before = this.inittable_before();
     // 是否 每页多少也，设置为默认值
     this.tableDatas.isno_refresh_page_size = true;
     var offset;
@@ -362,8 +357,10 @@ export class ManKpiTableComponent implements OnInit {
       PageSize = 10;
     }
     var colmun = {
-      start: this.init_value.split(" - ")[0],
-      end: this.init_value.split(" - ")[1],
+      start: inittable_before.start,
+      end: inittable_before.end,
+      // start: this.init_value.split(" - ")[0],
+      // end: this.init_value.split(" - ")[1],
       offset: offset,
       limit: limit,
       employeeid: this.employeeid,

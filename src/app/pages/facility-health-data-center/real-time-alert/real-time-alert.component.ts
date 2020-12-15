@@ -171,14 +171,8 @@ export class RealTimeAlertComponent implements OnInit {
     // 将科室/功能组，转为列表
     var groups_data_ = groups_data ===""?[] :groups_data.split(";");
 
-    if (daterange_data.length < 1){
-      this.dialogService.open(EditDelTooltipComponent, { closeOnBackdropClick: false, context: { title: '提示', content:   `日期范围必选！`}} ).onClose.subscribe(
-        name=>{
-          // console.log("----name-----", name);
-        }
-      );
-    }
-    else if(devicename == "" && device_tpye_data.length < 1 && groups_data_.length < 1){
+    
+    if(devicename == "" && device_tpye_data.length < 1 && groups_data_.length < 1 && daterange_data.length < 1){
       this.dialogService.open(EditDelTooltipComponent, { closeOnBackdropClick: false, context: { title: '提示', content:   `请选择要搜索的数据！`}} ).onClose.subscribe(
         name=>{
           // console.log("----name-----", name);

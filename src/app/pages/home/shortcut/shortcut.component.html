@@ -2,16 +2,18 @@
     <nb-card-header style="height: 20px; line-height: 5px;">
         快捷方式
     </nb-card-header>
-    <nb-card-body>
+    <nb-card-body style="min-height: 169px !important;">
         <div class="row" style="margin-bottom: 5px;" *ngFor="let item of data">
             <div class="col-md-4" *ngFor="let d of item">
-                <div class="tupian">
-                    <svg class="icon svg-icon" aria-hidden="true">
-                        <use [attr.xlink:href]="d.svg"></use>
-                    </svg>
-                </div>
-                <div class="tupian_title">
-                    {{d.title}}
+                <div class="shortcut_item" (click)="geto_shortcut(d)">
+                    <div class="tupian">
+                        <svg class="icon svg-icon" aria-hidden="true">
+                            <use [attr.xlink:href]="d.svg"></use>
+                        </svg>
+                    </div>
+                    <div class="tupian_title">
+                        {{d.title}}
+                    </div>
                 </div>
             </div>
         </div>

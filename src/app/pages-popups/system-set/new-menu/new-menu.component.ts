@@ -182,7 +182,12 @@ export class NewMenuComponent implements OnInit {
           }); 
           if (isnot_edit["type"] === 2){
             // 表单赋值--按钮
-            $(".anniu_tab [name='parentid']").val(isnot_edit["_parent"]["title"]) // 上级目录
+            console.log("表单赋值----》button", isnot_edit)
+            if (isnot_edit["_parent"]){
+              $(".anniu_tab [name='parentid']").val(isnot_edit["_parent"]["title"]) // 上级目录
+            }else{
+              $(".anniu_tab [name='parentid']").val(isnot_edit["parendid"]) // 上级目录
+            }
           }
 
           form.val("editanniu", { 
@@ -344,6 +349,7 @@ export class NewMenuComponent implements OnInit {
       });
       //监听提交---按钮
       form.on('submit(anniu)', function(data){
+        // console.log("按钮：----", parentid)
         // layer.alert(JSON.stringify(data.field), {
         //   title: '按钮'
         // })
@@ -364,7 +370,7 @@ export class NewMenuComponent implements OnInit {
             name_en: data.field["title_en"],
             permission: data.field["permission"],
             // parentid: isnot_edit["parentid"]?Number(isnot_edit["parentid"]):null,
-            parentid: data.field["parenttitle"]?Number(data.field["parenttitle"]):null,
+            parentid: data.field["parenttitle"]?Number(data.field["parenttitle"]):parentid,
             // parentid: isnot_edit["_parent"]["id"],
             orderindex: Number(data.field["orderindex"]),
             type: data.field["type"],

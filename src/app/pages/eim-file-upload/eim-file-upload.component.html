@@ -5,7 +5,7 @@
     </nb-card-header>
     <nb-card-body>
         <div class="row">
-            <div class="col-lg-9" style="display: flex;">
+            <div class="col-lg-6" style="display: flex;">
             
                 <div class="example-items-rows button_item"  ngClass="button?.query?ngClass_show:ngClass_hide">
                     <div class="gongneng_keshi">
@@ -13,21 +13,29 @@
                     </div>
                 </div>
             </div>
-
-
-            <div class="col-lg-3" style="display: flex;">
+            
+            <div class="col-lg-6" style="display: flex;">
                 <div style="flex: auto;">
                 </div>
+
+                <!-- 新建文件夹-->
+                <div class=" button_item my_import " >
+                    <button nbButton status="info" size="small"   ><nb-icon icon="folder-add-outline"></nb-icon>新建文件夹</button>
+                </div>
+                <!-- 上传到MaDaM -->
+                <div class=" button_item my_import " >
+                    <button nbButton status="info" size="small"   ><nb-icon icon="upload-outline"></nb-icon>上传MaDaM </button>
+                </div>
+
                 
-                <!-- 上传按钮 -->
-                <div class=" button_item my_import " *ngIf="button?.import">
+                <!-- 上传按钮  [nzAccept]="nzFileType"-->
+                <div class=" button_item my_import " >
                     <nz-upload [nzAction]="uploadUrl" 
                     [nzDirectory]="nzDirectory"
-                    [nzAccept]="nzFileType"
+                    
                     [nzShowUploadList]="nzShowUploadList"
                     [(nzFileList)]="fileList"
                     (nzChange)="uploadStatus($event)"
-                    [nzMultiple]="true"
                     [nzName]="nzName"
                     [nzCustomRequest]="customReq"
                     >
@@ -35,11 +43,12 @@
                             <i nz-icon nzType="upload"></i> {{button?.import.title}}
                             <nb-icon [icon]="button?.import.icon"></nb-icon>{{button?.import.title}}
                         </button> -->
-                        <button nbButton [status]="button?.import.class" size="small" (click)="action(button?.import.permission)"  [disabled]="button?.import.active == 0? true:false"><nb-icon [icon]="button?.import.icon"></nb-icon>{{button?.import.title}}</button>
+                        <button nbButton status="info" size="small" (click)="action('menu:import')"  ><nb-icon icon="cloud-upload-outline"></nb-icon>选择文件</button>
                     </nz-upload>
 
                 </div>
                 
+                <!-- 刷新table -->
                 <div class="" style="text-align: right;">
                     <!-- loader-outline -->
                     <button nbButton [nbSpinner]="refresh" nbSpinnerStatus="success" size="small" (click)="refresh_table()">

@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { PublicmethodService } from '../../../../services/publicmethod/publicmethod.service';
 
 declare let $;
 
@@ -11,11 +12,16 @@ declare let layui;
 })
 export class MyDateRangeComponent implements OnInit {
 
-  constructor() { }
+  constructor(private publicservice:PublicmethodService) { }
 
   ngOnInit(): void {
     // 初始化 日期范围！
     this.initdate();
+
+    // 得到默认的日期
+    var get_curr_mounth_one = this.publicservice.get_curr_mounth_one();
+    var default_date = get_curr_mounth_one[0] + ' - ' + get_curr_mounth_one[1]
+    console.log("得到默认的日期:>>",default_date); // 2020-12-01 - 2020-12-15
   }
 
   init_value = "2019-12-01 - 2020-12-21" // 默认日期

@@ -115,9 +115,11 @@ export class MySelectTreeComponent implements OnInit {
   
   select_data = [];
   select_label_list = [];
+  tree_data; // 树结构数据
   // 下拉树示例
   init_select_tree(data){
     var that = this;
+    that.tree_data = data;
     // data存在-显示，否则不显示
     if(data.length >0){
       $(".tree_isShow").show()
@@ -200,7 +202,8 @@ export class MySelectTreeComponent implements OnInit {
     // console.log("清空下拉数据",$("[name='title']").val())
     var select = this.el5s?.getChecked();
     if (select != undefined &&select.length>0){
-      this.el5s?.unCheckNodes() //取消所有选中的节点
+      // this.el5s?.unCheckNodes() //取消所有选中的节点
+      this.el5s?.reload({data:this.tree_data}); // 重新加载树
     }
   }
 

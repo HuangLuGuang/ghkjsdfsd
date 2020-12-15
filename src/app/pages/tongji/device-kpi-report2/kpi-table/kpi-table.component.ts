@@ -162,14 +162,8 @@ export class KpiTableComponent implements OnInit {
     var daterange_data = this.data_range.getselect()
     // 将科室/功能组，转为列表
     var groups_data_ = groups_data ===""?[] :groups_data.split(";");
-    if (daterange_data.length < 1){
-      this.dialogService.open(EditDelTooltipComponent, { closeOnBackdropClick: false, context: { title: '提示', content:   `日期范围必选！`}} ).onClose.subscribe(
-        name=>{
-          console.log("----name-----", name);
-        }
-      );
-    }
-    else if(devicename == "" && device_tpye_data.length < 1 && groups_data_.length < 1){
+    
+    if(devicename == "" && device_tpye_data.length < 1 && groups_data_.length < 1 && daterange_data.length < 1){
       this.dialogService.open(EditDelTooltipComponent, { closeOnBackdropClick: false, context: { title: '提示', content:   `请选择要搜索的数据！`}} ).onClose.subscribe(
         name=>{
           console.log("----name-----", name);
@@ -251,7 +245,7 @@ export class KpiTableComponent implements OnInit {
     columnDefs:[ // 列字段 多选：headerCheckboxSelection checkboxSelection , flex: 1 自动填充宽度 pinned: 'left' 固定到左侧！
       { field: 'devicename', headerName: '设备名称', headerCheckboxSelection: true, checkboxSelection: true, autoHeight: true, fullWidth: true, minWidth: 50,resizable: true, },
       { field: 'deviceid', headerName: '设备ID',  resizable: true, minWidth: 10},
-      { field: 'groups', headerName: '试验室', resizable: true, minWidth: 10},
+      { field: 'groups', headerName: '科室/功能组', resizable: true, minWidth: 10},
       // { field: 'CustomTime', headerName: '自定义统计时间(默认最近一周)', 
       //   children:[
       //   ]
@@ -360,6 +354,7 @@ export class KpiTableComponent implements OnInit {
   }
 
   update_agGrid(event?){
+    var inittable_before = this.inittable_before();
     // 是否 每页多少也，设置为默认值
     this.tableDatas.isno_refresh_page_size = true;
     var offset;
@@ -375,8 +370,10 @@ export class KpiTableComponent implements OnInit {
       PageSize = 10;
     }
     var colmun = {
-      start: this.init_value.split(" - ")[0],
-      end: this.init_value.split(" - ")[1],
+      start: inittable_before.start,
+      end: inittable_before.end,
+      // start: this.init_value.split(" - ")[0],
+      // end: this.init_value.split(" - ")[1],
       offset: offset,
       limit: limit,
       employeeid: this.userinfo.getEmployeeID(),

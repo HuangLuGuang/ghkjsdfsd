@@ -4,7 +4,7 @@ import { PublicmethodService } from '../../services/publicmethod/publicmethod.se
 import { UserInfoService } from '../../services/user-info/user-info.service';
 import { SendToMadamComponent } from './eim-file-upload/send-to-madam/send-to-madam.component';
 
-import { HttpClient, HttpEvent, HttpRequest, HttpResponse } from '@angular/common/http';
+import { HttpClient, HttpEvent, HttpHeaders, HttpRequest, HttpResponse } from '@angular/common/http';
 import {UploadXHRArgs} from "ng-zorro-antd";
 import { FileNameComponent } from './eim-file-upload/file-name/file-name.component';
 
@@ -40,12 +40,13 @@ export class EimFileUploadComponent implements OnInit {
 
   // 上传文件
   fileList = []; //  设置已上传的内容
-  nzFileType = "file,image/jpeg"; // 接受上传文件的类型 image/gif  
+  // nzFileType = "file,image/jpeg"; // 接受上传文件的类型 image/gif  
   nzShowUploadList = true; // 是否展示UploadList false：不展示
-  nzDirectory = false; // 支持上传文件夹
+  nzDirectory = true; // 支持上传文件夹
   // uploadUrl = "http://192.168.8.105/api/v1/upload"; // 上传的地址！
   // uploadUrl = "http://localhost/upload"; // 上传的地址！
   uploadUrl = "http://localhost/api/v1/upload"; // 上传的地址！
+  deleat_file = "http://localhost/api/v1/delete"
   nzName = "file";  // 发到后台的文件参数名
 
   filename_col;// 文件名称组件
@@ -129,9 +130,14 @@ export class EimFileUploadComponent implements OnInit {
   // 目录下的子文件, 当点击目录时，
   test_files = {
     "用户管理信息": [
-      {filesize: '20Mb', time: "2020-12-12 16:04:05",deleat:"upload", filename:{filetype: 1, filename: "管理员.docx",fileicon: "file-outline"}}, // 文件
-      {filesize: '20Mb', time: "2020-12-12 16:04:05",deleat:"upload", filename:{filetype: 1, filename: "管理员.docx",fileicon: "file-outline"}}, // 文件
-      {filesize: '5Mb', time: "2020-12-12 16:04:05",deleat:"upload", filename:{filetype: 2, filename: "结构图.docx",fileicon: "image-outline"}}, // 图片
+      {filesize: '20Mb', time: "2020-12-12 16:04:05",deleat:"upload", people:'admin', filename:{filetype: 0, filename: "管理员",fileicon: "folder-outline", },}, // 目录
+      {filesize: '20Mb', time: "2020-12-12 16:04:05",deleat:"upload", people:'admin', filename:{filetype: 1, filename: "管理员.docx",fileicon: "file-outline"}}, // 文件
+      {filesize: '5Mb', time: "2020-12-12 16:04:05",deleat:"upload", people:'admin', filename:{filetype: 2, filename: "结构图.docx",fileicon: "image-outline"}}, // 图片
+    ],
+    "管理员": [
+      {filesize: '20Mb', time: "2020-12-12 16:04:05",deleat:"upload", people:'admin', filename:{filetype: 1, filename: "管理员.docx",fileicon: "file-outline"}}, // 文件
+      {filesize: '20Mb', time: "2020-12-12 16:04:05",deleat:"upload", people:'admin', filename:{filetype: 1, filename: "管理员.docx",fileicon: "file-outline"}}, // 文件
+      {filesize: '5Mb', time: "2020-12-12 16:04:05",deleat:"upload", people:'admin', filename:{filetype: 2, filename: "结构图.docx",fileicon: "image-outline"}}, // 图片
     ]
   }
 
@@ -142,14 +148,26 @@ export class EimFileUploadComponent implements OnInit {
     if (filesname["filetype"] === 0 ){ // 目录
       var file_name = filesname["filename"];
       var data = this.test_files[file_name];
+      this.gridData = [];
       this.update_agGrid(data);
       // 面包屑 添加 数据
       this.init_mybreadcrumb(filesname);
+    }else if(filesname["filename"] === "上传文件"){
+      this.gridData = [];
+
+      this.init_mybreadcrumb(filesname);
+      this.inttable();
     }
+
   }
   // send-to-madam 点击删除时 调用
   send_to_madam_deleat(filename){
-    console.log("send-to-madam 点击删除时 调用: ",filename)
+    // {filetype: 2, filename: "用户管理信息.png", fileicon: "image-outline"}
+    console.log("send-to-madam 点击删除时 调用: ",filename);
+    var header =  {headers: new HttpHeaders({"Content-Type": "application/json"})}
+    this.http.post(this.deleat_file, filename, header).subscribe(request=>{
+      console.log("result===>", request)
+    })
   }
   
 
@@ -190,16 +208,15 @@ export class EimFileUploadComponent implements OnInit {
     if (filedata.file.status === 'done'){
       console.warn("上传成功",filedata);
       var event = {
-        filename:file.name,
+        // filename:file.name,
+        filename:{filetype: 2, filename: file.name,fileicon: "image-outline"},
         filesize:this.transfrom_file_size(file.size),
-        // filesize:file.size,
-        // time:file.lastModified,
         time: this.datepipe.transform(file.lastModified, 'yyy-MM-dd HH:mm:ss'),
         people: this.userinfo.getLoginName(),
-        upload: "XXX"
+        deleat: "XXX"
       }
       console.log("--->",event)
-      // this.update_agGrid(event);
+      this.update_agGrid([event]);
     }
   }
 
@@ -211,6 +228,8 @@ export class EimFileUploadComponent implements OnInit {
     formData.append('username', this.userinfo.getLoginName());
     formData.append('documenttype', this.documentType);
     const req = new HttpRequest('POST', item.action, formData);
+    console.log("req-------------->>",req)
+    console.log("formData-------------->>",formData)
     return this.http.request(req).subscribe((event: HttpEvent<{}>) => {
         if (event instanceof HttpResponse) {
           console.warn(event.body);
@@ -266,9 +285,9 @@ export class EimFileUploadComponent implements OnInit {
   inttable(event?){
     console.log("---初始化文件传输table");
     var message = [
-      {filesize: "45Mb", time: "2020-12-12 16:05:06",deleat:"deleat", filename:{filetype: 0, filename: "用户管理信息",fileicon: "folder-outline"}}, // 目录
-      {filesize: '45Kb', time: "2020-12-12 16:04:05",deleat:"deleat", filename:{filetype: 1, filename: "用户管理信息.csv",fileicon: "file-outline"}}, // 文件
-      {filesize: '45Kb', time: "2020-12-12 16:04:05",deleat:"deleat", filename:{filetype: 2, filename: "用户管理信息.png",fileicon: "image-outline"}}, // 图片
+      {filesize: "45Mb", time: "2020-12-12 16:05:06",deleat:"deleat", people:'admin', filename:{filetype: 0, filename: "用户管理信息",fileicon: "folder-outline"}}, // 目录
+      {filesize: '45Kb', time: "2020-12-12 16:04:05",deleat:"deleat", people:'admin', filename:{filetype: 1, filename: "用户管理信息.csv",fileicon: "file-outline"}}, // 文件
+      {filesize: '45Kb', time: "2020-12-12 16:04:05",deleat:"deleat", people:'admin', filename:{filetype: 2, filename: "用户管理信息.png",fileicon: "image-outline"}}, // 图片
     ]
     this.add_detail_kpi(message);
     this.gridData.push(...message);
@@ -281,7 +300,7 @@ export class EimFileUploadComponent implements OnInit {
   update_agGrid(event?){
     // event 是列数据
     if (event != undefined){
-      this.gridData = [];
+      
       this.gridData.push(...event);
       this.tableDatas.rowData = this.gridData;
       this.tableDatas.totalPageNumbers = this.gridData.length;

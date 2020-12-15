@@ -13,7 +13,9 @@ export class DeviceCardComponent implements OnInit {
   }
   
   ngOnInit(): void {
-    this.data = this.cardData
+    this.data = this.cardData;
+    console.log("=====>",this.cardData)
   }
+  
 
 }

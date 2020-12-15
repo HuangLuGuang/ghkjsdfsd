@@ -1,13 +1,13 @@
-<div class="row">
+<div class="row" style="margin-right: -11px;">
     <div class="col-md-6">
         <ngx-shortcut></ngx-shortcut>
     </div>
-    <div class="col-md-6">
+    <div class="col-md-6" style="padding-right: 11px;">
         <ngx-my-message></ngx-my-message>
     </div>
 </div>
 
-<div class="row" style="margin-bottom: 10px;">
+<div class="row" style="margin-bottom: 10px; margin-right: -11px;">
     <div class="col-md-3" *ngFor="let item of number_data">
         <div class="row">
             <div class="col-md-4"></div>
@@ -21,7 +21,7 @@
     </div>
 </div>
 
-<div class="row" *ngFor="let item of car_data; let i=index">
+<div class="row" *ngFor="let item of car_data; let i=index" style="margin-right: -11px;">
     <!-- <div class="col-md-4">
         <ngx-device-card [cardData]="data"></ngx-device-card>
     </div> -->

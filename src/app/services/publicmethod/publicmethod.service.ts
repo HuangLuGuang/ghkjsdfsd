@@ -284,11 +284,22 @@ export class PublicmethodService {
   }
 
 
-  // 得到时间范围，默认 昨天---今天
+  // 得到时间范围，默认 昨天---今天,改为本月1号至当前
+  get_curr_mounth_one(){
+    // 得到 本月1号
+    var today = new Date();
+    var year = today.getFullYear();
+    var month = today.getMonth() + 1;
+    var date = '01';
+    var curr_mounth_one = year + "-" + month + "-" + date;
+    return [
+      this.formatdata(new Date(curr_mounth_one), 'yyyy-MM-dd'),
+      this.formatdata(new Date(), 'yyyy-MM-dd'),
+    ]
+  }
 
   public selectedMoments = [
     // new Date(new Date().getTime() - 86400000), // 昨天  getTime() 毫秒数 
-    // new Date() // 今天
     this.formatdata(new Date(new Date().getTime() - 86400000), 'yyyy-MM-dd'),
     this.formatdata(new Date(), 'yyyy-MM-dd'),
 

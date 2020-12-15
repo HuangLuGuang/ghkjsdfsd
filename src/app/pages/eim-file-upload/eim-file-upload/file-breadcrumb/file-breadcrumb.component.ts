@@ -20,7 +20,12 @@ export class FileBreadcrumbComponent implements OnInit {
 
   // init 数据
   init_breadcrumb(test_data){
+    console.log("init 数据------test_data",test_data)
     if (this.data.includes(test_data[0])){ // true:存在，false：不存在
+      console.log("------->>>>test_data--->,this.data",test_data, this.data);
+      var index = this.data.indexOf(test_data[0]);
+      console.log("截取之后的：", this.data.slice(0, index+1));
+      this.data = this.data.slice(0, index+1);
     }else{
       this.data.push(...test_data);
     }
