@@ -25,7 +25,7 @@ declare let layui;
 export class KpiTableComponent implements OnInit {
   @ViewChild("ag_Grid") agGrid:any;
   @ViewChild("groups") groups_func:any;
-  @ViewChild("eimdevicetpye") eimdevicetpye:any;
+  // @ViewChild("eimdevicetpye") eimdevicetpye:any;
   @ViewChild("data_range") data_range:any;
   @ViewChild("myinput") myinput:any;
 
@@ -130,8 +130,8 @@ export class KpiTableComponent implements OnInit {
         var groups = res["message"][0]["groups"];
        
         this.groups_func.init_select_tree(groups);
-        var eimdevicetpyedata = res["message"][0]["type"];
-        this.eimdevicetpye.init_select_trees(eimdevicetpyedata);
+        // var eimdevicetpyedata = res["message"][0]["type"];
+        // this.eimdevicetpye.init_select_trees(eimdevicetpyedata);
       }
     })
   }
@@ -157,13 +157,13 @@ export class KpiTableComponent implements OnInit {
     // 科室/功能组
     var groups_data = this.groups_func.getselect();
     // 设备类型
-    var device_tpye_data = this.eimdevicetpye.getselect();
+    // var device_tpye_data = this.eimdevicetpye.getselect();
     // 日期范围
     var daterange_data = this.data_range.getselect()
     // 将科室/功能组，转为列表
     var groups_data_ = groups_data ===""?[] :groups_data.split(";");
-    
-    if(devicename == "" && device_tpye_data.length < 1 && groups_data_.length < 1 && daterange_data.length < 1){
+    // && device_tpye_data.length < 1
+    if(devicename == ""  && groups_data_.length < 1 && daterange_data.length < 1){
       this.dialogService.open(EditDelTooltipComponent, { closeOnBackdropClick: false, context: { title: '提示', content:   `请选择要搜索的数据！`}} ).onClose.subscribe(
         name=>{
           console.log("----name-----", name);
@@ -180,7 +180,8 @@ export class KpiTableComponent implements OnInit {
         group: groups_data_,
         start:daterange_data[0],
         end:daterange_data[1],
-        eimdevicetype:device_tpye_data
+        eimdevicetype:[]
+        // eimdevicetype:device_tpye_data
       }
       // console.log("**************\n", columns);
       // 执行搜索函数！
@@ -228,7 +229,7 @@ export class KpiTableComponent implements OnInit {
     // 取消选择的数据 delselect
     this.myinput.del_input_value();
     this.groups_func.dropselect();
-    this.eimdevicetpye.dropselect();
+    // this.eimdevicetpye.dropselect();
 
     this.inttable();
 
@@ -287,7 +288,7 @@ export class KpiTableComponent implements OnInit {
     // 科室/功能组
     var groups_data = this.groups_func?.getselect();
     // 设备类型
-    var device_tpye_data = this.eimdevicetpye?.getselect();
+    // var device_tpye_data = this.eimdevicetpye?.getselect();
     // console.log("---groups_data----",groups_data)
     // 日期范围
     var daterange_data = this.data_range?.getselect()
@@ -298,7 +299,8 @@ export class KpiTableComponent implements OnInit {
       employeeid: this.userinfo.getEmployeeID(),
       devicename: [devicename],
       group: groups_data_,
-      eimdevicetype:device_tpye_data,
+      eimdevicetype:[],
+      // eimdevicetype:device_tpye_data,
       start:daterange_data[0],
       end:daterange_data[1],
     }

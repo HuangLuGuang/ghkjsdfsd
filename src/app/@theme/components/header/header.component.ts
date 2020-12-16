@@ -15,10 +15,10 @@ import { ssotoken,  loginurl, MULU, SYSMENU, SYSMENUEDIT, SSOUSERINFO, SYSROLE, 
 import { UserInfoService } from '../../../services/user-info/user-info.service';
 
 import { HttpHeaders,HttpClient,  } from '@angular/common/http';
-import { tick } from '@angular/core/testing';
 import { PublicmethodService } from '../../../services/publicmethod/publicmethod.service';
 
-let kpi_detail = require("../../../../assets/pages/system-set/js/kpi_detail");
+// 修改密码
+import { ChangePassowrdComponent } from '../../../pages-popups/change-passowrd/change-passowrd.component';
 @Component({
   selector: 'ngx-header',
   styleUrls: ['./header.component.scss'],
@@ -68,7 +68,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
     },
   ];
 
-  userMenu = [ { title: '退出登录'} ];
+  userMenu = [ { title: '退出登录'}, { title: "修改密码"} ];
   // userMenu = [ { title: '修改密码'}, { title: '注销用户'} ];
 
   constructor(private sidebarService: NbSidebarService,
@@ -185,14 +185,14 @@ export class HeaderComponent implements OnInit, OnDestroy {
     this.translate.use(langueName);
     // this.themeService.changeTheme(this.themeService.currentTheme);
     if (langueName == 'en-US'){
-      this.userMenu = [ { title: 'Log out' } ];
+      this.userMenu = [ { title: 'Log out' }, { title: 'Change password'} ];
       // console.log("您选择的语言是： 英文！",this.themes);
 
 
     }else{
       // console.log("您选择的语言是： 中文！");
 
-      this.userMenu = [ { title: '退出登录'} ];
+      this.userMenu = [ { title: '退出登录'}, { title: "修改密码"}  ];
 
     }
     // console.log("this.currentTheme  ", this.currentTheme);
@@ -273,6 +273,24 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
 
 
+    }
+
+    // 修改密码
+    if (title== this.userMenu[1]["title"]){
+      console.log("<------修改密码------>",title);
+      this.dialogService.open(ChangePassowrdComponent, {closeOnBackdropClick: false,autoFocus: true,}).onClose.subscribe(result=>{
+        // console.log("---------------->",result);
+        // 修改成功后，提示重新登录
+        setTimeout(() => {
+          if (result){
+            if(confirm("密码已修改，请重新登录")){
+              localStorage.clear();
+              this.router.navigate(['/'])
+            }else{
+            }
+          }
+        }, 1000);
+      })
     }
 
   }

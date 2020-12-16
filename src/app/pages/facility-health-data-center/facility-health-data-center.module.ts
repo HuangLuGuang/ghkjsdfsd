@@ -7,7 +7,7 @@ import { FacilityHealthDataCenterComponent } from './facility-health-data-center
 
 // import { Ng2SmartTableModule } from 'ng2-smart-table';
 import {Ng2SmartTableModule} from '@mykeels/ng2-smart-table';
-import { NbButtonModule, NbCardModule, NbIconModule, NbSelectModule, NbSpinnerModule } from '@nebular/theme';
+import { NbButtonModule, NbCardModule, NbIconModule, NbSelectModule, NbSpinnerModule, NbTooltipModule } from '@nebular/theme';
 import { MySelectTreeComponent } from './components/my-select-tree/my-select-tree.component';
 import { MySelectTreeTypeComponent } from './components/my-select-tree-type/my-select-tree-type.component';
 import { MyInputComponent } from './components/my-input/my-input.component';
@@ -18,10 +18,11 @@ import { NzPaginationModule } from 'ng-zorro-antd';
 import { AgGridModule } from 'ag-grid-angular';
 import { RealTimeAlertComponent } from './real-time-alert/real-time-alert.component';
 import { HistoryAlertComponent } from './history-alert/history-alert.component';
+import { AlertMessageComponent } from './real-time-alert/alert-message/alert-message.component';
 
 
 @NgModule({
-  declarations: [FacilityHealthDataCenterComponent, MySelectTreeComponent, MySelectTreeTypeComponent, MyInputComponent, MyDateRangeComponent, AgTableComponent, RealTimeAlertComponent, HistoryAlertComponent, 
+  declarations: [FacilityHealthDataCenterComponent, MySelectTreeComponent, MySelectTreeTypeComponent, MyInputComponent, MyDateRangeComponent, AgTableComponent, RealTimeAlertComponent, HistoryAlertComponent, AlertMessageComponent, 
   ],
   imports: [
     CommonModule,
@@ -37,6 +38,9 @@ import { HistoryAlertComponent } from './history-alert/history-alert.component';
     NzPaginationModule,
     AgGridModule,
     NbSelectModule,
+
+    // tootip
+    NbTooltipModule,
 
   ],
 

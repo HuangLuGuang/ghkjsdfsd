@@ -42,6 +42,7 @@ export class HomeComponent implements OnInit {
         ]
       },
     ],
+    // 第二行！
     [
       {
         data: [

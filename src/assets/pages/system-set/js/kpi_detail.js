@@ -220,6 +220,7 @@ let kpi_detail = {
 
             },
             legend: {
+                show:false,
                 type: "plain",
                 orient: 'vertical',
                 left: 0,
@@ -233,6 +234,7 @@ let kpi_detail = {
                 name: '状态百分比',
                 type: 'pie',
                 radius: [0, 120],
+                top: '2%',
                 data: afterdatas.afterdatas
                     // data:[
                     //     {value:20, name:'placeout'},

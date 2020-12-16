@@ -16,6 +16,8 @@ export class KpiDetailComponent implements OnInit, OnDestroy {
 
   // 得到出入的数据 kpi_for_detail
   kpi_for_detail;
+  // tootip
+  tootip_kpi_for_detail;
   constructor( private http: HttpserviceService, 
     private publicservice: PublicmethodService, 
     private deviceservice: DeviceKpiReport2Service,
@@ -24,6 +26,8 @@ export class KpiDetailComponent implements OnInit, OnDestroy {
     // 会话过期
     localStorage.removeItem("alert401flag");
     this.kpi_for_detail = JSON.parse(localStorage.getItem("kpi_for_detail"));
+    this.tootip_kpi_for_detail = JSON.stringify(this.kpi_for_detail);
+    console.log("tootip_kpi_for_detail>>>>>",this.tootip_kpi_for_detail)
   }
 
   // 左侧函数

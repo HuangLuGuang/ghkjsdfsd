@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { AndonComponent } from './andon.component';
+import { AlertMessageComponent } from './alert-message.component';
 
-describe('AndonComponent', () => {
-  let component: AndonComponent;
-  let fixture: ComponentFixture<AndonComponent>;
+describe('AlertMessageComponent', () => {
+  let component: AlertMessageComponent;
+  let fixture: ComponentFixture<AlertMessageComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ AndonComponent ]
+      declarations: [ AlertMessageComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(AndonComponent);
+    fixture = TestBed.createComponent(AlertMessageComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

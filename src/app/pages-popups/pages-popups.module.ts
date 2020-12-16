@@ -4,7 +4,7 @@ import { CommonModule } from '@angular/common';
 import { PagesPopupsRoutingModule } from './pages-popups-routing.module';
 import { PagesPopupsComponent } from './pages-popups.component';
 
-import { NbLayoutModule, NbCardModule, NbTabsetModule, NbCheckboxModule, NbFormFieldModule, NbIconModule, NbInputModule, NbSpinnerModule, NbAutocompleteModule, NbSelectModule } from '@nebular/theme';
+import { NbLayoutModule, NbCardModule, NbTabsetModule, NbCheckboxModule, NbFormFieldModule, NbIconModule, NbInputModule, NbSpinnerModule, NbAutocompleteModule, NbSelectModule, NbButtonModule } from '@nebular/theme';
 import { RoleComponent } from './system-set/role/role.component';
 import { FormsModule } from '@angular/forms';
 import { MySelectComponent } from './components/my-select/my-select.component';
@@ -17,18 +17,18 @@ import { DeviceManageComponent } from './tongji/device-manage/device-manage.comp
 
 // board
 import { PreinstallDialogComponent } from './system-set/preinstall-dialog/preinstall-dialog.component';
-import { AndonComponent } from './andon-manage/andon/andon.component';
 import { ExpiredTokenComponent } from './token-diallog/expired-token/expired-token.component';
 import { NewMenuComponent } from './system-set/new-menu/new-menu.component';
 
 // Menu 导航菜单
 import { NzMenuModule } from 'ng-zorro-antd/menu';
+import { ChangePassowrdComponent } from './change-passowrd/change-passowrd.component';
 
 // DateComponent
 @NgModule({
   declarations: [PagesPopupsComponent, RoleComponent, 
     MySelectComponent, UserEmployeeComponent,  
-    UserEmployeeGroupComponent, EditDelTooltipComponent, DeviceManageComponent, PreinstallDialogComponent, AndonComponent, ExpiredTokenComponent, NewMenuComponent],
+    UserEmployeeGroupComponent, EditDelTooltipComponent, DeviceManageComponent, PreinstallDialogComponent,  ExpiredTokenComponent, NewMenuComponent, ChangePassowrdComponent],
   imports: [
     CommonModule,
     PagesPopupsRoutingModule,
@@ -44,6 +44,7 @@ import { NzMenuModule } from 'ng-zorro-antd/menu';
     NbAutocompleteModule,// pages-popups 使用icon 
     NbSelectModule,
     FormsModule,
+    NbButtonModule,
 
     NzMenuModule, // menu
 

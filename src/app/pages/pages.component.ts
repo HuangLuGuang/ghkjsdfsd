@@ -37,7 +37,8 @@ export class PagesComponent implements OnInit {
     private router: Router, private translate: TranslateService) {
     this.translate.onLangChange.subscribe((params) => {
       localStorage.setItem('currentLanguage', params['lang']);
-      
+      localStorage.removeItem(SYSMENU);
+      localStorage.removeItem(MULU);
       this.loadMenu();
     });
     
@@ -64,7 +65,6 @@ export class PagesComponent implements OnInit {
   }
 
   onClickMenu() {
-    
     this.menuservice.onSubmenuToggle().subscribe(res => {
 
       const selectMenu = res.item;

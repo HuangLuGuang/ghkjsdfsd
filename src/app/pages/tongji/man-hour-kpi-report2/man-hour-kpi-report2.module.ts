@@ -8,7 +8,7 @@ import { ManKpiDetailComponent } from './man-kpi-detail/man-kpi-detail.component
 
 
 import { ComponentTModule} from '../components/componentT.module'
-import { NbButtonModule, NbCardModule, NbIconModule, NbInputModule, NbSelectModule, NbSpinnerModule } from '@nebular/theme';
+import { NbButtonModule, NbCardModule, NbIconModule, NbInputModule, NbPopoverModule, NbSelectModule, NbSpinnerModule } from '@nebular/theme';
 import { TableDetailComponent } from './man-kpi-table/table-detail/table-detail.component';
 
 @NgModule({
@@ -26,6 +26,8 @@ import { TableDetailComponent } from './man-kpi-table/table-detail/table-detail.
 
 
     ComponentTModule,
+    // nbPopover
+    NbPopoverModule,
 
   ]
 })

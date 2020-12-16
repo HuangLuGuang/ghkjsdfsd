@@ -15,6 +15,14 @@ export class MyDateRangeComponent implements OnInit {
   constructor(private publicservice: PublicmethodService) { }
 
   ngOnInit(): void {
+    
+  }
+
+
+
+  init_value = "2019-12-01 - 2020-12-21" // 默认日期
+
+  ngAfterViewInit(){
     // 初始化 日期范围！
     this.initdate();
 
@@ -23,8 +31,6 @@ export class MyDateRangeComponent implements OnInit {
     var default_date = get_curr_mounth_one[0] + ' - ' + get_curr_mounth_one[1]
     console.log("得到默认的日期:>>",default_date); // 2020-12-01 - 2020-12-15
   }
-
-  init_value = "2019-12-01 - 2020-12-21" // 默认日期
 
   ngOnDestroy(){
     $(".divice_kpi_report_date").remove();

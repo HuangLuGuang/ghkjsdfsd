@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { AndonComponent } from './andon-manage/andon/andon.component';
 
 import { PagesPopupsComponent } from './pages-popups.component'
 
@@ -14,10 +13,6 @@ const routes: Routes = [
       //   component: MenuComponent,
       // },
       
-      {
-        path:'andon',
-        component: AndonComponent,
-      },
       
     ]
   }

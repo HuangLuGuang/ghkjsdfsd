@@ -5,7 +5,7 @@ import { DeviceKpiReport2RoutingModule } from './device-kpi-report2-routing.modu
 import { DeviceKpiReport2Component } from './device-kpi-report2.component';
 import { KpiTableComponent } from './kpi-table/kpi-table.component';
 import { KpiDetailComponent } from './kpi-detail/kpi-detail.component';
-import { NbButtonModule, NbCardModule, NbIconModule, NbInputModule, NbSelectModule,NbSpinnerModule } from '@nebular/theme';
+import { NbButtonModule, NbCardModule, NbIconModule, NbInputModule, NbPopoverModule, NbSelectModule,NbSpinnerModule, NbTooltipModule } from '@nebular/theme';
 
 import { ComponentTModule} from '../components/componentT.module'
 
@@ -27,7 +27,9 @@ import { TableDetailComponent } from './kpi-table/table-detail/table-detail.comp
     NbSpinnerModule,
     NbInputModule,
 
-    ComponentTModule
+    ComponentTModule,
+    // nbPopover
+    NbPopoverModule,
 
     
     

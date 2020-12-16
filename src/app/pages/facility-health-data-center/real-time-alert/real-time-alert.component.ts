@@ -4,6 +4,7 @@ import { EditDelTooltipComponent } from '../../../pages-popups/prompt-diallog/ed
 import { HttpserviceService } from '../../../services/http/httpservice.service';
 import { PublicmethodService } from '../../../services/publicmethod/publicmethod.service';
 import { UserInfoService } from '../../../services/user-info/user-info.service';
+import { AlertMessageComponent } from './alert-message/alert-message.component';
 
 @Component({
   selector: 'ngx-real-time-alert',
@@ -52,11 +53,12 @@ export class RealTimeAlertComponent implements OnInit {
       { field: 'deviceid', headerName: '设备ID',  resizable: true, minWidth: 10},
       { field: 'group', headerName: '科室/用户组', resizable: true, minWidth: 10},
       { field: 'location', headerName: '设备位置', resizable: true, minWidth: 10}, // 自定义设备编号！
-      { field: 'message', headerName: '报警内容', resizable: true, minWidth: 10},
+      // { field: 'message', headerName: '报警内容', resizable: true, minWidth: 10},
+      { field: 'message', headerName: '报警内容', resizable: true, width: 800, cellRendererFramework: AlertMessageComponent},
       { field: 'recordtime', headerName: '报警时间', resizable: true},
       { field: 'level', headerName: '报警等级', resizable: true, minWidth: 10},
       { field: 'devicestatus', headerName: '状态', resizable: true, minWidth: 10},
-      { field: 'belonged', headerName: '负责人', resizable: true, minWidth: 10},
+      { field: 'belonged', headerName: '负责人', resizable: true, width: 100},
     ],
     rowData: [ // data
     ]

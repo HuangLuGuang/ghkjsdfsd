@@ -24,6 +24,12 @@ export class UserInfoService {
     return userinfo ? JSON.parse(userinfo)['loginname'] : null;
   }
 
+  // 获取用户登录的密码
+  getLoginPassword(){
+    const userinfo = this.getUserInfo();
+    return userinfo ? JSON.parse(userinfo)['password'] : null;
+  }
+
   getName() {
     const userinfo = this.getUserInfo();
     // console.log("--userinfo------", userinfo)

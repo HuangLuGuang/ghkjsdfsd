@@ -21,6 +21,7 @@ export class MyInputComponent implements OnInit {
   // employeenumber
   ngOnDestroy(){
     $("#employeenumber").remove();
+    
   }
   
   ngAfterViewInit(){
