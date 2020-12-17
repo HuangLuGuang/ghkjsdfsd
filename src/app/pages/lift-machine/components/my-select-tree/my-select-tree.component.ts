@@ -196,11 +196,13 @@ export class MySelectTreeComponent implements OnInit {
   dropselect(){
     this.delselect();
     console.log("清空下拉数据",$("[name='title']").val())
-    var select = this.el5s?.getChecked();
-    if (select != undefined &&select.length>0){
-      // this.el5s?.unCheckNodes() //取消所有选中的节点
-      this.el5s?.reload({data:this.tree_data}); // 重新加载树
-    }
+    // var select = this.el5s?.getChecked();
+    // if (select != undefined &&select.length>0){
+    //   this.el5s?.reload({data:this.tree_data}); // 重新加载树
+    //   this.el5s?.unCheckNodes() //取消所有选中的节点
+    // }
+    this.el5s?.reload({data:this.tree_data}); // 重新加载树
+    this.el5s?.unCheckNodes() //取消所有选中的节点
   }
 
   

@@ -120,10 +120,12 @@ export class MySelectTreeTypeComponent implements OnInit {
   dropselect(){
     this.delselect();
     var select_type = this.el5_type?.getChecked();
-    if (select_type != undefined && select_type.length>0){
-      // this.el5_type?.unCheckNodes() //取消所有选中的节点
-      this.el5_type?.reload({data:this.tree_data}); // 重新加载树
-    }
+    // if (select_type != undefined && select_type.length>0){
+    //   this.el5_type?.reload({data:this.tree_data}); // 重新加载树
+    //   this.el5_type?.unCheckNodes() //取消所有选中的节点
+    // }
+    this.el5_type?.reload({data:this.tree_data}); // 重新加载树
+    this.el5_type?.unCheckNodes() //取消所有选中的节点
   }
 
 }

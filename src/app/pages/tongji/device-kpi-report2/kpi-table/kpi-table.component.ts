@@ -229,6 +229,9 @@ export class KpiTableComponent implements OnInit {
     // 取消选择的数据 delselect
     this.myinput.del_input_value();
     this.groups_func.dropselect();
+
+    this.data_range.reset_mydate();
+
     // this.eimdevicetpye.dropselect();
 
     this.inttable();
@@ -309,50 +312,62 @@ export class KpiTableComponent implements OnInit {
 
   inttable(event?){
     var inittable_before = this.inittable_before();
-    var offset;
-    var limit;
-    var PageSize;
-    if (event != undefined){
-      offset = event.offset;
-      limit = event.limit;
-      PageSize = event.PageSize? Number(event.PageSize):10;
-    }else{
-      offset = 0;
-      limit = inittable_before.limit;
-      PageSize = inittable_before.limit;
-    }
-    var colmun = {
-      start: inittable_before.start,
-      end: inittable_before.end,
-      offset: offset,
-      limit: limit,
-      employeeid: inittable_before.employeeid,
-      group: inittable_before.group,
-      devicename: inittable_before.devicename,
-      eimdevicetype: inittable_before.eimdevicetype,
-    }
-    // 得到设备信息！
-    var table = this.table;
-    var method = this.method;
-    this.http.callRPC(table, method, colmun).subscribe((res)=>{
-      var get_employee_limit = res['result']['message'][0];
-      if(get_employee_limit["code"]===1){
-        this.loading = false;
-        var message = res["result"]["message"][0]["message"];
-        this.add_detail_kpi(message);
-        this.tableDatas.PageSize = PageSize;
-        this.gridData.push(...message)
-        this.tableDatas.rowData = this.gridData;
-        var totalpagenumbers = get_employee_limit['numbers']? get_employee_limit['numbers'][0]['numbers']: '未得到总条数';
-        this.tableDatas.totalPageNumbers = totalpagenumbers;
-        this.agGrid.init_agGrid(this.tableDatas); // 告诉组件刷新！
-        // 刷新table后，改为原来的！
-        this.tableDatas.isno_refresh_page_size = false;
-        this.RecordOperation('查看', 1,  "设备报表")
+
+    console.log("====inittable_before====",inittable_before);
+    if (inittable_before.end !== undefined || inittable_before.start !== undefined){
+      var offset;
+      var limit;
+      var PageSize;
+      if (event != undefined){
+        offset = event.offset;
+        limit = event.limit;
+        PageSize = event.PageSize? Number(event.PageSize):10;
       }else{
-        this.RecordOperation('查看', 0,  "设备报表")
+        offset = 0;
+        limit = inittable_before.limit;
+        PageSize = inittable_before.limit;
       }
-    })
+      var colmun = {
+        start: inittable_before.start,
+        end: inittable_before.end,
+        offset: offset,
+        limit: limit,
+        employeeid: inittable_before.employeeid,
+        group: inittable_before.group,
+        devicename: inittable_before.devicename,
+        eimdevicetype: inittable_before.eimdevicetype,
+      }
+      // 得到设备信息！
+      var table = this.table;
+      var method = this.method;
+      this.http.callRPC(table, method, colmun).subscribe((res)=>{
+        var get_employee_limit = res['result']['message'][0];
+        if(get_employee_limit["code"]===1){
+          this.loading = false;
+          var message = res["result"]["message"][0]["message"];
+          this.add_detail_kpi(message);
+          this.tableDatas.PageSize = PageSize;
+          this.gridData.push(...message)
+          this.tableDatas.rowData = this.gridData;
+          var totalpagenumbers = get_employee_limit['numbers']? get_employee_limit['numbers'][0]['numbers']: '未得到总条数';
+          this.tableDatas.totalPageNumbers = totalpagenumbers;
+          this.agGrid.init_agGrid(this.tableDatas); // 告诉组件刷新！
+          // 刷新table后，改为原来的！
+          this.tableDatas.isno_refresh_page_size = false;
+          this.RecordOperation('查看', 1,  "设备报表")
+        }else{
+          this.RecordOperation('查看', 0,  "设备报表")
+        }
+      })
+    }else{
+      this.loading = false;
+      this.dialogService.open(EditDelTooltipComponent, { closeOnBackdropClick: false, context: { title: '提示', content:   `日期范围必选！`}} ).onClose.subscribe(
+        name=>{
+          console.log("----name-----", name);
+        }
+      );
+    }
+
   }
 
   update_agGrid(event?){

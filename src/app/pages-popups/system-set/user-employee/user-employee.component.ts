@@ -99,7 +99,7 @@ export class UserEmployeeComponent implements OnInit {
       var res:any[] = that.roles_group["roles"];
       
       var select_goups:any[] = rowdata["groupids"];
-      formdata["employeeno"] = rowdata["employeeno"] // 账号
+      // formdata["employeeno"] = rowdata["employeeno"] // 账号
       // formdata["active"] = rowdata["active"]=== '是'? 0: 1 // 是否有效
       formdata["active"] = rowdata["active"]=== 1? true: false // 是否启用
       formdata["name"] = rowdata["name"] // 姓名
@@ -265,7 +265,7 @@ export class UserEmployeeComponent implements OnInit {
           send_data["email"] = data.field["email"];
           send_data["name"] = data.field["name"];
           send_data["phoneno"] = data.field["phoneno"];
-          send_data["employeeno"] = data.field["employeeno"];
+          // send_data["employeeno"] = data.field["employeeno"];
           send_data["loginname"] = data.field["loginname"];
           send_data_list.push(send_data);
           
@@ -342,7 +342,7 @@ export class UserEmployeeComponent implements OnInit {
           var send_data = {};
           send_data["employeeid"] = null;
           send_data["active"] = data.field["active"] === 'on'? 1: 0;
-          send_data["employeeno"] = data.field["employeeno"];
+          // send_data["employeeno"] = data.field["employeeno"];
           send_data["loginname"] = data.field["loginname"];
           var send_data_list = [];
           send_data_list.push(send_data);

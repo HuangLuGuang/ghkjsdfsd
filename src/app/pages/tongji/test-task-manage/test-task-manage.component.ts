@@ -271,6 +271,7 @@ export class TestTaskManageComponent implements OnInit {
 
     this.group.dropselect();
     this.eimdevicetpye.dropselect();
+    this.data_range.reset_mydate();
 
 
     this.inttable();

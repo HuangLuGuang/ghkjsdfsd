@@ -36,14 +36,19 @@ export class MyDateRangeComponent implements OnInit {
       laydate.render({
         elem: '#divice_kpi_report_date'
         ,range: true
+        ,btns: ['confirm']
+        ,format: "yyyy-MM-dd"
         // 初始化日期范围 
-        ,value: init_value
+        ,value:  that.init_value
         // ,trigger: 'click'//呼出事件改成click  控件选择完毕回调
         ,done: function(value, date, endDate){
           console.log(value); //得到日期生成的值，如：2017-08-18
           that.init_value = value;
-          console.log(date); //得到日期时间对象：{year: 2017, month: 8, date: 18, hours: 0, minutes: 0, seconds: 0}
-          console.log(endDate); //得结束的日期时间对象，开启范围选择（range: true）才会返回。对象成员同上。
+          if (value === ""){
+            // console.log("已经清空了");
+            // console.log("得到初始的日期时间对象  已经清空了:",that.init_value , "value", this.value  ); //得到初始的日期时间对象：{year: 2017, month: 8, date: 18, hours: 0, minutes: 0, seconds: 0}
+            this.value = that.init_value
+          }
         }
         
       });
@@ -59,6 +64,12 @@ export class MyDateRangeComponent implements OnInit {
     console.log("date--->", date)
     var date_list = date[0]===""?[]:date;
     return date_list
+  }
+
+  // 重置日期范围 到默认的日期！
+  reset_mydate(){
+    this.init_value = "2019-12-01 - 2020-12-21";
+    this.initdate()
   }
 
 }

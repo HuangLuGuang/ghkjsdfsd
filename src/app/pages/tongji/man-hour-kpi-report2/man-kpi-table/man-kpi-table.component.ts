@@ -225,6 +225,7 @@ export class ManKpiTableComponent implements OnInit {
     this.myinput.del_input_value();
     this.groups_func.dropselect();
     this.eimdevicetpye.dropselect();
+    this.data_range.reset_mydate();
 
 
     this.inttable();

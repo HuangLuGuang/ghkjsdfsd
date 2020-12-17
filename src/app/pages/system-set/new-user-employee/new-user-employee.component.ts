@@ -44,12 +44,12 @@ export class NewUserEmployeeComponent implements OnInit {
     columnDefs:[ // 列字段 多选：headerCheckboxSelection checkboxSelection
       { field: 'loginname', headerName: '域账号',  headerCheckboxSelection: true, checkboxSelection: true, autoHeight: true, fullWidth: true, minWidth: 30,resizable: true,},
       { field: 'name', headerName: '姓名', resizable: true,},
-      { field: 'employeeno', headerName: '员工编号', resizable: true,},
+      // { field: 'employeeno', headerName: '员工编号', resizable: true,},
       { field: 'role_name', headerName: '角色', resizable: true,},
       { field: 'groups_name', headerName: '科室/功能组', resizable: true,},
       { field: 'active', headerName: '是否启用', resizable: true, cellRendererFramework: TranActiveComponent,},
       { field: 'email', headerName: '邮箱', resizable: true,},
-      { field: 'lastsignondate', headerName: '更新时间', resizable: true,minWidth:10,},
+      { field: 'lastsignondate', headerName: '更新时间', resizable: true,minWidth:10,flex: 1},
     ],
     rowData: [ // data
     ]
@@ -720,10 +720,7 @@ export class NewUserEmployeeComponent implements OnInit {
       var groups_name = rowdata["groups_name"];
 
       // 验证！ employeeno 员工编号
-      var verify_employeeno = this.verify_employeeno(employeeno);
-      if (verify_employeeno != 1){
-        verify_err.push({err: verify_employeeno})
-      }
+      
       // 验证！ name 姓名
       var verify_name = this.verify_name(name);
       if (verify_name != 1){
@@ -772,17 +769,7 @@ export class NewUserEmployeeComponent implements OnInit {
   }
 
   // 验证 employeeno 员工编号
-  verify_employeeno(employeeno){
-    // sql注入和特殊字符 special_str
-    var verify_sql_str = this.verify_sql_str(employeeno, '员工编号');
-    if (verify_sql_str != 1){
-      return verify_sql_str
-    }
-    if (employeeno.length > 20){
-      return "员工编号最大长度不超过20！"
-    }
-    return 1 // 返回1，表示 通过验证！
-  }
+  
   // 验证 name 姓名
   verify_name(name){
     // sql注入和特殊字符 special_str

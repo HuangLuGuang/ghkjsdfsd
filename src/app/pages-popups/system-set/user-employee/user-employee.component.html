@@ -11,7 +11,7 @@
     <nb-card-body>
         
         <form class="layui-form" action="" lay-filter="employee">
-            <div class="layui-form-item">
+            <!-- <div class="layui-form-item">
                 <div class="layui-inline">
                     <label class="layui-form-label mylabel mulu_title">员工编号</label>
                     <div class="layui-input-block">
@@ -19,17 +19,13 @@
                     </div>
                 </div>
 
-
                 <div class="layui-inline">
                   <label class="layui-form-label mylabel">是否启用</label>
                   <div class="layui-input-block">
                     <input type="checkbox" name="active" lay-skin="switch" lay-filter="filter" lay-text="是|否" checked>
                   </div>
                 </div>
-
-
-
-            </div>
+            </div> -->
             
             <div class="layui-form-item">
 
@@ -47,13 +43,26 @@
                 </div>
               </div>
 
+              
+              
+            </div>
+
+
+            <div class="layui-form-item">
               <div class="layui-inline">
                 <label class="layui-form-label mylabel mulu_title">邮箱</label>
                 <div class="layui-input-block">
                   <input type="text" name="email"  lay-verify="required|email" placeholder="邮箱" autocomplete="off" class="layui-input">
                 </div>
               </div>
-              
+
+              <div class="layui-inline">
+                <label class="layui-form-label mylabel">是否启用</label>
+                <div class="layui-input-block">
+                  <input type="checkbox" name="active" lay-skin="switch" lay-filter="filter" lay-text="是|否" checked>
+                </div>
+              </div>
+
             </div>
 
 
@@ -89,7 +98,6 @@
                           <button type="submit" class="layui-btn" lay-submit="" lay-filter="employee" >确定</button>
                       </div>
                     </div>
-
                 </div>
             </div>
             

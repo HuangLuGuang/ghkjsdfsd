@@ -1,11 +1,11 @@
-// let left_one_chart;
-// let right_one_chart;
+
 let kpi_detail = {
 
     // left_one 设备时间统计 参考： https://gallery.echartsjs.com/editor.html?c=xHyoiv-D-e
     left_one(element, afterdata) {
         // 实例化对象
         var mychart = echarts.init(document.querySelector(element));
+        left_one_chart = mychart;
         console.log("左侧第一个",afterdata)
 
         // 配置
@@ -253,7 +253,6 @@ let kpi_detail = {
         //     console.log("重置的屏幕大小！")
         //     myChart.resize();
         // })
-
 
     },
 
