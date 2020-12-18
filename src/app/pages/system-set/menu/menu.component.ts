@@ -24,6 +24,9 @@ import { UserInfoService } from '../../../services/user-info/user-info.service';
 import { Observable } from 'rxjs';
 import { NewMenuComponent } from '../../../pages-popups/system-set/new-menu/new-menu.component';
 
+
+import { TranslateService } from '@ngx-translate/core';
+
 @Component({
   selector: 'ngx-menu',
   templateUrl: './menu.component.html',
@@ -41,45 +44,71 @@ export class MenuComponent implements OnInit {
   refresh = false;
   buttons;
   isactions;
-  isactions_new;
 
   
 
   constructor(private http: HttpserviceService, private localstorageservice: LocalStorageService,
     private publicservice: PublicmethodService, private dialogService: NbDialogService,
-    private toastrService: NbToastrService, private router: Router, private userinfo: UserInfoService) { 
+    private toastrService: NbToastrService, private router: Router, private userinfo: UserInfoService,
+    private translate: TranslateService) { 
     // 会话过期
     localStorage.removeItem("alert401flag");
-      // local store 得到token id 
-    var token = localStorage.getItem(ssotoken)? JSON.parse(localStorage.getItem(ssotoken)).token: '';
-    this.headers = { "Content-Type": "application/json", "indent": "4", "Authorization": "Bearer " + token }
+
+    var roleid = this.userinfo.getEmployeeRoleID();
+    this.publicservice.get_buttons_bypath(roleid).subscribe(result=>{
+      this.button = result;
+      localStorage.setItem("buttons_list", JSON.stringify(result));
+    })
   }
 
   ngOnInit(): void {
     // 初始化table
     // this.getbuttons();
     // 得到权限button
-    var roleid = this.userinfo.getEmployeeRoleID();
-    this.publicservice.get_buttons_bypath(roleid).subscribe(result=>{
-      this.button = result;
-      var button_lists = result;
-      var button_list = {}
-      if(button_lists["edit"]){
-        button_list["edit"] = button_lists["edit"]["active"] === 1?  true: false;
-      }else{
-        button_list["edit"] = false;
-      }
-      if(button_lists["del"]){
-        button_list["del"] = button_lists["del"]["active"] === 1?  true: false;
-      }else{
-        button_list["del"] = false;
-      }
-      this.isactions = button_list;
-      // console.log(">>>>>>>>this.isactions_new<<<<<<",this.isactions);
-      this.loadMenu();
-    });
+    this.get_buttons_and_mulutable();
+  }
 
-
+  // 得到button，且加载目录到table
+  get_buttons_and_mulutable(){
+    var buttons_list = localStorage.getItem("buttons_list");
+    if (buttons_list){
+      this.button = JSON.parse(buttons_list);
+      var button_lists = JSON.parse(buttons_list);
+        var button_list = {}
+        if(button_lists["edit"]){
+          button_list["edit"] = button_lists["edit"]["active"] === 1?  true: false;
+        }else{
+          button_list["edit"] = false;
+        }
+        if(button_lists["del"]){
+          button_list["del"] = button_lists["del"]["active"] === 1?  true: false;
+        }else{
+          button_list["del"] = false;
+        }
+        this.isactions = button_list;
+        // console.log(">>>>>>>>this.isactions_new<<<<<<",this.isactions);
+        this.loadMenu(this.isactions);
+    }else{
+      var roleid = this.userinfo.getEmployeeRoleID();
+      this.publicservice.get_buttons_bypath(roleid).subscribe(result=>{
+        this.button = result;
+        var button_lists = result;
+        var button_list = {}
+        if(button_lists["edit"]){
+          button_list["edit"] = button_lists["edit"]["active"] === 1?  true: false;
+        }else{
+          button_list["edit"] = false;
+        }
+        if(button_lists["del"]){
+          button_list["del"] = button_lists["del"]["active"] === 1?  true: false;
+        }else{
+          button_list["del"] = false;
+        }
+        this.isactions = button_list;
+        // console.log(">>>>>>>>this.isactions_new<<<<<<",this.isactions);
+        this.loadMenu(this.isactions);
+      });
+    }
   }
   
   ngAfterViewInit(){
@@ -145,8 +174,8 @@ export class MenuComponent implements OnInit {
         this.updatabutton_list().subscribe(res=>{
           if (res){
             this.addmenu()
-            setTimeout(() => {
-            }, 1000);
+            // setTimeout(() => {
+            // }, 1000);
 
           }
         });
@@ -180,8 +209,6 @@ export class MenuComponent implements OnInit {
     }
 
   }
-
-
 
  
   // 新增菜单函数
@@ -344,7 +371,6 @@ export class MenuComponent implements OnInit {
     var dialogService = this.dialogService;
     var $table = $('#menuTable');
     var that = this; 
-    var headers = this.headers;
     var http = this.http
     var publicservice = this.publicservice
     var success = this.success
@@ -352,12 +378,11 @@ export class MenuComponent implements OnInit {
     var Data = Data;
 
     var isactions = this.isactions;
-    var isactions_new = this.isactions_new;
 
-    // console.log("-------------------this.isactions-------------------", isactions, isactions_new);
-    if (isactions === undefined){
-      location.reload();
-    }
+    // console.log("-------------------this.isactions-------------------", isactions);
+    // if (isactions === undefined){
+    //   location.reload();
+    // }
     
     $table.bootstrapTable({
         idField: 'id',
@@ -474,23 +499,21 @@ export class MenuComponent implements OnInit {
         },
         // classes: "table table-bordered  table-hover table-primary:hover",
     });
-    // 样式！
-    $("#menuTable").children("tbody").children("tr").children("td").attr("style", "padding: 0px 12px; text-align: center;");
-    $("#menuTable tbody tr td:nth-child(2)").attr("style", "")
+    
     function typeFormatter(value, row, index) {
-    if (value === 1) {
-        return '菜单'
-        // return '<span class="label label-success">菜单</span>'
-    }
-    if (value === 0) {
+      if (value === 1) {
+          return '菜单'
+          // return '<span class="label label-success">菜单</span>'
+      }
+      if (value === 0) {
         return '目录'
         // return '<span class="label label-success">目录</span>'
       }
       if (value === 2) {
         return '按钮'
         // return '<span class="label label-info">按钮</span>'
-    }
-    return '-'
+      }
+      return '-'
     };
 
 
@@ -609,6 +632,10 @@ export class MenuComponent implements OnInit {
       });
     }
 
+    // 样式！
+    $("#menuTable").children("tbody").children("tr").children("td").attr("style", "padding: 0px 12px; text-align: center;");
+    $("#menuTable tbody tr td:nth-child(2)").attr("style", "")
+
 
   }
 
@@ -664,41 +691,43 @@ export class MenuComponent implements OnInit {
     var $table = $('#menuTable');
     $table.bootstrapTable('desstrooy');
   }
-
-  loadMenu(){
-    // console.log("这是 系统设置的菜单界面！")
+  loadMenu(isactions?){
+    // console.log(">>>>>>>>isactions<<<<<<",isactions);
     var sysmenu = localStorage.getItem(SYSMENU) == null ? [] : JSON.parse(localStorage.getItem(SYSMENU));
-    var mulu_language = localStorage.getItem('mulu_language') == null ? 'zh_CN' : localStorage.getItem('mulu_language');
-    if(sysmenu.length == 0 || mulu_language != localStorage.getItem('currentLanguage')){
-      this.publicservice.getMenu().subscribe((data:any[])=>{
-        if (data.length === 0){
-          // 表示token 过期，返回登录界面
-          this.router.navigate([loginurl]);
-        }else{
-          const colums = {
-            languageid: this.http.getLanguageID(),
-            roles: data
-          };
-          // console.log("---colums--",colums)
-          const table = "menu_item";
-          // const method = "get_systemset_menu";
-          const method = "get_systemset_menu_all";
-          this.http.callRPC(table, method, colums).subscribe((result)=>{
-            // console.log("---------------->>>>",result)
-            const baseData = result['result']['message'][0];
-            if (baseData["code"]===1){
-              var menu = this.dataTranslation(baseData["message"]);
-              localStorage.setItem(SYSMENU, JSON.stringify(menu));
-              // 按钮
-              this.RanderTable(menu);
-            }
-          })
-        }
-      });
-    }else{
-      var menu = this.dataTranslation(sysmenu);
-      // console.log("------menu--目录：", sysmenu);
-      this.RanderTable(menu);
+    if (isactions !== undefined || sysmenu.length === 0){
+      // console.log("这是 系统设置的菜单界面！")
+      // var sysmenu = localStorage.getItem(SYSMENU) == null ? [] : JSON.parse(localStorage.getItem(SYSMENU));
+      var mulu_language = localStorage.getItem('mulu_language') == null ? 'zh_CN' : localStorage.getItem('mulu_language');
+      if(sysmenu.length == 0){
+        this.publicservice.getMenu().subscribe((data:any[])=>{
+          if (data.length === 0){
+            // 表示token 过期，返回登录界面
+            this.router.navigate([loginurl]);
+          }else{
+            const colums = {
+              languageid: this.http.getLanguageID(),
+              roles: data
+            };
+            // console.log("---colums--",colums)
+            const table = "menu_item";
+            // const method = "get_systemset_menu";
+            const method = "get_systemset_menu_all";
+            this.http.callRPC(table, method, colums).subscribe((result)=>{
+              // console.log("---------------->>>>",result)
+              const baseData = result['result']['message'][0];
+              if (baseData["code"]===1){
+                var menu = this.dataTranslation(baseData["message"]);
+                localStorage.setItem(SYSMENU, JSON.stringify(menu));
+                // 按钮
+                this.RanderTable(menu);
+              }
+            })
+          }
+        });
+      }else{
+        var menu = this.dataTranslation(sysmenu);
+        this.RanderTable(menu);
+      }
     }
     
   }

@@ -46,6 +46,9 @@ export class ActionComponent implements OnInit, ICellRendererAngularComp {
       case "del":
         this.remove(rowData);
         break;
+      case "password":
+        this.change_password(rowData);
+        break;
     }
 
     
@@ -110,6 +113,13 @@ export class ActionComponent implements OnInit, ICellRendererAngularComp {
   remove(rowData){
     // console.log("=============删除============", {active: 'remove', rowData});
     this.params.data = {active: 'remove', data: [rowData]}
+    this.params.clicked(this.params.data);
+  }
+
+  // 修改密码
+  change_password(rowData){
+    console.log("---修改密码---", rowData);
+    this.params.data = {active: 'password', data: [rowData]}
     this.params.clicked(this.params.data);
   }
 

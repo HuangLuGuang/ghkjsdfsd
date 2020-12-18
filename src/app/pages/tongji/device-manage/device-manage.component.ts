@@ -750,8 +750,8 @@ export class DeviceManageComponent implements OnInit {
     if (verify_sql_str != 1){
       return verify_sql_str
     }
-    if (devicename.length > 20){
-      return "设备名称最大长度不超过20！"
+    if (devicename.length > 50){
+      return "设备名称最大长度不超过50！"
     }
     return 1 // 返回1，表示 通过验证！
   }
@@ -779,7 +779,7 @@ export class DeviceManageComponent implements OnInit {
     }
     if (new RegExp(Device["assetno"]).test(assetno)){
       if (assetno.length > 50){
-        return "资产编号最大长度不超过100！"
+        return "资产编号最大长度不超过50！"
       }
       return "资产编号不能有中文！"
     }
@@ -794,7 +794,7 @@ export class DeviceManageComponent implements OnInit {
     }
     if (new RegExp(Device["factoryno"]).test(factoryno)){
       if (factoryno.length > 50){
-        return "出厂编号最大长度不超过100！"
+        return "出厂编号最大长度不超过50！"
       }
       return "出厂编号不能有中文！"
     }
@@ -807,8 +807,8 @@ export class DeviceManageComponent implements OnInit {
     if (verify_sql_str != 1){
       return verify_sql_str
     }
-    if (supplier.length > 50){
-      return "供应商最大长度不超过50！"
+    if (supplier.length > 200){
+      return "供应商最大长度不超过200！"
     }
     return 1 // 返回1，表示 通过验证！
   }

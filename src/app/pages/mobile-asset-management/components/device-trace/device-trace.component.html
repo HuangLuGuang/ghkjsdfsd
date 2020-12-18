@@ -4,12 +4,12 @@
     nbSpinnerMessage="" id = "editcar">
 
     <nb-card-header style="padding: 2px 13px;">
-        <div class="row">
-            <div class="col-md-10">设备跟踪</div>
-            <div class="col-md-1" style="padding: 0px; text-align: right;">
-                <nb-icon icon="close-outline" style="cursor: pointer;" (click)="closedialog()"></nb-icon>
+        <div class="row" style="display: flex;">
+            <div class="col-md-9">设备跟踪</div>
+            <div class="col-md-1" style="padding: 0px; text-align: right;" style="flex:auto">
             </div>
-            <div class="col-md-1" style="padding: 0px 6px 0px 0px; text-align: right;">
+            <div class="col-md-2" style="padding: 0px 6px 0px 0px; text-align: right;">
+                <nb-icon icon="close-outline" style="cursor: pointer;" (click)="closedialog()"></nb-icon>
                 <nb-icon [icon]="isnot_fullscreen ? 'expand-outline' : 'collapse-outline' "  style="cursor: pointer;" (click)="showAllTemplate()"></nb-icon>
             </div>
         </div>

@@ -83,8 +83,8 @@ export class UserEmployeeGroupComponent implements OnInit {
           if (! str){
             return "组名称不能有特殊字符！"
           }
-          if (value.length > 20){
-            return "组名称最大长度不超过20！"
+          if (value.length > 50){
+            return "组名称最大长度不超过50！"
           }
           // if (! new RegExp(EmployeeGroup["group_"]).test(value)){
           //   return "组名称不能有特殊字符或中文字符"

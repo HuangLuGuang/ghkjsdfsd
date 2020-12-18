@@ -1,0 +1,60 @@
+<nb-card class="change_password">
+    <nb-card-header>
+        <div class="row">
+            <div class="col-md-10" style="text-align: left;font-size: small;">修改密码</div>
+            <div class="col-md-2" style="text-align: right;">
+                <nb-icon icon="close-outline" style="cursor: pointer;" (click)="closedialog()"></nb-icon>
+            </div>
+        </div>
+      </nb-card-header>
+
+    <nb-card-body>
+        <form class="layui-form" action="" lay-filter="updatepassword">
+            <!-- <div class="row">
+                <div class="col-lg-12">
+                    <label class="layui-form-label mulu_title">域账号:</label>
+                    <div class="layui-input-block change_password_div">
+                        <input type="text" name="loginname" disabled lay-verify="required|loginname"  autocomplete="off" class="layui-input">
+                    </div>
+                </div>
+            </div> -->
+            <div class="row">
+                <div class="col-lg-12">
+                    <label class="layui-form-label mylabel mulu_title">登录密码:</label>
+                    <div class="layui-input-block change_password_div">
+                        <input type="password" name="loginpassword" lay-verify="required|loginpassword" placeholder="请输入登录密码" autocomplete="off" class="layui-input">
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-12">
+                    <label class="layui-form-label mylabel mulu_title">确认密码:</label>
+                    <div class="layui-input-block change_password_div">
+                        <input type="password" name="confirmpassword" lay-verify="required|confirmpassword" placeholder="请重新输入登录密码" autocomplete="off" class="layui-input">
+                    </div>
+                </div>
+            </div>
+
+            
+
+            <hr class="layui-bg-gray">
+
+            
+
+            <div class="row" style="margin-top: 20px;">
+                <div class="col-lg-12" style="display: flex;">
+                    <div style="flex: auto;">
+                    </div>
+                    <div class="example-items-rows button_item ">
+                        <button class="layui-btn layui-btn-primary" (click)="cancel()"  >取消</button>
+                    </div>
+                    <div class="example-items-rows button_item ">
+                        <button class="layui-btn" type="submit" lay-submit="" lay-filter="password"  >确定</button>
+                    </div>
+    
+                </div>
+            </div>
+        </form>
+    </nb-card-body>
+
+</nb-card>

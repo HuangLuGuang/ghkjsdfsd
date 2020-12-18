@@ -10,9 +10,7 @@ import { MenuComponent } from './menu/menu.component';
 // import { Ng2SmartTableModule } from 'ng2-smart-table';
 
 import {Ng2SmartTableModule} from '@mykeels/ng2-smart-table';
-import { EmployeeComponent } from './employee/employee.component';
 import { SecurityLogComponent } from './security-log/security-log.component';
-import { UserEmployeeComponent } from './user-employee/user-employee.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { UserEmployeeGroupComponent } from './user-employee-group/user-employee-group.component';
 
@@ -26,7 +24,6 @@ import { OperationLogComponent } from './operation-log/operation-log.component';
 import { GocronComponent } from './gocron/gocron.component';
 import { GocronFormComponent } from './gocron/gocron-form/gocron-form.component';
 import { GocronFormNodeComponent } from './gocron/gocron-form-node/gocron-form-node.component';
-import { ActionComponent } from './user-employee/action/action.component';
 import { NewUserEmployeeComponent } from './new-user-employee/new-user-employee.component';
 import { ActionComponent as NewActionComponent } from './new-user-employee/action/action.component';
 import { TranActiveComponent } from './new-user-employee/tran-active/tran-active.component';
@@ -34,8 +31,8 @@ import { MyInputComponent } from './components/my-input/my-input.component';
 
 
 @NgModule({
-  declarations: [SystemSetComponent, RoleComponent, MenuComponent, EmployeeComponent,  SecurityLogComponent, UserEmployeeComponent, 
-    UserEmployeeGroupComponent, LayuiTableComponent, AgTableComponent,  OperationLogComponent, GocronComponent, GocronFormComponent, GocronFormNodeComponent, ActionComponent, NewUserEmployeeComponent, NewActionComponent, TranActiveComponent, MyInputComponent, ],
+  declarations: [SystemSetComponent, RoleComponent, MenuComponent, SecurityLogComponent,
+    UserEmployeeGroupComponent, LayuiTableComponent, AgTableComponent,  OperationLogComponent, GocronComponent, GocronFormComponent, GocronFormNodeComponent, NewUserEmployeeComponent, NewActionComponent, TranActiveComponent, MyInputComponent,],
   imports: [
     CommonModule,
     SystemSetRoutingModule,

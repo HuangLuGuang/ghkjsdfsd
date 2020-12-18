@@ -91,7 +91,7 @@ export class AllComponent implements OnInit {
   // 设备跟踪
   trace(user_deviceInfo){
     const context = { text: user_deviceInfo }
-    this.dialogService.open(DeviceTraceComponent, { hasBackdrop: true, hasScroll: true, context }, // 无背景、可滚动
+    this.dialogService.open(DeviceTraceComponent, { closeOnBackdropClick: false, hasScroll: true, context }, // 无背景、可滚动
     )
 
   }

@@ -31,7 +31,7 @@ export class DeviceManageComponent implements OnInit {
       // ====================================
           // 得到科室 sys_get_groups_limit
           var columns = {
-            limit: 20,
+            limit: 10,
             offset: 0
           }
           this.http.callRPC('device',"sys_get_groups_limit", columns).subscribe(result=>{
@@ -113,8 +113,8 @@ export class DeviceManageComponent implements OnInit {
           if (! str){
             return "设备名称不能有特殊字符！"
           }
-          if (value.length > 20){
-            return "设备名称最大长度不超过20！"
+          if (value.length > 50){
+            return "设备名称最大长度不超过50！"
           }
 
           // if (! new RegExp(Device["devicename"]).test(value)){
@@ -165,7 +165,7 @@ export class DeviceManageComponent implements OnInit {
 
           if (new RegExp(Device["assetno"]).test(value)){
             if (value.length > 50){
-              return "资产编号最大长度不超过100！"
+              return "资产编号最大长度不超过50！"
             }
             return "资产编号不能有中文！"
           }
@@ -188,7 +188,7 @@ export class DeviceManageComponent implements OnInit {
 
           if (new RegExp(Device["factoryno"]).test(value)){
             if (value.length > 50){
-              return "出厂编号最大长度不超过100！"
+              return "出厂编号最大长度不超过50！"
             }
             return "出厂编号不能有中文！"
           }
@@ -220,8 +220,8 @@ export class DeviceManageComponent implements OnInit {
           if (! str){
             return "供应商不能有特殊字符！"
           }
-          if (value.length > 50){
-            return "供应商最大长度不超过50！"
+          if (value.length > 200){
+            return "供应商最大长度不超过200！"
           }
 
           // if (! new RegExp(Device["supplier"]).test(value)){

@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
+import { ChangePassowrdForallComponent } from './change-passowrd-forall/change-passowrd-forall.component';
 
 import { PagesPopupsComponent } from './pages-popups.component'
 
@@ -12,6 +13,10 @@ const routes: Routes = [
       //   path:'menu/add',
       //   component: MenuComponent,
       // },
+      {
+        path:'forall',
+        component: ChangePassowrdForallComponent,
+      },
       
       
     ]

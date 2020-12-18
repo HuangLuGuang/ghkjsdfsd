@@ -1,11 +1,14 @@
 
-let kpi_detail = {
+let left_one_chart
 
+let kpi_detail = {
+    
     // left_one 设备时间统计 参考： https://gallery.echartsjs.com/editor.html?c=xHyoiv-D-e
     left_one(element, afterdata) {
         // 实例化对象
         var mychart = echarts.init(document.querySelector(element));
         left_one_chart = mychart;
+        
         console.log("左侧第一个",afterdata)
 
         // 配置
@@ -21,6 +24,8 @@ let kpi_detail = {
                             color: "#fff"
                         }
                     },
+
+
                     // formatter: '{b0}: {c0}<br />{b1}: {c1}'
                 },
                 grid: {
@@ -253,6 +258,11 @@ let kpi_detail = {
         //     console.log("重置的屏幕大小！")
         //     myChart.resize();
         // })
+        // left_one_chart.group = "group1"
+        // mychart.group = "group1"
+        // console.log("****************",left_one_chart)
+        // echarts.connect('group1')
+        // echarts.connect([mychart,left_one_chart])
 
     },
 

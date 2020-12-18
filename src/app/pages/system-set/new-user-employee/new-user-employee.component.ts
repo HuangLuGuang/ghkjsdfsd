@@ -14,6 +14,7 @@ import { NbDialogService } from '@nebular/theme';
 import { EditDelTooltipComponent } from '../../../pages-popups/prompt-diallog/edit-del-tooltip/edit-del-tooltip.component';
 import { UserEmployeeComponent } from '../../../pages-popups/system-set/user-employee/user-employee.component';
 import { Observable } from 'rxjs';
+import { ChangePassowrdForallComponent } from '../../../pages-popups/change-passowrd-forall/change-passowrd-forall.component';
 type AOA = any[][];
 
 @Component({
@@ -25,6 +26,7 @@ export class NewUserEmployeeComponent implements OnInit {
   @ViewChild("ag_Grid") agGrid: any;
   @ViewChild("myinput") myinput: any;
   active;  // aggrid 操作
+  password;  // aggrid 修改密码
   loading = false;  // 加载
   refresh = false; // 刷新tabel
   TABLE = "employee"; // table
@@ -49,7 +51,8 @@ export class NewUserEmployeeComponent implements OnInit {
       { field: 'groups_name', headerName: '科室/功能组', resizable: true,},
       { field: 'active', headerName: '是否启用', resizable: true, cellRendererFramework: TranActiveComponent,},
       { field: 'email', headerName: '邮箱', resizable: true,},
-      { field: 'lastsignondate', headerName: '更新时间', resizable: true,minWidth:10,flex: 1},
+      { field: 'lastsignondate', headerName: '更新时间', resizable: true,minWidth:10},
+      
     ],
     rowData: [ // data
     ]
@@ -75,13 +78,19 @@ export class NewUserEmployeeComponent implements OnInit {
   ngOnInit(): void {
     // agGrid
     var that = this;
-    this.active = { field: 'action', headerName: '操作', cellRendererFramework: ActionComponent, pinned: 'right',resizable: true,flex: 1,width:100,
+    this.active = { field: 'action', headerName: '操作', cellRendererFramework: ActionComponent, pinned: 'right',resizable: true,flex: 1,width:200,
       cellRendererParams: {
         clicked: function(data: any) {
           if (data["active"]==='edit'){
             that.edit(data["data"]);
-          }else{
+          }else if(data["active"]==='remove'){
             that.del(data["data"]);
+          }else{
+            var loginname = { loginname: data["data"][0]["loginname"] }
+            console.log("*********************************\n")
+            console.log("data>>",loginname)
+            that.change_password(loginname);
+            console.log("*********************************\n")
           }
         }
       },
@@ -92,6 +101,10 @@ export class NewUserEmployeeComponent implements OnInit {
       this.button = result;
       localStorage.setItem("buttons_list", JSON.stringify(result));
     })
+
+    
+
+
   }
 
   ngAfterViewInit(){
@@ -209,6 +222,14 @@ export class NewUserEmployeeComponent implements OnInit {
         break;
     }
   }
+
+  // 操作列--修改密码！
+  change_password(loginname){
+    this.dialogService.open(ChangePassowrdForallComponent,{closeOnBackdropClick: false,context: loginname}).onClose.subscribe(istrue=>{
+            
+    })
+  }
+
   add(){
     this.dialogService.open(UserEmployeeComponent,{closeOnBackdropClick: false,context: { rowdata: JSON.stringify('add'), res: JSON.stringify(''), goups: JSON.stringify('')}}).onClose.subscribe(istrue=>{
       // console.error("istrue 新增",istrue)
@@ -820,7 +841,7 @@ export class NewUserEmployeeComponent implements OnInit {
       return verify_sql_str
     }
     if (role_name.length > 50){
-      return "角色名称最大长度不超过100！"
+      return "角色名称最大长度不超过50！"
     }
 
     return 1 // 返回1，表示 通过验证！
