@@ -6,48 +6,44 @@
     <nb-card-body>
         <div class="row">
             <div class="col-lg-6" style="display: flex;">
-            
+
                 <div class="example-items-rows button_item"  ngClass="button?.query?ngClass_show:ngClass_hide">
                     <div class="gongneng_keshi">
-                        <ngx-file-breadcrumb #mybreadcrumb (vreadcrumb_get_files_child)="get_files_child($event)"></ngx-file-breadcrumb>
+                        <ngx-file-breadcrumb #mybreadcrumb [current_path]="current_path" (breadcrumbClick)="onBreadcrumbClick($event)"></ngx-file-breadcrumb>
                     </div>
                 </div>
             </div>
-            
+
             <div class="col-lg-6" style="display: flex;">
                 <div style="flex: auto;">
                 </div>
 
                 <!-- 新建文件夹-->
-                <div class=" button_item my_import " >
+                <div class=" button_item my_import "  (click)="onCreateFolder()">
                     <button nbButton status="info" size="small"   ><nb-icon icon="folder-add-outline"></nb-icon>新建文件夹</button>
                 </div>
                 <!-- 上传到MaDaM -->
                 <div class=" button_item my_import " >
-                    <button nbButton status="info" size="small"   ><nb-icon icon="upload-outline"></nb-icon>上传MaDaM </button>
+                    <button nbButton status="info" size="small"   ><nb-icon icon="navigation-2-outline"></nb-icon>发送到s3</button>
                 </div>
 
-                
+
                 <!-- 上传按钮  [nzAccept]="nzFileType"-->
                 <div class=" button_item my_import " >
-                    <nz-upload [nzAction]="uploadUrl" 
-                    [nzDirectory]="nzDirectory"
-                    
-                    [nzShowUploadList]="nzShowUploadList"
-                    [(nzFileList)]="fileList"
+                    <nz-upload nzAction="/api/v1/upload_file"
+                    [nzShowUploadList]="false"
+                    [nzMultiple]="true"
+                    [nzFileList]="fileList"
                     (nzChange)="uploadStatus($event)"
                     [nzName]="nzName"
                     [nzCustomRequest]="customReq"
                     >
-                        <!-- <button nz-button>
-                            <i nz-icon nzType="upload"></i> {{button?.import.title}}
-                            <nb-icon [icon]="button?.import.icon"></nb-icon>{{button?.import.title}}
-                        </button> -->
-                        <button nbButton status="info" size="small" (click)="action('menu:import')"  ><nb-icon icon="cloud-upload-outline"></nb-icon>选择文件</button>
+
+                      <button nbButton status="info" size="small" ><nb-icon icon="cloud-upload-outline"></nb-icon>上传文件</button>
                     </nz-upload>
 
                 </div>
-                
+
                 <!-- 刷新table -->
                 <div class="" style="text-align: right;">
                     <!-- loader-outline -->
@@ -55,7 +51,7 @@
                         <nb-icon icon="sync-outline"></nb-icon>
                     </button>
 
-                    
+
                 </div>
             </div>
 
@@ -63,10 +59,10 @@
 
         <div class="row">
             <div class="col-lg-12">
-                <ngx-ag-table #ag_Grid   (nzpageindexchange)="nzpageindexchange_ag($event)"></ngx-ag-table>
+                <ngx-ag-table #ag_Grid ></ngx-ag-table>
             </div>
         </div>
 
-        <!-- <router-outlet></router-outlet> -->
+<!--         <router-outlet></router-outlet> -->
     </nb-card-body>
 </nb-card>

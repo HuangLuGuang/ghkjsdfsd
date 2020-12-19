@@ -1,7 +1,7 @@
 
 
 <ag-grid-angular
-    #agGrid 
+    #agGrid
     style="width: 100%; height: 500px;"
     class="ag-theme-alpine"
     [rowData]="rowData"
@@ -13,6 +13,7 @@
     [pagination]="true"
     [rowSelection]="rowSelection"
     [paginationPageSize]="paginationPageSize"
+    [suppressCellSelection]="true"
     [paginationNumberFormatter]="paginationNumberFormatter"
     [suppressScrollOnNewData]="suppressScrollOnNewData"
     [suppressPaginationPanel]="suppressPaginationPanel"
@@ -22,8 +23,8 @@
     (filterModified)="onfilterModified($event)"
     (selectionChanged)="onSelectionChanged($event)"
 
-    
-    
+
+
     [frameworkComponents]="frameworkComponents"
     (paginationChanged)="onPaginationChanged($event)"
     (gridReady)="onGridReady($event)"
@@ -38,7 +39,7 @@
                     [nzPageSize] = "setPageCount"
                    nzShowQuickJumper
                    (nzPageIndexChange)="pageIndexChange($event)"
-                   
+
                    [nzShowTotal]="totalTemplate"
         >
         </nz-pagination>

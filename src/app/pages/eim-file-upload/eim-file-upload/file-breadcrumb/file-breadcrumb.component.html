@@ -1,6 +1,9 @@
-<nz-breadcrumb nzSeparator=">" >
-    <nz-breadcrumb-item *ngFor="let item of data">
-      <a *ngIf="item" (click)="goto_click_file(item)">{{item?.filename}}</a>
-    </nz-breadcrumb-item>
+<nz-breadcrumb nzSeparator=">">
+  <nz-breadcrumb-item >
+    <a  (click)="goto_click_file('文件库')">文件库</a>
+  </nz-breadcrumb-item>
+  <nz-breadcrumb-item *ngFor="let name of current_path">
+    <a *ngIf="name" (click)="goto_click_file(name)">{{ name }}</a>
+  </nz-breadcrumb-item>
 
 </nz-breadcrumb>

@@ -3,12 +3,12 @@ import { ICellRendererAngularComp } from 'ag-grid-angular';
 
 @Component({
   selector: 'ngx-send-to-madam',
-  templateUrl: './send-to-madam.component.html',
-  styleUrls: ['./send-to-madam.component.scss']
+  templateUrl: './delete-button.component.html',
+  styleUrls: ['./delete-button.component.scss'],
 })
-export class SendToMadamComponent implements OnInit,ICellRendererAngularComp {
+export class DeleteButtonComponent implements OnInit, ICellRendererAngularComp {
   private params: any;
-  
+
   constructor() { }
 
   ngOnInit(): void {
@@ -24,8 +24,8 @@ export class SendToMadamComponent implements OnInit,ICellRendererAngularComp {
     return false;
   }
 
-  deleat_file(){
-    this.params.clicked(this.params.node.data.deleat);
+  onDelete() {
+    this.params.clicked(this.params.node.data);
   }
 
 
