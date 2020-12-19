@@ -6,7 +6,7 @@ import { PagesComponent } from './pages.component';
 
 import { HomeComponent } from './home/home.component';
 
-// 404 
+// 404
 import { NotFoundComponent } from '../miscellaneous/not-found/not-found.component';
 
 
@@ -22,14 +22,14 @@ const routes: Routes = [{
     // 大屏看板
     {
       path: 'board',
-      loadChildren:() => import('./eimboard/eimboard.module')
-      .then(m => m.EimboardModule)
+      loadChildren: () => import('./eimboard/eimboard.module')
+      .then(m => m.EimboardModule),
     },
     // 设备看板
     {
       path: 'equipment',
-      loadChildren:() => import('./equipment-board/equipment-board.module')
-      .then(m => m.EquipmentBoardModule)
+      loadChildren: () => import('./equipment-board/equipment-board.module')
+      .then(m => m.EquipmentBoardModule),
     },
     // 设备在线
     {
@@ -69,17 +69,16 @@ const routes: Routes = [{
     },
     // 举升机
     {
-      path:'lift-machine',
+      path: 'lift-machine',
       loadChildren: () => import('./lift-machine/lift-machine.module')
       .then(m => m.LiftMachineModule),
     },
     // 系统设置
     {
-      path:'system-set',
+      path: 'system-set',
       loadChildren: () => import('./system-set/system-set.module')
       .then(m => m.SystemSetModule),
     },
-    
     // 404 界面
     // {
     //   path: 'miscellaneous',

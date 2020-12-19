@@ -42,8 +42,8 @@ export class AgTableComponent implements OnInit {
   suppressPaginationPanel = true; // 隐藏用于导航的默认ag-Grid控件 即隐藏自带的分页组件
   suppressRowClickSelection = false; // true 则单击行时将不会发生行选择 仅在需要复选框选择时使用
 
-  
-  
+
+
 
   rowSelection; // 选中行
   frameworkComponents; // 表格渲染组件！
@@ -56,7 +56,7 @@ export class AgTableComponent implements OnInit {
   setPageCount = 10;     // 默认每页10条数据
   private requestPageCount = 1; // 每次请求的数目
   PageSize; // 下拉框中的数据
-  
+
 
   selectedRows = [];     // 行选择数据
 
@@ -69,28 +69,28 @@ export class AgTableComponent implements OnInit {
   context; // 和渲染的组件 数据交互！
 
 
-  constructor(private dialogService:NbDialogService, private userinfo: UserInfoService, private publicmethod: PublicmethodService) { 
+  constructor(private dialogService:NbDialogService, private userinfo: UserInfoService, private publicmethod: PublicmethodService) {
   }
-  
-  
+
+
   ngOnInit(): void {
     // this.gridOptions();
     // console.log("agGrid========================", this.agGrid)
   }
-  
+
 
   // kpi_detail
   ngAfterViewInit(){
   }
 
-  
+
   // ---------------
   gridOptions(employee_agGrid){
     this.columnDefs =  employee_agGrid["columnDefs"]// 列字段
     this.rowData =  employee_agGrid["rowData"]; // 行数据
     this.action =  employee_agGrid["action"]; // 是否操作
     this.alltotalPageNumbers = employee_agGrid["totalPageNumbers"]; // 数据库中的总条数
-    
+
     if(this.rowData.length>0){
       $(".isShow").show()
     }else{
@@ -123,7 +123,7 @@ export class AgTableComponent implements OnInit {
 
   };
 
-  
+
 
   // 渲染 详情
   KpiDetailRender(){}
@@ -164,8 +164,8 @@ export class AgTableComponent implements OnInit {
     const limit = this.requestPageCount * this.setPageCount;
     this.nzpageindexchange.emit({offset: offset, limit: limit, PageSize:this.setPageCount})
   }
-  
-  
+
+
 
   // 选中行数
   onSelectionChanged(event) {
@@ -185,13 +185,13 @@ export class AgTableComponent implements OnInit {
     // console.log("之后的当前页数",this.current); // this.current = this.totalPageNumbers / this.setPageCount
     this.pageIndexChange(this.current);
   }
- 
+
 
   // 父组件调用，得到选中的数据
   getselectedrows(){
     return this.selectedRows;
   }
-  
+
 
   // 过滤器已修改，但未应用。当过滤器具有“应用”按钮时使用。
   onfilterModified(event) {
@@ -256,7 +256,7 @@ export class AgTableComponent implements OnInit {
         }
 
         var data_item = [];
-        
+
         if (keys != []){
           for (let k of keys){
             data_item.push(element[k]);
@@ -269,12 +269,12 @@ export class AgTableComponent implements OnInit {
 
 
         table_data.push(data_item);
-        
+
       });
       // console.log("table_data=====", table_data);
       this.export(table_data);
       this.selectedRows = [];
-      
+
     }else{
       table_data.push(table_header);
       // 没有选择导出的数据
@@ -284,12 +284,12 @@ export class AgTableComponent implements OnInit {
             this.export(table_data);
             this.RecordOperation("导出"+title, 1, "导出excel表格");
           }
-  
+
         }
       );
 
     }
-    
+
 
 
   }
@@ -306,11 +306,11 @@ export class AgTableComponent implements OnInit {
   write(datas): XLSX.WorkBook {
     /* generate worksheet */
     const ws: XLSX.WorkSheet = XLSX.utils.aoa_to_sheet(datas);
-    
+
     /* generate workbook and add the worksheet */
     const wb: XLSX.WorkBook = XLSX.utils.book_new();
     XLSX.utils.book_append_sheet(wb, ws, 'Sheet1');
-    
+
     return wb;
   };
 

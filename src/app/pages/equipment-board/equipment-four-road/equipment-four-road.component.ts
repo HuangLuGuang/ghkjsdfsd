@@ -154,7 +154,7 @@ export class EquipmentFourRoadComponent implements OnInit {
   list_1 = ['equipment.road.LeftRear.Params','equipment.road.RightRear.Params'];
   list_3 = ['equipment.dataChannelList'];
   click_list = [];//当前选中的tag
-  deviceid: any;//设备信息
+  deviceid = 'device_mts_01';//设备信息
 
 
   timer:any;//定时器
@@ -193,16 +193,15 @@ export class EquipmentFourRoadComponent implements OnInit {
     let language = localStorage.getItem('currentLanguage');
     if(language!='zh-CN')this.language = language;
     //订阅左上角点击后宽度变化
-    this.subscribeList.layout = this.layoutService.onInitLayoutSize().subscribe(f=>{
-      this.initChart();
-    })
+    // this.subscribeList.layout = this.layoutService.onInitLayoutSize().subscribe(f=>{
+    //   this.initChart();
+    // })
 
     //路由订阅
     this.subscribeList.router = this.activateInfo.params.subscribe(f =>{
       console.log(f);
       if(document.getElementById('head_title'))
         document.getElementById('head_title').innerText = f.title;
-      this.deviceid = f.deviceid;
     })
     //颜色的赋值
     this.color();
@@ -220,7 +219,7 @@ export class EquipmentFourRoadComponent implements OnInit {
     let table,method = '';
     this.timer = setInterval(f =>{
       let param = this.create_param();
-      this.get_device_mts_01_status();
+      this.get_device_mts_status();
       if(param[0].length > 0){
         table = 'get_device_mts_time',method = 'device_monitor.get_device_mts_timerangedata';
         this.get_device_mts_time(table,method,param);
@@ -232,24 +231,9 @@ export class EquipmentFourRoadComponent implements OnInit {
       
     },1000)
     
-
-    setTimeout(() => {
-      this.initChart();
-    }, 1000);
    
   }
   
-  //初始化表格
-  initChart(){
-    
-    
-
-    // let array = ['chart_1','chart_2','chart_3'].forEach((f,i)=>{
-    //   if(this[`chart_${i+1}`])this[`chart_${i+1}`].painting({attrs:this[`attrs_${i+1}`][this.click_list[i]],xData:[],index:1});
-    // })
-    // create_third_chart_line(rtm3a,this);
-
-  }
 
   clicEvent(e,i){
     //记录选定
@@ -299,10 +283,10 @@ export class EquipmentFourRoadComponent implements OnInit {
   /**
    *   中间的表的数据 开关这些数据     
    */
-  get_device_mts_01_status(){
-      this.http.callRPC('get_device_mts_01_status','device_monitor.get_device_mts_01_status',{}).subscribe((f:any) =>{
+  get_device_mts_status(){
+      this.http.callRPC('get_device_mts_status','device_monitor.get_device_mts_status',{device:this.deviceid}).subscribe((f:any) =>{
         if(f.result.error || f.result.message[0].code == 0)return;
-        this.switchStatus.data[0][0] =  f.result.message[0][0].stationname;
+        this.switchStatus.data[0][0] =  f.result.message[0][1].stationname;
         //起停状态
         this.switchStatus.data[0][1].value =  f.result.message[0][0].runstop;
         this.switchStatus.data[0][1].color =  this.switchStatus.data[0][1].value == 1?'green':'#C0C0C0';
@@ -337,7 +321,7 @@ export class EquipmentFourRoadComponent implements OnInit {
     // let datestr_ = dateformat(new Date(),'yyyy-MM-dd hh:mm');
     // dateformat(new Date(now.getTime()-10000)
     let now = new Date();
-    this.http.callRPC(table,method,{"start":dateformat(new Date(now.getTime()-10000),'yyyy-MM-dd'),"end": dateformat(now,'yyyy-MM-dd hh:mm:ss'),"device":"device_mts_01",
+    this.http.callRPC(table,method,{"start":dateformat(new Date(now.getTime()-10000),'yyyy-MM-dd'),"end": dateformat(now,'yyyy-MM-dd hh:mm:ss'),"device":this.deviceid,
     arr:param[0].join(',')}).subscribe((f:any) =>{
       if(f.result.error || f.result.message[0].code == 0)return;
       painting_time(f,10,this,['chart_1','chart_2','chart_3']);
@@ -352,7 +336,7 @@ export class EquipmentFourRoadComponent implements OnInit {
    * @param param 
    */
   get_device_mts_realtimedata(table,method,param){
-    this.http.callRPC(table,method,{"device":"device_mts_01",
+    this.http.callRPC(table,method,{"device":this.deviceid,
     arr:param[1].join(',')}).subscribe((g:any) =>{
       if(g.result.error || g.result.message[0].code == 0)return;
       painting_time(g,1,this,['chart_1','chart_2','chart_3']);

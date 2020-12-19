@@ -12,6 +12,7 @@ export class EquipIntroduceComponent implements OnInit {
   //当前的页数
   @Input()  eqIntShow = 0;
   @Input()  title = '';
+  @Input() boardName = '';
 
   timer_1:any;
   constructor() { }
@@ -19,7 +20,7 @@ export class EquipIntroduceComponent implements OnInit {
   ngOnInit(): void {
     this.timer_1 = setInterval(f =>{
       this.eqIntShow = this.eqIntShow >=this.equipIntroduceList.length-1 ?0:this.eqIntShow+1;
-    },3000)
+    },9000)
   }
 
   //组件销毁

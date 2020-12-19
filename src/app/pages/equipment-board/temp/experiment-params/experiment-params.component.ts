@@ -12,13 +12,11 @@ let rtm3a = require('../../../../../assets/eimdoard/rtm3/js/rtm3a');
   styleUrls: ['./experiment-params.component.scss']
 })
 export class ExperimentParamsComponent implements OnInit {
-  @Input()device;
+  @Input()device:string = '';
   timer;
   language ='';
   subscribeList:any = {};
   obser = new Observable(f=>{
-    if(document.getElementById('real_temperature_1'))echarts.init(document.getElementById('real_temperature_1')).resize();
-    if(document.getElementById('real_temperature_2'))echarts.init(document.getElementById('real_temperature_2')).resize();
     if(document.getElementById('third_second'))echarts.init(document.getElementById('third_second')).resize();
     f.next('experiment-params刷新')
   })
@@ -30,18 +28,29 @@ export class ExperimentParamsComponent implements OnInit {
     if(language!='zh-CN')this.language = language;
     //订阅左上角点击后宽度变化
     this.subscribeList.layout = this.layoutService.onInitLayoutSize().subscribe(f=>{
-      if(document.getElementById('real_temperature_2'))echarts.init(document.getElementById('real_temperature_2')).resize();
-      if(document.getElementById('real_temperature_1'))echarts.init(document.getElementById('real_temperature_1')).resize();
       if(document.getElementById('third_second'))echarts.init(document.getElementById('third_second')).resize();
     })
 
+    
+
     this.timer = setInterval(f =>{
-      this.get_device_mts_weiss();
+      if(this.device.includes('weiss'))this.get_device_mts_weiss();
+      else {
+        this.get_device_Temp_hum();
+        rtm3a.create_third_chart_line({
+          yearPlanData:[1],
+          yearOrderData:[1],
+          differenceData:[1],
+          visibityData:[1],
+          xAxisData:[1],
+          title:this.language?'MonthlyChartOfTemperatureAndHumidity':'温湿度月度图线'
+        }, 'third_second');
+      }
     },1000)
   }
 
   ngAfterViewInit(){
-    this.get_device_mts_timerangedata();
+    if(this.device.includes('weiss'))this.get_device_mts_timerangedata();
     window.addEventListener('resize',this.chartResize)
   }
 
@@ -96,6 +105,27 @@ export class ExperimentParamsComponent implements OnInit {
         xAxisData:xAxisData,
         title:this.language?'MonthlyChartOfTemperatureAndHumidity':'温湿度月度图线'
       }, 'third_second');
+    })
+  }
+
+  //获取实时温湿度
+  get_device_Temp_hum(){
+    let res;
+    this.http.callRPC('get_temperature','device_monitor.get_temperature'
+    ,{deviceid:this.device}).subscribe((g:any) =>{
+      if(g.result.error || g.result.message[0].code == 0)return;
+      res = g.result.message[0].message[0]?g.result.message[0].message[0]:{};
+      console.log(res)
+      //渲染温度
+      if(document.getElementById('real_temperature_1'))
+        equipment_four_road.create_real_temperature_v2(
+          {value:res.temperature?res.temperature:0,title:'温度',max:70,setValue:res.temperatureset?res.temperatureset:0},
+          echarts.init(document.getElementById('real_temperature_1')));
+      //渲染湿度
+      if(document.getElementById('real_temperature_2'))
+        equipment_four_road.create_real_temperature_v2(
+          {value:res.humidity?res.humidity:0,title:'湿度',max:100,setValue:res.humidityset?res.humidityset:0},
+          echarts.init(document.getElementById('real_temperature_2')));
     })
   }
 

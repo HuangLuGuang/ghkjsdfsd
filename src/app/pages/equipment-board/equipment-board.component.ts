@@ -41,7 +41,6 @@ export class EquipmentBoardComponent implements OnInit {
   }
   
   ngAfterViewInit(){
-    
   }
 
   resize=()=>{

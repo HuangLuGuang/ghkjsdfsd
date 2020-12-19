@@ -9,7 +9,6 @@
     .sceond_fisrt,
     .sceond_third {
         // height: 33%;
-        width: w;
         display: flex;
         // box-shadow: 0 0px 1px 3px rgba(50, 84, 129, 1) inset;
         background: url('/assets/eimdoard/equipment/images/blue_beijing.png') center center;
@@ -17,7 +16,6 @@
         -webkit-background-size: cover;
         -o-background-size: cover;
         padding: 2%;
-        color: white;
         position: relative;
     }
     .font_w_too_long {
@@ -26,10 +24,10 @@
         overflow: hidden;
         text-overflow: ellipsis;
         white-space: nowrap;
-        width: 86px;
+        width: 75px;
     }
     .thrid {
-        height: 31%;
+        height: 32%;
         width: 100%;
         // box-shadow: 0 0px 1px 3px rgba(50, 84, 129, 1) inset;
         background: url('/assets/eimdoard/equipment/images/blue_beijing.png') center center;
@@ -37,7 +35,6 @@
         -webkit-background-size: cover;
         -o-background-size: cover;
         padding: 2%;
-        color: white;
         position: relative;
     }
     .bo {
@@ -64,7 +61,6 @@
     .p_backgroud_blue {
         padding-top: 10px;
         padding-bottom: 10px;
-        color: white;
         background: #4472c4;
     }
     .part_title {
@@ -72,7 +68,6 @@
         // width: 100px;
         padding: 0% 2%;
         height: 20px;
-        color: wheat;
         background: #4472c4;
         top: 0;
         left: 0;
@@ -83,9 +78,10 @@
         padding: 5px 0px 0px 10px;
         display: flex;
     }
-    .table {
+    ._table {
         // border: 1px solid rgb(68, 114, 196);
-        color: white;
+        padding: 0% 3%;
+        width: 100%;
         table {
             width: 100%;
             height: 100%;
@@ -108,7 +104,6 @@
                     width: 33%;
                 }
                 .progres_1 {
-                    color: white;
                     position: relative;
                 }
                 .progres_2 {
@@ -125,7 +120,7 @@
         }
     }
     .lattice_layout {
-        margin-top: 15px;
+        margin-top: 20px;
         display: inherit;
         position: relative;
     }
@@ -136,7 +131,11 @@
         // height: 100;
         height: 33%;
         position: relative;
-        margin-top: 10px;
+        margin-top: 20px;
+        background: url('/assets/eimdoard/equipment/images/blue_beijing.png') center center;
+        background-size: cover;
+        -webkit-background-size: cover;
+        -o-background-size: cover;
         #img {
             height: 100%;
             width: 100%;
@@ -158,7 +157,6 @@
     #strip {
         width: 23px;
         height: 6px;
-        background: white;
         border-radius: 2px;
         margin: 25%;
     }
@@ -199,7 +197,7 @@
     }
     ngx-equip-introduce {
         position: absolute;
-        left: 8%;
+        left: 4%;
         height: 100%;
     }
 }

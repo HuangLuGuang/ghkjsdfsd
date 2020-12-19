@@ -20,8 +20,9 @@
         "CO": "CO",
         "HCHO": "HCHO",
         "NOx": "NOx",
-        "YHYD": "YHYD",
+        "N2O": "N2O",
         "CxHy": "CxHy",
+        "YHYD": "N2O",
         "CH4": "CH4",
         "mileag1e": "mileage1",
         "mileage2": "mileage2",
@@ -47,6 +48,8 @@
         "realStatus": "RealTimeExperimentStatus",
         "temperature": "TEMP",
         "humidity": "RH",
+        "effluentTemp": "EffluentTemp",
+        "effluentHum": "EffluentHum",
         "pressDiff": "PressDiff",
         "setup": "SetUp",
         "ambient": "Ambient",
@@ -65,11 +68,17 @@
         "contact": "Contact",
         "BenchPIC": "BenchPIC",
         "dataChannelList": "DataChannelList",
+        "AdditionalChannels": "AdditionalChannels",
+        "EnvironmentRoom": "EnvironmentRoom",
         "equipmentStatus": "EquipmentStatus",
         "SafetyLampStatus": "SafetyLampStatus",
+        "ATECSafetyLampStatus": "ATECSafetyLampStatus",
+        "JINHUAsafetyLampStatus": "JINHUAsafetyLampStatus",
         "equipIntroduce": "EquipIntroduce",
         "EquipmentAlarm": "EquipmentAlarm",
+        "EquipmentHealthParam": "EquipmentHealthParam",
         "experimentParams": "ExperimenParameters",
+        "environmentalParams": "EnvironmentalParameters",
         "OnlineVideo": "OnlineVideo",
         "expInfor": "ExperimentalInformation",
         "OnOff": "On/off",
@@ -89,13 +98,19 @@
         "OilSeparator": "OilSeparator",
         "EmissionAnalyzer": "EmissionAnalyzer",
         "EnvironBinParam": "EnvironBinParam",
+        "jinhuaEnvironBin": "JinHuaEnvironBin",
         "loopFanRate": "loopFanRate",
         "NewTrendFanRate": "AirFanRate",
         "AVLSpeed": "AVLSpeed",
         "param1": "param1",
         "param2": "param2",
         "TestProgress": "TestProgress",
-        "StateOfTheDay": "安灯当日状态",
+        "StateOfTheDay": "StateOfTheDay",
+        "WasteDisPressDiff": "WasteDisPressDiff",
+        "CabinTemp": "CabinTemp",
+        "WasteDisOutput": "WasteDisOutput",
+        "CabinHumidity": "CabinHumidity",
+        "CarSoakingAreaTempHumidity": "CarSoakingAreaTempHumidity",
         "road": {
             "LeftFront": {
                 "Params": "LeftFrontParams",
@@ -160,6 +175,7 @@
             "DCpower": "DC power",
             "BusVoltage": "Bus Voltage",
             "BusCurrent": "Bus Current",
+            "AveCurrent": "Ave Current",
             "AveVoltage": "Ave Voltage",
             "AveOutputPowerOfController": "Ave Output Power Of Controller"
 
@@ -168,6 +184,22 @@
         "oilsrouce": {
             "accumulator": "Accumulator",
             "HPUstatistics-1": "HPUStatistics-1"
+        },
+        "shock": {
+            "4_5_6Cylinderr": "4/5/6Cylinder",
+            "FlipPitchYaw": "FlipPitchYaw",
+            "LeftFrontRightFront": "LeftFrontRightFront",
+            "1_2_3Cylinder": "1/2/3Cylinder",
+            "Horn1_2_3": "Horn1/2/3",
+            "VerticalAndHorizontal": "VerticalAndHorizontal"
+        },
+        "hydraulic": {
+            "Passageway1": "Passageway1",
+            "Passageway2": "Passageway2",
+            "Passageway3": "Passageway3",
+            "Passageway4": "Passageway4",
+            "Passageway5": "Passageway5",
+            "Passageway6": "Passageway6"
         }
     }
 

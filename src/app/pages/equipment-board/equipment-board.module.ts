@@ -14,6 +14,7 @@ import { TestInformationComponent } from './temp/test-information/test-informati
 import { ExperimentParamsComponent } from './temp/experiment-params/experiment-params.component';
 import { TestInformationV2Component } from './temp/test-information-v2/test-information-v2.component';
 import { EquipIntroduceComponent } from './temp/equip-introduce/equip-introduce.component';
+import { OilSourceMonitoringComponent } from './oil-source-monitoring/oil-source-monitoring.component';
 import { EquipmentStatusComponent } from './temp/equipment-status/equipment-status.component';
 import { EquipmentHydraulicPressureComponent } from './equipment-hydraulic-pressure/equipment-hydraulic-pressure.component';
 import { EquipmentShockComponent } from './equipment-shock/equipment-shock.component';
@@ -24,7 +25,11 @@ import { EquipmentDetailsComponent } from './equipment-details/equipment-details
 import { EquipmentFourRoadComponent } from './equipment-four-road/equipment-four-road.component';
 import { EquipmentBoardComponent } from './equipment-board.component';
 import { DigitCompletionPipe } from './pipe/digit-completion.pipe';
+import { TwoDriveChassisComponent } from './two-drive-chassis/two-drive-chassis.component';
 import { EquipmentAvlAtecComponent } from './equipment-avl-atec/equipment-avl-atec.component';
+import { CentralFourJinhuaComponent } from './central-four-jinhua/central-four-jinhua.component';
+import { CabinCentralizedMonitoringComponent } from './cabin-centralized-monitoring/cabin-centralized-monitoring.component';
+import { EquipmentMotorSixSevenComponent } from './equipment-motor-six-seven/equipment-motor-six-seven.component';
 
 
 // 组件
@@ -37,8 +42,13 @@ const COMPONENT = [
   EquipmentStatusComponent,LaboratoryBoardComponent,LogWarmComponent,
   TestInformationComponent,
   ExperimentParamsComponent,TestInformationV2Component,
+  OilSourceMonitoringComponent,
   DigitCompletionPipe,
-  EquipmentAvlAtecComponent
+  TwoDriveChassisComponent,
+  EquipmentAvlAtecComponent,
+  CentralFourJinhuaComponent,
+  CabinCentralizedMonitoringComponent,
+  EquipmentMotorSixSevenComponent
 ]
 //设备看板模块
 @NgModule({

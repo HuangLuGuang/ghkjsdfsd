@@ -1,20 +1,20 @@
 <div id="four_road">
-    <div class="row" style="height: 100%;">
-        <div class="col-md-4" style="padding: 0px 0px 0px 15px;">
+    <div class="row" style="height: 100%;margin: 0;">
+        <div class="col-md-4" style="padding: 0px 0px 0px 20px;">
             <div class="first_first" style="height: 33%;">
-                <ngx-equipment-status device='device_boyang_01' style="display: flex;width: 100%;"></ngx-equipment-status>
+                <ngx-equipment-status [device]='deviceid_avl_speed' style="display: flex;width: 100%;"></ngx-equipment-status>
             </div>
             <div class="first_second lattice_layout" style="height: 29%;">
                 <div class="part_title">{{'equipment.expInfor'|translate}}</div>
-                <ngx-test-information device='device_mts_01' style="width: 100%;"></ngx-test-information>
+                <ngx-test-information [device]='deviceid_avl_speed' style="width: 100%;"></ngx-test-information>
 
             </div>
             <div class="dis_f_w first_third lattice_layout height_32">
-                <ngx-log-warm device='device_mts_01' style="display: flex;width: 100%;flex-wrap: wrap;"></ngx-log-warm>
+                <ngx-log-warm [device]='deviceid_avl_speed' style="display: flex;width: 100%;flex-wrap: wrap;"></ngx-log-warm>
             </div>
         </div>
-        <div class="col-md-4" style="padding: 0px 15px;">
-            <div class="sceond_fisrt height_29">
+        <div class="col-md-4" style="padding: 0px 20px;">
+            <div class="sceond_fisrt height_28">
                 <div class="part_title">{{ 'equipment.equipIntroduce'|translate}}</div>
                 <div style="padding: 20px;overflow: auto;">
                     设备分三部分：AVL 转股、排放分析仪、环境舱；
@@ -28,7 +28,7 @@
                     <img id="img" [src]="img.url" [alt]="img.name">
                 </div>
             </div>
-            <div class="sceond_third height_33" style="position: relative;flex-wrap: wrap;padding-top: 0%; margin-top: 2%;">
+            <div class="sceond_third height_33" style="position: relative;flex-wrap: wrap;padding-top: 0%; margin-top: 20px;">
                 <div class="part_title">{{ 'equipment.EmissionAnalyzer'|translate }}</div>
                 <div class="display_wrap height_29" style="width: 100%;margin-top: 17px;">
                     <ng-container *ngFor="let item of discharge">
@@ -45,7 +45,7 @@
                 </div>
             </div>
         </div>
-        <div class="col-md-4" style="padding: 0px 15px 0px 0px ;">
+        <div class="col-md-4" style="padding: 0px 20px 0px 0px ;">
 
             <div class="thrid">
                 <div class="part_title">{{'equipment.EnvironBinParam'|translate}}</div>
@@ -64,12 +64,12 @@
                     <div id="discharge_chart_1" style="height: 100%;"></div>
                 </div>
                 <div class="height_20 display_wrap" style="padding-top: 4%;">
-                    <ng-container *ngFor="let item of real_data.arr;let i = index">
+                    <ng-container *ngFor="let item of environmental_real_data.arr;let i = index">
                         <div class="width_33 " style="display: flex;">
                             <div class="width_70 font_w_too_long" title="{{ language?item.nameEn:item.name }}">
                                 {{ language?item.nameEn:item.name }}:
                             </div>
-                            <div id="circle" [ngStyle]="{'backgroud':item.value == 1 ?'green':'black'}"></div>
+                            <div id="circle" [ngStyle]="{'background':item.value == 1 ?'green':'black'}"></div>
                         </div>
                         <br>
                     </ng-container>
@@ -79,14 +79,22 @@
                         <div style="height: 70%;" id="electric_chart_{{i}}"></div>
                         <div>{{language?item.titleEn:item.title}}</div>
                     </div>
-                    <div class="font_w_20">
-                        {{'equipment.loopFanRate' |translate}}:<br> 12
-                        <br> {{'equipment.NewTrendFanRate' |translate}}:<br> 12
+                    <div class="font_w_20" style="display: flex;align-items: center;height: 76%;">
+                        {{'equipment.loopFanRate' |translate}}:<br> {{environmental.ct_fun_hz_set}}
+                        <br> {{'equipment.NewTrendFanRate' |translate}}:<br> {{environmental.xf_fun_hz_set}}
                     </div>
                 </div>
             </div>
-            <div class="height_33 bo" style="margin-top: 14px;">
-                <ngx-chart-curve-v3 #chart_1 [chartName]="'chart_1'" title="{{ 'equipment.AVLSpeed'|translate}}" (clicEvent)="clicEvent($event,1)" dashboardName='dashboard_1' [list]="[]"></ngx-chart-curve-v3>
+            <div class="height_33 bo" style="margin-top: 20px;position: relative;">
+                <div class="part_title">{{'equipment.AVLSpeed'|translate}}</div>
+                <div class="height_50" style="display: flex;">
+                    <div *ngFor="let item of avl_speed" id="{{ item.id}}" class="height_100 width_25"></div>
+                </div>
+                <div class="height_50" id="avl_speed_chart_1">
+                </div>
+                <!-- <ngx-chart-curve-v3 #chart_1 [chartName]="'chart_1'" title="{{ 'equipment.AVLSpeed'|translate}}" (clicEvent)="clicEvent($event,1)" dashboardName='dashboard_1' [list]="[]">
+
+                </ngx-chart-curve-v3> -->
             </div>
         </div>
     </div>

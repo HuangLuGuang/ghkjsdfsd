@@ -1,11 +1,11 @@
 <div class="files_row">
     <!-- icon -->
     <div class="file_col_fileicon" >
-        <nb-icon [icon]='filename.fileicon'></nb-icon>
+        <nb-icon [icon]='file.fileicon'></nb-icon>
     </div>
 
     <!-- file name -->
-    <div class="file_col_filename" (click)="get_children(filename)">{{filename.filename}}</div>
+    <div class="file_col_filename" (click)="get_children(file)">{{file.filename}}</div>
 
     <div style="flex: auto;"></div>
 </div>

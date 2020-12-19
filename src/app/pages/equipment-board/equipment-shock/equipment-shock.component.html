@@ -1,23 +1,23 @@
 <div id="four_road">
-    <div class="row " style="height: 100%;">
-        <div class="col-md-4" style="padding: 0px 0px 0px 15px;">
+    <div class="row " style="height: 100%;margin: 0;">
+        <div class="col-md-4" style="padding: 0px 0px 0px 20px;">
             <div class="first_first height_33" style="position: relative;">
-                <ngx-equipment-status device='device_boyang_01' style="display: flex;width: 100%;"></ngx-equipment-status>
+                <ngx-equipment-status [device]='deviceid' style="display: flex;width: 100%;"></ngx-equipment-status>
             </div>
             <div class="first_second lattice_layout height_28">
                 <div class="part_title">{{'equipment.expInfor'|translate}}</div>
-                <ngx-test-information device='device_mts_01' style="width: 100%;"></ngx-test-information>
+                <ngx-test-information [device]='deviceid' style="width: 100%;"></ngx-test-information>
 
             </div>
-            <div class="dis_f_w first_third lattice_layout height_32">
-                <ngx-log-warm device='device_mts_01' style="display: flex;width: 100%;flex-wrap: wrap;"></ngx-log-warm>
+            <div class="dis_f_w first_third lattice_layout height_33">
+                <ngx-log-warm [device]='deviceid' style="display: flex;width: 100%;flex-wrap: wrap;"></ngx-log-warm>
 
             </div>
         </div>
-        <div class="col-md-4" style="padding: 0px 15px;">
+        <div class="col-md-4" style="padding: 0px 20px;">
             <div class="sceond_fisrt height_28" style="position: relative;padding-top: 0px;display: inherit;min-height: 220px;">
                 <div class="part_title">{{ 'equipment.equipIntroduce'|translate}}</div>
-                <ngx-equip-introduce [equipIntroduceList]="equipIntroduceList" title="主要验证发动机悬置系统的耐久性能，以及其它车辆子系统耐久性能验证如：前端冷却模块、座椅系统、天窗系统等"></ngx-equip-introduce>
+                <ngx-equip-introduce style="width:92%;" boardName='shock' [equipIntroduceList]="equipIntroduceList" title="主要验证发动机悬置系统的耐久性能，以及其它车辆子系统耐久性能验证如：前端冷却模块、座椅系统、天窗系统等"></ngx-equip-introduce>
             </div>
             <div class="center_img">
                 <div class="part_title">{{'equipment.OnlineVideo'|translate}}</div>
@@ -27,14 +27,14 @@
                     <img id="img" [src]="img.url" [alt]="img.name">
                 </div>
             </div>
-            <div class="sceond_third height_33" style="display: inherit;;box-shadow:0px 0px;padding: 0%;margin-top: 10px;">
+            <div class="sceond_third height_33" style="display: inherit;;box-shadow:0px 0px;padding: 0%;margin-top: 20px;">
                 <ngx-chart-curve-v3 #chart_3 [chartName]="'chart_3'" (clicEvent)="clicEvent($event,3)" [list]="list_3">
-                    <div style="width: 100%;display: flex;">
-                        <div class="table height_38" style="width: 66%;margin-bottom: 0px;">
+                    <div style="width: 100%;display: flex;padding-left: 4%;">
+                        <div class="_table height_38" style="width: 66%;margin-bottom: 0px;">
                             <div class="table_bo height_48">
                                 <table>
                                     <tr class="header">
-                                        <td *ngFor="let title of switchStatus.title" [ngStyle]="{'width':get_td_width(switchStatus.title.length)}">
+                                        <td *ngFor="let title of switchStatus.title;let i = index" [ngStyle]="{'width':switchStatus.width[i]}">
                                             {{"equipment."+title | translate}}
                                         </td>
                                     </tr>
@@ -43,10 +43,12 @@
                             <div class="table_bo height_58">
                                 <table>
                                     <tr class="body" *ngFor="let items of switchStatus.data">
-                                        <td *ngFor="let item of items;let i = index" [ngStyle]="{'width':get_td_width(switchStatus.title.length)}">
-                                            <div *ngIf="i == 0;else graphical">{{item}}</div>
+                                        <td *ngFor="let item of items;let i = index" [ngStyle]="{'width':switchStatus.width[i]}">
+                                            <div class="font_w_too_long" *ngIf="i == 0;else graphical">{{item}}</div>
                                             <ng-template #graphical>
-                                                <div id="{{item.id}}" [ngStyle]="{'background': item.color}">
+                                                <div style="display: flex;justify-content: center;">
+                                                    <div class="font_w_too_long" id="{{item.id}}" [ngStyle]="{'background': item.color}">
+                                                    </div>
                                                 </div>
                                             </ng-template>
                                         </td>
@@ -54,7 +56,7 @@
                                 </table>
                             </div>
                         </div>
-                        <div class="width_33 height_38">
+                        <div class="width_26 height_38">
                             <div class="height_30" style="margin-top: 10px;" *ngFor="let item of real_list">
                                 {{item.name}}{{'equipment.OilSeparator'|translate}}：
                                 <span [ngStyle]="{'color':item.color}">
@@ -70,17 +72,17 @@
                 </div> -->
             </div>
         </div>
-        <div class="col-md-4" style="padding: 0px 15px 0px  0px;">
+        <div class="col-md-4" style="padding: 0px 20px 0px  0px;">
 
             <div class="thrid">
                 <div class="part_title">{{'equipment.experimentParams'|translate}}</div>
-                <ngx-experiment-params device='device_weiss_01' style="width: 100%;"></ngx-experiment-params>
+                <ngx-experiment-params [device]='deviceid' style="width: 100%;"></ngx-experiment-params>
             </div>
 
-            <div class="height_32 bo" style="padding: 0%;margin-top: 10px;">
+            <div class="height_32 bo" style="padding: 0%;margin-top: 20px;">
                 <ngx-chart-curve-v3 #chart_2 [chartName]="'chart_2'" (clicEvent)="clicEvent($event,2)" dashboardName='dashboard_2' [list]="list_2"></ngx-chart-curve-v3>
             </div>
-            <div class="height_32 bo" style="padding: 0%;margin-top: 10px;">
+            <div class="height_32 bo" style="padding: 0%;margin-top: 20px;">
                 <ngx-chart-curve-v3 #chart_1 [chartName]="'chart_1'" (clicEvent)="clicEvent($event,1)" chartVivid='columnar' dashboardName='dashboard_1' [list]="list_1"></ngx-chart-curve-v3>
             </div>
         </div>

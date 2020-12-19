@@ -1,0 +1,29 @@
+<nb-card>
+  <nb-card-header>
+    <div class="row">
+        <div class="col-md-10" style="text-align: left;"> 新建文件夹</div>
+        <div class="col-md-2" style="text-align: right;">
+            <nb-icon icon="close-outline" style="cursor: pointer;" (click)="cancel()"></nb-icon>
+        </div>
+    </div>
+
+  </nb-card-header>
+  <nb-card-body>
+    <form nz-form [formGroup]="validateForm" (ngSubmit)="submit()">
+
+      <nz-form-item>
+        <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="name" nzRequired>文件夹名称</nz-form-label>
+        <nz-form-control [nzSm]="14" [nzXs]="24" nzErrorTip="请输入文件夹名称">
+          <input nz-input id="name" formControlName="name" placeholder="请输入文件夹名称" />
+        </nz-form-control>
+      </nz-form-item>
+      <nz-form-item nz-row class="register-area">
+        <nz-form-control [nzSpan]="14" [nzOffset]="8">
+          <button nz-button nzType="primary" >提交</button>
+          <button nz-button (click)="cancel()">取消</button>
+        </nz-form-control>
+      </nz-form-item>
+    </form>
+
+  </nb-card-body>
+</nb-card>

@@ -11,7 +11,7 @@ let equipment_four_road = {
             borderData = [],
             legend = data.title_arr,
             borderHeight = 0,
-            normalColor = "rgba(255,255,255,0.5)";
+            normalColor = "rgba(55,255,249,1)";
         let seriesData = [];
         this.create_device_status_fun(data, seriesData, legend, borderData, borderHeight);
         // console.log(seriesData);
@@ -189,10 +189,10 @@ let equipment_four_road = {
                         show: false
                     },
                     splitLine: {
-                        show: true,
+                        width: 0.08,
                         lineStyle: {
-                            type: "dashed",
-                            color: "rgba(255,255,255,0.2)"
+                            type: "solid",
+                            color: "rgba(55,255,249,0.3)"
                         }
                     }
                 }
@@ -222,6 +222,7 @@ let equipment_four_road = {
 
 
         var data = [];
+        //绿，撑，蓝，红
         var color = ['rgb(74,181,107)', '#faa755', '#006ced', '#d71345', ]
         for (let i = 0; i < trafficWay.length; i++) {
             data.push({
@@ -436,10 +437,11 @@ let equipment_four_road = {
         let optionInterval = {
             // backgroundColor:"#061740",
             title: {
-                text: '{a|' + value + '}{c|' + unit + '}',
+                text: value ? '{a|' + value + '}{c|' + unit + '}' : unit != 'RH' ? '常温' : '常湿',
                 x: 'center',
                 y: 'center',
                 textStyle: {
+                    color: '#29EEF3',
                     rich: {
                         a: {
                             fontSize: 12,
@@ -735,7 +737,7 @@ let equipment_four_road = {
         let max = gauge_data.max;
         let nqColor = [
             [gauge_data.setValue / max, "#1e87f0"],
-            [1, "#e6e6e6"]
+            [1, "#20B2AA"]
         ]
         let optionInterval_v2 = {
             tooltip: {
@@ -761,12 +763,14 @@ let equipment_four_road = {
                 },
                 splitLine: {
                     length: 12,
+
                 },
                 axisTick: { // 坐标轴小标记
                     show: true,
                     length: 10,
                     lineStyle: {
                         width: 1,
+                        color: '#339999'
                     }
                 },
                 pointer: {
@@ -775,6 +779,8 @@ let equipment_four_road = {
                 },
                 detail: {
                     show: true,
+                    formatter: datas.value ? datas.value : '常' + datas.title[0],
+                    fontSize: 18,
                     // offsetCenter: [0, '0%'],
 
                 },
@@ -878,8 +884,9 @@ let equipment_four_road = {
                             shadowColor: '#0092EE',
                             shadowBlur: 1,
                             color: [
-                                [0.2, '#0092EE'],
-                                [1, '#BECAD8']
+                                // [0.2, '#0092EE'],
+                                // [1, '#BECAD8']
+                                [1, '#0092EE'],
                             ],
                         }
                     },
@@ -946,7 +953,9 @@ let equipment_four_road = {
                             color: [
                                 [0.2, '#0092EE'],
                                 [0.8, '#0092EE'],
-                                [1, '#BECAD8']
+                                [1, '#0092EE'],
+
+                                // [1, '#BECAD8']
                             ],
                         }
                     },
@@ -1007,8 +1016,11 @@ let equipment_four_road = {
                             shadowColor: '#0092EE',
                             shadowBlur: 50,
                             color: [
-                                [0.2, '#BECAD8'],
+                                [0.2, '#0092EE'],
+
+                                // [0.2, '#BECAD8'],
                                 [0.8, '#0092EE'],
+
                                 [1, '#25C0C8']
                             ],
                         }
@@ -1226,6 +1238,10 @@ let equipment_four_road = {
                 itemWidth: 16.5,
                 itemHeight: 6,
                 padding: 1,
+                pageIconColor: 'rgba(217, 244, 45, 1)',
+                pageTextStyle: {
+                    color: 'white'
+                },
                 textStyle: {
                     color: 'white',
                     fontSize: 12
@@ -1256,7 +1272,7 @@ let equipment_four_road = {
                 },
                 boundaryGap: false,
                 splitLine: {
-                    show: true,
+                    show: false,
                     width: 0.08,
                     lineStyle: {
                         type: "solid",
@@ -1300,7 +1316,11 @@ let equipment_four_road = {
                     }
                 },
                 splitLine: {
-                    show: false,
+                    width: 0.08,
+                    lineStyle: {
+                        type: "solid",
+                        color: "rgba(55,255,249,0.3)"
+                    }
                 },
                 axisTick: {
                     show: false, //不显示刻度
@@ -1365,7 +1385,7 @@ let equipment_four_road = {
 
         var dataStyle = {
             normal: {
-                formatter: '{c}' + data.unit,
+                formatter: data.value ? '{c}' + data.unit : '常' + data.text[data.text.length - 2],
                 position: 'center',
                 show: true,
                 textStyle: {
@@ -1473,17 +1493,17 @@ let equipment_four_road = {
                     type: 'line',
                     showSymbol: true,
                     lineStyle: {
-                        width: 1
+                        width: 2
                     },
                     itemStyle: {
-                        color: 'rgb(255, 70, 131)'
+                        color: f.color[0]
                     },
                     areaStyle: {
-                        color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [{
+                        color: new echarts.graphic.LinearGradient(0, 0, 0, 0.1, [{
                             offset: 0,
                             color: f.color[0]
                         }, {
-                            offset: 1,
+                            offset: 0.3,
                             color: f.color[0]
                         }])
                     },
@@ -1497,7 +1517,7 @@ let equipment_four_road = {
                         color: f.color[0]
                     },
                     lineStyle: {
-                        width: 1
+                        width: 2
                     },
                     data: f.value
                 });
@@ -1508,7 +1528,7 @@ let equipment_four_road = {
                 trigger: 'axis',
             },
             grid: {
-                buttom: '0%',
+                buttom: '5%',
                 top: '5%',
                 width: '90%',
                 height: '80%'
@@ -1534,7 +1554,17 @@ let equipment_four_road = {
                 splitLine: { show: false },
                 min: 0,
                 axisLabel: {
-                    color: "white"
+                    color: "white",
+                    formatter: function(str) {
+                        return str > 10000 ? str / 10000 + 'W' : str;
+                    }
+                },
+                splitLine: {
+                    width: 0.08,
+                    lineStyle: {
+                        type: "solid",
+                        color: "rgba(55,255,249,0.3)"
+                    }
                 },
             },
             series: series
@@ -1634,28 +1664,29 @@ let equipment_four_road = {
             type: 'line',
             data: lines,
             lineStyle: {
-                normal: {
-                    width: 2,
-                    // color: '#3374EB',
-                    color: {
-                        type: 'linear',
-                        x: 0,
-                        y: 0,
-                        x2: 1,
-                        y2: 0,
-                        colorStops: [{
-                            offset: 0,
-                            color: colors[0] // 0% 处的颜色
-                        }, {
-                            offset: 1,
-                            color: colors[1] // 100% 处的颜色
-                        }],
-                        global: false // 缺省为 false
-                    },
-                    shadowColor: colors[1],
-                    shadowBlur: 4,
-                    shadowOffsetY: 3
-                }
+                color: colors[0]
+                    // normal: {
+                    //     width: 2,
+                    //     // color: '#3374EB',
+                    //     color: {
+                    //         type: 'linear',
+                    //         x: 0,
+                    //         y: 0,
+                    //         x2: 1,
+                    //         y2: 0,
+                    //         colorStops: [{
+                    //             offset: 0,
+                    //             color: colors[0] // 0% 处的颜色
+                    //         }, {
+                    //             offset: 1,
+                    //             color: colors[1] // 100% 处的颜色
+                    //         }],
+                    //         global: false // 缺省为 false
+                    //     },
+                    //     shadowColor: colors[1],
+                    //     shadowBlur: 4,
+                    //     shadowOffsetY: 3
+                    // }
             },
             symbol: 'emptyCircle',
             showSymbol: false,
@@ -1684,7 +1715,7 @@ let equipment_four_road = {
                     type: "bar",
                     stack: legend[index],
                     data: item,
-                    barWidth: "15%",
+                    // barWidth: "15%",
                     itemStyle: {
                         normal: {
                             color: {
@@ -1932,8 +1963,7 @@ let equipment_four_road = {
                         rich: {},
                         offsetCenter: [0, '65%'],
                         formatter: function(value) {
-                            console.info(value)
-                            return (value + "℃");
+                            return value ? (value + "℃") : '常温';
                         }
                     },
                     data: [{
@@ -2011,7 +2041,7 @@ let equipment_four_road = {
                         rich: {},
                         offsetCenter: [0, '65%'],
                         formatter: function(value) {
-                            return (value + "%RH");
+                            return value ? (value + "%RH") : '常湿';
                         }
                     },
                     data: [{
@@ -2089,7 +2119,7 @@ let equipment_four_road = {
                         rich: {},
                         offsetCenter: [0, '65%'],
                         formatter: function(value) {
-                            return (value + "Pa");
+                            return value ? (value + "Pa") : '常压';
                         }
                     },
                     data: [{
@@ -2181,7 +2211,7 @@ let equipment_four_road = {
                     rich: {},
                     offsetCenter: [0, '65%'],
                     formatter: function(value) {
-                        return (value + data.unit);
+                        return data.value || !data.un ? (value + data.unit) : data.un;
                     }
                 },
                 data: [{
@@ -2192,6 +2222,81 @@ let equipment_four_road = {
         }
 
         myChart.setOption(option_t_31892740);
+        myChart.resize();
+    },
+    create_gauge_jinhua(data, myChart) {
+        let option_102973 = {
+            title: [{
+                text: data.value + data.unit,
+                x: '50%',
+                y: '37%',
+                textAlign: 'center',
+                textStyle: {
+                    fontSize: '12',
+                    fontWeight: '100',
+                    color: '#79ffff',
+                    textAlign: 'center',
+                },
+            }, {
+                text: data.title,
+                left: '50%',
+                top: '52%',
+                textAlign: 'center',
+                textStyle: {
+                    fontSize: '12',
+                    fontWeight: '100',
+                    color: '#79ffff',
+                    textAlign: 'center',
+                },
+            }],
+            polar: {
+                radius: ['90%', '80%'],
+                center: ['50%', '50%'],
+            },
+            angleAxis: {
+                max: data.max,
+                show: false, //影藏刻度线
+                startAngle: 225,
+            },
+            radiusAxis: {
+                type: 'category',
+                show: true,
+                axisLabel: {
+                    show: false,
+                },
+                axisLine: {
+                    show: false,
+
+                },
+                axisTick: {
+                    show: false
+                },
+            },
+            series: [{
+                name: '',
+                type: 'bar',
+                roundCap: true,
+                barWidth: 60,
+                showBackground: true,
+                backgroundStyle: {
+                    color: '#464451',
+                },
+                data: [data.value],
+                coordinateSystem: 'polar',
+                itemStyle: {
+                    normal: {
+                        color: new echarts.graphic.LinearGradient(1, 0, 0, 0, [{
+                            offset: 0,
+                            color: '#0ff'
+                        }, {
+                            offset: 1,
+                            color: '#02aeff'
+                        }]),
+                    }
+                }
+            }, ]
+        };
+        myChart.setOption(option_102973);
         myChart.resize();
     }
 }

@@ -11,16 +11,19 @@
     // -o-background-size: cover;
     .title {
         min-width: 24%;
-        height: 9%;
+        height: 20px;
         // right: 1%;
-        top: -12px;
-        color: wheat;
+        left: 0px;
+        position: absolute;
+        // color: wheat;
         display: flex;
         z-index: 1;
         .str {
-            // width: 80px;
+            min-width: 80px;
             background-color: #4472c4;
-            padding: 0px 10px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
         }
     }
     ul {
@@ -32,9 +35,9 @@
         overflow: hidden;
         text-align: center;
         font-size: xx-small;
-        color: #fff;
+        // color: #fff;
         background-color: #4673fbde;
-        border-right: 1px red solid;
+        // border-right: 1px red solid;
         padding: 1px;
         // width: 21px;
         margin-left: 3px;
@@ -42,13 +45,13 @@
         cursor: pointer;
     }
     .li_active {
+        display: flex;
         list-style-type: none;
         overflow: hidden;
         text-align: center;
         font-size: xx-small;
-        color: #fff;
+        // color: #fff;
         background-color: #1d2029de;
-        border-right: 1px red solid;
         padding: 1px;
         // width: 21px;
         margin-left: 3px;
@@ -58,16 +61,19 @@
     .box_shadow {
         // box-shadow: 0 0 1.2vh 0.34vh rgba(50, 84, 129, 0.7) inset;
         width: 100%;
-        height: 91%;
+        height: 96%;
         // height: auto;
         font-size: 12px;
-        color: white;
+        // color: white;
         display: flex;
         flex-wrap: wrap;
+        justify-items: center;
+        align-items: center;
     }
     .chart {
         width: 100%;
         height: 50%;
+        max-height: 50vh;
         // z-index: 10;
     }
     .dashboard {
@@ -76,7 +82,7 @@
         // z-index: 10;
     }
     .params {
-        color: white;
+        // color: white;
         width: 100%;
         height: 70%;
         font-size: 14px;
@@ -111,11 +117,11 @@
     }
     .select {
         position: absolute;
-        width: 50%;
+        width: 100%;
         height: 100px;
         top: 23px;
         z-index: 100;
-        color: white;
+        // color: white;
         text-align: left;
         div {
             background-color: #4472c4;
@@ -127,10 +133,31 @@
         height: 100px;
         top: 134px;
         z-index: 100;
-        color: white;
+        // color: white;
         text-align: left;
         div {
             background-color: #4472c4;
         }
     }
+}
+
+.scrollbar_1::-webkit-scrollbar {
+    /*滚动条整体样式*/
+    width: 5px;
+    /*高宽分别对应横竖滚动条的尺寸*/
+    height: 1px;
+}
+
+.scrollbar_1::-webkit-scrollbar-thumb {
+    /*滚动条里面小方块*/
+    border-radius: 10px;
+    box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.2);
+    background: #535353;
+}
+
+.scrollbar_1::-webkit-scrollbar-track {
+    /*滚动条里面轨道*/
+    box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.2);
+    border-radius: 10px;
+    background: #888888;
 }

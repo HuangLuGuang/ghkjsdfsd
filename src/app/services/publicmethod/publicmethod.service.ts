@@ -8,7 +8,7 @@ import { observable, Observable } from 'rxjs';
 import { HttpserviceService } from '../http/httpservice.service';
 import { HttpHeaders } from '@angular/common/http';
 import { loginurl,INFO_API,SYSMENU, ssotoken, menu_button_list, MULU} from '../../appconfig';
-import {DatePipe} from '@angular/common';  
+import {DatePipe} from '@angular/common';
 
 
 // ngx-toastr
@@ -19,8 +19,9 @@ import { Router } from '@angular/router';
 import { ExpiredTokenComponent } from '../../pages-popups/token-diallog/expired-token/expired-token.component';
 
 // 订阅
-import { BehaviorSubject } from 'rxjs' 
+import { BehaviorSubject } from 'rxjs'
 import { UserInfoService } from '../user-info/user-info.service';
+import {NzModalRef, NzModalService} from "ng-zorro-antd/modal";
 
 
 @Injectable({
@@ -30,7 +31,7 @@ export class PublicmethodService {
 
   constructor(private toatrservice: NbToastrService, private location: PlatformLocation, private httpservice: HttpserviceService,
     private ngxtoastrservice: ToastrService, private datepipe: DatePipe, private router: Router,
-    private dialogService: NbDialogService,
+    private dialogService: NbDialogService, private modal: NzModalService,
     ) { }
 
   /**
@@ -46,6 +47,19 @@ export class PublicmethodService {
       { position, status}
     )
   };
+
+  showConfirm(title: string, content: string): NzModalRef {
+    let ref: NzModalRef;
+    ref = this.modal.confirm({
+      nzTitle: '<b>' + title + '</b>',
+      nzContent: '<b>' + content + '</b>',
+      nzOkText: '确认',
+      nzOnOk: () => 1,
+      nzCancelText: '取消',
+      nzOnCancel: () => 0
+    });
+    return ref;
+  }
 
   public showngxtoastr(data) {
     var position = data.position;
@@ -76,7 +90,7 @@ export class PublicmethodService {
   // 得到当前的url
   public get_current_url(){
     for (const i in this.location){
-      
+
       if (i === 'location'){
         return new Observable((observe)=>{
           observe.next(this.location[i].href)
@@ -111,11 +125,11 @@ export class PublicmethodService {
                       observe.next(element)
                     }
                   })
-                
+
                 }
               }
             }
-            
+
           })
         });
 
@@ -153,7 +167,7 @@ export class PublicmethodService {
       map["type"] = item.type;
       map["textid"] = item.textid;
       map["permission"] = item.permission === null ? null: item.permission;
-      
+
       if (item.parentid === null){
         map["parentid"] = 0;
       }else{
@@ -161,9 +175,9 @@ export class PublicmethodService {
       }
       nodeData.push(map)
     });
-    
-    
-    
+
+
+
     return nodeData;
   }
 
@@ -262,7 +276,7 @@ export class PublicmethodService {
      }
      observe.next(roles);
    })
-    
+
   }
 
 
@@ -273,12 +287,12 @@ export class PublicmethodService {
     var year = today.getFullYear();
     var month = today.getMonth() + 1;
     var date = today.getDate();
-    
+
     var hour = today.getHours();
     var minute = today.getMinutes();
     var second = today.getSeconds();
 
-    
+
     return [hour, minute, second]
 
   }
@@ -299,7 +313,7 @@ export class PublicmethodService {
   }
 
   public selectedMoments = [
-    // new Date(new Date().getTime() - 86400000), // 昨天  getTime() 毫秒数 
+    // new Date(new Date().getTime() - 86400000), // 昨天  getTime() 毫秒数
     this.formatdata(new Date(new Date().getTime() - 86400000), 'yyyy-MM-dd'),
     this.formatdata(new Date(), 'yyyy-MM-dd'),
 
@@ -342,7 +356,7 @@ export class PublicmethodService {
   getmethod(method: string): void{
     this.currentmethod.next(method);
   }
-  
+
   // ==========================================
 
 
@@ -393,7 +407,7 @@ export class PublicmethodService {
             observale.next(button_list);
           })
         }else{
-          
+
         }
       });
 
@@ -438,7 +452,7 @@ export class PublicmethodService {
                   case 'download':
                     button[k]["class"] =  "primary";
                     break;
-                
+
                   default:
                     button[k]["class"] =  "primary";
                     break;
@@ -454,7 +468,7 @@ export class PublicmethodService {
       });
     })
   }
-   
+
   // -----------------------------------------页面得到 权限buttons
 
   // 会话过期，弹出提示框
@@ -474,7 +488,7 @@ export class PublicmethodService {
               // this.router.navigate([loginurl])
               // localStorage.removeItem('token_expired');
             }else{
-            }        
+            }
             observable.next(false); // 表示不可请求
           });
       }else{

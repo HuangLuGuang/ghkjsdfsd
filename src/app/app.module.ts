@@ -20,7 +20,7 @@ import {
   NbToastrModule,
   NbWindowModule
 
-  
+
 } from '@nebular/theme';
 
 // 多语言切换
@@ -80,7 +80,7 @@ import { EmqClientModule } from './services/emq-client/emq-client.module';
     ComponentTModule, // 自定义共享模块
     AgGridModule.withComponents([]),
     EmqClientModule
-    
+
   ],
   bootstrap: [AppComponent],
   providers:[

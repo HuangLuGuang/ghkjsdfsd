@@ -1,7 +1,7 @@
 <div class="andon_status">
-    <div class="part_title">{{'equipment.equipmentStatus' | translate}}</div>
+    <div class="part_title">{{'equipment.'+andon_status_font | translate}}</div>
     <div class="andon_status_font">
-        {{'equipment.SafetyLampStatus' | translate}}
+        {{"equipment.SafetyLampStatus" | translate}}
     </div>
     <div class="andon_color">
         <div *ngFor="let item of andon;let i = index;" style="height: 25%;">
@@ -14,17 +14,17 @@
 </div>
 <div class="andon_status_chart">
     <div class="chart height_35">
-        <div id="device_circular_1"></div>
-        <div id="device_circular_2"></div>
-        <div id="device_circular_3"></div>
+        <div id="{{'device_circular_1'+TempNum}}" class="device_circular"></div>
+        <div id="{{'device_circular_2'+TempNum}}" class="device_circular"></div>
+        <div id="{{'device_circular_3'+TempNum}}" class="device_circular"></div>
     </div>
     <div class="chart height_65">
-        <div class="height_40" style="box-shadow: 0 0px 1px 3px rgba(50, 84, 129, 1) inset;width: 95%;">
+        <div class="height_40" style="box-shadow: 0 0px 1px 3px rgba(50, 84, 129, 1) inset;width: 95%;min-height: 64px;">
             <div class="height_23"><span style="float: left;padding-left: 17px;">分</span> {{'equipment.StateOfTheDay' | translate}}</div>
-            <div id="operatingRate">
+            <div id="{{'operatingRate'++TempNum}}" class="operatingRate">
             </div>
         </div>
-        <div id="device_status" class="height_60"></div>
+        <div id="{{'device_status'++TempNum}}" class="height_60 device_status"></div>
     </div>
     <!-- <nb-flip-card [showToggleButton]="false" [flipped]="flipped" style="width: 100%;">
         <nb-card-front style="width: 100%;">

@@ -1,0 +1,147 @@
+<div id="motor_6_7">
+    <div class="row height_100" style="margin: 0;">
+        <div class="col-md-4" style="padding: 0px 0px 0px 20px;">
+            <div class="first_first height_33">
+                <ngx-equipment-status andon_status_font='ATECSafetyLampStatus' [device]='boyang_deviceid' style="display: flex;width: 100%;"></ngx-equipment-status>
+            </div>
+            <div class="first_second lattice_layout" style="height: 30%;">
+                <div class="part_title">{{'equipment.expInfor'|translate}}</div>
+                <ngx-test-information [device]='boyang_deviceid' style="width: 100%;"></ngx-test-information>
+            </div>
+            <div class="sceond_third height_31" style="flex-wrap: wrap;margin-top: 20px;">
+                <div class="part_title">{{ 'equipment.EquipmentHealthParam'|translate}}</div>
+                <div class="dis_f_w center_center width_100 height_50">
+                    <div id="motor_chart_g_1" class="height_100" style="width: 50%;"></div>
+                    <div id="motor_chart_g_2" class="height_100" style="width: 50%;"></div>
+                </div>
+                <div id="motor_chart_1" class="width_100 height_50"></div>
+            </div>
+        </div>
+        <div class="col-md-4" style="padding: 0px 20px;">
+            <div class="sceond_fisrt height_29">
+                <div class="part_title">{{ 'equipment.equipIntroduce'|translate}}</div>
+                <div style="padding: 20px;overflow: auto;">
+                </div>
+            </div>
+            <div class="center_img">
+                <div class="part_title">{{'equipment.OnlineVideo'|translate}}</div>
+                <div class="dis_f_w center_center height_100" style="width: 100%;">
+                    <img id="img" [src]="img.url" [alt]="img.name">
+                </div>
+            </div>
+            <div class="height_33 bo" style="margin-top: 20px;position: relative;">
+                <div class="part_title">{{ 'equipment.real'|translate }}{{ 'equipment.motor.MotorParam'|translate }}
+                </div>
+                <div class="height_26" style="margin-top: 20px;">
+                    <div class="height_50" style="display: flex;flex-wrap: wrap;">
+                        <div class="height_100 dis_f center_center" style="width: 30%;">
+                            <div class=" dis_f_w center_center">
+                                {{'equipment.motor.BusVoltage'|translate}}
+                            </div>
+                            <div class="height_100 width_70 bord dis_f_w center_center">{{ motor.pa_udc1 }}</div>
+                        </div>
+                        <div style="width: 3%;"></div>
+                        <div class="height_100 center_center dis_f" style="width: 30%;">
+                            <div class="center_center dis_f_w">
+                                {{'equipment.motor.BusCurrent'|translate}}
+                            </div>
+                            <div class="height_100 width_70 bord center_center dis_f_w">{{ motor.pa_idc1 }}</div>
+                        </div>
+                        <div style="width: 3%;"></div>
+
+                        <div class="height_100 center_center dis_f" style="width: 30%;">
+                            <div class="center_center dis_f_w">
+                                {{'equipment.motor.DCpower'|translate}}
+                            </div>
+                            <div class="height_100 width_70 bord center_center dis_f_w">{{ motor.prms4 }}</div>
+                        </div>
+                    </div>
+                    <div class="height_50" style="display: flex;flex-wrap: wrap;">
+                        <div class="center_center dis_f" style="width: 30%;">
+                            <div class="center_center dis_f_w">
+                                {{'equipment.motor.AveVoltage'|translate}}
+                            </div>
+                            <div class="height_100 width_70 bord center_center dis_f_w">{{ motor.urmsa }}</div>
+                        </div>
+                        <div style="width: 3%;"></div>
+
+                        <div class="height_100 center_center dis_f" style="width: 30%;">
+                            <div class="center_center dis_f_w">
+                                {{'equipment.motor.AveCurrent'|translate}}
+                            </div>
+                            <div class="height_100 width_70 bord center_center dis_f_w">{{ motor.irmsa }}</div>
+                        </div>
+                        <div style="width: 3%;"></div>
+
+                        <div class="height_100 center_center dis_f" style="width: 30%;">
+                            <div class="center_center dis_f_w">
+                                {{'equipment.motor.AveOutputPowerOfController'|translate}}
+                            </div>
+                            <div class="height_100 width_70 bord center_center dis_f_w">{{motor.eff_con}}</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="height_70" style="display: flex;">
+                    <div id="threePhase_67" class="height_100 width_50"></div>
+                    <div class="width_50" style="display: flex;flex-wrap: wrap;">
+                        <div id="threePhase_1_67" class="height_25 width_50"></div>
+                        <div id="threePhase_2_67" class="height_25 width_50"></div>
+                        <div id="threePhase_3_67" class="height_25 width_50"></div>
+                        <div id="threePhase_4_67" class="height_25 width_50"></div>
+                        <div id="threePhase_5_67" class="height_25 width_50"></div>
+                        <div id="threePhase_6_67" class="height_25 width_50"></div>
+                        <div id="threePhase_7_67" class="height_25 width_50"></div>
+                        <div id="threePhase_8_67" class="height_25 width_50"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4" style="padding: 0px 20px 0px 0px;">
+            <div class="sceond_third height_33" style="flex-wrap: wrap;">
+                <div class="part_title">{{ 'equipment.EquipmentHealthParam'|translate}}</div>
+                <div class="dis_f_w center_center width_100 height_50">
+                    <div id="motor_chart_g_3" class="height_100" style="width: 50%;"></div>
+                    <div id="motor_chart_g_4" class="height_100" style="width: 50%;"></div>
+                </div>
+                <div id="motor_chart_2" class="width_100 height_50"></div>
+            </div>
+            <div class="height_63 bo" style="margin-top: 20px;position: relative;">
+                <div class="part_title">{{ 'equipment.real'|translate }}{{ 'equipment.motor.MotorParam'|translate }}
+                </div>
+                <div class="height_37 dis_f" style="margin-top: 20px;">
+                    <img [src]="img.electric_url" style="width: 40%;margin: 20px 10px 10px 10px;">
+                    <div style="width: 60%;">
+                        <div class="height_50" style="display: flex;font-size: 12px;">
+                            <div class="lay_electric">
+                                <div>({{'equipment.motor.SystemEfficiency'|translate}})</div>
+                                <div id="electric_1_67" class="height_80"></div>
+                            </div>
+                            <div class="lay_electric">
+                                <div>({{'equipment.motor.ControllerEfficiency'|translate}})</div>
+                                <div id="electric_2_67" class="height_80"></div>
+                            </div>
+                            <div class="lay_electric">
+                                <div>({{'equipment.motor.MotorEfficiency'|translate}})</div>
+                                <div id="electric_3_67" class="height_80"></div>
+                            </div>
+                        </div>
+                        <div class="height_50" style="display: flex;justify-content: center;align-items: center;">
+                            <div class="height_100" style="width: 43%;">
+                                <div>({{ 'equipment.motor.ControllerOutputPower'|translate }})</div>
+                                <div id="electric_4_67" class="height_80"></div>
+                            </div>
+                            <div class="height_100" style="width: 40%;font-size: 12px;">
+                                <div>({{ 'equipment.motor.DCpower'|translate }})</div>
+                                <div id="electric_5_67" class="height_80"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div id="dashboard_67" class="height_30" style="margin-left: 10%;width: 80%;">
+                </div>
+                <div id="line_chart_12_67" class="height_30">
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

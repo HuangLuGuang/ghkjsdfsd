@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { SendToMadamComponent } from './send-to-madam.component';
+import { InputFoldernameComponent } from './input-foldername.component';
 
-describe('SendToMadamComponent', () => {
-  let component: SendToMadamComponent;
-  let fixture: ComponentFixture<SendToMadamComponent>;
+describe('InputFoldernameComponent', () => {
+  let component: InputFoldernameComponent;
+  let fixture: ComponentFixture<InputFoldernameComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ SendToMadamComponent ]
+      declarations: [ InputFoldernameComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(SendToMadamComponent);
+    fixture = TestBed.createComponent(InputFoldernameComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

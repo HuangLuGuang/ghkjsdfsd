@@ -2,7 +2,7 @@ let oilsrouce = {
     // 雷达图
     create_radar(data, myChart) {
         let option_radar = {
-            backgroundColor: '#003D74',
+            // backgroundColor: '#003D74',
             tooltip: {
                 show: true,
                 trigger: "item",
@@ -94,6 +94,7 @@ let oilsrouce = {
                 center: f.center,
                 splitNumber: 0, //刻度数量
                 startAngle: 180,
+                max: f.max,
                 endAngle: 0,
                 axisLine: {
                     show: true,
@@ -140,7 +141,7 @@ let oilsrouce = {
         })
 
         let option_gauge_3 = {
-            backgroundColor: '#003366',
+            // backgroundColor: '#003366',
             series: servies,
         };
         myChart.setOption(option_gauge_3);
@@ -149,7 +150,7 @@ let oilsrouce = {
     //不知道叫啥东西 n一列要显示几个
     create_bar_j(dataLine, myChart, title_left) {
         let option_bar_j = {
-            backgroundColor: '#003260',
+            // backgroundColor: '#003260',
             xAxis: [{
                 max: dataLine.max,
                 show: false
@@ -165,7 +166,7 @@ let oilsrouce = {
                 top: '0%'
             },
             yAxis: [{
-                    show: true,
+                    show: false,
                     axisLabel: {
                         textStyle: {
                             color: "#fff",
@@ -176,7 +177,7 @@ let oilsrouce = {
                     data: [0]
                 },
                 {
-                    show: true,
+                    show: false,
                     axisLabel: {
                         textStyle: {
                             color: "#fff",

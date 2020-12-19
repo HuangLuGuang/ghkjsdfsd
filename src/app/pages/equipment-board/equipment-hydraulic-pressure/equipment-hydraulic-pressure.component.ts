@@ -17,97 +17,67 @@ export class EquipmentHydraulicPressureComponent implements OnInit {
   xData = [];
 
   attrs_1:any = {
-    'equipment.road.LeftRear.Params':[{
-      name: "左后输出",nameEn :'LeftRearOutput', unit: "V",value: [],show:true
+    'equipment.hydraulic.Passageway4':[{
+      name: "4号缸位移",nameEn :'act410505481BDisplacement', unit: "mm",value: [],show:true
       ,color:["", ""]
     },{
-        name: "左后位移",nameEn :'LeftRearDisplacement', unit: "V",value: [],show:true,
+        name: "4号缸力",nameEn :'Act410505481BForce', unit: "kN",value: [],show:true,
         color:["", ""]
     },{
-      name: "左后活动Fdbk",nameEn :'LeftRearActiveFdbk', unit: "V",value: [],show:true,
+      name: "4号缸循环次数",nameEn :'Act410505481BCount', unit: "segments",value: [],show:true,
       color:["", ""]
-    },{
-      name: "左后指令频率",nameEn :'LeftRearCommandFrequency', unit: "V",value: [],
-      color:["", ""]
-  },{
-    name: "左后位移绝对误差",nameEn :'LeftRearDisplacementAbs.Error', unit: "V",value: [],
-    color:["", ""]
-  },{
-    name: "左后位移误差",nameEn :'LeftRearDisplacementError', unit: "V",value: [],
-    color:["", ""]
-  },{
-    name: "左后DeltaP",nameEn :'LeftRearDeltaP', unit: "V",value: [],
-    color:["", ""]
-}],
-    'equipment.road.RightRear.Params':[{
-      name: "右后输出",nameEn :'RightRearOutput', unit: "V",value: [],show:true
+    }],
+    'equipment.hydraulic.Passageway5':[{
+      name: "5号缸位移",nameEn :'act510506594ADisplacement', unit: "mm",value: [],show:true
       ,color:["", ""]
     },{
-        name: "右后位移",nameEn :'RightRearDisplacement', unit: "V",value: [],show:true,
-        color:["", ""]
-    },{
-      name: "右后活动Fdbk",nameEn :'RightRearActiveFdbk', unit: "V",value: [],show:true,
+      name: "5号缸力",nameEn :'Act510506594AForce', unit: "kN",value: [],show:true,
       color:["", ""]
     },{
-      name: "右后指令频率",nameEn :'RightRearCommandFrequency', unit: "V",value: [],
+      name: "5号缸循环次数",nameEn :'Act510506594ACount', unit: "segments",value: [],show:true,
       color:["", ""]
+  },],'equipment.hydraulic.Passageway6':[{
+    name: "6号缸位移",nameEn :'Act610506594BDisplacement', unit: "mm",value: [],show:true
+    ,color:["", ""]
   },{
-    name: "右后位移绝对误差",nameEn :'RightRearDisplacementAbs.Error', unit: "V",value: [],
+    name: "6号缸力",nameEn :'Act610506594BForce', unit: "kN",value: [],show:true,
     color:["", ""]
   },{
-    name: "右后位移误差",nameEn :'RightRearDisplacementError', unit: "V",value: [],
+    name: "6号缸循环次数",nameEn :'Act610506594BCount', unit: "segments",value: [],show:true,
     color:["", ""]
-  },{
-    name: "右后DeltaP",nameEn :'RightRearDeltaP', unit: "V",value: [],
-    color:["", ""]
-}],
+},],
 xData:[]
   };
   attrs_2:any = {
-    'equipment.road.LeftFront.Params':[{
-      name: "左前输出",nameEn :'LeftFrontOutput', unit: "V",value: [],show:true
+    'equipment.hydraulic.Passageway1':[{
+      name: "1缸位移",nameEn :'Act110506588ADisplacement', unit: "mm",value: [],show:true
       ,color:["", ""]
     },{
-        name: "左前位移",nameEn :'LeftFrontDisplacement', unit: "V",value: [],show:true,
+        name: "1号缸力",nameEn :'Act110506588AForce', unit: "kN",value: [],show:true,
         color:["", ""]
     },{
-      name: "左前活动Fdbk",nameEn :'LeftFrontActiveFdbk', unit: "V",value: [],show:true,
+      name: "1号缸循环次数",nameEn :'Act110506588ACount', unit: "segments",value: [],show:true,
       color:["", ""]
-    },{
-      name: "左前指令频率",nameEn :'LeftFrontCommandFrequency', unit: "V",value: [],
-      color:["", ""]
-  },{
-    name: "左前位移绝对误差",nameEn :'LeftFrontDisplacementAbs.Error', unit: "V",value: [],
-    color:["", ""]
-  },{
-    name: "左前位移误差",nameEn :'LeftFrontDisplacementError', unit: "V",value: [],
-    color:["", ""]
-  },{
-    name: "左前DeltaP",nameEn :'LeftFrontDeltaP', unit: "V",value: [],
-    color:["", ""]
-}],
-    'equipment.road.RightFront.Params':[{
-      name: "右前输出",nameEn :'RightFrontOutput', unit: "V",value: [],show:true
+    }],
+    'equipment.hydraulic.Passageway2':[{
+      name: "2缸位移",nameEn :'Act210506588BDisplacement', unit: "mm",value: [],show:true
       ,color:["", ""]
     },{
-        name: "右前位移",nameEn :'RightFrontDisplacement', unit: "V",value: [],show:true,
+        name: "2号缸力",nameEn :'Act210506588BForce', unit: "kN",value: [],show:true,
         color:["", ""]
     },{
-      name: "右前活动Fdbk",nameEn :'RightFrontActiveFdbk', unit: "V",value: [],show:true,
+      name: "2号缸循环次数",nameEn :'Act210506588BCount', unit: "V",value: [],show:true,
       color:["", ""]
+    }], 'equipment.hydraulic.Passageway3':[{
+      name: "3缸位移",nameEn :'act310505481ADisplacement', unit: "segments",value: [],show:true
+      ,color:["", ""]
     },{
-      name: "右前指令频率",nameEn :'RightFrontCommandFrequency', unit: "V",value: [],
+        name: "3号缸力",nameEn :'act310505481AForce', unit: "kN",value: [],show:true,
+        color:["", ""]
+    },{
+      name: "3号缸循环次数",nameEn :'act310505481ACount', unit: "segments",value: [],show:true,
       color:["", ""]
-  },{
-    name: "右前位移绝对误差",nameEn :'RightFrontDisplacementAbs.Error', unit: "V",value: [],
-    color:["", ""]
-  },{
-    name: "右前位移误差",nameEn :'RightFrontDisplacementError', unit: "V",value: [],
-    color:["", ""]
-  },{
-    name: "右前DeltaP",nameEn :'RightFrontDeltaP', unit: "V",value: [],
-    color:["", ""]
-}],
+    }],
 xData:[]
   };
 
@@ -161,8 +131,8 @@ xData:[]
   }
 
   // ngx-chart-curve-v3有哪些tag
-  list_2 = ['equipment.road.LeftFront.Params','equipment.road.RightFront.Params'];
-  list_1 = ['equipment.road.LeftRear.Params','equipment.road.RightRear.Params'];
+  list_2 = ['equipment.hydraulic.Passageway1','equipment.hydraulic.Passageway2','equipment.hydraulic.Passageway3',];
+  list_1 = ['equipment.hydraulic.Passageway4','equipment.hydraulic.Passageway5','equipment.hydraulic.Passageway6',];
   equipIntroduceList = [
     {htmlstr:hydraulic_htmlstr[0],title:'',type:'table_class'},
     {htmlstr:hydraulic_htmlstr[1],title:'',type:'table_class'},
@@ -170,7 +140,7 @@ xData:[]
 
 
   click_list = [];//当前选中的tag
-  deviceid: any;//设备编号
+  deviceid='device_mts_04';//设备编号
 
 
   timer:any;//定时器
@@ -191,7 +161,6 @@ xData:[]
     this.subscribeList.router = this.activateInfo.params.subscribe(f =>{
       if(document.getElementById('head_title'))
         document.getElementById('head_title').innerText = f.title;
-      this.deviceid = f.deviceid;
     })
 
     //颜色赋值
@@ -212,10 +181,9 @@ xData:[]
      // 定时添加数据
      let table,method = '';
     this.timer = setInterval(f =>{
-      this.get_device_mts_01_status();//实时状态表
+      this.get_device_mts_status();//实时状态表
       this.get_device_mst_oilseparator();//开油器
       let param = this.create_param();
-      this.get_device_mts_01_status();
       if(param[1].length > 0){
         table = 'get_device_mts_realtimedata',method = 'device_monitor.get_device_mts_realtimedata';
         this.get_device_mts_realtimedata(table,method,param);
@@ -312,18 +280,19 @@ xData:[]
             "hsmt9j28aon"="分油器开"
             "hsmt9j28ahigh"="分油器高"
    */
-  get_device_mts_01_status(){
-    this.http.callRPC('get_device_mts_01_status','device_monitor.get_device_mts_01_status',{}).subscribe((g:any) =>{
+  get_device_mts_status(){
+    this.http.callRPC('get_device_mts_status','device_monitor.get_device_mts_status',{device:this.deviceid}).subscribe((g:any) =>{
       this.switchStatus.data.forEach((f,i) => {
-        f[0] =  g.result.message[0][0].stationname;
+        if(i>=g.result.message[0].length)return;
+        f[0] =  g.result.message[0][i].stationname;
         //起停状态
-        f[1].value =  g.result.message[0][0].runstop;
+        f[1].value =  g.result.message[0][i].runstop;
         f[1].color =  f[1].value == 1?'green':'#C0C0C0';
         //内锁
-        f[2].value =  g.result.message[0][0].interlock;
+        f[2].value =  g.result.message[0][i].interlock;
         f[2].color =  f[2].value == 1?'white':'orange';
         //程序锁
-        f[3].value =  g.result.message[0][0].programinterlock;
+        f[3].value =  g.result.message[0][i].programinterlock;
         f[3].color =  f[3].value == 1?'white':'orange';
       });
 
@@ -341,7 +310,7 @@ xData:[]
     // let datestr = dateformat(new Date(),'yyyy-MM-dd hh:mm');
     // let datestr_ = dateformat(new Date(),'yyyy-MM-dd hh:mm');
     let now = new Date();
-    this.http.callRPC(table,method,{"start":dateformat(new Date(now.getTime()-10000),'yyyy-MM-dd hh:mm:ss'),"end": dateformat(now,'yyyy-MM-dd hh:mm:ss'),"device":"device_mts_01",
+    this.http.callRPC(table,method,{"start":dateformat(new Date(now.getTime()-10000),'yyyy-MM-dd'),"end": dateformat(now,'yyyy-MM-dd hh:mm:ss'),"device":this.deviceid,
 
     // this.http.callRPC(table,method,{"start":"2020-11-09 14:02:00","end":"2020-11-10 20:20:00","device":"device_mts_01",
     arr:param[0].join(',')}).subscribe((f:any) =>{
@@ -356,7 +325,7 @@ xData:[]
    */
   get_device_mst_oilseparator(){
     this.http.callRPC('get_device_mts_realtimedata','device_monitor.get_device_mts_realtimedata',
-    {'device':'device_mts_04',arr:"hsmt9j28aon,hsmt9j28ahigh,hsmt9j28bon,hsmt9j28bhigh,hsmt8j28aon,hsmt8j28ahigh,hsmt8j28bon,hsmt8j28bhigh,hsmt7j28aon,hsmt7j28ahigh,hsmt7j28bon,hsmt7j28bhigh"}
+    {'device':this.deviceid,arr:"hsmt9j28aon,hsmt9j28ahigh,hsmt9j28bon,hsmt9j28bhigh,hsmt8j28aon,hsmt8j28ahigh,hsmt8j28bon,hsmt8j28bhigh,hsmt7j28aon,hsmt7j28ahigh,hsmt7j28bon,hsmt7j28bhigh"}
     ).subscribe((f:any)=>{
       console.log(f);
       let _key = "";//请求到的数据字段前面部分固定的
@@ -405,7 +374,7 @@ xData:[]
    * @param param
    */
   get_device_mts_realtimedata(table,method,param){
-    this.http.callRPC(table,method,{"device":"device_mts_01",
+    this.http.callRPC(table,method,{"device":this.deviceid,
     arr:param[1].join(',')}).subscribe((g:any) =>{
       if(g.result.error || g.result.message[0].code == 0)return;
       painting_time(g,1,this,['chart_1','chart_2']);
