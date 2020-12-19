@@ -4,6 +4,7 @@
 #rtmv2{
     // background: url('/assets/pages/device-inline/images/bg.png');
     background: url('/assets/pages/device-inline/images/one/one_bj.jpg');
+    
     // 头部
     .head{
         position: relative;
@@ -70,15 +71,18 @@
         left: -7px;
         top: 0px;
         z-index: 0;
-        background: url('/assets/pages/device-inline/images/one/one_left_border.png') no-repeat;
+        background-image: url('/assets/pages/device-inline/images/one/one_left_border.png');
+        background-size:100% 100%;
+        background-repeat:no-repeat;
+        // background: url('/assets/pages/device-inline/images/one/one_left_border.png') no-repeat;
     }
     // 返回首页！
     .gotohome_father{
-        margin: 20px 0px 20px 40px;
+        margin: 20px -6% 20px 15%;
         z-index: 1;
         position: relative;
         .gotohome{
-            line-height: 30px;
+            line-height: 40px;
             cursor: pointer;
         }
         .gotohome:hover{
@@ -89,9 +93,10 @@
 
     // 日期--时间
     .date_father{
-        margin: 20px 40px 20px 0px;
+        // margin: 20px 40px 20px 0px;
+        margin: 20px 16% 20px -7%;
         .date{
-            line-height: 30px;
+            line-height: 40px;
         }
     }
 
@@ -104,24 +109,29 @@
         right: 0px;
         top: 0px;
         transform: rotateY(180deg);
-        background: url('/assets/pages/device-inline/images/one/one_left_border.png') no-repeat;
+        background-image: url('/assets/pages/device-inline/images/one/one_left_border.png');
+        background-size:100% 100%;
+        background-repeat:no-repeat;
+        // background: url('/assets/pages/device-inline/images/one/one_left_border.png') no-repeat;
     }
-    // border: lawngreen 1px solid;
-    min-height: 995px;
+    // min-height: 995px;
+    min-height: 87%;
     margin: 0px;
 
     // 关键指标
     .key-index{
         // border: 1px red solid;
-        margin-left: 40px;
-        height: 40%;
+        margin-left: 15%;
+        // height: 40%;
+        height: 374px;
         width: 91%;
     }
     // 预警信息
     .warning-information{
-        margin-left: 40px;
+        margin-left: 15%;
         margin-top: 10px;
-        height: 40%;
+        // height: 44%;
+        height: 411px;
         width: 91%;
         padding: 5px;
         .warning-title{
@@ -133,19 +143,25 @@
 
     // map地图
     .chian_map{
-        min-height: 1000px;
-        min-width: 850px;
+        background: url('/assets/pages/device-inline/images/one/onebj.jpg');
+        min-height: 700px;
+        background-position-x: center;
+        height: 100%;
+        min-width: 768px;
+        margin-right: 0.5%;
         border: 1px rgb(250, 246, 34) solid;
     }
 
     // 设备开动率、设备完好率
     .device-rate{
-        margin-left: 0px;
-        height: 40%;
+        margin-left: -7%;
+        // height: 40%;
+        height: 374px;
         width: 91%;
     }
     .rate-select{
         position: absolute;
+        margin: 20px 56px 20px -59px;
         top: 95px;
         width: 100%;
         z-index: 1;
@@ -182,9 +198,10 @@
 
     // geely介绍信息
     .geely-info{
-        margin-left: 0px;
+        margin-left: -7%;
         margin-top: 10px;
-        height: 40%;
+        // height: 44%;
+        height: 411px;
         width: 91%;
     }
 }

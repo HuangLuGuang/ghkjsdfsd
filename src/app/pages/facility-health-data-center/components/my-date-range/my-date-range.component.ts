@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { LayoutService } from '../../../../@core/utils';
 import { PublicmethodService } from '../../../../services/publicmethod/publicmethod.service';
 
 declare let $;
@@ -12,9 +13,22 @@ declare let layui;
 })
 export class MyDateRangeComponent implements OnInit {
 
-  constructor(private publicservice: PublicmethodService) { }
+  constructor(private publicservice: PublicmethodService, private layoutService: LayoutService) { }
 
   ngOnInit(): void {
+
+    this.layoutService.onInitLayoutSize().subscribe(f=>{
+      let key_index = document.querySelector('.key-index');
+      if(key_index) echarts.init(key_index).resize();
+      let device_rate = document.querySelector('.device-rate');
+      if(device_rate) echarts.init(device_rate).resize();
+      let nibo_map = document.querySelector('.nibo_map');
+      if(nibo_map) echarts.init(nibo_map).resize();
+
+      let geely_info = document.querySelector('.geely-info');
+      if(geely_info) echarts.init(geely_info).resize();
+    })
+    
     // 初始化 日期范围！
     this.initdate();
 
@@ -43,6 +57,7 @@ export class MyDateRangeComponent implements OnInit {
         elem: '.datacenter_report_date'
         ,range: true
         ,format: "yyyy-MM-dd"
+        ,btns: ['confirm']
         // 初始化日期范围 
         ,value: that.init_value
         ,trigger: 'click' //采用click弹出
@@ -50,7 +65,6 @@ export class MyDateRangeComponent implements OnInit {
           console.log(value); //得到日期生成的值，如：2017-08-18
           that.init_value = value;
           if (value === ""){
-            // console.log("已经清空了");
             // console.log("得到初始的日期时间对象  已经清空了:",that.init_value , "value", this.value  ); //得到初始的日期时间对象：{year: 2017, month: 8, date: 18, hours: 0, minutes: 0, seconds: 0}
             this.value = that.init_value
           }

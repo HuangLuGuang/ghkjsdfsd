@@ -70,45 +70,25 @@ export class MenuComponent implements OnInit {
 
   // 得到button，且加载目录到table
   get_buttons_and_mulutable(){
-    var buttons_list = localStorage.getItem("buttons_list");
-    if (buttons_list){
-      this.button = JSON.parse(buttons_list);
-      var button_lists = JSON.parse(buttons_list);
-        var button_list = {}
-        if(button_lists["edit"]){
-          button_list["edit"] = button_lists["edit"]["active"] === 1?  true: false;
-        }else{
-          button_list["edit"] = false;
-        }
-        if(button_lists["del"]){
-          button_list["del"] = button_lists["del"]["active"] === 1?  true: false;
-        }else{
-          button_list["del"] = false;
-        }
-        this.isactions = button_list;
-        // console.log(">>>>>>>>this.isactions_new<<<<<<",this.isactions);
-        this.loadMenu(this.isactions);
-    }else{
-      var roleid = this.userinfo.getEmployeeRoleID();
-      this.publicservice.get_buttons_bypath(roleid).subscribe(result=>{
-        this.button = result;
-        var button_lists = result;
-        var button_list = {}
-        if(button_lists["edit"]){
-          button_list["edit"] = button_lists["edit"]["active"] === 1?  true: false;
-        }else{
-          button_list["edit"] = false;
-        }
-        if(button_lists["del"]){
-          button_list["del"] = button_lists["del"]["active"] === 1?  true: false;
-        }else{
-          button_list["del"] = false;
-        }
-        this.isactions = button_list;
-        // console.log(">>>>>>>>this.isactions_new<<<<<<",this.isactions);
-        this.loadMenu(this.isactions);
-      });
-    }
+    var roleid = this.userinfo.getEmployeeRoleID();
+    this.publicservice.get_buttons_bypath(roleid).subscribe(result=>{
+      this.button = result;
+      var button_lists = result;
+      var button_list = {}
+      if(button_lists["edit"]){
+        button_list["edit"] = button_lists["edit"]["active"] === 1?  true: false;
+      }else{
+        button_list["edit"] = false;
+      }
+      if(button_lists["del"]){
+        button_list["del"] = button_lists["del"]["active"] === 1?  true: false;
+      }else{
+        button_list["del"] = false;
+      }
+      this.isactions = button_list;
+      // console.log(">>>>>>>>this.isactions_new<<<<<<",this.isactions);
+      this.loadMenu(this.isactions);
+    });
   }
   
   ngAfterViewInit(){

@@ -5,10 +5,10 @@ import { Router } from '@angular/router';
 let first_level = require('../../../../assets/pages/device-inline/js/first-level');
 
 
-
 // 全屏
 import * as screenfull from 'screenfull';
 import { Screenfull } from 'screenfull';
+import { LayoutService } from '../../../@core/utils';
 
 @Component({
   selector: 'ngx-first-level',
@@ -22,9 +22,22 @@ export class FirstLevelComponent implements OnInit {
   // 定时器
   currenttime_timer;
 
-  constructor( private router: Router) { }
+  constructor( private router: Router, private layoutService: LayoutService) { }
 
   ngOnInit(): void {
+
+    this.layoutService.onInitLayoutSize().subscribe(f=>{
+      let key_index = document.querySelector('.key-index');
+      if(key_index) echarts.init(key_index).resize();
+      let device_rate = document.querySelector('.device-rate');
+      if(device_rate) echarts.init(device_rate).resize();
+      let chian_map = document.querySelector('.chian_map');
+      if(chian_map) echarts.init(chian_map).resize();
+
+      let geely_info = document.querySelector('.geely-info');
+      if(geely_info) echarts.init(geely_info).resize();
+    })
+
     // 关键指标
     first_level.key_index();
     // 设备开动率、完好lv
@@ -56,6 +69,19 @@ export class FirstLevelComponent implements OnInit {
       this.is_not_fullscreen = sf.isFullscreen;
       sf.toggle(board)
     }
+
+    setTimeout(() => {
+      let key_index = document.querySelector('.key-index');
+      if(key_index) echarts.init(key_index).resize();
+      let device_rate = document.querySelector('.device-rate');
+      if(device_rate) echarts.init(device_rate).resize();
+      let chian_map = document.querySelector('.chian_map');
+      if(chian_map) echarts.init(chian_map).resize();
+  
+      let geely_info = document.querySelector('.geely-info');
+      if(geely_info) echarts.init(geely_info).resize();
+      
+    }, 500);
   };
 
   // 时间展示

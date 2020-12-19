@@ -37,9 +37,9 @@ let second_level = {
                 name: '年龄分布',
                 type: 'pie',
                 // 饼形图的大小,第一个内圆半径-第2个外圆半径
-                radius: ['50%', '70%'],
+                radius: ['30%', '50%'],
                 // 并状态的位置
-                center: ["50%", "45%"],
+                center: ["50%", "50%"],
 
                 avoidLabelOverlap: false,
                 // 图形上文字
@@ -70,12 +70,11 @@ let second_level = {
         };
         // 配置给实例化对象
         myChart.setOption(option);
-
         // 让图标跟随屏幕自适应
-        window.addEventListener('resize', f => {
-            console.log("重置的屏幕大小！")
-            myChart.resize();
-        })
+        // window.addEventListener('resize', f => {
+        //     console.log("重置的屏幕大小！")
+        //     myChart.resize();
+        // })
     },
 
     // chian_map map 地图
