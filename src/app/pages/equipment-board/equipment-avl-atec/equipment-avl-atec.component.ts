@@ -92,7 +92,7 @@ export class EquipmentAvlAtecComponent implements OnInit {
     },{
       id:'gauge_4',
       dataLine:{
-        value:12,name:'功率',max:100,color:[
+        value:0,name:'功率',max:100,color:[
         [0.4, '#203add'],
         [1, '#0d1758']],unit:'Kw'
       }
@@ -102,7 +102,7 @@ export class EquipmentAvlAtecComponent implements OnInit {
       dataLine:{
         value:12,name:'实时温度',max:100,color:[
         [0.4, '#203add'],
-        [1, '#0d1758']],unit:'℃'
+        [1, '#0d1758']],unit:'℃',un:'常温'
       }
     }
     ,{
@@ -110,15 +110,15 @@ export class EquipmentAvlAtecComponent implements OnInit {
       dataLine:{
         value:12,name:'实时湿度',max:100,color:[
         [0.4, '#203add'],
-        [1, '#0d1758']],unit:'%RH'
+        [1, '#0d1758']],unit:'%RH',un:'常湿'
       }
     }
     ,{
       id:'real_temperature_6',
       dataLine:{
-        value:12,name:'微压差',max:100,color:[
+        value:0,name:'微压差',max:100,color:[
         [0.4, '#203add'],
-        [1, '#0d1758']],unit:'Pa'
+        [1, '#0d1758']],unit:'Pa',un:'常压'
       }
     }
   ]; 
@@ -137,8 +137,9 @@ export class EquipmentAvlAtecComponent implements OnInit {
 
   @ViewChild('chart_1')chart_1:any;
 
-  deviceid: any;
-
+  light_deviceid = '';//轻型燃油车排放分析系统;
+  t_deviceid = '';//两驱底盘测功机;
+  aetc_deviceid = '';//两驱排放试验舱;
 
   timer:any;//定时器
   language = '';//语言 空为zh-CN中文
@@ -152,7 +153,7 @@ export class EquipmentAvlAtecComponent implements OnInit {
     if(language!='zh-CN')this.language = language;
     this.subscribeList.layout = this.layoutService.onInitLayoutSize().subscribe(f=>{
       this.initChart();
-      this.deviceid = f.deviceid;
+      
       // if(document){
 
       // }
@@ -163,6 +164,12 @@ export class EquipmentAvlAtecComponent implements OnInit {
       console.log(f);
       if(document.getElementById('head_title'))
         document.getElementById('head_title').innerText = f.title;
+        if(f.deviceid == 'two'){
+          this.light_deviceid = 'device_avl_igem02';
+        }else if(f.deviceid == 'four'){
+          this.light_deviceid = 'device_avl_igem01';
+        }
+        
     })
     let rgb = '';
     this.attrs.forEach((f,i)=>{
@@ -219,11 +226,6 @@ export class EquipmentAvlAtecComponent implements OnInit {
   }
 
   getData(){
-    // this.http.callRPC('panel_detail','get_device_panel_detail',
-    //   {"deviceid":this.deviceid}).subscribe((f:any) =>{
-
-    //   })
-    
     let g = 1;
     this.timer = setInterval(() =>{
       this.xData.push(g);
@@ -257,16 +259,8 @@ export class EquipmentAvlAtecComponent implements OnInit {
       })
 
       data_1.xData = this.xData;
-      // data_1.title = '功率曲线';
-      // if(document.getElementById('discharge_chart')){
-      //   let myChart_8 = echarts.init(document.getElementById('discharge_chart'));;
-      //   equipment_four_road.create_broken_line(data_1,myChart_8);
-      // }
       data_1.title = '速度/加速度曲线';
       if(document.getElementById('avl_param_chart_1'))equipment_four_road.create_broken_line(data_1,echarts.init(document.getElementById('avl_param_chart_1')));
-      // data_1.title = '轮边力曲线';
-      // if(document.getElementById('avl_param_chart_2'))equipment_four_road.create_broken_line(data_1,echarts.init(document.getElementById('avl_param_chart_2')));
-
       data_1.title = '温湿度曲线';
       if(document.getElementById('discharge_chart_1')){
         let myChart_9 = echarts.init(document.getElementById('discharge_chart_1'));;

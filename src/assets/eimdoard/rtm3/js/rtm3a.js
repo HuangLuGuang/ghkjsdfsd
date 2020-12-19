@@ -249,7 +249,7 @@ let rtm3a = {
                 },
                 splitLine: {
                     lineStyle: {
-                        color: 'white'
+                        color: '#3333FF'
                     }
                 }
             },
@@ -266,7 +266,7 @@ let rtm3a = {
                     symbol: 'circle',
                     symbolSize: 10,
                     showAllSymbol: true,
-                    color: color[1],
+                    color: color[3],
                     data: yearPlanData
                 },
                 {

@@ -1,0 +1,89 @@
+#motor_6_7 {
+    width: 100%;
+    height: 100%;
+    .first_first,
+    .first_second,
+    .sceond_fisrt,
+    .sceond_third {
+        // height: 33%;
+        width: 100%;
+        display: flex;
+        // box-shadow: 0 0px 1px 3px rgba(50, 84, 129, 1) inset;
+        background: url('/assets/eimdoard/equipment/images/blue_beijing.png') center center;
+        background-size: cover;
+        -webkit-background-size: cover;
+        -o-background-size: cover;
+        padding: 2%;
+        position: relative;
+    }
+    .bord {
+        border: 2px solid rgb(68, 114, 196);
+        border-radius: 4px;
+    }
+    .part_title {
+        position: absolute;
+        // width: 100px;
+        padding: 0% 2%;
+        height: 20px;
+        background: #4472c4;
+        top: 0;
+        left: 0;
+        min-width: 80px;
+    }
+    .dis_f_w {
+        display: flex;
+        flex-wrap: wrap;
+    }
+    .dis_f {
+        display: flex;
+    }
+    .center_center {
+        justify-content: center;
+        align-items: center;
+    }
+    .lattice_layout {
+        margin-top: 20px;
+        display: inherit;
+        position: relative;
+    }
+    .center_img {
+        // height: 100;
+        background: url('/assets/eimdoard/equipment/images/blue_beijing.png') center center;
+        background-size: cover;
+        -webkit-background-size: cover;
+        -o-background-size: cover;
+        height: 32%;
+        position: relative;
+        margin-top: 20px;
+        #img {
+            height: 100%;
+            width: 100%;
+            // background: url('/assets/eimdoard/equipment/images/car_2.png');
+            background-size: cover;
+            -webkit-background-size: cover;
+            -o-background-size: cover;
+            background-position: center center;
+        }
+    }
+    .bo {
+        // box-shadow: 0 0px 1px 3px rgba(50, 84, 129, 1) inset;
+        background: url('/assets/eimdoard/equipment/images/blue_beijing.png') center center;
+        background-size: cover;
+        -webkit-background-size: cover;
+        -o-background-size: cover;
+        padding: 2%;
+    }
+    .lay_electric {
+        width: 33%;
+        height: 100%;
+    }
+    .width_100 {
+        width: 100%;
+    }
+    .width_70 {
+        width: 70%;
+    }
+    .width_50 {
+        width: 50%;
+    }
+}

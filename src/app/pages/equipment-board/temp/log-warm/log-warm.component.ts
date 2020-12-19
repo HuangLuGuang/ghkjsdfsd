@@ -18,7 +18,6 @@ export class LogWarmComponent implements OnInit {
     // '时间','日志等级','日志信息'
     title:['time','Loglevel','logInfor'],
     data:[
-
     ]
   }
   timer;
@@ -37,8 +36,11 @@ export class LogWarmComponent implements OnInit {
       if(document.getElementById('warning'))
         echarts.init(document.getElementById('warning')).resize();
     })
+    let date;
     this.timer = setInterval(f=>{
       if(this.device)this.get_device_mts_log();
+      date = new Date();
+      if(date.getDay() == 1)this.get_device_mts_log_his();
     },1000)
     
     this.get_device_mts_log_his();

@@ -1,0 +1,86 @@
+<div id="monitoring">
+    <div class="row height_100" style="margin: 0;">
+        <div class="col-md-4" style="padding: 0px 0px 0px 20px;">
+            <div class="first_first height_33">
+                <ngx-equipment-status andon_status_font='ATECSafetyLampStatus' [device]='deviceid_ATEC' style="display: flex;width: 100%;"></ngx-equipment-status>
+            </div>
+            <div class="first_second lattice_layout" style="height: 30%;">
+                <div class="part_title">ATEC{{'equipment.expInfor'|translate}}</div>
+                <ngx-test-information [device]='deviceid_ATEC' style="width: 100%;"></ngx-test-information>
+            </div>
+            <div class="thrid height_31" style="margin-top: 20px;">
+                <div class="part_title">ATEC{{'equipment.EnvironmentRoom'|translate}}</div>
+                <div class=" height_5 dis_f_w" style="justify-content: flex-end;">
+                    {{'equipment.warehouseStatus'|translate}}：
+                    <div style="border-radius: 60px;width: 20px;height: 20px;margin-right: 20px;" [ngStyle]="{'background':atec.cang==1?'green':'#C0C0C0'}"></div>
+                    {{'equipment.FreshAirSystem'|translate}}：
+                    <div style="border-radius: 60px;width: 20px;height: 20px;" [ngStyle]="{'background':atec.newF==1?'green':'#C0C0C0'}"></div>
+                </div>
+                <div class="height_50" style="display: flex;justify-content: center;align-items: center;">
+                    <div id="real_temperature_4"></div>
+                    <div id="real_temperature_5"></div>
+                    <div id="real_temperature_6"></div>
+                    <div class="width_25">
+                        {{ 'equipment.CxHy'|translate}}<br>
+                        <div style="border: 2px solid #4472c4;width: 100%;height: 28px;">
+                            {{atec.hc}}ppm
+                        </div>
+                        {{ 'equipment.CO'|translate}}<br>
+                        <div style="border: 2px solid #4472c4;width: 100%;height: 28px;">
+                            {{atec.co}}ppm
+                        </div>
+                    </div>
+                </div>
+                <div class="height_45">
+                    <div id="cabin_discharge_chart_1" style="height: 100%;"></div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4" style="padding: 0px 20px;">
+            <div class="sceond_fisrt height_29">
+                <div class="part_title">{{ 'equipment.equipIntroduce'|translate}}</div>
+                <div style="padding: 20px;overflow: auto;">
+                </div>
+            </div>
+            <div class="center_img">
+                <div class="part_title">{{'equipment.OnlineVideo'|translate}}</div>
+                <div class="dis_f_w center_center height_100" style="width: 100%;">
+                    <img id="img" [src]="img.url" [alt]="img.name">
+                </div>
+            </div>
+            <div class="dis_f_w first_third lattice_layout height_31">
+                <ngx-log-warm class="dis_f_w" [device]='deviceid_ATEC' style="width: 100%;"></ngx-log-warm>
+            </div>
+        </div>
+        <div class="col-md-4" style="padding: 0px 20px 0px 0px;">
+            <div class="first_first height_33">
+                <ngx-equipment-status andon_status_font='JINHUAsafetyLampStatus' TempNum="2" [device]='deviceid_jinhua' style="display: flex;width: 100%;"></ngx-equipment-status>
+            </div>
+            <div class="thrid height_30" style="margin-top: 20px;">
+                <div class="part_title">锦华{{'equipment.EnvironmentRoom'|translate}}</div>
+
+                <div class="height_50" style="display: flex;justify-content: center;align-items: center;">
+                    <div id="real_temperature_7"></div>
+                    <div id="real_temperature_8"></div>
+                    <div id="real_temperature_9"></div>
+                    <!-- <div id="real_temperature_10"></div> -->
+                    <div class="width_20 dis_f_w" style="justify-content: flex-end;height: 64%;">
+                        {{'equipment.warehouseStatus'|translate}}：
+                        <div style="border-radius: 60px;width: 20px;height: 20px;" [ngStyle]="{'background':this.jinhua.cang == 1?'green':'#C0C0C0'}"></div>
+                        {{'equipment.FreshAirSystem'|translate}}：
+                        <div style="border-radius: 60px;width: 20px;height: 20px;" [ngStyle]="{'background':this.jinhua.newF == 1?'green':'#C0C0C0'}"></div>
+                    </div>
+                </div>
+                <div class="height_45">
+                    <div id="cabin_discharge_chart_2" style="height: 100%;"></div>
+                </div>
+            </div>
+            <div class="dis_f_w first_third lattice_layout height_31 center_center" style="padding-top: 4%;">
+                <div class="part_title">{{'equipment.CarSoakingAreaTempHumidity'|translate}}车区温湿度</div>
+                <div *ngFor="let item of TempHumidity" id="{{ item.id }}" style="width: 30%;height: 50%;">
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>

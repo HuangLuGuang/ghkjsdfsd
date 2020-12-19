@@ -8,9 +8,8 @@
     width: 30%;
 }
 
-.table {
+._table {
     // border: 1px solid rgb(68, 114, 196);
-    color: white;
     table {
         width: 100%;
         height: 100%;
@@ -33,7 +32,6 @@
                 width: 33%;
             }
             .progres_1 {
-                color: white;
                 position: relative;
             }
             .progres_2 {
@@ -50,6 +48,11 @@
     }
 }
 
+.length_too_long {
+    position: absolute;
+    width: 96%;
+}
+
 .lattice_layout {
     margin-top: 10px;
     display: inherit;
@@ -58,4 +61,25 @@
 
 .table_bo {
     border: 1px solid #4472c4;
+}
+
+.table_bo::-webkit-scrollbar {
+    /*滚动条整体样式*/
+    width: 5px;
+    /*高宽分别对应横竖滚动条的尺寸*/
+    height: 1px;
+}
+
+.table_bo::-webkit-scrollbar-thumb {
+    /*滚动条里面小方块*/
+    border-radius: 10px;
+    box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.2);
+    background: #535353;
+}
+
+.table_bo::-webkit-scrollbar-track {
+    /*滚动条里面轨道*/
+    box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.2);
+    border-radius: 10px;
+    background: #888888;
 }

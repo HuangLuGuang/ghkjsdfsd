@@ -1,0 +1,86 @@
+#monitoring {
+    width: 100%;
+    height: 100%;
+    .first_first,
+    .first_second,
+    .first_third,
+    .sceond_fisrt {
+        width: 100%;
+        display: flex;
+        background: url('/assets/eimdoard/equipment/images/blue_beijing.png') center center;
+        background-size: cover;
+        -webkit-background-size: cover;
+        -o-background-size: cover;
+        padding: 2%;
+        position: relative;
+    }
+    .thrid {
+        width: 100%;
+        background: url('/assets/eimdoard/equipment/images/blue_beijing.png') center center;
+        background-size: cover;
+        -webkit-background-size: cover;
+        -o-background-size: cover;
+        padding: 2%;
+        position: relative;
+    }
+    .lattice_layout {
+        margin-top: 20px;
+        display: inherit;
+        position: relative;
+    }
+    .dis_f_w {
+        display: flex;
+        flex-wrap: wrap;
+    }
+    .center_center {
+        justify-content: center;
+        align-items: center;
+    }
+    .part_title {
+        position: absolute;
+        // width: 100px;
+        padding: 0% 2%;
+        height: 20px;
+        background: #4472c4;
+        top: 0px;
+        left: 0px;
+        min-width: 80px;
+    }
+    .center_img {
+        // height: 100;
+        background: url('/assets/eimdoard/equipment/images/blue_beijing.png') center center;
+        background-size: cover;
+        -webkit-background-size: cover;
+        -o-background-size: cover;
+        height: 34%;
+        position: relative;
+        margin-top: 20px;
+        #img {
+            height: 100%;
+            width: 100%;
+            // padding-top: 5%;
+            // padding-bottom: 5%;
+            // background: url('/assets/eimdoard/equipment/images/car_2.png');
+            background-size: cover;
+            -webkit-background-size: cover;
+            -o-background-size: cover;
+            background-position: center center;
+        }
+    }
+    #real_temperature_4,
+    #real_temperature_5,
+    #real_temperature_6 {
+        width: 25%;
+        height: 100%;
+    }
+    #real_temperature_7,
+    #real_temperature_8,
+    #real_temperature_9,
+    #real_temperature_10 {
+        width: 25%;
+        height: 100%;
+    }
+    .width_20 {
+        width: 20%;
+    }
+}

@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { config } from 'rxjs';
+import { config, Observable } from 'rxjs';
 import { LayoutService } from '../../../@core/utils/layout.service';
 import {resize} from '../../../pages/equipment-board/equipment-board';
 
@@ -44,6 +44,14 @@ export class ChartCurveV3Component implements OnInit {
 //下拉显示的字段
   languageName = 'name';//默认为中文
 
+  obs = new Observable(f=>{
+    let isthis = this;
+    if(isthis.myChart)isthis.myChart.resize();
+    let dom = document.getElementById(this.dashboardName);
+    if(dom)echarts.init(dom).resize();
+    f.next('chart-v-3刷新');
+  })
+
 
   constructor(private layoutService:LayoutService ) { }
 
@@ -72,15 +80,17 @@ export class ChartCurveV3Component implements OnInit {
         
   }
   ngAfterViewInit (){
-      window.addEventListener('resize',this.chartResize);
+      window.addEventListener('resize',this.chartResize_v3);
   }
 
-  chartResize=()=>{
-    console.log('chart-v-3刷新')
-    let isthis = this;
-    if(isthis.myChart)isthis.myChart.resize();
-    let dom = document.getElementById(this.dashboardName);
-    if(dom)echarts.init(dom).resize();
+  chartResize_v3=()=>{
+    //   setTimeout(() => {
+        this.obs.subscribe(f=>{
+            console.log(f)
+        })
+        
+    //   }, 500);
+
   }
 
 
@@ -206,7 +216,7 @@ export class ChartCurveV3Component implements OnInit {
             text:'',
         },
         grid: {
-            left: '15%',
+            left: '10%',
             top: '7%',
             right: '5%',
             bottom: '15%',
@@ -239,6 +249,9 @@ export class ChartCurveV3Component implements OnInit {
             itemHeight: 6,
             padding :1,
             pageIconColor :'rgba(217, 244, 45, 1)',
+            pageTextStyle:{
+                color:'white'
+            },
             textStyle: {
                 color: 'white',
                 fontSize: 12
@@ -269,7 +282,7 @@ export class ChartCurveV3Component implements OnInit {
             },
             boundaryGap: false,
             splitLine: {
-                show: true,
+                show: false,
                 width: 0.08,
                 lineStyle: {
                     type: "solid",
@@ -313,8 +326,11 @@ export class ChartCurveV3Component implements OnInit {
                 }
             },
             splitLine: {
-                show: false,
-
+                width: 0.08,
+                lineStyle: {
+                    type: "solid",
+                    color: "rgba(55,255,249,0.3)"
+                }
             },
             axisTick: {
                 show: false, //不显示刻度
@@ -408,28 +424,29 @@ export class ChartCurveV3Component implements OnInit {
         type: 'line',
         data: lines,
         lineStyle: {
-            normal: {
-                width: 2,
-                // color: '#3374EB',
-                color: {
-                    type: 'linear',
-                    x: 0,
-                    y: 0,
-                    x2: 1,
-                    y2: 0,
-                    colorStops: [{
-                        offset: 0,
-                        color: colors[0] // 0% 处的颜色
-                    }, {
-                        offset: 1,
-                        color: colors[1] // 100% 处的颜色
-                    }],
-                    global: false // 缺省为 false
-                },
-                shadowColor: colors[1],
-                shadowBlur: 4,
-                shadowOffsetY: 3
-            }
+            color:colors[0]
+            // normal: {
+            //     width: 2,
+            //     // color: '#3374EB',
+            //     color: {
+            //         type: 'linear',
+            //         x: 0,
+            //         y: 0,
+            //         x2: 1,
+            //         y2: 0,
+            //         colorStops: [{
+            //             offset: 0,
+            //             color: colors[0] // 0% 处的颜色
+            //         }, {
+            //             offset: 1,
+            //             color: colors[1] // 100% 处的颜色
+            //         }],
+            //         global: false // 缺省为 false
+            //     },
+            //     shadowColor: colors[1],
+            //     shadowBlur: 4,
+            //     shadowOffsetY: 3
+            // }
         },
         symbol: 'emptyCircle',
         showSymbol: false,
@@ -529,7 +546,7 @@ export class ChartCurveV3Component implements OnInit {
 
  //组件销毁
  ngOnDestroy(){
-    window.removeEventListener('resize',this.chartResize);
+    window.removeEventListener('resize',this.chartResize_v3);
   }
 
 }

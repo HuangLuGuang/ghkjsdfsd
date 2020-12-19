@@ -1,20 +1,19 @@
 <div id="motor">
-    <div class="row " style="height: 100%;">
-        <div class="col-md-4" style="padding: 0px 0px 0px 15px;">
+    <div class="row" style="height: 100%;margin:0px;width: 100%;">
+        <div class="col-md-4" style="height: 100%;padding: 0px 0px 0px 20px;">
             <div class="first_first" style="height: 32%;position: relative;">
                 <ngx-equipment-status [device]='deviceid' style="display: flex;width: 100%;"></ngx-equipment-status>
             </div>
-            <div class="first_second lattice_layout height_27">
+            <div class="first_second lattice_layout height_28">
                 <div class="part_title">{{'equipment.expInfor'|translate}}</div>
                 <ngx-test-information [device]='deviceid' style="width: 100%;"></ngx-test-information>
 
             </div>
-            <div class="dis_f_w first_third lattice_layout height_33">
+            <div class="dis_f_w first_third lattice_layout height_32">
                 <ngx-log-warm [device]='deviceid' style="display: flex;width: 100%;flex-wrap: wrap;"></ngx-log-warm>
-
             </div>
         </div>
-        <div class="col-md-4" style="padding: 0px 15px;">
+        <div class="col-md-4" style="height: 100%;padding: 0px 20px;">
             <div class="sceond_fisrt height_28" style="position: relative;">
                 <div class="part_title">{{ 'equipment.equipIntroduce'|translate}}</div>
                 <div style="padding: 20px;text-align: left;overflow: auto;" [innerHTML]="str">
@@ -28,7 +27,7 @@
                     <img id="img" [src]="img.url" [alt]="img.name">
                 </div>
             </div>
-            <div class="sceond_third height_33" style="position: relative;">
+            <div class="sceond_third height_32" style="position: relative;">
                 <div class="part_title">{{'equipment.experimentParams'|translate}}</div>
                 <div class="circularD">
                     <div class="lay">
@@ -43,12 +42,12 @@
                         <div class="title">{{ 'equipment.motor.AxleBoxTemp'|translate }}2</div>
                         <div id="AxleBoxTemperature2"></div>
                     </div>
-                    <div id="circularD_chart" class="height_50" style="width: 100%;"></div>
+                    <div id="circularD_chart" class="height_50" style="width: 100%;max-height: 140px;"></div>
                 </div>
 
             </div>
         </div>
-        <div class="col-md-4" style="padding: 0px 15px 0px 0px;">
+        <div class="col-md-4" style="height: 100%;padding: 0px 20px 0px 0px;">
             <div class="thrid">
                 <div class="part_title">{{'equipment.experimentParams'|translate}}</div>
                 <div>
@@ -62,7 +61,7 @@
                 <div id="humidity"></div>
             </div>
 
-            <div class="height_75 bo" style="padding: 0%;margin-top: 10px;position: relative;">
+            <div class="height_75 bo" style="padding: 0%;margin-top: 20px;position: relative;">
                 <div class="part_title">{{ 'equipment.real'|translate }}{{ 'equipment.motor.MotorParam'|translate }}
                 </div>
                 <div class="height_20 display_f">
@@ -104,14 +103,14 @@
                             <div class="center">
                                 {{'equipment.motor.BusVoltage'|translate}}
                             </div>
-                            <div class="height_100 width_70 bord center">12</div>
+                            <div class="height_100 width_70 bord center">{{ motor.pa_udc1 }}</div>
                         </div>
                         <div style="width: 3%;"></div>
                         <div class="height_100 center" style="width: 30%;">
                             <div class="center">
                                 {{'equipment.motor.BusCurrent'|translate}}
                             </div>
-                            <div class="height_100 width_70 bord center">12</div>
+                            <div class="height_100 width_70 bord center">{{ motor.pa_idc1 }}</div>
                         </div>
                         <div style="width: 3%;"></div>
 
@@ -119,23 +118,23 @@
                             <div class="center">
                                 {{'equipment.motor.DCpower'|translate}}
                             </div>
-                            <div class="height_100 width_70 bord center">12</div>
+                            <div class="height_100 width_70 bord center">{{ motor.pa_p1 }}</div>
                         </div>
                     </div>
                     <div class="height_50" style="display: flex;flex-wrap: wrap;">
                         <div class="center" style="width: 30%;">
                             <div class="center">
-                                {{'equipment.motor.DCpower'|translate}}
+                                {{'equipment.motor.AveVoltage'|translate}}
                             </div>
-                            <div class="height_100 width_70 bord center">12</div>
+                            <div class="height_100 width_70 bord center">{{ motor.pa_urmsa }}</div>
                         </div>
                         <div style="width: 3%;"></div>
 
                         <div class="height_100 center" style="width: 30%;">
                             <div class="center">
-                                {{'equipment.motor.AveVoltage'|translate}}
+                                {{'equipment.motor.AveCurrent'|translate}}
                             </div>
-                            <div class="height_100 width_70 bord center">12</div>
+                            <div class="height_100 width_70 bord center">{{ motor.pa_irmsa }}</div>
                         </div>
                         <div style="width: 3%;"></div>
 
@@ -144,7 +143,7 @@
                                 {{'equipment.motor.AveOutputPowerOfController'|translate}}
 
                             </div>
-                            <div class="height_100 width_70 bord center">12</div>
+                            <div class="height_100 width_70 bord center">{{motor.pa_pa}}</div>
                         </div>
                     </div>
                 </div>

@@ -16,7 +16,6 @@
     .andon_status_font {
         margin-top: 17px;
         padding: 3px;
-        color: white;
         font-size: 12px;
     }
     .andon_img {
@@ -44,19 +43,18 @@
         flex-wrap: wrap;
         // position: absolute;
         // min-height: 260px;
-        #device_circular_1,
-        #device_circular_2,
-        #device_circular_3 {
+        .device_circular {
             width: 33%;
             height: 100%;
+            max-height: 100%;
         }
-        #device_status {
+        .device_status {
             // height: 45%;
             width: 95%;
             box-shadow: 0 0px 1px 3px rgba(50, 84, 129, 1) inset;
             // min-height: 50%;
         }
-        #operatingRate {
+        .operatingRate {
             height: 77%;
         }
     }
@@ -71,20 +69,26 @@
 }
 
 .green {
-    background-color: rgb(74, 181, 107);
+    background-color: rgb(58, 141, 85);
 }
 
 .yellow {
-    background-color: #faa755;
+    background-color: #d68f47;
     // background-image: radial-gradient(rgba(250, 167, 85, 1), rgba(250, 167, 85, 0.75));
     // box-shadow: 0 0 2px rgba(250, 167, 85, 1) inset
 }
 
 .font_li {
-    color: white;
     height: 100%;
-    padding-top: 24%;
+    // padding-top: 24%;
     font-weight: bold;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.font_black {
+    color: black;
 }
 
 nb-icon {
@@ -110,7 +114,6 @@ nb-card {
     // width: 100px;
     padding: 0% 2%;
     height: 20px;
-    color: wheat;
     background: #4472c4;
     top: 0;
     left: 0;

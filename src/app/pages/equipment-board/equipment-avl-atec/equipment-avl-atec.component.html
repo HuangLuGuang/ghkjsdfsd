@@ -1,6 +1,6 @@
 <div id="four_road">
-    <div class="row" style="height: 100%;">
-        <div class="col-md-4" style="padding: 0px 0px 0px 15px;">
+    <div class="row" style="height: 100%;margin: 0;">
+        <div class="col-md-4" style="padding: 0px 0px 0px 20px;">
             <div class="first_first" style="height: 33%;">
                 <ngx-equipment-status device='device_boyang_01' style="display: flex;width: 100%;"></ngx-equipment-status>
             </div>
@@ -13,7 +13,7 @@
                 <ngx-log-warm device='device_mts_01' style="display: flex;width: 100%;flex-wrap: wrap;"></ngx-log-warm>
             </div>
         </div>
-        <div class="col-md-4" style="padding: 0px 15px;">
+        <div class="col-md-4" style="padding: 0px 20px;">
             <div class="sceond_fisrt height_29">
                 <div class="part_title">{{ 'equipment.equipIntroduce'|translate}}</div>
                 <div style="padding: 20px;overflow: auto;">
@@ -28,7 +28,7 @@
                     <img id="img" [src]="img.url" [alt]="img.name">
                 </div>
             </div>
-            <div class="sceond_third height_33" style="position: relative;flex-wrap: wrap;padding-top: 0%; margin-top: 2%;">
+            <div class="sceond_third height_33" style="position: relative;flex-wrap: wrap;padding-top: 0%; margin-top: 20px;">
                 <div class="part_title">{{ 'equipment.EmissionAnalyzer'|translate }}</div>
                 <div class="display_wrap height_89 center_center width_50" *ngFor="let list of dischargeList;let i = index">
                     <div class="width_100">L{{ i +1}}</div>
@@ -47,7 +47,7 @@
                 </div>
             </div>
         </div>
-        <div class="col-md-4" style="padding: 0px 15px 0px 0px;">
+        <div class="col-md-4" style="padding: 0px 20px 0px 0px;">
 
             <div class="thrid">
                 <div class="part_title">{{'equipment.EnvironBinParam'|translate}}</div>
@@ -76,7 +76,7 @@
                     <div id="discharge_chart_1" style="height: 100%;"></div>
                 </div>
             </div>
-            <div class="height_63 bo" style="margin-top: 14px;position: relative;padding-top: 30px;">
+            <div class="height_64 bo" style="margin-top: 20px;position: relative;padding-top: 30px;">
                 <div class="part_title">{{ 'equipment.AVLSpeed'|translate}}</div>
                 <div style="position: absolute;right: 7px; display: flex;align-items: center;top: 0;">
                     {{ 'equipment.inertia'|translate}}：

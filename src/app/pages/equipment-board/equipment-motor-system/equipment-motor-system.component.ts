@@ -2,6 +2,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs';
 import { LayoutService } from '../../../@core/utils/layout.service';
+import { HttpserviceService } from '../../../services/http/httpservice.service';
 import { colors, rgb_del_red,list_jion,list_copy,create_third_chart_line,list_copy_new,list_jion_new, create_img_16_9 } from '../equipment-board';
 
 let equipment_four_road = require('../../../../assets/eimdoard/equipment/js/equipment-four-road')
@@ -16,76 +17,60 @@ let oilsrouce = require('../../../../assets/eimdoard/equipment/js/oilsrouce');
   styleUrls: ['./equipment-motor-system.component.scss']
 })
 export class EquipmentMotorSystemComponent implements OnInit {
-  attrs =[{ 
-    name: "扭矩",nameEn: "param1", unit: "V",value: [1,2,3,4,5,6],show:true,dashboardShow:true
-    ,color:["#00FF00", "#00FF00"]
-  },{ 
-      name: "转速",nameEn: "param2", unit: "V",value: [2,3,5,6,7,8,2],
-      color:["#ff00ff", "#ff00ff"],dashboardShow:true
-  },{ 
-      name: "功率",nameEn: "param3", unit: "V",value: [23,5,1,8,2,2,4,4],
-      color:["#d9d919", "#d9d919"],dashboardShow:true
-  },{ 
-    name: "参数4",nameEn: "param4", unit: "V",value: [],
-    color:["#d9d919", "#d9d919"]
-},{ 
-  name: "参数5",nameEn: "param5", unit: "V",value: [],
-  color:["#d9d919", "#d9d919"]
-},{ 
-  name: "参数6",nameEn: "param6", unit: "V",value: [],
-  color:["#d9d919", "#d9d919"]
-},{ 
-  name: "参数7",nameEn: "param7", unit: "V",value: [],
-  color:["#d9d919", "#d9d919"]
-}]
-  xData = [];
 
-  attrs_1 = {'equipment.motor.coolingWater':[{ 
-    name: "扭矩",nameEn: "param1", unit: "V",value: [],show:true,dashboardShow:true
-    ,color:["#00FF00", "#00FF00"]
-  },{ 
-      name: "转速",nameEn: "param2", unit: "V",value: [],
-      color:["#ff00ff", "#ff00ff"],dashboardShow:true
-  },{ 
-      name: "功率",nameEn: "param3", unit: "V",value: [],
-      color:["#d9d919", "#d9d919"],dashboardShow:true
-  },{ 
-    name: "参数4",nameEn: "param4", unit: "V",value: [],
-    color:["#d9d919", "#d9d919"]
-},{ 
-  name: "参数5",nameEn: "param5", unit: "V",value: [],
-  color:["#d9d919", "#d9d919"]
-},{ 
-  name: "参数6",nameEn: "param6", unit: "V",value: [],
-  color:["#d9d919", "#d9d919"]
-},{ 
-  name: "参数7",nameEn: "param7", unit: "V",value: [],
-  color:["#d9d919", "#d9d919"]
-}],
-'equipment.motor.AxleBoxTemp':[{ 
-  name: "扭矩",nameEn: "param1", unit: "V",value: [],show:true,dashboardShow:true
-  ,color:["#00FF00", "#00FF00"]
-},{ 
-    name: "转速",nameEn: "param2", unit: "V",value: [],
-    color:["#ff00ff", "#ff00ff"],dashboardShow:true
-},{ 
-    name: "功率",nameEn: "param3", unit: "V",value: [],
-    color:["#d9d919", "#d9d919"],dashboardShow:true
-},{ 
-  name: "参数4",nameEn: "param4", unit: "V",value: [],
-  color:["#d9d919", "#d9d919"]
-},{ 
-name: "参数5",nameEn: "param5", unit: "V",value: [],
-color:["#d9d919", "#d9d919"]
-},{ 
-name: "参数6",nameEn: "param6", unit: "V",value: [],
-color:["#d9d919", "#d9d919"]
-},{ 
-name: "参数7",nameEn: "param7", unit: "V",value: [],
-color:["#d9d919", "#d9d919"]
-}]};
-  attrs_2 = {};
-  attrs_3 = {};
+
+  //实验参数 冷却水 轴箱温度1 轴箱温度2
+  experiment_attrs = [
+    { 
+      name: "冷却水",nameEn: "冷却水", unit: "℃",value: [],show:true
+      ,color:["#00FF00", "#00FF00"]
+    },{ 
+        name: "轴箱温度1",nameEn: "轴箱温度1", unit: "℃",value: [],
+        color:["#ff00ff", "#ff00ff"],show:true
+    },{ 
+        name: "轴箱温度2",nameEn: "轴箱温度2", unit: "℃",value: [],
+        color:["#d9d919", "#d9d919"],show:true
+    }
+  ]
+  experiment_xData = [];
+
+  speedTorque_attrs = [
+    {name:'扭矩',data:[],color:'blue'},
+    {name:'转速',data:[],color:'#FF66CC'},
+    {name:'功率',data:[],color:'green'},
+  ];
+  speedTorque_xData = [];
+
+  threePhase_attrs = [
+    { 
+      name: "平均电压",nameEn :'平均电压', unit: "V",value: [],show:true
+      ,color:["#ff2400", "#e47833"]
+    },{ 
+        name: "平均电流",nameEn :'平均电流', unit: "A",value: [],show:true,
+        color:["#ff00ff", "#ff00ff"]
+    },{ 
+        name: "U相电压",nameEn :'U相电压', unit: "V",value: [],show:true,
+        color:["#2074E8", "#2074E8"]
+    },{ 
+      name: "U相电流",nameEn :'U相电流', unit: "A",value: [],show:true,
+      color:["#C8CCC8", "#C8CCC8"]
+    },{ 
+      name: "U相电压",nameEn :'U相电压', unit: "V",value: [],show:true,
+      color:["#40C040", "#40C040"]
+    },{ 
+      name: "U相电流",nameEn :'U相电流', unit: "A",value: [],show:true,
+      color:["#C8CC40", "#C8CC40"]
+    },{ 
+      name: "W相电压",nameEn :'W相电压', unit: "V",value: [],show:true,
+      color:["#40CCC8", "#40CCC8"]
+    },{ 
+      name: "W相电流",nameEn :'W相电流', unit: "A",value: [],show:true,
+      color:["#286428", "#286428"]
+    }
+  ];
+  threePhase_xData = [];
+
+
 
   //设备介绍
   str = ` 主要测试电机低速及控制系统性能，如：电机标定、转矩-转速特性、<br> 效率、温升、堵转试验、转矩控制精度、转速控制精度、峰值转矩、
@@ -94,35 +79,19 @@ color:["#d9d919", "#d9d919"]
   
   //图片
   img = {
-    url:'assets/eimdoard/equipment/images/car_2.png',//中间图片
+    url:'assets/eimdoard/equipment/images/dj.png',//中间图片
     name:'',
     electric_url:'assets/eimdoard/equipment/images/electric.png',//电机图片
   }
 
-  //实验实时状态
-  real_list = [
-    {name:'LF分油器',value:'关',color:'red'},
-    {name:'LR分油器',value:'低',color:'green'},
-    {name:'RR分油器',value:'高',color:'green'},
-    {name:'RF分油器',value:'高',color:'green'},
-  ]
 
-
-  @ViewChild('chart_3')chart_3:any;
-  @ViewChild('chart_2')chart_2:any;
-  @ViewChild('chart_1')chart_1:any;
-
-  //每一个ngx-chart-curve-v3 中有哪些tag
-  // list_2 = ['equipment.motor.Voltage','equipment.motor.electricCurrent'];
-  // list_1 = ['equipment.motor.MotorParam','equipment.motor.MotorEfficiency'];
-  // list_3 = ['equipment.motor.coolingWater','equipment.motor.AxleBoxTemp'];
-  click_list = [];//当前选中的tag
+  motor:any = {};
 
   threePhase = [
     {
       id:'threePhase_1',
       dataLine:{
-        value: 220 ,
+        value: 0 ,
         yname: '平均电压',
         max: 350,
         unit:'V'
@@ -131,7 +100,7 @@ color:["#d9d919", "#d9d919"]
     {
       id:'threePhase_2',
       dataLine:{
-        value: 112 ,
+        value: 0 ,
         yname: '平均电流',
         max: 350,
         unit:'A'
@@ -140,7 +109,7 @@ color:["#d9d919", "#d9d919"]
     {
       id:'threePhase_3',
       dataLine:{
-        value: 220 ,
+        value: 0 ,
         yname: 'U相电压',
         max: 350,
         unit:'V'
@@ -149,16 +118,16 @@ color:["#d9d919", "#d9d919"]
     {
       id:'threePhase_4',
       dataLine:{
-        value: 220 ,
+        value: 0 ,
         yname: 'U相电流',
         max: 350,
-        unit:'V'
+        unit:'A'
       }
     },
     {
       id:'threePhase_5',
       dataLine:{
-        value: 220 ,
+        value: 0 ,
         yname: 'V相电压',
         max: 350,
         unit:'V'
@@ -167,16 +136,16 @@ color:["#d9d919", "#d9d919"]
     {
       id:'threePhase_6',
       dataLine:{
-        value: 220 ,
+        value: 0 ,
         yname: 'v相电流',
         max: 350,
-        unit:'V'
+        unit:'A'
       }
     },
     {
       id:'threePhase_7',
       dataLine:{
-        value: 220 ,
+        value: 0 ,
         yname: 'M相电压',
         max: 350,
         unit:'V'
@@ -185,10 +154,10 @@ color:["#d9d919", "#d9d919"]
     {
       id:'threePhase_8',
       dataLine:{
-        value: 220 ,
+        value: 0 ,
         yname: 'M相电流',
         max: 350,
-        unit:'V'
+        unit:'A'
       }
     }
   ]
@@ -202,16 +171,17 @@ color:["#d9d919", "#d9d919"]
   subscribeList:any = {};
 
 
-  constructor(private layoutService: LayoutService,private activateInfo:ActivatedRoute) { }
+  constructor(private layoutService: LayoutService,private activateInfo:ActivatedRoute,
+    private http:HttpserviceService) { }
 
   ngOnInit(): void {
     //获取当前语言
     let language = localStorage.getItem('currentLanguage');
     if(language!='zh-CN')this.language = language;
     //订阅左上角点击宽度改变
-    this.subscribeList.layout = this.layoutService.onInitLayoutSize().subscribe(f=>{
-      this.initChart();
-    })
+    // this.subscribeList.layout = this.layoutService.onInitLayoutSize().subscribe(f=>{
+    //   this.initChart();
+    // })
     //订阅路由
     this.subscribeList.router = this.activateInfo.params.subscribe(f =>{
       console.log(f);
@@ -219,119 +189,175 @@ color:["#d9d919", "#d9d919"]
         document.getElementById('head_title').innerText = f.title;
       this.deviceid = f.deviceid;
     })
-    //颜色赋值
-    let rgb = '';
-    this.attrs.forEach((f,i)=>{
-      if(i > colors.length-1)
-        rgb =  rgb_del_red();
-      else
-        rgb =  colors[i];
-      f.color = [rgb,rgb];
-    })
 
 
-    this.getData();
-    setTimeout(() => {
-      this.initChart();
-    }, 1000);
-    window.addEventListener('resize',this.resize);
-    setTimeout(f=>{
-      create_img_16_9();
+    this.timer = setInterval(f=>{
+      this.get_experimentParams();
+      this.get_right();
+      this.get_device_Temp_hum();
     },1000)
-  }
 
-  //图表刷新
-  resize=()=>{
-    let obs = new Observable(f=>{
-      let id = [
-        'coolingWater','AxleBoxTemperature1','AxleBoxTemperature2',
-        'circularD_chart','temperature','humidity','electric_1',
-        'electric_2','electric_3','electric_4','electric_5','dashboard',
-        'line_chart_12','threePhase',
-        'threePhase_1','threePhase_2',
-        'threePhase_3','threePhase_4','threePhase_5','threePhase_6',
-        'threePhase_7','threePhase_8',
-      ];
-      id.forEach(f=>{
-        if(document.getElementById(f))
-          echarts.init(document.getElementById(f)).resize();
-      })
-      f.next('异步执行完成')
-    })
-    obs.subscribe(f=>{
-      console.log(f)
-    })
+    setTimeout(() => {
+      create_img_16_9();
+
+    }, 1000);
+
+
     
   }
+
+
   
-
-  getData(){
-    // this.http.callRPC('panel_detail','get_device_panel_detail',
-    //   {"deviceid":this.deviceid}).subscribe((f:any) =>{
-
-    //   })
-    
-
-  }
 
   ngAfterViewInit(){
   }
   
 
-  initChart(){
-    let chart = document.getElementById('coolingWater');
-    if(chart)
-      equipment_four_road.create_real_temperature( {value:12,unit:'℃'},echarts.init(chart));
-    chart = document.getElementById('AxleBoxTemperature1');
-    if(chart)
-      equipment_four_road.create_real_temperature( {value:12,unit:'℃'},echarts.init(chart));
-    chart = document.getElementById('AxleBoxTemperature2');
-    if(chart)
-      equipment_four_road.create_real_temperature( {value:12,unit:'℃'},echarts.init(chart));
-    chart = document.getElementById('circularD_chart')
-    if(chart)
-        equipment_four_road.create_real_discharge({attrs:this.attrs,xData:[1,1,1,1,1,1,1,1,1],title:'冷却水、轴箱温度'},echarts.init(chart));
-        
-    chart = document.getElementById('temperature');
-    if(chart)
-      equipment_four_road.create_real_temperature( {value:12,unit:'℃'},echarts.init(chart));
-    chart = document.getElementById('humidity');
-    if(chart)
-      equipment_four_road.create_real_temperature( {value:12,unit:'RH' },echarts.init(chart));
-    [1,2,3,4,5].forEach(f=>{
-      chart = document.getElementById('electric_'+f);
+
+
+  /**
+   * 获取实验参数 
+   * "cc_t_act":22.46, 冷却水温度
+     "imb_t_1":22.75, 轴箱温度1
+      "imb_t_2":22.63,、 轴箱温度2
+   */
+  get_experimentParams(){
+    // SELECT get_avl_temperature('{"deviceid":"device_avlmotor_01"}')
+    let res;
+    this.http.callRPC('get_avl_temperature','device_monitor.get_avl_temperature',
+    {"deviceid":this.deviceid}).subscribe((f:any)=>{
+      if(f.result.error || f.result.message[0].code == 0)return;
+      res = f.result.message[0].message[0];
+
+      let chart = document.getElementById('coolingWater');
       if(chart)
-        equipment_four_road.create_real_electric({text:12,title:''},echarts.init(chart));
-    })
-    
-    chart = document.getElementById('dashboard');
-    if(chart)
-      equipment_four_road.create_real_dashboard([{
-        name: '扭矩',unit: 'N/m',value:0
-      },{
-        name: '转速',unit: 'km/h',value:0
-      },{
-        name: '功率',unit: 'W',value:0
-      }],echarts.init(chart));
+        equipment_four_road.create_real_temperature( {value:res.cc_t_act,unit:'℃'},echarts.init(chart));
+      chart = document.getElementById('AxleBoxTemperature1');
+      if(chart)
+        equipment_four_road.create_real_temperature( {value:res.imb_t_1,unit:'℃'},echarts.init(chart));
+      chart = document.getElementById('AxleBoxTemperature2');
+      if(chart)
+        equipment_four_road.create_real_temperature( {value:res.imb_t_2,unit:'℃'},echarts.init(chart));
 
-    chart = document.getElementById('line_chart_12');
-    if(chart)
-        equipment_four_road.create_motor_chart({xData:[1,1,1,1,1,1,1,1],data:[
-          {name:'123',data:[1,1,2,3,4,6,8,9],color:'blue'},
-          {name:'12333',data:[8,7,6,5,4,3,2,9],color:'#FF66CC'},
-          {name:'12322',data:[2,7,4,7,4,3,2,9],color:'green'},
-        ],title:'转速/扭矩曲线'},echarts.init(chart));
-
-
-    chart = document.getElementById('threePhase');
-    if(chart)
-      equipment_four_road.create_real_discharge({attrs:this.attrs,xData:[1,1,1,1,1,1,1,1,1],title:'三相电压电流(U/V/W)'},echarts.init(chart));
-    this.threePhase.forEach(f=>{
-      if(document.getElementById(f.id))
-         oilsrouce.create_bar_j(f.dataLine,echarts.init(document.getElementById(f.id)),'30%');
+      this.experiment_attrs[0].value.push(res.cc_t_act);
+      this.experiment_attrs[1].value.push(res.imb_t_1);
+      this.experiment_attrs[2].value.push(res.imb_t_2);
+      this.experiment_xData.push(res.recordtime);
+      if(this.experiment_xData.length>10){
+        this.experiment_xData.splice(0,1);
+        this.experiment_attrs[0].value.splice(0,1);
+        this.experiment_attrs[1].value.splice(0,1);
+        this.experiment_attrs[2].value.splice(0,1);
+      }
+      chart = document.getElementById('circularD_chart');
+      if(chart)
+          equipment_four_road.create_real_discharge({attrs:this.experiment_attrs,xData:this.experiment_xData,title:'冷却水、轴箱温度'},echarts.init(chart));
     })
   }
 
+  /**
+   * 获取右边一列
+   * cal_eff_inv: 0 控制器效率
+cal_eff_mot: 0 电机效率
+cal_eff_sys: 0 系统效率
+deviceid: "device_avlmotor_01"
+p: 0 功率
+pa_idc1: 0.001 母线电流
+pa_irms2: 0.028 U相电流
+pa_irms3: 0.034 V相电流
+pa_irms4: 0.02 W相电流
+pa_irmsa: 0.027 平均电流
+pa_p1: 0 直流功率
+pa_pa: 0 控制器输出平均功率
+pa_udc1: 0.001 母线电压
+pa_urms2: 0 U相电压
+pa_urms3: 0 V相电压
+pa_urms4:0 W相电压
+pa_urmsa: 0 平均电压
+recordtime: "2020-12-12 16:58:17"
+speed: 0 转速
+torque: 0.151 扭矩
+   */
+  get_right(){
+    // get_avl_parameter('{"deviceid":"device_avlmotor_01"}'
+    let j = ['pa_urmsa','pa_irmsa','pa_urms2','pa_irms2','pa_urms3','pa_irms3','pa_urms4','pa_irms4']
+    let res,chart;;
+    this.http.callRPC('get_avl_parameter','device_monitor.get_avl_parameter',{"deviceid":this.deviceid}).subscribe((f:any)=>{
+      if(f.result.error || f.result.message[0].code == 0)return;
+      res = f.result.message[0].message[0];
+      this.motor = res;
+      //系统效率 控制器效率  电机效率 控制器输出功率
+      let arr = [res.cal_eff_sys, res.cal_eff_inv, res.cal_eff_mot, res.pa_pa, res.pa_p1].forEach((f,i)=>{
+        chart = document.getElementById('electric_'+(i+1));
+        if(chart)
+          equipment_four_road.create_real_electric({text:f,title:''},echarts.init(chart));
+      })
+
+      chart = document.getElementById('dashboard');
+      if(chart)
+        equipment_four_road.create_real_dashboard([{
+          name: '扭矩',unit: 'N/m',value:res.torque
+        },{
+          name: '转速',unit: 'km/h',value:res.speed
+        },{
+          name: '功率',unit: 'W',value:res.p
+        }],echarts.init(chart));
+
+      chart = document.getElementById('line_chart_12');
+      this.speedTorque_attrs[0].data.push(res.torque);
+      this.speedTorque_attrs[1].data.push(res.speed);
+      this.speedTorque_attrs[2].data.push(res.p);
+      this.speedTorque_xData.push(res.recordtime);
+      if(this.speedTorque_xData.length>10){
+        this.speedTorque_attrs[0].data.splice(0,1);
+        this.speedTorque_attrs[1].data.splice(0,1);
+        this.speedTorque_attrs[2].data.splice(0,1);
+        this.speedTorque_xData.splice(0,1);
+      }
+
+      if(chart)
+          equipment_four_road.create_motor_chart({
+              xData:this.speedTorque_xData,data:this.speedTorque_attrs,title:'转速/扭矩曲线'},
+              echarts.init(chart));
+
+      this.threePhase.forEach((f,i)=>{
+        this.threePhase_attrs[i].value.push(res[j[i]]);//表格插入线条的值插入
+        if(document.getElementById(f.id)){
+          f.dataLine.value = res[j[i]];
+          oilsrouce.create_bar_j(f.dataLine,echarts.init(document.getElementById(f.id)),'30%');
+        }
+      })
+
+      chart = document.getElementById('threePhase');
+      this.threePhase_xData.push(res.recordtime);
+      if(this.threePhase_xData.length>10){
+        this.threePhase_attrs.forEach(f=>{ f.value.splice(0,1)})
+        this.threePhase_xData.splice(0,1);
+      }
+      if(chart)
+        equipment_four_road.create_real_discharge({attrs:this.threePhase_attrs,xData:this.threePhase_xData,title:'三相电压电流(U/V/W)'},echarts.init(chart));
+      })
+  }
+
+
+  //获取实时温湿度
+  get_device_Temp_hum(){
+      let chart;
+      let res;
+    this.http.callRPC('get_temperature','device_monitor.get_temperature'
+    ,{deviceid:this.deviceid}).subscribe((g:any) =>{
+      if(g.result.error || g.result.message[0].code == 0)return;
+      res = g.result.message[0].message[0]?g.result.message[0].message[0]:{};
+      console.log(res)
+        
+      chart = document.getElementById('temperature');
+      if(chart)
+        equipment_four_road.create_real_temperature( {value:res.temperature,unit:'℃'},echarts.init(chart));
+      chart = document.getElementById('humidity');
+      if(chart)
+        equipment_four_road.create_real_temperature( {value:res.humidity,unit:'RH' },echarts.init(chart));
+    })
+  }
 
 
   get_td_width(num){
@@ -339,13 +365,10 @@ color:["#d9d919", "#d9d919"]
   }
 
 
-
-
   ngOnDestroy(){
     clearInterval(this.timer)
     for(let key in this.subscribeList){
       this.subscribeList[key].unsubscribe();
     }
-    window.removeEventListener('resize',this.resize);
   }
 }

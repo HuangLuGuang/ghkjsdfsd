@@ -1,0 +1,341 @@
+#oilsrouce {
+    height: 100%;
+    // height: 900px;
+    min-height: 864px;
+    // max-height: 1000px;
+    margin: 0px 20px 0px 20px;
+    .equipintrod {
+        position: relative;
+        min-height: 220px;
+        width: 100%;
+        display: flex;
+    }
+    .HPU_statistics {
+        height: 70%;
+        width: 100%;
+        // display: flex;
+        position: relative;
+        .HPU {
+            border-radius: 10px;
+            border: 1px solid rgb(51, 111, 223);
+            width: 100%;
+            display: flex;
+            padding: 2%;
+            align-items: center;
+        }
+        .pump {
+            text-align: center;
+            display: flex;
+            flex-wrap: wrap;
+            width: 50%;
+            .d {
+                border: 1px solid rgb(77, 129, 177);
+                border-radius: 5px;
+                height: 34px;
+                margin-left: 1%;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+            }
+        }
+    }
+    .bo {
+        box-shadow: 0 0px 1px 3px rgba(50, 84, 129, 1) inset;
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+    }
+    .cleanliness {
+        display: flex;
+        position: relative;
+        margin-top: 20px;
+        .c {
+            width: 100%;
+            margin-top: 20px;
+            display: flex;
+            flex-wrap: wrap;
+        }
+    }
+    .select {
+        position: absolute;
+        right: 0px;
+        width: 138px;
+        .inputWrap {
+            width: 100%;
+            min-height: 40px;
+            border: 1px solid #ccc;
+            border-radius: 3px;
+            position: relative;
+            background-color: rgb(41, 77, 194);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .turn_l {
+            animation: turn_l 0.5s;
+            animation-fill-mode: forwards;
+            @keyframes turn_l {
+                100% {
+                    transform: rotate(-90deg);
+                }
+            }
+        }
+        .turn_r {
+            animation: turn_r 0.5s;
+            animation-fill-mode: forwards;
+            @keyframes turn_r {
+                0% {
+                    transform: rotate(-90deg);
+                }
+                100% {
+                    transform: rotate(0deg);
+                }
+            }
+        }
+        .select_drop_down {
+            position: absolute;
+            width: 138px;
+            opacity: 0;
+            background-color: rgb(124, 128, 139);
+            border-radius: 4px;
+            padding: 3%;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            align-items: center;
+            z-index: -1;
+            div {
+                width: 100%;
+                min-height: 40px;
+                // border: 1px solid;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                cursor: pointer;
+                background-color: rgb(148, 173, 241);
+                margin-bottom: 2px;
+            }
+        }
+        .opacity_s {
+            animation: anims 0.5s;
+            animation-fill-mode: forwards;
+            @keyframes anims {
+                0% {
+                    opacity: 0;
+                    z-index: -1;
+                }
+                100% {
+                    opacity: 1;
+                    z-index: 1;
+                }
+            }
+        }
+        .opacity_d {
+            animation: animd 0.5s;
+            animation-fill-mode: forwards;
+            @keyframes animd {
+                0% {
+                    opacity: 1;
+                    z-index: 1;
+                }
+                100% {
+                    opacity: 0;
+                    z-index: -1;
+                }
+            }
+        }
+    }
+    .event_error {
+        height: 26%;
+        position: relative;
+        display: flex;
+        align-items: center;
+        // background-color: wheat;
+    }
+    .HPUmodel {
+        width: 100%;
+        height: 29%;
+        display: flex;
+        justify-content: center;
+        position: relative;
+        .c {
+            width: 100%;
+            margin-top: 20px;
+        }
+        .d {
+            border: 1px solid rgb(77, 129, 177);
+            border-radius: 5px;
+            height: 34px;
+            margin-left: 1%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+    }
+    #clock {
+        display: flex;
+        font-size: 26px;
+        align-items: center;
+        height: 71%;
+        justify-content: center;
+    }
+    .circular {
+        width: 40px;
+        height: 40px;
+        border-radius: 20px;
+        margin: 5% 10% 10% 43%;
+    }
+    .HEWater {
+        margin-top: 20px;
+        width: 100%;
+        height: 45%;
+        display: flex;
+        flex-wrap: wrap;
+        position: relative;
+    }
+    .radar {
+        margin-top: 20px;
+        width: 100%;
+        height: 20%;
+        display: flex;
+        position: relative;
+    }
+    .backgroud {
+        background: url('/assets/eimdoard/equipment/images/blue_beijing.png') center center;
+        background-size: cover;
+        -webkit-background-size: cover;
+        -o-background-size: cover;
+        padding: 0% 4% 2% 4%;
+    }
+    .part_title {
+        position: absolute;
+        // width: 100px;
+        padding: 0% 6%;
+        height: 20px;
+        background: #4472c4;
+        top: 0;
+        left: 0;
+        min-width: 80px;
+        z-index: 1;
+    }
+    .center_img {
+        // height: 100;
+        background: url('/assets/eimdoard/equipment/images/blue_beijing.png') center center;
+        background-size: cover;
+        -webkit-background-size: cover;
+        -o-background-size: cover;
+        height: 33%;
+        position: relative;
+        margin-top: 20px;
+        #img {
+            height: 100%;
+            width: 100%;
+            // background: url('/assets/eimdoard/equipment/images/car_2.png');
+            background-size: cover;
+            -webkit-background-size: cover;
+            -o-background-size: cover;
+            background-position: center center;
+        }
+    }
+    .dis_flex {
+        display: flex;
+        #radar_1,
+        #radar_2 {
+            width: 50%;
+            height: 100%;
+        }
+    }
+}
+
+.w_100 {
+    width: 100%;
+}
+
+.w_60 {
+    width: 60%;
+}
+
+.w_50 {
+    width: 50%;
+}
+
+.w_40 {
+    width: 40%;
+}
+
+.w_30 {
+    width: 30%;
+}
+
+.fanzhuan {
+    position: relative;
+    width: 40px;
+    height: 40px;
+    background-color: black;
+    div {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        top: 0;
+        left: 0;
+        height: 100%;
+        line-height: 0;
+        backface-visibility: hidden;
+    }
+    .d_1 {
+        z-index: 3;
+    }
+    .d_2 {
+        z-index: 5;
+        background-color: rgba(124, 128, 139, 0);
+        // transform: rotateX(0turn);
+        // animation: 1s backFlipDown infinite;
+    }
+}
+
+.an_font {
+    animation: 1.2s frontFlipDown ease-in-out;
+}
+
+@keyframes frontFlipDown {
+    to {
+        transform: rotateX(0.8turn)
+    }
+}
+
+@keyframes backFlipDown {
+    to {
+        transform: rotateX(0)
+    }
+}
+
+.scrollbar::-webkit-scrollbar {
+    z-index: 10;
+    width: 5px;
+    height: 5px;
+}
+
+.scrollbar::-webkit-scrollbar-thumb {
+    border-radius: 10px;
+    box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.2);
+    // background: #535353;
+    background: #888888;
+}
+
+.scrollbar::-webkit-scrollbar-track {
+    box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.2);
+    border-radius: 10px;
+    background: #888888;
+}
+
+.font_w_too_long {
+    word-break: keep-all;
+    white-space: nowrap;
+    overflow: hidden;
+    // text-overflow: ellipsis;
+    white-space: nowrap;
+}

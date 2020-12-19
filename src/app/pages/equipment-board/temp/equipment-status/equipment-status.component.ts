@@ -16,14 +16,15 @@ let rtm3 = require('../../../../../assets/eimdoard/rtm3/js/rtm3');
   styleUrls: ['./equipment-status.component.scss']
 })
 export class EquipmentStatusComponent implements OnInit {
-
+  @Input() andon_status_font = 'SafetyLampStatus';
   @Input()device
+  @Input()TempNum = 1;
   flipped = false;
    //安灯状态
    andon = [
      {name:'运行',color:'green',t:1},
+     {name:'等待',color:'blue',t:3},
      {name:'占位',color:'yellow',t:2},
-    {name:'等待',color:'blue',t:3},
     {name:'维护',color:'red',t:4},
   ];
   andon_now = -1;
@@ -32,11 +33,11 @@ export class EquipmentStatusComponent implements OnInit {
   interval:any;
 
   obser = new Observable(f=>{
-    if(document.getElementById('device_status'))echarts.init(document.getElementById('device_status')).resize();
-    if(document.getElementById('operatingRate'))echarts.init(document.getElementById('operatingRate')).resize();
-    if(document.getElementById('device_circular_3'))echarts.init(document.getElementById('device_circular_3')).resize();
-    if(document.getElementById('device_circular_2'))echarts.init(document.getElementById('device_circular_2')).resize();
-    if(document.getElementById('device_circular_1'))echarts.init(document.getElementById('device_circular_1')).resize();
+    if(document.getElementById('device_status'+this.TempNum))echarts.init(document.getElementById('device_status'+this.TempNum)).resize();
+    if(document.getElementById('operatingRate'+this.TempNum))echarts.init(document.getElementById('operatingRate'+this.TempNum)).resize();
+    if(document.getElementById('device_circular_3'+this.TempNum))echarts.init(document.getElementById('device_circular_3'+this.TempNum)).resize();
+    if(document.getElementById('device_circular_2'+this.TempNum))echarts.init(document.getElementById('device_circular_2'+this.TempNum)).resize();
+    if(document.getElementById('device_circular_1'+this.TempNum))echarts.init(document.getElementById('device_circular_1'+this.TempNum)).resize();
     f.next('equipment-status刷新');
   })
 
@@ -47,11 +48,11 @@ export class EquipmentStatusComponent implements OnInit {
     let language = localStorage.getItem('currentLanguage');
     if(language!='zh-CN')this.language = language;
     this.subscribeList.layout = this.layoutService.onInitLayoutSize().subscribe(f=>{
-      if(document.getElementById('device_status'))echarts.init(document.getElementById('device_status')).resize();
-      if(document.getElementById('operatingRate'))echarts.init(document.getElementById('operatingRate')).resize();
-      if(document.getElementById('device_circular_3'))echarts.init(document.getElementById('device_circular_3')).resize();
-      if(document.getElementById('device_circular_2'))echarts.init(document.getElementById('device_circular_2')).resize();
-      if(document.getElementById('device_circular_1'))echarts.init(document.getElementById('device_circular_1')).resize();
+      if(document.getElementById('device_status'+this.TempNum))echarts.init(document.getElementById('device_status'+this.TempNum)).resize();
+      if(document.getElementById('operatingRate'+this.TempNum))echarts.init(document.getElementById('operatingRate'+this.TempNum)).resize();
+      if(document.getElementById('device_circular_3'+this.TempNum))echarts.init(document.getElementById('device_circular_3'+this.TempNum)).resize();
+      if(document.getElementById('device_circular_2'+this.TempNum))echarts.init(document.getElementById('device_circular_2'+this.TempNum)).resize();
+      if(document.getElementById('device_circular_1'+this.TempNum))echarts.init(document.getElementById('device_circular_1'+this.TempNum)).resize();
     })
 
 
@@ -85,9 +86,12 @@ export class EquipmentStatusComponent implements OnInit {
   
 
   chartResize=()=>{
-    this.obser.subscribe(f=>{
-      console.log(f)
-    })
+    setTimeout(() => {
+      
+      this.obser.subscribe(f=>{
+          console.log(f)
+        })
+    }, 500);
     
   }
 
@@ -110,13 +114,13 @@ export class EquipmentStatusComponent implements OnInit {
 
     // }
     this.initOperatingRate(undefined);
-    let myChart = echarts.init(document.getElementById('device_status'));
+    let myChart = echarts.init(document.getElementById('device_status'+this.TempNum));
     equipment_four_road.create_device_status(undefined,myChart,undefined,'安灯年度表');
     // equipment_four_road.create_device_status(undefined,myChart,undefined,this.language?"AnnualReportOfSafetyLamp":'安灯年度表');
 
 
   }
-
+  
   get_andon_status(){
     this.subscribeList.andon_status = this.http.callRPC('get_andon_status','get_andon_status',{"deviceid":this.device})
     .subscribe((f:any)=>{
@@ -130,10 +134,13 @@ export class EquipmentStatusComponent implements OnInit {
 
   //获取该天安灯数据
   get_andon_data(){
-    let arr = [];
+    let arr = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0];
     let unit = '时';
     if(this.language )unit = "H";
-    let xAxisData = [];
+    let xAxisData = ['01时','02时','03时','04时',
+    '05时','06时','07时','08时','09时','10时','11时',
+    '12时','13时','14时','15时','16时','17时','18时','19时','20时','21时','23时','24时'];
+
     // this.subscribeList.andon_data = this.http.callRPC('get_device_andon_status','device_monitor.get_device_andon_status',{"device":this.device,"status":1}).subscribe((f:any)=>{
     //   if(f.result.error || f.result.message[0].code == 0)return;
     //   // this.andon_now = f.result.message[0].message[0].status;//灯亮哪个
@@ -151,8 +158,9 @@ export class EquipmentStatusComponent implements OnInit {
         ,'get_device_andon_status_daily',{"deviceid":this.device,'newyearsday':nowStr}).subscribe((f:any)=>{
           if(f.result.error || f.result.message[0].code == 0)return;
           f.result.message[0].message.forEach((el,i) => {
-            xAxisData.push(el.recordtime+unit);
-            arr.push(el.running?el.running:0);
+            // xAxisData.push(el.recordtime+unit);
+            // arr.push(el.running?el.running:0);
+            arr[parseInt(el.recordtime+unit)-1] = el.running?el.running:0;
           });
           this.initOperatingRate({
                   xAxisData:xAxisData,
@@ -164,20 +172,23 @@ export class EquipmentStatusComponent implements OnInit {
 
   //获取年度统计
   get_andon_data_year(){
-    let arr = [[],[],[],[]];
-    let percentage = [];
-    let month = []
+    let arr = [[0,0,0,0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0,0,0,0]];
+    let percentage:any[] = [0,0,0,0,0,0,0,0,0,0,0,0,0];
+    let j = 0;
+    let month = ['1月','2月','3月','4月','5月','6月','7月','8月','9月','10月','11月','12月'];
     //  running运行 placeon占位 stop等待 warning维护 
     this.subscribeList.andon_data_year = this.http.callRPC('device_andon_status_year','get_device_andon_status_year',{"deviceid":this.device,"newyearsday":new Date().getFullYear()+"-01-01"}).subscribe((f:any)=>{
       if(f.result.error || f.result.message[0].code == 0)return;
       f.result.message[0].message.forEach((el,i) => {
-        arr[0].push(el.running); 
-        arr[1].push(el.placeon); 
-        arr[2].push(el.stop); 
-        arr[3].push(el.warning); 
-        percentage.push(((el.running/(el.running+el.placeon+el.stop+el.warning))*100).toFixed(2));
-        let recordtime = el.recordtime.split('-')
-        month.push(recordtime[recordtime.length-1]+'月')
+        let recordtime = el.recordtime.split('-');
+        j = recordtime[recordtime.length-1]-1;
+        arr[0][j]=el.running; 
+        arr[2][j]=el.stop; 
+        arr[1][j]=el.placeon; 
+        arr[3][j]=el.warning; 
+        percentage[j] = ((el.running/(el.running+el.placeon+el.stop+el.warning))*100).toFixed(2);
+        
+        // month.push(recordtime[recordtime.length-1]+'月')
       });
       this.initDeviceStatus([arr[0],arr[1],arr[2],arr[3],percentage],month);
 
@@ -257,8 +268,8 @@ export class EquipmentStatusComponent implements OnInit {
         status[2].value += el.stop?el.stop:0; 
         status[3].value += el.warning?el.warning:0; 
       });
-      if(document.getElementById('device_circular_3')){
-        let myChart_3 = echarts.init(document.getElementById('device_circular_3'));
+      if(document.getElementById('device_circular_3'+this.TempNum)){
+        let myChart_3 = echarts.init(document.getElementById('device_circular_3'+this.TempNum));
         equipment_four_road.create_device_circular(
           {title:'上年均值',message:'',value:status},myChart_3);
         // equipment_four_road.create_device_circular(
@@ -283,7 +294,7 @@ export class EquipmentStatusComponent implements OnInit {
   //初始化二十四小时表格
   initOperatingRate(gauge_data_4){
 
-    let operatingRate = echarts.init(document.getElementById('operatingRate'));
+    let operatingRate = echarts.init(document.getElementById('operatingRate'+this.TempNum));
     rtm3.create_right_buttom(gauge_data_4,operatingRate);
   }
   //渲染年表格
@@ -292,19 +303,20 @@ export class EquipmentStatusComponent implements OnInit {
     // if(this.language)xData = ['Jan','Feb','Mar','May','Jun','Jul','Aug','Sept','Oct','Nov','Dec'];
     let data_1 = {
       d_arr:[[],[],[],[],[]],
-      title_arr:["运行", "占位","等待", "维护","运行比例"],
+      title_arr:["运行","等待" ,"占位", "维护","运行比例"],
       color_arr:[{
         start: "rgb(74, 181, 107)",
         end: "rgb(74, 181, 107)"
       },
       {
+        start: "#006ced",
+        end: "#006ced"
+    },
+      {
           start: "#faa755",
           end: "#faa755"
       },
-      {
-          start: "#006ced",
-          end: "#006ced"
-      },
+     
       {
         start: "#d71345",
         end: "#d71345"
@@ -316,21 +328,25 @@ export class EquipmentStatusComponent implements OnInit {
     xData:month
     };
     data_1.d_arr = data;
-    let myChart = echarts.init(document.getElementById('device_status'));
+    let myChart = echarts.init(document.getElementById('device_status'+this.TempNum));
     equipment_four_road.create_device_status(data_1,myChart,null,'安灯年度表');
     // equipment_four_road.create_device_status(data_1,myChart,null,this.language?"AnnualReportOfSafetyLamp":'安灯年度表');
 
   }
   //渲染圆盘
+   //  running运行 placeon占位 stop等待 warning维护 
   initDeviceCircula(data,id,monthdata){
-    if(document.getElementById(id)){
+    if(document.getElementById(id+this.TempNum)){
       let status = [{value: 0}, {value: 0}, {value: 0}, {value: 0}];
       if(monthdata)
-          status = 
-          [{value: monthdata.running?monthdata.running:0}, {value:  monthdata.placeon?monthdata.placeon:0},
-             {value: monthdata.stop?monthdata.stop:0}, {value: monthdata.warning?monthdata.warning:0}];
+          status = [
+            {value: monthdata.running?monthdata.running:0}, 
+            {value: monthdata.stop?monthdata.stop:0}, 
+            {value:  monthdata.placeon?monthdata.placeon:0},
+             {value: monthdata.warning?monthdata.warning:0}
+            ];
       data.value = status;
-      let myChart = echarts.init(document.getElementById(id));
+      let myChart = echarts.init(document.getElementById(id+this.TempNum));
       equipment_four_road.create_device_circular(data,myChart);
     }
   }

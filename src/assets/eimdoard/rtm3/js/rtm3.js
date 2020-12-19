@@ -431,7 +431,7 @@ let rtm3 = {
                 bottom: '5%',
                 containLabel: true
             },
-            color: ['#a4d8cc', '#25f3e6'],
+            color: ['rgba(55,255,249,1)', '#25f3e6'],
             toolbox: {
                 show: false,
                 feature: {
@@ -451,7 +451,7 @@ let rtm3 = {
 
                 boundaryGap: false,
                 axisLabel: {
-                    color: '#fff',
+                    color: 'rgba(55,255,249,1)',
                     fontSize: '12',
                     // textStyle:{
                     //   color: '#fff',
@@ -495,7 +495,7 @@ let rtm3 = {
                 maxInterval: 60,
                 minInterval: 60,
                 nameTextStyle: {
-                    color: 'white',
+                    color: 'rgba(55,255,249,1)',
                     fontSize: 12
                 },
                 axisLabel: {
@@ -503,7 +503,7 @@ let rtm3 = {
                     //   color: '#fff',
                     //   fontSize:'12',
                     // }
-                    color: '#fff',
+                    color: 'rgba(55,255,249,1)',
                     fontSize: '12',
                 },
                 axisLine: {
@@ -528,7 +528,7 @@ let rtm3 = {
                         type: 'default',
                         color: new echarts.graphic.LinearGradient(0, 0, 0, 0.8, [{
                             offset: 0,
-                            color: '#25f3e6'
+                            color: 'rgba(55,255,249,1)'
                         }, {
                             offset: 1,
                             color: '#0089ff'

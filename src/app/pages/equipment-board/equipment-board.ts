@@ -21,18 +21,19 @@ export const create_img_16_9=()=>{
   let i = 9;
   for(i;i>0;i--){
     height = center_img.width()*i*0.1/16*9;
-    if(height<center_img.height()-20)break;
+    if(height<center_img.height())break;
   }
   img.height(height);
-  img.width(i*10+'%')
+  img.width(height/9*16);
+  console.log('图片收缩16/9');
   // let w  = 16/9*center_img.width();
   // img.width(w)
 }
 
-
+//颜色
 export const colors = [
     '#2074E8',
-    '#F8FC00',
+   
     '#00FCF8',
     '#F800F8',
     '#C8CCC8',
@@ -41,8 +42,6 @@ export const colors = [
     '#40CCC8',
     '#286428',
     '#18F818',
-    '#F8FC00',
-    '#00FCF8',
     '#70B8B8',
     '#3870A0',
     '#D87058',
@@ -52,14 +51,13 @@ export const colors = [
     '#804878',
     '#90AC58',
     '#9060B8',
-    '#90AC58',
     '#5050A8',
-    '#90AC58',
     '#7030A0',
     '#202420',
     '#F8FCF8',
     '#0000F8',
     '#00FC00',
+    '#F8FC00',
 ]
 
 
@@ -86,6 +84,7 @@ export const colors = [
   }
   return sColor;
 };
+
 
 
 
@@ -123,6 +122,7 @@ export const  getMessage=(f,data)=>{
       arr = [
           m.recordtime,
           m.level==1?'Error':m.level == 2?'Warning':'Information',
+          // m.message,
           aee[aee.length-1].length > aee[aee.length-2].length?aee[aee.length-1]:aee[aee.length-2],
           m.level,
         ]
@@ -133,7 +133,7 @@ export const  getMessage=(f,data)=>{
       }
     });
     //锁定滚动条最下面
-    var showContent = $(".overflow_height_85");
+    var showContent = $(".overflow_height_75");
     showContent[0].scrollTop = showContent[0].scrollHeight;
 }
 
@@ -141,6 +141,14 @@ export const copy=(d)=>{
   return JSON.parse(JSON.stringify(d));
 }
 
+
+/**
+ * 避免 2020-12-17T08:42:00.000Z 出现字符串转时间错误
+ */
+export const  rTime=(date)=> {
+  return date.replace(/T/g, ' ').replace(/\.[\d]{3}Z/, '') 
+  // return date;
+}
 
 /**
  * http请求中拿到的数据 调用子组件内部方法
@@ -158,8 +166,8 @@ export const painting_time = (f,time,isthis,arr) =>{
       time == 1?(data[key] = [], data[key].push(el[key][0][0])):data[key] = el[key].map(m => (m[0]?m[0]:0));
       let arr = el[key];
       //将x轴数据打包成key string  value数组
-      time == 1?(x[key] = [],x[key].push(dateformat(new Date(arr[0][1]),'dd:hh:ss')))
-      :x[key] =  arr.map(m =>( dateformat(new Date(m[1]),'dd:hh:ss')));
+      time == 1?(x[key] = [],x[key].push(dateformat(new Date(rTime(arr[0][1])),'MM-dd hh:mm:ss')))
+      :x[key] =  arr.map(m =>( dateformat(new Date(rTime(m[1])),'MM-dd hh:mm:ss')));
     }
   });
 
@@ -212,6 +220,9 @@ export const painting_time = (f,time,isthis,arr) =>{
 }
 
 
+/**
+ * guid生成
+ */
 export const guid2=()=> {
     function S4() {
         return (((1 + Math.random()) * 0x10000) | 0).toString(16).substring(1);
@@ -421,12 +432,12 @@ export const shock_htmlStr = [
 
 //echarts表格生成后调用
 export const resize=(id)=>{
-  let el_one = document.getElementById(id);
-  let el = document.getElementById(id).getElementsByTagName('div')[0];
-  el.style.width = el_one.clientWidth+'px';
-  el.style.height = el_one.clientHeight+'px';
-  for(let i = 0;i<el.getElementsByTagName('canvas').length;i++){
-    el.getElementsByTagName('canvas')[i].style.width = el_one.clientWidth+'px';
-    el.getElementsByTagName('canvas')[i].style.height = el_one.clientHeight+'px';
-  }
+  // let el_one = document.getElementById(id);
+  // let el = document.getElementById(id).getElementsByTagName('div')[0];
+  // el.style.width = el_one.clientWidth+'px';
+  // el.style.height = el_one.clientHeight+'px';
+  // for(let i = 0;i<el.getElementsByTagName('canvas').length;i++){
+  //   el.getElementsByTagName('canvas')[i].style.width = el_one.clientWidth+'px';
+  //   el.getElementsByTagName('canvas')[i].style.height = el_one.clientHeight+'px';
+  // }
 }

@@ -206,11 +206,11 @@
     }
     
     .border_1px {
-        border: 1px solid;
+        border: 1px solid #4472c4;
     }
     
     .border_top_1px {
-        border-top: 1px solid;
+        border-top: 1px solid #4472c4;
         display: flex;
         align-items: center;
         justify-content: center;
@@ -485,6 +485,10 @@
     }
     
     .height_63 {
+        height: 63%;
+    }
+    
+    .height_64 {
         height: 64%;
     }
     

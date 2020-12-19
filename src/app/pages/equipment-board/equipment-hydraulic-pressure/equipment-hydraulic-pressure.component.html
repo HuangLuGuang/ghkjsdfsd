@@ -1,23 +1,23 @@
 <div id="four_road">
-    <div class="row " style="height: 100%;">
-        <div class="col-md-4" style="padding: 0px 0px 0px 15px;">
+    <div class="row " style="height: 100%;margin: 0;">
+        <div class="col-md-4" style="padding: 0px 0px 0px 20px;">
             <div class="first_first" style="height: 33%;position: relative;">
-                <ngx-equipment-status device='device_boyang_01' style="display: flex;width: 100%;"></ngx-equipment-status>
+                <ngx-equipment-status [device]='deviceid' style="display: flex;width: 100%;"></ngx-equipment-status>
             </div>
             <div class="first_second lattice_layout height_28">
                 <div class="part_title">{{'equipment.expInfor'|translate}}</div>
-                <ngx-test-information device='device_mts_01' style="width: 100%;"></ngx-test-information>
+                <ngx-test-information [device]='deviceid' style="width: 100%;"></ngx-test-information>
 
             </div>
-            <div class="dis_f_w first_third lattice_layout height_32" style="display: flex;">
-                <ngx-log-warm device='device_mts_01' style="display: flex;width: 100%;flex-wrap: wrap;"></ngx-log-warm>
+            <div class="dis_f_w first_third lattice_layout height_33" style="display: flex;">
+                <ngx-log-warm [device]='deviceid' style="display: flex;width: 100%;flex-wrap: wrap;"></ngx-log-warm>
 
             </div>
         </div>
-        <div class="col-md-4" style="padding: 0px 15px;">
-            <div class="sceond_fisrt height_27" style="position: relative;padding-top: 0px;display: inherit;min-height: 220px;">
+        <div class="col-md-4" style="padding: 0px 20px;">
+            <div class="sceond_fisrt height_28" style="position: relative;padding-top: 0px;display: inherit;min-height: 220px;">
                 <div class="part_title" style="overflow: auto;">{{ 'equipment.equipIntroduce'|translate}}</div>
-                <ngx-equip-introduce style="width: 88%;" [equipIntroduceList]="equipIntroduceList" title="底盘结构件台架试验如：副车架、摆臂、稳定杆、后桥等"></ngx-equip-introduce>
+                <ngx-equip-introduce style="width: 92%;" boardName="hydraulic" [equipIntroduceList]="equipIntroduceList" title="底盘结构件台架试验如：副车架、摆臂、稳定杆、后桥等"></ngx-equip-introduce>
             </div>
             <div class="center_img">
                 <div class="part_title">{{'equipment.OnlineVideo'|translate}}</div>
@@ -30,7 +30,7 @@
             <div class="sceond_third">
                 <div class="part_title">{{'equipment.realStatus'|translate}}</div>
                 <div style="width: 70%;display: flex;margin-top: 10px;;">
-                    <div class="table height_100" style="width: 100%;margin-bottom: 0px;">
+                    <div class="_table height_100" style="width: 100%;margin-bottom: 0px;">
                         <div class="table_bo height_21">
                             <table>
                                 <tr class="header">
@@ -76,22 +76,22 @@
                                 </div>
                             </div> -->
                         <!-- </div> -->
-                        <span [ngStyle]="{'color':item.on == 0?'red':item.high == 0?'white':'yellow'}">
+                        <span [ngStyle]="{'color':item.on == 0?'red':(item.high == 0?'white':'yellow')}">
                             {{item.on == 0?'关':item.high == 0?'低':'高'}}
                         </span>
                     </div>
                 </div>
             </div>
         </div>
-        <div class="col-md-4" style="padding: 0px 15px 0px 0px;">
+        <div class="col-md-4" style="padding: 0px 20px 0px 0px;">
             <div class="thrid">
                 <div class="part_title">{{'equipment.experimentParams'|translate}}</div>
-                <ngx-experiment-params device='device_weiss_01' style="width: 100%;"></ngx-experiment-params>
+                <ngx-experiment-params [device]='deviceid' style="width: 100%;"></ngx-experiment-params>
             </div>
-            <div class="height_32 bo" style="margin-top: 10px;padding: 0%;">
+            <div class="height_32 bo" style="margin-top: 20px;padding: 0%;">
                 <ngx-chart-curve-v3 #chart_2 [chartName]=" 'chart_2' " (clicEvent)="clicEvent($event,2) " dashboardName='dashboard_2' [list]="list_2 "></ngx-chart-curve-v3>
             </div>
-            <div class="height_32 bo" style="margin-top: 10px;padding: 0%;">
+            <div class="height_32 bo" style="margin-top: 20px;padding: 0%;">
                 <ngx-chart-curve-v3 #chart_1 [chartName]=" 'chart_1' " chartVivid='brokenline' (clicEvent)="clicEvent($event,1) " dashboardName='dashboard_1' [list]="list_1 "></ngx-chart-curve-v3>
             </div>
 

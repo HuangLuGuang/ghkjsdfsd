@@ -2,7 +2,7 @@
     background: url('/assets/eimdoard/equipment/images/beijing.png');
     position: relative;
     width: 100%;
-    height: 100%;
+    height: 100vh;
     background-size: cover;
     -webkit-background-size: cover;
     -o-background-size: cover;
@@ -61,18 +61,25 @@
         height: 53px;
     }
     .body {
-        height: 93%;
+        height: 95%;
         width: 100%;
-        margin-top: 14px;
         position: relative;
         display: flex;
         flex-wrap: wrap;
         // #left_img {
         #center {
+            color: #dcdcdc;
             width: 100%;
-            height: 98%;
-            margin: 2% 1% 0% 1%;
-            display: grid;
+            height: 100%;
+            margin: 20px 0px 0% 0px;
+            padding-bottom: 20px;
+            display: inherit;
+            div {
+                color: blanchedalmond;
+            }
+            ._table {
+                color: blanchedalmond;
+            }
         }
     }
 }

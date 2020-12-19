@@ -19,6 +19,14 @@ export class TestInformationComponent implements OnInit {
     // '实验编号','开始时间','结束时间','已进行时长','进度'
     title:['ExperimentNum','StartTime','endTime','CarriedOutTime','schedule'],
     data:[
+      // [1,'2020-10-11','2020-10-11',1,1],
+      // [1,'2020-10-11','2020-10-11',1,1],
+      // [1,'2020-10-11','2020-10-11',1,1],
+      // [1,'2020-10-11','2020-10-11',1,1],
+      // [1,'2020-10-11','2020-10-11',1,1],
+      // [1,'2020-10-11','2020-10-11',1,1],
+      // [1,'2020-10-11','2020-10-11',1,1],
+      // [1,'2020-10-11','2020-10-11',1,1],
     ]
   }
   timer60s;
@@ -55,7 +63,7 @@ export class TestInformationComponent implements OnInit {
   }
 
   get_height(){
-    return this.experiment.data.length <= 2?'75px':'120px';
+    return this.experiment.data.length <= 1?'auto':'64%';
   }
 
   getleft(item){
