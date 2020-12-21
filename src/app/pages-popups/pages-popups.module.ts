@@ -22,14 +22,13 @@ import { NewMenuComponent } from './system-set/new-menu/new-menu.component';
 
 // Menu 导航菜单
 import { NzMenuModule } from 'ng-zorro-antd/menu';
-import { ChangePassowrdComponent } from './change-passowrd/change-passowrd.component';
 import { ChangePassowrdForallComponent } from './change-passowrd-forall/change-passowrd-forall.component';
 
 // DateComponent
 @NgModule({
   declarations: [PagesPopupsComponent, RoleComponent, 
     MySelectComponent, UserEmployeeComponent,  
-    UserEmployeeGroupComponent, EditDelTooltipComponent, DeviceManageComponent, PreinstallDialogComponent,  ExpiredTokenComponent, NewMenuComponent, ChangePassowrdComponent, ChangePassowrdForallComponent],
+    UserEmployeeGroupComponent, EditDelTooltipComponent, DeviceManageComponent, PreinstallDialogComponent,  ExpiredTokenComponent, NewMenuComponent, ChangePassowrdForallComponent],
   imports: [
     CommonModule,
     PagesPopupsRoutingModule,

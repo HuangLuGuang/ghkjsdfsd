@@ -17,8 +17,6 @@ import { UserInfoService } from '../../../services/user-info/user-info.service';
 import { HttpHeaders,HttpClient,  } from '@angular/common/http';
 import { PublicmethodService } from '../../../services/publicmethod/publicmethod.service';
 
-// 修改密码
-import { ChangePassowrdComponent } from '../../../pages-popups/change-passowrd/change-passowrd.component';
 @Component({
   selector: 'ngx-header',
   styleUrls: ['./header.component.scss'],
@@ -68,7 +66,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
     },
   ];
 
-  userMenu = [ { title: '退出登录'}, { title: "修改密码"} ];
+  userMenu = [ { title: '退出登录'}];
   // userMenu = [ { title: '修改密码'}, { title: '注销用户'} ];
 
   constructor(private sidebarService: NbSidebarService,
@@ -185,14 +183,14 @@ export class HeaderComponent implements OnInit, OnDestroy {
     this.translate.use(langueName);
     // this.themeService.changeTheme(this.themeService.currentTheme);
     if (langueName == 'en-US'){
-      this.userMenu = [ { title: 'Log out' }, { title: 'Change password'} ];
+      this.userMenu = [ { title: 'Log out' }];
       // console.log("您选择的语言是： 英文！",this.themes);
 
 
     }else{
       // console.log("您选择的语言是： 中文！");
 
-      this.userMenu = [ { title: '退出登录'}, { title: "修改密码"}  ];
+      this.userMenu = [ { title: '退出登录'}];
 
     }
     // console.log("this.currentTheme  ", this.currentTheme);
@@ -218,9 +216,9 @@ export class HeaderComponent implements OnInit, OnDestroy {
       // 根据admin_app_token 是否存在，判断是admin 私用 还是单点 adminloginurl
 
       // 获取用户名
-      var username = this.userinfoservice.getName();
       var login_info = localStorage.getItem(LOGIN_INFO);
-      if (login_info && login_info["username"] === "admin"){
+      console.log("----------------------->login_info",login_info)
+      if (login_info && JSON.parse(login_info)["username"] === "admin"){
         console.log("退出，获取用户名")
         localStorage.removeItem(MULU);
         localStorage.removeItem(SYSMENU);
@@ -233,7 +231,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
         // // menu_button_list,employee_action
         localStorage.removeItem(menu_button_list);
         localStorage.removeItem(employee_action);
-        this.router.navigate(['/']);
+        this.router.navigate([loginurl]);
       }else{
         // 这里是SSO登录需要调用 接口注销 token
         var ticket = this.localStorageService.get(ssotoken)? this.localStorageService.get(ssotoken): false;
@@ -256,6 +254,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
               console.log("----====-----header", "退出注销token失败！")
             }
           })
+          
         }else{
           localStorage.removeItem(ssotoken);
           localStorage.removeItem(SSOUSERINFO);
@@ -274,23 +273,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
     }
 
-    // 修改密码
-    if (title== this.userMenu[1]["title"]){
-      console.log("<------修改密码------>",title);
-      this.dialogService.open(ChangePassowrdComponent, {closeOnBackdropClick: false,autoFocus: true,}).onClose.subscribe(result=>{
-        // console.log("---------------->",result);
-        // 修改成功后，提示重新登录
-        setTimeout(() => {
-          if (result){
-            if(confirm("密码已修改，请重新登录")){
-              localStorage.clear();
-              this.router.navigate(['/'])
-            }else{
-            }
-          }
-        }, 1000);
-      })
-    }
+   
 
   }
 
