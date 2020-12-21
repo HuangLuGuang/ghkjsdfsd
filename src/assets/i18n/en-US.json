@@ -173,10 +173,13 @@
             "ControllerEfficiency": "Controller Efficiency",
             "ControllerOutputPower": "Controller OutputPower",
             "DCpower": "DC power",
+            "LinearVoltage": "Linear Voltage",
+            "LineaCurrent": "Linea Current",
             "BusVoltage": "Bus Voltage",
             "BusCurrent": "Bus Current",
             "AveCurrent": "Ave Current",
             "AveVoltage": "Ave Voltage",
+            "OutputPower": "Output Power",
             "AveOutputPowerOfController": "Ave Output Power Of Controller"
 
 

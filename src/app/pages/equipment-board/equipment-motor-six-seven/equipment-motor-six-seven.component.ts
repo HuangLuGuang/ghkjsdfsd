@@ -342,7 +342,7 @@ export class EquipmentMotorSixSevenComponent implements OnInit {
 
 
       //系统效率 控制器效率  电机效率 控制器输出功率 直流功率
-      let arr = [data.eff_sys, data.eff_con, data.eff_mot, 0, data.prms4].forEach((f,i)=>{
+      let arr = [data.eff_sys, data.eff_con, data.eff_mot, data.prmsa, data.prms4].forEach((f,i)=>{
         chart = document.getElementById('electric_'+(i+1)+'_67');
         if(chart)
           equipment_four_road.create_real_electric({text:f,title:''},echarts.init(chart));
@@ -413,8 +413,10 @@ export const boyang_param = [
   'urms2',//v向电压
   'irms2',//v向电流
   'urms3',//W相电压
-  'irms3',//W相电流
-  'prmsa',//控制器平均功率
+  'irms3',//平均电流
+  'urms4',//平均电压
+  'irms4',//W相电流
+  'prmsa',//平均功率
   'prms4',//直流功率
   'speed',//转速
   'torque',//扭矩

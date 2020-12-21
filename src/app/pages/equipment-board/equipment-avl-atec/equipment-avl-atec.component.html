@@ -53,9 +53,9 @@
                 <div class="part_title">{{'equipment.EnvironBinParam'|translate}}</div>
                 <div class=" height_5 dis_f_w" style="justify-content: flex-end;">
                     {{'equipment.warehouseStatus'|translate}}：
-                    <div style="border-radius: 60px;width: 20px;height: 20px;margin-right: 20px;" [ngStyle]="{'background':'green'}"></div>
+                    <div style="border-radius: 60px;width: 20px;height: 20px;margin-right: 20px;" [ngStyle]="{'background':light_data.status == 1?'green':'#C0C0C0'}"></div>
                     {{'equipment.FreshAirSystem'|translate}}：
-                    <div style="border-radius: 60px;width: 20px;height: 20px;" [ngStyle]="{'background':'green'}"></div>
+                    <div style="border-radius: 60px;width: 20px;height: 20px;" [ngStyle]="{'background':light_data.ventilation_status == 1?'green':'#C0C0C0'}"></div>
                 </div>
                 <div class="height_50" style="display: flex;justify-content: center;align-items: center;">
                     <div id="real_temperature_4"></div>
@@ -64,11 +64,11 @@
                     <div class="width_25">
                         {{ 'equipment.CxHy'|translate}}<br>
                         <div style="border: 2px solid #4472c4;width: 100%;height: 28px;">
-                            12ppm
+                            {{light_data.hc_concentration}}ppm
                         </div>
                         {{ 'equipment.CO'|translate}}<br>
                         <div style="border: 2px solid #4472c4;width: 100%;height: 28px;">
-                            12ppm
+                            {{light_data.co_concentration}}ppm
                         </div>
                     </div>
                 </div>
@@ -100,7 +100,7 @@
                     </div>
                 </div>
                 <div class="height_7"></div>
-                <div class="height_25" id="avl_param_chart_1"></div>
+                <div class="height_25" id="avl_param_chart_2"></div>
                 <div class="height_7"></div>
                 <div class="height_15 dis_f_w center_center">
                     <div class="width_23 height_100 discharge" *ngFor="let item of mileage">

@@ -36,16 +36,16 @@
                     <div class="height_50" style="display: flex;flex-wrap: wrap;">
                         <div class="height_100 dis_f center_center" style="width: 30%;">
                             <div class=" dis_f_w center_center">
-                                {{'equipment.motor.BusVoltage'|translate}}
+                                {{'equipment.motor.LinearVoltage'|translate}}
                             </div>
-                            <div class="height_100 width_70 bord dis_f_w center_center">{{ motor.pa_udc1 }}</div>
+                            <div class="height_100 width_70 bord dis_f_w center_center">{{ motor.urms4 }}</div>
                         </div>
                         <div style="width: 3%;"></div>
                         <div class="height_100 center_center dis_f" style="width: 30%;">
                             <div class="center_center dis_f_w">
-                                {{'equipment.motor.BusCurrent'|translate}}
+                                {{'equipment.motor.LineaCurrent'|translate}}
                             </div>
-                            <div class="height_100 width_70 bord center_center dis_f_w">{{ motor.pa_idc1 }}</div>
+                            <div class="height_100 width_70 bord center_center dis_f_w">{{ motor.irms4 }}</div>
                         </div>
                         <div style="width: 3%;"></div>
 
@@ -75,9 +75,9 @@
 
                         <div class="height_100 center_center dis_f" style="width: 30%;">
                             <div class="center_center dis_f_w">
-                                {{'equipment.motor.AveOutputPowerOfController'|translate}}
+                                {{'equipment.motor.OutputPower'|translate}}
                             </div>
-                            <div class="height_100 width_70 bord center_center dis_f_w">{{motor.eff_con}}</div>
+                            <div class="height_100 width_70 bord center_center dis_f_w">{{motor.prmsa}}</div>
                         </div>
                     </div>
                 </div>
