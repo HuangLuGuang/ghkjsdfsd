@@ -3,7 +3,6 @@ let second_level = {
     key_index() {
         // 实例化对象
         var myChart = echarts.init(document.querySelector('.key-index'));
-
         // 配置
         let option = {
             tooltip: {

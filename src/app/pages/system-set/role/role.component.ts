@@ -935,10 +935,10 @@ export class RoleComponent implements OnInit {
       { field: 'role', headerName: '角色名称(en)', resizable: true,},
       // { field: 'active', headerName: '是否启用',resizable: true,},
       { field: 'active', headerName: '是否启用',resizable: true,cellRendererFramework: TranActiveComponent,},
-      { field: 'createdby', headerName: '创建人', resizable: true,},
       { field: 'createdon', headerName: '创建时间', resizable: true,},
-      { field: 'lastupdatedby', headerName: '更新人', resizable: true,},
+      { field: 'createdby', headerName: '创建人', resizable: true,},
       { field: 'lastupdateon', headerName: '更新时间', resizable: true,},
+      { field: 'lastupdatedby', headerName: '更新人', resizable: true,},
       
     ],
     rowData: [ // data

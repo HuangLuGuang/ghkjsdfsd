@@ -218,28 +218,32 @@ export class HeaderComponent implements OnInit, OnDestroy {
       // 获取用户名
       var login_info = localStorage.getItem(LOGIN_INFO);
       console.log("----------------------->login_info",login_info)
-      if (login_info && JSON.parse(login_info)["username"] === "admin"){
-        console.log("退出，获取用户名")
-        localStorage.removeItem(MULU);
-        localStorage.removeItem(SYSMENU);
-        localStorage.removeItem(ssotoken);
+      // if (login_info && JSON.parse(login_info)["username"] === "admin"){
+      //   console.log("退出，获取用户名")
+      //   localStorage.removeItem(MULU);
+      //   localStorage.removeItem(SYSMENU);
+      //   localStorage.removeItem(ssotoken);
 
-        localStorage.removeItem(SSOUSERINFO);
-        localStorage.removeItem(SYSROLE);
-        localStorage.removeItem(SYSROLEMENU);
+      //   localStorage.removeItem(SSOUSERINFO);
+      //   localStorage.removeItem(SYSROLE);
+      //   localStorage.removeItem(SYSROLEMENU);
 
-        // // menu_button_list,employee_action
-        localStorage.removeItem(menu_button_list);
-        localStorage.removeItem(employee_action);
-        this.router.navigate([loginurl]);
-      }else{
-        // 这里是SSO登录需要调用 接口注销 token
-        var ticket = this.localStorageService.get(ssotoken)? this.localStorageService.get(ssotoken): false;
-        console.log("退出，获取用户名, 应该是ticket",ticket);
-        localStorage.removeItem(menu_button_list);
-        localStorage.removeItem(employee_action);
-        if (ticket){
-          var _ticket = ticket.ticket;
+      //   // // menu_button_list,employee_action
+      //   localStorage.removeItem(menu_button_list);
+      //   localStorage.removeItem(employee_action);
+      //   this.router.navigate([loginurl]);
+      // }else{
+        
+      // }
+
+      // 这里是SSO登录需要调用 接口注销 token
+      var ticket = this.localStorageService.get(ssotoken)? this.localStorageService.get(ssotoken): false;
+      console.log("退出，获取用户名, 应该是ticket",ticket);
+      localStorage.removeItem(menu_button_list);
+      localStorage.removeItem(employee_action);
+      if (ticket){
+        var _ticket = ticket.ticket;
+        if (_ticket !== undefined){
           var geely_cancel_token = `http://10.190.69.78/geely-cancel-token/${_ticket}`
           this.http.delete(geely_cancel_token).subscribe((res)=>{
             console.log("这里是SSO登录需要调用 接口注销 token> res: ", res);
@@ -254,21 +258,26 @@ export class HeaderComponent implements OnInit, OnDestroy {
               console.log("----====-----header", "退出注销token失败！")
             }
           })
-          
         }else{
           localStorage.removeItem(ssotoken);
           localStorage.removeItem(SSOUSERINFO);
           localStorage.removeItem("SSO"); // auth
           this.router.navigate([loginurl]);
         }
-        localStorage.removeItem(MULU);
-        localStorage.removeItem(SYSMENU);
+        
+      }else{
         localStorage.removeItem(ssotoken);
-
         localStorage.removeItem(SSOUSERINFO);
-        localStorage.removeItem(SYSROLE);
-        localStorage.removeItem(SYSROLEMENU);
+        localStorage.removeItem("SSO"); // auth
+        this.router.navigate([loginurl]);
       }
+      localStorage.removeItem(MULU);
+      localStorage.removeItem(SYSMENU);
+      localStorage.removeItem(ssotoken);
+
+      localStorage.removeItem(SSOUSERINFO);
+      localStorage.removeItem(SYSROLE);
+      localStorage.removeItem(SYSROLEMENU);
 
 
     }

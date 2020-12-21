@@ -160,7 +160,6 @@ export class TestTaskManageComponent implements OnInit {
       if (res["code"] === 1){
         var groups = res["message"][0]["groups"];
         var type = res["message"][0]["type"];
-       
         this.group.init_select_tree(groups);
         this.eimdevicetpye.init_select_trees(type);
       }

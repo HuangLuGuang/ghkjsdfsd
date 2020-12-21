@@ -1,6 +1,35 @@
 
 @import '../../../../assets/pages/device-inline/css/eim-device-inline-iconfont.css';
 
+// map地图
+.chian_map{
+    background: url('/assets/pages/device-inline/images/one/onebj_three.png.jpg');
+    background-size: 100%;
+    min-height: 700px;
+    background-position-x: center;
+    height: 100%;
+    min-width: 768px;
+    margin-right: 0.5%;
+    // border: 1px rgb(250, 246, 34) solid;
+}
+
+// 标题
+.header_title{
+    font-size: xx-large;
+    color: #fff;
+    position: absolute;
+    top: 14px;
+    left: 50%;
+}
+
+// icon
+nb-icon {
+    background: rgba(22, 67, 127, 1);
+    cursor: pointer;
+    width: 53px;
+    height: 53px;
+}
+
 #rtmv2{
     // background: url('/assets/pages/device-inline/images/bg.png');
     background: url('/assets/pages/device-inline/images/one/one_bj.jpg');

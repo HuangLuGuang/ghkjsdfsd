@@ -175,8 +175,27 @@ export class DriveReportComponent implements OnInit {
     // this.mytable.download(title);
   }
 
+
+   // 初始化前确保 搜索条件 
+   inittable_before(){
+    var devicetype = this.myinput?.getinput()===undefined?"":this.myinput?.getinput();// 设备名称
+    // 日期范围
+    var daterange_data = this.data_range?.getselect()
+    // 将科室/功能组，转为列表
+    return {
+      limit: this.agGrid.get_pagesize(),
+      employeeid: this.userinfo.getEmployeeID(),
+      devicetype: [devicetype],
+      start:daterange_data[0],
+      end:daterange_data[1],
+    }
+
+  }
+
   // 初始化table
   inttable(event?){
+    var inittable_before = this.inittable_before();
+
     var offset;
     var limit;
     var PageSize;
@@ -192,6 +211,8 @@ export class DriveReportComponent implements OnInit {
     var columns = {
       offset: offset, 
       limit: limit,
+      start: inittable_before.start,
+      end:inittable_before.end
     }
     this.loading = true
     var message = this.message;

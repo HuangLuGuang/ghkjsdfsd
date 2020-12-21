@@ -65,6 +65,14 @@
     min-width: 80px;
 }
 
+// icon
+nb-icon {
+    background: rgba(22, 67, 127, 1);
+    cursor: pointer;
+    width: 53px;
+    height: 53px;
+}
+
 // 主体部分
 .content{
 
@@ -112,10 +120,37 @@
         }
         // map地图
         .nibo_map{
+            background: url('/assets/pages/device-inline/images/two/map.png') ;
+            background-repeat: no-repeat;
+            background-size: 100%;
             height: 58%;
+
             
             min-width: 768px;
             border: 1px rgb(250, 246, 34) solid;
+            position: relative;
+            #jiegou{
+                position: absolute;
+                top: 91px;
+                left: 268px;
+            }
+            #huanbao{
+                position: absolute;
+                top: 91px;
+                left: 300px;
+            }
+             #huanbao:hover{
+                cursor: pointer;
+                img{
+                    background-color: #08CBFA;
+                }
+            }
+            #jiegou:hover{
+                cursor: pointer;
+                img{
+                    background-color: #08CBFA;
+                }
+            }
         }
     }
 

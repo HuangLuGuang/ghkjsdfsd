@@ -87,130 +87,354 @@ let first_level = {
 
     // chian_map map 地图
     chian_map() {
-        var data = [
-                { name: "天津", value: [117.4219, 39.4189, 42] },
-                { name: "河北", value: [114.4995, 38.1006, 102] },
-                { name: "山西", value: [112.3352, 37.9413, 81] },
-                { name: "内蒙古", value: [110.3467, 41.4899, 47] },
-                { name: "辽宁", value: [123.1238, 42.1216, 67] },
-                { name: "吉林", value: [125.8154, 44.2584, 82] },
-                { name: "黑龙江", value: [127.9688, 45.368, 123] },
-                { name: "上海", value: [121.4648, 31.2891, 24] },
-                { name: "江苏", value: [118.8062, 31.9208, 92] },
-                { name: "浙江", value: [119.5313, 29.8773, 114] },
-                { name: "安徽", value: [117.29, 32.0581, 109] },
-                { name: "福建", value: [119.4543, 25.9222, 116] },
-                { name: "江西", value: [116.0046, 28.6633, 91] },
-                { name: "山东", value: [117.1582, 36.8701, 119] },
-                { name: "河南", value: [113.4668, 34.6234, 137] },
-                { name: "湖北", value: [114.3896, 30.6628, 116] },
-                { name: "湖南", value: [113.0823, 28.2568, 114] },
-                { name: "重庆", value: [108.384366, 30.439702, 91] },
-                { name: "四川", value: [103.9526, 30.7617, 125] },
-                { name: "贵州", value: [106.6992, 26.7682, 62] },
-                { name: "云南", value: [102.9199, 25.4663, 83] },
-                { name: "西藏", value: [91.11, 29.97, 9] },
-                { name: "陕西", value: [109.1162, 34.2004, 80] },
-                { name: "甘肃", value: [103.5901, 36.3043, 56] },
-                { name: "青海", value: [101.4038, 36.8207, 10] },
-                { name: "宁夏", value: [106.3586, 38.1775, 18] },
-                { name: "新疆", value: [87.9236, 43.5883, 0] },
-                { name: "广东", value: [113.12244, 23.009505, 123] },
-                { name: "广西", value: [108.479, 23.1152, 59] },
-                { name: "海南", value: [110.3893, 19.8516, 14] },
 
-            ]
+        let data = [
+            {
+                name: "黑河",
+                value: [47,127,100]
+            },
+        
+        ]
+
+        let LableData = [
+        
+            {
+                name: "黑河三高专属基地",
+                coords: [
+                    [127.528588,50.247033],
+                    [130,50, 100]
+                ],
+                value: [2,3]
+            },
+            {
+                name: "吐鲁番夏季试车专属基地",
+                coords: [
+                    [89.192125,42.956351],
+                    [92.192125,43.956351]
+                ],
+                value: [4,5]
+                
+            },
+            {
+                name: "吉利研究院",
+                coords: [
+                    [121.25158,30.342533],
+                    [124,30, 100]
+                ],
+                value: [38,50]
+            },
+            {
+                name: "盐城试车基地",
+                coords: [
+                  [120.168403,33.355342],
+                  [122,40,100]
+                ],
+                value: [2,4]
+            },
+            //94.794758,36.405633
+            {
+                name: "格尔木高原试车基地",
+                coords: [
+                  [94.794758,36.405633],
+                  [98,35,100]
+                ],
+                value: [2,4]
+            },
+            //119.417702,30.919115
+                {
+                name: "广德试车基地",
+                coords: [
+                  [119.417702,30.919115],
+                  [110,40,100]
+                ],
+                value: [2,4]
+            },
+        
+            
+        ];
             // 实例化对象
         var myChart = echarts.init(document.querySelector('.chian_map'));
 
         var option_chian_map = {
-            title: {
-                top: 10,
-                text: 'Geely 设备在线 设备全国分部',
-                left: 'center',
-                textStyle: {
-                    color: '#fff'
-                }
-            },
-            tooltip: {
-                trigger: 'item',
-                formatter: function(params) {
-                    if (typeof(params.value)[2] == "undefined") {
-                        return params.name + ' : ' + params.value;
-                    } else {
-                        return params.name + ' : ' + params.value[2];
-                    }
-                }
-            },
-            backgroundColor: 'rgba(0, 10, 52, 0)',
+            // backgroundColor: '#00294E',
             geo: {
                 map: 'china',
-                aspectScale: 0.75,
-                layoutCenter: ["50%", "51.5%"], //地图位置
-                layoutSize: '118%',
-                zoom: 0.6,
-                roam: true,
-                label: {
-                    show: false,
-                    color: '#FFFFFF',
-                    fontSize: 16
-                },
+                aspectScale: 0.85,
+                layoutCenter: ["50%", "50%"], //地图位置
+                layoutSize: '100%',
                 itemStyle: {
                     normal: {
-                        borderColor: 'rgba(254,174,33, 1)',
-                        borderWidth: 0.5,
-                        color: {
-                            type: 'linear-gradient',
-                            x: 0,
-                            y: 1500,
-                            x2: 2500,
-                            y2: 0,
-                            colorStops: [{
-                                offset: 0,
-                                color: '#009DA1' // 0% 处的颜色
-                            }, {
-                                offset: 1,
-                                color: '#005B9E' // 50% 处的颜色
-                            }],
-                            global: true // 缺省为 false
-                        },
+                        shadowColor: '#276fce',
+                        shadowOffsetX: 0,
+                        shadowOffsetY: 15,
                         opacity: 0.5,
                     },
                     emphasis: {
-                        areaColor: '#2a333d'
+                        areaColor: '#276fce',
+        
                     }
                 },
                 regions: [{
                     name: '南海诸岛',
                     itemStyle: {
                         areaColor: 'rgba(0, 10, 52, 1)',
-                        borderColor: 'rgba(0, 10, 52, 1)'
+        
+                        borderColor: 'rgba(0, 10, 52, 1)',
+                        normal: {
+                            opacity: 0,
+                            label: {
+                                show: false,
+                                color: "#009cc9",
+                            }
+                        },
+        
+        
                     },
-                    emphasis: {
-                        areaColor: 'rgba(0, 10, 52, 1)',
-                        borderColor: 'rgba(0, 10, 52, 1)'
-                    }
+                    label: {
+                        show: false,
+                        color: '#FFFFFF',
+                        fontSize: 12,
+                    },
+        
+        
                 }],
-                // z: 0.8
+        
             },
             series: [
-                // 点
+                // 常规地图
                 {
-                    symbolSize: 5,
+                    type: 'map',
+                    mapType: 'china',
+                    aspectScale: 0.85,
+                    layoutCenter: ["50%", "50%"], //地图位置
+                    layoutSize: '100%',
+                    zoom: 1, //当前视角的缩放比例
+                    // roam: true, //是否开启平游或缩放
+                    scaleLimit: { //滚轮缩放的极限控制
+                        min: 1,
+                        max: 2
+                    },
                     itemStyle: {
                         normal: {
-                            color: '#fff'
+                            areaColor: '#0c274b',
+                            borderColor: '#1cccff',
+                            borderWidth: 1.5
+        
+        
+                        },
+                        emphasis: {
+                            areaColor: '#02102b',
+                            label: {
+                                color: "#fff"
+                            }
+        
                         }
                     },
-                    name: 'light',
+        
+        
+                },
+                { //首都星图标
+                    name: '首都',
                     type: 'scatter',
                     coordinateSystem: 'geo',
+                    data: [{
+                        name: '首都',
+                        value: [116.24, 41.55, 100],
+        
+                    }, ],
+                    // symbol: iconRQ,
+                    symbolSize: 20,
+                    label: {
+                        normal: {
+                            show: false,
+        
+                        },
+                        emphasis: {
+                            show: false
+                        }
+                    },
+        
+                },
+                // 区域散点图
+                {
+                    type: 'effectScatter',
+                    coordinateSystem: 'geo',
+                    showEffectOn: 'render',
+                    zlevel: 2,
+                    symbolSize: 10,
+                    rippleEffect: { //坐标点动画
+                        period: 3,
+                        scale: 5,
+                        brushType: 'fill'
+                    },
+                    hoverAnimation: true,
+                    label: {
+                        normal: {
+                            show: true,
+                            position: 'right',
+                            formatter: '{b}',
+                            color: '#b3e2f2',
+                            fontWeight: "bold",
+                            fontSize: 18
+                        }
+                    },
                     data: data,
-                    zlevel: 1
+                    itemStyle: { //坐标点颜色
+                        normal: {
+                            show: true,
+                            color: 'green',
+                            shadowBlur: 20,
+                            shadowColor: '#fff'
+                        },
+                        emphasis: {
+                            areaColor: '#f00'
+                        }
+                    },
+        
+                },
+                // 线 和 点
+                {
+                    type: 'lines',
+                    zlevel: 1, //设置这个才会有轨迹线的小尾巴
+                    //polyline:true,
+                    effect: {
+                        show: true,
+                        period: 4,
+                        trailLength: 0.7,
+                        color: '#fff', //流动点颜色
+                        symbol: 'arrow',
+                        symbolSize: 6
+                    },
+                    lineStyle: {
+                            normal: {
+                                color:'#1DE9B6'
+                                /* function (value){ //随机颜色
+                                
+                                ['#f21347','#f3243e','#f33736','#f34131','#f34e2b',
+                                '#f56321','#f56f1c','#f58414','#f58f0e','#f5a305',
+                                '#e7ab0b','#dfae10','#d5b314','#c1bb1f','#b9be23',
+                                '#a6c62c','#96cc34','#89d23b','#7ed741','#77d64c',
+                                '#71d162','#6bcc75','#65c78b','#5fc2a0','#5abead',
+                                '#52b9c7','#4fb6d2','#4ab2e5']
+         return "#"+("00000"+((Math.random()*16777215+0.5)>>0).toString(16)).slice(-6);
+         }*/,
+                                width: 1, //线条宽度
+                                opacity: 0.1, //尾迹线条透明度
+                                curveness: .3 //尾迹线条曲直度
+                            }
+                        },
+                    data: [
+                        {
+                            fromName: "黑河",
+                            toName: "吉利研究院",
+                            coords: [
+                                [121.25158,30.342533],
+                                [127.528588,50.247033],
+                                [121.25158,30.342533],
+                            ]
+                            ,lineStyle:{color:'#4fb6d2'}
+                        },
+                        {
+                            fromName: "吐鲁番",
+                            toName: "吉利研究院",
+                            coords: [
+                                [121.25158,30.342533],
+                                [89.192125,42.956351],
+                                [121.25158,30.342533],
+                            ]
+                            ,lineStyle:{color:'#4fb6d2'}
+                            
+                        },
+                        {
+                            //120.168403,33.355342
+                            fromName: "盐城试车基地",
+                            toName: "吉利研究院",
+                            coords: [
+                                [121.25158,30.342533],
+                                [120.168403,33.355342],
+                                [121.25158,30.342533],
+                            ]
+                            ,lineStyle:{color:'#4fb6d2'}
+                            
+                        },
+                        {
+                             //120.168403,33.355342
+                            fromName: "格尔木高原试车基地",
+                            toName: "吉利研究院",
+                            coords: [
+                                [121.25158,30.342533],
+                                [94.794758,36.405633],
+                                [121.25158,30.342533],
+                            ]
+                            ,lineStyle:{color:'#4fb6d2'}
+                            
+                        },
+                         //119.417702,30.919115
+                        {
+                            fromName: "广德试车基地",
+                            toName: "吉利研究院",
+                            coords: [
+                                [121.25158,30.342533],
+                                [119.417702,30.919115],
+                                [121.25158,30.342533],
+                            ]
+                            ,lineStyle:{color:'#4fb6d2'}
+                            
+                        },
+                    ],
+        
+                },
+                {
+        
+                    type: 'lines',
+                    zlevel: 3,
+                    symbol: 'circle',
+                    symbolSize: [5, 5],
+                    color: '#ff8003',
+                    opacity: 1,
+                    label: {
+                        show: true,
+                        padding: [10, 20],
+                        color: '#fff',
+                        backgroundColor: "#1a3961",
+                        borderColor: '#aee9fb',
+                        borderWidth: 1,
+                        borderRadius: 6,
+                        formatter(params) {
+                            console.log(params)
+                            let arr = [params.name, "设备总数：" + params.value[1] + "台", "在线数量：" + params.value[0] + "台"];
+                            return arr.join("\n")
+                        },
+                        textStyle: {
+                            align: 'left',
+                            lineHeight: 20,
+                        }
+                        /* normal: {
+        
+                             textStyle: {
+                                 color: '#fff',
+                                 fontSize: 9,
+                             },
+                             formatter (value){
+                                 return value.data.value[2]
+                             },
+        
+                         }*/
+                    },
+                    lineStyle: {
+                        type: 'solid',
+                        color: '#fff',
+                        width: 0.5,
+                        opacity: 1,
+        
+                    },
+                    data: LableData,
+        
+        
                 },
                 // 气球 、scatter 散点图
                 {
-                    zoom: 0.6,
+                    zoom: 1,
                     name: 'Top 5',
                     type: 'scatter',
                     coordinateSystem: 'geo',
@@ -219,12 +443,9 @@ let first_level = {
                     label: {
                         normal: {
                             show: true,
-                            textStyle: {
-                                color: '#fff',
-                                fontSize: 9,
-                            },
+                            
                             formatter(value) {
-                                return value.data.value[2]
+                                return value.data[2]
                             }
                         }
                     },
@@ -233,7 +454,9 @@ let first_level = {
                             color: '#D8BC37', //标志颜色
                         }
                     },
-                    data: data,
+                    data: [
+                        [121.25158,30.342533, 200],
+                    ],
                     showEffectOn: 'render',
                     rippleEffect: {
                         brushType: 'stroke'
@@ -241,51 +464,9 @@ let first_level = {
                     hoverAnimation: true,
                     zlevel: 1
                 },
-                // 最上层地图
-                {
-                    type: 'map',
-                    map: 'china',
-                    zoom: 0.6,
-                    tooltip: {
-                        show: false
-                    },
-                    label: {
-                        show: false,
-                        color: '#FFFFFF',
-                        fontSize: 16
-                    },
-                    aspectScale: 0.75,
-                    layoutCenter: ["50%", "50%"], //地图位置
-                    layoutSize: '118%',
-                    roam: true,
-                    itemStyle: {
-                        normal: {
-                            borderColor: 'rgba(147, 235, 248, 0.6)',
-                            borderWidth: 0.8,
-                            areaColor: {
-                                type: 'linear-gradient',
-                                x: 0,
-                                y: 1200,
-                                x2: 1000,
-                                y2: 0,
-                                colorStops: [{
-                                    offset: 0,
-                                    color: '#009DA1' // 0% 处的颜色
-                                }, {
-                                    offset: 1,
-                                    color: '#005B9E' // 50% 处的颜色
-                                }],
-                                global: true // 缺省为 false
-                            },
-                        },
-                        emphasis: {
-                            areaColor: 'rgba(147, 235, 248, 0)'
-                        }
-                    },
-                    zlevel: 1
-                },
             ]
         };
+        
 
         // 渲染
         myChart.setOption(option_chian_map);
@@ -320,14 +501,251 @@ let first_level = {
 
         myChart.on('click', eclick);
 
-
-        // 让图标跟随屏幕自适应
-        window.addEventListener('resize', f => {
-            console.log("重置的屏幕大小！")
-            myChart.resize();
-        })
+      
 
     },
+    // chian_map() {
+    //     var data = [
+    //             { name: "天津", value: [117.4219, 39.4189, 42] },
+    //             { name: "河北", value: [114.4995, 38.1006, 102] },
+    //             { name: "山西", value: [112.3352, 37.9413, 81] },
+    //             { name: "内蒙古", value: [110.3467, 41.4899, 47] },
+    //             { name: "辽宁", value: [123.1238, 42.1216, 67] },
+    //             { name: "吉林", value: [125.8154, 44.2584, 82] },
+    //             { name: "黑龙江", value: [127.9688, 45.368, 123] },
+    //             { name: "上海", value: [121.4648, 31.2891, 24] },
+    //             { name: "江苏", value: [118.8062, 31.9208, 92] },
+    //             { name: "浙江", value: [119.5313, 29.8773, 114] },
+    //             { name: "安徽", value: [117.29, 32.0581, 109] },
+    //             { name: "福建", value: [119.4543, 25.9222, 116] },
+    //             { name: "江西", value: [116.0046, 28.6633, 91] },
+    //             { name: "山东", value: [117.1582, 36.8701, 119] },
+    //             { name: "河南", value: [113.4668, 34.6234, 137] },
+    //             { name: "湖北", value: [114.3896, 30.6628, 116] },
+    //             { name: "湖南", value: [113.0823, 28.2568, 114] },
+    //             { name: "重庆", value: [108.384366, 30.439702, 91] },
+    //             { name: "四川", value: [103.9526, 30.7617, 125] },
+    //             { name: "贵州", value: [106.6992, 26.7682, 62] },
+    //             { name: "云南", value: [102.9199, 25.4663, 83] },
+    //             { name: "西藏", value: [91.11, 29.97, 9] },
+    //             { name: "陕西", value: [109.1162, 34.2004, 80] },
+    //             { name: "甘肃", value: [103.5901, 36.3043, 56] },
+    //             { name: "青海", value: [101.4038, 36.8207, 10] },
+    //             { name: "宁夏", value: [106.3586, 38.1775, 18] },
+    //             { name: "新疆", value: [87.9236, 43.5883, 0] },
+    //             { name: "广东", value: [113.12244, 23.009505, 123] },
+    //             { name: "广西", value: [108.479, 23.1152, 59] },
+    //             { name: "海南", value: [110.3893, 19.8516, 14] },
+
+    //         ]
+    //         // 实例化对象
+    //     var myChart = echarts.init(document.querySelector('.chian_map'));
+
+    //     var option_chian_map = {
+    //         title: {
+    //             top: 10,
+    //             text: 'Geely 设备在线 设备全国分部',
+    //             left: 'center',
+    //             textStyle: {
+    //                 color: '#fff'
+    //             }
+    //         },
+    //         tooltip: {
+    //             trigger: 'item',
+    //             formatter: function(params) {
+    //                 if (typeof(params.value)[2] == "undefined") {
+    //                     return params.name + ' : ' + params.value;
+    //                 } else {
+    //                     return params.name + ' : ' + params.value[2];
+    //                 }
+    //             }
+    //         },
+    //         backgroundColor: 'rgba(0, 10, 52, 0)',
+    //         geo: {
+    //             map: 'china',
+    //             aspectScale: 0.75,
+    //             layoutCenter: ["50%", "51.5%"], //地图位置
+    //             layoutSize: '118%',
+    //             zoom: 0.6,
+    //             roam: true,
+    //             label: {
+    //                 show: false,
+    //                 color: '#FFFFFF',
+    //                 fontSize: 16
+    //             },
+    //             itemStyle: {
+    //                 normal: {
+    //                     borderColor: 'rgba(254,174,33, 1)',
+    //                     borderWidth: 0.5,
+    //                     color: {
+    //                         type: 'linear-gradient',
+    //                         x: 0,
+    //                         y: 1500,
+    //                         x2: 2500,
+    //                         y2: 0,
+    //                         colorStops: [{
+    //                             offset: 0,
+    //                             color: '#009DA1' // 0% 处的颜色
+    //                         }, {
+    //                             offset: 1,
+    //                             color: '#005B9E' // 50% 处的颜色
+    //                         }],
+    //                         global: true // 缺省为 false
+    //                     },
+    //                     opacity: 0.5,
+    //                 },
+    //                 emphasis: {
+    //                     areaColor: '#2a333d'
+    //                 }
+    //             },
+    //             regions: [{
+    //                 name: '南海诸岛',
+    //                 itemStyle: {
+    //                     areaColor: 'rgba(0, 10, 52, 1)',
+    //                     borderColor: 'rgba(0, 10, 52, 1)'
+    //                 },
+    //                 emphasis: {
+    //                     areaColor: 'rgba(0, 10, 52, 1)',
+    //                     borderColor: 'rgba(0, 10, 52, 1)'
+    //                 }
+    //             }],
+    //             // z: 0.8
+    //         },
+    //         series: [
+    //             // 点
+    //             {
+    //                 symbolSize: 5,
+    //                 itemStyle: {
+    //                     normal: {
+    //                         color: '#fff'
+    //                     }
+    //                 },
+    //                 name: 'light',
+    //                 type: 'scatter',
+    //                 coordinateSystem: 'geo',
+    //                 data: data,
+    //                 zlevel: 1
+    //             },
+    //             // 气球 、scatter 散点图
+    //             {
+    //                 zoom: 0.6,
+    //                 name: 'Top 5',
+    //                 type: 'scatter',
+    //                 coordinateSystem: 'geo',
+    //                 symbol: 'pin',
+    //                 symbolSize: [50, 50],
+    //                 label: {
+    //                     normal: {
+    //                         show: true,
+    //                         textStyle: {
+    //                             color: '#fff',
+    //                             fontSize: 9,
+    //                         },
+    //                         formatter(value) {
+    //                             return value.data.value[2]
+    //                         }
+    //                     }
+    //                 },
+    //                 itemStyle: {
+    //                     normal: {
+    //                         color: '#D8BC37', //标志颜色
+    //                     }
+    //                 },
+    //                 data: data,
+    //                 showEffectOn: 'render',
+    //                 rippleEffect: {
+    //                     brushType: 'stroke'
+    //                 },
+    //                 hoverAnimation: true,
+    //                 zlevel: 1
+    //             },
+    //             // 最上层地图
+    //             {
+    //                 type: 'map',
+    //                 map: 'china',
+    //                 zoom: 0.6,
+    //                 tooltip: {
+    //                     show: false
+    //                 },
+    //                 label: {
+    //                     show: false,
+    //                     color: '#FFFFFF',
+    //                     fontSize: 16
+    //                 },
+    //                 aspectScale: 0.75,
+    //                 layoutCenter: ["50%", "50%"], //地图位置
+    //                 layoutSize: '118%',
+    //                 roam: true,
+    //                 itemStyle: {
+    //                     normal: {
+    //                         borderColor: 'rgba(147, 235, 248, 0.6)',
+    //                         borderWidth: 0.8,
+    //                         areaColor: {
+    //                             type: 'linear-gradient',
+    //                             x: 0,
+    //                             y: 1200,
+    //                             x2: 1000,
+    //                             y2: 0,
+    //                             colorStops: [{
+    //                                 offset: 0,
+    //                                 color: '#009DA1' // 0% 处的颜色
+    //                             }, {
+    //                                 offset: 1,
+    //                                 color: '#005B9E' // 50% 处的颜色
+    //                             }],
+    //                             global: true // 缺省为 false
+    //                         },
+    //                     },
+    //                     emphasis: {
+    //                         areaColor: 'rgba(147, 235, 248, 0)'
+    //                     }
+    //                 },
+    //                 zlevel: 1
+    //             },
+    //         ]
+    //     };
+
+    //     // 渲染
+    //     myChart.setOption(option_chian_map);
+
+    //     //echarts 设置地图外边框以及多个geo实现缩放拖曳同步
+    //     myChart.on('georoam', function(params) {
+    //         var option_chian_map_1 = myChart.getOption(); //获得option对象
+    //         if (params.zoom !== null && params.zoom !== undefined) { //捕捉到缩放时
+    //             option_chian_map_1.geo[0].zoom = option_chian_map_1.series[2].zoom; //下层geo的缩放等级跟着上层的geo一起改变
+    //             option_chian_map_1.geo[0].center = option_chian_map_1.series[2].center; //下层的geo的中心位置随着上层geo一起改变
+    //         } else { //捕捉到拖曳时
+    //             option_chian_map_1.geo[0].center = option_chian_map_1.series[2].center; //下层的geo的中心位置随着上层geo一起改变
+    //         }
+    //         myChart.setOption(option_chian_map_1); //设置option
+    //     });
+
+    //     // 点击散点图上的点
+
+    //     function eclick(params) {
+    //         if (params.seriesType === 'scatter') {
+    //             console.log("点击执行： ", params);
+    //             console.log("点击执行： ", params.seriesType);
+    //             var store = require('store');
+    //             // 将得到的数据存入local store中以便于angular得到它
+    //             // store.set("first_level", params)
+    //             console.log("***********************", JSON.stringify(params.data))
+    //             store.set('first_level', JSON.stringify(params.data));
+    //             // 跳转页面 _parent:在当前页面打开，_blank、默认：在新的窗口打开
+    //             window.open('/pages/deviceinline/second-level', "_parent");
+    //         }
+    //     }
+
+    //     myChart.on('click', eclick);
+
+
+    //     // 让图标跟随屏幕自适应
+    //     window.addEventListener('resize', f => {
+    //         console.log("重置的屏幕大小！")
+    //         myChart.resize();
+    //     })
+
+    // },
 
     // device-rate 设备xx率
     // 参考 https://gallery.echartsjs.com/editor.html?c=x8UGFy_Nb

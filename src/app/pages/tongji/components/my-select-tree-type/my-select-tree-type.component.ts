@@ -25,7 +25,7 @@ export class MySelectTreeTypeComponent implements OnInit {
   ngAfterViewInit(){
     this.placeholder_title_type = this.placeholder;
     $("[name='title_type']").attr("placeholder", this.placeholder_title_type);
-    $(".tree_type_isShow").hide()
+    // $(".tree_type_isShow").hide()
   }
 
   ngOnDestroy(){
@@ -41,7 +41,7 @@ export class MySelectTreeTypeComponent implements OnInit {
   init_select_trees(data){
     // data存在-显示，否则不显示
     if(data.length >0){
-      $(".tree_type_isShow").show()
+      // $(".tree_type_isShow").show()
     }else{
       // $(".tree_type_isShow").hide()
     }

@@ -40,8 +40,7 @@ export class SecondLevelComponent implements OnInit {
       if(key_index) echarts.init(key_index).resize();
       let device_rate = document.querySelector('.device-rate');
       if(device_rate) echarts.init(device_rate).resize();
-      let nibo_map = document.querySelector('.nibo_map');
-      if(nibo_map) echarts.init(nibo_map).resize();
+      
 
       let geely_info = document.querySelector('.geely-info');
       if(geely_info) echarts.init(geely_info).resize();
@@ -55,7 +54,7 @@ export class SecondLevelComponent implements OnInit {
     second_level.device_rate(70);
 
     // map 地图
-    second_level.nibo_map();
+    // second_level.nibo_map();
 
     // this.listen_windows_resize();
   }
@@ -80,8 +79,7 @@ export class SecondLevelComponent implements OnInit {
       if(key_index) echarts.init(key_index).resize();
       let device_rate = document.querySelector('.device-rate');
       if(device_rate) echarts.init(device_rate).resize();
-      let nibo_map = document.querySelector('.nibo_map');
-      if(nibo_map) echarts.init(nibo_map).resize();
+      
   
       let geely_info = document.querySelector('.geely-info');
       if(geely_info) echarts.init(geely_info).resize();
@@ -106,8 +104,7 @@ export class SecondLevelComponent implements OnInit {
       if(key_index) echarts.init(key_index).resize();
       let device_rate = document.querySelector('.device-rate');
       if(device_rate) echarts.init(device_rate).resize();
-      let nibo_map = document.querySelector('.nibo_map');
-      if(nibo_map) echarts.init(nibo_map).resize();
+
 
       let geely_info = document.querySelector('.geely-info');
       if(geely_info) echarts.init(geely_info).resize();

@@ -4,7 +4,6 @@ import { Router } from '@angular/router';
 // my-echart
 let first_level = require('../../../../assets/pages/device-inline/js/first-level');
 
-
 // 全屏
 import * as screenfull from 'screenfull';
 import { Screenfull } from 'screenfull';
@@ -39,20 +38,20 @@ export class FirstLevelComponent implements OnInit {
     })
 
     // 关键指标
-    first_level.key_index();
+    // first_level.key_index();
     // 设备开动率、完好lv
-    first_level.device_rate(60);
+    // first_level.device_rate(60);
 
     // map 地图
     first_level.chian_map();
 
-    this.currenttime_timer = setInterval(this.currenttime, 1000);
+    // this.currenttime_timer = setInterval(this.currenttime, 1000);
     
 
   }
 
   ngOnDestroy(){
-    clearInterval(this.currenttime_timer); // 销毁组件时，取消定时任务
+    // clearInterval(this.currenttime_timer); // 销毁组件时，取消定时任务
 
   };
 

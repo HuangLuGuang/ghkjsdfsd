@@ -51,7 +51,13 @@ export class NewUserEmployeeComponent implements OnInit {
       { field: 'groups_name', headerName: '科室/功能组', resizable: true,},
       { field: 'active', headerName: '是否启用', resizable: true, cellRendererFramework: TranActiveComponent,},
       { field: 'email', headerName: '邮箱', resizable: true,},
-      { field: 'lastsignondate', headerName: '更新时间', resizable: true,minWidth:10},
+      { field: 'createdon', headerName: '创建时间', resizable: true,minWidth:10,},
+      { field: 'createdby', headerName: '创建人', resizable: true,minWidth:10,},
+      
+      { field: 'lastupdateon', headerName: '更新时间', resizable: true,minWidth:10,},
+      { field: 'lastupdatedby', headerName: '更新人', resizable: true,minWidth:10,},
+      { field: 'lastsignondate', headerName: '最后登录时间', resizable: true,minWidth:10, sort: "desc", sortable: true},
+
       
     ],
     rowData: [ // data

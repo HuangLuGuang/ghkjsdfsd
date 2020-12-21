@@ -48,9 +48,11 @@ export class UserEmployeeGroupComponent implements OnInit {
     columnDefs:[ // 列字段 多选：headerCheckboxSelection checkboxSelection , flex: 1 自动填充宽度
       { field: 'group', headerName: '科室/功能组', headerCheckboxSelection: true, checkboxSelection: true, autoHeight: true, fullWidth: true, minWidth: 50,resizable: true},
       { field: 'group_name', headerName: '科室/功能组(en)',  resizable: true, flex: 1},
-      { field: 'createdby', headerName: '创建人', resizable: true, flex: 1},
       { field: 'active', headerName: '是否启用', resizable: true, cellRendererFramework: TranActiveComponent,},
       { field: 'createdon', headerName: '创建时间', resizable: true, flex: 1},
+      { field: 'createdby', headerName: '创建人', resizable: true, flex: 1},
+      { field: 'lastupdateon', headerName: '更新时间', resizable: true, flex: 1},
+      { field: 'lastupdatedby', headerName: '更新人', resizable: true, flex: 1},
     ],
     rowData: [ // data
     ]

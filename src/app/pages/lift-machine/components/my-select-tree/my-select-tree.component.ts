@@ -106,7 +106,7 @@ export class MySelectTreeComponent implements OnInit {
   ngAfterViewInit(){
     this.placeholder_title = this.placeholder;
     $("[name='title']").attr("placeholder", this.placeholder_title);
-    $(".tree_isShow").hide();
+    // $(".tree_isShow").hide();
   }
   
   select_data = [];
@@ -118,7 +118,7 @@ export class MySelectTreeComponent implements OnInit {
     that.tree_data = data;
     // data存在-显示，否则不显示
     if(data.length >0){
-      $(".tree_isShow").show()
+      // $(".tree_isShow").show()
     }else{
       // $(".tree_isShow").hide()
     }

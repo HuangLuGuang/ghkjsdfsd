@@ -267,6 +267,7 @@ export class UserEmployeeComponent implements OnInit {
           send_data["phoneno"] = data.field["phoneno"];
           // send_data["employeeno"] = data.field["employeeno"];
           send_data["loginname"] = data.field["loginname"];
+          send_data["lastupdatedby"] = login_name;
           send_data_list.push(send_data);
           
           var send_data_item = {};

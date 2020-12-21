@@ -169,6 +169,8 @@ export class AlertReportComponent implements OnInit {
 
     // 取消选择的数据 delselect
     this.myinput.del_input_value();
+    this.data_range.reset_mydate();
+    
     // this.groups_func.dropselect();
     // this.eimdevicetpye.dropselect();
   }
