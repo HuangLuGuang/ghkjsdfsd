@@ -13,26 +13,14 @@ let equipment_four_road = require('../../../../assets/eimdoard/equipment/js/equi
   styleUrls: ['./two-drive-chassis.component.scss']
 })
 export class TwoDriveChassisComponent implements OnInit {
-  attrs = [{ 
-    name: "参数1",nameEn :'param1', unit: "V",value: [],show:true
-    ,color:["#ff2400", "#e47833"]
-  },{ 
-      name: "参数2",nameEn :'param2', unit: "V",value: [],show:true,
-      color:["#ff00ff", "#ff00ff"]
-  },{ 
-      name: "参数3",nameEn :'param3', unit: "V",value: [],show:true,
-      color:["#d9d919", "#d9d919"]
-  },{ 
-    name: "参数4",nameEn :'param4', unit: "V",value: [],show:true,
-    color:["#d9d919", "#d9d919"]
-},{ 
-  name: "参数5",nameEn :'param5', unit: "V",value: [],show:true,
-  color:["#d9d919", "#d9d919"]
-},{ 
-  name: "参数6",nameEn :'param6', unit: "V",value: [],show:true,
-  color:["#d9d919", "#d9d919"]
-}]
-  xData = [];
+  temp_hum_attrs = [{ 
+      name: "温度",nameEn :'param1', unit: "V",value: [],show:true
+      ,color:[colors[0], colors[0]]
+    },{ 
+        name: "湿度",nameEn :'param2', unit: "V",value: [],show:true,
+        color:[colors[1], colors[1]]
+      }]
+  temp_hum_xData = [];
 
 
 
@@ -135,22 +123,12 @@ export class TwoDriveChassisComponent implements OnInit {
         document.getElementById('head_title').innerText = f.title;
       this.deviceid = f.deviceid
     })
-    let rgb = '';
-    this.attrs.forEach((f,i)=>{
-      if(i > colors.length-1)
-        rgb =  rgb_del_red();
-      else
-        rgb =  colors[i];
-      f.color = [rgb,rgb];
-    })
 
 
     this.getData();
     setTimeout(() => {
       create_img_16_9();
     }, 1000);
-
-    this.get_real_time();
   }
 
   ngAfterViewInit(){
@@ -159,30 +137,14 @@ export class TwoDriveChassisComponent implements OnInit {
   }
 
   getData(){
-    // this.http.callRPC('panel_detail','get_device_panel_detail',
-    //   {"deviceid":this.deviceid}).subscribe((f:any) =>{
 
-    //   })
     
-    let g = 1;
     this.timer = setInterval(() =>{
-      this.xData.push(g);
-      if(this.xData.length>10)this.xData.splice(0,1);
-      g++;
 
-      this.attrs.forEach(m =>{
-        m.value.push(parseInt((Math.random()*100).toString()));
-        if(m.value.length >10 )m.value.splice(0,1);
-      })
-
-      if(document.getElementById('discharge_chart_1')){
-        let myChart_9 = echarts.init(document.getElementById('discharge_chart_1'));;
-        equipment_four_road.create_real_discharge({attrs:this.attrs,xData:this.xData},myChart_9);
-      }
       this.get_real_time();
       this.get_device_Temp_hum();
     },1000)
-
+    // this.get_his_temp_hum();
     
     
   }
@@ -196,11 +158,12 @@ export class TwoDriveChassisComponent implements OnInit {
     arr:param.join(',')}).subscribe((f:any)=>{
       if(f.result.error || f.result.message[0].code == 0)return;
       res = f.result.message[0].message
-      res.forEach(el => {
-        for(let key in el){
-          data[key] = el[key][0][0];
-        }
-      });
+      if(res)
+        res.forEach(el => {
+          for(let key in el){
+            data[key] = el[key][0][0];
+          }
+        });
 
       //里程
       this.discharge[0].value = data.distance1;
@@ -220,7 +183,7 @@ export class TwoDriveChassisComponent implements OnInit {
       // this.discharge_chart[4].value.push(data.n0);
       // this.discharge_chart[5].value.push(data.n1);
       // this.discharge_chart[6].value.push(data.n2);
-      this.discharge_xdata.push(rTime(res[0].v[0][1]));//x轴时间
+      this.discharge_xdata.push(rTime(res?res[0].v[0][1]:''));//x轴时间
       if(this.discharge_xdata.length>10){
         this.discharge_xdata.splice(0,1);
         this.discharge_chart.forEach(g=>{
@@ -270,7 +233,7 @@ export class TwoDriveChassisComponent implements OnInit {
       this.gauge_chart[0].value.push(data.v);
       this.gauge_chart[1].value.push(data.a);
       // this.gauge_chart[0].value.push(data.p);
-      this.gauge_xData.push(rTime(res[0].v[0][1]));
+      this.gauge_xData.push(rTime(res?res[0].v[0][1]:''));
       if(this.gauge_xData.length>10){
         this.gauge_xData.splice(0,1);
         this.gauge_chart.forEach(g=>{
@@ -315,9 +278,41 @@ export class TwoDriveChassisComponent implements OnInit {
       if(document.getElementById('t_real_temperature_4'))
         equipment_four_road.create_real_disk({value:res.humidity,text:this.language?'RealRH':'实时湿度',unit:'℃'},
         echarts.init(document.getElementById('t_real_temperature_4')));
-        
+      this.temp_hum_attrs[0].value.push(res.temperature);//温度
+      this.temp_hum_attrs[1].value.push(res.humidity);//温度 
+      this.temp_hum_xData.push(rTime(res.recordtime?res.recordtime:' ')); 
+      if(this.temp_hum_xData.length>10){
+        this.temp_hum_xData.splice(0,1);
+        this.temp_hum_attrs.forEach(f=>{
+          f.value.splice(0,1);
+        })
+      }
+
+      if(document.getElementById('discharge_chart_1')){
+        let myChart_9 = echarts.init(document.getElementById('discharge_chart_1'));;
+        equipment_four_road.create_real_discharge({attrs:this.temp_hum_attrs,xData:this.temp_hum_xData},myChart_9);
+      }
     })
-}
+  }
+
+  get_his_temp_hum(){
+    let res;
+    this.http.callRPC('get_temperature','device_monitor.get_temperature_numbers'
+    ,{deviceid:this.deviceid}).subscribe((g:any) =>{
+      if(g.result.error || g.result.message[0].code == 0)return;
+      res = g.result.message[0].message;
+      this.temp_hum_attrs[0].value = res.map(f => f.temperature);
+      this.temp_hum_attrs[1].value = res.map(f => f.humidity);
+      this.temp_hum_xData = res.map(f => rTime(f.recordtime));
+      if(document.getElementById('discharge_chart_1')){
+        let myChart_9 = echarts.init(document.getElementById('discharge_chart_1'));;
+        equipment_four_road.create_real_discharge({attrs:this.temp_hum_attrs,xData:this.temp_hum_xData},myChart_9);
+      }
+
+    })
+    
+  }
+
 
 
   getleft(item){

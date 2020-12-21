@@ -196,7 +196,7 @@ export class CentralFourJinhuaComponent implements OnInit {
     this.timer = setInterval(() =>{
       this.get_four();
       this.get_jinhua();
-    },2000)
+    },1000)
     
     
   }
@@ -212,11 +212,12 @@ export class CentralFourJinhuaComponent implements OnInit {
     arr:four_param.join(',')}).subscribe((g:any)=>{
       if(g.result.error || g.result.message[0].code == 0)return;
       res = g.result.message[0].message;
-      res.forEach(el => {
-        for(let key in el){
-          data[key] = el[key][0][0];
-        }
-      });
+      if(res)
+        res.forEach(el => {
+          for(let key in el){
+            data[key] = el[key][0][0];
+          }
+        });
       //里程
       this.discharge[0].value = data.distance1;
       this.discharge[1].value = data.distance2;
@@ -235,7 +236,7 @@ export class CentralFourJinhuaComponent implements OnInit {
       // this.discharge_chart[4].value.push(data.n0);
       // this.discharge_chart[5].value.push(data.n1);
       // this.discharge_chart[6].value.push(data.n2);
-      this.discharge_xdata.push(rTime(res[0].v[0][1]));//x轴时间
+      this.discharge_xdata.push(rTime(res?res[0].v[0][1]:''));//x轴时间
       if(this.discharge_xdata.length>10){
         this.discharge_xdata.splice(0,1);
         this.discharge_chart.forEach(g=>{
@@ -285,7 +286,7 @@ export class CentralFourJinhuaComponent implements OnInit {
       this.gauge_chart[0].value.push(data.v);
       this.gauge_chart[1].value.push(data.a);
       // this.gauge_chart[0].value.push(data.p);
-      this.gauge_xData.push(rTime(res[0].v[0][1]));
+      this.gauge_xData.push(rTime(res?res[0].v[0][1]:''));
       if(this.gauge_xData.length>10){
         this.gauge_xData.splice(0,1);
         this.gauge_chart.forEach(g=>{

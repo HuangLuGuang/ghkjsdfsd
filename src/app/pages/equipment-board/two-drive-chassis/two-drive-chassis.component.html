@@ -31,8 +31,8 @@
             <div class="sceond_third height_33" style="position: relative;flex-wrap: wrap;padding-top: 0%; margin-top: 20px;">
                 <div class="part_title">{{ 'equipment.EmissionAnalyzer'|translate }}</div>
                 <div class="display_wrap height_29" style="width: 100%;margin-top: 17px;justify-content: center;align-items: center;">
-                    <ng-container *ngFor="let item of discharge">
-                        <div class=" discharge" [ngStyle]="{'width':[4,5,6].includes(i)?'30%':'23%'}">
+                    <ng-container *ngFor="let item of discharge;let i = index">
+                        <div class=" discharge" [ngStyle]="{'width':[4,5,6].includes(i)?'27%':'23%'}">
                             {{'equipment.'+item.name|translate}}
                             <div class=" div_blue">
                                 {{item.value}}{{item.unit}}

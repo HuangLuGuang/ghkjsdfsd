@@ -153,10 +153,7 @@ xData:[]
     //获取当前语言
     let language = localStorage.getItem('currentLanguage');
     if(language!='zh-CN')this.language = language;
-    //订阅左上角点击后宽度改变
-    this.subscribeList.layout = this.layoutService.onInitLayoutSize().subscribe(f=>{
-      this.initChart();
-    })
+
     //路由参数  标题
     this.subscribeList.router = this.activateInfo.params.subscribe(f =>{
       if(document.getElementById('head_title'))
@@ -170,7 +167,6 @@ xData:[]
     this.click_list = [this.list_1[0],this.list_2[0]]
     this.getData();
     setTimeout(() => {
-      this.initChart();
       create_img_16_9();
     }, 1000);
 
@@ -197,34 +193,7 @@ xData:[]
 
   }
 
-  //初始化表格
-  initChart(){
 
-    // let data = {
-    //   title:['一级警告','二级警告'],
-    //   yAxis:['周一','周二','周三','周四','周五','周六','周日'],
-    //   firstData:[120, 132, 101, 134, 90, 230, 210],
-    //   secondData:[220, 182, 191, 234, 290, 330, 310]
-
-    // }
-    // if(this.language){
-    //   data.title = ['LV1Warn','LV2Warn'];
-    //   data.yAxis = ['Mon','Tue','Wed','Thu','Fri','Sat','Sun'];
-    // }
-    // let myChart_3 = echarts.init(document.getElementById('warning'));
-    // equipment_four_road.create_warning_chart(data,myChart_3);
-
-    // setInterval(f=>{
-    //   equipment_four_road.create_real_temperature({value:Math.floor(Math.random() * 101)},myChart_4);
-    // },3000)
-    // setInterval(f=>{
-    //   equipment_four_road.create_real_temperature({value:Math.floor(Math.random() * 101)},myChart_5);
-    // },3000)
-
-
-    // create_third_chart_line(rtm3a,this);
-
-  }
 
    //重新画
    clicEvent(e,i){

@@ -3,7 +3,7 @@ import { ActivatedRoute } from '@angular/router';
 import { time } from 'console';
 import { LayoutService } from '../../../@core/utils';
 import { HttpserviceService } from '../../../services/http/httpservice.service';
-import { copy, create_img_16_9 } from '../equipment-board';
+import { colors, copy, create_img_16_9 } from '../equipment-board';
 
 let oilsrouce = require('../../../../assets/eimdoard/equipment/js/oilsrouce');
 let equipment_four_road = require('../../../../assets/eimdoard/equipment/js/equipment-four-road');
@@ -257,37 +257,37 @@ export class OilSourceMonitoringComponent implements OnInit {
     attrs:[
         { 
           name: "HE 1出油温度",nameEn :'HE 1出油温度', unit: "℃",value: [],show:true
-          ,color:["#ff2400", "#e47833"]
+          ,color:[colors[0],colors[0]]
         },{ 
             name: "HE 2出油温度",nameEn :'HE 2出油温度', unit: "℃",value: [],show:true,
-            color:["#ff00ff", "#ff00ff"]
+            color:[colors[1],colors[1]]
         },{ 
             name: "HE1&2出油温度",nameEn :'HE1&2出油温度', unit: "℃",value: [],show:true,
-            color:["#2074E8", "#2074E8"]
+            color:[colors[2],colors[2]]
         },{ 
           name: "HE1出油饱和度",nameEn :'HE1出油饱和度', unit: "%",value: [],show:true,
-          color:["#C8CCC8", "#C8CCC8"]
+          color:[colors[3],colors[3]]
         },{ 
           name: "HE2出油饱和度",nameEn :'HE2出油饱和度', unit: "%",value: [],show:true,
-          color:["#40C040", "#40C040"]
+          color:[colors[4],colors[4]]
         },{ 
           name: "HE1&2出油饱和度差",nameEn :'HE1&2出油饱和度差', unit: "%",value: [],show:true,
-          color:["#C8CC40", "#C8CC40"]
+          color:[colors[5],colors[5]]
         },{ 
           name: "HE回油温度",nameEn :'HE回油温度', unit: "%",value: [],show:true,
-          color:["#40CCC8", "#40CCC8"]
+          color:[colors[6],colors[6]]
         },{ 
           name: "HE出油温度",nameEn :'HE出油温度', unit: "%",value: [],show:true,
-          color:["#286428", "#286428"]
+          color:[colors[7],colors[7]]
         },{ 
           name: "HE出水温度",nameEn :'HE出水温度', unit: "%",value: [],show:true,
-          color:["#18F818", "#18F818"]
+          color:[colors[8],colors[8]]
         },{ 
           name: "HE进水温度",nameEn :'HE进水温度', unit: "%",value: [],show:true,
-          color:["#70B8B8", "#70B8B8"]
+          color:[colors[9],colors[9]]
         },{ 
           name: "HE回水出水温度差",nameEn :'HE回水出水温度差', unit: "%",value: [],show:true,
-          color:["#3870A0", "#3870A0"]
+          color:[colors[10],colors[10]]
         }
     ],
     xData:[],
@@ -334,16 +334,16 @@ export class OilSourceMonitoringComponent implements OnInit {
   attrs_cleanliss = [
     { 
       name: "粒子数 > 4u",nameEn :'粒子数 > 4u', unit: "ISO Code",value: [],show:true
-      ,color:["#ff2400", "#e47833"]
+      ,color:[colors[0],colors[0]]
       },{ 
           name: "粒子数 > 6u",nameEn :'粒子数 > 4u', unit: "ISO Code",value: [],show:true,
-          color:["#ff00ff", "#ff00ff"]
+          color:[colors[1],colors[1]]
       },{ 
           name: "粒子数 > 14u",nameEn :'粒子数 > 4u', unit: "ISO Code",value: [],show:true,
-          color:["#2074E8", "#2074E8"]
+          color:[colors[2],colors[2]]
       },{ 
         name: "粒子数 > 21u",nameEn :'粒子数 > 4u', unit: "ISO Code",value: [],show:true,
-        color:["#C8CCC8", "#C8CCC8"]
+        color:[colors[3],colors[3]]
     }
   ]
   xdata_cleanliss = [];

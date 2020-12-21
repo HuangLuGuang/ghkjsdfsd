@@ -13,30 +13,11 @@ let equipment_four_road = require('../../../../assets/eimdoard/equipment/js/equi
   styleUrls: ['./equipment-avl-atec.component.scss']
 })
 export class EquipmentAvlAtecComponent implements OnInit {
-  attrs = [{ 
-    name: "参数1",nameEn :'param1', unit: "V",value: [],show:true
-    ,color:["#ff2400", "#e47833"]
-  },{ 
-      name: "参数2",nameEn :'param2', unit: "V",value: [],show:true,
-      color:["#ff00ff", "#ff00ff"]
-  },{ 
-      name: "参数3",nameEn :'param3', unit: "V",value: [],show:true,
-      color:["#d9d919", "#d9d919"]
-  },{ 
-    name: "参数4",nameEn :'param4', unit: "V",value: [],show:true,
-    color:["#d9d919", "#d9d919"]
-},{ 
-  name: "参数5",nameEn :'param5', unit: "V",value: [],show:true,
-  color:["#d9d919", "#d9d919"]
-},{ 
-  name: "参数6",nameEn :'param6', unit: "V",value: [],show:true,
-  color:["#d9d919", "#d9d919"]
-}]
-  xData = [];
-
-  attrs_1 = {};
-  attrs_2 = [];
-  attrs_3 = [];
+  avl_chart = [
+    {value:[],name:'速度',unit:'km/h',color:[colors[0],colors[0]]},
+    {value:[],name:'加速度',unit:'m/s^2',color:[colors[1],colors[1]]},
+  ];
+  avl_xdata = [];
 
   light_chart = [
     {value:[],name:'温度',unit:'℃',color:[colors[1],colors[1]]},
@@ -67,9 +48,9 @@ export class EquipmentAvlAtecComponent implements OnInit {
 
 
   avl_paramlist = [
-    {value:'12',name:'drumDragCoeff_F0D',unit:'N'},
-    {value:'12',name:'drumDragCoeff_F1D',unit:'N/km/h'},
-    {value:'12',name:'drumDragCoeff_F2D',unit:'N/(km/h)^2'},
+    {value:0,name:'drumDragCoeff_F0D',unit:'N'},
+    {value:0,name:'drumDragCoeff_F1D',unit:'N/km/h'},
+    {value:0,name:'drumDragCoeff_F2D',unit:'N/(km/h)^2'},
   ]
 
 
@@ -77,21 +58,21 @@ export class EquipmentAvlAtecComponent implements OnInit {
     {
       id:'gauge_1',
       dataLine:{
-        value:50,name:'轮速力',max:100,color:[
+        value:0,name:'轮速力',max:100,color:[
         [0, '#203add'],
         [1, '#0d1758']],unit:'N'
       }
     },{
       id:'gauge_2',
       dataLine:{
-        value:12,name:'速度',max:100,color:[
+        value:0,name:'速度',max:100,color:[
         [0, '#203add'],
         [1, '#0d1758']],unit:'km/h'
       }
     },{
       id:'gauge_3',
       dataLine:{
-        value:12,name:'加速度',max:100,color:[
+        value:0,name:'加速度',max:100,color:[
         [0, '#203add'],
         [1, '#0d1758']],unit:'m/s^2'
       }
@@ -106,7 +87,7 @@ export class EquipmentAvlAtecComponent implements OnInit {
     ,{
       id:'real_temperature_4',
       dataLine:{
-        value:12,name:'实时温度',max:100,color:[
+        value:0,name:'实时温度',max:100,color:[
         [0, '#203add'],
         [1, '#0d1758']],unit:'℃',un:'常温'
       }
@@ -114,7 +95,7 @@ export class EquipmentAvlAtecComponent implements OnInit {
     ,{
       id:'real_temperature_5',
       dataLine:{
-        value:12,name:'实时湿度',max:100,color:[
+        value:0,name:'实时湿度',max:100,color:[
         [0, '#203add'],
         [1, '#0d1758']],unit:'%RH',un:'常湿'
       }
@@ -141,10 +122,11 @@ export class EquipmentAvlAtecComponent implements OnInit {
     name:''
   }
 
-  @ViewChild('chart_1')chart_1:any;
+  inertia  = '';//惯量
+
 
   light_deviceid = '';//轻型燃油车排放分析系统;
-  t_deviceid = '';//两驱底盘测功机;
+  avl_deviceid = '';//两驱底盘测功机;
   aetc_deviceid = '';//
 
 
@@ -161,14 +143,6 @@ export class EquipmentAvlAtecComponent implements OnInit {
     //获取当前语言
     let language = localStorage.getItem('currentLanguage');
     if(language!='zh-CN')this.language = language;
-    this.subscribeList.layout = this.layoutService.onInitLayoutSize().subscribe(f=>{
-      this.initChart();
-      
-      // if(document){
-
-      // }
-      // 'avl_param_chart_1','avl_param_chart_2'
-    })
 
     this.subscribeList.router = this.activateInfo.params.subscribe(f =>{
       console.log(f);
@@ -177,125 +151,36 @@ export class EquipmentAvlAtecComponent implements OnInit {
         if(f.deviceid == 'two'){
           this.light_deviceid = 'device_avl_igem02';
           this.aetc_deviceid = 'device_atec_03';
-
+          this.avl_deviceid = 'device_avl2dyno_01';
         }else if(f.deviceid == 'four'){
           this.light_deviceid = 'device_avl_igem03';
           this.aetc_deviceid = 'device_atec_04';
-
+          this.avl_deviceid = 'device_avl4dyno_01';
         }
         
     })
-    let rgb = '';
-    this.attrs.forEach((f,i)=>{
-      if(i > colors.length-1)
-        rgb =  rgb_del_red();
-      else
-        rgb =  colors[i];
-      f.color = [rgb,rgb];
-    })
 
 
-    //赋值
-    this.attrs_2 = JSON.parse(JSON.stringify(this.attrs));
-    this.attrs_3 = JSON.parse(JSON.stringify(this.attrs));
     this.getData();
     setTimeout(() => {
-      this.initChart();
-      // this.in();
       create_img_16_9();
     }, 1000);
 
-    window.addEventListener('reszie',this.resize);
 
   }
 
   ngAfterViewInit(){
-    
+  }
 
-  }
-  
-  resize=()=>{
-    
-    let obs = new Observable(f=>{
-     
-      let id = [
-        'electric_chart_0', 'electric_chart_1', 'electric_chart_2', 'electric_chart_3',
-        'real_temperature_4','real_temperature_5','real_temperature_6',
-        'discharge_chart_1',
-        'gauge_1','gauge_2','gauge_3','gauge_4','avl_param_chart_1',
-        // 'temp_humidity_pressure'
-      ];
-      id.forEach(f=>{
-        if(document.getElementById(f))
-          echarts.init(document.getElementById(f)).resize();
-      })
-      
-      f.next('异步执行完成')
-    })
-    
-    obs.subscribe(f=>{
-      console.log(f);
-     
-    })
-  }
 
   getData(){
-    let g = 1;
     this.timer = setInterval(() =>{
       this.get_avl_igem();
       this.get_light();
-      this.xData.push(g);
-      if(this.xData.length>10)this.xData.splice(0,1);
-      g++;
-
-      [2,3].forEach(f=>{
-        this[`attrs_${f}`].forEach(m =>{
-          m.value.push(parseInt((Math.random()*100).toString()));
-          if(m.value.length >10 )m.value.splice(0,1);
-        })
-      })
-
-      let data = this.attrs.filter(f=> f.show);
-      let data_1 = {
-          series:[],
-          xData: [],
-          title:''
-      };
-      data.forEach(f=>{
-          if(f.value.length>10)f.value.splice(0,1)
-          f.color.forEach((element,i) => {
-              element = colorRgb(element,i == 0?'0.3':0.7) 
-          });
-          f.value.push((Math.random()*100).toFixed(0))
-          data_1.series.push({
-              name:f.name,
-              color:f.color,
-              value:f.value
-          });
-      })
-
-      data_1.xData = this.xData;
-      data_1.title = '速度/加速度曲线';
-      if(document.getElementById('avl_param_chart_2'))equipment_four_road.create_broken_line(data_1,echarts.init(document.getElementById('avl_param_chart_2')));
-
-
-    },2000)
-
-    
-    
+      this.get_avl_d();
+    },1000)
   }
 
-
-  initChart(){
-        this.gauge.forEach(el => {
-      if(document.getElementById(el.id))
-      equipment_four_road.create_temp_h_1_p_gauge(
-        el.dataLine
-        ,echarts.init(document.getElementById(el.id)));
-    });
-
-
-  }
 
   //排放分析仪
   get_avl_igem(){
@@ -331,11 +216,12 @@ export class EquipmentAvlAtecComponent implements OnInit {
     arr:light_param.join(',')}).subscribe((g:any)=>{
       if(g.result.error || g.result.message[0].code == 0)return;
       res = g.result.message[0].message;
-      res.forEach(el => {
-        for(let key in el){
-          data[key] = el[key][0][0];
-        }
-      });
+      if(res)
+        res.forEach(el => {
+          for(let key in el){
+            data[key] = el[key][0][0];
+          }
+        });
       this.light_data = data;
       this.gauge[4].dataLine.value = data.realtime_temp;
       this.gauge[4].dataLine.color[0] = [data.temp_setpoint/this.gauge[4].dataLine.max, '#203add'];
@@ -343,10 +229,16 @@ export class EquipmentAvlAtecComponent implements OnInit {
       this.gauge[5].dataLine.color[0] = [data.humidity_setpoint/this.gauge[5].dataLine.max, '#203add'];
       this.gauge[6].dataLine.value = data.micro_pressure_pv;
       this.gauge[6].dataLine.color[0] = [data.micro_pressure_sp/this.gauge[6].dataLine.max, '#203add'];
+      [this.gauge[4],this.gauge[5],this.gauge[6]].forEach(el => {
+        if(document.getElementById(el.id))
+        equipment_four_road.create_temp_h_1_p_gauge(
+          el.dataLine
+          ,echarts.init(document.getElementById(el.id)));
+      });
       this.light_chart[0].value.push(data.realtime_temp);
       this.light_chart[1].value.push(data.realtime_humidity);
       this.light_chart[2].value.push(data.micro_pressure_pv);
-      this.light_xdata.push(rTime(res[0].status[0][1]));
+      this.light_xdata.push(rTime(res?res[0].status[0][1]:''));
       if(this.light_xdata.length > 10){
         this.light_xdata.splice(0,1);
         this.light_chart.forEach(f=>{
@@ -362,6 +254,62 @@ export class EquipmentAvlAtecComponent implements OnInit {
           xData:this.light_xdata,
         },myChart_9);
       }
+    })
+  }
+
+  //avl转速
+  get_avl_d(){
+    let res,data:any = {};
+    this.http.callRPC('get_device_mts_realtimedata','device_monitor.get_device_mts_realtimedata',
+    {"device":this.avl_deviceid,
+    arr:avl_param.join(',')}).subscribe((g:any)=>{
+      if(g.result.error || g.result.message[0].code == 0)return;
+      res = g.result.message[0].message;
+      if(res)
+        res.forEach(el => {
+          for(let key in el){
+            data[key] = el[key][0][0];
+          }
+        });
+      
+      
+      this.gauge[0].dataLine.value = data.f;
+      this.gauge[1].dataLine.value = data.v;
+      this.gauge[2].dataLine.value = data.a;
+      this.gauge[3].dataLine.value = data.p;
+      [this.gauge[0],this.gauge[1],this.gauge[2],this.gauge[3]].forEach(f=>{
+        if(document.getElementById(f.id))
+          equipment_four_road.create_temp_h_1_p_gauge(
+            f.dataLine
+            ,echarts.init(document.getElementById(f.id)));
+      })
+      this.avl_paramlist[0].value = data.f0r;
+      this.avl_paramlist[1].value = data.f1r;
+      this.avl_paramlist[2].value = data.f2r;
+
+
+      this.mileage[0].value = data.distance1;
+      this.mileage[1].value = data.distance2;
+      this.mileage[2].value = data.distance3;
+      this.mileage[3].value = data.distance4;
+
+      this.avl_chart[0].value.push(data.v);
+      this.avl_chart[1].value.push(data.a);
+      this.avl_xdata.push(rTime(res?res[0].v[0][1]: ''));
+      if(this.avl_xdata.length>10){
+        this.avl_xdata.splice(0,1);
+        this.avl_chart.forEach(f=>{
+          f.value.splice(0,1);
+        })
+      }
+      if(document.getElementById('avl_param_chart_2'))
+          equipment_four_road.create_broken_line({
+            title:'速度/加速度曲线',
+            series:this.avl_chart,
+            xData:this.avl_xdata,
+          },echarts.init(document.getElementById('avl_param_chart_2')));
+      this.inertia = data.rw;
+
     })
   }
 
@@ -383,7 +331,6 @@ export class EquipmentAvlAtecComponent implements OnInit {
     for(let key in this.subscribeList){
       this.subscribeList[key].unsubscribe();
     }
-    window.removeEventListener('resize',this.resize)
   }
 
 }
@@ -415,4 +362,19 @@ export const light_param = [
   'ventilation_status',//新风状态
   'co_concentration',//一氧化碳
   'hc_concentration',//碳氢化合物
+]
+
+export const avl_param = [
+  'v',//速度
+  'f',//轮速力
+  'p',//功率
+  'a',//加速度
+  'f0r',//道路模拟器阻力系数F0R
+  'f1r',//道路模拟器阻力系数F1R
+  'f2r',//道路模拟器阻力系数F2R
+  'distance1',//里程1
+  'distance2',//里程2
+  'distance3',//里程3
+  'distance4',//里程4
+  'rw',//惯量
 ]

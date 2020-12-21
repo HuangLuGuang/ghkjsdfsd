@@ -23,13 +23,13 @@ export class EquipmentMotorSystemComponent implements OnInit {
   experiment_attrs = [
     { 
       name: "冷却水",nameEn: "冷却水", unit: "℃",value: [],show:true
-      ,color:["#00FF00", "#00FF00"]
+      ,color:[colors[0], colors[0]]
     },{ 
         name: "轴箱温度1",nameEn: "轴箱温度1", unit: "℃",value: [],
-        color:["#ff00ff", "#ff00ff"],show:true
+        color:[colors[1], colors[1]],show:true
     },{ 
         name: "轴箱温度2",nameEn: "轴箱温度2", unit: "℃",value: [],
-        color:["#d9d919", "#d9d919"],show:true
+        color:[colors[2], colors[2]],show:true
     }
   ]
   experiment_xData = [];
@@ -44,28 +44,28 @@ export class EquipmentMotorSystemComponent implements OnInit {
   threePhase_attrs = [
     { 
       name: "平均电压",nameEn :'平均电压', unit: "V",value: [],show:true
-      ,color:["#ff2400", "#e47833"]
+      ,color:[colors[0], colors[0]]
     },{ 
         name: "平均电流",nameEn :'平均电流', unit: "A",value: [],show:true,
-        color:["#ff00ff", "#ff00ff"]
+        color:[colors[1], colors[1]]
     },{ 
         name: "U相电压",nameEn :'U相电压', unit: "V",value: [],show:true,
-        color:["#2074E8", "#2074E8"]
+        color:[colors[2], colors[2]]
     },{ 
       name: "U相电流",nameEn :'U相电流', unit: "A",value: [],show:true,
-      color:["#C8CCC8", "#C8CCC8"]
+      color:[colors[3], colors[3]]
     },{ 
       name: "U相电压",nameEn :'U相电压', unit: "V",value: [],show:true,
-      color:["#40C040", "#40C040"]
+      color:[colors[4], colors[4]]
     },{ 
       name: "U相电流",nameEn :'U相电流', unit: "A",value: [],show:true,
-      color:["#C8CC40", "#C8CC40"]
+      color:[colors[5], colors[5]]
     },{ 
       name: "W相电压",nameEn :'W相电压', unit: "V",value: [],show:true,
-      color:["#40CCC8", "#40CCC8"]
+      color:[colors[6], colors[6]]
     },{ 
       name: "W相电流",nameEn :'W相电流', unit: "A",value: [],show:true,
-      color:["#286428", "#286428"]
+      color:[colors[7], colors[7]]
     }
   ];
   threePhase_xData = [];
