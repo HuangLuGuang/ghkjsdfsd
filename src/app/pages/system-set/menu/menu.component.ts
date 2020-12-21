@@ -206,7 +206,7 @@ export class MenuComponent implements OnInit {
       dialogService.open(NewMenuComponent, {closeOnBackdropClick: false,context: { rowdata: JSON.stringify(method), title: '添加目录' }}).onClose.subscribe(name=>{
       // dialogService.open(MenuComponent2, {closeOnBackdropClick: false,context: { rowdata: JSON.stringify(method)}}).onClose.subscribe(name=>{
         if (name){
-          that.updatetable();
+          that.updatetable(true);
         }
       });
     }
@@ -676,38 +676,32 @@ export class MenuComponent implements OnInit {
     var sysmenu = localStorage.getItem(SYSMENU) == null ? [] : JSON.parse(localStorage.getItem(SYSMENU));
     if (isactions !== undefined || sysmenu.length === 0){
       // console.log("这是 系统设置的菜单界面！")
-      // var sysmenu = localStorage.getItem(SYSMENU) == null ? [] : JSON.parse(localStorage.getItem(SYSMENU));
-      var mulu_language = localStorage.getItem('mulu_language') == null ? 'zh_CN' : localStorage.getItem('mulu_language');
-      if(sysmenu.length == 0){
-        this.publicservice.getMenu().subscribe((data:any[])=>{
-          if (data.length === 0){
-            // 表示token 过期，返回登录界面
-            this.router.navigate([loginurl]);
-          }else{
-            const colums = {
-              languageid: this.http.getLanguageID(),
-              roles: data
-            };
-            // console.log("---colums--",colums)
-            const table = "menu_item";
-            // const method = "get_systemset_menu";
-            const method = "get_systemset_menu_all";
-            this.http.callRPC(table, method, colums).subscribe((result)=>{
-              // console.log("---------------->>>>",result)
-              const baseData = result['result']['message'][0];
-              if (baseData["code"]===1){
-                var menu = this.dataTranslation(baseData["message"]);
-                localStorage.setItem(SYSMENU, JSON.stringify(menu));
-                // 按钮
-                this.RanderTable(menu);
-              }
-            })
-          }
-        });
-      }else{
-        var menu = this.dataTranslation(sysmenu);
-        this.RanderTable(menu);
-      }
+      this.publicservice.getMenu().subscribe((data:any[])=>{
+        if (data.length === 0){
+          // 表示token 过期，返回登录界面
+          this.router.navigate([loginurl]);
+        }else{
+          const colums = {
+            languageid: this.http.getLanguageID(),
+            roles: data
+          };
+          // console.log("---colums--",colums)
+          const table = "menu_item";
+          // const method = "get_systemset_menu";
+          const method = "get_systemset_menu_all";
+          this.http.callRPC(table, method, colums).subscribe((result)=>{
+            // console.log("---------------->>>>",result)
+            const baseData = result['result']['message'][0];
+            if (baseData["code"]===1){
+              var menu = this.dataTranslation(baseData["message"]);
+              localStorage.setItem(SYSMENU, JSON.stringify(menu));
+              // 按钮
+              this.RanderTable(menu);
+            }
+          })
+        }
+      });
+      
     }
     
   }

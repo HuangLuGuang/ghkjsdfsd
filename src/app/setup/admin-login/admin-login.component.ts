@@ -157,15 +157,15 @@ export class AdminLoginComponent implements OnInit {
   }
 
   RecordLogin(){
-
     if(this.userInfoService.getLoginName()){
       // const source = this.userInfoService.getSourceid();        // 本机IP地址
       // const source = this.userInfoService.getClientip();        // 客户端IP地址,
+
       const source = this.userInfoService.getUserip();        // 用户IP地址,
       const employeeid = this.userInfoService.getEmployeeID();  // employeeid
-      // result 1
       // info 登录
       const createdby = this.userInfoService.getLoginName();     // 登录名
+      // console.log("source, employeeid,createdby:",source, employeeid,createdby)
       this.publicmethodService.record(source, employeeid, 1, '登录', createdby);
       // this.publicservice.record('local', source, employeeid, 1, '登录成功！', createdby);
     }
