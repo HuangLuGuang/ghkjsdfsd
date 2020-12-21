@@ -303,12 +303,15 @@ export class TwoDriveChassisComponent implements OnInit {
     this.http.callRPC('get_temperature','device_monitor.get_temperature'
     ,{deviceid:this.deviceid}).subscribe((g:any) =>{
       if(g.result.error || g.result.message[0].code == 0)return;
-      res = g.result.message[0].message[0]?g.result.message[0].message[0]:{};
+      res = g.result.message[0].message[0]?g.result.message[0].message[0]:{
+        humidity:0,
+        temperature:0
+      };
       console.log(res)
 
       if(document.getElementById('t_real_temperature_5'))
         equipment_four_road.create_real_disk({value:res.temperature,text:this.language?'RealTEMP':'实时温度',unit:'%RH'},
-        echarts.init(document.getElementById('real_temperature_5')));
+        echarts.init(document.getElementById('t_real_temperature_5')));
       if(document.getElementById('t_real_temperature_4'))
         equipment_four_road.create_real_disk({value:res.humidity,text:this.language?'RealRH':'实时湿度',unit:'℃'},
         echarts.init(document.getElementById('t_real_temperature_4')));

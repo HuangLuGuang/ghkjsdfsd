@@ -174,9 +174,12 @@
             "ControllerOutputPower": "控制器输出功率",
             "DCpower": "直流功率",
             "BusVoltage": "母线电压",
+            "LinearVoltage": "直线电压",
+            "LineaCurrent": "直线电流",
             "BusCurrent": "母线电流",
             "AveCurrent": "平均电流",
             "AveVoltage": "平均电压",
+            "OutputPower": "平均功率",
             "AveOutputPowerOfController": "控制器输出平均功率"
         },
         "oilsrouce": {

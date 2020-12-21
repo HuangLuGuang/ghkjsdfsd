@@ -310,7 +310,7 @@ xData:[]
     // let datestr = dateformat(new Date(),'yyyy-MM-dd hh:mm');
     // let datestr_ = dateformat(new Date(),'yyyy-MM-dd hh:mm');
     let now = new Date();
-    this.http.callRPC(table,method,{"start":dateformat(new Date(now.getTime()-10000),'yyyy-MM-dd'),"end": dateformat(now,'yyyy-MM-dd hh:mm:ss'),"device":this.deviceid,
+    this.http.callRPC(table,method,{"start":dateformat(new Date(now.getTime()-10000),'yyyy-MM-dd hh:mm:ss'),"end": dateformat(now,'yyyy-MM-dd hh:mm:ss'),"device":this.deviceid,
 
     // this.http.callRPC(table,method,{"start":"2020-11-09 14:02:00","end":"2020-11-10 20:20:00","device":"device_mts_01",
     arr:param[0].join(',')}).subscribe((f:any) =>{

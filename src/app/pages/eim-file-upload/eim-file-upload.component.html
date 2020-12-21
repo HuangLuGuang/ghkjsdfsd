@@ -23,7 +23,7 @@
                     <button nbButton status="info" size="small"   ><nb-icon icon="folder-add-outline"></nb-icon>新建文件夹</button>
                 </div>
                 <!-- 上传到MaDaM -->
-                <div class=" button_item my_import " >
+                <div class=" button_item my_import " (click)="onSendToS3()">
                     <button nbButton status="info" size="small"   ><nb-icon icon="navigation-2-outline"></nb-icon>发送到s3</button>
                 </div>
 
@@ -59,7 +59,7 @@
 
         <div class="row">
             <div class="col-lg-12">
-                <ngx-ag-table #ag_Grid ></ngx-ag-table>
+                <ngx-ag-table [rowSelection]="rowSelection" #ag_Grid></ngx-ag-table>
             </div>
         </div>
 
