@@ -19,6 +19,7 @@ import { NzMessageService } from 'ng-zorro-antd/message';
   styleUrls: ['./eim-file-upload.component.scss'],
 })
 export class EimFileUploadComponent implements OnInit, AfterViewInit {
+
   @ViewChild('ag_Grid') agGrid: any;
   @ViewChild('mybreadcrumb') mybreadcrumb: any; // 面包屑
   token = localStorage.getItem(ssotoken) ? JSON.parse(localStorage.getItem(ssotoken)).token : '';
@@ -32,6 +33,7 @@ export class EimFileUploadComponent implements OnInit, AfterViewInit {
   refresh = false; // 刷新tabel
   button; // 权限button
   current_path = [];
+  rowSelection = [];
 
   tableDatas = {
     totalPageNumbers: 0, // 总页数
@@ -77,6 +79,7 @@ export class EimFileUploadComponent implements OnInit, AfterViewInit {
 
   ngOnInit(): void {
     this.current_path.length = 0;
+    this.rowSelection.length = 0;
     const that = this;
     // 文件名称
     this.filename_col = {
@@ -167,8 +170,41 @@ export class EimFileUploadComponent implements OnInit, AfterViewInit {
     });
   }
 
+
+  onSendToS3() {
+    if (this.agGrid.selectedRows.length === 0) {
+      const toastr = {
+            status: 'info',
+            position: 'toast-top-right',
+            conent: `请选择要上传的文件或文件夹`,
+          };
+          this.publicservice.showngxtoastr(toastr);
+          return ;
+    }
+    const params = {
+      current_path: this.current_path,
+      selected_file: this.agGrid.selectedRows,
+      username: this.userinfo.getName(),
+    };
+    const id = this.message.loading(`正在发送到S3..`, { nzDuration: 0}).messageId;
+    this.http.post('/api/v1/send_to_s3', params, this.hearder).subscribe(response => {
+      this.message.remove(id);
+      if (response['isSuccess'] === true) {
+          this.refresh_table();
+      } else {
+        const toastr = {
+            status: 'danger',
+            position: 'toast-top-right',
+            conent: `发送失败，请重试`,
+          };
+          this.publicservice.showngxtoastr(toastr);
+      }
+    });
+  }
+
   // 获取当前路径下的所有文件
   get_current_path_files() {
+    this.rowSelection.length = 0;
     const body = {
       current_path: this.current_path,
     };
@@ -218,15 +254,6 @@ export class EimFileUploadComponent implements OnInit, AfterViewInit {
 
   }
 
-  // 显示确认对话框   title:标题  content:内容
-
-
-
-
-  // 这是上传到 eim服务器上
-  import() {
-    console.warn('这是上传到 eim服务器上');
-  }
 
   // 上传文件时改变状态
   uploadStatus(filedata) {
