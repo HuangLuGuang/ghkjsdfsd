@@ -172,7 +172,7 @@ export class CentralFourJinhuaComponent implements OnInit {
     // })
 
     this.subscribeList.router = this.activateInfo.params.subscribe(f =>{
-      console.log(f);
+      // console.log(f);
       if(document.getElementById('head_title'))
         document.getElementById('head_title').innerText = f.title;
     })
@@ -208,7 +208,7 @@ export class CentralFourJinhuaComponent implements OnInit {
    */
   get_four(){
     let res,data:any = {};
-    this.http.callRPC('device_monitor.get_device_mts_realtimedata','device_monitor.get_device_mts_realtimedata',{"device":this.deviceid_four,
+    this.subscribeList.four = this.http.callRPC('device_monitor.get_device_mts_realtimedata','device_monitor.get_device_mts_realtimedata',{"device":this.deviceid_four,
     arr:four_param.join(',')}).subscribe((g:any)=>{
       if(g.result.error || g.result.message[0].code == 0)return;
       res = g.result.message[0].message;
@@ -307,14 +307,14 @@ export class CentralFourJinhuaComponent implements OnInit {
         title:'轮边力曲线'
         },echarts.init(document.getElementById('avl_param_chart_2')));
   
-      console.log(data)
-      console.log(res)
+      // console.log(data)
+      // console.log(res)
     })
   }
 
   get_jinhua(){
     let res,data:any = {};
-    this.http.callRPC('device_monitor.get_device_mts_realtimedata','device_monitor.get_device_mts_realtimedata',{"device":this.deviceid_jinhua,
+    this.subscribeList.jinhua = this.http.callRPC('device_monitor.get_device_mts_realtimedata','device_monitor.get_device_mts_realtimedata',{"device":this.deviceid_jinhua,
     arr:jinhua_param.join(',')}).subscribe((g:any)=>{
       if(g.result.error || g.result.message[0].code == 0)return;
       res = g.result.message[0].message;

@@ -373,7 +373,7 @@ export class OilSourceMonitoringComponent implements OnInit {
     // })
     //订阅路由返回的标题
     this.subscribeList.router = this.activateInfo.params.subscribe(f =>{
-      console.log(f);
+      // console.log(f);
       if(document.getElementById('head_title'))
         document.getElementById('head_title').innerText = f.title;
       this.deviceid = f.deviceid;
@@ -444,7 +444,7 @@ export class OilSourceMonitoringComponent implements OnInit {
     // get_hpu('{"deviceid":"device_hpu_01"}')
     //  hh01:'time',hs30:'status',hs1
     let res;
-    this.http.callRPC('get_hpu','device_monitor.get_hpu',{"deviceid":""}).subscribe((f:any)=>{
+    this.subscribeList.xhq_hpu = this.http.callRPC('get_hpu','device_monitor.get_hpu',{"deviceid":""}).subscribe((f:any)=>{
       
       
       if(f.result.error || f.result.message[0].code == 0)return;
@@ -480,7 +480,7 @@ export class OilSourceMonitoringComponent implements OnInit {
    */
   get_Error_Message(){
     // SELECT get_hpu_warninglog()
-    this.http.callRPC('get_hpu_warninglog','device_monitor.get_hpu_warninglog',{}).subscribe((f:any)=>{
+    this.subscribeList.error_message = this.http.callRPC('get_hpu_warninglog','device_monitor.get_hpu_warninglog',{}).subscribe((f:any)=>{
       if(f.result.error || f.result.message[0].code == 0)return;
       let color = 'white';
       let s = '';
@@ -504,7 +504,7 @@ export class OilSourceMonitoringComponent implements OnInit {
   get_cleanlinss(){
     // SELECT get_particle('{"deviceid":"device_hpu_01"}')
     let i = this.HPUselect.value.match(/\d{1,}/g),res;
-    this.http.callRPC('get_particle','device_monitor.get_particle',{"deviceid":"device_hpu_0"+i[0]}).subscribe((f:any)=>{
+    this.subscribeList.cleanlinss = this.http.callRPC('get_particle','device_monitor.get_particle',{"deviceid":"device_hpu_0"+i[0]}).subscribe((f:any)=>{
       if(f.result.error || f.result.message[0].code == 0)return;
       res = f.result.message[0].message[0];
       // 粒子数 > 4u
@@ -560,7 +560,7 @@ export class OilSourceMonitoringComponent implements OnInit {
     // SELECT get_water('{"deviceid":"device_hpu_02"}')
     let j = ['hw01','hw03','hw05','hw02','hw04','hw06','te04','te05','te02','te01','te03']
     let i = this.HPUselect.value.match(/\d{1,}/g),res;
-    this.http.callRPC('get_water','device_monitor.get_water',{"deviceid":"device_hpu_0"+i[0]}).subscribe((f:any)=>{
+    this.subscribeList.water = this.http.callRPC('get_water','device_monitor.get_water',{"deviceid":"device_hpu_0"+i[0]}).subscribe((f:any)=>{
       if(f.result.error || f.result.message[0].code == 0)return;
       res = f.result.message[0].message[0];
       
@@ -611,7 +611,7 @@ export class OilSourceMonitoringComponent implements OnInit {
   get_Radar(){
     // SELECT get_accumulator('{"deviceid":"device_hpu_02"}')
     let res;
-    this.http.callRPC('get_accumulator','device_monitor.get_accumulator',{"deviceid":""}).subscribe((f:any)=>{
+    this.subscribeList.rader = this.http.callRPC('get_accumulator','device_monitor.get_accumulator',{"deviceid":""}).subscribe((f:any)=>{
       if(f.result.error || f.result.message[0].code == 0)return;
       res = f.result.message[0].message[0];
 

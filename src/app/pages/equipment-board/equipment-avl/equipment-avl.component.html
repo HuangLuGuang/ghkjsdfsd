@@ -4,12 +4,12 @@
             <div class="first_first" style="height: 33%;">
                 <ngx-equipment-status [device]='deviceid_avl_speed' style="display: flex;width: 100%;"></ngx-equipment-status>
             </div>
-            <div class="first_second lattice_layout" style="height: 29%;">
+            <div class="first_second lattice_layout" style="height: 26%;">
                 <div class="part_title">{{'equipment.expInfor'|translate}}</div>
                 <ngx-test-information [device]='deviceid_avl_speed' style="width: 100%;"></ngx-test-information>
 
             </div>
-            <div class="dis_f_w first_third lattice_layout height_32">
+            <div class="dis_f_w first_third lattice_layout height_35">
                 <ngx-log-warm [device]='deviceid_avl_speed' style="display: flex;width: 100%;flex-wrap: wrap;"></ngx-log-warm>
             </div>
         </div>
@@ -69,7 +69,7 @@
                             <div class="width_70 font_w_too_long" title="{{ language?item.nameEn:item.name }}">
                                 {{ language?item.nameEn:item.name }}:
                             </div>
-                            <div id="circle" [ngStyle]="{'background':item.value == 1 ?'green':'black'}"></div>
+                            <div id="circle" [ngStyle]="{'background':item.value == 1 ?'#07ef07':'black'}"></div>
                         </div>
                         <br>
                     </ng-container>

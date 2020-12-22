@@ -214,7 +214,7 @@ export const painting_time = (f,time,isthis,arr) =>{
   arr.forEach((f,i)=>{
     isthis[`chart_${i+1}`].painting({attrs:isthis[`attrs_${i+1}`][isthis.click_list[i]],xData:isthis[`attrs_${i+1}`].xData,index:1});
   })
-  console.log('本次时长',new Date().getTime()-timest)
+  // console.log('本次时长',new Date().getTime()-timest)
 }
 
 

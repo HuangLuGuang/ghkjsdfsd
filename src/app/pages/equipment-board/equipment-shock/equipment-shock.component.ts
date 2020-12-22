@@ -298,7 +298,7 @@ export class EquipmentShockComponent implements OnInit {
   get_equip_real(){
     // SELECT get_mts_lock('{"deviceid":"device_mts_03"}')
     let res;
-    this.http.callRPC('get_mts_lock','device_monitor.get_mts_lock',{"deviceid":this.deviceid}).subscribe((f:any)=>{
+    this.subscribeList.equip = this.http.callRPC('get_mts_lock','device_monitor.get_mts_lock',{"deviceid":this.deviceid}).subscribe((f:any)=>{
       if(f.result.error || f.result.message[0].code == 0)return;
       res = f.result.message[0].message[0];
       //实验名
@@ -339,7 +339,7 @@ export class EquipmentShockComponent implements OnInit {
     // let datestr_ = dateformat(new Date(),'yyyy-MM-dd hh:mm');
     // dateformat(new Date(now.getTime()-10000)
     let now = new Date();
-    this.http.callRPC(table,method,{"start":dateformat(new Date(now.getTime()-10000),'yyyy-MM-dd hh:mm:ss'),"end": dateformat(now,'yyyy-MM-dd hh:mm:ss'),"device":this.deviceid,
+    this.subscribeList.time = this.http.callRPC(table,method,{"start":dateformat(new Date(now.getTime()-10000),'yyyy-MM-dd hh:mm:ss'),"end": dateformat(now,'yyyy-MM-dd hh:mm:ss'),"device":this.deviceid,
     arr:param[0].join(',')}).subscribe((f:any) =>{
       if(f.result.error || f.result.message[0].code == 0)return;
       painting_time(f,10,this,['chart_1','chart_2','chart_3']);
@@ -353,7 +353,7 @@ export class EquipmentShockComponent implements OnInit {
    * @param param 
    */
   get_device_mts_realtimedata(table,method,param){
-    this.http.callRPC(table,method,{"device":this.deviceid,
+    this.subscribeList.real = this.http.callRPC(table,method,{"device":this.deviceid,
     arr:param[1].join(',')}).subscribe((g:any) =>{
       if(g.result.error || g.result.message[0].code == 0)return;
       painting_time(g,1,this,['chart_1','chart_2','chart_3']);

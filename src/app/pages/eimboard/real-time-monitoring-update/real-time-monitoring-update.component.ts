@@ -51,7 +51,7 @@ export class RealTimeMonitoringUpdateComponent implements OnInit {
     data: null
   };
 
-  move = 0;//下移的距离
+  move = 1;//下移的距离
 
   // 指标数据
   zhibiao_num = this.zhibiao_data.data.length;

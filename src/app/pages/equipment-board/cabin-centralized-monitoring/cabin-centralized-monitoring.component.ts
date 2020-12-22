@@ -180,7 +180,7 @@ export class CabinCentralizedMonitoringComponent implements OnInit {
     // })
 
     this.subscribeList.router = this.activateInfo.params.subscribe(f =>{
-      console.log(f);
+      // console.log(f);
       if(document.getElementById('head_title'))
         document.getElementById('head_title').innerText = f.title;
     })
@@ -215,7 +215,7 @@ export class CabinCentralizedMonitoringComponent implements OnInit {
    */
   get_environmental_warehouse_jinhua(){
     let res,data:any = {};
-    this.http.callRPC('device_monitor.get_device_mts_realtimedata','device_monitor.get_device_mts_realtimedata',{"device":this.deviceid_jinhua,
+    this.subscribeList.jinhua = this.http.callRPC('device_monitor.get_device_mts_realtimedata','device_monitor.get_device_mts_realtimedata',{"device":this.deviceid_jinhua,
     arr:param_jinhua.join(',')}).subscribe((g:any)=>{
       if(g.result.error || g.result.message[0].code == 0)return;
       res = g.result.message[0].message;
@@ -277,7 +277,7 @@ export class CabinCentralizedMonitoringComponent implements OnInit {
    */
   get_ATEC(){
     let res,data:any = {};
-    this.http.callRPC('device_monitor.get_device_mts_realtimedata','device_monitor.get_device_mts_realtimedata',{"device":this.deviceid_ATEC,
+    this.subscribeList.atec = this.http.callRPC('device_monitor.get_device_mts_realtimedata','device_monitor.get_device_mts_realtimedata',{"device":this.deviceid_ATEC,
     arr:param_ATEC.join(',')}).subscribe((g:any)=>{
       if(g.result.error || g.result.message[0].code == 0)return;
       res = g.result.message[0].message;
@@ -333,7 +333,7 @@ export class CabinCentralizedMonitoringComponent implements OnInit {
 
   get_TempHumidity(device,arr){
     let res;
-    this.http.callRPC('get_temperature','device_monitor.get_temperature'
+    this.subscribeList[device] = this.http.callRPC('get_temperature','device_monitor.get_temperature'
     ,{device:device}).subscribe((g:any) =>{
       if(g.result.error || g.result.message[0].code == 0)return;
       res = g.result.message[0].message[0]?g.result.message[0].message[0]:{};

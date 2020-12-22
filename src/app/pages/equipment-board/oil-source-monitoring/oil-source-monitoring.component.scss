@@ -28,14 +28,24 @@
             display: flex;
             flex-wrap: wrap;
             width: 50%;
-            .d {
-                border: 1px solid rgb(77, 129, 177);
-                border-radius: 5px;
-                height: 34px;
-                margin-left: 1%;
+            height: 100%;
+            .c {
+                width: 100%;
+                background: slategrey;
+                padding: 5px;
+                border-radius: 3px;
                 display: flex;
+                flex-wrap: wrap;
                 align-items: center;
-                justify-content: center;
+                .d {
+                    border: 1px solid #202223;
+                    border-radius: 5px;
+                    height: 34px;
+                    margin-left: 1%;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                }
             }
         }
     }

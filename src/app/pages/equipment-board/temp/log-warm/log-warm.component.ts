@@ -52,13 +52,15 @@ export class LogWarmComponent implements OnInit {
   ngAfterViewInit(){
     window.addEventListener('resize',this.chartResize)
   }
+
+  obser = new Observable(f=>{
+    if(document.getElementById('warning'))echarts.init(document.getElementById('warning')).resize();
+    f.next('log-warm刷新')
+  }).pipe(take(1));
+  
   chartResize=()=>{
     // if(document.getElementById('warning'))echarts.init(document.getElementById('warning')).resize();
-    let obser = new Observable(f=>{
-      if(document.getElementById('warning'))echarts.init(document.getElementById('warning')).resize();
-      f.next('log-warm刷新')
-    }).pipe(take(1));
-    obser.subscribe(f=>{
+    this.obser.subscribe(f=>{
       console.log(f)
     })
     
@@ -81,7 +83,7 @@ export class LogWarmComponent implements OnInit {
     // })
     //SELECT get_log('{"deviceid":"device_mts_01"}')
     this.subscribeList.device_mts_log = this.http.callRPC('get_log','device_monitor.get_log',{"deviceid":"device_mts_01"}).subscribe((g:any) =>{
-      console.log(g)
+      // console.log(g)
       if(g.result.error || g.result.message[0].code == 0)return;
       getMessage(g,this.log_warm.data);
     })
@@ -93,8 +95,8 @@ export class LogWarmComponent implements OnInit {
    */
   get_device_mts_log_his(){
     //SELECT get_log_warning('{"deviceid":"device_mts_01","recordtime":"2020-11-3"}')
-    this.http.callRPC('get_log_warning','device_monitor.get_log_warning',{"deviceid":this.device,"recordtime":this.getFirstDayOfWeek()}).subscribe((g:any) =>{
-      console.log(g)
+    this.subscribeList.his_log = this.http.callRPC('get_log_warning','device_monitor.get_log_warning',{"deviceid":this.device,"recordtime":this.getFirstDayOfWeek()}).subscribe((g:any) =>{
+      // console.log(g)
       if(g.result.error || g.result.message[0].code == 0)return;
       let arr = g.result.message[0].message;
       var LV1Warn = [0,0,0,0,0,0,0];
@@ -150,7 +152,7 @@ export class LogWarmComponent implements OnInit {
 
     this.http.callRPC('get_device_log_daily_error_status','device_monitor.get_device_log_daily_error_status',
     {"device":this.device,"today":dateformat(new Date(),'yyyy-MM-dd'),"thishour":"hour"+new Date().getHours(),"level":1}).subscribe((g:any) =>{
-      console.log(g)
+      // console.log(g)
       if(g.result.error || g.result.message[0].code == 0)return;
       let arr = g.result.message[0].message[0];
       if(arr && arr.errorcount == 1)this.errorC = true;

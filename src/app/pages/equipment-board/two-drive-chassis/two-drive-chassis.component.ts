@@ -118,7 +118,7 @@ export class TwoDriveChassisComponent implements OnInit {
     if(language!='zh-CN')this.language = language;
 
     this.subscribeList.router = this.activateInfo.params.subscribe(f =>{
-      console.log(f);
+      // console.log(f);
       if(document.getElementById('head_title'))
         document.getElementById('head_title').innerText = f.title;
       this.deviceid = f.deviceid
@@ -154,7 +154,7 @@ export class TwoDriveChassisComponent implements OnInit {
 
   get_real_time(){
     let res,data:any = {};
-    this.http.callRPC('get_device_mts_realtimedata','device_monitor.get_device_mts_realtimedata',{"device":this.deviceid,
+    this.subscribeList.real = this.http.callRPC('get_device_mts_realtimedata','device_monitor.get_device_mts_realtimedata',{"device":this.deviceid,
     arr:param.join(',')}).subscribe((f:any)=>{
       if(f.result.error || f.result.message[0].code == 0)return;
       res = f.result.message[0].message
@@ -254,8 +254,8 @@ export class TwoDriveChassisComponent implements OnInit {
         title:'轮边力曲线'
         },echarts.init(document.getElementById('avl_param_chart_2')));
   
-      console.log(data)
-      console.log(res)
+      // console.log(data)
+      // console.log(res)
     })
   }
 
@@ -263,14 +263,14 @@ export class TwoDriveChassisComponent implements OnInit {
   //获取实时温湿度
   get_device_Temp_hum(){
     let res;
-    this.http.callRPC('get_temperature','device_monitor.get_temperature'
+    this.subscribeList.temp_hum = this.http.callRPC('get_temperature','device_monitor.get_temperature'
     ,{deviceid:this.deviceid}).subscribe((g:any) =>{
       if(g.result.error || g.result.message[0].code == 0)return;
       res = g.result.message[0].message[0]?g.result.message[0].message[0]:{
         humidity:0,
         temperature:0
       };
-      console.log(res)
+      // console.log(res)
 
       if(document.getElementById('t_real_temperature_5'))
         equipment_four_road.create_real_disk({value:res.temperature,text:this.language?'RealTEMP':'实时温度',unit:'%RH'},
@@ -297,7 +297,7 @@ export class TwoDriveChassisComponent implements OnInit {
 
   get_his_temp_hum(){
     let res;
-    this.http.callRPC('get_temperature','device_monitor.get_temperature_numbers'
+    this.subscribeList.his_temp_hum = this.http.callRPC('get_temperature','device_monitor.get_temperature_numbers'
     ,{deviceid:this.deviceid}).subscribe((g:any) =>{
       if(g.result.error || g.result.message[0].code == 0)return;
       res = g.result.message[0].message;

@@ -184,7 +184,7 @@ export class EquipmentMotorSystemComponent implements OnInit {
     // })
     //订阅路由
     this.subscribeList.router = this.activateInfo.params.subscribe(f =>{
-      console.log(f);
+      // console.log(f);
       if(document.getElementById('head_title'))
         document.getElementById('head_title').innerText = f.title;
       this.deviceid = f.deviceid;
@@ -224,7 +224,7 @@ export class EquipmentMotorSystemComponent implements OnInit {
   get_experimentParams(){
     // SELECT get_avl_temperature('{"deviceid":"device_avlmotor_01"}')
     let res;
-    this.http.callRPC('get_avl_temperature','device_monitor.get_avl_temperature',
+    this.subscribeList.exp = this.http.callRPC('get_avl_temperature','device_monitor.get_avl_temperature',
     {"deviceid":this.deviceid}).subscribe((f:any)=>{
       if(f.result.error || f.result.message[0].code == 0)return;
       res = f.result.message[0].message[0];
@@ -282,7 +282,7 @@ torque: 0.151 扭矩
     // get_avl_parameter('{"deviceid":"device_avlmotor_01"}'
     let j = ['pa_urmsa','pa_irmsa','pa_urms2','pa_irms2','pa_urms3','pa_irms3','pa_urms4','pa_irms4']
     let res,chart;;
-    this.http.callRPC('get_avl_parameter','device_monitor.get_avl_parameter',{"deviceid":this.deviceid}).subscribe((f:any)=>{
+    this.subscribeList.right = this.http.callRPC('get_avl_parameter','device_monitor.get_avl_parameter',{"deviceid":this.deviceid}).subscribe((f:any)=>{
       if(f.result.error || f.result.message[0].code == 0)return;
       res = f.result.message[0].message[0];
       this.motor = res;
@@ -344,11 +344,11 @@ torque: 0.151 扭矩
   get_device_Temp_hum(){
       let chart;
       let res;
-    this.http.callRPC('get_temperature','device_monitor.get_temperature'
+    this.subscribeList.temp_hum = this.http.callRPC('get_temperature','device_monitor.get_temperature'
     ,{deviceid:this.deviceid}).subscribe((g:any) =>{
       if(g.result.error || g.result.message[0].code == 0)return;
       res = g.result.message[0].message[0]?g.result.message[0].message[0]:{};
-      console.log(res)
+      // console.log(res)
         
       chart = document.getElementById('temperature');
       if(chart)

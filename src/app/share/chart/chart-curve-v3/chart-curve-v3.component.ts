@@ -543,10 +543,10 @@ export class ChartCurveV3Component implements OnInit {
         sColor = "RGB(" + sColorChange.join(",") + ","+transparency+")";
     }
     return sColor;
- };
+  };
 
- //组件销毁
- ngOnDestroy(){
+  //组件销毁
+  ngOnDestroy(){
     window.removeEventListener('resize',this.chartResize_v3);
   }
 

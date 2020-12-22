@@ -168,7 +168,7 @@ export class EquipmentAvlComponent implements OnInit {
     // })
 
     this.subscribeList.router = this.activateInfo.params.subscribe(f =>{
-      console.log(f);
+      // console.log(f);
       if(document.getElementById('head_title'))
         document.getElementById('head_title').innerText = f.title;
     })
@@ -202,7 +202,7 @@ export class EquipmentAvlComponent implements OnInit {
    */
   get_avl_discharge(){
     let res,data:any = {};
-    this.http.callRPC('get_device_mts_realtimedata','device_monitor.get_device_mts_realtimedata',
+    this.subscribeList.discharge = this.http.callRPC('get_device_mts_realtimedata','device_monitor.get_device_mts_realtimedata',
     {"device":this.deviceid_discharge,
     arr:discharge_param.join(',')}).subscribe((g:any)=>{
       if(g.result.error || g.result.message[0].code == 0)return;
@@ -244,7 +244,7 @@ export class EquipmentAvlComponent implements OnInit {
    */
   get_avl_environmental_warehouse(){
     let res,data:any = {};
-    this.http.callRPC('get_device_mts_realtimedata','device_monitor.get_device_mts_realtimedata',
+    this.subscribeList.warehouse = this.http.callRPC('get_device_mts_realtimedata','device_monitor.get_device_mts_realtimedata',
     {"device":this.deviceid_environmental,
     arr:environmental_param.join(',')}).subscribe((g:any)=>{
       if(g.result.error || g.result.message[0].code == 0)return;
@@ -341,7 +341,7 @@ export class EquipmentAvlComponent implements OnInit {
    */
   get_avl_speed(){
     let res,data:any = {};
-    this.http.callRPC('get_device_mts_realtimedata','device_monitor.get_device_mts_realtimedata',
+    this.subscribeList.speed = this.http.callRPC('get_device_mts_realtimedata','device_monitor.get_device_mts_realtimedata',
     {"device":this.deviceid_avl_speed,
     arr:avl_speed_param.join(',')}).subscribe((g:any)=>{
       if(g.result.error || g.result.message[0].code == 0)return;
@@ -368,9 +368,9 @@ export class EquipmentAvlComponent implements OnInit {
       this.avl_speed_chart[2].value.push(data.a);
       this.avl_speed_chart[3].value.push(data.p);
       this.avl_speed_xdata.push(rTime(res?res[0].v[0][1]:''));
-      if(this.discharge_xdata.length>10){
-        this.discharge_xdata.splice(0,1);
-        this.discharge_charts.forEach(el => {
+      if(this.avl_speed_xdata.length>10){
+        this.avl_speed_xdata.splice(0,1);
+        this.avl_speed_chart.forEach(el => {
           el.value.splice(0,1);
         });
       }

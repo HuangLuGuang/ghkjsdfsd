@@ -4,17 +4,17 @@
             <div class="first_first" style="height: 32%;position: relative;">
                 <ngx-equipment-status [device]='deviceid' style="display: flex;width: 100%;"></ngx-equipment-status>
             </div>
-            <div class="first_second lattice_layout height_28">
+            <div class="first_second lattice_layout height_27">
                 <div class="part_title">{{'equipment.expInfor'|translate}}</div>
                 <ngx-test-information [device]='deviceid' style="width: 100%;"></ngx-test-information>
 
             </div>
-            <div class="dis_f_w first_third lattice_layout height_32">
+            <div class="dis_f_w first_third lattice_layout height_35">
                 <ngx-log-warm [device]='deviceid' style="display: flex;width: 100%;flex-wrap: wrap;"></ngx-log-warm>
             </div>
         </div>
         <div class="col-md-4" style="height: 100%;padding: 0px 20px;">
-            <div class="sceond_fisrt height_28" style="position: relative;">
+            <div class="sceond_fisrt height_29" style="position: relative;">
                 <div class="part_title">{{ 'equipment.equipIntroduce'|translate}}</div>
                 <div style="padding: 20px;text-align: left;overflow: auto;" [innerHTML]="str">
                 </div>
@@ -27,7 +27,7 @@
                     <img id="img" [src]="img.url" [alt]="img.name">
                 </div>
             </div>
-            <div class="sceond_third height_32" style="position: relative;">
+            <div class="sceond_third height_33" style="position: relative;">
                 <div class="part_title">{{'equipment.experimentParams'|translate}}</div>
                 <div class="circularD">
                     <div class="lay">
@@ -61,11 +61,11 @@
                 <div id="humidity"></div>
             </div>
 
-            <div class="height_75 bo" style="padding: 0%;margin-top: 20px;position: relative;">
+            <div class="height_78 bo" style="padding: 0%;margin-top: 20px;position: relative;">
                 <div class="part_title">{{ 'equipment.real'|translate }}{{ 'equipment.motor.MotorParam'|translate }}
                 </div>
                 <div class="height_20 display_f">
-                    <img [src]="img.electric_url" style="width: 40%;margin: 20px 10px 10px 10px;">
+                    <img [src]="img.electric_url" style="width: 22%; margin: 4% 10px 10px 10%;">
                     <div style="width: 60%;    margin-top: 4%;">
                         <div class="height_50" style="display: flex;font-size: 12px;">
                             <div class="lay_electric">

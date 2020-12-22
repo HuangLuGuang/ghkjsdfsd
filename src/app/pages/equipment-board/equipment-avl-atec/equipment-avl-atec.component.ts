@@ -145,7 +145,7 @@ export class EquipmentAvlAtecComponent implements OnInit {
     if(language!='zh-CN')this.language = language;
 
     this.subscribeList.router = this.activateInfo.params.subscribe(f =>{
-      console.log(f);
+      // console.log(f);
       if(document.getElementById('head_title'))
         document.getElementById('head_title').innerText = f.title;
         if(f.deviceid == 'two'){
@@ -185,7 +185,7 @@ export class EquipmentAvlAtecComponent implements OnInit {
   //排放分析仪
   get_avl_igem(){
     let res,data:any = {};
-    this.http.callRPC('get_device_mts_realtimedata','device_monitor.get_device_mts_realtimedata',
+    this.subscribeList.igem = this.http.callRPC('get_device_mts_realtimedata','device_monitor.get_device_mts_realtimedata',
     {"device":this.aetc_deviceid,
     arr:avl_igem_param.join(',')}).subscribe((g:any)=>{
       if(g.result.error || g.result.message[0].code == 0)return;
@@ -211,7 +211,7 @@ export class EquipmentAvlAtecComponent implements OnInit {
   //环境仓参数
   get_light(){
     let res,data:any = {};
-    this.http.callRPC('get_device_mts_realtimedata','device_monitor.get_device_mts_realtimedata',
+    this.subscribeList.light = this.http.callRPC('get_device_mts_realtimedata','device_monitor.get_device_mts_realtimedata',
     {"device":this.aetc_deviceid,
     arr:light_param.join(',')}).subscribe((g:any)=>{
       if(g.result.error || g.result.message[0].code == 0)return;
@@ -246,8 +246,8 @@ export class EquipmentAvlAtecComponent implements OnInit {
         })
       }
 
-      if(document.getElementById('discharge_chart_1')){
-        let myChart_9 = echarts.init(document.getElementById('discharge_chart_1'));;
+      if(document.getElementById('avl_discharge_chart_1')){
+        let myChart_9 = echarts.init(document.getElementById('avl_discharge_chart_1'));;
         equipment_four_road.create_broken_line({
           title:'温湿度曲线',
           series:this.light_chart,
@@ -260,7 +260,7 @@ export class EquipmentAvlAtecComponent implements OnInit {
   //avl转速
   get_avl_d(){
     let res,data:any = {};
-    this.http.callRPC('get_device_mts_realtimedata','device_monitor.get_device_mts_realtimedata',
+    this.subscribeList.avl_d = this.http.callRPC('get_device_mts_realtimedata','device_monitor.get_device_mts_realtimedata',
     {"device":this.avl_deviceid,
     arr:avl_param.join(',')}).subscribe((g:any)=>{
       if(g.result.error || g.result.message[0].code == 0)return;

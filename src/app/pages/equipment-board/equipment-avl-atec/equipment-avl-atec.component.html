@@ -4,12 +4,12 @@
             <div class="first_first" style="height: 33%;">
                 <ngx-equipment-status device='device_boyang_01' style="display: flex;width: 100%;"></ngx-equipment-status>
             </div>
-            <div class="first_second lattice_layout" style="height: 30%;">
+            <div class="first_second lattice_layout" style="height: 27%;">
                 <div class="part_title">{{'equipment.expInfor'|translate}}</div>
                 <ngx-test-information device='device_mts_01' style="width: 100%;"></ngx-test-information>
 
             </div>
-            <div class="dis_f_w first_third lattice_layout height_32">
+            <div class="dis_f_w first_third lattice_layout height_35">
                 <ngx-log-warm device='device_mts_01' style="display: flex;width: 100%;flex-wrap: wrap;"></ngx-log-warm>
             </div>
         </div>
@@ -53,9 +53,9 @@
                 <div class="part_title">{{'equipment.EnvironBinParam'|translate}}</div>
                 <div class=" height_5 dis_f_w" style="justify-content: flex-end;">
                     {{'equipment.warehouseStatus'|translate}}：
-                    <div style="border-radius: 60px;width: 20px;height: 20px;margin-right: 20px;" [ngStyle]="{'background':light_data.status == 1?'green':'#C0C0C0'}"></div>
+                    <div style="border-radius: 60px;width: 20px;height: 20px;margin-right: 20px;" [ngStyle]="{'background':light_data.status == 1?'#07ef07':'#C0C0C0'}"></div>
                     {{'equipment.FreshAirSystem'|translate}}：
-                    <div style="border-radius: 60px;width: 20px;height: 20px;" [ngStyle]="{'background':light_data.ventilation_status == 1?'green':'#C0C0C0'}"></div>
+                    <div style="border-radius: 60px;width: 20px;height: 20px;" [ngStyle]="{'background':light_data.ventilation_status == 1?'#07ef07':'#C0C0C0'}"></div>
                 </div>
                 <div class="height_50" style="display: flex;justify-content: center;align-items: center;">
                     <div id="real_temperature_4"></div>
@@ -73,7 +73,7 @@
                     </div>
                 </div>
                 <div class="height_39">
-                    <div id="discharge_chart_1" style="height: 100%;"></div>
+                    <div id="avl_discharge_chart_1" style="height: 100%;"></div>
                 </div>
             </div>
             <div class="height_64 bo" style="margin-top: 20px;position: relative;padding-top: 30px;">

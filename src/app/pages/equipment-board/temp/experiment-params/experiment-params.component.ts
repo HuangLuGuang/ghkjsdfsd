@@ -45,22 +45,23 @@ export class ExperimentParamsComponent implements OnInit {
         this.get_device_Temp_hum();
       }
     },1000)
+    window.addEventListener('resize',this.chartResize);
   }
 
 
-  // chartResize=()=>{
-  //   this.obser.subscribe(f=>{
-  //     console.log(f)
-  //   })
+  chartResize=()=>{
+    if(document.getElementById('third_second')){
+      echarts.init(document.getElementById('third_second')).resize();
+    }
     
-  // }
+  }
 
 
   //环境实时信息
   get_device_mts_weiss(){
     // temp温度
     //  humi湿度
-    this.subscribeList.device_mts_weiss = this.http.callRPC('get_device_mts_realtimedata','device_monitor.get_device_mts_realtimedata'
+    this.subscribeList.weiss = this.subscribeList.device_mts_weiss = this.http.callRPC('get_device_mts_realtimedata','device_monitor.get_device_mts_realtimedata'
     ,{device:this.device,arr:"temperatureactual,temperatureset,humidityactual,humidityset"}).subscribe((g:any) =>{
       if(g.result.error || g.result.message[0].code == 0)return;
       let obj = this.temp_humi_change(g.result.message[0].message);
@@ -80,7 +81,7 @@ export class ExperimentParamsComponent implements OnInit {
   //环境历史信息
   get_device_mts_timerangedata(){
    let startStr = this.getPreMonth(dateformat(new Date(),'yyyy-MM-dd'))
-    this.subscribeList.device_mts_timerangedata = this.http.callRPC('get_device_mts_timerangedata','device_monitor.get_device_mts_timerangedata'
+    this.subscribeList.mcotah = this.subscribeList.device_mts_timerangedata = this.http.callRPC('get_device_mts_timerangedata','device_monitor.get_device_mts_timerangedata'
     ,{start:startStr+' 00:00:00',end:dateformat(new Date(),'yyyy-MM-dd hh:mm:ss'),device:this.device,arr:"temperatureactual,humidityactual"}).subscribe((g:any) =>{
       if(g.result.error || g.result.message[0].code == 0)return;
       // console.log(this.temp_humi_change(g.result.message[0].message));
@@ -104,11 +105,11 @@ export class ExperimentParamsComponent implements OnInit {
   //获取实时温湿度
   get_device_Temp_hum(){
     let res;
-    this.http.callRPC('get_temperature','device_monitor.get_temperature'
+    this.subscribeList.t_h = this.http.callRPC('get_temperature','device_monitor.get_temperature'
     ,{deviceid:this.device}).subscribe((g:any) =>{
       if(g.result.error || g.result.message[0].code == 0)return;
       res = g.result.message[0].message[0]?g.result.message[0].message[0]:{};
-      console.log(res)
+      // console.log(res)
       //渲染温度
       if(document.getElementById('real_temperature_1'))
         equipment_four_road.create_real_temperature_v2(
@@ -124,7 +125,7 @@ export class ExperimentParamsComponent implements OnInit {
 
   get_device_his_Temp_hum(){
     let yearPlanData = [],yearOrderData= [],differenceData=[],visibityData=[],xAxisData=[];
-    this.http.callRPC('get_temperature','device_monitor.get_temperature_numbers'
+    this.subscribeList.h_t_h = this.http.callRPC('get_temperature','device_monitor.get_temperature_numbers'
     ,{deviceid:this.device}).subscribe((g:any) =>{
       if(g.result.error || g.result.message[0].code == 0)return;
       g.result.message[0].message.forEach(el => {
@@ -202,7 +203,7 @@ export class ExperimentParamsComponent implements OnInit {
     for(let key in this.subscribeList){
       this.subscribeList[key].unsubscribe();
     }
-    // window.removeEventListener('resize',this.chartResize);
+    window.removeEventListener('resize',this.chartResize);
   }
 
 }

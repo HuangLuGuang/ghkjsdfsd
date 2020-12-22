@@ -28,7 +28,7 @@ let oilsrouce = {
             },
             radar: {
                 center: ["50%", "50%"],
-                radius: "40%",
+                radius: "63%",
                 startAngle: 90,
                 splitNumber: 5,
                 splitArea: {

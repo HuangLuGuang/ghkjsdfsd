@@ -22,8 +22,10 @@
                     <div style="width: 50%;height: 100%;" id="{{item.id}}"></div>
                     <div class="pump">
                         <div style="width: 100%;">泵组</div>
-                        <div class="d" *ngFor="let f of item.pumpList" [ngStyle]="{'background':f.s?'#00FF33':'',width:(100-item.pumpList.length)/item.pumpList.length+'%'}">
-                            {{ f.name }}
+                        <div class="c">
+                            <div class="d" *ngFor="let f of item.pumpList" [ngStyle]="{'background':f.s?'#00FF33':'',width:(100-item.pumpList.length)/item.pumpList.length+'%'}">
+                                {{ f.name }}
+                            </div>
                         </div>
                     </div>
                 </div>

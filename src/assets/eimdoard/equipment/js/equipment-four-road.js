@@ -938,7 +938,7 @@ let equipment_four_road = {
                         rich: {
                             a: {
                                 fontSize: 12,
-                                color: '#0093EE'
+                                color: 'white'
                             }
                         }
                     },
@@ -1004,7 +1004,7 @@ let equipment_four_road = {
                         rich: {
                             a: {
                                 fontSize: 12,
-                                color: '#0093EE'
+                                color: 'white'
                             }
                         }
                     },
@@ -1071,7 +1071,7 @@ let equipment_four_road = {
                         rich: {
                             a: {
                                 fontSize: 12,
-                                color: '#0093EE'
+                                color: 'white'
                             }
                         }
                     },
@@ -1235,7 +1235,7 @@ let equipment_four_road = {
                 }
             },
             grid: {
-                left: 30,
+                left: 40,
                 top: '17%',
                 right: '5%',
                 bottom: '20%',
@@ -1479,7 +1479,8 @@ let equipment_four_road = {
                             value: data.value,
                             itemStyle: {
                                 normal: {
-                                    color: '#6F78CC'
+                                    color: '#07ef07'
+                                        // color: '#6F78CC'
                                 }
                             },
                             label: dataStyle,
@@ -1503,40 +1504,40 @@ let equipment_four_road = {
     create_broken_line(data, myChart, config) {
         var series = [];
         data.series.forEach((f, j) => {
-            if (j == data.series.length - 1)
-                series.push({
-                    name: f.name,
-                    type: 'line',
-                    showSymbol: true,
-                    lineStyle: {
-                        width: 2
-                    },
-                    itemStyle: {
-                        color: f.color[0]
-                    },
-                    areaStyle: {
-                        color: new echarts.graphic.LinearGradient(0, 0, 0, 0.1, [{
-                            offset: 0,
-                            color: f.color[0]
-                        }, {
-                            offset: 0.3,
-                            color: f.color[0]
-                        }])
-                    },
-                    data: f.value
-                });
-            else
-                series.push({
-                    name: f.name,
-                    type: 'line',
-                    itemStyle: {
-                        color: f.color[0]
-                    },
-                    lineStyle: {
-                        width: 2
-                    },
-                    data: f.value
-                });
+            // if (j == data.series.length - 1)
+            //     series.push({
+            //         name: f.name,
+            //         type: 'line',
+            //         showSymbol: true,
+            //         lineStyle: {
+            //             width: 2
+            //         },
+            //         itemStyle: {
+            //             color: f.color[0]
+            //         },
+            //         areaStyle: {
+            //             color: new echarts.graphic.LinearGradient(0, 0, 0, 0.1, [{
+            //                 offset: 0,
+            //                 color: f.color[0]
+            //             }, {
+            //                 offset: 0.3,
+            //                 color: f.color[0]
+            //             }])
+            //         },
+            //         data: f.value
+            //     });
+            // else
+            series.push({
+                name: f.name,
+                type: 'line',
+                itemStyle: {
+                    color: f.color[0]
+                },
+                lineStyle: {
+                    width: 2
+                },
+                data: f.value
+            });
         })
         if (series.length == 0) series.push({ type: 'line', name: '', data: [] });
         let option_e = {
@@ -1567,7 +1568,6 @@ let equipment_four_road = {
                 },
             },
             yAxis: {
-                splitLine: { show: false },
                 min: 0,
                 axisLabel: {
                     color: COLOR,
@@ -1882,7 +1882,11 @@ let equipment_four_road = {
             yAxis: [{
                 type: "value",
                 splitLine: {
-                    show: false
+                    width: 0.08,
+                    lineStyle: {
+                        type: "solid",
+                        color: splitLine_color
+                    }
                 },
                 axisLine: {
                     lineStyle: {
