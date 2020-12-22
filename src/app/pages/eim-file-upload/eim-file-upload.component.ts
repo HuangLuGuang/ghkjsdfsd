@@ -268,7 +268,7 @@ export class EimFileUploadComponent implements OnInit, AfterViewInit {
     formData.append('current_path', JSON.stringify(this.current_path));
 
     const id = this.message.loading(`${item.file.name} 文件上传中..`, { nzDuration: 0 }).messageId;
-    const req = new HttpRequest('POST', item.action, formData);
+    const req = new HttpRequest('POST', item.action, formData, this.hearder);
     return this.http.request(req).subscribe((event: HttpEvent<{}>) => {
       if (event instanceof HttpResponse) {
         this.message.remove(id);
