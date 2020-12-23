@@ -1,4 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
+import { SelectTreeService } from '../select-tree.service';
 declare let $;
 declare let layui;
 
@@ -18,7 +19,7 @@ export class MySelectTreeComponent implements OnInit {
   // el5
   el5s;
 
-  constructor() { 
+  constructor(private selectService: SelectTreeService) { 
     
   }
 
@@ -27,6 +28,15 @@ export class MySelectTreeComponent implements OnInit {
 
   ngOnInit(): void {
     // this.init_select_tree(this.groups);
+
+    // --------------和 设备类型 交互
+    this.selectService.currentMessage.subscribe(result=>{
+      if (result){
+        console.log("----------设备类型 交互----------")
+        $(".ele5").hide();
+        this.xialaicon = "arrow-ios-downward-outline";
+      }
+    })
   }
   
   ngAfterViewInit(){
@@ -57,6 +67,8 @@ export class MySelectTreeComponent implements OnInit {
     layui.use(['eleTree',],function(){
       var eleTree = layui.eleTree;
       $("[name='title']").on("click",function (e) {
+        
+
         
         if (that.xialaicon === "arrow-ios-upward-outline"){
           that.xialaicon = "arrow-ios-downward-outline"

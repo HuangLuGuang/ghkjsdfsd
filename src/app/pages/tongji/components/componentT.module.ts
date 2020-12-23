@@ -17,7 +17,6 @@ import { MySelectTreeTypeComponent as MySelectTreeTypeComponentType} from './my-
 import { MyDateRangeComponent } from './my-date-range/my-date-range.component';
 import { MyInputComponent } from './my-input/my-input.component';
 import { MyInputTwoComponent } from './my-input-two/my-input-two.component';
-import { MyDateRangeMultipleComponent } from './my-date-range-multiple/my-date-range-multiple.component';
 @NgModule({
   declarations: [
     AgTableComponent, MySelectTreeComponent, MySelectTreeTypeComponent,
@@ -25,7 +24,6 @@ import { MyDateRangeMultipleComponent } from './my-date-range-multiple/my-date-r
     MyDateRangeComponent,
     MyInputComponent,
     MyInputTwoComponent,
-    MyDateRangeMultipleComponent,
   ],
   imports: [
     CommonModule,
@@ -42,7 +40,6 @@ import { MyDateRangeMultipleComponent } from './my-date-range-multiple/my-date-r
     MyDateRangeComponent,
     MyInputComponent,
     MyInputTwoComponent,
-    MyDateRangeMultipleComponent,
   ]
 })
 export class ComponentTModule { }

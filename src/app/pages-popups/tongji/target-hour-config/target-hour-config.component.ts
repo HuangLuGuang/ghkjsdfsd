@@ -1,11 +1,12 @@
-import { Component, OnInit, Input } from '@angular/core';
-import { NbDialogRef } from '@nebular/theme';
+import { Component, OnInit, Input, } from '@angular/core';
+import { NbDialogRef, } from '@nebular/theme';
 import { DatePipe } from '@angular/common';
+import { UserInfoService } from '../../../services/user-info/user-info.service';
+import { HttpserviceService } from '../../../services/http/httpservice.service';
+import { PublicmethodService } from '../../../services/publicmethod/publicmethod.service';
 declare let layui;
 declare let $;
 
-
-// const flatpickr = require("flatpickr");
 declare let flatpickr;
 let Mandarin = require('../../../../assets/pages/tongji/flatpickr/zh.js').default.zh;
 
@@ -18,23 +19,44 @@ export class TargetHourConfigComponent implements OnInit {
   @Input() data: any;
   @Input() deveiceids: number[];
 
+  selectedDates: any[];
 
-  constructor(private dialogRef: NbDialogRef<TargetHourConfigComponent>, private datepipe: DatePipe) { }
+  myinput_placeholder = "每日目标时长(h)";
+
+  TABLE = "device";
+  METHOD = "dev_get_target_time_update"; // 批量修改工时！
+
+  lastupdatedby = this.userinfo.getLoginName(); // 域账号
+  employeeid = this.userinfo.getEmployeeID(); // 用户id
+
+
+  constructor(private dialogRef: NbDialogRef<TargetHourConfigComponent>, private datepipe: DatePipe,
+    private userinfo:UserInfoService, private http: HttpserviceService, private publicservice: PublicmethodService
+  ) { }
 
   ngOnInit(): void {
+    $(".delet_input_value").hide()
+
     console.log("data:", this.data);
-    console.log("deveiceids:", this.deveiceids);
+    console.log("deveiceids:", this.deveiceids);// 选择的行的数据
     flatpickr.localize(Mandarin);
     // 参考时间
   }
 
   ngAfterViewInit(){
+    var that = this;
     flatpickr("#target_startdate",{
       mode: "multiple",
       dateFormat: "Y-m-d",
       inline: true, // 使用inline选项以始终打开状态显示日历。
+      showMonths:1, // 在显示日历时，同时显示月数
       onClose:function(selectedDates, dateStr, instance){
         console.log("selectedDates, dateStr, instance",selectedDates, dateStr, instance)
+      },
+      onChange:function(selectedDates, dateStr, instance){
+        // console.log("onChange>>>selectedDates, dateStr, instance",selectedDates, dateStr, instance);
+        console.log("选择的日期》》》",selectedDates);
+        that.selectedDates = selectedDates;
       }
     })
     this.init_form();
@@ -54,6 +76,82 @@ export class TargetHourConfigComponent implements OnInit {
   cancel(){
     this.dialogRef.close(false);
   }
+
+
+   // 检测输入框值
+   inputvalue = ""; 
+   changeValue(value){
+     if (this.inputvalue != ""){
+       $(".delet_input_value").show()
+     }else{
+       $(".delet_input_value").hide()
+     }
+   }
+
+  // 点击图标删除数据
+  del_input_value(){
+    $(".delet_input_value").hide();
+    $(".target_time").val("")
+  }
+
+  // 确定
+  confirm(){
+    console.log("确定，得到选择的数据", this.selectedDates);
+    console.log("确定，每日目标时长", $(".target_time").val());
+    if (this.selectedDates !== undefined && $(".target_time").val() !== ""){
+      var numberdaily = this.selectedDates.length; // 计入的天数
+      var targettime = Number($(".target_time").val());   // 每日目标时长
+      var devicelist = Object.assign([],this.deveiceids);
+      devicelist.forEach(item=>{
+        item["numberdaily"] = numberdaily;
+        item["targettime"] = targettime;
+        item["lastupdatedby"] = this.lastupdatedby;
+      })
+      console.log("---要修改的数据：", devicelist);
+      // 修改数据！
+      var table = this.TABLE;
+      var method = this.METHOD;
+      this.http.callRPC(table, method, devicelist).subscribe(result=>{
+        var tabledata = result["result"]["message"][0];
+        if (tabledata["code"] === 1){
+          this.dialogRef.close(false);
+          this.RecordOperation('修改', 1,  "目标工时");
+          this.success();
+        }else{
+          this.RecordOperation('修改', 0,  "目标工时");
+          var info = tabledata["message"];
+          this.danger(info)
+        }
+      })
+    }else{// 必填
+      console.log("null");
+      this.not_null();
+    }
+  }
+
+  // 弹出提示，不为空！
+  not_null(){
+    layui.use('layer',function() {
+      var layer = layui.layer
+      layer.open({
+        type: 1,
+        title: "提示"
+        ,closeBtn: false
+        ,area: '300px;'
+        ,shade: 0.8
+        ,id: 'LAY_layuipro' //设定一个id，防止重复弹出
+        ,btn: ['关闭']
+        ,btnAlign: 'c'
+        ,moveType: 1 //拖拽模式，0或者1
+        ,content: "<div style='text-align: center;'>每日目标时长或实际工作日不能为空！</div>"
+        ,yes:function () {
+          layer.closeAll();
+        }
+
+      })
+    })
+  }
+
 
   // 初始化表单
   init_form(){
@@ -99,6 +197,26 @@ export class TargetHourConfigComponent implements OnInit {
     return {
       min: min_date_value,
       max: max_date_value
+    }
+  }
+
+  // 删除
+  success(){
+    this.publicservice.showngxtoastr({position: 'toast-top-right', status: 'success', conent:"修改成功"});
+  }
+  danger(data){
+    this.publicservice.showngxtoastr({position: 'toast-top-right', status: 'danger', conent:"修改失败：" + data});
+  }
+
+  // option_record
+  RecordOperation(option, result,infodata){
+    if(this.userinfo.getLoginName()){
+      var employeeid = this.employeeid;
+      var result = result; // 1:成功 0 失败
+      var transactiontype = option; // '新增用户';
+      var info = infodata;
+      var createdby = this.userinfo.getLoginName();
+      this.publicservice.option_record(employeeid, result,transactiontype,info,createdby);
     }
   }
 

@@ -1,4 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
+import { SelectTreeService } from '../select-tree.service';
 declare let $;
 declare let layui;
 @Component({
@@ -11,7 +12,7 @@ export class MySelectTreeTypeComponent implements OnInit {
 
   // 下拉 icon
   xialaicon = "arrow-ios-downward-outline"
-  constructor() { }
+  constructor(private selectService: SelectTreeService) { }
 
   placeholder_title_type;
   select_type = [];
@@ -26,6 +27,8 @@ export class MySelectTreeTypeComponent implements OnInit {
     this.placeholder_title_type = this.placeholder;
     $("[name='title_type']").attr("placeholder", this.placeholder_title_type);
     // $(".tree_type_isShow").hide()
+
+    
   }
 
   ngOnDestroy(){
@@ -51,6 +54,9 @@ export class MySelectTreeTypeComponent implements OnInit {
     layui.use(['eleTree',],function(){
       var eleTree = layui.eleTree;
       $("[name='title_type']").on("click",function (e) {
+
+        // 关闭科室/功能组
+        that.selectService.changeMessage(true);
 
         if (that.xialaicon === "arrow-ios-upward-outline"){
           that.xialaicon = "arrow-ios-downward-outline"

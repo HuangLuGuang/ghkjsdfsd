@@ -4,7 +4,7 @@ import { CommonModule } from '@angular/common';
 import { PagesPopupsRoutingModule } from './pages-popups-routing.module';
 import { PagesPopupsComponent } from './pages-popups.component';
 
-import { NbLayoutModule, NbCardModule, NbTabsetModule, NbCheckboxModule, NbFormFieldModule, NbIconModule, NbInputModule, NbSpinnerModule, NbAutocompleteModule, NbSelectModule, NbButtonModule } from '@nebular/theme';
+import { NbLayoutModule, NbCardModule, NbTabsetModule, NbCheckboxModule, NbFormFieldModule, NbIconModule, NbInputModule, NbSpinnerModule, NbAutocompleteModule, NbSelectModule, NbButtonModule,  } from '@nebular/theme';
 import { RoleComponent } from './system-set/role/role.component';
 import { FormsModule } from '@angular/forms';
 import { MySelectComponent } from './components/my-select/my-select.component';
@@ -50,6 +50,7 @@ import { TargetHourConfigComponent } from './tongji/target-hour-config/target-ho
     NbButtonModule,
 
     NzMenuModule, // menu
+
 
 
   ],

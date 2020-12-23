@@ -4,6 +4,8 @@ import { HttpserviceService } from '../../../services/http/httpservice.service';
 import { UserInfoService } from '../../../services/user-info/user-info.service';
 
 import { TargetHourConfigComponent as ChangeTargetHourConfigComponent} from '../../../pages-popups/tongji/target-hour-config/target-hour-config.component';
+import { PublicmethodService } from '../../../services/publicmethod/publicmethod.service';
+import { EditDelTooltipComponent } from '../../../pages-popups/prompt-diallog/edit-del-tooltip/edit-del-tooltip.component';
 
 @Component({
   selector: 'ngx-target-hour-config',
@@ -13,8 +15,9 @@ import { TargetHourConfigComponent as ChangeTargetHourConfigComponent} from '../
 export class TargetHourConfigComponent implements OnInit {
   @ViewChild("ag_Grid") agGrid:any;
   @ViewChild("eimdevicetpye") eimdevicetpye:any; // 设备类型
+  @ViewChild("groups") groups_func:any;          // 功能组
   @ViewChild("myYear") myYear:any; // 年
-  @ViewChild("myMonth") myMonth:any; // 年
+  @ViewChild("myMonth") myMonth:any; // 月
 
   TABLE = "device";
   METHOD = "dev_get_target_time_search";
@@ -23,7 +26,9 @@ export class TargetHourConfigComponent implements OnInit {
   button; // 权限button
   refresh = false; // 刷新tabel
 
-  eimdevicetpye_placeholder = "请选择设备类型"
+  eimdevicetpye_placeholder = "请选择功能组";
+  groups_placeholder = "请选择功能组";
+
   // 用户id
   employeeid = this.userinfo.getEmployeeID()
 
@@ -52,7 +57,7 @@ export class TargetHourConfigComponent implements OnInit {
   private gridData = [];
 
   constructor(private userinfo:UserInfoService, private http:HttpserviceService,
-    private dialogService: NbDialogService  
+    private dialogService: NbDialogService, private publicservice: PublicmethodService
   ) { 
     // 会话过期
     localStorage.removeItem("alert401flag");
@@ -62,6 +67,13 @@ export class TargetHourConfigComponent implements OnInit {
   }
 
   ngOnInit(): void {
+
+    var roleid = this.userinfo.getEmployeeRoleID();
+    this.publicservice.get_buttons_bypath(roleid).subscribe(result=>{
+      this.button = result;
+      // console.log("得到pathname --在得到button\t\t", result)
+      localStorage.setItem("buttons_list", JSON.stringify(result));
+    })
    
   }
 
@@ -70,22 +82,89 @@ export class TargetHourConfigComponent implements OnInit {
     this.inttable();
   }
 
-  query(){
-    var year = this.myYear.getselect();
-    var month = this.myMonth.getselect()
-    var devicetype = this.eimdevicetpye.getselect()
+  // button按钮
+  action(actionmethod){
+    var method = actionmethod.split(":")[1];
+    // console.log("--------------->method", method)
+    switch (method) {
+      // case 'add':
+      //   this.add();
+      //   break;
+      // case 'del':
+      //   this.del();
+      //   break;
+      case 'edit':
+        this.change_target_hour();
+        break;
+      case 'query':
+        this.query();
+        break;
+      // case 'import':
+      //   this.importfile();
+      //   break;
+      case 'download':
+        // this.download('工时KPI报表')
+        this.download()
+        break;
+    }
 
-    console.log("year, month, devicetype:",year, month, devicetype)
+  }
+
+  // 搜索
+  query(){
+    var year = this.myYear.getselect(); // 选择的年
+    var month = this.myMonth.getselect(); // 选择的月
+    var groups_data = this.groups_func.getselect(); // 科室功能组
+    var group = groups_data ===""?[] :groups_data.split(";"); // 科室功能组转为列表
+    var type = this.eimdevicetpye.getselect(); // 设备类型
+    var columns = {
+      offset: 0,
+      limit: this.agGrid.get_pagesize(),
+      employeeid: this.employeeid,
+      month:month,
+      year:year,
+      group: group,
+      type: type
+    }
+    var table = this.TABLE;
+    var method = this.METHOD;
+    this.http.callRPC(table, method, columns).subscribe(result=>{
+      var tabledata = result["result"]["message"][0];
+      this.loading = false;
+      var info = JSON.stringify(columns)
+      if (tabledata["code"] === 1){
+        var message = tabledata["message"];
+        this.gridData = [];
+        this.gridData.push(...message);
+        this.tableDatas.rowData = this.gridData;
+          var totalpagenumbers = tabledata['numbers']? tabledata['numbers'][0]['numbers']: '未得到总条数';
+          this.tableDatas.totalPageNumbers = totalpagenumbers;
+          this.agGrid.update_agGrid(this.tableDatas); // 告诉组件刷新！
+          this.RecordOperation('搜索', 1,  "目标工时:" + info);
+      }else{
+        this.RecordOperation('搜索', 0,  "目标工时: "+ info);
+      }
+    })
+
+    console.log("year, month, group, type:",year, month, group,type)
+  }
+
+  // 导出
+  download(){
+    this.agGrid.download('目标工时报表')
   }
 
   inittable_before(){
-
+    var groups_data = this.groups_func.getselect(); // 科室功能组
+    var group = groups_data ===""?[] :groups_data.split(";"); // 科室功能组转为列表
 
     return {
       limit: this.agGrid.get_pagesize(),
       employeeid: this.userinfo.getEmployeeID(),
       month: this.myMonth.getselect(),
-      year: this.myYear.getselect()
+      year: this.myYear.getselect(),
+      group:group, // 科室功能组
+      type: this.eimdevicetpye.getselect() // 设备类型
       
     }
   }
@@ -109,6 +188,8 @@ export class TargetHourConfigComponent implements OnInit {
       employeeid: this.employeeid,
       month:inittable_before.month,
       year:inittable_before.year,
+      group: inittable_before.group,
+      type: inittable_before.type
       
     }
     var table = this.TABLE;
@@ -129,16 +210,17 @@ export class TargetHourConfigComponent implements OnInit {
         this.agGrid.init_agGrid(this.tableDatas); // 告诉组件刷新！
         // 刷新table后，改为原来的！
         this.tableDatas.isno_refresh_page_size = false;
+        this.RecordOperation('查看', 1,  "目标工时");
       }else{ //  模拟
-        
+        this.RecordOperation('查看', 0,  "目标工时");
         
       }
     })
   }
 
 
-   // nzpageindexchange 页码改变的回调
-   nzpageindexchange_ag(event){
+  // nzpageindexchange 页码改变的回调
+  nzpageindexchange_ag(event){
     // console.log("页码改变的回调", event);
     this.gridData = [];
     this.loading = true;
@@ -156,12 +238,15 @@ export class TargetHourConfigComponent implements OnInit {
     var columns = {
       employeeid:this.employeeid,
     }
-    this.http.callRPC("deveice","dev_get_device_groups",columns).subscribe(result=>{
+    this.http.callRPC("deveice","dev_get_device_type",columns).subscribe(result=>{
       var res = result["result"]["message"][0]
       // console.log("得到下拉框的数据---------------->", res)
       if (res["code"] === 1){
         var eimdevicetpyedata = res["message"][0]["type"];
         this.eimdevicetpye.init_select_trees(eimdevicetpyedata);
+
+        var groups = res["message"][0]["groups"];
+        this.groups_func.init_select_tree(groups);
       }
     })
 
@@ -172,16 +257,22 @@ export class TargetHourConfigComponent implements OnInit {
     // 得到选择的数据！
     var getselectedrows = this.agGrid.getselectedrows();
     console.log("得到选择的数据>>>", getselectedrows);
-    // 得到月份！
-    var get_month = this.myMonth.getselect();
-    // 得到年份
-    var get_year = this.myYear.getselect().slice(0, this.myYear.getselect().length -1);
-    console.log("得到月份：", get_month, "得到年份:", get_year);
+    if (getselectedrows.length<1){
+      // 必须要有数据！
+      this.dialogService.open(EditDelTooltipComponent,{closeOnBackdropClick: false,context: { title: '提示', content:   `请选择要修改的数据！`}}).onClose.subscribe(result=>{})
+    }else{
+      // 得到月份！
+      var get_month = this.myMonth.getselect();
+      // 得到年份
+      var get_year = this.myYear.getselect().slice(0, this.myYear.getselect().length -1);
+      console.log("得到月份：", get_month, "得到年份:", get_year);
+  
+      // 传递的数据，1、month，2、设备唯一标识符！
+      this.dialogService.open(ChangeTargetHourConfigComponent, {closeOnBackdropClick: false,context:{data: {month: get_month, year: get_year}, deveiceids:getselectedrows}}).onClose.subscribe(result=>{
+  
+      })
 
-    // 传递的数据，1、month，2、设备唯一标识符！
-    this.dialogService.open(ChangeTargetHourConfigComponent, {closeOnBackdropClick: false,context:{data: {month: Number(get_month), year: get_year}, deveiceids:[]}}).onClose.subscribe(result=>{
-
-    })
+    }
   }
 
   // 刷新table
@@ -193,9 +284,24 @@ export class TargetHourConfigComponent implements OnInit {
 
     // 取消选择
     this.myYear.reset_year();
-    this.myMonth.reset_month()
+    this.myMonth.reset_month();
+    this.groups_func.dropselect();
+    this.eimdevicetpye.dropselect();
 
     this.inttable();
   }
 
+
+
+   // option_record
+   RecordOperation(option, result,infodata){
+    if(this.userinfo.getLoginName()){
+      var employeeid = this.employeeid;
+      var result = result; // 1:成功 0 失败
+      var transactiontype = option; // '新增用户';
+      var info = infodata;
+      var createdby = this.userinfo.getLoginName();
+      this.publicservice.option_record(employeeid, result,transactiontype,info,createdby);
+    }
+  }
 }

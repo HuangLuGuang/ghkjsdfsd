@@ -339,6 +339,7 @@ export class ManKpiTableComponent implements OnInit {
       this.agGrid.init_agGrid(this.tableDatas); // 告诉组件刷新！
       // 刷新table后，改为原来的！
       this.tableDatas.isno_refresh_page_size = false;
+      this.RecordOperation('查看', 1,  "设备报表");
     })
   }
 
