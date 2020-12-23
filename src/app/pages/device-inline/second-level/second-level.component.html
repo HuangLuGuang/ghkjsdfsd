@@ -51,13 +51,14 @@
                 <div class="part_title">研究总院介绍</div>
             </div>
             <div class="nibo_map">
-                <span id="jiegou" [nbPopover]="jiegou" >
-                    <img src="/assets/pages/device-inline/images/two/location.png" alt="" srcset="">
-                </span>
-                <span id="huanbao" [nbPopover]="huanbao">
-                    <img src="/assets/pages/device-inline/images/two/location.png" alt="" srcset="">
-
-                </span>
+                <!-- 科室/功能组 -->
+                <div class="group chunk newpower">
+                    <span>新能源与电子电气试验室</span>
+                </div>
+                <!-- 连线 -->
+                <div class="lines">
+                    <div class="newpower_line"></div>
+                </div>
             </div>
         </div>
 
@@ -83,12 +84,3 @@
 
 </div>
 
-<!-- 科室图表 提示 -->
-<ng-template #jiegou>
-    <span>整车工程中心</span>
-</ng-template>
-
-<!-- 科室图表 提示 -->
-<ng-template #huanbao>
-    <span>验证中心</span>
-</ng-template>

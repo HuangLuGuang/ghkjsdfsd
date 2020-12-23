@@ -52,11 +52,6 @@ export class SecondLevelComponent implements OnInit {
     second_level.key_index();
     // 设备开动率、完好lv
     second_level.device_rate(70);
-
-    // map 地图
-    // second_level.nibo_map();
-
-    // this.listen_windows_resize();
   }
 
   ngOnDestroy(){

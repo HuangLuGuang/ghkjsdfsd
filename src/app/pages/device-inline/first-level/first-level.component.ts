@@ -26,28 +26,15 @@ export class FirstLevelComponent implements OnInit {
   ngOnInit(): void {
 
     this.layoutService.onInitLayoutSize().subscribe(f=>{
-      let key_index = document.querySelector('.key-index');
-      if(key_index) echarts.init(key_index).resize();
-      let device_rate = document.querySelector('.device-rate');
-      if(device_rate) echarts.init(device_rate).resize();
       let chian_map = document.querySelector('.chian_map');
       if(chian_map) echarts.init(chian_map).resize();
-
-      let geely_info = document.querySelector('.geely-info');
-      if(geely_info) echarts.init(geely_info).resize();
     })
-
-    // 关键指标
-    // first_level.key_index();
-    // 设备开动率、完好lv
-    // first_level.device_rate(60);
 
     // map 地图
     first_level.chian_map();
 
     // this.currenttime_timer = setInterval(this.currenttime, 1000);
     
-
   }
 
   ngOnDestroy(){
@@ -68,17 +55,9 @@ export class FirstLevelComponent implements OnInit {
       this.is_not_fullscreen = sf.isFullscreen;
       sf.toggle(board)
     }
-
     setTimeout(() => {
-      let key_index = document.querySelector('.key-index');
-      if(key_index) echarts.init(key_index).resize();
-      let device_rate = document.querySelector('.device-rate');
-      if(device_rate) echarts.init(device_rate).resize();
       let chian_map = document.querySelector('.chian_map');
       if(chian_map) echarts.init(chian_map).resize();
-  
-      let geely_info = document.querySelector('.geely-info');
-      if(geely_info) echarts.init(geely_info).resize();
       
     }, 500);
   };
@@ -95,28 +74,6 @@ export class FirstLevelComponent implements OnInit {
     var CurrentTime = document.querySelector('.currenttime');
     CurrentTime.innerHTML = y + '-' + mt + '-' + day + '  ' + h + ':' + m + ':' + s;
   }
-
-
-  // 点击设备开动率
-  kaidong(){
-    var kaidogn = document.getElementById('kaidogn');
-    kaidogn.setAttribute("class", "span_active");
-    var wanhao = document.getElementById('wanhao');
-    wanhao.setAttribute("class", "span_noactive");
-
-    // 设备开动率数据
-    var data = 78
-    first_level.device_rate(data);
-  }
-  // 点击设备完好率
-  wanhao(){
-    var wanhao = document.getElementById('wanhao');
-    wanhao.setAttribute("class", "span_active");
-    var kaidogn = document.getElementById('kaidogn');
-    kaidogn.setAttribute("class", "span_noactive");
-    // 设备完好率数据
-    var data = 87
-    first_level.device_rate(data);
-  }
+  
 
 }

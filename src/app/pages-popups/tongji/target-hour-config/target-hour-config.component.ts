@@ -134,16 +134,16 @@ export class TargetHourConfigComponent implements OnInit {
     layui.use('layer',function() {
       var layer = layui.layer
       layer.open({
-        type: 1,
-        title: "提示"
-        ,closeBtn: false
-        ,area: '300px;'
-        ,shade: 0.8
+        // type: 1,
+        title: ["提示","padding: 1rem 1.5rem;border-bottom: 1px solid #edf1f7;border-top-left-radius: 0.25rem;border-top-right-radius: 0.25rem;color: #222b45;font-family: Open Sans, sans-serif;font-size: 0.9375rem;font-weight: 600;line-height: 0.5rem;background: #fff;"]
+        // ,closeBtn: false
+        // ,area: '300px;'
+        // ,shade: 0.8
         ,id: 'LAY_layuipro' //设定一个id，防止重复弹出
         ,btn: ['关闭']
-        ,btnAlign: 'c'
+        ,btnAlign: 'r'
         ,moveType: 1 //拖拽模式，0或者1
-        ,content: "<div style='text-align: center;'>每日目标时长或实际工作日不能为空！</div>"
+        ,content: "每日目标时长或实际工作日不能为空！"
         ,yes:function () {
           layer.closeAll();
         }
