@@ -32,7 +32,7 @@ export class TestInformationV2Component implements OnInit {
 
   ngOnInit(): void {
     this.http.callRPC('get_device_taskinfo','get_device_taskinfo',{"deviceid":"device_weiss_02"}).subscribe(f=>{
-      console.log(f)
+      // console.log(f)
     })
     this.timer60s = setInterval(f =>{
       if(this.device)this.get_device_mst_progress();
@@ -47,7 +47,7 @@ export class TestInformationV2Component implements OnInit {
     this.http.callRPC('get_device_mts_progress','device_monitor.get_device_mts_progress',{
       "device":this.device,"arr":"status"
     }).subscribe((f:any) =>{
-    console.log(f);
+    // console.log(f);
     if(f.result.error || f.result.message[0].code == 0)return;
       this.experiment.now = f.result.message[0].message.map(m =>
         ({table:[m[1],'——','——','——'],progres:parseInt((m[2]*100).toString())})

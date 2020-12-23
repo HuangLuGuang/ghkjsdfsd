@@ -3,7 +3,7 @@ import { ActivatedRoute } from '@angular/router';
 import { time } from 'console';
 import { LayoutService } from '../../../@core/utils';
 import { HttpserviceService } from '../../../services/http/httpservice.service';
-import { copy, create_img_16_9 } from '../equipment-board';
+import { colors, copy, create_img_16_9 } from '../equipment-board';
 
 let oilsrouce = require('../../../../assets/eimdoard/equipment/js/oilsrouce');
 let equipment_four_road = require('../../../../assets/eimdoard/equipment/js/equipment-four-road');
@@ -257,37 +257,37 @@ export class OilSourceMonitoringComponent implements OnInit {
     attrs:[
         { 
           name: "HE 1出油温度",nameEn :'HE 1出油温度', unit: "℃",value: [],show:true
-          ,color:["#ff2400", "#e47833"]
+          ,color:[colors[0],colors[0]]
         },{ 
             name: "HE 2出油温度",nameEn :'HE 2出油温度', unit: "℃",value: [],show:true,
-            color:["#ff00ff", "#ff00ff"]
+            color:[colors[1],colors[1]]
         },{ 
             name: "HE1&2出油温度",nameEn :'HE1&2出油温度', unit: "℃",value: [],show:true,
-            color:["#2074E8", "#2074E8"]
+            color:[colors[2],colors[2]]
         },{ 
           name: "HE1出油饱和度",nameEn :'HE1出油饱和度', unit: "%",value: [],show:true,
-          color:["#C8CCC8", "#C8CCC8"]
+          color:[colors[3],colors[3]]
         },{ 
           name: "HE2出油饱和度",nameEn :'HE2出油饱和度', unit: "%",value: [],show:true,
-          color:["#40C040", "#40C040"]
+          color:[colors[4],colors[4]]
         },{ 
           name: "HE1&2出油饱和度差",nameEn :'HE1&2出油饱和度差', unit: "%",value: [],show:true,
-          color:["#C8CC40", "#C8CC40"]
+          color:[colors[5],colors[5]]
         },{ 
           name: "HE回油温度",nameEn :'HE回油温度', unit: "%",value: [],show:true,
-          color:["#40CCC8", "#40CCC8"]
+          color:[colors[6],colors[6]]
         },{ 
           name: "HE出油温度",nameEn :'HE出油温度', unit: "%",value: [],show:true,
-          color:["#286428", "#286428"]
+          color:[colors[7],colors[7]]
         },{ 
           name: "HE出水温度",nameEn :'HE出水温度', unit: "%",value: [],show:true,
-          color:["#18F818", "#18F818"]
+          color:[colors[8],colors[8]]
         },{ 
           name: "HE进水温度",nameEn :'HE进水温度', unit: "%",value: [],show:true,
-          color:["#70B8B8", "#70B8B8"]
+          color:[colors[9],colors[9]]
         },{ 
           name: "HE回水出水温度差",nameEn :'HE回水出水温度差', unit: "%",value: [],show:true,
-          color:["#3870A0", "#3870A0"]
+          color:[colors[10],colors[10]]
         }
     ],
     xData:[],
@@ -334,16 +334,16 @@ export class OilSourceMonitoringComponent implements OnInit {
   attrs_cleanliss = [
     { 
       name: "粒子数 > 4u",nameEn :'粒子数 > 4u', unit: "ISO Code",value: [],show:true
-      ,color:["#ff2400", "#e47833"]
+      ,color:[colors[0],colors[0]]
       },{ 
           name: "粒子数 > 6u",nameEn :'粒子数 > 4u', unit: "ISO Code",value: [],show:true,
-          color:["#ff00ff", "#ff00ff"]
+          color:[colors[1],colors[1]]
       },{ 
           name: "粒子数 > 14u",nameEn :'粒子数 > 4u', unit: "ISO Code",value: [],show:true,
-          color:["#2074E8", "#2074E8"]
+          color:[colors[2],colors[2]]
       },{ 
         name: "粒子数 > 21u",nameEn :'粒子数 > 4u', unit: "ISO Code",value: [],show:true,
-        color:["#C8CCC8", "#C8CCC8"]
+        color:[colors[3],colors[3]]
     }
   ]
   xdata_cleanliss = [];
@@ -373,7 +373,7 @@ export class OilSourceMonitoringComponent implements OnInit {
     // })
     //订阅路由返回的标题
     this.subscribeList.router = this.activateInfo.params.subscribe(f =>{
-      console.log(f);
+      // console.log(f);
       if(document.getElementById('head_title'))
         document.getElementById('head_title').innerText = f.title;
       this.deviceid = f.deviceid;
@@ -444,7 +444,7 @@ export class OilSourceMonitoringComponent implements OnInit {
     // get_hpu('{"deviceid":"device_hpu_01"}')
     //  hh01:'time',hs30:'status',hs1
     let res;
-    this.http.callRPC('get_hpu','device_monitor.get_hpu',{"deviceid":""}).subscribe((f:any)=>{
+    this.subscribeList.xhq_hpu = this.http.callRPC('get_hpu','device_monitor.get_hpu',{"deviceid":""}).subscribe((f:any)=>{
       
       
       if(f.result.error || f.result.message[0].code == 0)return;
@@ -480,7 +480,7 @@ export class OilSourceMonitoringComponent implements OnInit {
    */
   get_Error_Message(){
     // SELECT get_hpu_warninglog()
-    this.http.callRPC('get_hpu_warninglog','device_monitor.get_hpu_warninglog',{}).subscribe((f:any)=>{
+    this.subscribeList.error_message = this.http.callRPC('get_hpu_warninglog','device_monitor.get_hpu_warninglog',{}).subscribe((f:any)=>{
       if(f.result.error || f.result.message[0].code == 0)return;
       let color = 'white';
       let s = '';
@@ -504,7 +504,7 @@ export class OilSourceMonitoringComponent implements OnInit {
   get_cleanlinss(){
     // SELECT get_particle('{"deviceid":"device_hpu_01"}')
     let i = this.HPUselect.value.match(/\d{1,}/g),res;
-    this.http.callRPC('get_particle','device_monitor.get_particle',{"deviceid":"device_hpu_0"+i[0]}).subscribe((f:any)=>{
+    this.subscribeList.cleanlinss = this.http.callRPC('get_particle','device_monitor.get_particle',{"deviceid":"device_hpu_0"+i[0]}).subscribe((f:any)=>{
       if(f.result.error || f.result.message[0].code == 0)return;
       res = f.result.message[0].message[0];
       // 粒子数 > 4u
@@ -560,7 +560,7 @@ export class OilSourceMonitoringComponent implements OnInit {
     // SELECT get_water('{"deviceid":"device_hpu_02"}')
     let j = ['hw01','hw03','hw05','hw02','hw04','hw06','te04','te05','te02','te01','te03']
     let i = this.HPUselect.value.match(/\d{1,}/g),res;
-    this.http.callRPC('get_water','device_monitor.get_water',{"deviceid":"device_hpu_0"+i[0]}).subscribe((f:any)=>{
+    this.subscribeList.water = this.http.callRPC('get_water','device_monitor.get_water',{"deviceid":"device_hpu_0"+i[0]}).subscribe((f:any)=>{
       if(f.result.error || f.result.message[0].code == 0)return;
       res = f.result.message[0].message[0];
       
@@ -611,7 +611,7 @@ export class OilSourceMonitoringComponent implements OnInit {
   get_Radar(){
     // SELECT get_accumulator('{"deviceid":"device_hpu_02"}')
     let res;
-    this.http.callRPC('get_accumulator','device_monitor.get_accumulator',{"deviceid":""}).subscribe((f:any)=>{
+    this.subscribeList.rader = this.http.callRPC('get_accumulator','device_monitor.get_accumulator',{"deviceid":""}).subscribe((f:any)=>{
       if(f.result.error || f.result.message[0].code == 0)return;
       res = f.result.message[0].message[0];
 

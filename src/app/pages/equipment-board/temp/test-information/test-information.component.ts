@@ -30,6 +30,7 @@ export class TestInformationComponent implements OnInit {
     ]
   }
   timer60s;
+  subscribeList:any = {};
 
   constructor(private http:HttpserviceService) { }
 
@@ -44,8 +45,8 @@ export class TestInformationComponent implements OnInit {
    * 获取进度
    */
   get_device_mst_progress(){
-    this.http.callRPC('get_device_taskinfo','get_device_taskinfo',{"deviceid":this.device}).subscribe((f:any)=>{
-      console.log(f)
+    this.subscribeList.mts_p = this.http.callRPC('get_device_taskinfo','get_device_taskinfo',{"deviceid":this.device}).subscribe((f:any)=>{
+      // console.log(f)
       if(f.result.error || f.result.message[0].code == 0)return;
       this.experiment.data = f.result.message[0].message.map(m =>
             ([m.taskchildnum,dateformat(new Date(m.taskstart),'yy/MM/dd'),dateformat(new Date(m.taskend),'yy/MM/dd'),m.numberstime+'h',parseInt((m.rate).toString())])
@@ -73,6 +74,9 @@ export class TestInformationComponent implements OnInit {
    //组件销毁  
    ngOnDestroy(){
     clearInterval(this.timer60s)
+    for(let key in this.subscribeList){
+      this.subscribeList[key].unsubscribe();
+    }
   }
 
 }

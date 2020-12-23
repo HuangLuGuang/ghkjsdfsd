@@ -108,7 +108,7 @@ export class EquipmentDetailsComponent implements OnInit {
     })
     //路由订阅
     this.subscribeList.router = this.activateInfo.params.subscribe(f =>{
-      console.log(f);
+      // console.log(f);
       if(document.getElementById('head_title'))
         document.getElementById('head_title').innerText = f.title;
         this.deviceid = f.deviceid;

@@ -274,7 +274,7 @@ export class EquipmentCouplingPathComponent implements OnInit {
     // })
     //路由订阅
     this.subscribeList.router = this.activateInfo.params.subscribe(f =>{
-      console.log(f);
+      // console.log(f);
       if(document.getElementById('head_title'))
         document.getElementById('head_title').innerText = f.title;
     })
@@ -342,7 +342,7 @@ export class EquipmentCouplingPathComponent implements OnInit {
     // let datestr_ = dateformat(new Date(),'yyyy-MM-dd hh:mm');
     // dateformat(new Date(now.getTime()-10000)
     let now = new Date();
-    this.http.callRPC(table,method,{"start":dateformat(new Date(now.getTime()-10000),'yyyy-MM-dd hh:mm:ss'),"end": dateformat(now,'yyyy-MM-dd hh:mm:ss'),"device":this.deviceid,
+    this.subscribeList.time = this.http.callRPC(table,method,{"start":dateformat(new Date(now.getTime()-10000),'yyyy-MM-dd hh:mm:ss'),"end": dateformat(now,'yyyy-MM-dd hh:mm:ss'),"device":this.deviceid,
     arr:param[0].join(',')}).subscribe((f:any) =>{
       if(f.result.error || f.result.message[0].code == 0)return;
       painting_time(f,10,this,['chart_1','chart_2','chart_3']);
@@ -357,7 +357,7 @@ export class EquipmentCouplingPathComponent implements OnInit {
    * param param 
    */
   get_device_mts_realtimedata(table,method,param){
-    this.http.callRPC(table,method,{"device":this.deviceid,
+    this.subscribeList.real = this.http.callRPC(table,method,{"device":this.deviceid,
     arr:param[1].join(',')}).subscribe((g:any) =>{
       if(g.result.error || g.result.message[0].code == 0)return;
       painting_time(g,1,this,['chart_1','chart_2','chart_3']);
@@ -370,10 +370,10 @@ export class EquipmentCouplingPathComponent implements OnInit {
    */
   get_device_status(){
     let res;
-    this.http.callRPC('get_device_mts_status','device_monitor.get_device_mts_status',{device:this.deviceid}).subscribe((f:any) =>{
+    this.subscribeList.stauts = this.http.callRPC('get_device_mts_status','device_monitor.get_device_mts_status',{device:this.deviceid}).subscribe((f:any) =>{
       if(f.result.error || f.result.message[0].code == 0)return;
       res = f.result.message[0];
-      console.log(f)
+      // console.log(f)
       this.switchStatus.data.forEach((el,i) => {
         //实验名
         el[0] = res[i].stationname;
@@ -412,7 +412,7 @@ HSM 4 RR High
    */
   get_device_mst_oilseparator(){
     let res,data:any={};
-    this.http.callRPC('get_device_mts_realtimedata','device_monitor.get_device_mts_realtimedata',
+    this.subscribeList.oil = this.http.callRPC('get_device_mts_realtimedata','device_monitor.get_device_mts_realtimedata',
     {'device':this.deviceid,arr:"hsm1lfon,hsm1lfhigh,hsm2rfon,hsm2rfhigh,hsm3lron,hsm3lrhigh,hsm4rron,hsm4rrhigh"}
     ).subscribe((f:any)=>{
       if(f.result.error || f.result.message[0].code == 0)return;
@@ -420,7 +420,7 @@ HSM 4 RR High
       res.message.forEach(el => {
         for(let key in el) data[key] = el[key][0][0];
       });
-      console.log(f)
+      // console.log(f)
       this.real_list[0].value = data.hsm1lfon == 0?'关':(data.hsm1lfhigh == 1?'高':'低');
       this.real_list[0].color = data.hsm1lfon == 0?'red':(data.hsm1lfhigh == 0?'white':'yellow');
 

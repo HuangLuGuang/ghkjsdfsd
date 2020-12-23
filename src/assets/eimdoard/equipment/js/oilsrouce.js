@@ -1,3 +1,5 @@
+const splitLine_color = 'rgba(55,255,249,0.2)';
+
 let oilsrouce = {
     // 雷达图
     create_radar(data, myChart) {
@@ -26,7 +28,7 @@ let oilsrouce = {
             },
             radar: {
                 center: ["50%", "50%"],
-                radius: "40%",
+                radius: "63%",
                 startAngle: 90,
                 splitNumber: 5,
                 splitArea: {
@@ -46,7 +48,7 @@ let oilsrouce = {
                 splitLine: {
                     show: true,
                     lineStyle: {
-                        color: "#D2E4F8"
+                        color: splitLine_color
                     }
                 },
                 name: {
@@ -74,7 +76,7 @@ let oilsrouce = {
                 },
                 lineStyle: {
                     normal: {
-                        color: "#80B2FF",
+                        color: splitLine_color,
                         width: 2
                     }
                 },

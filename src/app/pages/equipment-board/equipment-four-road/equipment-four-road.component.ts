@@ -199,7 +199,7 @@ export class EquipmentFourRoadComponent implements OnInit {
 
     //路由订阅
     this.subscribeList.router = this.activateInfo.params.subscribe(f =>{
-      console.log(f);
+      // console.log(f);
       if(document.getElementById('head_title'))
         document.getElementById('head_title').innerText = f.title;
     })
@@ -284,7 +284,7 @@ export class EquipmentFourRoadComponent implements OnInit {
    *   中间的表的数据 开关这些数据     
    */
   get_device_mts_status(){
-      this.http.callRPC('get_device_mts_status','device_monitor.get_device_mts_status',{device:this.deviceid}).subscribe((f:any) =>{
+      this.subscribeList.status = this.http.callRPC('get_device_mts_status','device_monitor.get_device_mts_status',{device:this.deviceid}).subscribe((f:any) =>{
         if(f.result.error || f.result.message[0].code == 0)return;
         this.switchStatus.data[0][0] =  f.result.message[0][1].stationname;
         //起停状态
@@ -321,7 +321,7 @@ export class EquipmentFourRoadComponent implements OnInit {
     // let datestr_ = dateformat(new Date(),'yyyy-MM-dd hh:mm');
     // dateformat(new Date(now.getTime()-10000)
     let now = new Date();
-    this.http.callRPC(table,method,{"start":dateformat(new Date(now.getTime()-10000),'yyyy-MM-dd hh:mm:ss'),"end": dateformat(now,'yyyy-MM-dd hh:mm:ss'),"device":this.deviceid,
+    this.subscribeList.time = this.http.callRPC(table,method,{"start":dateformat(new Date(now.getTime()-10000),'yyyy-MM-dd hh:mm:ss'),"end": dateformat(now,'yyyy-MM-dd hh:mm:ss'),"device":this.deviceid,
     arr:param[0].join(',')}).subscribe((f:any) =>{
       if(f.result.error || f.result.message[0].code == 0)return;
       painting_time(f,10,this,['chart_1','chart_2','chart_3']);
@@ -336,7 +336,7 @@ export class EquipmentFourRoadComponent implements OnInit {
    * @param param 
    */
   get_device_mts_realtimedata(table,method,param){
-    this.http.callRPC(table,method,{"device":this.deviceid,
+    this.subscribeList.real = this.http.callRPC(table,method,{"device":this.deviceid,
     arr:param[1].join(',')}).subscribe((g:any) =>{
       if(g.result.error || g.result.message[0].code == 0)return;
       painting_time(g,1,this,['chart_1','chart_2','chart_3']);
@@ -363,6 +363,7 @@ export class EquipmentFourRoadComponent implements OnInit {
     for(let key in this.subscribeList){
       this.subscribeList[key].unsubscribe();
     }
+    
   }
 
 

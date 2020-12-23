@@ -63,12 +63,12 @@ export class EquipmentStatusComponent implements OnInit {
       now = new Date();
       //一小时更新一次
       if( now.getMinutes() == 2 && now.getSeconds() == 0){
-        console.log('--------------------开始请求当天设备运行情况---------------------')
+        // console.log('--------------------开始请求当天设备运行情况---------------------')
         this.get_andon_data();
       }
       //一天更新一次
       if(now.getHours()== 0 && now.getMinutes() == 0 && now.getSeconds() == 0){
-        console.log('--------------------开始请求年度设备运行情况---------------------')
+        // console.log('--------------------开始请求年度设备运行情况---------------------')
         this.get_andon_data_year();
       }
     },1000)
@@ -124,7 +124,7 @@ export class EquipmentStatusComponent implements OnInit {
   get_andon_status(){
     this.subscribeList.andon_status = this.http.callRPC('get_andon_status','get_andon_status',{"deviceid":this.device})
     .subscribe((f:any)=>{
-      console.log(f)
+      // console.log(f)
       if(f.result.error || f.result.message[0].code == 0)return;
       if( f.result.message[0].message && f.result.message[0].message[0])
           this.andon_now = s_role[f.result.message[0].message[0].status];
@@ -202,7 +202,7 @@ export class EquipmentStatusComponent implements OnInit {
       this.initDeviceCircula({title:'安灯状态',message:'本月',value:[]},'device_circular_2',nowMonthData);
       // this.initDeviceCircula({title:this.language?'SafetyLampStatus':'安灯状态',message:this.language?'ThisMonth':'本月',value:[]},'device_circular_2',nowMonthData);
 
-      console.log(nowMonthData)
+      // console.log(nowMonthData)
       //获取上月运行情况
       let ListMonthData = f.result.message[0].message.find(g =>  {
         ret=g.recordtime.split('-');
@@ -211,7 +211,7 @@ export class EquipmentStatusComponent implements OnInit {
       this.initDeviceCircula({title:'安灯状态',message:'上个月',value:status},'device_circular_1',ListMonthData);
       // this.initDeviceCircula({title:this.language?'SafetyLampStatus':'安灯状态',message:this.language?'LastMonth':'上个月',value:status},'device_circular_1',ListMonthData);
       
-      console.log(ListMonthData)
+      // console.log(ListMonthData)
     });
 
 
@@ -261,7 +261,7 @@ export class EquipmentStatusComponent implements OnInit {
     }];
     this.subscribeList.andon_data_year = this.http.callRPC('device_andon_status_year','get_device_andon_status_year',{"deviceid":this.device,"newyearsday":new Date().getFullYear()-1+"-01-01"}).subscribe((f:any)=>{
       if(f.result.error || f.result.message[0].code == 0)return;
-      console.log(f.result.message[0].message)
+      // console.log(f.result.message[0].message)
       f.result.message[0].message.forEach(el => {
         status[0].value += el.running?el.running:0; 
         status[1].value += el.placeon?el.placeon:0; 

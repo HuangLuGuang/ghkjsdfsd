@@ -168,7 +168,7 @@ export class EquipmentAvlComponent implements OnInit {
     // })
 
     this.subscribeList.router = this.activateInfo.params.subscribe(f =>{
-      console.log(f);
+      // console.log(f);
       if(document.getElementById('head_title'))
         document.getElementById('head_title').innerText = f.title;
     })
@@ -202,16 +202,17 @@ export class EquipmentAvlComponent implements OnInit {
    */
   get_avl_discharge(){
     let res,data:any = {};
-    this.http.callRPC('get_device_mts_realtimedata','device_monitor.get_device_mts_realtimedata',
+    this.subscribeList.discharge = this.http.callRPC('get_device_mts_realtimedata','device_monitor.get_device_mts_realtimedata',
     {"device":this.deviceid_discharge,
     arr:discharge_param.join(',')}).subscribe((g:any)=>{
       if(g.result.error || g.result.message[0].code == 0)return;
       res = g.result.message[0].message;
-      res.forEach(el => {
-        for(let key in el){
-          data[key] = el[key][0][0];
-        }
-      });
+      if(res)
+        res.forEach(el => {
+          for(let key in el){
+            data[key] = el[key][0][0];
+          }
+        });
       this.discharge[0].value = data.co2;
       this.discharge[1].value = data.thc;
       this.discharge[2].value = data.co1;
@@ -221,7 +222,7 @@ export class EquipmentAvlComponent implements OnInit {
       this.discharge_charts.forEach((f,i)=>{
         f.value.push( this.discharge[i].value);
       });
-      this.discharge_xdata.push(rTime(res[0].co2[0][1]))
+      this.discharge_xdata.push(rTime(res?res[0].co2[0][1]:''))
       if(this.discharge_xdata.length>10){
         this.discharge_xdata.splice(0,1);
         this.discharge_charts.forEach(el => {
@@ -243,16 +244,17 @@ export class EquipmentAvlComponent implements OnInit {
    */
   get_avl_environmental_warehouse(){
     let res,data:any = {};
-    this.http.callRPC('get_device_mts_realtimedata','device_monitor.get_device_mts_realtimedata',
+    this.subscribeList.warehouse = this.http.callRPC('get_device_mts_realtimedata','device_monitor.get_device_mts_realtimedata',
     {"device":this.deviceid_environmental,
     arr:environmental_param.join(',')}).subscribe((g:any)=>{
       if(g.result.error || g.result.message[0].code == 0)return;
       res = g.result.message[0].message;
-      res.forEach(el => {
-        for(let key in el){
-          data[key] = el[key][0][0];
-        }
-      });
+      if(res)
+        res.forEach(el => {
+          for(let key in el){
+            data[key] = el[key][0][0];
+          }
+        });
 
       //温度 湿度 压强
       if(document.getElementById('temp_humidity_pressure'))
@@ -287,7 +289,7 @@ export class EquipmentAvlComponent implements OnInit {
       this.environmental_chart[0].value.push(data.ct_temp);
       this.environmental_chart[1].value.push(data.ct_hum);
       this.environmental_chart[2].value.push(data.ct_pressure_set);
-      this.environmental_xdata.push(rTime(res[0].ct_temp[0][1]));
+      this.environmental_xdata.push(rTime(res?res[0].ct_temp[0][1]:''));
       if(this.environmental_xdata.length >10){
         this.environmental_xdata.splice(0,1);
         this.environmental_chart.forEach(f=>{
@@ -339,16 +341,17 @@ export class EquipmentAvlComponent implements OnInit {
    */
   get_avl_speed(){
     let res,data:any = {};
-    this.http.callRPC('get_device_mts_realtimedata','device_monitor.get_device_mts_realtimedata',
+    this.subscribeList.speed = this.http.callRPC('get_device_mts_realtimedata','device_monitor.get_device_mts_realtimedata',
     {"device":this.deviceid_avl_speed,
     arr:avl_speed_param.join(',')}).subscribe((g:any)=>{
       if(g.result.error || g.result.message[0].code == 0)return;
       res = g.result.message[0].message;
-      res.forEach(el => {
-        for(let key in el){
-          data[key] = el[key][0][0];
-        }
-      });
+      if(res)
+        res.forEach(el => {
+          for(let key in el){
+            data[key] = el[key][0][0];
+          }
+        });
       this.avl_speed[0].dataLine.value = data.f;
       this.avl_speed[1].dataLine.value = data.v;
       this.avl_speed[2].dataLine.value = data.a;
@@ -364,10 +367,10 @@ export class EquipmentAvlComponent implements OnInit {
       this.avl_speed_chart[1].value.push(data.v);
       this.avl_speed_chart[2].value.push(data.a);
       this.avl_speed_chart[3].value.push(data.p);
-      this.avl_speed_xdata.push(rTime(res[0].v[0][1]));
-      if(this.discharge_xdata.length>10){
-        this.discharge_xdata.splice(0,1);
-        this.discharge_charts.forEach(el => {
+      this.avl_speed_xdata.push(rTime(res?res[0].v[0][1]:''));
+      if(this.avl_speed_xdata.length>10){
+        this.avl_speed_xdata.splice(0,1);
+        this.avl_speed_chart.forEach(el => {
           el.value.splice(0,1);
         });
       }

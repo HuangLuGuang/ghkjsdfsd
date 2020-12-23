@@ -249,7 +249,7 @@ let rtm3a = {
                 },
                 splitLine: {
                     lineStyle: {
-                        color: '#3333FF'
+                        color: 'rgba(55,255,249,0.2)'
                     }
                 }
             },

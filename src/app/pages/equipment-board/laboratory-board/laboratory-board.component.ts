@@ -33,7 +33,7 @@ export class LaboratoryBoardComponent implements OnInit {
       }
     },
     'demo3':{
-      id:'demo2',
+      id:'demo3',
       type:'message',
       style:{
         height:'200px',
@@ -43,7 +43,7 @@ export class LaboratoryBoardComponent implements OnInit {
       }
     },
     'demo4':{
-      id:'demo2',
+      id:'demo4',
       type:'category',
       style:{
         height:'200px',
@@ -87,9 +87,6 @@ export class LaboratoryBoardComponent implements OnInit {
     }
   }
 
-  getStyle(style){
-    return style;
-  }
 
   getTemp(type){
     return this[type]

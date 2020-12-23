@@ -153,10 +153,7 @@ xData:[]
     //获取当前语言
     let language = localStorage.getItem('currentLanguage');
     if(language!='zh-CN')this.language = language;
-    //订阅左上角点击后宽度改变
-    this.subscribeList.layout = this.layoutService.onInitLayoutSize().subscribe(f=>{
-      this.initChart();
-    })
+
     //路由参数  标题
     this.subscribeList.router = this.activateInfo.params.subscribe(f =>{
       if(document.getElementById('head_title'))
@@ -170,7 +167,6 @@ xData:[]
     this.click_list = [this.list_1[0],this.list_2[0]]
     this.getData();
     setTimeout(() => {
-      this.initChart();
       create_img_16_9();
     }, 1000);
 
@@ -197,34 +193,7 @@ xData:[]
 
   }
 
-  //初始化表格
-  initChart(){
 
-    // let data = {
-    //   title:['一级警告','二级警告'],
-    //   yAxis:['周一','周二','周三','周四','周五','周六','周日'],
-    //   firstData:[120, 132, 101, 134, 90, 230, 210],
-    //   secondData:[220, 182, 191, 234, 290, 330, 310]
-
-    // }
-    // if(this.language){
-    //   data.title = ['LV1Warn','LV2Warn'];
-    //   data.yAxis = ['Mon','Tue','Wed','Thu','Fri','Sat','Sun'];
-    // }
-    // let myChart_3 = echarts.init(document.getElementById('warning'));
-    // equipment_four_road.create_warning_chart(data,myChart_3);
-
-    // setInterval(f=>{
-    //   equipment_four_road.create_real_temperature({value:Math.floor(Math.random() * 101)},myChart_4);
-    // },3000)
-    // setInterval(f=>{
-    //   equipment_four_road.create_real_temperature({value:Math.floor(Math.random() * 101)},myChart_5);
-    // },3000)
-
-
-    // create_third_chart_line(rtm3a,this);
-
-  }
 
    //重新画
    clicEvent(e,i){
@@ -281,7 +250,7 @@ xData:[]
             "hsmt9j28ahigh"="分油器高"
    */
   get_device_mts_status(){
-    this.http.callRPC('get_device_mts_status','device_monitor.get_device_mts_status',{device:this.deviceid}).subscribe((g:any) =>{
+    this.subscribeList.status = this.http.callRPC('get_device_mts_status','device_monitor.get_device_mts_status',{device:this.deviceid}).subscribe((g:any) =>{
       this.switchStatus.data.forEach((f,i) => {
         if(i>=g.result.message[0].length)return;
         f[0] =  g.result.message[0][i].stationname;
@@ -310,7 +279,7 @@ xData:[]
     // let datestr = dateformat(new Date(),'yyyy-MM-dd hh:mm');
     // let datestr_ = dateformat(new Date(),'yyyy-MM-dd hh:mm');
     let now = new Date();
-    this.http.callRPC(table,method,{"start":dateformat(new Date(now.getTime()-10000),'yyyy-MM-dd hh:mm:ss'),"end": dateformat(now,'yyyy-MM-dd hh:mm:ss'),"device":this.deviceid,
+    this.subscribeList.time = this.http.callRPC(table,method,{"start":dateformat(new Date(now.getTime()-10000),'yyyy-MM-dd hh:mm:ss'),"end": dateformat(now,'yyyy-MM-dd hh:mm:ss'),"device":this.deviceid,
 
     // this.http.callRPC(table,method,{"start":"2020-11-09 14:02:00","end":"2020-11-10 20:20:00","device":"device_mts_01",
     arr:param[0].join(',')}).subscribe((f:any) =>{
@@ -324,10 +293,10 @@ xData:[]
    * 分油器
    */
   get_device_mst_oilseparator(){
-    this.http.callRPC('get_device_mts_realtimedata','device_monitor.get_device_mts_realtimedata',
+    this.subscribeList.oil = this.http.callRPC('get_device_mts_realtimedata','device_monitor.get_device_mts_realtimedata',
     {'device':this.deviceid,arr:"hsmt9j28aon,hsmt9j28ahigh,hsmt9j28bon,hsmt9j28bhigh,hsmt8j28aon,hsmt8j28ahigh,hsmt8j28bon,hsmt8j28bhigh,hsmt7j28aon,hsmt7j28ahigh,hsmt7j28bon,hsmt7j28bhigh"}
     ).subscribe((f:any)=>{
-      console.log(f);
+      // console.log(f);
       let _key = "";//请求到的数据字段前面部分固定的
       let o = -1;//real_time数据的下标
       if(f.result.error || f.result.message[0].code == 0 || !f.result.message[0].message || f.result.message[0].message[0].error)return;
@@ -374,7 +343,7 @@ xData:[]
    * @param param
    */
   get_device_mts_realtimedata(table,method,param){
-    this.http.callRPC(table,method,{"device":this.deviceid,
+    this.subscribeList.real = this.http.callRPC(table,method,{"device":this.deviceid,
     arr:param[1].join(',')}).subscribe((g:any) =>{
       if(g.result.error || g.result.message[0].code == 0)return;
       painting_time(g,1,this,['chart_1','chart_2']);

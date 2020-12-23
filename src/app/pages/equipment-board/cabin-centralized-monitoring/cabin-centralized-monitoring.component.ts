@@ -150,12 +150,15 @@ export class CabinCentralizedMonitoringComponent implements OnInit {
     {
       name:'温度',
       color:[colors[0],colors[0]],
-      value:[]
+      value:[],
+      unit:'℃',
     },
     {
       name:'湿度',
       color:[colors[1],colors[1]],
-      value:[]
+      value:[],
+      unit:'%RH',
+
     },
   ];
   atec_xdata = [];
@@ -177,7 +180,7 @@ export class CabinCentralizedMonitoringComponent implements OnInit {
     // })
 
     this.subscribeList.router = this.activateInfo.params.subscribe(f =>{
-      console.log(f);
+      // console.log(f);
       if(document.getElementById('head_title'))
         document.getElementById('head_title').innerText = f.title;
     })
@@ -196,12 +199,12 @@ export class CabinCentralizedMonitoringComponent implements OnInit {
       this.get_TempHumidity('sensor_t_h_02',[this.TempHumidity[1],this.TempHumidity[4]]);
       this.get_TempHumidity('sensor_t_h_03',[this.TempHumidity[2],this.TempHumidity[5]]);
       
-      this.TempHumidity.forEach(f=>{
-        if(document.getElementById(f.id))
-        equipment_four_road.create_gauge_jinhua(f.dataLine,echarts.init(document.getElementById(f.id)));
-      })
+      // this.TempHumidity.forEach(f=>{
+      //   if(document.getElementById(f.id))
+      //   equipment_four_road.create_gauge_jinhua(f.dataLine,echarts.init(document.getElementById(f.id)));
+      // })
 
-    },2000)
+    },1000)
 
     
   }
@@ -212,15 +215,16 @@ export class CabinCentralizedMonitoringComponent implements OnInit {
    */
   get_environmental_warehouse_jinhua(){
     let res,data:any = {};
-    this.http.callRPC('device_monitor.get_device_mts_realtimedata','device_monitor.get_device_mts_realtimedata',{"device":this.deviceid_jinhua,
+    this.subscribeList.jinhua = this.http.callRPC('device_monitor.get_device_mts_realtimedata','device_monitor.get_device_mts_realtimedata',{"device":this.deviceid_jinhua,
     arr:param_jinhua.join(',')}).subscribe((g:any)=>{
       if(g.result.error || g.result.message[0].code == 0)return;
       res = g.result.message[0].message;
-      res.forEach(el => {
-        for(let key in el){
-          data[key] = el[key][0][0];
-        }
-      });
+      if(res)
+        res.forEach(el => {
+          for(let key in el){
+            data[key] = el[key][0][0];
+          }
+        });
       // 冷却水压力
       this.jinhua_en[0].dataLine.value = data.mwsmart_main_soaking_s_vw206;
       //冷却水温度
@@ -248,7 +252,7 @@ export class CabinCentralizedMonitoringComponent implements OnInit {
       this.jinhua_en_charts[0].value.push(this.jinhua_en[0].dataLine.value);
       this.jinhua_en_charts[1].value.push(this.jinhua_en[1].dataLine.value);
       this.jinhua_en_charts[2].value.push( this.gauge[3].dataLine.value);
-      this.jinhua_en_xData.push(rTime(res[0].mwsmart_main_soaking_s_vw206[0][1]))
+      this.jinhua_en_xData.push(rTime(res?res[0].mwsmart_main_soaking_s_vw206[0][1]:''))
 
       if(this.jinhua_en_xData.length>10){
         this.jinhua_en_xData.splice(0,1);
@@ -273,15 +277,16 @@ export class CabinCentralizedMonitoringComponent implements OnInit {
    */
   get_ATEC(){
     let res,data:any = {};
-    this.http.callRPC('device_monitor.get_device_mts_realtimedata','device_monitor.get_device_mts_realtimedata',{"device":this.deviceid_ATEC,
+    this.subscribeList.atec = this.http.callRPC('device_monitor.get_device_mts_realtimedata','device_monitor.get_device_mts_realtimedata',{"device":this.deviceid_ATEC,
     arr:param_ATEC.join(',')}).subscribe((g:any)=>{
       if(g.result.error || g.result.message[0].code == 0)return;
       res = g.result.message[0].message;
-      res.forEach(el => {
-        for(let key in el){
-          data[key] = el[key][0][0];
-        }
-      });
+      if(res)
+        res.forEach(el => {
+          for(let key in el){
+            data[key] = el[key][0][0];
+          }
+        });
       //舱状态
       this.atec.cang = data.status;
       //新风状态
@@ -306,7 +311,7 @@ export class CabinCentralizedMonitoringComponent implements OnInit {
 
       this.atec_chart[0].value.push(data.realtime_temp);
       this.atec_chart[1].value.push(data.realtime_humidity);
-      this.atec_xdata.push(rTime(res[0].realtime_temp[0][1]));
+      this.atec_xdata.push(rTime(res?res[0].realtime_temp[0][1]:''));
       if(this.atec_xdata.length>10){
         this.atec_xdata.splice(0,1);
         this.atec_chart.forEach(f=>{
@@ -328,7 +333,7 @@ export class CabinCentralizedMonitoringComponent implements OnInit {
 
   get_TempHumidity(device,arr){
     let res;
-    this.http.callRPC('get_temperature','device_monitor.get_temperature'
+    this.subscribeList[device] = this.http.callRPC('get_temperature','device_monitor.get_temperature'
     ,{device:device}).subscribe((g:any) =>{
       if(g.result.error || g.result.message[0].code == 0)return;
       res = g.result.message[0].message[0]?g.result.message[0].message[0]:{};

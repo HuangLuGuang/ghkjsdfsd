@@ -60,7 +60,7 @@ const COMPONENT = [
   providers:[
     TranslatePipe,
   ],
-
+  entryComponents:COMPONENT
 })
 export class EquipmentBoardModule { 
   constructor(){

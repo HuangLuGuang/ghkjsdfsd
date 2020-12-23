@@ -22,8 +22,10 @@
                     <div style="width: 50%;height: 100%;" id="{{item.id}}"></div>
                     <div class="pump">
                         <div style="width: 100%;">泵组</div>
-                        <div class="d" *ngFor="let f of item.pumpList" [ngStyle]="{'background':f.s?'#00FF33':'',width:(100-item.pumpList.length)/item.pumpList.length+'%'}">
-                            {{ f.name }}
+                        <div class="c">
+                            <div class="d" *ngFor="let f of item.pumpList" [ngStyle]="{'background':f.s?'#00FF33':'',width:(100-item.pumpList.length)/item.pumpList.length+'%'}">
+                                {{ f.name }}
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -108,11 +110,11 @@
             </div>
             <div class="HEWater backgroud">
                 <div class="part_title">{{ HPUselect.value }} HE/Water</div>
-                <div class="w_100 height_60" style="display: flex;flex-wrap:wrap;margin-top: 20px;justify-content: center;">
+                <div class="w_100 height_50" style="display: flex;flex-wrap:wrap;margin-top: 6%;justify-content: center;">
                     <div *ngFor="let item of HE_Water.data" id="{{item.id }}" class="height_25" style="width: 33%;">
                     </div>
                 </div>
-                <div class="w_100 height_35" id="discharge_chart_2"></div>
+                <div class="w_100 height_45" id="discharge_chart_2"></div>
             </div>
             <div class="radar backgroud">
                 <div class="part_title">{{'equipment.oilsrouce.accumulator'|translate}}</div>

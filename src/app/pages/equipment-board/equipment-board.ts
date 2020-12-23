@@ -6,7 +6,7 @@ export const rgb_del_red = ()=> {//rgb颜色随机
     var r = Math.floor(Math.random()*255);
     var g = Math.floor(Math.random()*256);
     var b = Math.floor(Math.random()*256);
-    var rgb = 'rgb('+r+','+g+','+b+')';
+    var rgb = 'rgba('+r+','+g+','+b+',0.8)';
     return rgb;
 }
 
@@ -32,32 +32,30 @@ export const create_img_16_9=()=>{
 
 //颜色
 export const colors = [
-    '#2074E8',
-   
-    '#00FCF8',
-    '#F800F8',
-    '#C8CCC8',
-    '#40C040',
-    '#C8CC40',
-    '#40CCC8',
-    '#286428',
-    '#18F818',
-    '#70B8B8',
-    '#3870A0',
-    '#D87058',
-    '#987858',
-    '#7878B8',
-    '#D09848',
-    '#804878',
-    '#90AC58',
-    '#9060B8',
-    '#5050A8',
-    '#7030A0',
-    '#202420',
-    '#F8FCF8',
-    '#0000F8',
-    '#00FC00',
-    '#F8FC00',
+    'rgba(5,116,232,1)',
+    'rgba(0,252,248,0.8)',
+    'rgba(248,0,248,0.8)',
+    'rgba(200,204,20,0.8)',
+    'rgba(64,192,64,0.8)',
+    'rgba(200,204,64,0.8)',
+    'rgba( 112,184,184,0.8)',
+    'rgba( 56,112,160,0.8)',
+    'rgba( 216,112,88,0.8)',
+    'rgba( 152,120,88,0.8)',
+    'rgba( 120,120,184,0.8)',
+    'rgba( 208,152,72,0.8)',
+    'rgba( 128,72,120,0.8)',
+    'rgba( 144,172,88,0.8)',
+    'rgba( 80,80,168,0.8)',
+    'rgba( 112,48,160,0.8)',
+    'rgba( 32,36,32,0.8)',
+    'rgba( 248,252,248,0.8)',
+    'rgba( 0,0,248,0.8)',
+    'rgba( 0,252,0,0.8)',
+    'rgba( 248,252,0,0.8)',
+    'rgba( 40,100,40,0.8)',
+    'rgba( 64,204,200,0.8)',
+
 ]
 
 
@@ -216,7 +214,7 @@ export const painting_time = (f,time,isthis,arr) =>{
   arr.forEach((f,i)=>{
     isthis[`chart_${i+1}`].painting({attrs:isthis[`attrs_${i+1}`][isthis.click_list[i]],xData:isthis[`attrs_${i+1}`].xData,index:1});
   })
-  console.log('本次时长',new Date().getTime()-timest)
+  // console.log('本次时长',new Date().getTime()-timest)
 }
 
 

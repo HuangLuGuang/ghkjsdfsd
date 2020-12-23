@@ -12,7 +12,7 @@
 </div> -->
 
 <div id="appearance">
-    <div *ngFor="let key of objectKeys(list)" [ngStyle]="getStyle(list[key].style)">
+    <div *ngFor="let key of objectKeys(list)" [ngStyle]="list[key].style">
         <ng-container [ngTemplateOutlet]="getTemp(list[key].type)" [ngTemplateOutletContext]="{ $implicit: list[key] }">
         </ng-container>
     </div>

@@ -2,7 +2,7 @@ import { Component, Input, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 import { LayoutService } from '../../../../@core/utils';
 import { HttpserviceService } from '../../../../services/http/httpservice.service';
-import { dateformat } from '../../equipment-board';
+import { dateformat, rTime } from '../../equipment-board';
 let equipment_four_road = require('../../../../../assets/eimdoard/equipment/js/equipment-four-road');
 let rtm3a = require('../../../../../assets/eimdoard/rtm3/js/rtm3a');
 
@@ -16,10 +16,10 @@ export class ExperimentParamsComponent implements OnInit {
   timer;
   language ='';
   subscribeList:any = {};
-  obser = new Observable(f=>{
-    if(document.getElementById('third_second'))echarts.init(document.getElementById('third_second')).resize();
-    f.next('experiment-params刷新')
-  })
+  // obser = new Observable(f=>{
+  //   if(document.getElementById('third_second'))echarts.init(document.getElementById('third_second')).resize();
+  //   f.next('experiment-params刷新')
+  // })
   constructor(private http:HttpserviceService,private layoutService:LayoutService) { }
 
   ngOnInit(): void {
@@ -31,34 +31,28 @@ export class ExperimentParamsComponent implements OnInit {
       if(document.getElementById('third_second'))echarts.init(document.getElementById('third_second')).resize();
     })
 
-    
+    setTimeout(() => {
+      if(this.device.includes('weiss'))
+        this.get_device_mts_timerangedata();
+      else
+        this.get_device_his_Temp_hum();
+    }, 1000);
 
     this.timer = setInterval(f =>{
-      if(this.device.includes('weiss'))this.get_device_mts_weiss();
+      if(this.device.includes('weiss'))
+        this.get_device_mts_weiss();
       else {
         this.get_device_Temp_hum();
-        rtm3a.create_third_chart_line({
-          yearPlanData:[1],
-          yearOrderData:[1],
-          differenceData:[1],
-          visibityData:[1],
-          xAxisData:[1],
-          title:this.language?'MonthlyChartOfTemperatureAndHumidity':'温湿度月度图线'
-        }, 'third_second');
       }
     },1000)
-  }
-
-  ngAfterViewInit(){
-    if(this.device.includes('weiss'))this.get_device_mts_timerangedata();
-    window.addEventListener('resize',this.chartResize)
+    window.addEventListener('resize',this.chartResize);
   }
 
 
   chartResize=()=>{
-    this.obser.subscribe(f=>{
-      console.log(f)
-    })
+    if(document.getElementById('third_second')){
+      echarts.init(document.getElementById('third_second')).resize();
+    }
     
   }
 
@@ -67,7 +61,7 @@ export class ExperimentParamsComponent implements OnInit {
   get_device_mts_weiss(){
     // temp温度
     //  humi湿度
-    this.subscribeList.device_mts_weiss = this.http.callRPC('get_device_mts_realtimedata','device_monitor.get_device_mts_realtimedata'
+    this.subscribeList.weiss = this.subscribeList.device_mts_weiss = this.http.callRPC('get_device_mts_realtimedata','device_monitor.get_device_mts_realtimedata'
     ,{device:this.device,arr:"temperatureactual,temperatureset,humidityactual,humidityset"}).subscribe((g:any) =>{
       if(g.result.error || g.result.message[0].code == 0)return;
       let obj = this.temp_humi_change(g.result.message[0].message);
@@ -87,7 +81,7 @@ export class ExperimentParamsComponent implements OnInit {
   //环境历史信息
   get_device_mts_timerangedata(){
    let startStr = this.getPreMonth(dateformat(new Date(),'yyyy-MM-dd'))
-    this.subscribeList.device_mts_timerangedata = this.http.callRPC('get_device_mts_timerangedata','device_monitor.get_device_mts_timerangedata'
+    this.subscribeList.mcotah = this.subscribeList.device_mts_timerangedata = this.http.callRPC('get_device_mts_timerangedata','device_monitor.get_device_mts_timerangedata'
     ,{start:startStr+' 00:00:00',end:dateformat(new Date(),'yyyy-MM-dd hh:mm:ss'),device:this.device,arr:"temperatureactual,humidityactual"}).subscribe((g:any) =>{
       if(g.result.error || g.result.message[0].code == 0)return;
       // console.log(this.temp_humi_change(g.result.message[0].message));
@@ -111,11 +105,11 @@ export class ExperimentParamsComponent implements OnInit {
   //获取实时温湿度
   get_device_Temp_hum(){
     let res;
-    this.http.callRPC('get_temperature','device_monitor.get_temperature'
+    this.subscribeList.t_h = this.http.callRPC('get_temperature','device_monitor.get_temperature'
     ,{deviceid:this.device}).subscribe((g:any) =>{
       if(g.result.error || g.result.message[0].code == 0)return;
       res = g.result.message[0].message[0]?g.result.message[0].message[0]:{};
-      console.log(res)
+      // console.log(res)
       //渲染温度
       if(document.getElementById('real_temperature_1'))
         equipment_four_road.create_real_temperature_v2(
@@ -126,6 +120,27 @@ export class ExperimentParamsComponent implements OnInit {
         equipment_four_road.create_real_temperature_v2(
           {value:res.humidity?res.humidity:0,title:'湿度',max:100,setValue:res.humidityset?res.humidityset:0},
           echarts.init(document.getElementById('real_temperature_2')));
+    })
+  }
+
+  get_device_his_Temp_hum(){
+    let yearPlanData = [],yearOrderData= [],differenceData=[],visibityData=[],xAxisData=[];
+    this.subscribeList.h_t_h = this.http.callRPC('get_temperature','device_monitor.get_temperature_numbers'
+    ,{deviceid:this.device}).subscribe((g:any) =>{
+      if(g.result.error || g.result.message[0].code == 0)return;
+      g.result.message[0].message.forEach(el => {
+        yearPlanData.push(el.temperature);//温度
+        yearOrderData.push(el.humidity);//湿度
+        xAxisData.push(rTime(el.recordtime));
+      });
+      rtm3a.create_third_chart_line({
+        yearPlanData:yearPlanData,
+        yearOrderData:yearOrderData,
+        differenceData:differenceData,
+        visibityData:visibityData,
+        xAxisData:xAxisData,
+        title:this.language?'MonthlyChartOfTemperatureAndHumidity':'温湿度月度图线'
+      }, 'third_second');
     })
   }
 
