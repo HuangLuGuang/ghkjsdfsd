@@ -55,8 +55,16 @@
 
 // 科室 样式
 .group{
-    width: 150px;
+    width: 16%;
     padding: 5px;
+
+    border-width: 1px;
+    border-color: rgb(100, 116, 211);
+    border-style: solid;
+    background-color: rgba(100, 116, 211, 0.402);
+    text-align: center;
+    margin-top: 10px;
+    box-shadow: 0 0 3.2vh 1.34vh #365f96b3 inset;
     span{
         font-size: revert;
         color: aliceblue;
@@ -64,21 +72,79 @@
 }
 // newpower 新能源与电子电气试验室
 .newpower{
-    left: 40px;
-    top: 10px;
-}
-
-// 科室和布局的连线
-.lines{
+    left: 20%;
+    top: 10%;
+    position: absolute;
     // 新能源与电子电气试验室
     .newpower_line{
-        width: 10px;
+        width: 62px;
         height: 2px;
-        border-color: rgb(100, 116, 211);
-        background-color: rgba(100, 116, 211, 0.402);
+        border-color: #6474d3;
+        background-color: #2033a7;
         border-width: 1px;
+        transform: rotateZ(49deg);
+        top: 112%;
+        left: 74%;
+        position: absolute;
     }
 }
+// structural 结构试验室
+.structural{
+    left: 16%;
+    top: 100px;
+    position: absolute;
+    // 结构试验室
+    .structural_line{
+        width: 62px;
+        height: 2px;
+        border-color: #6474d3;
+        background-color: #2033a7;
+        border-width: 1px;
+        transform: rotateZ(-2deg);
+        top: 65%;
+        left: 97%;
+        position: absolute;
+    }
+}
+// environment 环境试验室
+.environment{
+    left: 45%;
+    top: 159px;
+    position: absolute;
+    // 环境试验室
+    .environment_line{
+        width: 62px;
+        height: 2px;
+        border-color: #6474d3;
+        background-color: #2033a7;
+        border-width: 1px;
+        transform: rotateZ(37deg);
+        top: -60%;
+        left: -16%;
+        position: absolute;
+    }
+}
+// physicochemical 理化试验室
+.physicochemical{
+    left: 57%;
+    top: 48px;
+    position: absolute;
+    // 理化试验室
+    .physicochemical_line{
+        width: 62px;
+        height: 2px;
+        border-color: #6474d3;
+        background-color: #2033a7;
+        border-width: 1px;
+        transform: rotateZ(-16deg);
+        top: 81%;
+        left: -38%;
+        position: absolute;
+    }
+}
+
+
+
 
 // 标题
 .part_title{
