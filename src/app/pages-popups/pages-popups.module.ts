@@ -23,12 +23,15 @@ import { NewMenuComponent } from './system-set/new-menu/new-menu.component';
 // Menu 导航菜单
 import { NzMenuModule } from 'ng-zorro-antd/menu';
 import { ChangePassowrdForallComponent } from './change-passowrd-forall/change-passowrd-forall.component';
+import { TargetHourConfigComponent } from './tongji/target-hour-config/target-hour-config.component';
+
+
 
 // DateComponent
 @NgModule({
   declarations: [PagesPopupsComponent, RoleComponent, 
     MySelectComponent, UserEmployeeComponent,  
-    UserEmployeeGroupComponent, EditDelTooltipComponent, DeviceManageComponent, PreinstallDialogComponent,  ExpiredTokenComponent, NewMenuComponent, ChangePassowrdForallComponent],
+    UserEmployeeGroupComponent, EditDelTooltipComponent, DeviceManageComponent, PreinstallDialogComponent,  ExpiredTokenComponent, NewMenuComponent, ChangePassowrdForallComponent, TargetHourConfigComponent],
   imports: [
     CommonModule,
     PagesPopupsRoutingModule,
@@ -47,6 +50,7 @@ import { ChangePassowrdForallComponent } from './change-passowrd-forall/change-p
     NbButtonModule,
 
     NzMenuModule, // menu
+
 
   ],
   exports: [

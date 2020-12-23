@@ -85,7 +85,7 @@ let first_level = {
         })
     },
 
-    // chian_map map 地图
+    // chian_map map 地图  https://www.makeapie.com/editor.html?c=xmOgZZ5lD2
     chian_map() {
 
         let data = [
@@ -162,6 +162,7 @@ let first_level = {
                 aspectScale: 0.85,
                 layoutCenter: ["50%", "50%"], //地图位置
                 layoutSize: '100%',
+                zoom:1.4,
                 itemStyle: {
                     normal: {
                         shadowColor: '#276fce',
@@ -200,6 +201,7 @@ let first_level = {
                 }],
         
             },
+
             series: [
                 // 常规地图
                 {
@@ -208,7 +210,7 @@ let first_level = {
                     aspectScale: 0.85,
                     layoutCenter: ["50%", "50%"], //地图位置
                     layoutSize: '100%',
-                    zoom: 1, //当前视角的缩放比例
+                    zoom: 1.4, //当前视角的缩放比例
                     // roam: true, //是否开启平游或缩放
                     scaleLimit: { //滚轮缩放的极限控制
                         min: 1,
@@ -325,21 +327,21 @@ let first_level = {
                         },
                     data: [
                         {
-                            fromName: "黑河",
-                            toName: "吉利研究院",
+                            fromName: "吉利研究院",
+                            toName: "黑河",
                             coords: [
-                                [121.25158,30.342533],
                                 [127.528588,50.247033],
+                                [121.25158,30.342533],
                                 [121.25158,30.342533],
                             ]
                             ,lineStyle:{color:'#4fb6d2'}
                         },
                         {
-                            fromName: "吐鲁番",
-                            toName: "吉利研究院",
+                            fromName: "吉利研究院",
+                            toName: "吐鲁番",
                             coords: [
-                                [121.25158,30.342533],
                                 [89.192125,42.956351],
+                                [121.25158,30.342533],
                                 [121.25158,30.342533],
                             ]
                             ,lineStyle:{color:'#4fb6d2'}
@@ -347,11 +349,11 @@ let first_level = {
                         },
                         {
                             //120.168403,33.355342
-                            fromName: "盐城试车基地",
-                            toName: "吉利研究院",
+                            fromName: "吉利研究院",
+                            toName: "盐城试车基地",
                             coords: [
-                                [121.25158,30.342533],
                                 [120.168403,33.355342],
+                                [121.25158,30.342533],
                                 [121.25158,30.342533],
                             ]
                             ,lineStyle:{color:'#4fb6d2'}
@@ -359,11 +361,11 @@ let first_level = {
                         },
                         {
                              //120.168403,33.355342
-                            fromName: "格尔木高原试车基地",
-                            toName: "吉利研究院",
+                            fromName: "吉利研究院",
+                            toName: "格尔木高原试车基地",
                             coords: [
-                                [121.25158,30.342533],
                                 [94.794758,36.405633],
+                                [121.25158,30.342533],
                                 [121.25158,30.342533],
                             ]
                             ,lineStyle:{color:'#4fb6d2'}
@@ -371,11 +373,11 @@ let first_level = {
                         },
                          //119.417702,30.919115
                         {
-                            fromName: "广德试车基地",
-                            toName: "吉利研究院",
+                            fromName: "吉利研究院",
+                            toName: "广德试车基地",
                             coords: [
-                                [121.25158,30.342533],
                                 [119.417702,30.919115],
+                                [121.25158,30.342533],
                                 [121.25158,30.342533],
                             ]
                             ,lineStyle:{color:'#4fb6d2'}

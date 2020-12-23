@@ -137,6 +137,7 @@ export class ManKpiTableComponent implements OnInit {
     })
   }
 
+
   // input 传入的值
   inpuvalue(inpuvalue){
     if (inpuvalue != ""){
@@ -425,17 +426,5 @@ export class ManKpiTableComponent implements OnInit {
     this.publicservice.showngxtoastr({position: 'toast-top-right', status: 'danger', conent:"没有搜索到数据！"});
   }
 
-
-}
-interface TREEV2 {
-  id: number,    // 节点唯一索引，对应数据库中id
-  parentid: number | null,    // 父节点id
-  label: string, // 节点标题
-  checked: boolean,// 节点是否初始为选中状态， 默认false
-  disabled: boolean, // 节点是否为禁止状态，默认为false
-  children: TREEV2[] | [], // 子节点，支持设定项同父节点
-  deviceno: string | null, // 设备编号
-  deviceid: string | null, // 设备id
-  parent_label: string | null // 父节点 label
 
 }

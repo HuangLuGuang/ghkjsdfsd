@@ -32,6 +32,9 @@
             <ngx-my-date-range #data_range></ngx-my-date-range>
         </div>
 
+        <!-- 多选日期 -->
+        <ngx-my-date-range-multiple></ngx-my-date-range-multiple>
+
         <!-- 搜索 -->
         <div class="example-items-rows button_item query" *ngIf="button?.query">
             <button nbButton [status]="button?.query.class" size="small" (click)="action(button?.query.permission)"  [disabled]="button?.query.active == 0? true:false"><nb-icon [icon]="button?.query.icon"></nb-icon>{{button?.query.title}}</button>
