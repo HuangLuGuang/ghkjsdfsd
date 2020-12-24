@@ -12,9 +12,9 @@
                 <div class="part_title">ATEC{{'equipment.EnvironmentRoom'|translate}}</div>
                 <div class=" height_5 dis_f_w" style="justify-content: flex-end;">
                     {{'equipment.warehouseStatus'|translate}}：
-                    <div style="border-radius: 60px;width: 20px;height: 20px;margin-right: 20px;" [ngStyle]="{'background':atec.cang==1?'green':'#C0C0C0'}"></div>
+                    <div style="border-radius: 60px;width: 20px;height: 20px;margin-right: 20px;" [ngStyle]="{'background':atec.cang==1?'#202223':'#C0C0C0'}"></div>
                     {{'equipment.FreshAirSystem'|translate}}：
-                    <div style="border-radius: 60px;width: 20px;height: 20px;" [ngStyle]="{'background':atec.newF==1?'green':'#C0C0C0'}"></div>
+                    <div style="border-radius: 60px;width: 20px;height: 20px;" [ngStyle]="{'background':atec.newF==1?'#202223':'#C0C0C0'}"></div>
                 </div>
                 <div class="height_50" style="display: flex;justify-content: center;align-items: center;">
                     <div id="real_temperature_4"></div>
@@ -52,7 +52,7 @@
                 <ngx-log-warm class="dis_f_w" [device]='deviceid_ATEC' style="width: 100%;"></ngx-log-warm>
             </div>
         </div>
-        <div class="col-md-4" style="padding: 0px 20px 0px 0px;">
+        <div class="col-md-4" style="padding: 0px 20px 0px 0px;height: 100%;">
             <div class="first_first height_33">
                 <ngx-equipment-status andon_status_font='JINHUAsafetyLampStatus' TempNum="2" [device]='deviceid_jinhua' style="display: flex;width: 100%;"></ngx-equipment-status>
             </div>
@@ -66,9 +66,9 @@
                     <!-- <div id="real_temperature_10"></div> -->
                     <div class="width_20 dis_f_w" style="justify-content: flex-end;height: 64%;">
                         {{'equipment.warehouseStatus'|translate}}：
-                        <div style="border-radius: 60px;width: 20px;height: 20px;" [ngStyle]="{'background':this.jinhua.cang == 1?'green':'#C0C0C0'}"></div>
+                        <div style="border-radius: 60px;width: 20px;height: 20px;" [ngStyle]="{'background':this.jinhua.cang == 1?'#202223':'#07ef07'}"></div>
                         {{'equipment.FreshAirSystem'|translate}}：
-                        <div style="border-radius: 60px;width: 20px;height: 20px;" [ngStyle]="{'background':this.jinhua.newF == 1?'green':'#C0C0C0'}"></div>
+                        <div style="border-radius: 60px;width: 20px;height: 20px;" [ngStyle]="{'background':this.jinhua.newF == 1?'#202223':'#07ef07'}"></div>
                     </div>
                 </div>
                 <div class="height_45">

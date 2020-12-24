@@ -23,6 +23,17 @@
 <ng-template #category let-value>
     <div class="height_100 w_100">
         <div class="height_30 w_100" style="background-color: chartreuse;">Message</div>
-        <div class="height_70 w_50" style="border-right: 2px solid chartreuse;"></div>
+        <div class="height_70 w_50" style="border-right: 2px solid chartreuse;transform: rotate(45deg);top: 20px;"></div>
+    </div>
+</ng-template>
+
+<ng-template #Fan let-value>
+    <div class="height_100 w_100" style="display: flex;flex-wrap: wrap;">
+        <div style="width: 50%;height: 50%;border-right:2px solid;border-top: 2px solid;border-radius: 100%;">
+            <div class="three" style="height: 100%;width: 70%;"></div>
+        </div>
+        <div class="three" style="width: 50%;height: 50%;"></div>
+        <div class="three" style="width: 50%;height: 50%;"></div>
+        <div class="three" style="width: 50%;height: 50%;"></div>
     </div>
 </ng-template>

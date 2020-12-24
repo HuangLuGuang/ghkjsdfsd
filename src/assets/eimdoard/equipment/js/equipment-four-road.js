@@ -1566,6 +1566,11 @@ let equipment_four_road = {
                 axisLabel: {
                     color: COLOR
                 },
+                axisLine: {
+                    lineStyle: {
+                        color: COLOR,
+                    }
+                },
             },
             yAxis: {
                 min: 0,
@@ -1573,6 +1578,11 @@ let equipment_four_road = {
                     color: COLOR,
                     formatter: function(str) {
                         return str > 10000 ? str / 10000 + 'W' : str;
+                    }
+                },
+                axisLine: {
+                    lineStyle: {
+                        color: COLOR,
                     }
                 },
                 splitLine: {

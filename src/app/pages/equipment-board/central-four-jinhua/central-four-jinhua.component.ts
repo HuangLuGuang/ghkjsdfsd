@@ -142,7 +142,7 @@ export class CentralFourJinhuaComponent implements OnInit {
     // {value:'0',name:'CO',unit:'LEL'},
     {value:'0',name:'WasteDisOutput',unit:'%'},
     {value:'0',name:'effluentTemp',unit:'℃'},
-    {value:'0',name:'effluentHum',unit:'%RH'},
+    {value:'0',name:'effluentPressure',unit:'Pa'},
 
     // {value:'0',name:'CabinHumidity',unit:'%RH'},
   ]
@@ -344,8 +344,8 @@ export class CentralFourJinhuaComponent implements OnInit {
       this.EnvironBin[4].dataLine.color[0] =  [data.mwsmart_main_emission_vw226/this.EnvironBin[4].dataLine.max,'#203add'];
 
       this.EnvironBinParam[0].value = data.mwsmart_main_emission_vw228;
-      this.EnvironBinParam[1].value = data.mwsmart_main_emission_vw322;
-      this.EnvironBinParam[2].value = data.mwsmart_main_emission_vw320;
+      this.EnvironBinParam[1].value = data.mwsmart_main_emission_v322;
+      this.EnvironBinParam[2].value = data.mwsmart_main_emission_v320;
 
       
       this.EnvironBin.forEach(el=>{
@@ -425,8 +425,8 @@ export const jinhua_param = [
   'mwsmart_main_emission_vw224',//排废压力
   'mwsmart_main_emission_vw226',//排废压力设定值
   'mwsmart_main_emission_vw228',//排废输出
-  // 'mwsmart_main_emission_vw322',//出水温度
-  // 'mwsmart_main_emission_vw320',//出水湿度
+  'mwsmart_main_emission_v322',//出水温度
+  'mwsmart_main_emission_v320',//出水压力
 
   'mwsmart_main_emission_vw246',//冷金水温度
   'mwsmart_main_emission_vw244',//冷金水压力

@@ -508,7 +508,7 @@ let rtm3 = {
                 },
                 axisLine: {
                     lineStyle: {
-                        color: 'rgba(160,160,160,0.3)',
+                        color: 'rgba(55,255,249,1)',
                     }
                 },
                 splitNumber: 1,
@@ -537,7 +537,12 @@ let rtm3 = {
                 },
                 smooth: true,
                 itemStyle: {
-                    normal: { areaStyle: { type: 'default' } }
+                    normal: {
+                        areaStyle: {
+                            type: 'default',
+                            color: 'rgba(55,255,249,1)'
+                        }
+                    }
                 },
                 data: gauge_data.seriesData
             }]
