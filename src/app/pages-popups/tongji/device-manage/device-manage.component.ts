@@ -461,9 +461,10 @@ export class DeviceManageComponent implements OnInit {
 
       //监听提交
       form.on('submit(device)', function(data){
+        // layer.msg(JSON.stringify(data.field));
         if (content){ // 表示编辑
           data.field.id = JSON.parse(rowData)[0].id;
-          data.field.deviceid = JSON.parse(rowData)[0].deviceid;
+          // data.field.deviceid = JSON.parse(rowData)[0].deviceid;
           // 指定科室/功能组！
           var group = "";
           var groupid = 0;

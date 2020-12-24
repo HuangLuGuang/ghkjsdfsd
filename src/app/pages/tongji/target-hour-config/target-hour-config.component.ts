@@ -269,7 +269,10 @@ export class TargetHourConfigComponent implements OnInit {
   
       // 传递的数据，1、month，2、设备唯一标识符！
       this.dialogService.open(ChangeTargetHourConfigComponent, {closeOnBackdropClick: false,context:{data: {month: get_month, year: get_year}, deveiceids:getselectedrows}}).onClose.subscribe(result=>{
-  
+        if(result){
+          // 修改成功--刷新table
+          this.refresh_table();
+        }
       })
 
     }

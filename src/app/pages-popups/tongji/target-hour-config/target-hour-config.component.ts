@@ -114,7 +114,7 @@ export class TargetHourConfigComponent implements OnInit {
       this.http.callRPC(table, method, devicelist).subscribe(result=>{
         var tabledata = result["result"]["message"][0];
         if (tabledata["code"] === 1){
-          this.dialogRef.close(false);
+          this.dialogRef.close(true);
           this.RecordOperation('修改', 1,  "目标工时");
           this.success();
         }else{

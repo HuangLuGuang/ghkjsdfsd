@@ -57,6 +57,11 @@ export class SecondLevelComponent implements OnInit {
   ngOnDestroy(){
   }
 
+  // 跳转到具体的结构试验室，
+  goto_test_room(testname){
+    console.log("跳转到具体的结构试验室:", testname)
+  }
+
 
 
   // 全屏切换

@@ -7,12 +7,11 @@ import { NbIconModule,  } from '@nebular/theme';
 import { NbEvaIconsModule } from '@nebular/eva-icons';
 import { FirstLevelComponent } from './first-level/first-level.component';
 import { SecondLevelComponent } from './second-level/second-level.component';
-import { ThirdLevelComponent } from './third-level/third-level.component';
 import { RealTimeComponent } from './real-time/real-time.component';
 
 
 @NgModule({
-  declarations: [DeviceInlineComponent, FirstLevelComponent, SecondLevelComponent, ThirdLevelComponent, RealTimeComponent],
+  declarations: [DeviceInlineComponent, FirstLevelComponent, SecondLevelComponent, RealTimeComponent],
   imports: [
     CommonModule,
     DeviceInlineRoutingModule,

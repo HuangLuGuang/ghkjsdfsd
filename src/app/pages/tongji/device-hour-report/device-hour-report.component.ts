@@ -183,11 +183,11 @@ export class DeviceHourReportComponent implements OnInit {
     };
     month = month_value[month];
     year = Number(year.split("年")[0]);
-    // var start = this.datepip.transform(new Date(year, month-1, 1), 'yyyy-MM-dd'); // start
-    // var end = this.datepip.transform(new Date(year, month, 0), 'yyyy-MM-dd');   // end
-    var current = new Date()
-    var start = this.datepip.transform(new Date(current.getFullYear(), current.getMonth(), 1),  'yyyy-MM-dd'); // 当前start
-    var end = this.datepip.transform(new Date(current.getFullYear(), current.getMonth() + 1, 0), 'yyyy-MM-dd');   // end
+    var start = this.datepip.transform(new Date(year, month-1, 1), 'yyyy-MM-dd'); // start
+    var end = this.datepip.transform(new Date(year, month, 0), 'yyyy-MM-dd');   // end
+    // var current = new Date()
+    // var start = this.datepip.transform(new Date(current.getFullYear(), current.getMonth(), 1),  'yyyy-MM-dd'); // 当前start
+    // var end = this.datepip.transform(new Date(current.getFullYear(), current.getMonth() + 1, 0), 'yyyy-MM-dd');   // end
     return {
       start: start,
       end: end

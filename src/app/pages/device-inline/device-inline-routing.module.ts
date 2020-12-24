@@ -10,7 +10,7 @@ import { FirstLevelComponent } from './first-level/first-level.component';
 import { SecondLevelComponent } from './second-level/second-level.component';
 
 // room 三级
-import { ThirdLevelComponent } from './third-level/third-level.component';
+
 
 // 实时 四级
 import { RealTimeComponent } from './real-time/real-time.component';
@@ -22,7 +22,11 @@ const routes: Routes = [
     children:[
       { path: "first-level", component: FirstLevelComponent },
       { path: "second-level", component: SecondLevelComponent },
-      { path: "third-level", component: ThirdLevelComponent },
+      { 
+        path: "third-level", 
+        loadChildren:()=>import('./third-level/third-level.module')
+        .then(m=>m.ThirdLevelModule)
+      },
       { path: "four-level", component: RealTimeComponent },
       { path: "", redirectTo:"first-level", pathMatch: 'full' },
     ]

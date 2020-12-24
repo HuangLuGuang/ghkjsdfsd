@@ -142,6 +142,10 @@
         position: absolute;
     }
 }
+.physicochemical:hover,.environment:hover,.structural:hover,.newpower:hover{
+    cursor: pointer;
+    background-color: #28548f;
+}
 
 
 

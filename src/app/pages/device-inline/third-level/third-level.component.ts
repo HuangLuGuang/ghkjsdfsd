@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 
-import { LocalStorageService } from '../../../services/local-storage/local-storage.service';
 
-// my-echart
-let third_level = require('../../../../assets/pages/device-inline/js/third-level');
+// 全屏
+import * as screenfull from 'screenfull';
+import { Screenfull } from 'screenfull';
 
 @Component({
   selector: 'ngx-third-level',
@@ -12,42 +12,23 @@ let third_level = require('../../../../assets/pages/device-inline/js/third-level
 })
 export class ThirdLevelComponent implements OnInit {
 
-  second_level;
-  constructor(
-    private localstorage:LocalStorageService,
-  ) { 
-    // 得到从secod-leve级传递的数据
-    this.second_level = this.localstorage.get('second_level');
-    console.log("得到从secod-leve级传递的数据: ", this.second_level)
-  }
+  is_not_fullscreen = true; // 是否处于全屏
+
+  constructor() { }
 
   ngOnInit(): void {
-    // 关键指标
-    third_level.key_index();
-    // 设备开动率、完好lv
-    third_level.device_rate(70);
   }
 
-  // 点击设备开动率
-  kaidong(){
-    var kaidogn = document.getElementById('kaidogn');
-    kaidogn.setAttribute("class", "span_active");
-    var wanhao = document.getElementById('wanhao');
-    wanhao.setAttribute("class", "span_noactive");
+  // 全屏切换
+  showAllTemplate(){
+    const board = document.getElementById("rtmv2");
+    const sf = <Screenfull>screenfull;
+    if (sf.isEnabled){ // sf.isEnabled 布尔值，判断是否允许进入全屏！
+      this.is_not_fullscreen = sf.isFullscreen;
+      sf.toggle(board);
+    }
 
-    // 设备开动率数据
-    var data = 78
-    third_level.device_rate(data);
-  }
-  // 点击设备完好率
-  wanhao(){
-    var wanhao = document.getElementById('wanhao');
-    wanhao.setAttribute("class", "span_active");
-    var kaidogn = document.getElementById('kaidogn');
-    kaidogn.setAttribute("class", "span_noactive");
-    // 设备完好率数据
-    var data = 87
-    third_level.device_rate(data);
-  }
+    
+  };
 
 }
