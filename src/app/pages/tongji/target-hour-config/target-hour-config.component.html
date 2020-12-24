@@ -5,6 +5,13 @@
     <nb-card-body style="background-color: #f4f4f4;">
         <div class="row">
             <div class="col-lg-9" style="display: flex;">
+
+                <!-- 设备名称，input -->
+                <div class="example-items-rows button_item"  *ngIf="button?.query">
+                    <div class="gongneng_keshi">
+                        <ngx-my-input #myinput (inpuvalue)="inpuvalue($event)"  [placeholder]="myinput_placeholder"></ngx-my-input>
+                    </div>
+                </div>
             
                 <!-- 年下拉 -->
                 <div class="example-items-rows button_item">

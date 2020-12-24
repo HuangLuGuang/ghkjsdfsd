@@ -436,7 +436,7 @@ export class DeviceManageComponent implements OnInit {
         var purchaseon = formdatar["purchaseon"];
         method = "dev_update_device";
       }else{ // false: 表示add
-        form.val("device", {groups: JSON.parse(localStorage.getItem("Device_Groups"))})
+        form.val("device", {groups: JSON.parse(localStorage.getItem("Device_Groups")),devicestatus: "在用"})
 
         method = "dev_insert_device";
         success = addsuccess;

@@ -86,7 +86,7 @@ let first_level = {
     },
 
     // chian_map map 地图  https://www.makeapie.com/editor.html?c=xmOgZZ5lD2
-    chian_map() {
+    chian_map(eclick) {
 
         let data = [
             {
@@ -492,21 +492,23 @@ let first_level = {
 
         // 点击散点图上的点
 
-        function eclick(params) {
-            if (params.seriesType === 'scatter') {
-                console.log("点击执行： ", params);
-                console.log("点击执行： ", params.seriesType);
-                var store = require('store');
-                // 将得到的数据存入local store中以便于angular得到它
-                // store.set("first_level", params)
-                console.log("***********************", JSON.stringify(params.data))
-                store.set('first_level', JSON.stringify(params.data));
-                // 跳转页面 _parent:在当前页面打开，_blank、默认：在新的窗口打开
-                window.open('/pages/deviceinline/second-level', "_parent");
-            }
-        }
+        // function eclick(params) {
+        //     if (params.seriesType === 'scatter') {
+        //         console.log("点击执行： ", params);
+        //         console.log("点击执行： ", params.seriesType);
+        //         var store = require('store');
+        //         // 将得到的数据存入local store中以便于angular得到它
+        //         // store.set("first_level", params)
+        //         console.log("***********************", JSON.stringify(params.data))
+        //         store.set('first_level', JSON.stringify(params.data));
+        //         // 跳转页面 _parent:在当前页面打开，_blank、默认：在新的窗口打开
+        //         window.open('/pages/deviceinline/second-level', "_parent");
+        //     }
+        // }
 
-        myChart.on('click', eclick);
+        myChart.on('click', function(params){
+            eclick(params)
+        });
 
       
 

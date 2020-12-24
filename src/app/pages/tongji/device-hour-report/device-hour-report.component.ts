@@ -29,7 +29,7 @@ export class DeviceHourReportComponent implements OnInit {
   loading: boolean = false;
   groups_placeholder = "请选择科室/功能组";     // 科室/功能组 
   eimdevicetpye_placeholder = "请选择设备类型"; // eim 设备类型
-  myinput_placeholder = "请输入资产编号"
+  myinput_placeholder = "请输入设备名称";       // 设备名称
   button; // 权限button
   refresh = false; // 刷新tabel
 
@@ -147,7 +147,7 @@ export class DeviceHourReportComponent implements OnInit {
   inpuvalue(inpuvalue){
     if (inpuvalue != ""){
       console.log("传入的值资产编号----->",inpuvalue);
-      // this.query(inpuvalue);
+      this.query(inpuvalue);
     }
   }
 
@@ -199,7 +199,7 @@ export class DeviceHourReportComponent implements OnInit {
 
     var get_start_end = this.get_start_end();
 
-    var assetsno = this.myinput?.getinput()===undefined?"":this.myinput?.getinput();// 资产编号
+    var devicename = this.myinput?.getinput()===undefined?"":this.myinput?.getinput();// 资产编号
     // 科室/功能组
     var groups_data = this.groups_func?.getselect();
     // 设备类型
@@ -209,9 +209,9 @@ export class DeviceHourReportComponent implements OnInit {
     return {
       limit: this.agGrid.get_pagesize(),
       employeeid: this.userinfo.getEmployeeID(),
-      assetsno: [assetsno],
+      devicename: devicename === ""?[]:[devicename],
       group: groups_data_,
-      eimdevicetype:device_tpye_data,
+      type:device_tpye_data,
       month: this.myMonth.getselect(),
       year: this.myYear.getselect(),
       start: get_start_end.start,
@@ -238,9 +238,9 @@ export class DeviceHourReportComponent implements OnInit {
       offset: offset,
       limit: limit,
       employeeid: this.employeeid,
-      assetsno:inittable_before.assetsno,
+      devicename:inittable_before.devicename,
       group:inittable_before.group,
-      eimdevicetype:inittable_before.eimdevicetype,
+      type:inittable_before.type,
       month: this.myMonth.getselect(),
       year: this.myYear.getselect(),
       start: inittable_before.start,
@@ -252,17 +252,21 @@ export class DeviceHourReportComponent implements OnInit {
       console.log("-----------man-kpi-table---", res)
       var get_employee_limit = res['result']['message'][0]
       this.loading = false;
-      // 发布组件，编辑用户的组件
-      var message = res["result"]["message"][0]["message"];
-      this.tableDatas.PageSize = PageSize;
-      this.gridData.push(...message)
-      this.tableDatas.rowData = this.gridData;
-      var totalpagenumbers = get_employee_limit['numbers']? get_employee_limit['numbers'][0]['numbers']: '未得到总条数';
-      this.tableDatas.totalPageNumbers = totalpagenumbers;
-      this.agGrid.init_agGrid(this.tableDatas); // 告诉组件刷新！
-      // 刷新table后，改为原来的！
-      this.tableDatas.isno_refresh_page_size = false;
-      this.RecordOperation('查看', 1,  "设备/工时报表");
+      if(get_employee_limit["code"] === 1){
+        // 发布组件，编辑用户的组件
+        var message = res["result"]["message"][0]["message"];
+        this.tableDatas.PageSize = PageSize;
+        this.gridData.push(...message)
+        this.tableDatas.rowData = this.gridData;
+        var totalpagenumbers = get_employee_limit['numbers']? get_employee_limit['numbers'][0]['numbers']: '未得到总条数';
+        this.tableDatas.totalPageNumbers = totalpagenumbers;
+        this.agGrid.init_agGrid(this.tableDatas); // 告诉组件刷新！
+        // 刷新table后，改为原来的！
+        this.tableDatas.isno_refresh_page_size = false;
+        this.RecordOperation('查看', 1,  "设备/工时报表");
+      }else{
+        this.RecordOperation('查看', 0,  "设备/工时报表");
+      }
     })
   }
 

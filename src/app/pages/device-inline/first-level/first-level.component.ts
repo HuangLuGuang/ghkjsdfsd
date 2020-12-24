@@ -17,7 +17,6 @@ import { LayoutService } from '../../../@core/utils';
 export class FirstLevelComponent implements OnInit {
 
   is_not_fullscreen = true; // 是否处于全屏
-
   // 定时器
   currenttime_timer;
 
@@ -31,7 +30,7 @@ export class FirstLevelComponent implements OnInit {
     })
 
     // map 地图
-    first_level.chian_map();
+    first_level.chian_map(this.eclick);
 
     // this.currenttime_timer = setInterval(this.currenttime, 1000);
     
@@ -74,6 +73,19 @@ export class FirstLevelComponent implements OnInit {
     var CurrentTime = document.querySelector('.currenttime');
     CurrentTime.innerHTML = y + '-' + mt + '-' + day + '  ' + h + ':' + m + ':' + s;
   }
+
+  // 跳转到二级
+  eclick=(params)=> {
+    if (params.seriesType === 'scatter') {
+      console.log("点击执行： ", params);
+      console.log("点击执行： ", params.seriesType);
+      var store = require('store');
+      store.set('first_level', JSON.stringify(params.data));
+      // 跳转页面 _parent:在当前页面打开，_blank、默认：在新的窗口打开
+      this.router.navigate(['/pages/deviceinline/second-level']);
+    }
+}
+
   
 
 }

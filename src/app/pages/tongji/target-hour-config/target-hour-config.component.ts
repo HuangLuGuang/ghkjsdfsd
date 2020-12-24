@@ -14,6 +14,7 @@ import { EditDelTooltipComponent } from '../../../pages-popups/prompt-diallog/ed
 })
 export class TargetHourConfigComponent implements OnInit {
   @ViewChild("ag_Grid") agGrid:any;
+  @ViewChild("myinput") myinput:any; // 设备名称
   @ViewChild("eimdevicetpye") eimdevicetpye:any; // 设备类型
   @ViewChild("groups") groups_func:any;          // 功能组
   @ViewChild("myYear") myYear:any; // 年
@@ -26,8 +27,9 @@ export class TargetHourConfigComponent implements OnInit {
   button; // 权限button
   refresh = false; // 刷新tabel
 
-  eimdevicetpye_placeholder = "请选择功能组";
+  eimdevicetpye_placeholder = "请选择设备类型";
   groups_placeholder = "请选择功能组";
+  myinput_placeholder = "请输入设备名称"
 
   // 用户id
   employeeid = this.userinfo.getEmployeeID()
@@ -110,8 +112,17 @@ export class TargetHourConfigComponent implements OnInit {
 
   }
 
+  // input 传入的值
+  inpuvalue(inpuvalue){
+    if (inpuvalue != ""){
+      // console.log("传入的值设备名称----->",inpuvalue);
+      this.query(inpuvalue);
+    }
+  }
+
   // 搜索
-  query(){
+  query(inpuvalue?){
+    var devicename = this.myinput?.getinput()===undefined?"":this.myinput?.getinput();// 设备名称
     var year = this.myYear.getselect(); // 选择的年
     var month = this.myMonth.getselect(); // 选择的月
     var groups_data = this.groups_func.getselect(); // 科室功能组
@@ -121,6 +132,7 @@ export class TargetHourConfigComponent implements OnInit {
       offset: 0,
       limit: this.agGrid.get_pagesize(),
       employeeid: this.employeeid,
+      devicename: [devicename],
       month:month,
       year:year,
       group: group,
@@ -158,16 +170,20 @@ export class TargetHourConfigComponent implements OnInit {
     var groups_data = this.groups_func.getselect(); // 科室功能组
     var group = groups_data ===""?[] :groups_data.split(";"); // 科室功能组转为列表
 
+    var devicename = this.myinput?.getinput()===undefined?"":this.myinput?.getinput();// 设备名称
+
     return {
       limit: this.agGrid.get_pagesize(),
       employeeid: this.userinfo.getEmployeeID(),
       month: this.myMonth.getselect(),
       year: this.myYear.getselect(),
+      devicename: [devicename], // 设备名称
       group:group, // 科室功能组
       type: this.eimdevicetpye.getselect() // 设备类型
       
     }
   }
+  
   inttable(event?){
     var inittable_before = this.inittable_before();
     var offset;
@@ -189,7 +205,8 @@ export class TargetHourConfigComponent implements OnInit {
       month:inittable_before.month,
       year:inittable_before.year,
       group: inittable_before.group,
-      type: inittable_before.type
+      type: inittable_before.type,
+      devicename: inittable_before.devicename
       
     }
     var table = this.TABLE;
@@ -271,7 +288,8 @@ export class TargetHourConfigComponent implements OnInit {
       this.dialogService.open(ChangeTargetHourConfigComponent, {closeOnBackdropClick: false,context:{data: {month: get_month, year: get_year}, deveiceids:getselectedrows}}).onClose.subscribe(result=>{
         if(result){
           // 修改成功--刷新table
-          this.refresh_table();
+          
+          this.inttable();
         }
       })
 
@@ -286,6 +304,7 @@ export class TargetHourConfigComponent implements OnInit {
     this.tableDatas.isno_refresh_page_size = true;
 
     // 取消选择
+    this.myinput.del_input_value();
     this.myYear.reset_year();
     this.myMonth.reset_month();
     this.groups_func.dropselect();

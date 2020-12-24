@@ -19,7 +19,7 @@ export class TargetHourConfigComponent implements OnInit {
   @Input() data: any;
   @Input() deveiceids: number[];
 
-  selectedDates: any[];
+  selectedDates: any[] = []; // 选择的当前月、和选择的当前月的上一个月的日期
 
   myinput_placeholder = "每日目标时长(h)";
 
@@ -30,41 +30,121 @@ export class TargetHourConfigComponent implements OnInit {
   employeeid = this.userinfo.getEmployeeID(); // 用户id
 
 
+
   constructor(private dialogRef: NbDialogRef<TargetHourConfigComponent>, private datepipe: DatePipe,
     private userinfo:UserInfoService, private http: HttpserviceService, private publicservice: PublicmethodService
   ) { }
 
   ngOnInit(): void {
-    $(".delet_input_value").hide()
+    $(".delet_input_value_target_hour").hide()
 
     console.log("data:", this.data);
     console.log("deveiceids:", this.deveiceids);// 选择的行的数据
     flatpickr.localize(Mandarin);
-    // 参考时间
+    
   }
+  // 得到传入的年月，返回特定的日期
+  get_date_return_date(){
+    var year = Number(this.data["year"]);
+    var month = this.data["month"];
+    var month_value = {
+      "一月": 1,
+      "二月": 2,
+      "三月": 3,
+      "四月": 4,
+      "五月": 5,
+      "六月": 6,
+      "七月": 7,
+      "八月": 8,
+      "九月": 9,
+      "十月": 10,
+      "十一月": 11,
+      "十二月": 12,
+    };
+    month = month_value[month];
+    // 默认的日期
+    var default_date = new Date(year, month -1, 25);
+    var current_min = new Date(year, month -1, 1);
+    var current_max = new Date(year, month, 0);
 
+    var before_date = new Date(default_date);
+
+    if (month - 1 < 1){
+      before_date.setFullYear(year - 1);
+      before_date.setMonth(11);
+    }else{
+      before_date.setMonth(default_date.getMonth() -1);
+    }
+    var before_min = new Date(before_date.getFullYear(), before_date.getMonth(), 1);
+    var before_max = new Date(before_date.getFullYear(), before_date.getMonth() +1, 0);
+    console.log("current, current_min, current_max",this.datepipe.transform(default_date, 'yyyy-MM-dd'),this.datepipe.transform(current_min, 'yyyy-MM-dd'), this.datepipe.transform(current_max, 'yyyy-MM-dd'))
+    console.log("before,before_min,before_max",this.datepipe.transform(before_date, 'yyyy-MM-dd'),this.datepipe.transform(before_min, 'yyyy-MM-dd'), this.datepipe.transform(before_max, 'yyyy-MM-dd'))
+    return {
+      current:default_date,
+      current_min: current_min,
+      current_max: current_max,
+      before: before_date,
+      before_min: before_min,
+      before_max: before_max,
+
+    }
+  }
   ngAfterViewInit(){
+    this.selectedDates = []
     var that = this;
     flatpickr("#target_startdate",{
       mode: "multiple",
       dateFormat: "Y-m-d",
       inline: true, // 使用inline选项以始终打开状态显示日历。
       showMonths:1, // 在显示日历时，同时显示月数
+      // defaultDate: [that.get_date_return_date().current], // 默认选择的
+      minDate: that.get_date_return_date().current_min, // 最小值
+      maxDate: that.get_date_return_date().current_max, // 最大值
+
       onClose:function(selectedDates, dateStr, instance){
         console.log("selectedDates, dateStr, instance",selectedDates, dateStr, instance)
       },
       onChange:function(selectedDates, dateStr, instance){
         // console.log("onChange>>>selectedDates, dateStr, instance",selectedDates, dateStr, instance);
-        console.log("选择的日期》》》",selectedDates);
-        that.selectedDates = selectedDates;
+        // console.log("选择的日期》》》",selectedDates);
+        var data = dateStr.split(", ")
+        console.log("选择的日期dateStr》》》",data);
+        that.selectedDates.push(...data);
+        // 去重
+        that.selectedDates = Array.from(new Set(that.selectedDates))
       }
     })
+    flatpickr("#target_startdate_before",{
+      mode: "multiple",
+      dateFormat: "Y-m-d",
+      inline: true, // 使用inline选项以始终打开状态显示日历。
+      showMonths:1, // 在显示日历时，同时显示月数
+      // defaultDate: [that.get_date_return_date().before],// 默认选择的
+      minDate: that.get_date_return_date().before_min, // 最小值
+      maxDate: that.get_date_return_date().before_max, // 最大值
+      onClose:function(selectedDates, dateStr, instance){
+        console.log("selectedDates, dateStr, instance",selectedDates, dateStr, instance)
+      },
+      onChange:function(selectedDates, dateStr, instance){
+        // console.log("onChange>>>selectedDates, dateStr, instance",selectedDates, dateStr, instance);
+        // console.log("选择的日期》》》",selectedDates);
+        var data = dateStr.split(", ")
+        console.log("选择的日期dateStr》》》",data);
+        that.selectedDates.push(...data);
+        // 去重
+        that.selectedDates = Array.from(new Set(that.selectedDates))
+
+      }
+    });
+    // 隐藏input--日期
+    $("#target_startdate").hide();
+    $("#target_startdate_before").hide();
     this.init_form();
   }
 
-  // ngOnDestroy(){
-  //   $("#target_startdate").remove();
-  // }
+  ngOnDestroy(){
+    this.selectedDates = [];
+  }
 
 
   // × 关闭diallog   及关闭弹框
@@ -82,23 +162,27 @@ export class TargetHourConfigComponent implements OnInit {
    inputvalue = ""; 
    changeValue(value){
      if (this.inputvalue != ""){
-       $(".delet_input_value").show()
+       $(".delet_input_value_target_hour").show()
      }else{
-       $(".delet_input_value").hide()
+       $(".delet_input_value_target_hour").hide()
      }
    }
 
   // 点击图标删除数据
   del_input_value(){
-    $(".delet_input_value").hide();
+    $(".delet_input_value_target_hour").hide();
     $(".target_time").val("")
   }
 
   // 确定
   confirm(){
-    console.log("确定，得到选择的数据", this.selectedDates);
-    console.log("确定，每日目标时长", $(".target_time").val());
-    if (this.selectedDates !== undefined && $(".target_time").val() !== ""){
+    // 去重
+    var selectedDates = [];
+    this.selectedDates.forEach(item=>{
+      var item_format = this.datepipe.transform(item, 'yyyy-MM-dd');
+      selectedDates.push(item_format);
+    })
+    if (this.selectedDates.length > 0 && $(".target_time").val() !== ""){
       var numberdaily = this.selectedDates.length; // 计入的天数
       var targettime = Number($(".target_time").val());   // 每日目标时长
       var devicelist = Object.assign([],this.deveiceids);
@@ -106,6 +190,8 @@ export class TargetHourConfigComponent implements OnInit {
         item["numberdaily"] = numberdaily;
         item["targettime"] = targettime;
         item["lastupdatedby"] = this.lastupdatedby;
+        item["year"] = this.data["year"] + "年";
+        item["selectedtime"] = this.selectedDates.join(',');
       })
       console.log("---要修改的数据：", devicelist);
       // 修改数据！
