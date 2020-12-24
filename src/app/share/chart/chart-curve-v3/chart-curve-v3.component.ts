@@ -17,7 +17,7 @@ export class ChartCurveV3Component implements OnInit {
   attrs:any = [];
   xData = [];//表x轴的数据
   dashboard = [];
-  @Input() dashboard_width = '60%';
+  @Input() dashboard_width = '350px';
   @Input() title = 'equipment.real'//组件title 传i18n配置
   @Input() list = [];//实时参数选择按钮
   @Input() chartName = '';//图表的id

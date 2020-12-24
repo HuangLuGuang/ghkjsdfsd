@@ -102,6 +102,11 @@
   color: red;
 
 } */
+    /*---------------路由样式--------- */
+    
+    .nb-theme-default router-outlet+* {
+        width: 100%;
+    }
     /* board */
     /*-------- li_c 看板消息 ---------*/
     

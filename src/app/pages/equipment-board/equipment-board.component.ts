@@ -32,12 +32,10 @@ export class EquipmentBoardComponent implements OnInit {
     this.activateInfo.queryParams.subscribe(f =>{
       console.log(f);
     })
-    var isthis = this;
     window.addEventListener('resize',this.resize)
     this.layoutService.onInitLayoutSize().subscribe(f=>{
       create_img_16_9();
     })
-    // document.getElementsByTagName('ngx-equipment-board')[0].setAttribute('style','height:100%');
   }
   
   ngAfterViewInit(){
@@ -47,25 +45,6 @@ export class EquipmentBoardComponent implements OnInit {
     create_img_16_9();
   }
 
-  checkFull() {
-    var isFull:any =
-      document.fullscreenElement;
-    if (isFull === undefined) isFull = false
-    return isFull
-  }
-
-  //获取当前时间对象
-  getDate(){
-    var date = new Date();
-    return {
-      year: date.getFullYear(),
-      month: date.getMonth(),
-      day: date.getDate(),
-      hours: date.getHours(),
-      minute: date.getMinutes(),
-      second: date.getSeconds(),
-    }
-  }
 
   //点击返回按钮
   return_btn_click(){
@@ -92,6 +71,19 @@ export class EquipmentBoardComponent implements OnInit {
 	  let d = this.date;
 	  return d.year+'-'+(d.month+1<10?'0'+d.month:d.month)+'-'+(d.day<10?'0'+d.day:d.day)+' '+(d.hours<10?'0'+d.hours:d.hours)+':'
 	  +(d.minute<10?'0'+d.minute:d.minute)+':'+(d.second<10?'0'+d.second:d.second);
+  }
+  
+  //获取当前时间对象
+  getDate(){
+    var date = new Date();
+    return {
+      year: date.getFullYear(),
+      month: date.getMonth(),
+      day: date.getDate(),
+      hours: date.getHours(),
+      minute: date.getMinutes(),
+      second: date.getSeconds(),
+    }
   }
 
   //组件销毁

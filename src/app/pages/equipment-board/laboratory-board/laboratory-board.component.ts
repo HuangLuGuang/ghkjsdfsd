@@ -52,6 +52,16 @@ export class LaboratoryBoardComponent implements OnInit {
         left:'50%'
       }
     },
+    'demo5':{
+      id:'demo5',
+      type:'Fan',
+      style:{
+        height:'200px',
+        width:'200px',
+        top:'50%',
+        left:'50%'
+      }
+    },
   }
 
 
@@ -59,6 +69,7 @@ export class LaboratoryBoardComponent implements OnInit {
 
   @ViewChild('message')message:any;
   @ViewChild('category')category:any;
+  @ViewChild('Fan')Fan:any;
 
   constructor() { }
 

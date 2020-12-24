@@ -50,6 +50,7 @@
         "humidity": "RH",
         "effluentTemp": "EffluentTemp",
         "effluentHum": "EffluentHum",
+        "effluentPressure": "EffluentPres",
         "pressDiff": "PressDiff",
         "setup": "SetUp",
         "ambient": "Ambient",

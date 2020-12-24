@@ -21,10 +21,10 @@
     <div class="chart height_65">
         <div class="height_40" style="box-shadow: 0 0px 1px 3px rgba(50, 84, 129, 1) inset;width: 95%;min-height: 64px;">
             <div class="height_23"><span style="float: left;padding-left: 17px;">分</span> {{'equipment.StateOfTheDay' | translate}}</div>
-            <div id="{{'operatingRate'++TempNum}}" class="operatingRate">
+            <div id="{{'operatingRate'+TempNum}}" class="operatingRate">
             </div>
         </div>
-        <div id="{{'device_status'++TempNum}}" class="height_60 device_status"></div>
+        <div id="{{'device_status'+TempNum}}" class="height_60 device_status"></div>
     </div>
     <!-- <nb-flip-card [showToggleButton]="false" [flipped]="flipped" style="width: 100%;">
         <nb-card-front style="width: 100%;">
