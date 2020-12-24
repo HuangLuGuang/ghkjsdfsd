@@ -1240,7 +1240,6 @@ let equipment_four_road = {
                 right: '5%',
                 bottom: '20%',
                 height: '55%',
-
             },
             legend: {
                 show: true,
@@ -1249,6 +1248,7 @@ let equipment_four_road = {
                 orient: 'horizontal',
                 top: '87.5%',
                 width: '100%',
+                height: '20%',
                 right: 'center',
                 itemWidth: 16.5,
                 itemHeight: 10,
@@ -1262,11 +1262,12 @@ let equipment_four_road = {
                     fontSize: 12
                 },
                 //过滤
-                data: series.map(m => (m.name))
-                    // formatter:function(data){
-                    //   console.log(data);
-                    //   return '';
-                    // }
+                data: series.map(m => (m.name)),
+                z: 10,
+                // formatter:function(data){
+                //   console.log(data);
+                //   return '';
+                // }
             },
             xAxis: [{
                 type: 'category',
@@ -1501,7 +1502,7 @@ let equipment_four_road = {
 
 
     //ngx-chart-curve-v3 折线
-    create_broken_line(data, myChart, config) {
+    create_broken_line(data, myChart, config, yxLine) {
         var series = [];
         data.series.forEach((f, j) => {
             // if (j == data.series.length - 1)
@@ -1548,7 +1549,7 @@ let equipment_four_road = {
                 buttom: '5%',
                 top: '5%',
                 width: '90%',
-                height: '80%'
+                height: '70%'
             },
             title: {
                 text: data.title,
@@ -1567,6 +1568,7 @@ let equipment_four_road = {
                     color: COLOR
                 },
                 axisLine: {
+                    show: yxLine ? false : true,
                     lineStyle: {
                         color: COLOR,
                     }
@@ -1581,9 +1583,13 @@ let equipment_four_road = {
                     }
                 },
                 axisLine: {
+                    show: yxLine ? false : true,
                     lineStyle: {
                         color: COLOR,
                     }
+                },
+                axisTick: {
+                    show: yxLine ? false : true, //不显示刻度
                 },
                 splitLine: {
                     width: 0.08,

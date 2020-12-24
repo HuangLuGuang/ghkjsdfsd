@@ -409,7 +409,7 @@ export class ChartCurveV3Component implements OnInit {
     var dom = document.getElementById(this.chartName);
     if (!dom) return;
     this.myChart = echarts.init(dom);
-    equipment_four_road.create_broken_line(data_1,this.myChart,echartConfig);
+    equipment_four_road.create_broken_line(data_1,this.myChart,echartConfig,true);
   }
 
 

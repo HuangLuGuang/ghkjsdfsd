@@ -28,7 +28,7 @@ let oilsrouce = {
             },
             radar: {
                 center: ["50%", "50%"],
-                radius: "63%",
+                radius: "58%",
                 startAngle: 90,
                 splitNumber: 5,
                 splitArea: {
@@ -153,6 +153,10 @@ let oilsrouce = {
     create_bar_j(dataLine, myChart, title_left) {
         let option_bar_j = {
             // backgroundColor: '#003260',
+            grid: {
+                bottom: '80%',
+                // top: '100%',
+            },
             xAxis: [{
                 max: dataLine.max,
                 show: false
@@ -164,8 +168,8 @@ let oilsrouce = {
                     color: 'white',
                     fontSize: 12
                 },
-                left: title_left,
-                top: '0%'
+                left: 'center',
+                // top: '0%'
             },
             yAxis: [{
                     show: false,

@@ -1,6 +1,6 @@
 import { Route } from '@angular/compiler/src/core';
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
 import * as screenfull from 'screenfull';
 import { Screenfull } from 'screenfull';
 import { LayoutService } from '../../@core/utils';
@@ -35,6 +35,17 @@ export class EquipmentBoardComponent implements OnInit {
     window.addEventListener('resize',this.resize)
     this.layoutService.onInitLayoutSize().subscribe(f=>{
       create_img_16_9();
+    })
+
+    this.router.events.subscribe((e:any) => {
+      if(e instanceof NavigationEnd){
+        console.log(e.url);
+        let arr = e.url.split('/');
+        //判断哪些看板需要哪些功能
+        console.log(e.url)
+          
+            
+      }
     })
   }
   

@@ -166,6 +166,10 @@ export class LogWarmComponent implements OnInit {
     return this.log_warm.data.length > 0 ?this.log_warm.data[this.log_warm.data.length-1][3]:'';
   }
 
+  getwarm(){
+    return this.log_warm.data.length > 0 ?"equipment.LV"+this.log_warm.data[this.log_warm.data.length-1][3]+"Warm" :'';
+  }
+
 
   //组件销毁  
   ngOnDestroy(){
