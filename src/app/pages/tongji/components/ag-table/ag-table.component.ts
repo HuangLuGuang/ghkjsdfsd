@@ -273,7 +273,7 @@ export class AgTableComponent implements OnInit {
       });
       // console.log("table_data=====", table_data);
       this.export(table_data);
-      this.selectedRows = [];
+      // this.selectedRows = [];
       
     }else{
       table_data.push(table_header);

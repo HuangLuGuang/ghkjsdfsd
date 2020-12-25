@@ -27,7 +27,7 @@ export class TargetHourConfigComponent implements OnInit {
   button; // 权限button
   refresh = false; // 刷新tabel
 
-  eimdevicetpye_placeholder = "请选择设备类型";
+  eimdevicetpye_placeholder = "请选择设备统计归类"; // 设备统计归类
   groups_placeholder = "请选择功能组";
   myinput_placeholder = "请输入设备名称"
 

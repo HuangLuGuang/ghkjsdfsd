@@ -523,7 +523,7 @@ export class DeviceManageComponent implements OnInit {
     if (datas.length >0){
       var after_datas: DeviceData[] =[];
       var type;
-      var devicestatus;
+      var devicetype;
       datas.forEach(data => {
         switch (data["type"]) {
           case 1:
@@ -539,41 +539,32 @@ export class DeviceManageComponent implements OnInit {
               type = "其它设备";
             break;
         };
-        switch (data["devicestatus"]) {
+        switch (data["devicetype"]) {
           case 1:
-            devicestatus = "在用";
+            devicetype = "性能";
             break;
-            case 2:
-              devicestatus = "封存";
-              break;
-            case 3:
-              devicestatus = "停用";
+          case 2:
+            devicetype = "耐久";
             break;
-            case 4:
-              devicestatus = "闲置";
-            break;
-            case 402:
-              devicestatus = "其它";
-            break;
+
         }
         var after_data: DeviceData = {
           id: data.id,
-          devicename:data.devicename,
           deviceno:data.deviceno,
+          devicename:data.devicename,
           type:type,
-          active:data.active,
-          assetno:data.assetno,
-          factoryno:data.factoryno,
           deviceid:data.deviceid,
-          purchaseon:data.purchaseon,
-          supplier:data.supplier,
+          active:data.active,
           location:data.location,
-          department:data.department,
           group:data.group,
           belonged:data.belonged,
-          devicestatus:devicestatus,
-          createdby:data.createdby,
+          supplier:data.supplier,
+          linklevel:data.linklevel,
+          devicetype:devicetype,
           createdon:data.createdon,
+          createdby:data.createdby,
+          lastupdateon: data.lastupdateon,
+          lastupdatedby: data.lastupdatedby,
           groupsid: data.groupsid
         }
         after_datas.push(after_data)
@@ -590,7 +581,7 @@ export class DeviceManageComponent implements OnInit {
   option_table_before(datas){
     var after_datas: OptionDeviceData[] =[];
     var type;
-    var devicestatus;
+    var devicetype;
     datas.forEach(data => {
       switch (data["type"]) {
         case "台架设备":
@@ -606,42 +597,34 @@ export class DeviceManageComponent implements OnInit {
             type = 402;
           break;
       };
-      switch (data["devicestatus"]) {
-        case "在用":
-          devicestatus = 1;
+      switch (data["devicetype"]) {
+        case "性能":
+          devicetype = 1;
           break;
-          case "封存":
-            devicestatus = 2;
-            break;
-          case "停用":
-            devicestatus = 3;
+        case "耐久":
+          devicetype = 2;
           break;
-          case "闲置":
-            devicestatus = 4;
-            break;
-          default:
-            devicestatus = 402;
-          break;
+
       }
 
       var after_data: OptionDeviceData = {
         id: data.id,
-        devicename:data.devicename,
         deviceno:data.deviceno,
+        devicename:data.devicename,
         type:type,
-        active:data.active === '是'||data.active == 1? 1:0,
-        assetno:data.assetno,
-        factoryno:data.factoryno,
         deviceid:data.deviceid,
-        purchaseon:data.purchaseon,
-        supplier:data.supplier,
+        active:data.active === '是'||data.active == 1? 1:0,
         location:data.location,
-        department:data.department,
         group:data.group,
         belonged:data.belonged,
-        devicestatus:devicestatus,
-        createdby:data.createdby,
+        supplier:data.supplier,
+        linklevel: data.linklevel,
+        devicetype:devicetype,
         createdon:data.createdon,
+        createdby:data.createdby,
+        lastupdateon: data.lastupdateon,
+        lastupdatedby: data.lastupdatedby,
+        
         groupsid: data.groupsid
       }
       after_datas.push(after_data)
@@ -654,75 +637,94 @@ export class DeviceManageComponent implements OnInit {
     rowDatas.forEach(rowdata => {
 
       var active = rowdata["active"];
-      var assetno = rowdata["assetno"];
+      var type = rowdata["type"];
       var belonged = rowdata["belonged"];
-      var createdby = rowdata["createdby"];
+      
 
       // var createdon = rowdata["createdon"];
 
-      var department = rowdata["department"];
       var deviceid = rowdata["deviceid"];
       var devicename = rowdata["devicename"];
       var deviceno = rowdata["deviceno"];
-      var devicestatus = rowdata["devicestatus"];
-      var factoryno = rowdata["factoryno"];
       var group = rowdata["group"];
       var location = rowdata["location"];
-
-      // var purchaseon = rowdata["purchaseon"];
-
       var supplier = rowdata["supplier"];
       var type = rowdata["type"];
+      var linklevel = rowdata["linklevel"];
+      var devicetype = rowdata["devicetype"];
+      var createdby = rowdata["createdby"];
+      var lastupdatedby = rowdata["lastupdatedby"];
+
+ 
+      // 验证！ deviceno
+      var verify_deviceno = this.verify_deviceno(deviceno);
+      if (verify_deviceno != 1){
+        verify_err.push({err: verify_deviceno})
+      }
 
       // 验证！ devicename
       var verify_devicename = this.verify_devicename(devicename);
       if (verify_devicename != 1){
         verify_err.push({err: verify_devicename})
       }
-      // 验证！ deviceno
-      var verify_deviceno = this.verify_deviceno(deviceno);
-      if (verify_deviceno != 1){
-        verify_err.push({err: verify_deviceno})
+
+      // 验证！ type
+      var verify_type = this.verify_type(type);
+      if (verify_type != 1){
+        verify_err.push({err: verify_type})
       }
-      // 验证！ assetno
-      var verify_assetno = this.verify_assetno(assetno);
-      if (verify_assetno != 1){
-        verify_err.push({err: verify_assetno})
+      
+      // 验证！deviceid
+      var verify_deviceid = this.verify_deviceid(deviceid);
+      if (verify_deviceid != 1){
+        verify_err.push({err: verify_deviceid})
       }
-      // 验证！ factoryno
-      var verify_factoryno = this.verify_factoryno(factoryno);
-      if (verify_factoryno != 1){
-        verify_err.push({err: verify_factoryno})
-      }
-      // 验证！ supplier
-      var verify_supplier = this.verify_supplier(supplier);
-      if (verify_supplier != 1){
-        verify_err.push({err: verify_supplier})
-      }
+
       // 验证！ location
       var verify_location = this.verify_location(location);
       if (verify_location != 1){
         verify_err.push({err: verify_location})
       }
-      // 验证！ department // 修改为 自定义设备编号deviceid
-      var verify_deviceid = this.verify_deviceid(deviceid);
-      if (verify_deviceid != 1){
-        verify_err.push({err: verify_deviceid})
-      }
+
       // 验证！ groups 改为group
       var verify_group = this.verify_group(group);
       if (verify_group != 1){
         verify_err.push({err: verify_group})
       }
+
       // 验证！ belonged
       var verify_belonged= this.verify_belonged(belonged);
       if (verify_belonged != 1){
         verify_err.push({err: verify_belonged})
       }
+
+      // 验证！ supplier
+      var verify_supplier = this.verify_supplier(supplier);
+      if (verify_supplier != 1){
+        verify_err.push({err: verify_supplier})
+      }
+
+      // 验证！ linklevel
+      var verify_linklevel= this.verify_linklevel(linklevel);
+      if (verify_linklevel != 1){
+        verify_err.push({err: verify_linklevel})
+      }
+      // 验证！ devicetype
+      var verify_devicetype= this.verify_linklevel(devicetype);
+      if (verify_devicetype != 1){
+        verify_err.push({err: verify_devicetype})
+      }
+
       // 验证！ createdby
       var verify_createdby= this.verify_createdby(createdby);
-      if (verify_createdby != 1){
+        if (verify_createdby != 1){
         verify_err.push({err: verify_createdby})
+      }
+
+      // 验证！ lastupdatedby
+      var verify_lastupdatedby= this.verify_lastupdatedby(lastupdatedby);
+        if (verify_lastupdatedby != 1){
+        verify_err.push({err: verify_lastupdatedby})
       }
     });
     return verify_err;
@@ -743,6 +745,22 @@ export class DeviceManageComponent implements OnInit {
     return 1
   }
 
+  // 验证 deviceno 设备编号 
+  verify_deviceno(deviceno){
+    // sql注入和特殊字符 special_str
+    var verify_sql_str = this.verify_sql_str(deviceno, '设备编号');
+    if (verify_sql_str != 1){
+      return verify_sql_str
+    }
+    if (new RegExp(Device["deviceno"]).test(deviceno)){
+      if (deviceno.length > 50){
+        return "设备编号最大长度不超过50！"
+      }
+      return "设备编号不能有中文！"
+    }
+    return 1 // 返回1，表示 通过验证！
+  }
+
   // 验证 devicename 设备名称
   verify_devicename(devicename){
     // sql注入和特殊字符 special_str
@@ -755,60 +773,32 @@ export class DeviceManageComponent implements OnInit {
     }
     return 1 // 返回1，表示 通过验证！
   }
-  // 验证 deviceno 设备编号 
-  verify_deviceno(deviceno){
+
+  // 验证 type 设备类型
+  verify_type(type){
     // sql注入和特殊字符 special_str
-    var verify_sql_str = this.verify_sql_str(deviceno, '设备编号');
+    var verify_sql_str = this.verify_sql_str(type, '设备类型');
     if (verify_sql_str != 1){
       return verify_sql_str
     }
-    if (new RegExp(Device["deviceno"]).test(deviceno)){
-      if (deviceno.length > 100){
-        return "设备编号最大长度不超过100！"
-      }
-      return "设备编号不能有中文！"
+    if (type.length > 50){
+      return "设备类型最大长度不超过50！"
     }
+    // if (new RegExp(Device["type"]).test(type)){
+    //   return "设备类型不能有中文！"
+    // }
     return 1 // 返回1，表示 通过验证！
   }
-  // 验证 assetno 资产编号
-  verify_assetno(assetno){
+  
+  // 设备ID：deviceid
+  verify_deviceid(deviceid){
     // sql注入和特殊字符 special_str
-    var verify_sql_str = this.verify_sql_str(assetno, '资产编号');
+    var verify_sql_str = this.verify_sql_str(deviceid, '设备ID');
     if (verify_sql_str != 1){
       return verify_sql_str
     }
-    if (new RegExp(Device["assetno"]).test(assetno)){
-      if (assetno.length > 50){
-        return "资产编号最大长度不超过50！"
-      }
-      return "资产编号不能有中文！"
-    }
-    return 1 // 返回1，表示 通过验证！
-  }
-  // 验证 factoryno 出厂编号
-  verify_factoryno(factoryno){
-    // sql注入和特殊字符 special_str
-    var verify_sql_str = this.verify_sql_str(factoryno, '出厂编号');
-    if (verify_sql_str != 1){
-      return verify_sql_str
-    }
-    if (new RegExp(Device["factoryno"]).test(factoryno)){
-      if (factoryno.length > 50){
-        return "出厂编号最大长度不超过50！"
-      }
-      return "出厂编号不能有中文！"
-    }
-    return 1 // 返回1，表示 通过验证！
-  }
-  // 验证 supplier 供应商
-  verify_supplier(supplier){
-    // sql注入和特殊字符 special_str
-    var verify_sql_str = this.verify_sql_str(supplier, '供应商');
-    if (verify_sql_str != 1){
-      return verify_sql_str
-    }
-    if (supplier.length > 200){
-      return "供应商最大长度不超过200！"
+    if (deviceid.length > 50){
+      return "设备ID最大长度不超过50！"
     }
     return 1 // 返回1，表示 通过验证！
   }
@@ -824,31 +814,20 @@ export class DeviceManageComponent implements OnInit {
     }
     return 1 // 返回1，表示 通过验证！
   }
-  // 验证 department 使用部门 // 修改为自定义的设备编号：deviceid
-  verify_deviceid(deviceid){
-    // sql注入和特殊字符 special_str
-    var verify_sql_str = this.verify_sql_str(deviceid, '使用部门');
-    if (verify_sql_str != 1){
-      return verify_sql_str
-    }
-    if (deviceid.length > 50){
-      return "使用部门最大长度不超过50！"
-    }
-    return 1 // 返回1，表示 通过验证！
-  }
-  // 验证 groups 科室  改为group
+  // 验证 groups 科室/功能组  改为group
   verify_group(group){
     // console.log("验证 groups 科室  改为group:", group)
     // sql注入和特殊字符 special_str
-    var verify_sql_str = this.verify_sql_str(group, '科室');
+    var verify_sql_str = this.verify_sql_str(group, '科室/功能组');
     if (verify_sql_str != 1){
       return verify_sql_str
     }
     if (group.length > 50){
-      return "科室最大长度不超过50！"
+      return "科室/功能组最大长度不超过50！"
     }
     return 1 // 返回1，表示 通过验证！
   }
+
   // 验证 belonged 归属人
   verify_belonged(belonged){
     // sql注入和特殊字符 special_str
@@ -861,6 +840,56 @@ export class DeviceManageComponent implements OnInit {
     }
     return 1 // 返回1，表示 通过验证！ 
   }
+
+
+  // 验证 supplier 供应商
+  verify_supplier(supplier){
+    // sql注入和特殊字符 special_str
+    var verify_sql_str = this.verify_sql_str(supplier, '供应商');
+    if (verify_sql_str != 1){
+      return verify_sql_str
+    }
+    if (supplier.length > 200){
+      return "供应商最大长度不超过200！"
+    }
+    return 1 // 返回1，表示 通过验证！
+  }
+
+  // 验证 linklevel 设备ABC分类
+  verify_linklevel(linklevel){
+    // sql注入和特殊字符 special_str
+    var verify_sql_str = this.verify_sql_str(linklevel, '设备ABC分类');
+    if (verify_sql_str != 1){
+      return verify_sql_str
+    }
+    if (linklevel.length > 50){
+      return "设备ABC分类最大长度不超过50！"
+    }
+    if (! new RegExp(Device["linklevel"]).test(linklevel)){
+      return "设备ABC分类是A,B,C"
+    }
+    return 1 // 返回1，表示 通过验证！
+  }
+
+  // 验证 devicetype 设备统计归类
+  verify_devicetype(devicetype){
+    // sql注入和特殊字符 special_str
+    var verify_sql_str = this.verify_sql_str(devicetype, '设备统计归类');
+    if (verify_sql_str != 1){
+      return verify_sql_str
+    }
+    if (devicetype.length > 4){
+      return "设备统计归类最大长度不超过50！"
+    }
+    if (! new RegExp(Device["devicetype"]).test(devicetype)){
+      return "设备统计归类是A,B,C"
+    }
+    return 1 // 返回1，表示 通过验证！
+  }
+
+  
+
+
   // 验证 createdby 创建人
   verify_createdby(createdby){
     // sql注入和特殊字符 special_str
@@ -870,6 +899,22 @@ export class DeviceManageComponent implements OnInit {
     }
     if (createdby.length > 50){
       return "创建人最大长度不超过50！"
+    }
+    return 1 // 返回1，表示 通过验证！
+  }
+
+  // 验证 lastupdatedby 更新人
+  verify_lastupdatedby(lastupdatedby){
+    console.log("lastupdatedby",lastupdatedby)
+    // sql注入和特殊字符 special_str
+    var verify_sql_str = this.verify_sql_str(lastupdatedby, '更新人');
+    if (verify_sql_str != 1){
+      return verify_sql_str
+    }
+    if (lastupdatedby !== undefined){
+      if (lastupdatedby.length > 50){
+        return "更新人最大长度不超过50！"
+      }
     }
     return 1 // 返回1，表示 通过验证！
   }
@@ -910,19 +955,17 @@ export class DeviceManageComponent implements OnInit {
     PageSize: 10, // 每页 10条数据
     isno_refresh_page_size: false, // 是否重新将 每页多少条数据，赋值为默认值
     columnDefs:[ // 列字段 多选：headerCheckboxSelection checkboxSelection , flex: 1 自动填充宽度  pinned: 'left' 固定在左侧！
-      { field: 'devicename', headerName: '设备名称', headerCheckboxSelection: true, checkboxSelection: true, autoHeight: true, fullWidth: true, minWidth: 50,resizable: true,},
-      { field: 'deviceno', headerName: 'EIM设备编号',  resizable: true, minWidth: 10},
-      { field: 'deviceid', headerName: '设备编号', resizable: true, minWidth: 10}, // 自定义设备编号！
-      { field: 'assetno', headerName: '资产编号', resizable: true, minWidth: 10},
-      { field: 'type', headerName: '设备类型', resizable: true},
-      // { field: 'department', headerName: '使用部门', resizable: true, minWidth: 10},// 取消使用部门
-      { field: 'group', headerName: '科室', resizable: true, minWidth: 10},
-      { field: 'belonged', headerName: '归属人', resizable: true, minWidth: 10},
-      { field: 'active', headerName: '是否启用', resizable: true, cellRendererFramework: TranActiveComponent,},
+      { field: 'deviceno', headerName: '设备编号', headerCheckboxSelection: true, checkboxSelection: true, autoHeight: true, fullWidth: true, minWidth: 50,resizable: true,},
+      { field: 'devicename', headerName: '设备名称', fullWidth: true, minWidth: 50,resizable: true,},
+      { field: 'type', headerName: '设备类型', fullWidth: true, width: 130,resizable: true,},
+      { field: 'deviceid', headerName: '设备ID', resizable: true, width: 200}, // 自定义设备编号！
+      { field: 'active', headerName: '是否启用', resizable: true, cellRendererFramework: TranActiveComponent,width: 50},
+      { field: 'location', headerName: '存放地点', resizable: true, width: 130},
+      { field: 'group', headerName: '科室/功能组', resizable: true, width: 330},
+      { field: 'belonged', headerName: '归属人', resizable: true, width: 130},
       { field: 'supplier', headerName: '供应商', resizable: true, minWidth: 10},
-      { field: 'location', headerName: '存放地点', resizable: true, minWidth: 10},
-      // { field: 'devicestatus', headerName: '资产状态', resizable: true, minWidth: 10, cellRendererFramework: StatusForTableComponent},
-      { field: 'devicestatus', headerName: '资产状态', resizable: true,minWidth: 50,
+      { field: 'linklevel', headerName: '设备ABC分类', resizable: true, width: 130},
+      { field: 'devicetype', headerName: '设备统计归类', resizable: true,width: 130,
         cellStyle: function(params){
           var value = params.value;
           switch (value) {
@@ -959,14 +1002,12 @@ export class DeviceManageComponent implements OnInit {
               break;
           }
         }
-      
       },
-      { field: 'factoryno', headerName: '出厂编号', resizable: true, minWidth: 10},
-      
-      // =================
-      { field: 'createdby', headerName: '创建人', resizable: true},
-      { field: 'purchaseon', headerName: '购置日期', resizable: true, minWidth: 10},
-      { field: 'createdon', headerName: '创建时间', resizable: true},
+      { field: 'createdon', headerName: '创建时间', resizable: true, width: 200},
+      { field: 'createdby', headerName: '创建人', resizable: true,width: 130},
+      { field: 'lastupdateon', headerName: '更新时间', resizable: true, width: 200},
+      { field: 'lastupdatedby', headerName: '更新人', resizable: true, minWidth: 10},
+
     ],
     rowData: [ // data
     ]
@@ -1120,44 +1161,44 @@ export class DeviceManageComponent implements OnInit {
 
 // table 中每行数据类型！这是展示table需要的数据
 interface DeviceData {
-  id: number,
-  devicename:string,
+  id:number,
   deviceno:string,
-  type:string,
+  devicename:string,
+  type: string,
+  deviceid:number, 
   active:string,
-  assetno:string,
-  factoryno:string,
-  deviceid:number,
-  purchaseon:string,
-  supplier:string,
   location:string,
-  department:string,
   group:string,
   belonged:string,
-  devicestatus:string,
-  createdby:string,
+  supplier:string,
+  linklevel:string,
+  devicetype:string,
   createdon:string,
+  createdby:string,
+  lastupdateon: string,
+  lastupdatedby: string
   groupsid: number
+
 }
 
 // table 中每行数据类型！ 这是将table中的数据改回原始数据
 interface OptionDeviceData {
-  id: number,
-  devicename:string,
+  id:number,
   deviceno:string,
-  type:number,
+  devicename:string,
+  type: number,
+  deviceid:number, 
   active:number,
-  assetno:string,
-  factoryno:string,
-  deviceid:number,
-  purchaseon:string,
-  supplier:string,
   location:string,
-  department:string,
   group:string,
   belonged:string,
-  devicestatus:number,
-  createdby:string,
+  supplier:string,
+  linklevel:string,
+  devicetype:number,
   createdon:string,
+  createdby:string,
+  lastupdateon: string,
+  lastupdatedby: string
   groupsid: number
+
 }

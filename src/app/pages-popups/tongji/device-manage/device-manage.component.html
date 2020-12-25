@@ -19,22 +19,24 @@
 
 
         <div class="layui-form-item">
+            <!-- 设备编号 deviceno -->
+            <div class="layui-inline" style="width: 46%;">
+                <label class="layui-form-label mylabel mulu_title">设备编号</label>
+                <div class="layui-input-block">
+                <input type="text" name="deviceno" required  lay-verify="required|deviceno" placeholder="设备编号" autocomplete="off" class="layui-input">
+                </div>
+            </div>
+            <!-- 设备名称 devicename -->
             <div class="layui-inline" style="width: 46%;">
                 <label class="layui-form-label mylabel mulu_title">设备名称</label>
                 <div class="layui-input-block">
                     <input type="text" name="devicename" required  lay-verify="required|devicename" placeholder="设备名称" autocomplete="off" class="layui-input">
                 </div>
             </div>
-
-            <div class="layui-inline" style="width: 46%;">
-                <label class="layui-form-label mylabel mulu_title">EIM设备编号</label>
-                <div class="layui-input-block">
-                <input type="text" name="deviceno" required  lay-verify="required|deviceno" placeholder="EIM设备编号" autocomplete="off" class="layui-input">
-                </div>
-            </div>
         </div>
 
         <div class="layui-form-item">
+            <!-- 设备类型 type -->
             <div class="layui-inline" style="width: 46%;">
                 <label class="layui-form-label mylabel mulu_title">设备类型</label>
                 <div class="layui-input-block">
@@ -47,48 +49,19 @@
                 </div>
             </div>
 
+            <!-- 设备id -->
             <div class="layui-inline" style="width: 46%;">
-                <label class="layui-form-label mylabel mulu_title">是否启用</label>
+                <label class="layui-form-label mylabel mulu_title">设备ID</label>
                 <div class="layui-input-block">
-                    <input type="checkbox" name="active" lay-skin="switch" lay-text="是|否" value="1">
-                </div>
-            </div>
-        </div>
-        
-        <div class="layui-form-item">
-            <div class="layui-inline" style="width: 46%;">
-                <label class="layui-form-label mylabel mulu_title">资产编号</label>
-                <div class="layui-input-block">
-                    <input type="text" name="assetno" required  lay-verify="required|assetno" placeholder="资产编号" autocomplete="off" class="layui-input">
+                    <input type="text" name="deviceid" required  lay-verify="required|deviceid" placeholder="设备ID" autocomplete="off" class="layui-input">
                 </div>
             </div>
 
-            <div class="layui-inline" style="width: 46%;">
-                <label class="layui-form-label mylabel mulu_title">出厂编号</label>
-                <div class="layui-input-block">
-                <input type="text" name="factoryno" required  lay-verify="required|factoryno" placeholder="出厂编号" autocomplete="off" class="layui-input">
-                </div>
-            </div>
+            
         </div>
         
         <div class="layui-form-item">
-            <div class="layui-inline" style="width: 46%;">
-                <label class="layui-form-label mylabel mulu_title">购置日期</label>
-                <div class="layui-input-block">
-                    <input type="text" name="purchaseon" lay-verify="purchaseon" class="layui-input" id="purchaseon" placeholder="购置日期" disabled>
-                    <!-- <input type="text" name="purchaseon" required  lay-verify="required|purchaseon" placeholder="购置日期" autocomplete="off" class="layui-input"> -->
-                </div>
-            </div>
-
-            <div class="layui-inline" style="width: 46%;">
-                <label class="layui-form-label mylabel mulu_title">供应商</label>
-                <div class="layui-input-block">
-                <input type="text" name="supplier" required  lay-verify="required|supplier" placeholder="供应商" autocomplete="off" class="layui-input">
-                </div>
-            </div>
-        </div>
-        
-        <div class="layui-form-item">
+            <!-- 存放地点 location -->
             <div class="layui-inline" style="width: 46%;">
                 <label class="layui-form-label mylabel mulu_title">存放地点</label>
                 <div class="layui-input-block">
@@ -96,19 +69,20 @@
                 </div>
             </div>
 
+            <!-- 是否启用 active -->
             <div class="layui-inline" style="width: 46%;">
-                <label class="layui-form-label mylabel mulu_title">自定义设备编号</label>
+                <label class="layui-form-label mylabel mulu_title">是否启用</label>
                 <div class="layui-input-block">
-                <input type="text" name="deviceid" required  lay-verify="required|deviceid" placeholder="自定义设备编号" autocomplete="off" class="layui-input">
+                    <input type="checkbox" name="active" lay-skin="switch" lay-text="是|否" value="1">
                 </div>
             </div>
         </div>
-        
+
         <div class="layui-form-item">
+            <!-- 科室功能组 groups -->
             <div class="layui-inline" style="width: 46%;">
-                <label class="layui-form-label mylabel mulu_title">科室</label>
+                <label class="layui-form-label mylabel mulu_title">科室/功能组</label>
                 <div class="layui-input-block">
-                    <!-- <input type="text" name="groups" required  lay-verify="required|groups" placeholder="科室" autocomplete="off" class="layui-input"> -->
                     <!-- 单选！ --> 
                     <select id="groups" name="groups" lay-verify="" class="caidantype">
                         <option *ngFor="let item of groups" [value]=item.id>{{item.group}}</option>
@@ -116,44 +90,51 @@
                 </div>
             </div>
 
-            <div class="layui-inline" style="width: 46%;">
-                <label class="layui-form-label mylabel mulu_title">归属人</label>
+            <!-- 归属人 belonged -->
+            <div class="layui-inline" style="width: 46%;height: 66px;">
+                <label class="layui-form-label mylabel mulu_title">归属人&nbsp;&nbsp;</label>
                 <div class="layui-input-block">
-                <input type="text" name="belonged" required  lay-verify="required|belonged" placeholder="归属人" autocomplete="off" class="layui-input">
+                    <input type="text" name="belonged" required  lay-verify="required|belonged" placeholder="归属人" autocomplete="off" class="layui-input">
                 </div>
-            </div>
-        </div>
-
-        <div class="layui-form-item" style="width: 93%;">
-            <label class="layui-form-label mylabel mulu_title">资产状态</label>
-            <div class="layui-input-block">
-                <!-- <select name="devicestatus" lay-verify="" >
-                    <option value="">请选择一个资产状态</option>
-                    <option value=1>在用</option>
-                    <option value=2>封存</option>
-                    <option value=3>停用</option>
-                    <option value=4>闲置</option>
-                </select>  -->
-                <input type="text" name="devicestatus" id="devicestatus" disabled  lay-verify="devicestatus" placeholder="资产状态" autocomplete="off" class="layui-input">
             </div>
         </div>
         
         <div class="layui-form-item">
+            <!-- 供应商 supplier -->
             <div class="layui-inline" style="width: 46%;">
-                <label class="layui-form-label mylabel mulu_title">创建人</label>
+                <label class="layui-form-label mylabel mulu_title">供应商</label>
                 <div class="layui-input-block">
-                    <input type="text" name="createdby" required  lay-verify="required|createdby" placeholder="创建人" autocomplete="off" class="layui-input">
+                    <input type="text" name="supplier" required  lay-verify="required|supplier" placeholder="供应商" autocomplete="off" class="layui-input">
                 </div>
             </div>
 
+            <!-- 设备ABC分类 下拉 -->
             <div class="layui-inline" style="width: 46%;">
-                <label class="layui-form-label mylabel ">创建时间</label>
+                <label class="layui-form-label mylabel mulu_title">设备ABC分类</label>
                 <div class="layui-input-block">
-                    <input type="text" name="createdon" lay-verify="createdon" class="layui-input" id="createdon" placeholder="创建时间" disabled>
-                    <!-- <input type="text" name="createdon" required  lay-verify="required|createdon" placeholder="创建时间" autocomplete="off" class="layui-input"> -->
+                    <!-- 单选！ --> 
+                    <select id="groups" name="linklevel" lay-verify="" class="caidantype">
+                        <option *ngFor="let item of linklevels" [value]=item.id>{{item.linklevel}}</option>
+                    </select> 
+                </div>
+            </div>
+
+        </div>
+        
+        <div class="layui-form-item">
+            <!-- 设备统计归类 devicetype -->
+            <div class="layui-inline" style="width: 46%;">
+                <label class="layui-form-label mylabel mulu_title">设备统计归类</label>
+                <div class="layui-input-block">
+                    <select name="devicetype" lay-verify="devicetype" >
+                        <option value=1>性能</option>
+                        <option value=2>耐久</option>
+                    </select>
                 </div>
             </div>
         </div>
+        
+
 
 
         <div class="layui-form-item">

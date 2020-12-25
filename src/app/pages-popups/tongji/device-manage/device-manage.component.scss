@@ -1,12 +1,14 @@
 .mylabel{
     padding-right: 0px;
+    text-align: inherit !important;
 }
 
 // 必填
 .mulu_title::before{
     content: "*";
     color: #ff4949;
-    margin-right: 4px;
+    // margin-right: 4px;
+    margin-left: -6px;
 }
 
 // lable

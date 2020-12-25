@@ -28,7 +28,7 @@ export class DeviceHourReportComponent implements OnInit {
 
   loading: boolean = false;
   groups_placeholder = "请选择科室/功能组";     // 科室/功能组 
-  eimdevicetpye_placeholder = "请选择设备类型"; // eim 设备类型
+  eimdevicetpye_placeholder = "请选择设备统计归类"; // 设备统计归类
   myinput_placeholder = "请输入设备名称";       // 设备名称
   button; // 权限button
   refresh = false; // 刷新tabel
