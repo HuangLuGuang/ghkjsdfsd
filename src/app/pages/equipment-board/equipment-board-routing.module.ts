@@ -1,7 +1,10 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { FirstLevelComponent } from './device-inline/first-level/first-level.component';
+import { ThirdLevelComponent } from '../device-inline/third-level/third-level.component';
 import { CabinCentralizedMonitoringComponent } from './cabin-centralized-monitoring/cabin-centralized-monitoring.component';
 import { CentralFourJinhuaComponent } from './central-four-jinhua/central-four-jinhua.component';
+import { SecondLevelComponent } from './device-inline/second-level/second-level.component';
 import { EquipmentAvlAtecComponent } from './equipment-avl-atec/equipment-avl-atec.component';
 import { EquipmentAvlComponent } from './equipment-avl/equipment-avl.component';
 import { EquipmentBoardComponent } from './equipment-board.component';
@@ -22,6 +25,23 @@ const ROUTERS: Routes = [{
     path: '',
     component: EquipmentBoardComponent,
     children: [
+      {
+        path: 'first-level',
+        component: FirstLevelComponent
+      },
+      {
+        path: 'second-level',
+        component: SecondLevelComponent
+      },
+
+      {
+        path: '',
+        redirectTo: "first-level",
+        pathMatch: 'full'
+      },
+      
+
+
       {
         //四立柱道路模拟试验台-320.5
         path:'road/:title',

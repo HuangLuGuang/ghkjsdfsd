@@ -1,0 +1,114 @@
+
+
+
+<div id="rtmv2"  style="padding-bottom: 5px;">
+
+    <!-- <div class="row " style="margin: 0px -11px;">
+        <div class="col-md-11 head" style="padding: 0 11px;">
+            <h4>吉利智慧试验室项目看板</h4>
+            <img src="assets/eimdoard/equipment/images/title.png" alt="header">
+        </div>
+        <div class="col-md-1" style="text-align: right; padding-left: 0px;">
+            <nb-icon [icon]="is_not_fullscreen ? 'expand-outline' : 'collapse-outline'" [status]="is_not_fullscreen ? 'warning' : 'info'" (click)="showAllTemplate()"></nb-icon>
+        </div>
+    </div> -->
+
+    <!-- 主题 -->
+    <div class="row content"  style="padding: 0 11px;">
+        <!-- 主体-第一列 -->
+        <div class="col-md-3" style="padding: 0px;">
+            
+           
+            <!-- 试验设备总理与分布 -->
+            <div class="chunk">
+                <div class="part_title">试验设备总理与分布</div>
+                <div class="key-index"></div>
+            </div>
+
+            <!-- 设备活跃度 -->
+            <div class="chunk">
+                <div class="part_title">设备活跃度</div>
+                <div class="warning-information ">
+                    <span class="warning-title">预警信息</span>
+                    <div class="table_div">
+                        <ul >
+                            <li class="warning_info" style="color: rgb(220, 207, 96);">指标1</li>
+                            <li class="warning_info2" style="color: rgb(220, 207, 96);">指标2</li>
+                            <li class="warning_info" style="color: rgb(220, 207, 96);">指标3</li>
+                            <li class="warning_info2" style="color: rgb(220, 207, 96);">指标4</li>
+                        </ul>
+                    </div>
+                    
+                </div>
+            </div>
+        </div>
+
+        <!-- 主体第二列 -->
+        <div class="col-md-6 two_content">
+            <div class="chunk info">
+                <div class="part_title">研究总院介绍</div>
+            </div>
+            <div class="nibo_map">
+                <!-- 科室/功能组 -->
+                <div style="position: relative;">
+                    <div class="group  newpower" (click)="goto_test_room('newpower')">
+                        <span>新能源与电子电气试验室</span>
+                        <!-- 连线 -->
+                        <div class="newpower_line"></div>
+                    </div>
+                </div>
+
+                <!-- 结构试验室 -->
+                <div style="position: relative;">
+                    <div class="group  structural" (click)="goto_test_room('structural')">
+                        <span>结构试验室</span>
+                        <!-- 连线 -->
+                        <div class="structural_line"></div>
+                    </div>
+                </div>
+
+                <!-- 环境试验室 -->
+                <div style="position: relative;">
+                    <div class="group  environment" (click)="goto_test_room('environment')">
+                        <span>环境试验室</span>
+                        <!-- 连线 -->
+                        <div class="environment_line"></div>
+                    </div>
+                </div>
+
+                <!-- 理化试验室 -->
+                <div style="position: relative;">
+                    <div class="group  physicochemical" (click)="goto_test_room('physicochemical')">
+                        <span>理化试验室</span>
+                        <!-- 连线 -->
+                        <div class="physicochemical_line"></div>
+                    </div>
+                </div>
+                
+                
+                
+            </div>
+        </div>
+
+        <!-- 主题第三列 -->
+        <div class="col-md-3" style="padding: 0px;">
+    
+            <div class="chunk">
+                <div class="part_title">试验条目状态</div>
+                <div class="device-rate ">
+            </div>
+            </div>
+            <div class="chunk">
+                <div class="part_title">VMDS</div>
+                <div class="geely-info "></div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- 底部图 -->
+    <div class="row row_buttom" style="padding: 0 11px; margin: 0px;">
+        <img src="assets/pages/device-inline/images/one/onebj_buttom.jpg" alt="header">
+    </div>
+
+</div>
+

@@ -48,7 +48,7 @@ export class DeviceHourReportComponent implements OnInit {
       { field: 'deviceid', headerName: '设备ID',  resizable: true, minWidth: 10},
       { field: 'groups', headerName: '科室/功能组', resizable: true, minWidth: 10},
       { field: 'linklevel', headerName: '设备关重度', resizable: true, minWidth: 10},
-      { field: 'devicestatus', headerName: '设备类型', resizable: true, minWidth: 10},
+      { field: 'devicetype', headerName: '设备类型', resizable: true, minWidth: 10},
       { field: 'month', headerName: '月份', resizable: true},
       { field: 'totaltime', headerName: '总目标时长(h)', resizable: true},
       { field: 'running', headerName: '运行时长(h)', resizable: true, minWidth: 10},

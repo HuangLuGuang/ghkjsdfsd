@@ -32,6 +32,9 @@ import { CabinCentralizedMonitoringComponent } from './cabin-centralized-monitor
 import { EquipmentMotorSixSevenComponent } from './equipment-motor-six-seven/equipment-motor-six-seven.component';
 
 
+import { FirstLevelComponent } from './device-inline/first-level/first-level.component';
+import { SecondLevelComponent } from './device-inline/second-level/second-level.component';
+
 // 组件
 const COMPONENT = [
   EquipmentBoardComponent,EquipmentFourRoadComponent,
@@ -48,14 +51,21 @@ const COMPONENT = [
   EquipmentAvlAtecComponent,
   CentralFourJinhuaComponent,
   CabinCentralizedMonitoringComponent,
-  EquipmentMotorSixSevenComponent
+  EquipmentMotorSixSevenComponent,
+
+  FirstLevelComponent,
+  SecondLevelComponent,
+
+  
 ]
 //设备看板模块
 @NgModule({
   declarations: COMPONENT,
   imports: [
     CommonModule,ShareModule,EimboardEimboardRoutingModule,NzProgressModule,TranslateModule,
-    NbIconModule,NbCardModule,NzCarouselModule
+    NbIconModule,NbCardModule,NzCarouselModule,
+
+    // ---device inline 
   ],
   providers:[
     TranslatePipe,

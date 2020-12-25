@@ -9,7 +9,9 @@ declare let layui;
 export class MonthSelectComponent implements OnInit {
 
   // 下拉 icon
-  xialaicon = "arrow-ios-downward-outline"
+  xialaicon = "arrow-ios-downward-outline";
+
+  selectedItem = '一月'
 
   constructor() {
     
@@ -19,7 +21,7 @@ export class MonthSelectComponent implements OnInit {
   }
   
   ngAfterViewInit(){
-    this.change_icon();
+    // this.change_icon();
 
   }
 
@@ -39,12 +41,14 @@ export class MonthSelectComponent implements OnInit {
 
   // 得到选择的月份
   getselect(){
-    var month = $("#month").val()
+    // var month = $("#month").val()
+    var month = this.selectedItem
     return month;
   }
   // 重置为默认的
   reset_month(){
-    $("#month option:first").prop("selected", "selected")
+    this.selectedItem = '一月'
+    // $("#month option:first").prop("selected", "selected");
   }
 
 }

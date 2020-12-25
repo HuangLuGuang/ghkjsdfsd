@@ -14,7 +14,7 @@ declare var $:any;
 export class EquipmentBoardComponent implements OnInit {
   is_not_fullscreen = true; // 是否处于全屏
 
-  title = '';//标题
+  title = '智慧实验室';//标题
   date = {
     year: 0,
     month: 0,
@@ -42,8 +42,8 @@ export class EquipmentBoardComponent implements OnInit {
         console.log(e.url);
         let arr = e.url.split('/');
         //判断哪些看板需要哪些功能
-        console.log(e.url)
-          
+        console.log("判断哪些看板需要哪些功能",e.url)
+        
             
       }
     })

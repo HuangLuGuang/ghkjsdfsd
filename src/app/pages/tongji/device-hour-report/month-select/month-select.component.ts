@@ -9,42 +9,47 @@ declare let layui;
 export class MonthSelectComponent implements OnInit {
 
   // 下拉 icon
-  xialaicon = "arrow-ios-downward-outline"
+  xialaicon_month = "arrow-ios-downward-outline"
+
+  selectedItem = '一月'
 
   constructor() {
     
   }
   
   ngOnInit(): void {
+    // this.change_icon();
   }
   
   ngAfterViewInit(){
-    this.change_icon();
+    
 
   }
 
   // 点击事件
   change_icon(){
     var that = this;
-    $(".month_select").on("click", function() {
-      console.log("点击事件")
-      if (that.xialaicon === "arrow-ios-upward-outline"){
-        that.xialaicon = "arrow-ios-downward-outline"
+    $("#month").on("click", function() {
+      if (that.xialaicon_month == "arrow-ios-downward-outline"){
+        that.xialaicon_month = "arrow-ios-upward-outline"
       }else{
-        that.xialaicon = "arrow-ios-upward-outline";
+        that.xialaicon_month = "arrow-ios-downward-outline";
       }
     })
-
   }
 
   // 得到选择的月份
   getselect(){
-    var month = $("#month").val()
+    console.log("得到选择的月份",this.selectedItem)
+    // var month = $("#month").val()
+    var month = this.selectedItem
     return month;
   }
+
   // 重置为默认的
   reset_month(){
-    $("#month option:first").prop("selected", "selected")
+    this.selectedItem = '一月'
+    // $("#month option:first").prop("selected", "selected")
   }
 
 }
