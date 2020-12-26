@@ -1,5 +1,6 @@
 .mylabel{
     padding-right: 0px;
+    
 }
 
 
@@ -25,7 +26,8 @@
     width: 105px;
     font-weight: 400;
     line-height: 20px;
-    text-align: right;
+    // text-align: right;
+    text-align: inherit !important;
 }
 // 必填
 .mulu_title::before{

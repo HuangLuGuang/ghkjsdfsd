@@ -2,15 +2,18 @@
 .mulu_title::before{
     content: "*";
     color: #ff4949;
-    margin-right: 4px;
+    // margin-right: 4px;
+    margin-left: -6px;
 }
 
 .mylabel{
     padding: 9px 0px;
+    text-align: inherit !important;
 }
 
 .mylabel2{
     padding:  0px;
+    text-align: inherit !important;
 }
 .setting_employee_group{
     width: 800px;
