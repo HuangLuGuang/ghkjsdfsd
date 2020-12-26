@@ -37,23 +37,26 @@ export class EquipmentBoardComponent implements OnInit {
       create_img_16_9();
     })
 
-    this.router.events.subscribe((e:any) => {
-      if(e instanceof NavigationEnd){
-        console.log(e.url);
-        let arr = e.url.split('/');
-        //判断哪些看板需要哪些功能
-        console.log("判断哪些看板需要哪些功能",e.url)
+    // this.router.events.subscribe((e:any) => {
+    //   if(e instanceof NavigationEnd){
+    //     console.log(e.url);
+    //     let arr = e.url.split('/');
+    //     //判断哪些看板需要哪些功能
+    //     console.log("判断哪些看板需要哪些功能",e.url)
         
             
-      }
-    })
+    //   }
+    // })
   }
   
   ngAfterViewInit(){
   }
 
   resize=()=>{
-    create_img_16_9();
+    setTimeout(() => {
+      create_img_16_9();
+    }, 1000)
+
   }
 
 

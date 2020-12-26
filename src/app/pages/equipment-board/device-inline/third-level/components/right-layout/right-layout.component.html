@@ -1,0 +1,45 @@
+<!-- 设备-级报警概览 -->
+<div class="row" style="margin: 0px;">
+    <div class="chunk one_alert">
+        <div class="part_title">实验进度</div>
+        <div class="_table">
+            <div class="table_head">
+                <div class="table_head_th">
+                    <div class="table_head_tr" [ngStyle]="{width: '33%'}" *ngFor="let key of obejct.keys(tableHeader)">
+                        {{tableHeader[key]}}
+                    </div>
+                </div>
+            </div>
+            <div class="table_body">
+                <div class="table_body_th" *ngFor="let items of tableBody">
+                    <div class="table_body_tr" style="position: relative;" [ngStyle]="{width: '33%'}" *ngFor="let key of obejct.keys(tableHeader)">
+
+                        <ng-container *ngIf="key == 'speed';else temp">
+                            <nz-progress [nzPercent]="items.speed" [nzStrokeColor]="{ '0%': '#66FF00', '100%': '#66FF00' }" nzSize="small" [nzShowInfo]="false"></nz-progress>
+                            <div style="position: absolute;color: black;top: 8px;">
+                                {{items[key]}}%
+                            </div>
+                        </ng-container>
+                        <ng-template #temp>
+                            {{ items[key] }}
+                        </ng-template>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row" style="display: flex;margin: 20px 0 0 0;">
+    <div class="chunk quantity">
+        <div class="part_title">各个设备已完成试验数/计划实验数</div>
+        <div class="height_30" style="display: flex;width: 100%;align-items: center;justify-content: center;">
+            <div class="font">累计完成<br/>实验条目</div>
+            <div class="quantity_number">12345678</div>
+        </div>
+        <div class="height_55" style="padding: 20px;width: 100%;">
+            <div style="height:100%;width: 100%;" id="right_chart_1"></div>
+        </div>
+
+    </div>
+</div>

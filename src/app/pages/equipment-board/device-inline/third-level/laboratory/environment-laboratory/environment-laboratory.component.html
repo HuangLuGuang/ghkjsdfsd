@@ -1,0 +1,61 @@
+<div class="row" style="    margin: 0 20px;">
+    <div class="col-md-3" style="padding:0">
+        <ngx-left-layout #left></ngx-left-layout>
+    </div>
+    <div class="col-md-6" style="padding:0 20px;">
+        <div class="center">
+            <div class="one" *ngFor="let map of list" (click)="goto_borad(map)">
+                <div style="width: 100%;height: 10%;font-size: 2vh;" *ngIf="!map.type">{{map.name}}</div>
+                <div style="width: 100%;height: 10%;font-size: 2vh;" *ngIf="!map.type">{{map.number}}</div>
+                <div style="width: 30%;height: 80%;" *ngIf="!map.type">
+                    <div class="andon_color">
+                        <div *ngFor="let item of andon;let i = index;" style="height: 25%;">
+                            <div class="bo_black font_li {{ item.color}} {{item.t == map.andon?'':'dark'}} " [ngStyle]="{'border-top': i != 0 ? '3px solid black':''}" [ngClass]="{'first':i==0,'last':i == andon.length-1}">
+                                <Span>{{item.name}}</Span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="andon_img"></div>
+                </div>
+                <div class="speed" *ngIf="!map.type">
+                    <nz-progress *ngFor="let item of map.speed" style="width: 100%;" [nzPercent]="item" nzSize="small" [nzShowInfo]="false"></nz-progress>
+                </div>
+
+                <!-- 多个安灯 -->
+                <div *ngIf="map.type == 'multiple'" class="multiple">
+                    <div style="width: 50%;height: 13%;font-size: 2vh;">{{map.name}}</div>
+                    <div style="width: 50%;height: 10%;font-size: 2vh;">{{map.other.name}}</div>
+                    <div style="width: 50%;height: 10%;font-size: 2vh;">{{map.number}}</div>
+                    <div style="width: 50%;height: 10%;font-size: 2vh;">{{map.other.number}}</div>
+                    <div style="width: 30%;height: 80%;">
+                        <div class="andon_color">
+                            <div *ngFor="let item of andon;let i = index;" style="height: 25%;">
+                                <div class="bo_black font_li {{ item.color}} {{item.t == map.andon?'':'dark'}} " [ngStyle]="{'border-top': i != 0 ? '3px solid black':''}" [ngClass]="{'first':i==0,'last':i == andon.length-1}">
+                                    <Span>{{item.name}}</Span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="andon_img"></div>
+                    </div>
+                    <div style="width: 1px;border: 1px solid;margin: 0px 10px;"></div>
+                    <div style="width: 30%;height: 80%;">
+                        <div class="andon_color">
+                            <div *ngFor="let item of andon;let i = index;" style="height: 25%;">
+                                <div class="bo_black font_li {{ item.color}} {{item.t == map.other.andon?'':'dark'}} " [ngStyle]="{'border-top': i != 0 ? '3px solid black':''}" [ngClass]="{'first':i==0,'last':i == andon.length-1}">
+                                    <Span>{{item.name}}</Span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="andon_img"></div>
+                    </div>
+                    <div class="speed" style="left: 40%;">
+                        <nz-progress *ngFor="let item of map.other.speed" style="width: 100%;" [nzPercent]="item" nzSize="small" [nzShowInfo]="false"></nz-progress>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3" style="padding:0">
+        <ngx-right-layout #right></ngx-right-layout>
+    </div>
+</div>

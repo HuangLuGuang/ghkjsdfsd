@@ -61,7 +61,6 @@
         margin-top: 20px;
         .c {
             width: 100%;
-            margin-top: 20px;
             display: flex;
             flex-wrap: wrap;
         }
@@ -69,6 +68,7 @@
     .select {
         position: absolute;
         right: 0px;
+        top: 0;
         width: 138px;
         .inputWrap {
             width: 100%;
@@ -171,7 +171,6 @@
         position: relative;
         .c {
             width: 100%;
-            margin-top: 20px;
         }
         .d {
             border: 1px solid rgb(77, 129, 177);
@@ -216,7 +215,7 @@
         background-size: cover;
         -webkit-background-size: cover;
         -o-background-size: cover;
-        padding: 0% 4% 2% 4%;
+        padding: 20px 4% 2% 4%;
     }
     .part_title {
         position: absolute;

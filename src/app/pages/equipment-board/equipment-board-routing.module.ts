@@ -1,7 +1,8 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+
 import { FirstLevelComponent } from './device-inline/first-level/first-level.component';
-import { ThirdLevelComponent } from '../device-inline/third-level/third-level.component';
+import { ThirdLevelComponent } from './device-inline/third-level/third-level.component';
 import { CabinCentralizedMonitoringComponent } from './cabin-centralized-monitoring/cabin-centralized-monitoring.component';
 import { CentralFourJinhuaComponent } from './central-four-jinhua/central-four-jinhua.component';
 import { SecondLevelComponent } from './device-inline/second-level/second-level.component';
@@ -33,7 +34,11 @@ const ROUTERS: Routes = [{
         path: 'second-level',
         component: SecondLevelComponent
       },
-
+      { 
+        path: "third-level", 
+        loadChildren:()=>import('./device-inline/third-level/third-level.module')
+        .then(m=>m.ThirdLevelModule)
+      },
       {
         path: '',
         redirectTo: "first-level",

@@ -484,11 +484,11 @@ export class OilSourceMonitoringComponent implements OnInit {
       if(f.result.error || f.result.message[0].code == 0)return;
       let color = 'white';
       let s = '';
-      this.equip_alarm = f.result.message[0].message.map(f=>{
+      this.equip_alarm = f.result.message[0].message.sort((h,c)=> c-h).map(g=>{
         
-        if(f.level == 2)color = 'yellow',s ='warm';
-        if(f.level == 3)color = 'red',s ='error';
-        return {data:[f.source.split(' ')[0],f.message],s:'',color:color};
+        if(g.level == 2)color = 'yellow',s ='warm';
+        if(g.level == 3)color = 'red',s ='error';
+        return {data:[g.source.split(' ')[0],g.message],s:'',color:color};
       })
     })
   }

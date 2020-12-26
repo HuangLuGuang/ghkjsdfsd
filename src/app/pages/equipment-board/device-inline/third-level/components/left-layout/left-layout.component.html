@@ -1,0 +1,36 @@
+<!-- 试验室设备状态 -->
+<div class="row" style="margin: 0px;">
+    <div class="chunk device_status">
+        <div class="part_title">试验室设备状态</div>
+        <!-- echart 环状 -->
+        <div class="andon_status">
+            <div id="left_chart_1"></div>
+            <div id="left_chart_2"></div>
+            <div id="left_chart_3"></div>
+        </div>
+        <!-- 工时年度统计 -->
+        <div id="left_chart_hour_year" class="hour_year"></div>
+    </div>
+</div>
+<!-- 设备-级报警概览 -->
+<div class="row" style="margin: 20px 0 0 0;">
+    <div class="chunk one_alert">
+        <div class="part_title">设备-级报警概览</div>
+        <div class="_table">
+            <div class="table_head">
+                <div class="table_head_th">
+                    <div class="table_head_tr" [ngStyle]="{width: '33%'}" *ngFor="let key of obejct.keys(tableHeader)">
+                        {{tableHeader[key]}}
+                    </div>
+                </div>
+            </div>
+            <div class="table_body">
+                <div class="table_body_th" *ngFor="let items of tableBody">
+                    <div class="table_body_tr" [ngStyle]="{width: '33%'}" *ngFor="let key of obejct.keys(tableHeader)">
+                        {{ items[key] }}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

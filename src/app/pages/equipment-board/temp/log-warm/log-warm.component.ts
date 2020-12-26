@@ -1,6 +1,8 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 import { take } from 'rxjs/operators';
+import * as screenfull from 'screenfull';
+import { Screenfull } from 'screenfull';
 import { LayoutService } from '../../../../@core/utils';
 import { HttpserviceService } from '../../../../services/http/httpservice.service';
 import { dateformat, getMessage } from '../../equipment-board';
@@ -160,7 +162,11 @@ export class LogWarmComponent implements OnInit {
     })
     // device_monitor.get_device_log_daily_error_status('{"device":"device_mts_01","today":"2020-11-23","thishour":"hour14","level":1}');
   }
-
+  
+  getWin_H(){
+    var sf = <Screenfull>screenfull;
+    return sf.isFullscreen?'150px':'120px';
+  }
 
   getwarmStr(){
     return this.log_warm.data.length > 0 ?this.log_warm.data[this.log_warm.data.length-1][3]:'';

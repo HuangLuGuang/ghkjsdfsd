@@ -1,7 +1,7 @@
 <div id="oilsrouce">
     <div class="row" style="height: 100%;margin: 0;width: 100%;">
-        <div class="col-md-4" style="padding: 0px 0px 0px 0px;">
-            <div class="HPU_statistics backgroud">
+        <div class="col-md-4" style="padding: 0px 0px 0px 0px;height: 100%;">
+            <div class="HPU_statistics backgroud" style="padding-top: 0px;">
                 <div class="part_title">{{'equipment.oilsrouce.accumulator'|translate}}</div>
                 <div class="select">
                     <div class="inputWrap" (click)="select_show_or_close()">
@@ -32,7 +32,7 @@
             </div>
             <div class="event_error backgroud" style="margin-top: 20px;">
                 <div class="part_title">{{'equipment.EquipmentAlarm'|translate}}</div>
-                <div class="w_100 height_90" style="position: relative;margin-top: 5%;">
+                <div class="w_100 height_83" style="position: relative;">
                     <div class="bo" style="height: 16%">
                         <div class="w_30">{{ 'equipment.Source' | translate}}</div>
                         <div>{{ 'equipment.CurrentAlarmList' | translate}}</div>
@@ -69,16 +69,16 @@
                 </div>
             </div>
         </div>
-        <div class="col-md-4" style="padding: 0px 0px 0px  0px;height: 100%;">
+        <div class="col-md-4" style="padding: 0px 0px 0px  0px;">
             <div class="HPUmodel backgroud">
                 <div class="part_title">{{ HPUselect.value }}</div>
                 <div class="c">
                     <div class="w_100 height_37" style="display: flex;align-items: center;font-size: 18px;">
-                        <div class="height_83 w_40">
+                        <div class="height_100 w_40">
                             <div>HPU状态</div>
                             <div class="circular" [ngStyle]="{'background':HPUselect.HPUselectItem.status?'#66FF33':'rgb(36, 97, 89)'}"></div>
                         </div>
-                        <div class="height_83 w_60">
+                        <div class="height_100 w_60">
                             <div>HPU 在线时间</div>
                             <div id="clock">
                                 {{ HPUselect.HPUselectItem.time.h | digitCompletion:2}} 时 {{ HPUselect.HPUselectItem.time.m | digitCompletion:2}} 分 {{ HPUselect.HPUselectItem.time.s | digitCompletion:2}}秒
@@ -99,7 +99,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="w_100 height_36" id="pumpClick"></div>
+                    <div class="w_100 height_30" id="pumpClick"></div>
                     <div class="w_100 height_29" style="display: flex;flex-wrap: wrap;justify-content: center;">
                         <div style="width: 100%;height: 31%;">泵组</div>
                         <div class="d" *ngFor="let f of HPUselect.HPUselectItem.pumpList" [ngStyle]="{'background':f.s?'#00FF33':'',width:(90-HPUselect.HPUselectItem.pumpList.length)/HPUselect.HPUselectItem.pumpList.length+'%'}">
@@ -108,17 +108,17 @@
                     </div>
                 </div>
             </div>
-            <div class="HEWater backgroud">
+            <div class="HEWater backgroud" style="padding-top: 20px;">
                 <div class="part_title">{{ HPUselect.value }} HE/Water</div>
-                <div class="w_100 height_50" style="display: flex;flex-wrap:wrap;margin-top: 6%;justify-content: center;">
+                <div class="w_100 height_50" style="display: flex;flex-wrap:wrap;justify-content: center;">
                     <div *ngFor="let item of HE_Water.data" id="{{item.id }}" class="height_25" style="width: 33%;">
                     </div>
                 </div>
                 <div class="w_100 height_45" id="discharge_chart_2"></div>
             </div>
-            <div class="radar backgroud">
+            <div class="radar backgroud" style="padding-top: 20px;">
                 <div class="part_title">{{'equipment.oilsrouce.accumulator'|translate}}</div>
-                <div class="dis_flex w_100" style="margin-top: 20px;">
+                <div class="dis_flex w_100">
                     <div id="radar_1"></div>
                     <div id="radar_2"></div>
                 </div>

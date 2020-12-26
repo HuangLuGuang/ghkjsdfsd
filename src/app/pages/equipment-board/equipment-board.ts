@@ -139,6 +139,31 @@ export const copy=(d)=>{
   return JSON.parse(JSON.stringify(d));
 }
 
+/**
+ * dom 防抖
+ */
+export const debounce=(func,wait,immediate)=>{
+  let timer;
+  return function () {
+      let context = this;
+      let args = arguments;
+      if (timer) clearTimeout(timer);
+      if (immediate) {
+         let callNow = !timer;
+         timer = setTimeout(()=>{
+                    timer = null;
+          },wait);
+        if (callNow) func.apply(context, args)
+      } else {
+        timer = setTimeout(function(){
+          func.apply(context, args)
+        }, wait);
+      }
+  }
+}
+
+
+
 
 /**
  * 避免 2020-12-17T08:42:00.000Z 出现字符串转时间错误

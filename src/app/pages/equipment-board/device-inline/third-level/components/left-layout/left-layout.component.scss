@@ -1,0 +1,125 @@
+// 块元素 样式！
+.chunk {
+    position: relative;
+    border-width: 1px;
+    border-color: rgb(100, 116, 211);
+    border-style: solid;
+    background-color: rgba(100, 116, 211, 0.402);
+    width: 100%;
+    text-align: center;
+    // margin-top: 10px;
+    box-shadow: 0 0 3.2vh 1.34vh #365f96b3 inset;
+}
+
+// 标题
+.part_title {
+    position: absolute;
+    padding: 0 2%;
+    height: 20px;
+    color: #ffffff;
+    background: #4472c4;
+    top: 0;
+    left: 0;
+    min-width: 80px;
+}
+
+// 试验室设备状态
+.device_status {
+    height: 431px;
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    .andon_status {
+        width: 100%;
+        height: 30%;
+        // border: red 1px solid;
+        display: flex;
+        div {
+            width: 33%;
+            height: 100%;
+        }
+    }
+}
+
+.hour_year {
+    border-width: 1px;
+    border-color: rgba(100, 183, 211, 1);
+    border-style: solid;
+    // background-color: rgba(100, 116, 211, 0.402);
+    box-shadow: 0 0 3.2vh 1.34vh #365f96b3 inset;
+    width: 90%;
+    height: 55%;
+}
+
+// 设备一级报警概览
+.one_alert {
+    height: 411px;
+    width: 100%;
+    padding: 25px 2% 3% 2%;
+}
+
+._table {
+    width: 100%;
+    height: 100%;
+    position: relative;
+    .table_head {
+        border-width: 1px 1px 1px 1px;
+        border-color: rgba(100, 183, 211, 1);
+        border-style: solid;
+        height: 40px;
+        .table_head_th {
+            width: 100%;
+            height: 100%;
+            background-color: rgba(100, 116, 211, 0.402);
+            display: flex;
+            .table_head_tr {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                height: 100%;
+            }
+        }
+    }
+    .table_body {
+        position: absolute;
+        height: 90%;
+        width: 100%;
+        overflow-x: auto;
+        border-width: 0 1px 1px 1px;
+        border-color: rgba(100, 183, 211, 1);
+        border-style: solid;
+        .table_body_th {
+            height: 10%;
+            width: 100%;
+            display: flex;
+            .table_body_tr {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+            }
+        }
+    }
+}
+
+.table_body::-webkit-scrollbar {
+    /*滚动条整体样式*/
+    width: 5px;
+    /*高宽分别对应横竖滚动条的尺寸*/
+    height: 1px;
+}
+
+.table_body::-webkit-scrollbar-thumb {
+    /*滚动条里面小方块*/
+    border-radius: 10px;
+    box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.2);
+    background: #535353;
+}
+
+.table_body::-webkit-scrollbar-track {
+    /*滚动条里面轨道*/
+    box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.2);
+    border-radius: 10px;
+    background: #888888;
+}

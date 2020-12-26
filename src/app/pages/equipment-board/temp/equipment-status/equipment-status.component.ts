@@ -23,9 +23,9 @@ export class EquipmentStatusComponent implements OnInit {
    //安灯状态
    andon = [
      {name:'运行',color:'green',t:1},
-     {name:'等待',color:'blue',t:3},
+     {name:'空闲',color:'blue',t:3},
      {name:'占位',color:'yellow',t:2},
-    {name:'维护',color:'red',t:4},
+    {name:'维修',color:'red',t:4},
   ];
   andon_now = -1;
   language;
@@ -329,7 +329,7 @@ export class EquipmentStatusComponent implements OnInit {
     };
     data_1.d_arr = data;
     let myChart = echarts.init(document.getElementById('device_status'+this.TempNum));
-    equipment_four_road.create_device_status(data_1,myChart,null,'安灯年度表');
+    if(myChart)equipment_four_road.create_device_status(data_1,myChart,null,'安灯年度表');
     // equipment_four_road.create_device_status(data_1,myChart,null,this.language?"AnnualReportOfSafetyLamp":'安灯年度表');
 
   }
@@ -347,7 +347,7 @@ export class EquipmentStatusComponent implements OnInit {
             ];
       data.value = status;
       let myChart = echarts.init(document.getElementById(id+this.TempNum));
-      equipment_four_road.create_device_circular(data,myChart);
+      if(myChart)equipment_four_road.create_device_circular(data,myChart);
     }
   }
 
