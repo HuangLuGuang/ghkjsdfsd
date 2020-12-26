@@ -7,10 +7,13 @@ import { NbButtonModule, NbCardModule, NbIconModule, NbSelectModule, NbSpinnerMo
 import { YearSelectComponent } from './year-select/year-select.component';
 import { MonthSelectComponent } from './month-select/month-select.component';
 import { ComponentTModule } from '../components/componentT.module';
+import { HourConfigComponent } from './hour-config/hour-config.component';
+import { TeskConfigComponent } from './tesk-config/tesk-config.component';
+import { ActionComponent } from './hour-config/action/action.component';
 
 
 @NgModule({
-  declarations: [TargetHourConfigComponent, YearSelectComponent, MonthSelectComponent,],
+  declarations: [TargetHourConfigComponent, YearSelectComponent, MonthSelectComponent, HourConfigComponent, TeskConfigComponent, ActionComponent,],
   imports: [
     CommonModule,
     TargetHourConfigRoutingModule,

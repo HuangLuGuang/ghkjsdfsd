@@ -40,7 +40,7 @@ const routes: Routes = [
         loadChildren: ()=>import('./device-hour-report/device-hour-report.module')
         .then(m=>m.DeviceHourReportModule)
       },
-      { path: 'kpidetail', component: KpiDetailComponent },
+      { path: 'device_hour_report/kpidetail', component: KpiDetailComponent },
       { path: '', redirectTo: 'deviceManage', pathMatch: 'full' },
     ]
   },

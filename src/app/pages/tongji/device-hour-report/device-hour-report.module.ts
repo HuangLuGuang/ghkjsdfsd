@@ -7,10 +7,11 @@ import { NbButtonModule, NbCardModule, NbIconModule, NbInputModule, NbSelectModu
 import { ComponentTModule } from '../components/componentT.module';
 import { MonthSelectComponent } from './month-select/month-select.component';
 import { YearSelectComponent } from './year-select/year-select.component';
+import { ActionComponent } from './action/action.component';
 
 
 @NgModule({
-  declarations: [DeviceHourReportComponent, MonthSelectComponent, YearSelectComponent],
+  declarations: [DeviceHourReportComponent, MonthSelectComponent, YearSelectComponent, ActionComponent,],
   imports: [
     CommonModule,
     DeviceHourReportRoutingModule,

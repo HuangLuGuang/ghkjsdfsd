@@ -4,7 +4,7 @@ import { CommonModule } from '@angular/common';
 import { TongjiRoutingModule } from './tongji-routing.module';
 import { TongjiComponent } from './tongji.component';
 import { DeviceManageComponent } from './device-manage/device-manage.component';
-import { NbSelectModule, NbCardModule, NbButtonModule, NbInputModule, NbProgressBarModule, NbIconModule, NbSpinnerModule, NbLayoutModule } from '@nebular/theme';
+import { NbSelectModule, NbCardModule, NbButtonModule, NbInputModule, NbProgressBarModule, NbIconModule, NbSpinnerModule, NbLayoutModule, NbPopoverModule } from '@nebular/theme';
 
 // import { MySelectComponent } from './components/my-select/my-select.component';
 // import { MySelectGroupComponent } from './components/my-select-group/my-select-group.component';
@@ -77,6 +77,9 @@ import { TranActiveComponent } from './device-manage/tran-active/tran-active.com
     NbIconModule,
     NbSpinnerModule,
     NbLayoutModule,
+
+    // nbpopover
+    NbPopoverModule,
 
     // 日期-时间
     OwlDateTimeModule,

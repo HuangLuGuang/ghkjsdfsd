@@ -5,6 +5,7 @@ import { NbDialogService } from '@nebular/theme';
 import { HttpserviceService } from '../../../services/http/httpservice.service';
 import { PublicmethodService } from '../../../services/publicmethod/publicmethod.service';
 import { UserInfoService } from '../../../services/user-info/user-info.service';
+import { ActionComponent } from './action/action.component';
 
 
 declare let $;
@@ -43,21 +44,21 @@ export class DeviceHourReportComponent implements OnInit {
     PageSize: 10, // 每页 10条数据
     isno_refresh_page_size: false, // 是否重新将 每页多少条数据，赋值为默认值
     columnDefs:[ // 列字段 多选：headerCheckboxSelection checkboxSelection , flex: 1 自动填充宽度 pinned: 'left' 固定左侧
-    { field: 'deviceno', headerName: '设备编号', resizable: true, minWidth: 10, headerCheckboxSelection: true, checkboxSelection: true, autoHeight: true, fullWidth: true,},
-      { field: 'devicename', headerName: '设备名称',resizable: true, },
-      { field: 'deviceid', headerName: '设备ID',  resizable: true, minWidth: 10},
-      { field: 'groups', headerName: '科室/功能组', resizable: true, minWidth: 10},
-      { field: 'linklevel', headerName: '设备关重度', resizable: true, minWidth: 10},
-      { field: 'devicetype', headerName: '设备类型', resizable: true, minWidth: 10},
-      { field: 'month', headerName: '月份', resizable: true},
-      { field: 'totaltime', headerName: '总目标时长(h)', resizable: true},
-      { field: 'running', headerName: '运行时长(h)', resizable: true, minWidth: 10},
-      { field: 'stop', headerName: '停止时长(h)', resizable: true, minWidth: 10},
-      { field: 'warning', headerName: '维护时长(h)', resizable: true, minWidth: 10},
-      { field: 'placeon', headerName: '空闲时长(h)', resizable: true, minWidth: 10}, 
-      { field: 'ratio', headerName: '利用率(%)', resizable: true, minWidth: 10},
-      { field: 'rate', headerName: '开动率(%)', resizable: true, minWidth: 10},
-
+      { field: 'deviceno', headerName: '设备编号', resizable: true, width: 150, headerCheckboxSelection: true, checkboxSelection: true, autoHeight: true, fullWidth: true,},
+      { field: 'devicename', headerName: '设备名称',fullWidth: true,resizable: true, width: 160,},
+      { field: 'deviceid', headerName: '设备ID',  resizable: true,fullWidth: true, width: 200,},
+      { field: 'groups', headerName: '科室/功能组', resizable: true, fullWidth: true,width: 330,},
+      { field: 'linklevel', headerName: '设备关重度', resizable: true,fullWidth: true,width: 130,},
+      { field: 'devicetype', headerName: '设备统计归类', resizable: true, fullWidth: true,width: 130,}, //设备类型
+      { field: 'month', headerName: '月份', resizable: true, fullWidth: true,width: 100,},
+      { field: 'totaltime', headerName: '总目标时长(h)', resizable: true, fullWidth: true,width: 130,},
+      { field: 'running', headerName: '运行时长(h)', resizable: true, fullWidth: true,width: 130,},
+      { field: 'stop', headerName: '空闲时长(h)', resizable: true, fullWidth: true,width: 130,},
+      { field: 'warning', headerName: '维修时长(h)', resizable: true, fullWidth: true,width: 130,},
+      { field: 'placeon', headerName: '占位时长(h)', resizable: true,fullWidth: true, width: 130,}, 
+      { field: 'ratio', headerName: '利用率(%)', resizable: true, fullWidth: true,width: 130,},
+      { field: 'rate', headerName: '开动率(%)', resizable: true, fullWidth: true,width: 130,},
+      {field: 'option', headerName: '详情', resizable: true, fullWidth: true,width: 100,cellRendererFramework: ActionComponent, pinned: 'right',}
 
     ],
     rowData: [ // data
@@ -101,7 +102,8 @@ export class DeviceHourReportComponent implements OnInit {
     var columns = {
       employeeid:this.employeeid,
     }
-    this.http.callRPC("deveice","dev_get_device_groups",columns).subscribe(result=>{
+    // dev_get_device_type dev_get_device_groups
+    this.http.callRPC("deveice","dev_get_device_type",columns).subscribe(result=>{
       var res = result["result"]["message"][0]
       // console.log("得到下拉框的数据---------------->", res)
       if (res["code"] === 1){
@@ -256,6 +258,7 @@ export class DeviceHourReportComponent implements OnInit {
         // 发布组件，编辑用户的组件
         var message = res["result"]["message"][0]["message"];
         this.tableDatas.PageSize = PageSize;
+        this.add_detail_kpi(message);
         this.gridData.push(...message)
         this.tableDatas.rowData = this.gridData;
         var totalpagenumbers = get_employee_limit['numbers']? get_employee_limit['numbers'][0]['numbers']: '未得到总条数';
@@ -268,6 +271,16 @@ export class DeviceHourReportComponent implements OnInit {
         this.RecordOperation('查看', 0,  "设备/工时报表");
       }
     })
+  }
+
+  // 添加详情link
+  add_detail_kpi(datas:any[]){
+    // var option = '/pages/tongji/deviceKpiReport/kpidetail';
+    var option = '/pages/tongji/device_hour_report/kpidetail';
+    datas.forEach(data=>{
+      data["option"] =  option
+    })
+    // 需要将 startime、endtime
   }
 
 

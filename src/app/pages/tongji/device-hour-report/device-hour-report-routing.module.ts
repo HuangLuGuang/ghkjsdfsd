@@ -6,7 +6,8 @@ import { DeviceHourReportComponent } from './device-hour-report.component';
 const routes: Routes = [
   {
     path: "",
-    component: DeviceHourReportComponent
+    component: DeviceHourReportComponent,
+    
   }
 ];
 
