@@ -40,7 +40,6 @@ export class MonthSelectComponent implements OnInit {
 
   // 得到选择的月份
   getselect(){
-    console.log("得到选择的月份",this.selectedItem)
     // var month = $("#month").val()
     var month = this.selectedItem
     return month;

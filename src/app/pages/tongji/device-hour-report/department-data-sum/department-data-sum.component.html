@@ -1,0 +1,53 @@
+<div class="row">
+
+    <div class="col-lg-9" style="display: flex;">
+    
+        <!-- 年下拉框 -->
+        <div class="example-items-rows button_item">
+            <div class="year">
+                <ngx-year-select #myYear></ngx-year-select>
+            </div>
+        </div>
+
+        <!-- 月下拉框 -->
+        <div class="example-items-rows button_item">
+            <div class="month">
+                <ngx-month-select #myMonth></ngx-month-select>
+            </div>
+        </div>
+
+        <!-- 搜索 -->
+        <div class="example-items-rows button_item query" *ngIf="button?.query">
+            <button nbButton [status]="button?.query.class" size="small" (click)="action(button?.query.permission)"  [disabled]="button?.query.active == 0? true:false"><nb-icon [icon]="button?.query.icon"></nb-icon>{{button?.query.title}}</button>
+        </div>
+
+    </div>
+
+
+    <div class="col-lg-3" style="display: flex;">
+        <div style="flex: auto;">
+        </div>
+        <!-- 导出 -->
+        <div class=" button_item download" *ngIf="button?.download">
+            <button nbButton [status]="button?.download.class" size="small" (click)="action(button?.download.permission)"  [disabled]="button?.download.active == 0? true:false"><nb-icon [icon]="button?.download.icon"></nb-icon>{{button?.download.title}}</button>
+        </div>
+        <!-- 重置table -->
+        <div class="" style="text-align: right;">
+            <!-- loader-outline -->
+            <button nbButton [nbSpinner]="refresh" nbSpinnerStatus="success" size="small" (click)="refresh_table()">
+                <nb-icon icon="sync-outline"></nb-icon>
+            </button>
+        </div>
+
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-12 ">
+        <div class="row" [nbSpinner]="loading" nbSpinnerStatus="basic">
+            <div class="col-md-12">
+                <ngx-ag-table #ag_Grid   (nzpageindexchange)="nzpageindexchange_ag($event)" (clickrow)="clickrow($event)"></ngx-ag-table>
+            </div>
+        </div>
+    </div>
+</div>

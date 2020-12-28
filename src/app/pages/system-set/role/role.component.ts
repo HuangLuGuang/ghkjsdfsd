@@ -103,7 +103,7 @@ export class RoleComponent implements OnInit {
     // 加载树状menu  初始化
     this.loadMenu().subscribe((treedata)=>{
       // this.showTreedata(treedata)
-      // console.log("加载树状menu  初始化>>>>>>>>>>>", treedata)
+      console.log("加载树状menu  初始化>>>>>>>>>>>", treedata)
       this.showTreedata_v2(treedata);
     });
 
@@ -871,7 +871,16 @@ export class RoleComponent implements OnInit {
 
     // console.log("最终的目录列表 res_muluList:   end", res_muluList);
     // console.log("最终的目录列表 res_muluList_copy:   res_muluList_copy", res_muluList_copy);
-    return res_muluList_copy
+    // 删除 目录中 children 长度为0的
+    var after_res_muliList_copy = [];
+    res_muluList_copy.forEach(item=>{
+      if (item["parentid"] === 0 || item["parentid"] === null){
+        after_res_muliList_copy.push(item)
+      }
+    })
+    // console.log("最终的目录列表 after_res_muliList_copy:   after_res_muliList_copy", after_res_muliList_copy);
+    // return res_muluList_copy
+    return after_res_muliList_copy
 
     
   }
@@ -931,14 +940,13 @@ export class RoleComponent implements OnInit {
     PageSize: 10, // 每页 10条数据
     isno_refresh_page_size: false, // 是否重新将 每页多少条数据，赋值为默认值
     columnDefs:[ // 列字段 多选：headerCheckboxSelection checkboxSelection
-      { field: 'role_name', headerName: '角色名称', headerCheckboxSelection: true, checkboxSelection: true, autoHeight: true, fullWidth: true, minWidth: 50,resizable: true,},
-      { field: 'role', headerName: '角色名称(en)', resizable: true,},
-      // { field: 'active', headerName: '是否启用',resizable: true,},
-      { field: 'active', headerName: '是否启用',resizable: true,cellRendererFramework: TranActiveComponent,},
-      { field: 'createdon', headerName: '创建时间', resizable: true,},
-      { field: 'createdby', headerName: '创建人', resizable: true,},
-      { field: 'lastupdateon', headerName: '更新时间', resizable: true,},
-      { field: 'lastupdatedby', headerName: '更新人', resizable: true,},
+      { field: 'role_name', headerName: '角色名称', headerCheckboxSelection: true, checkboxSelection: true, autoHeight: true, fullWidth: true, width: 200,resizable: true,},
+      { field: 'role', headerName: '角色名称(en)', resizable: true,width: 150},
+      { field: 'active', headerName: '是否启用',resizable: true,cellRendererFramework: TranActiveComponent,width: 100},
+      { field: 'createdon', headerName: '创建时间', resizable: true,width: 180},
+      { field: 'createdby', headerName: '创建人', resizable: true,width: 130},
+      { field: 'lastupdateon', headerName: '更新时间', resizable: true,width: 180},
+      { field: 'lastupdatedby', headerName: '更新人', resizable: true,width: 130},
       
     ],
     rowData: [ // data

@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 
 
 import { FormsModule } from '@angular/forms';
-import { NbIconModule, NbInputModule, NbSelectModule } from '@nebular/theme';
+import { NbIconModule, NbInputModule, NbPopoverModule, NbSelectModule } from '@nebular/theme';
 
 
 import {Ng2SmartTableModule} from '@mykeels/ng2-smart-table';
@@ -17,6 +17,7 @@ import { MySelectTreeTypeComponent as MySelectTreeTypeComponentType} from './my-
 import { MyDateRangeComponent } from './my-date-range/my-date-range.component';
 import { MyInputComponent } from './my-input/my-input.component';
 import { MyInputTwoComponent } from './my-input-two/my-input-two.component';
+import { TableGroupComponent } from './table-group/table-group.component';
 @NgModule({
   declarations: [
     AgTableComponent, MySelectTreeComponent, MySelectTreeTypeComponent,
@@ -24,6 +25,7 @@ import { MyInputTwoComponent } from './my-input-two/my-input-two.component';
     MyDateRangeComponent,
     MyInputComponent,
     MyInputTwoComponent,
+    TableGroupComponent,
   ],
   imports: [
     CommonModule,
@@ -34,12 +36,15 @@ import { MyInputTwoComponent } from './my-input-two/my-input-two.component';
     Ng2SmartTableModule,
     AgGridModule,
     NzPaginationModule,
+    // popover
+    NbPopoverModule,
   ],
   exports: [
     AgTableComponent,MySelectTreeComponent,MySelectTreeTypeComponentType,
     MyDateRangeComponent,
     MyInputComponent,
     MyInputTwoComponent,
+    TableGroupComponent,
   ]
 })
 export class ComponentTModule { }

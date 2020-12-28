@@ -13,7 +13,6 @@ import { FormsModule } from '@angular/forms';
     ThemeModule,
     NbMenuModule,
     MiscellaneousModule,
-
     NbCardModule,
     FormsModule,
   ],
