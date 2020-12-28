@@ -1,7 +1,8 @@
 <nb-card>
     <nb-card-header style="font-size: small;">
-        <button nbButton size="small" [status]="hour_status" (click)="toggle_config('hour')">目标工时配置 </button>
-        <button nbButton size="small" [status]="tesk_status" style="margin-left: 20px;" (click)="toggle_config('tesk')">试验任务配置 </button>
+        <button nbButton size="small" [status]="hour_status" (click)="toggle_config('hour')"> 目标工时配置 </button>
+        <button nbButton size="small" [status]="tesk_status" style="margin-left: 20px;" (click)="toggle_config('tesk')">试验任务配置</button>
+        <button nbButton size="small" [status]="result_status" style="margin-left: 20px;" (click)="toggle_config('result')">试验结果配置</button>
     </nb-card-header>
     <nb-card-body style="background-color: #f4f4f4;">
         

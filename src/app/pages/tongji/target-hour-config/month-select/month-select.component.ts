@@ -29,7 +29,6 @@ export class MonthSelectComponent implements OnInit {
   change_icon(){
     var that = this;
     $(".month_select").on("click", function() {
-      console.log("点击事件")
       if (that.xialaicon === "arrow-ios-upward-outline"){
         that.xialaicon = "arrow-ios-downward-outline"
       }else{

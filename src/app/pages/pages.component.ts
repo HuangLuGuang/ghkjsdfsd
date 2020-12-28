@@ -66,9 +66,10 @@ export class PagesComponent implements OnInit {
 
   onClickMenu() {
     this.menuservice.onSubmenuToggle().subscribe(res => {
-
+      // console.error("============res=======",res)
       const selectMenu = res.item;
       const parent = selectMenu['parent'];
+      
       if (parent && parent.children.length) {
         parent.children.forEach(item => {
           if (selectMenu.title === item.title) {
@@ -77,6 +78,11 @@ export class PagesComponent implements OnInit {
             item.expanded = false;
           }
         });
+      };
+      // 目录跳转
+      if(res.item["link"] !== "" && res.item["type"] === 0 && res.item["link"].search("deviceinline") !== -1){
+        console.error("===目录跳转=========res=======",res)
+        this.router.navigate([res.item["link"]])
       }
     });
   }
@@ -152,16 +158,26 @@ export class PagesComponent implements OnInit {
     });
     let nodeData = [];
     baseMenu.forEach(item => {
+      if (item.type == 2)return;
       let parent = map[item.parentid];
       if (parent) {
-        if (item.type != 2){ // type = 2表明是button而不是
           (parent.children || (parent.children = [])).push(item);
-        }else{
-          // 得到登录角色对用的按钮
-        }
       } else {
         nodeData.push(item);
       }
+
+      // if (parent) {
+      //   if (item.type != 2){ // type = 2表明是button而不是
+      //     (parent.children || (parent.children = [])).push(item);
+      //   }else{
+      //     // 得到登录角色对用的按钮
+      //   }
+      // } else {
+      //   console.error(item);
+      //   if(item.type != 2){
+      //     nodeData.push(item);
+      //   }
+      // }
     });
     return nodeData;
   }

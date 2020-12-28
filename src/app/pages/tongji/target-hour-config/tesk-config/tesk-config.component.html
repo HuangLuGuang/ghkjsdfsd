@@ -1,21 +1,20 @@
 <!-- button -->
 <div class="row" >
     <div class="col-lg-10" style="display: flex;">
-        <!-- 设备名称 devicename --> 
+        <!-- 名称 devicename --> 
         <div class="example-items-rows button_item"  *ngIf="button?.query">
             <div class="gongneng_keshi">
                 <ngx-my-input #myinput (inpuvalue)="inpuvalue($event)"  [placeholder]="myinput_placeholder"></ngx-my-input>
-                <!-- <input nbInput  shape="rectangle"  style="width: 168px;" placeholder="请输入设备名称" status="success" type="text" id="devicename"> -->
             </div>
         </div>
-        <!-- 任务编号 devicename --> 
+        <!-- 编号 devicename --> 
         <div class="example-items-rows button_item"  *ngIf="button?.query">
             <div class="gongneng_keshi">
                 <ngx-my-input-two #myinput2 (inpuvalue2)="inpuvalue2($event)"  [placeholder]="myinput_placeholder2"></ngx-my-input-two>
             </div>
         </div>
         
-        <!-- 设备类型 eimdevicetpye-->
+        <!-- 类型 eimdevicetpye-->
         <div class="example-items-rows button_item"  >
             <div class="gongneng_keshi">
                 <ngx-my-select-tree-type #eimdevicetpye [placeholder]="eimdevicetpye_placeholder"></ngx-my-select-tree-type>

@@ -24,8 +24,10 @@ import { ActionComponent } from './hour-config/action/action.component';
     NbSpinnerModule,
     NbButtonModule,
     ComponentTModule,
-
-    
   ]
 })
-export class TargetHourConfigModule { }
+export class TargetHourConfigModule { 
+  
+}
+
+

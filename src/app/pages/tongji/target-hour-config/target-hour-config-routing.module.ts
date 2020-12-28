@@ -19,6 +19,11 @@ const routes: Routes = [
         component: TeskConfigComponent
       },
       {
+        path: "result_config",
+        loadChildren:() => import('../../eim-file-upload/eim-file-upload.module')
+        .then(m=> m.EimFileUploadModule)
+      },
+      {
         path: '',
         redirectTo: "hour_config",
         pathMatch: 'full'

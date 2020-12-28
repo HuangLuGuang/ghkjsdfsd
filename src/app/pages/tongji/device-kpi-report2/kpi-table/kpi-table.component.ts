@@ -214,7 +214,6 @@ export class KpiTableComponent implements OnInit {
  
 
   download(){
-    console.log("这是----download，kpi 报表");
     this.agGrid.download('设备报表');
 
   }
@@ -264,7 +263,7 @@ export class KpiTableComponent implements OnInit {
       { field: 'ratetime', headerName: '开动率(%)', resizable: true, minWidth: 10}, // 自定义设备编号！
       { field: 'andenstatus', headerName: '实时安灯状态', resizable: true, minWidth: 10},
       // 这个是跳转到详情kpi的 https://www.ag-grid.com/javascript-grid-cell-rendering-components/
-      { field: 'option', headerName: '详情', resizable: true, minWidth: 10, cellRendererFramework: TableDetailComponent, pinned: 'right',width:100,},
+      { field: 'option', headerName: '详情', resizable: true, minWidth: 10, cellRendererFramework: TableDetailComponent, pinned: 'right',width:100},
       // {
       //   field: 'option', 
       //   headerName: '详情', 

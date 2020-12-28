@@ -124,6 +124,7 @@ export class KpiDetailComponent implements OnInit {
     });
   };
 
+  
   // 初始化右侧 第一个 echart 百分比
   init_right_ong(){
     // 得到数据

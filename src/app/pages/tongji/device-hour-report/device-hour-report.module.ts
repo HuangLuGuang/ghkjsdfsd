@@ -8,10 +8,14 @@ import { ComponentTModule } from '../components/componentT.module';
 import { MonthSelectComponent } from './month-select/month-select.component';
 import { YearSelectComponent } from './year-select/year-select.component';
 import { ActionComponent } from './action/action.component';
+import { DeviceDataSumComponent } from './device-data-sum/device-data-sum.component';
+import { GroupDataSumComponent } from './group-data-sum/group-data-sum.component';
+import { DepartmentDataSumComponent } from './department-data-sum/department-data-sum.component';
+import { NzTabsModule } from 'ng-zorro-antd';
 
 
 @NgModule({
-  declarations: [DeviceHourReportComponent, MonthSelectComponent, YearSelectComponent, ActionComponent,],
+  declarations: [DeviceHourReportComponent, MonthSelectComponent, YearSelectComponent, ActionComponent, DeviceDataSumComponent, GroupDataSumComponent, DepartmentDataSumComponent,],
   imports: [
     CommonModule,
     DeviceHourReportRoutingModule,
@@ -21,6 +25,8 @@ import { ActionComponent } from './action/action.component';
     NbIconModule,
     NbSpinnerModule,
     NbSelectModule,
+
+    NzTabsModule,
     
 
     ComponentTModule,

@@ -12,17 +12,17 @@ const routes: Routes = [
     component: ThirdLevelComponent,
     children: [
       { 
-        //结构实验室
+        //结构sys
         path: 'structural',
         component: StructuralLaboratoryComponent
       },
       {
-        //环境实验室
+        //环境sys
         path:'environment',
         component:EnvironmentLaboratoryComponent
       },
       {
-        // 新能源与电子电气试验室
+        // 新能源与电子电气sys
         path:'energy',
         component:EnergyLaboratoryComponent
       }
