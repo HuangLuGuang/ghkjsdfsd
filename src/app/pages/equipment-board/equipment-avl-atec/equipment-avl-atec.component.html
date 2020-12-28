@@ -2,15 +2,15 @@
     <div class="row" style="height: 100%;margin: 0;">
         <div class="col-md-4" style="padding: 0px 0px 0px 20px;">
             <div class="first_first" style="height: 33%;">
-                <ngx-equipment-status device='device_boyang_01' style="display: flex;width: 100%;"></ngx-equipment-status>
+                <ngx-equipment-status [device]='avl_deviceid' style="display: flex;width: 100%;"></ngx-equipment-status>
             </div>
             <div class="first_second lattice_layout" style="height: 27%;">
                 <div class="part_title">{{'equipment.expInfor'|translate}}</div>
-                <ngx-test-information device='device_mts_01' style="width: 100%;"></ngx-test-information>
+                <ngx-test-information [device]='avl_deviceid' style="width: 100%;"></ngx-test-information>
 
             </div>
             <div class="dis_f_w first_third lattice_layout height_35">
-                <ngx-log-warm device='device_mts_01' style="display: flex;width: 100%;flex-wrap: wrap;"></ngx-log-warm>
+                <ngx-log-warm [device]='avl_deviceid' style="display: flex;width: 100%;flex-wrap: wrap;"></ngx-log-warm>
             </div>
         </div>
         <div class="col-md-4" style="padding: 0px 20px;">

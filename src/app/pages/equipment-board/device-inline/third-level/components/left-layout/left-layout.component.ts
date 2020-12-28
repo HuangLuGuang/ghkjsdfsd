@@ -12,23 +12,34 @@ export class LeftLayoutComponent implements OnInit {
   obejct = Object;
   tableHeader = {time:'时间',device:'设备',log:'日志'};
   tableBody = [
-    {time:'2020-10-11',device:'四立柱',log:'Not ready'},
-    {time:'2020-10-11',device:'四立柱',log:'Not ready'},
-    {time:'2020-10-11',device:'四立柱',log:'Not ready'},
-    {time:'2020-10-11',device:'四立柱',log:'Not ready'},
-    {time:'2020-10-11',device:'四立柱',log:'Not ready'},
-    {time:'2020-10-11',device:'四立柱',log:'Not ready'},
-    {time:'2020-10-11',device:'四立柱',log:'Not ready'},
-    {time:'2020-10-11',device:'四立柱',log:'Not ready'},
-    {time:'2020-10-11',device:'四立柱',log:'Not ready'},
-    {time:'2020-10-11',device:'四立柱',log:'Not ready'},
-    {time:'2020-10-11',device:'四立柱',log:'Not ready'},
+    // {time:'2020-10-11',device:'四立柱',log:'Not ready'},
+    // {time:'2020-10-11',device:'四立柱',log:'Not ready'},
+    // {time:'2020-10-11',device:'四立柱',log:'Not ready'},
+    // {time:'2020-10-11',device:'四立柱',log:'Not ready'},
+    // {time:'2020-10-11',device:'四立柱',log:'Not ready'},
+    // {time:'2020-10-11',device:'四立柱',log:'Not ready'},
+    // {time:'2020-10-11',device:'四立柱',log:'Not ready'},
+    // {time:'2020-10-11',device:'四立柱',log:'Not ready'},
+    // {time:'2020-10-11',device:'四立柱',log:'Not ready'},
+    // {time:'2020-10-11',device:'四立柱',log:'Not ready'},
+    // {time:'2020-10-11',device:'四立柱',log:'Not ready'},
   ]
+
+  fixed = ['log'];
 
   constructor() { }
 
   ngOnInit(): void {
-    
+    window.addEventListener('resize',this.resize);
+  }
+
+  resize=()=>{
+    ['left_chart_1','left_chart_2','left_chart_3'].forEach(f=>{
+      if(document.getElementById(f))
+        echarts.init(document.getElementById(f)).resize();
+    })
+    if(document.getElementById('left_chart_hour_year'))
+      echarts.init(document.getElementById('left_chart_hour_year')).resize();
   }
 
    //  running运行 placeon占位 stop等待 warning维护 
@@ -44,7 +55,7 @@ export class LeftLayoutComponent implements OnInit {
             ];
       let myChart = echarts.init(document.getElementById(id));
       if(myChart)equipment_four_road.create_device_circular(
-        {title:title,message:'',value:status},myChart);
+        {title:title,message:message,value:status},myChart);
     }
   }
 
@@ -84,6 +95,10 @@ export class LeftLayoutComponent implements OnInit {
     if(myChart)equipment_four_road.create_device_status(data_1,myChart,null,'工时年度统计');
     // equipment_four_road.create_device_status(data_1,myChart,null,this.language?"AnnualReportOfSafetyLamp":'安灯年度表');
 
+  }
+
+  ngOnDestroy(){
+    window.removeEventListener('resize',this.resize)
   }
 
 }

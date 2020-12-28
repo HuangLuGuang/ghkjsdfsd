@@ -15,7 +15,7 @@
 <!-- 设备-级报警概览 -->
 <div class="row" style="margin: 20px 0 0 0;">
     <div class="chunk one_alert">
-        <div class="part_title">设备-级报警概览</div>
+        <div class="part_title">设备一级报警概览</div>
         <div class="_table">
             <div class="table_head">
                 <div class="table_head_th">
@@ -24,11 +24,24 @@
                     </div>
                 </div>
             </div>
-            <div class="table_body">
-                <div class="table_body_th" *ngFor="let items of tableBody">
-                    <div class="table_body_tr" [ngStyle]="{width: '33%'}" *ngFor="let key of obejct.keys(tableHeader)">
-                        {{ items[key] }}
-                    </div>
+            <div class="table_body" style="display: flex;">
+                <div class="table_body_th_1">
+                    <ng-container *ngFor="let items of tableBody;">
+                        <ng-container *ngFor="let key of obejct.keys(tableHeader);let i = index">
+                            <div class="table_body_tr" [ngStyle]="{width: '50%'}" *ngIf="i < 2">
+                                {{ items[key] }}
+                            </div>
+                        </ng-container>
+                    </ng-container>
+                </div>
+                <div class="table_body_th_2">
+                    <ng-container *ngFor="let items of tableBody;">
+                        <ng-container *ngFor="let key of obejct.keys(tableHeader);let i = index">
+                            <div style="white-space: pre;height: 10%;display: inline-grid;" *ngIf="i == 2">
+                                {{ items[key] }}
+                            </div>
+                        </ng-container>
+                    </ng-container>
                 </div>
             </div>
         </div>

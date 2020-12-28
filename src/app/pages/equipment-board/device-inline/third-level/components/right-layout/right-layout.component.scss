@@ -49,9 +49,12 @@
                 justify-content: center;
                 align-items: center;
                 height: 100%;
-                overflow: hidden;
-                text-overflow: ellipsis;
+                /*设置不换行*/
                 white-space: nowrap;
+                /*设置隐藏*/
+                overflow: hidden;
+                /*设置隐藏部分为省略号*/
+                text-overflow: ellipsis;
             }
         }
     }
@@ -71,9 +74,12 @@
                 display: flex;
                 justify-content: center;
                 align-items: center;
+                /*设置不换行*/
+                // white-space: nowrap;
+                /*设置隐藏*/
                 overflow: hidden;
-                text-overflow: ellipsis;
-                white-space: nowrap;
+                /*设置隐藏部分为省略号*/
+                // text-overflow: ellipsis;
             }
         }
     }

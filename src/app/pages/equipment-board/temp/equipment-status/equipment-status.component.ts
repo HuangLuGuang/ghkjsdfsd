@@ -176,11 +176,12 @@ export class EquipmentStatusComponent implements OnInit {
     let percentage:any[] = [0,0,0,0,0,0,0,0,0,0,0,0,0];
     let j = 0;
     let month = ['1月','2月','3月','4月','5月','6月','7月','8月','9月','10月','11月','12月'];
+    let recordtime;
     //  running运行 placeon占位 stop等待 warning维护 
     this.subscribeList.andon_data_year = this.http.callRPC('device_andon_status_year','get_device_andon_status_year',{"deviceid":this.device,"newyearsday":new Date().getFullYear()+"-01-01"}).subscribe((f:any)=>{
       if(f.result.error || f.result.message[0].code == 0)return;
       f.result.message[0].message.forEach((el,i) => {
-        let recordtime = el.recordtime.split('-');
+        recordtime = el.recordtime.split('-');
         j = recordtime[recordtime.length-1]-1;
         arr[0][j]=el.running; 
         arr[2][j]=el.stop; 
@@ -204,11 +205,13 @@ export class EquipmentStatusComponent implements OnInit {
 
       // console.log(nowMonthData)
       //获取上月运行情况
-      let ListMonthData = f.result.message[0].message.find(g =>  {
-        ret=g.recordtime.split('-');
-        return  parseInt(ret[ret.length-1]) == i-1
-      });
-      this.initDeviceCircula({title:'安灯状态',message:'上个月',value:status},'device_circular_1',ListMonthData);
+      if( new Date().getMonth() != 0 ){
+        let ListMonthData = f.result.message[0].message.find(g =>  {
+          ret=g.recordtime.split('-');
+          return  parseInt(ret[ret.length-1]) == i-1
+        });
+        this.initDeviceCircula({title:'安灯状态',message:'上个月',value:status},'device_circular_1',ListMonthData);
+      }
       // this.initDeviceCircula({title:this.language?'SafetyLampStatus':'安灯状态',message:this.language?'LastMonth':'上个月',value:status},'device_circular_1',ListMonthData);
       
       // console.log(ListMonthData)
@@ -259,6 +262,7 @@ export class EquipmentStatusComponent implements OnInit {
     }, {
         value: 0
     }];
+    let ret;
     this.subscribeList.andon_data_year = this.http.callRPC('device_andon_status_year','get_device_andon_status_year',{"deviceid":this.device,"newyearsday":new Date().getFullYear()-1+"-01-01"}).subscribe((f:any)=>{
       if(f.result.error || f.result.message[0].code == 0)return;
       // console.log(f.result.message[0].message)
@@ -274,6 +278,14 @@ export class EquipmentStatusComponent implements OnInit {
           {title:'上年均值',message:'',value:status},myChart_3);
         // equipment_four_road.create_device_circular(
         //   {title:this.language?'LastYearAverage':'上年均值',message:'',value:status},myChart_3);
+      }
+
+      if(new Date().getMonth() == 0){
+        let ListMonthData = f.result.message[0].message.find(g =>  {
+          ret=g.recordtime.split('-');
+          return  parseInt(ret[ret.length-1]) == 12
+        });
+        this.initDeviceCircula({title:'安灯状态',message:'上个月',value:status},'device_circular_1',ListMonthData);
       }
     })
   }
