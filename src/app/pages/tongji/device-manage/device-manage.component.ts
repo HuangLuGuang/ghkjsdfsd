@@ -213,7 +213,7 @@ export class DeviceManageComponent implements OnInit {
                 default:
                   var err_date = status["message"]
                   this.RecordOperation("删除(eim台账)", 0, String(err_date))
-                  this.danger();
+                  this.deldanger();
                   break;
               }
               throw 'error, 删除失败！'
@@ -413,11 +413,11 @@ export class DeviceManageComponent implements OnInit {
 
   // 将sheet_json转换为smart-table 数据格式！ 
   analysis_sheet_to_json_to_ng2(importdata){
-    // console.log("这是导入的Excel的原始数据！", importdata, "\n")
+    console.log("这是导入的Excel的原始数据！", importdata, "\n")
     var rowData_list = importdata.slice(1,importdata.length);
     var excel_title = importdata.slice(0,1)[0];
-    // console.log("rowData_list----excel 除了表头的数据>", rowData_list)
-    // console.log("excel_title---- excel的表头>", excel_title)
+    console.log("rowData_list----excel 除了表头的数据>", rowData_list)
+    console.log("excel_title---- excel的表头>", excel_title)
     var ag_Grid_columns = this.tableDatas.columnDefs.slice(0, excel_title.length);
     // console.log("ag_Grid_columns--------->ag_Grid_columns 的表头", ag_Grid_columns, "\n")
 
@@ -458,7 +458,7 @@ export class DeviceManageComponent implements OnInit {
       }else{
         // 插入数据库之前 处理数据
         var datas = this.option_table_before(rowData)
-        // console.log("插入数据库之前 处理数据---->", datas);
+        console.log("插入数据库之前 处理数据---->", datas);
         // 将导入的数据存入数据库
         this.dev_insert_device(datas).subscribe(result=>{
           if (result){
@@ -520,6 +520,7 @@ export class DeviceManageComponent implements OnInit {
 
   // 在展示表格前，处理一下数据
   show_table_before(datas){
+    // console.log("在展示表格前，处理一下数据",datas)
     if (datas.length >0){
       var after_datas: DeviceData[] =[];
       var type;
@@ -569,6 +570,7 @@ export class DeviceManageComponent implements OnInit {
         }
         after_datas.push(after_data)
       });
+      // console.log("在展示表格前，处理一下数据after_datas",after_datas)
       return after_datas
 
     }
@@ -577,8 +579,10 @@ export class DeviceManageComponent implements OnInit {
     return datas
   };
 
+
   // 编辑修改前，处理一下选中的table数据
   option_table_before(datas){
+    // console.log("编辑修改前，处理一下选中的table数据---------------",datas)
     var after_datas: OptionDeviceData[] =[];
     var type;
     var devicetype;
@@ -608,24 +612,24 @@ export class DeviceManageComponent implements OnInit {
       }
 
       var after_data: OptionDeviceData = {
-        id: data.id,
+        id:data.id,
         deviceno:data.deviceno,
         devicename:data.devicename,
         type:type,
-        deviceid:data.deviceid,
+        deviceid:String(data.deviceid),
         active:data.active === '是'||data.active == 1? 1:0,
         location:data.location,
         group:data.group,
         belonged:data.belonged,
         supplier:data.supplier,
-        linklevel: data.linklevel,
+        linklevel:data.linklevel,
         devicetype:devicetype,
         createdon:data.createdon,
         createdby:data.createdby,
-        lastupdateon: data.lastupdateon,
-        lastupdatedby: data.lastupdatedby,
+        lastupdateon:data.lastupdateon,
+        lastupdatedby:data.lastupdatedby,
         
-        groupsid: data.groupsid
+        groupsid:data.groupsid
       }
       after_datas.push(after_data)
     });
@@ -710,7 +714,7 @@ export class DeviceManageComponent implements OnInit {
         verify_err.push({err: verify_linklevel})
       }
       // 验证！ devicetype
-      var verify_devicetype= this.verify_linklevel(devicetype);
+      var verify_devicetype= this.verify_devicetype(devicetype);
       if (verify_devicetype != 1){
         verify_err.push({err: verify_devicetype})
       }
@@ -739,7 +743,9 @@ export class DeviceManageComponent implements OnInit {
     if(sql){
       return "防止SQL注入，请不要输入关于sql语句的特殊字符！"
     }
+  
     if (!str){
+      console.log("==============>",data, data.length)
       return title + "不能有特殊字符！"
     }
     return 1
@@ -822,8 +828,8 @@ export class DeviceManageComponent implements OnInit {
     if (verify_sql_str != 1){
       return verify_sql_str
     }
-    if (group.length > 50){
-      return "科室/功能组最大长度不超过50！"
+    if (group.length > 200){
+      return "科室/功能组最大长度不超过200！"
     }
     return 1 // 返回1，表示 通过验证！
   }
@@ -862,8 +868,9 @@ export class DeviceManageComponent implements OnInit {
     if (verify_sql_str != 1){
       return verify_sql_str
     }
-    if (linklevel.length > 50){
-      return "设备ABC分类最大长度不超过50！"
+    if (linklevel.length > 1){
+      console.log("linklevel:\n\n\n",linklevel)
+      return "设备ABC分类最大长度不超过1！"
     }
     if (! new RegExp(Device["linklevel"]).test(linklevel)){
       return "设备ABC分类是A,B,C"
@@ -879,11 +886,11 @@ export class DeviceManageComponent implements OnInit {
       return verify_sql_str
     }
     if (devicetype.length > 4){
-      return "设备统计归类最大长度不超过50！"
+      return "设备统计归类最大长度不超过4！"
     }
-    if (! new RegExp(Device["devicetype"]).test(devicetype)){
-      return "设备统计归类是A,B,C"
-    }
+    // if (! new RegExp(Device["devicetype"]).test(devicetype)){
+    //   return "设备统计归类是1,2,3,4"
+    // }
     return 1 // 返回1，表示 通过验证！
   }
 
@@ -905,17 +912,17 @@ export class DeviceManageComponent implements OnInit {
 
   // 验证 lastupdatedby 更新人
   verify_lastupdatedby(lastupdatedby){
-    console.log("lastupdatedby",lastupdatedby)
+    // console.log("lastupdatedby",lastupdatedby)
     // sql注入和特殊字符 special_str
-    var verify_sql_str = this.verify_sql_str(lastupdatedby, '更新人');
-    if (verify_sql_str != 1){
-      return verify_sql_str
-    }
-    if (lastupdatedby !== undefined){
-      if (lastupdatedby.length > 50){
-        return "更新人最大长度不超过50！"
-      }
-    }
+    // var verify_sql_str = this.verify_sql_str(lastupdatedby, '更新人');
+    // if (verify_sql_str != 1){
+    //   return verify_sql_str
+    // }
+    // if (lastupdatedby !== undefined){
+    //   if (lastupdatedby.length > 50){
+    //     return "更新人最大长度不超过50！"
+    //   }
+    // }
     return 1 // 返回1，表示 通过验证！
   }
 
@@ -959,7 +966,7 @@ export class DeviceManageComponent implements OnInit {
       { field: 'devicename', headerName: '设备名称', fullWidth: true, minWidth: 50,resizable: true,},
       { field: 'type', headerName: '设备类型', fullWidth: true, width: 130,resizable: true,},
       { field: 'deviceid', headerName: '设备ID', resizable: true, width: 200}, // 自定义设备编号！
-      { field: 'active', headerName: '是否启用', resizable: true, cellRendererFramework: TranActiveComponent,width: 50},
+      { field: 'active', headerName: '是否启用', resizable: true, cellRendererFramework: TranActiveComponent,width: 150},
       { field: 'location', headerName: '存放地点', resizable: true, width: 130},
       { field: 'group', headerName: '科室/功能组', resizable: true, width: 330},
       { field: 'belonged', headerName: '归属人', resizable: true, width: 130},
@@ -1187,7 +1194,7 @@ interface OptionDeviceData {
   deviceno:string,
   devicename:string,
   type: number,
-  deviceid:number, 
+  deviceid:string, 
   active:number,
   location:string,
   group:string,

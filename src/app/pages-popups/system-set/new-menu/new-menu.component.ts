@@ -533,7 +533,9 @@ export class NewMenuComponent implements OnInit {
       var item: ICON = { icon: "", title: ""};
       item["icon"] = m["icon"];
       item["title"] = m["title"];
-      item_lis.push(item)
+      if(item["icon"]){
+        item_lis.push(item)
+      }
     });
     this.options = item_lis;
 

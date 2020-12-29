@@ -3,6 +3,8 @@
 // themes - our custom or/and out of the box themes
 @import 'themes';
 
+@import '~nebular-icons/css/nebular-icons.css'; // <- Add that icon
+
 // framework component themes (styles tied to theme variables)
 @import '~@nebular/theme/styles/globals';
 @import '~@nebular/auth/styles/all';

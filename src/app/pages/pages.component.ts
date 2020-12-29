@@ -80,8 +80,9 @@ export class PagesComponent implements OnInit {
         });
       };
       // 目录跳转
-      if(res.item["link"] !== "" && res.item["type"] === 0 && res.item["link"].search("deviceinline") !== -1){
-        console.error("===目录跳转=========res=======",res)
+      if(res.item["link"] !== "" && res.item["type"] === 0 && res.item["link"].search("equipment") !== -1){
+        console.error("===目录跳转=========res=======",res);
+        
         this.router.navigate([res.item["link"]])
       }
     });
@@ -150,7 +151,7 @@ export class PagesComponent implements OnInit {
 
 
   dataTranslation(baseMenu) {
-    // console.log("得到sysmenu", baseMenu)
+    console.log("得到sysmenu", baseMenu)
     // 生成父子数据结构
     let map = {};
     baseMenu.forEach(item => {
@@ -165,26 +166,12 @@ export class PagesComponent implements OnInit {
       } else {
         nodeData.push(item);
       }
-
-      // if (parent) {
-      //   if (item.type != 2){ // type = 2表明是button而不是
-      //     (parent.children || (parent.children = [])).push(item);
-      //   }else{
-      //     // 得到登录角色对用的按钮
-      //   }
-      // } else {
-      //   console.error(item);
-      //   if(item.type != 2){
-      //     nodeData.push(item);
-      //   }
-      // }
     });
     return nodeData;
   }
 
   // 得到sysmenu
   menuTranslation(baseMenu) {
-    
     // 生成父子数据结构
     let nodeData = [];
     baseMenu.forEach(item => {
@@ -194,7 +181,7 @@ export class PagesComponent implements OnInit {
       map["active"] = item.active;
       map["orderindex"]=item.orderindex;
       map["title"] = item.title;
-      map["icon"] = item.icon;
+      map["icon"] = item.icon?item.icon:null;
       map["type"] = item.type;
       map["textid"] = item.textid;
       map["permission"] = item.permission === null ? null: item.permission;

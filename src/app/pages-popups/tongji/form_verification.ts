@@ -29,7 +29,7 @@ export const special_sql = {
 
 export const Device =  {
     deviceno: "[\u4e00-\u9fa5\\s·]{1,100}$",  // 数字、字母、下划线、短线、() 设备编号
-    devicename: "^[a-zA-Z0-9_\u4e00-\u9fa5\\s·]{1,20}$",       // 可中文
+    devicename: "^[a-zA-Z0-9_\u4e00-\u9fa5\\s·#m³,]{1,50}$",       // 可中文
 
     
     supplier: "^[a-zA-Z_\u4e00-\u9fa5\\s·]{1,50}$",       // 可中文
@@ -45,6 +45,6 @@ export const Device =  {
 
     special_sql: special_sql, // sql 注入
 
-    linklevel: "^[A-C]"
+    linklevel: "^[a-cA-C]{1}$"
 
 }
