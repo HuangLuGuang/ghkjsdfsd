@@ -79,6 +79,12 @@
                 justify-content: center;
                 align-items: center;
                 height: 100%;
+                /*设置不换行*/
+                white-space: nowrap;
+                /*设置隐藏*/
+                overflow: hidden;
+                /*设置隐藏部分为省略号*/
+                text-overflow: ellipsis;
             }
         }
     }
@@ -90,17 +96,45 @@
         border-width: 0 1px 1px 1px;
         border-color: rgba(100, 183, 211, 1);
         border-style: solid;
-        .table_body_th {
+    }
+    .table_center {
+        position: absolute;
+        height: 90%;
+        width: 33%;
+    }
+    .table_body_th_1 {
+        height: 100%;
+        // margin-bottom: 2%;
+        width: 66%;
+        // display: flex;
+        // flex-wrap: wrap;
+        .table_body_tr {
             height: 10%;
-            width: 100%;
-            display: flex;
-            .table_body_tr {
-                display: flex;
-                justify-content: center;
-                align-items: center;
-            }
+            display: inline-grid;
+            overflow: auto;
+            /*设置不换行*/
+            white-space: nowrap;
+            /*设置隐藏*/
+            // overflow: hidden;
+            /*设置隐藏部分为省略号*/
+            // text-overflow: ellipsis;
         }
     }
+    .table_body_th_2 {
+        height: 100%;
+        // margin-bottom: 2%;
+        width: 33%;
+        overflow: auto;
+        // display: flex;
+        // flex-wrap: wrap;
+    }
+}
+
+.table_body_th_2::-webkit-scrollbar {
+    /*滚动条整体样式*/
+    width: 1px;
+    /*高宽分别对应横竖滚动条的尺寸*/
+    height: 5px;
 }
 
 .table_body::-webkit-scrollbar {
@@ -110,6 +144,7 @@
     height: 1px;
 }
 
+.table_body_th_2::-webkit-scrollbar-thumb,
 .table_body::-webkit-scrollbar-thumb {
     /*滚动条里面小方块*/
     border-radius: 10px;
@@ -117,6 +152,7 @@
     background: #535353;
 }
 
+.table_body_th_2::-webkit-scrollbar-track,
 .table_body::-webkit-scrollbar-track {
     /*滚动条里面轨道*/
     box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.2);

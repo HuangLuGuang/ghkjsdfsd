@@ -7,24 +7,30 @@ import { Component, OnInit } from '@angular/core';
 })
 export class RightLayoutComponent implements OnInit {
   obejct = Object;
-  tableHeader = {device:'设备编号',experiment:'实验编号',speed:'试验进度'};
+  tableHeader = {device:'设备编号',experiment:'实验编号',speed:'.mon进度'};
   tableBody = [
-    {device:'四立柱',experiment:'WT0001-202011',speed:20},
-    {device:'四立柱',experiment:'WT0001-202011',speed:20},
-    {device:'四立柱',experiment:'WT0001-202011',speed:20},
-    {device:'四立柱',experiment:'WT0001-202011',speed:20},
-    {device:'四立柱',experiment:'WT0001-202011',speed:20},
-    {device:'四立柱',experiment:'WT0001-202011',speed:20},
-    {device:'四立柱',experiment:'WT0001-202011',speed:20},
-    {device:'四立柱',experiment:'WT0001-202011',speed:20},
-    {device:'四立柱',experiment:'WT0001-202011',speed:20},
-    {device:'四立柱',experiment:'WT0001-202011',speed:20},
-    {device:'四立柱',experiment:'WT0001-202011',speed:20},
+    // {device:'四立柱',experiment:'WT0001-202011',speed:20},
+    // {device:'四立柱',experiment:'WT0001-202011',speed:20},
+    // {device:'四立柱',experiment:'WT0001-202011',speed:20},
+    // {device:'四立柱',experiment:'WT0001-202011',speed:20},
+    // {device:'四立柱',experiment:'WT0001-202011',speed:20},
+    // {device:'四立柱',experiment:'WT0001-202011',speed:20},
+    // {device:'四立柱',experiment:'WT0001-202011',speed:20},
+    // {device:'四立柱',experiment:'WT0001-202011',speed:20},
+    // {device:'四立柱',experiment:'WT0001-202011',speed:20},
+    // {device:'四立柱',experiment:'WT0001-202011',speed:20},
+    // {device:'四立柱',experiment:'WT0001-202011',speed:20},
   ]
   constructor() { }
 
   ngOnInit(): void {
     // this.initChart();
+    window.addEventListener('resize',this.resize);
+  }
+
+  resize = ()=>{
+    if(document.getElementById('right_chart_1'))
+      echarts.init(document.getElementById('right_chart_1')).resize();
   }
 
   initChart(){
@@ -125,6 +131,10 @@ export class RightLayoutComponent implements OnInit {
     };
     chart.setOption(option);
     chart.resize();
+  }
+
+  ngOnDestroy(){
+    window.removeEventListener('resize',this.resize)
   }
 
 }

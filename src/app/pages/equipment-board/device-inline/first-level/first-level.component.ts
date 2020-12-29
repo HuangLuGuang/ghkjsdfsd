@@ -56,7 +56,8 @@ export class FirstLevelComponent implements OnInit {
 
   // 全屏切换
   showAllTemplate(){
-    const board = document.getElementById("rtmv2");
+    var board = document.getElementsByTagName('ngx-equipment-board')[0];
+    // const board = document.getElementById("rtmv2");
     const sf = <Screenfull>screenfull;
     if (sf.isEnabled){ // sf.isEnabled 布尔值，判断是否允许进入全屏！
       this.is_not_fullscreen = sf.isFullscreen;

@@ -11,6 +11,7 @@ import { StructuralLaboratoryComponent } from './laboratory/structural-laborator
 import { NzProgressModule } from 'ng-zorro-antd';
 import { EnvironmentLaboratoryComponent } from './laboratory/environment-laboratory/environment-laboratory.component';
 import { EnergyLaboratoryComponent } from './laboratory/energy-laboratory/energy-laboratory.component';
+import { ThirdLevelService } from './laboratory/third-level.service';
 
 
 @NgModule({
@@ -21,6 +22,7 @@ import { EnergyLaboratoryComponent } from './laboratory/energy-laboratory/energy
     NbIconModule,
     ComponentTModule,
     NzProgressModule
-  ]
+  ],
+  providers:[ThirdLevelService]
 })
 export class ThirdLevelModule { }

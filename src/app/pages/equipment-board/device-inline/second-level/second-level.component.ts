@@ -9,6 +9,7 @@ let second_level = require('../../../../../assets/pages/device-inline/js/second-
 import * as screenfull from 'screenfull';
 import { Screenfull } from 'screenfull';
 import { LayoutService } from '../../../../@core/utils';
+import { Router } from '@angular/router';
 
 declare let $;
 
@@ -29,6 +30,7 @@ export class SecondLevelComponent implements OnInit {
   constructor(
     private localstorage:LocalStorageService,
     private layoutService: LayoutService,
+    private router:Router
   ) {
     // 得到从first-leve级传递的数据
     this.first_level = this.localstorage.get("first_level");
@@ -64,7 +66,19 @@ export class SecondLevelComponent implements OnInit {
 
   // 跳转到具体的结构，
   goto_test_room(testname){
-    console.log("跳转到具体的结构shiyanshi:", testname)
+    console.log("跳转到具体的结构试验室:", testname)
+    switch(testname){
+      case 'newpower':
+        this.router.navigate(['pages/equipment/third-level/energy']);
+        break;
+      case 'environment':
+        this.router.navigate(['pages/equipment/third-level/environment']);
+        break;
+      case 'structural':
+        this.router.navigate(['pages/equipment/third-level/structural']);
+        break;
+    }
+    
   }
 
 

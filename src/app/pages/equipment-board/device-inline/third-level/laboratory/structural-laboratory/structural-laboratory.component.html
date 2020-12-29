@@ -23,8 +23,8 @@
                 <div *ngIf="map.type == 'oil'" class="oil">
                     <div *ngFor="let item of map.open_close;let i = index" style="width: 18%;margin-right: 2%;">
                         <div>{{ i+1 }}#</div>
-                        <div style="color: black;height: 30%;display: flex;align-items: center;justify-content: center;" [ngStyle]="{background: item == 1?'#00FF00':'#C0C0C0'}">
-                            {{ item == 1?'运行':'停止' }}
+                        <div style="color: black;height: 30%;display: flex;align-items: center;justify-content: center;" [ngStyle]="{background: item == 1?'#00FF00':(item == 2?'#006ced':(item == 3?'#d68f47':'#d71345'))}">
+                            {{ item == 1?'运行':(item == 2?'空闲':(item == 3?'占位':'维护')) }}
                         </div>
                     </div>
                 </div>
