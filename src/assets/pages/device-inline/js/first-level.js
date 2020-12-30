@@ -157,6 +157,7 @@ let first_level = {
 
         var option_chian_map = {
             // backgroundColor: '#00294E',
+            // backgroundColor: '#1CCCFF',
             geo: {
                 map: 'china',
                 aspectScale: 0.85,
@@ -165,27 +166,27 @@ let first_level = {
                 zoom:1.4,
                 itemStyle: {
                     normal: {
-                        shadowColor: '#276fce',
+                        // shadowColor: '#276fce',
+                        shadowColor: '#351111',
                         shadowOffsetX: 0,
                         shadowOffsetY: 15,
                         opacity: 0.5,
+                        color: '#031525',
                     },
                     emphasis: {
                         areaColor: '#276fce',
-        
                     }
                 },
                 regions: [{
                     name: '南海诸岛',
                     itemStyle: {
                         areaColor: 'rgba(0, 10, 52, 1)',
-        
                         borderColor: 'rgba(0, 10, 52, 1)',
                         normal: {
                             opacity: 0,
                             label: {
                                 show: false,
-                                color: "#009cc9",
+                                color: '#031525',
                             }
                         },
         
@@ -193,7 +194,8 @@ let first_level = {
                     },
                     label: {
                         show: false,
-                        color: '#FFFFFF',
+                        color: '#031525',
+                        // color: '#FFFFFF',
                         fontSize: 12,
                     },
         
@@ -218,14 +220,15 @@ let first_level = {
                     },
                     itemStyle: {
                         normal: {
-                            areaColor: '#0c274b',
-                            borderColor: '#1cccff',
+                            // areaColor: '#0c274b',
+                            areaColor: '#1e4f6c',
+                            borderColor: '#888a8b',
                             borderWidth: 1.5
-        
-        
                         },
                         emphasis: {
-                            areaColor: '#02102b',
+                            // areaColor: '#d16d27',
+                            areaColor: '#307ba8',
+
                             label: {
                                 color: "#fff"
                             }
@@ -235,28 +238,7 @@ let first_level = {
         
         
                 },
-                { //首都星图标
-                    name: '首都',
-                    type: 'scatter',
-                    coordinateSystem: 'geo',
-                    data: [{
-                        name: '首都',
-                        value: [116.24, 41.55, 100],
-        
-                    }, ],
-                    // symbol: iconRQ,
-                    symbolSize: 20,
-                    label: {
-                        normal: {
-                            show: false,
-        
-                        },
-                        emphasis: {
-                            show: false
-                        }
-                    },
-        
-                },
+                
                 // 区域散点图
                 {
                     type: 'effectScatter',

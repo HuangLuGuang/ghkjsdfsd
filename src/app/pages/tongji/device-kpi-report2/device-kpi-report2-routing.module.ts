@@ -14,7 +14,7 @@ const routes: Routes = [
     component: DeviceKpiReport2Component,
     children:[
       { path: 'kpitable', component: KpiTableComponent },
-      { path: 'kpidetail', component: KpiDetailComponent },
+      { path: 'kpidetail/:name', component: KpiDetailComponent },
    
       { path: '', redirectTo: 'kpitable', pathMatch: 'full' },
     ]

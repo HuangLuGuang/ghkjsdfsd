@@ -4,8 +4,8 @@
     </nb-card-header>
     <!-- <nb-card-body style="background-color: #f4f4f4;"> -->
     <nb-card-body style="background-color: #ffffff;">
-          <nz-tabset [nzType]="'card'">
-            <nz-tab *ngFor="let item of tabs_links; let i = index" [nzTitle]="item.title" (nzSelect)="toggle_sum(item.toggle)">
+        <nz-tabset [nzType]="'card'" [nzSelectedIndex]='index'>
+            <nz-tab *ngFor="let item of tabs_links; " [nzTitle]="item.title" (nzSelect)="toggle_sum(item.toggle)">
             </nz-tab>
         </nz-tabset>
         <router-outlet></router-outlet>

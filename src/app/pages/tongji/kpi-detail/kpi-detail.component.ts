@@ -4,6 +4,7 @@ import { Observable } from 'rxjs';
 import { LayoutService } from '../../../@core/utils';
 import { HttpserviceService } from '../../../services/http/httpservice.service';
 
+import { ActivatedRoute } from '@angular/router';
 
 let kpi_detail = require("../../../../assets/pages/system-set/js/kpi_detail")
 @Component({
@@ -13,45 +14,94 @@ let kpi_detail = require("../../../../assets/pages/system-set/js/kpi_detail")
 })
 export class KpiDetailComponent implements OnInit {
 
+  type; // 判断是那个组件的kpi： device 设备数据汇总、group 功能组数据汇总、department 部门数据汇总
+
   // 得到出入的数据 kpi_for_detail
   kpi_for_detail;
 
   // 左侧函数
-  left_method1 = "dev_get_device_columnar_kpi"; // 工时报表详细柱状图KPI
-  left_method2 = "dev_get_device_month_kpi"; // 工时报表详细月份KPI
+  left_method1 = "dev_get_device_columnar_kpi"; // 设备数据汇总详细柱状图KPI
+  left_method2 = "dev_get_device_month_kpi"; // 设备数据汇总详细月份KPI
 
   // 右侧函数
-  right_method1 = "dev_get_device_pie_kpi";  // 工时报表详细饼图KPI
-  right_method2 = "dev_get_device_year_kpi"; // 工时报表详细年份KPI
+  right_method1 = "dev_get_device_pie_kpi";  // 设备数据汇总详细饼图KPI
+  right_method2 = "dev_get_device_year_kpi"; // 设备数据汇总详细年份KPI
+
+  // device 设备数据汇总、group 功能组数据汇总、department 部门数据汇总 
+  // 需要的mothed和对应的table的url 行数据！
+  mothed_table_url = {
+    device: {
+      url: "/pages/tongji/device_hour_report/deivce_data_sum",
+      left_method1: "dev_get_device_columnar_kpi",// 设备数据汇总详细柱状图KPI
+      left_method2: "dev_get_device_month_kpi",// 设备数据汇总详细月份KPI
+      right_method1: "dev_get_device_pie_kpi", // 设备数据汇总详细饼图KPI
+      right_method2: "dev_get_device_year_kpi", // 设备数据汇总详细年份KPI
+      kpi_for_detail: JSON.parse(localStorage.getItem("device_hour_report_kpi_for_detail"))
+    },
+    group: {
+      url: "/pages/tongji/device_hour_report/group_data_sum",
+      left_method1: "dev_get_device_columnar_kpi",// 功能组数据汇总详细柱状图KPI
+      left_method2: "dev_get_device_month_kpi",// 功能组数据汇总详细月份KPI
+      right_method1: "dev_get_device_pie_kpi", // 功能组数据汇总详细饼图KPI
+      right_method2: "dev_get_device_year_kpi", // 功能组数据汇总详细年份KPI
+      kpi_for_detail: JSON.parse(localStorage.getItem("device_hour_report_kpi_for_detail"))
+    },
+  }
+
+  table_url = "";
 
   // 参数
   columns = {}
 
- // plv8请求
- querst(table: string, method: string, colmun: Object){
-  return new Observable ((observe)=>{
-    this.http.callRPC(table, method, colmun).subscribe((result)=>{
-      observe.next(result);
-    })
+  // plv8请求
+  querst(table: string, method: string, colmun: Object){
+    return new Observable ((observe)=>{
+      this.http.callRPC(table, method, colmun).subscribe((result)=>{
+        observe.next(result);
+      })
 
-  })
-}
+    })
+  }
 
 
   constructor(private http: HttpserviceService, private router: Router,
-    private layoutService: LayoutService
+    private layoutService: LayoutService,private activerouter: ActivatedRoute
   ) {
     // 会话过期
     localStorage.removeItem("alert401flag");
-    this.kpi_for_detail = JSON.parse(localStorage.getItem("device_hour_kpi_for_detail"));
-   }
+    this.kpi_for_detail = JSON.parse(localStorage.getItem("device_hour_report_kpi_for_detail"));
+  
+    // 得到路由参数！
+    this.activerouter.queryParamMap.subscribe(res=>{
+      this.type = res.get("name")
+    });
+  }
 
   ngOnInit(): void {
+    if (this.type === 'device'){
+      this.table_url = this.mothed_table_url.device.url;
+      var kpi_for_detail = this.mothed_table_url.device.kpi_for_detail;
+      var columns = {
+        start: kpi_for_detail["starttime"],
+        end: kpi_for_detail["endtime"],
+        deviceid: kpi_for_detail["deviceid"],
+      }
+      // 这是 左侧第一个柱状图
+      this.init_left_one(this.mothed_table_url.device.left_method1,columns);
+      // 这是 右侧第一个饼图 right-one
+      this.init_right_ong(this.mothed_table_url.device.left_method1,columns);
+      // 这是左侧第二个饼图 left_two
+      this.init_left_two(this.mothed_table_url.device.left_method1,columns);
+      // 这是 右侧第二个 柱状图 right-two
+      this.init_right_two(this.mothed_table_url.device.left_method1,columns);
+
+    }
+
     console.log("kpi_detail----", this.kpi_for_detail);
 
-    this.columns["start"] = this.kpi_for_detail["starttime"]
-    this.columns["end"] = this.kpi_for_detail["endtime"]
-    this.columns["deviceid"] = this.kpi_for_detail["deviceid"]
+    // this.columns["start"] = this.kpi_for_detail["starttime"]
+    // this.columns["end"] = this.kpi_for_detail["endtime"]
+    // this.columns["deviceid"] = this.kpi_for_detail["deviceid"]
 
     this.layoutService.onInitLayoutSize().subscribe(f=>{
       let left_one = document.querySelector('.left-one');
@@ -64,37 +114,34 @@ export class KpiDetailComponent implements OnInit {
       if(right_two) echarts.init(right_two).resize();
     })
 
-    // 这是 左侧第一个柱状图
-    this.init_left_one();
-      
-    // 这是 右侧第一个饼图 right-one
-    this.init_right_ong();
-
-    
-    // 这是左侧第二个饼图 left_two
-    this.init_left_two();
-
-    // 这是 右侧第二个 柱状图 right-two
-    this.init_right_two();
-
-    this.listen_windows_resize();
+    // // 这是 左侧第一个柱状图
+    // this.init_left_one();
+    // // 这是 右侧第一个饼图 right-one
+    // this.init_right_ong();
+    // // 这是左侧第二个饼图 left_two
+    // this.init_left_two();
+    // // 这是 右侧第二个 柱状图 right-two
+    // this.init_right_two();
+    // this.listen_windows_resize();
 
   }
 
   // 销毁组件时，删除 kpi_for_detail
   ngOnDestroy(){
-    localStorage.removeItem("device_hour_kpi_for_detail")
+    localStorage.removeItem("device_hour_report_kpi_for_detail")
   }
 
   // kpi报表
   kpireport(){
-    this.router.navigate(['/pages/tongji/device_hour_report'])
+    // this.router.navigate(['/pages/tongji/device_hour_report'])
+    this.router.navigate([this.table_url])
   }
   
   // 初始化 左侧第一个echart设备时间统计
-  init_left_one(){
+  init_left_one(left_method1, columns){
     // 得到数据
-    this.querst("", this.left_method1, this.columns).subscribe(res=>{
+    // this.querst("", this.left_method1, this.columns).subscribe(res=>{
+    this.querst("", left_method1, columns).subscribe(res=>{
       // 得到 x 轴！
       var resdatas = res['result']['message'][0];
       var xData = [];
@@ -126,9 +173,10 @@ export class KpiDetailComponent implements OnInit {
 
   
   // 初始化右侧 第一个 echart 百分比
-  init_right_ong(){
+  init_right_ong(right_method1, columns){
     // 得到数据
-    this.querst("", this.right_method1, this.columns).subscribe(res=>{
+    // this.querst("", this.right_method1, this.columns).subscribe(res=>{
+    this.querst("", right_method1, columns).subscribe(res=>{
       // 得到 x 轴！
       var resdatas = res['result']['message'][0][0];
       var afterdatas = [];
@@ -160,9 +208,10 @@ export class KpiDetailComponent implements OnInit {
   }
 
   // 初始化左侧 第二个 echart 月份数据
-  init_left_two(){
+  init_left_two(left_method2, columns){
     // 得到数据
-    this.querst("", this.left_method2, this.columns).subscribe(res=>{
+    // this.querst("", this.left_method2, this.columns).subscribe(res=>{
+    this.querst("", left_method2, columns).subscribe(res=>{
       // 得到 x 轴！
       var resdatas = res['result']['message'][0];
       var afterdatas = {};
@@ -182,9 +231,10 @@ export class KpiDetailComponent implements OnInit {
 
   
   // 初始化右侧 第二个 echart 年份数据
-  init_right_two(){
+  init_right_two(right_method2, columns){
     // 得到数据
-    this.querst("", this.right_method2, this.columns).subscribe(res=>{
+    // this.querst("", this.right_method2, this.columns).subscribe(res=>{
+    this.querst("", right_method2, columns).subscribe(res=>{
       // 得到 x 轴！
       var resdatas = res['result']['message'][0];
       var afterdatas = {};

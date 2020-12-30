@@ -3,6 +3,7 @@ import { DatePipe } from '@angular/common';
 import { UserInfoService } from '../../../../services/user-info/user-info.service';
 import { PublicmethodService } from '../../../../services/publicmethod/publicmethod.service';
 import { HttpserviceService } from '../../../../services/http/httpservice.service';
+import { ActionComponent } from '../action/action.component';
 @Component({
   selector: 'ngx-group-data-sum',
   templateUrl: './group-data-sum.component.html',
@@ -41,7 +42,7 @@ export class GroupDataSumComponent implements OnInit {
       { field: 'rate', headerName: '开动率(%)', resizable: true, fullWidth: true,width: 130,},
       { field: 'starttime', headerName: '开始时间', resizable: true, fullWidth: true,width: 130,},
       { field: 'endtime', headerName: '结束时间', resizable: true, fullWidth: true,minWidth: 10,},
-      {field: 'option', headerName: '详情', resizable: true, fullWidth: true,width: 100, pinned: 'right',}
+      {field: 'option', headerName: '详情', resizable: true, fullWidth: true,width: 100, pinned: 'right',cellRendererFramework: ActionComponent}
 
     ],
     rowData: [ // data
@@ -222,6 +223,7 @@ export class GroupDataSumComponent implements OnInit {
         // 发布组件，编辑用户的组件
         var message = res["result"]["message"][0]["message"];
         this.tableDatas.PageSize = PageSize;
+        this.add_detail_kpi(message);
         this.gridData.push(...message)
         this.tableDatas.rowData = this.gridData;
         var totalpagenumbers = get_employee_limit['numbers']? get_employee_limit['numbers'][0]['numbers']: '未得到总条数';
@@ -234,6 +236,15 @@ export class GroupDataSumComponent implements OnInit {
         // this.RecordOperation('查看', 0,  "设备/工时报表");
       }
     })
+  }
+
+  // 添加详情link
+  add_detail_kpi(datas:any[]){
+    var option = '/pages/tongji/device_hour_report/kpidetail';
+    datas.forEach(data=>{
+      data["option"] =  option
+    })
+    // 需要将 startime、endtime
   }
 
   // nzpageindexchange 页码改变的回调

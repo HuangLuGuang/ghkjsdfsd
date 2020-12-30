@@ -32,11 +32,7 @@ const routes: Routes = [{
       .then(m => m.EquipmentBoardModule),
     },
     // 设备在线
-    {
-      path: 'deviceinline',
-      loadChildren: () => import('./device-inline/device-inline-routing.module')
-        .then(m => m.DeviceInlineRoutingModule),
-    },
+    
     // 统计分析
     {
       path: 'tongji',

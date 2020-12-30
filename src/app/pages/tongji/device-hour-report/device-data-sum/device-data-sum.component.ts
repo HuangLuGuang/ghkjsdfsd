@@ -282,7 +282,7 @@ export class DeviceDataSumComponent implements OnInit {
   // 添加详情link
   add_detail_kpi(datas:any[]){
     // var option = '/pages/tongji/deviceKpiReport/kpidetail';
-    var option = '/pages/tongji/device_hour_report/kpidetail';
+    var option = '/pages/tongji/device_hour_report/kpidetail?name=device';
     datas.forEach(data=>{
       data["option"] =  option
     })
