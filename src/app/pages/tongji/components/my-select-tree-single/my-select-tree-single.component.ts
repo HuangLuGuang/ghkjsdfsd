@@ -34,7 +34,6 @@ export class MySelectTreeSingleComponent implements OnInit {
   tree_data; // 树结构数据
   // 下拉树示例
   init_select_tree(data){
-    console.error("=++++++++++++++++==下拉树示例++++++++++=",data)
     var that = this;
     that.tree_data = data;
     var single_el5s;

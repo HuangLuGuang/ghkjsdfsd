@@ -11,7 +11,7 @@ import { ActionComponent } from './action/action.component';
 import { DeviceDataSumComponent } from './device-data-sum/device-data-sum.component';
 import { GroupDataSumComponent } from './group-data-sum/group-data-sum.component';
 import { DepartmentDataSumComponent } from './department-data-sum/department-data-sum.component';
-import { NzTabsModule } from 'ng-zorro-antd';
+import { NzTabsModule  } from 'ng-zorro-antd/tabs';
 
 
 @NgModule({

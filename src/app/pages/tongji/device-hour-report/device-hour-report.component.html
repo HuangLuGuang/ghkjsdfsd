@@ -1,18 +1,14 @@
 <nb-card>
     <nb-card-header style="font-size: small;">
-        
-        <button nbButton size="small" [status]="device_data" (click)="toggle_sum('device')"> 设备数据汇总 </button>
-        <button nbButton size="small" [status]="group_data" style="margin-left: 20px;" (click)="toggle_sum('group')">功能组数据汇总</button>
-        <button nbButton size="small" [status]="department_data" style="margin-left: 20px;" (click)="toggle_sum('department')">部门数据汇总</button>
+        统计分析
     </nb-card-header>
     <!-- <nb-card-body style="background-color: #f4f4f4;"> -->
     <nb-card-body style="background-color: #ffffff;">
-        <nz-tabset [(nzSelectedIndex)]="index" nzType="card" >
-            <nz-tab *ngFor="let tab of tabs_links; let i = index">
-                <button nz-tab-link nbButton size="small" [status]="tab.status" (click)="toggle_sum(tab.group)"> {{tab.title}} </button>
+          <nz-tabset [nzType]="'card'">
+            <nz-tab *ngFor="let item of tabs_links; let i = index" [nzTitle]="item.title" (nzSelect)="toggle_sum(item.toggle)">
             </nz-tab>
         </nz-tabset>
-
         <router-outlet></router-outlet>
+
     </nb-card-body>
 </nb-card>
