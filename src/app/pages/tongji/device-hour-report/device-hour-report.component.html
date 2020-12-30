@@ -8,7 +8,6 @@
     <!-- <nb-card-body style="background-color: #f4f4f4;"> -->
     <nb-card-body style="background-color: #ffffff;">
         <nz-tabset [(nzSelectedIndex)]="index" nzType="card" >
-            <!-- <nz-tab *ngFor="let tab of tabs; let i = index" [nzClosable]="i > 1" [nzTitle]="tab">Content of {{ tab }}</nz-tab> -->
             <nz-tab *ngFor="let tab of tabs_links; let i = index">
                 <button nz-tab-link nbButton size="small" [status]="tab.status" (click)="toggle_sum(tab.group)"> {{tab.title}} </button>
             </nz-tab>

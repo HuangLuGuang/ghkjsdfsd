@@ -19,9 +19,11 @@
         <!-- 部门下拉 -->
         <div class="example-items-rows button_item" >
             <div class="gongneng_keshi">
-                <ngx-my-select-tree #department [placeholder]="department_placeholder"></ngx-my-select-tree>
+                <ngx-my-select-tree-single #department [placeholder]="department_placeholder"></ngx-my-select-tree-single>
+                <!-- <ngx-my-select-tree #department [placeholder]="department_placeholder"></ngx-my-select-tree> -->
             </div>
         </div>
+        
 
         <!-- 搜索 -->
         <div class="example-items-rows button_item query" *ngIf="button?.query">

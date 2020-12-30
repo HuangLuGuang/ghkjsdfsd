@@ -60,6 +60,9 @@ export class DepartmentDataSumComponent implements OnInit {
     ) { 
     // 会话过期
     localStorage.removeItem("alert401flag");
+
+    // // 选择框
+    this.get_tree_selecetdata();
   }
 
   ngOnInit(): void {
@@ -72,6 +75,30 @@ export class DepartmentDataSumComponent implements OnInit {
   ngAfterViewInit(){
     // 初始化aggrid
     this.inttable();
+    
+  }
+
+  // 得到下拉框的数据
+  get_tree_selecetdata(){
+    var columns = {
+      employeeid:this.employeeid,
+    }
+    this.http.callRPC("deveice","dev_get_device_type",columns).subscribe(result=>{
+      var res = result["result"]["message"][0]
+      if (res["code"] === 1){
+        var department_list = [
+          {id:1, label: "验证中心"},
+          {id:2, label: "工程中心"}
+        ];
+        this.department.init_select_tree(department_list);
+        // var groups = res["message"][0]["groups"];
+        // this.department.init_select_tree(groups);
+        // var eimdevicetpyedata = res["message"][0]["type"];
+        // this.department.init_select_trees(eimdevicetpyedata);
+      }
+    })
+   
+    
   }
 
 
@@ -114,7 +141,18 @@ export class DepartmentDataSumComponent implements OnInit {
   }
 
   // 重置
-  refresh_table(){}
+  refresh_table(){
+    this.loading = true;
+    this.gridData = [];
+    // 是否 每页多少也，设置为默认值
+    this.tableDatas.isno_refresh_page_size = true
+    // 取消选择的数据 delselect
+    this.myYear.reset_year();
+    this.myMonth.reset_month();
+    this.department.dropselect();
+    this.inttable();
+
+  }
 
   // aggrid==================================
   // 得到 start end 根据month(一月\二月)

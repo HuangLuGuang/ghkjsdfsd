@@ -47,6 +47,7 @@ import { MySelectTreeSingleComponent } from './my-select-tree-single/my-select-t
     MyInputComponent,
     MyInputTwoComponent,
     TableGroupComponent,
+    MySelectTreeSingleComponent,
   ]
 })
 export class ComponentTModule { }

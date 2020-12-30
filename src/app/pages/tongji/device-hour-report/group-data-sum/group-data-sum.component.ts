@@ -126,7 +126,17 @@ export class GroupDataSumComponent implements OnInit {
   }
 
   // 重置
-  refresh_table(){}
+  refresh_table(){
+    this.loading = true;
+    this.gridData = [];
+    // 是否 每页多少也，设置为默认值
+    this.tableDatas.isno_refresh_page_size = true;
+    // 取消选择的数据 delselect
+    this.myYear.reset_year();
+    this.myMonth.reset_month();
+    this.groups_func.dropselect();
+    this.inttable();
+  }
 
   // aggrid==================================
   // 得到 start end 根据month(一月\二月)
