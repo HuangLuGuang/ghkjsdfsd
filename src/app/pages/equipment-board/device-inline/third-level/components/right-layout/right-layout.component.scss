@@ -75,9 +75,8 @@
                 justify-content: center;
                 align-items: center;
                 /*设置不换行*/
-                // white-space: nowrap;
-                /*设置隐藏*/
-                overflow: hidden;
+                white-space: nowrap;
+                overflow: revert;
                 /*设置隐藏部分为省略号*/
                 // text-overflow: ellipsis;
             }

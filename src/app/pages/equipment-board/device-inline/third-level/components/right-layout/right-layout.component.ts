@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { LayoutService } from '../../../../../../@core/utils';
 
 @Component({
   selector: 'ngx-right-layout',
@@ -7,7 +8,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class RightLayoutComponent implements OnInit {
   obejct = Object;
-  tableHeader = {device:'设备编号',experiment:'实验编号',speed:'.mon进度'};
+  tableHeader = {device:'设备编号',experiment:'实验编号',speed:'实验进度'};
   tableBody = [
     // {device:'四立柱',experiment:'WT0001-202011',speed:20},
     // {device:'四立柱',experiment:'WT0001-202011',speed:20},
@@ -21,10 +22,13 @@ export class RightLayoutComponent implements OnInit {
     // {device:'四立柱',experiment:'WT0001-202011',speed:20},
     // {device:'四立柱',experiment:'WT0001-202011',speed:20},
   ]
-  constructor() { }
+  constructor(private layoutService:LayoutService) { }
 
   ngOnInit(): void {
     // this.initChart();
+    this.layoutService.onInitLayoutSize().subscribe(f=>{
+      this.resize();
+    })
     window.addEventListener('resize',this.resize);
   }
 
@@ -115,13 +119,13 @@ export class RightLayoutComponent implements OnInit {
       },
       series: [
           {
-              name: '已完成',
+              name: '已完成实验数',
               type: 'bar',
               data: completed,
               z:3
           },
           {
-              name: '0',
+              name: '计划实验数',
               type: 'bar',
               barGap:'-100%',
               data: plan

@@ -132,7 +132,7 @@ export const  getMessage=(f,data)=>{
     });
     //锁定滚动条最下面
     var showContent = $(".overflow_height_75");
-    showContent[0].scrollTop = showContent[0].scrollHeight;
+    if(showContent[0])showContent[0].scrollTop = showContent[0].scrollHeight;
 }
 
 export const copy=(d)=>{
@@ -202,34 +202,32 @@ export const painting_time = (f,time,isthis,arr) =>{
         // el = isthis[`attrs_${i+1}`][c][j];
   //     }
   // }
+  let item:any;
+  let xtime:any;
   isthis.click_list.forEach((c,i)=>{
       isthis[`attrs_${i+1}`][c].forEach((el,j) => {
+        item = data[el.nameEn.replace(".","").toLocaleLowerCase()];
+        if(!item)return;
+        xtime = x[el.nameEn.replace(".","").toLocaleLowerCase()];
 
+        if(!item || item.length <= 0 )item = [0];
+        if(!xtime || xtime.length <= 0 )xtime = [dateformat(new Date(),'yyyy-MM-dd')];
 
-      //判断当前参数是否本次请求内是否有拿到值
-      if(data[el.nameEn.replace(".","").toLocaleLowerCase()] ){
-        //将y轴的值放到组装好的对象中
-        time == 1?el.value.push(data[el.nameEn.replace(".","").toLocaleLowerCase()][0]):
-        (el.value = [],el.value =  data[el.nameEn.replace(".","").toLocaleLowerCase()].filter(l=>true));
-
-        //将x轴的值放到组装好的对象中
-        if(!isthis[`attrs_${i+1}`].xData)isthis[`attrs_${i+1}`].xData = [];
-        if(j==0)time == 1?isthis[`attrs_${i+1}`].xData.push(x[el.nameEn.replace(".","").toLocaleLowerCase()][0]):
-        (isthis[`attrs_${i+1}`].xData = [],isthis[`attrs_${i+1}`].xData = x[el.nameEn.replace(".","").toLocaleLowerCase()]);
-        
-      }
-      
-      if(time == 10 && isthis[`attrs_${i+1}`].xData.length > 10)
-          isthis[`attrs_${i+1}`].xData.splice(0,isthis[`attrs_${i+1}`].xData.length-10);
-
-      //判断当前的x轴数组的值是否大于10 减去过长会导致显示拥挤
-      if(time == 1 && isthis[`attrs_${i+1}`].xData.length > 10 )
-        isthis[`attrs_${i+1}`].xData.splice(0,isthis[`attrs_${i+1}`].xData.length-10);
+        if(time == 10){
+          el.value = item.slice();
+          if(j == 0)isthis[`attrs_${i+1}`].xData = xtime.slice();
+        }else{
+          el.value.push(item[0]);
+          if(j == 0)isthis[`attrs_${i+1}`].xData.push(xtime[0]);
+        }
 
       //echart 数值显示是以数组下标做对应    判断x轴和数据是否是相同的数量
       if(time == 1 && el.value.length > 10)
           el.value.splice(0,el.value.length-10);
     })
+     //判断当前的x轴数组的值是否大于10 减去过长会导致显示拥挤
+     if(time == 1 && isthis[`attrs_${i+1}`].xData.length > 10 )
+      isthis[`attrs_${i+1}`].xData.splice(0,isthis[`attrs_${i+1}`].xData.length-10);
 
   })
     // }

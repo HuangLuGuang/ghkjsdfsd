@@ -1,13 +1,8 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { LayoutService } from '../../../@core/utils/layout.service';
-import { colors, rgb_del_red,list_jion,list_copy,create_third_chart_line, create_img_16_9 } from '../equipment-board';
+import { colors, rgb_del_red,list_jion,list_copy, create_img_16_9 } from '../equipment-board';
 
-let equipment_four_road = require('../../../../assets/eimdoard/equipment/js/equipment-four-road')
-// echart
-let rtm3 = require('../../../../assets/eimdoard/rtm3/js/rtm3');
-
-let rtm3a = require('../../../../assets/eimdoard/rtm3/js/rtm3a');
 
 @Component({
   selector: 'ngx-equipment-details',

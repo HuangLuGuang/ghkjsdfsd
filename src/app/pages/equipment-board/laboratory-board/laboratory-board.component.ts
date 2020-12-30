@@ -1,4 +1,4 @@
-import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 let rtm3a = require('../../../../assets/eimdoard/rtm3/js/rtm3a');
 declare var $:any;
 

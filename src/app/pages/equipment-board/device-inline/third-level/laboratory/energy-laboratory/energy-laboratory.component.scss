@@ -37,13 +37,14 @@
 }
 
 .andon_img {
-    background: url('/assets/eimdoard/equipment/images/triangle.png');
+    background: url('/assets/eimdoard/equipment/images/triangle.png') no-repeat;
     height: 17%;
+    width: 100%;
     background-size: cover;
     -webkit-background-size: cover;
     -o-background-size: cover;
     background-position: center center;
-    margin-left: 10px;
+    margin-left: 6px;
 }
 
 .blue {

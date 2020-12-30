@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { time } from 'console';
+import { Observable } from 'rxjs';
 import { LayoutService } from '../../../@core/utils';
 import { HttpserviceService } from '../../../services/http/httpservice.service';
 import { colors, copy, create_img_16_9 } from '../equipment-board';
@@ -368,9 +368,9 @@ export class OilSourceMonitoringComponent implements OnInit {
     if(language!='zh-CN')this.language = language;
     
     //订阅左上角打开关闭
-    // this.subscribeList.layout = this.layoutService.onInitLayoutSize().subscribe(f=>{
-    //   this.initChart();
-    // })
+    this.subscribeList.layout = this.layoutService.onInitLayoutSize().subscribe(f=>{
+      this.resize();
+    })
     //订阅路由返回的标题
     this.subscribeList.router = this.activateInfo.params.subscribe(f =>{
       // console.log(f);
@@ -396,17 +396,44 @@ export class OilSourceMonitoringComponent implements OnInit {
       }
       i++;
     },1000);
+    window.addEventListener('resize',this.resize);
   }
 
-  ngAfterViewInit(){
-    // window.addEventListener('resize',this.chartResize);
-    // this.initChart();
+  obser = new Observable(f=>{
+    
+    let chart;
+    this.HPUlist.forEach((f,i)=>{
+      chart = document.getElementById(f.id);
+      if(chart)
+        echarts.init(chart).resize();
+    });
+    this.cleanlinss.forEach(f=>{
+      chart = document.getElementById(f.id);
+      if(chart)
+        echarts.init(chart).resize();
+    });
+    this.HE_Water.data.forEach((f,i)=>{
+      chart = document.getElementById(f.id);
+      if(chart)
+        echarts.init(chart).resize();
+    });
+    ['pumpClick','discharge_chart_1','discharge_chart_2','radar_1','radar_2'].forEach(f => {
+      chart = document.getElementById(f);
+      if(chart)
+        echarts.init(chart).resize();
+    });
+    f.next('chart刷新');
+  })
 
+  resize = () =>{
+    setTimeout(() => {
+      if(this.subscribeList.resize)this.subscribeList.resize.unsubscribe();
+      this.subscribeList.resize = this.obser.subscribe(f=>{
+          console.log(f)
+      })
+    }, 500);
   }
   
-  ngAfterContentChecked(){
-    
-  }
   
   //刷新表格
   // chartResize =()=>{
@@ -673,7 +700,7 @@ export class OilSourceMonitoringComponent implements OnInit {
     for(let key in this.subscribeList){
       this.subscribeList[key].unsubscribe();
     }
-    // window.removeEventListener('resize',this.chartResize)
+    window.removeEventListener('resize',this.resize)
   }
 
 }

@@ -3,7 +3,7 @@ import { ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs';
 import { LayoutService } from '../../../@core/utils/layout.service';
 import { HttpserviceService } from '../../../services/http/httpservice.service';
-import { colors, rgb_del_red,list_jion,list_copy, colorRgb, create_img_16_9, rTime } from '../equipment-board';
+import { colors, create_img_16_9, rTime } from '../equipment-board';
 
 let equipment_four_road = require('../../../../assets/eimdoard/equipment/js/equipment-four-road');
 
@@ -167,9 +167,9 @@ export class CentralFourJinhuaComponent implements OnInit {
     //获取当前语言
     let language = localStorage.getItem('currentLanguage');
     if(language!='zh-CN')this.language = language;
-    // this.subscribeList.layout = this.layoutService.onInitLayoutSize().subscribe(f=>{
-    //   this.initChart();
-    // })
+    this.subscribeList.layout = this.layoutService.onInitLayoutSize().subscribe(f=>{
+      this.resize();
+    })
 
     this.subscribeList.router = this.activateInfo.params.subscribe(f =>{
       // console.log(f);
@@ -183,11 +183,39 @@ export class CentralFourJinhuaComponent implements OnInit {
     setTimeout(() => {
       create_img_16_9();
     }, 1000);
-
+    window.addEventListener('resize',this.resize)
 
   }
 
-  ngAfterViewInit(){
+  obser = new Observable(f=>{
+    this.EnvironBin.forEach(f=>{
+      if(document.getElementById(f.id))
+        echarts.init(document.getElementById(f.id)).resize();
+    })
+    this.gauge.forEach(f=>{
+      if(document.getElementById(f.id))
+        echarts.init(document.getElementById(f.id)).resize();
+    })
+    if(document.getElementById('avl_discharge_chart'))
+        echarts.init(document.getElementById('avl_discharge_chart')).resize();
+    if(document.getElementById('avl_param_chart_1'))
+        echarts.init(document.getElementById('avl_param_chart_1')).resize();
+    if(document.getElementById('avl_param_chart_2'))
+        echarts.init(document.getElementById('avl_param_chart_2')).resize();
+    // ['sensor_t_h_01','sensor_t_h_02','sensor_t_h_03'].forEach(f=>{
+    //   if(document.getElementById(f))
+    //       echarts.init(document.getElementById(f)).resize();
+    // })
+    f.next('chart刷新');
+  })
+
+  resize = () =>{
+    setTimeout(() => {
+      if(this.subscribeList.resize)this.subscribeList.resize.unsubscribe();
+      this.subscribeList.resize = this.obser.subscribe(f=>{
+          console.log(f)
+      })
+    }, 500);
   }
   
 
@@ -390,6 +418,7 @@ export class CentralFourJinhuaComponent implements OnInit {
     for(let key in this.subscribeList){
       this.subscribeList[key].unsubscribe();
     }
+    window.removeEventListener('resize',this.resize)
   }
 }
 export const four_param = [
