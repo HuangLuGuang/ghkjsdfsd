@@ -67,18 +67,19 @@ export class SecondLevelComponent implements OnInit {
   // 跳转到具体的结构，
   goto_test_room(testname){
     console.log("跳转到具体的结构试验室:", testname)
-    switch(testname){
-      case 'newpower':
-        this.router.navigate(['pages/equipment/third-level/energy']);
-        break;
-      case 'environment':
-        this.router.navigate(['pages/equipment/third-level/environment']);
-        break;
-      case 'structural':
-        this.router.navigate(['pages/equipment/third-level/structural']);
-        break;
-    }
-    
+    setTimeout(() => {
+      switch(testname){
+        case 'newpower':
+          this.router.navigate(['pages/equipment/third-level/energy']);
+          break;
+        case 'environment':
+          this.router.navigate(['pages/equipment/third-level/environment']);
+          break;
+        case 'structural':
+          this.router.navigate(['pages/equipment/third-level/structural']);
+          break;
+      }
+    }, 1000);
   }
 
 

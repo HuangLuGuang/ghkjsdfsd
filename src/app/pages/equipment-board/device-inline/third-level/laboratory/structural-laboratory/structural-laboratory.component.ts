@@ -16,7 +16,6 @@ export class StructuralLaboratoryComponent implements OnInit {
       andon:0,
       speed:[0],
       router:'pages/equipment/coupling/整车多轴轴耦合道路模拟试验台-329',
-
     },
     {
       name:'320四立柱',
@@ -94,7 +93,7 @@ export class StructuralLaboratoryComponent implements OnInit {
 
   ngOnInit(): void {
     if(document.getElementById('head_title'))
-        document.getElementById('head_title').innerText = '结构实验室';
+        document.getElementById('head_title').innerText = '验证中心-结构lib';
 
     
   }

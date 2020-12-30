@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { LayoutService } from '../../../../../../@core/utils';
 let equipment_four_road = require('../../../../../../../assets/eimdoard/equipment/js/equipment-four-road');
 
 
@@ -12,11 +13,11 @@ export class LeftLayoutComponent implements OnInit {
   obejct = Object;
   tableHeader = {time:'时间',device:'设备',log:'日志'};
   tableBody = [
-    // {time:'2020-10-11',device:'四立柱',log:'Not ready'},
-    // {time:'2020-10-11',device:'四立柱',log:'Not ready'},
-    // {time:'2020-10-11',device:'四立柱',log:'Not ready'},
-    // {time:'2020-10-11',device:'四立柱',log:'Not ready'},
-    // {time:'2020-10-11',device:'四立柱',log:'Not ready'},
+    {time:'2020-10-11',device:'四立柱',log:'Not ready'},
+    {time:'2020-10-11',device:'四立柱',log:'Not ready'},
+    {time:'2020-10-11',device:'四立柱',log:'Not ready'},
+    {time:'2020-10-11',device:'四立柱',log:'Not ready'},
+    {time:'2020-10-11',device:'四立柱',log:'Not ready'},
     // {time:'2020-10-11',device:'四立柱',log:'Not ready'},
     // {time:'2020-10-11',device:'四立柱',log:'Not ready'},
     // {time:'2020-10-11',device:'四立柱',log:'Not ready'},
@@ -27,9 +28,12 @@ export class LeftLayoutComponent implements OnInit {
 
   fixed = ['log'];
 
-  constructor() { }
+  constructor(private layoutService:LayoutService) { }
 
   ngOnInit(): void {
+    this.layoutService.onInitLayoutSize().subscribe(f=>{
+      this.resize();
+    })
     window.addEventListener('resize',this.resize);
   }
 

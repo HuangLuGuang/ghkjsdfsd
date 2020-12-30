@@ -37,7 +37,7 @@ let equipment_four_road = {
             }
         }
         myChart.setOption(option_s, config ? config : {});
-        if (!config) myChart.resize();
+        // if (!config) myChart.resize();
     },
     //设备状态
     create_device_status_real(data, myChart, config) {
@@ -435,7 +435,7 @@ let equipment_four_road = {
         };
 
         myChart.setOption(option_o);
-        myChart.resize();
+        // myChart.resize();
     },
     //实时温湿度
     create_real_temperature(gauge_data, myChart) {
@@ -732,7 +732,7 @@ let equipment_four_road = {
         }
 
         myChart.setOption(optionInterval);
-        myChart.resize()
+        // myChart.resize()
     },
     //实时温湿度 仪表盘 设定+当前
     create_real_temperature_v2(gauge_data, myChart) {
@@ -802,7 +802,7 @@ let equipment_four_road = {
         //     myChart.resize();
         // }
         myChart.setOption(optionInterval_v2);
-        myChart.resize();
+        // myChart.resize();
     },
     //avl 出风回风温湿度
     create_real_electric(data, myChart) {
@@ -874,7 +874,7 @@ let equipment_four_road = {
             }]
         };
         myChart.setOption(option_i, )
-        myChart.resize();
+            // myChart.resize();
     },
 
     //仪表盘
@@ -1085,7 +1085,7 @@ let equipment_four_road = {
         //     Chart.resize();
         // }
         Chart.setOption(option_u);
-        Chart.resize();
+        // Chart.resize();
         // Chart.resize();
     },
 
@@ -1182,7 +1182,7 @@ let equipment_four_road = {
         };
 
         chart.setOption(option_y);
-        chart.resize();
+        // chart.resize();
     },
 
     //avl  排放分析仪表
@@ -1372,7 +1372,7 @@ let equipment_four_road = {
                 }
             ];
         myChart.setOption(option_t);
-        myChart.resize();
+        // myChart.resize();
     },
 
     /**
@@ -1497,7 +1497,7 @@ let equipment_four_road = {
         };
 
         myChart.setOption(option_rg);
-        myChart.resize();
+        // myChart.resize();
     },
 
 
@@ -1563,6 +1563,8 @@ let equipment_four_road = {
             },
 
             xAxis: {
+                type: 'category',
+
                 data: data.xData,
                 axisLabel: {
                     color: COLOR
@@ -1623,7 +1625,8 @@ let equipment_four_road = {
         if (config)
             myChart.setOption(option_e, config);
         else
-            myChart.setOption(option_e), myChart.resize();
+            myChart.setOption(option_e);
+        // myChart.resize();
 
         // myChart.resize();
     },
@@ -1914,7 +1917,7 @@ let equipment_four_road = {
             series: service_m
         };
         myChart.setOption(option_motor_chart);
-        myChart.resize();
+        // myChart.resize();
     },
     create_temp_humidity_pressure_gauge(data, myChart) {
         var dataArry = {
@@ -2166,7 +2169,7 @@ let equipment_four_road = {
             ]
         }
         myChart.setOption(option_t_h_p_g);
-        myChart.resize();
+        // myChart.resize();
     },
     create_temp_h_1_p_gauge(data, myChart) {
         var dataArry = {
@@ -2258,7 +2261,7 @@ let equipment_four_road = {
         }
 
         myChart.setOption(option_t_31892740);
-        myChart.resize();
+        // myChart.resize();
     },
     create_gauge_jinhua(data, myChart) {
         let option_102973 = {
@@ -2333,7 +2336,7 @@ let equipment_four_road = {
             }, ]
         };
         myChart.setOption(option_102973);
-        myChart.resize();
+        // myChart.resize();
     }
 }
 

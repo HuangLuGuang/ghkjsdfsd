@@ -18,6 +18,22 @@ export class ThirdLevelService {
     'device_hpu_03':'油源3',//油源3
     'device_hpu_04':'油源4',//油源4
     'device_hpu_05':'油源5',//油源5
+
+    'device_avldyno_01':'AVL耐久2驱-S1060',//AVL耐久2驱-S1060
+    'device_avldyno_02':'AVL耐久2驱-S1060`',//AVL耐久2驱-S1060`
+    'device_avldyno_03':'AVL排放2驱-S1070',//AVL排放2驱-S1070
+    'device_avl4dyno_02':'AVL环模4驱-S1070',//AVL环模4驱-S1070
+    'device_avl2dyno_01':'AVL排放2驱-S1074',//AVL排放2驱-S1074
+    'device_avl4dyno_01':'AVL排放4驱-S1074',//AVL排放4驱-S1074
+    'device_jinhua_cabin02':'锦华常温浸车舱',//锦华常温浸车舱
+    'device_atec_05':'整车高低温试验舱',//整车高低温试验舱
+
+    'device_avlmotor_01':'电机1',//电机1
+    'device_avlmotor_02':'电机2',//电机2
+    'device_avlmotor_03':'电机3',//电机3
+    "device_avlmotor_04":'电机4',//电机4
+    'device_boyang_01':'电机6',//电机6
+    'device_boyang_02':'电机7',//电机7
   }
 
   constructor(private http:HttpserviceService) { }

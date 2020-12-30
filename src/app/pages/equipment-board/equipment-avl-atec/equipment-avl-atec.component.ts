@@ -1,9 +1,9 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs';
 import { LayoutService } from '../../../@core/utils/layout.service';
 import { HttpserviceService } from '../../../services/http/httpservice.service';
-import { colors, rgb_del_red,list_jion,list_copy, colorRgb, create_img_16_9, rTime } from '../equipment-board';
+import { colors,  create_img_16_9, rTime } from '../equipment-board';
 
 let equipment_four_road = require('../../../../assets/eimdoard/equipment/js/equipment-four-road');
 
@@ -160,16 +160,38 @@ export class EquipmentAvlAtecComponent implements OnInit {
         
     })
 
+    this.subscribeList.layout = this.layoutService.onInitLayoutSize().subscribe(f=>{
+      this.resize();
+    })
 
     this.getData();
     setTimeout(() => {
       create_img_16_9();
     }, 1000);
-
+    window.addEventListener('resize',this.resize)
 
   }
 
-  ngAfterViewInit(){
+  obser = new Observable(f=>{
+    this.gauge.forEach(el => {
+      if(document.getElementById(el.id))
+        echarts.init(document.getElementById(el.id)).resize();
+    });
+    if(document.getElementById('avl_param_chart_2'))
+        echarts.init(document.getElementById('avl_param_chart_2')).resize();
+    if(document.getElementById('avl_discharge_chart_1'))
+        echarts.init(document.getElementById('avl_discharge_chart_1')).resize();
+        
+    f.next('chart刷新');
+  })
+
+  resize = () =>{
+    setTimeout(() => {
+      if(this.subscribeList.resize)this.subscribeList.resize.unsubscribe();
+      this.subscribeList.resize = this.obser.subscribe(f=>{
+          console.log(f)
+      })
+    }, 500);
   }
 
 
@@ -331,6 +353,7 @@ export class EquipmentAvlAtecComponent implements OnInit {
     for(let key in this.subscribeList){
       this.subscribeList[key].unsubscribe();
     }
+    window.addEventListener('resize',this.resize)
   }
 
 }

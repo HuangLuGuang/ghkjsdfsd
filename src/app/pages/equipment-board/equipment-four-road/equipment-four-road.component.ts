@@ -5,8 +5,6 @@ import { LayoutService } from '../../../@core/utils/layout.service';
 import { HttpserviceService } from '../../../services/http/httpservice.service';
 import { colors, dateformat, rgb_del_red,painting_time,four_road_htmlstr, create_img_16_9 } from '../equipment-board';
 
-// echart
-let rtm3 = require('../../../../assets/eimdoard/rtm3/js/rtm3');
 
 @Component({
   selector: 'ngx-equipment-four-road',

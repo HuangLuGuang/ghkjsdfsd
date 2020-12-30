@@ -1,9 +1,9 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs';
 import { LayoutService } from '../../../@core/utils/layout.service';
 import { HttpserviceService } from '../../../services/http/httpservice.service';
-import { colors, rgb_del_red, create_img_16_9,rTime } from '../equipment-board';
+import { colors, create_img_16_9,rTime } from '../equipment-board';
 
 let equipment_four_road = require('../../../../assets/eimdoard/equipment/js/equipment-four-road');
 
@@ -116,7 +116,10 @@ export class TwoDriveChassisComponent implements OnInit {
     //获取当前语言
     let language = localStorage.getItem('currentLanguage');
     if(language!='zh-CN')this.language = language;
-
+    //订阅左上角打开关闭
+    this.subscribeList.layout = this.layoutService.onInitLayoutSize().subscribe(f=>{
+      this.resize();
+    })
     this.subscribeList.router = this.activateInfo.params.subscribe(f =>{
       // console.log(f);
       if(document.getElementById('head_title'))
@@ -129,16 +132,37 @@ export class TwoDriveChassisComponent implements OnInit {
     setTimeout(() => {
       create_img_16_9();
     }, 1000);
+    window.addEventListener('resize',this.resize);
   }
 
-  ngAfterViewInit(){
+  obser = new Observable(f=>{
     
+    let chart;
+   
+    this.gauge.forEach((f,i)=>{
+      chart = document.getElementById(f.id);
+      if(chart)
+        echarts.init(chart).resize();
+    });
+    ['discharge_chart','avl_param_chart_1','avl_param_chart_2',
+    't_real_temperature_5','t_real_temperature_4','discharge_chart_1'].forEach(f => {
+      chart = document.getElementById(f);
+      if(chart)
+        echarts.init(chart).resize();
+    });
+    f.next('chart刷新');
+  })
 
+  resize = () =>{
+    setTimeout(() => {
+      if(this.subscribeList.resize)this.subscribeList.resize.unsubscribe();
+      this.subscribeList.resize = this.obser.subscribe(f=>{
+          console.log(f)
+      })
+    }, 500);
   }
 
   getData(){
-
-    
     this.timer = setInterval(() =>{
 
       this.get_real_time();
@@ -331,6 +355,7 @@ export class TwoDriveChassisComponent implements OnInit {
     for(let key in this.subscribeList){
       this.subscribeList[key].unsubscribe();
     }
+    window.removeEventListener('resize',this.resize)
   }
 
 }

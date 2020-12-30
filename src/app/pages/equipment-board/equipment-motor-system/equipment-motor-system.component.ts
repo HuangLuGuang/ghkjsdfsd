@@ -1,9 +1,9 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs';
 import { LayoutService } from '../../../@core/utils/layout.service';
 import { HttpserviceService } from '../../../services/http/httpservice.service';
-import { colors, rgb_del_red,list_jion,list_copy,create_third_chart_line,list_copy_new,list_jion_new, create_img_16_9 } from '../equipment-board';
+import { colors, create_img_16_9 } from '../equipment-board';
 
 let equipment_four_road = require('../../../../assets/eimdoard/equipment/js/equipment-four-road')
 
@@ -179,9 +179,9 @@ export class EquipmentMotorSystemComponent implements OnInit {
     let language = localStorage.getItem('currentLanguage');
     if(language!='zh-CN')this.language = language;
     //订阅左上角点击宽度改变
-    // this.subscribeList.layout = this.layoutService.onInitLayoutSize().subscribe(f=>{
-    //   this.initChart();
-    // })
+    this.subscribeList.layout = this.layoutService.onInitLayoutSize().subscribe(f=>{
+      this.resize();
+    })
     //订阅路由
     this.subscribeList.router = this.activateInfo.params.subscribe(f =>{
       // console.log(f);
@@ -201,15 +201,34 @@ export class EquipmentMotorSystemComponent implements OnInit {
       create_img_16_9();
 
     }, 1000);
-
+    window.addEventListener('resize',this.resize)
 
     
   }
 
+  obser = new Observable(f=>{
+    let chart;
+    [1, 1, 1, 1, 1].forEach((f,i)=>{
+      chart = document.getElementById('electric_'+(i+1));
+      if(chart)
+        echarts.init(chart).resize();
+    });
+    ['coolingWater','AxleBoxTemperature1','AxleBoxTemperature2','circularD_chart',
+    'dashboard','line_chart_12','threePhase','temperature','humidity'].forEach(f => {
+      chart = document.getElementById(f);
+      if(chart)
+        echarts.init(chart).resize();
+    });
+    f.next('chart刷新');
+  })
 
-  
-
-  ngAfterViewInit(){
+  resize = () =>{
+    setTimeout(() => {
+      if(this.subscribeList.resize)this.subscribeList.resize.unsubscribe();
+      this.subscribeList.resize = this.obser.subscribe(f=>{
+          console.log(f)
+      })
+    }, 500);
   }
   
 
@@ -370,5 +389,6 @@ torque: 0.151 扭矩
     for(let key in this.subscribeList){
       this.subscribeList[key].unsubscribe();
     }
+    window.removeEventListener('resize',this.resize)
   }
 }

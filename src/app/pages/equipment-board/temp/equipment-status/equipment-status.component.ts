@@ -87,8 +87,8 @@ export class EquipmentStatusComponent implements OnInit {
 
   chartResize=()=>{
     setTimeout(() => {
-      
-      this.obser.subscribe(f=>{
+      if(this.subscribeList.resize)this.subscribeList.resize.unsubscribe();
+      this.subscribeList.resize = this.obser.subscribe(f=>{
           console.log(f)
         })
     }, 500);

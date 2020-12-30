@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { Observable } from 'rxjs';
+import { LayoutService } from '../../../@core/utils';
 import { HttpserviceService } from '../../../services/http/httpservice.service';
 import { colors, create_img_16_9, rTime } from '../equipment-board';
 
@@ -225,13 +227,16 @@ export class EquipmentMotorSixSevenComponent implements OnInit {
   ct_deviceid = '';
   th_deviceid = '';
 
-  constructor(private activateInfo:ActivatedRoute,private http:HttpserviceService) { }
+  constructor(private activateInfo:ActivatedRoute,private http:HttpserviceService,private layoutService:LayoutService) { }
 
   ngOnInit(): void {
      //获取当前语言
      let language = localStorage.getItem('currentLanguage');
      if(language!='zh-CN')this.language = language;
      //订阅左上角点击宽度改变
+     this.subscribeList.layout = this.layoutService.onInitLayoutSize().subscribe(f=>{
+      this.resize();
+    })
      //订阅路由
      this.subscribeList.router = this.activateInfo.params.subscribe(f =>{
       //  console.log(f);
@@ -257,6 +262,47 @@ export class EquipmentMotorSixSevenComponent implements OnInit {
     setTimeout(() => {
       create_img_16_9();
     }, 1000);
+    window.addEventListener('resize',this.resize)
+  }
+
+  obser = new Observable(f=>{
+    let chart;
+    [1, 1, 1, 1, 1].forEach((f,i)=>{
+      chart = document.getElementById('electric_'+(i+1)+'_67');
+      if(chart)
+        echarts.init(chart).resize();
+    })
+    this.HealthParam_right.forEach(f=>{
+      chart = document.getElementById(f.id);
+      if(chart)
+        echarts.init(chart).resize();
+    })
+    this.threePhase.forEach(f=>{
+      chart = document.getElementById(f.id);
+      if(chart)
+        echarts.init(chart).resize();
+    })
+    if(document.getElementById('dashboard_67'))
+        echarts.init(document.getElementById('dashboard_67')).resize();
+    if(document.getElementById('line_chart_12_67'))
+        echarts.init(document.getElementById('line_chart_12_67')).resize();
+    if(document.getElementById('threePhase_67'))
+        echarts.init(document.getElementById('threePhase_67')).resize();
+    if(document.getElementById('motor_chart_2'))
+        echarts.init(document.getElementById('motor_chart_2')).resize();
+    if(document.getElementById('motor_chart_1'))
+        echarts.init(document.getElementById('motor_chart_1')).resize();
+        
+    f.next('chart刷新');
+  })
+
+  resize = () =>{
+    setTimeout(() => {
+      if(this.subscribeList.resize)this.subscribeList.resize.unsubscribe();
+      this.subscribeList.resize = this.obser.subscribe(f=>{
+          console.log(f)
+      })
+    }, 500);
   }
 
 
@@ -415,6 +461,7 @@ export class EquipmentMotorSixSevenComponent implements OnInit {
     for(let key in this.subscribeList){
       this.subscribeList[key].unsubscribe();
     }
+    window.removeEventListener('resize',this.resize)
   }
 
 }

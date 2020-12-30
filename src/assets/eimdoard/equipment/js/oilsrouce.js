@@ -84,7 +84,7 @@ let oilsrouce = {
             }]
         };
         myChart.setOption(option_radar);
-        myChart.resize();
+        // myChart.resize();
     },
     //油温油压油啥啥的仪表盘
     create_gauge_3(series_old, myChart, shape) {
@@ -147,7 +147,7 @@ let oilsrouce = {
             series: servies,
         };
         myChart.setOption(option_gauge_3);
-        myChart.resize();
+        // myChart.resize();
     },
     //不知道叫啥东西 n一列要显示几个
     create_bar_j(dataLine, myChart, title_left) {
@@ -243,7 +243,7 @@ let oilsrouce = {
             ]
         };
         myChart.setOption(option_bar_j);
-        myChart.resize();
+        // myChart.resize();
     }
 }
 

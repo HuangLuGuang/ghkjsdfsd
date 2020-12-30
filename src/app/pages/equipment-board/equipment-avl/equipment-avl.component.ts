@@ -3,7 +3,7 @@ import { ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs';
 import { LayoutService } from '../../../@core/utils/layout.service';
 import { HttpserviceService } from '../../../services/http/httpservice.service';
-import { colors, rgb_del_red,list_jion,list_copy, create_img_16_9, rTime } from '../equipment-board';
+import { colors, create_img_16_9, rTime } from '../equipment-board';
 
 let equipment_four_road = require('../../../../assets/eimdoard/equipment/js/equipment-four-road');
 @Component({
@@ -163,9 +163,9 @@ export class EquipmentAvlComponent implements OnInit {
     //获取当前语言
     let language = localStorage.getItem('currentLanguage');
     if(language!='zh-CN')this.language = language;
-    // this.subscribeList.layout = this.layoutService.onInitLayoutSize().subscribe(f=>{
-    //   this.initChart();
-    // })
+    this.subscribeList.layout = this.layoutService.onInitLayoutSize().subscribe(f=>{
+      this.resize();
+    })
 
     this.subscribeList.router = this.activateInfo.params.subscribe(f =>{
       // console.log(f);
@@ -179,8 +179,38 @@ export class EquipmentAvlComponent implements OnInit {
     setTimeout(() => {
       create_img_16_9();
     }, 1000);
-
+    window.addEventListener('resize',this.resize);
     
+  }
+
+  obser = new Observable(f=>{
+    this.outRenturnWind.forEach((f:any,i:number) => {
+      if(!echarts.init(document.getElementById('electric_chart_'+i)))return;
+      echarts.init(document.getElementById('electric_chart_'+i)).resize();
+    })
+    this.avl_speed.forEach(el=>{
+      if(document.getElementById(el.id))
+        echarts.init(document.getElementById(el.id)).resize();    
+    })
+    if(document.getElementById('discharge_chart'))
+        echarts.init(document.getElementById('discharge_chart')).resize();
+    if(document.getElementById('temp_humidity_pressure'))
+        echarts.init(document.getElementById('temp_humidity_pressure')).resize();
+    if(document.getElementById('discharge_chart_1'))
+        echarts.init(document.getElementById('discharge_chart_1')).resize();
+    if(document.getElementById('avl_speed_chart_1'))
+        echarts.init(document.getElementById('avl_speed_chart_1')).resize();
+        
+    f.next('chart刷新');
+  })
+
+  resize = () =>{
+    setTimeout(() => {
+      if(this.subscribeList.resize)this.subscribeList.resize.unsubscribe();
+      this.subscribeList.resize = this.obser.subscribe(f=>{
+          console.log(f)
+      })
+    }, 500);
   }
   
 
@@ -400,6 +430,7 @@ export class EquipmentAvlComponent implements OnInit {
     for(let key in this.subscribeList){
       this.subscribeList[key].unsubscribe();
     }
+    window.addEventListener('resize',this.resize)
   }
 
 }

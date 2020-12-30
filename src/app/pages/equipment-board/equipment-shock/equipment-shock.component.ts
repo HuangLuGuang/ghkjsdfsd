@@ -2,7 +2,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { LayoutService } from '../../../@core/utils/layout.service';
 import { HttpserviceService } from '../../../services/http/httpservice.service';
-import { colors, rgb_del_red,list_jion,list_copy,shock_htmlStr, create_img_16_9, dateformat, painting_time } from '../equipment-board';
+import { colors, rgb_del_red,shock_htmlStr, create_img_16_9, dateformat, painting_time } from '../equipment-board';
 
 
 @Component({
@@ -339,7 +339,9 @@ export class EquipmentShockComponent implements OnInit {
     // let datestr_ = dateformat(new Date(),'yyyy-MM-dd hh:mm');
     // dateformat(new Date(now.getTime()-10000)
     let now = new Date();
-    this.subscribeList.time = this.http.callRPC(table,method,{"start":dateformat(new Date(now.getTime()-10000),'yyyy-MM-dd hh:mm:ss'),"end": dateformat(now,'yyyy-MM-dd hh:mm:ss'),"device":this.deviceid,
+    this.subscribeList.time = this.http.callRPC(table,method,
+      {"start":dateformat(new Date(now.getTime()-10000),'yyyy-MM-dd hh:mm:ss'),
+      "end": dateformat(now,'yyyy-MM-dd hh:mm:ss'),"device":this.deviceid,
     arr:param[0].join(',')}).subscribe((f:any) =>{
       if(f.result.error || f.result.message[0].code == 0)return;
       painting_time(f,10,this,['chart_1','chart_2','chart_3']);

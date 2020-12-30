@@ -4,8 +4,6 @@ import { LayoutService } from '../../../@core/utils/layout.service';
 import { HttpserviceService } from '../../../services/http/httpservice.service';
 import { colors, dateformat, rgb_del_red,painting_time,hydraulic_htmlstr, create_img_16_9 } from '../equipment-board';
 
-// 引入jquery
-declare var $:any;
 
 @Component({
   selector: 'ngx-equipment-hydraulic-pressure',

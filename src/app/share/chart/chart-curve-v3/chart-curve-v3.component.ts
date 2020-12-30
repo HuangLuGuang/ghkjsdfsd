@@ -484,11 +484,12 @@ export class ChartCurveV3Component implements OnInit {
         //     }
         // })
         //如果参数不满足三个补足三个
-        if(i < 3)
-            for(let j = 0;j<3-i;j++)this.dashboard[2-j] = {name: '',unit: '',value:0};
+        // if(i < 3)
+        //     for(let j = 0;j<3-i;j++)this.dashboard[2-j] = {name: '',unit: '',value:0};
 
-        this.dashboard = this.attrs.slice(0,3).map(m =>({name: m[this.languageName],unit: m.unit,value:m.value && m.value[0]?m.value[m.value.length-1]:0}))
-        this.dashboard_cl =  this.attrs.slice(0,3).map(m =>  m[this.languageName])
+        // this.dashboard = this.attrs.slice(0,3).map(m =>({name: m[this.languageName],unit: m.unit,value:m.value && m.value[0]?m.value[m.value.length-1]:0}))
+        // this.dashboard_cl =  this.attrs.slice(0,3).map(m =>  m[this.languageName])
+        this.dashboard = this.attrs.slice(0,3).map(m =>({name: m[this.languageName],unit: m.unit,value:m.value && m.value.length>0?m.value[m.value.length-1]:0}));
         equipment_four_road.create_real_dashboard(this.dashboard,dashboardChart);
     }
   }
