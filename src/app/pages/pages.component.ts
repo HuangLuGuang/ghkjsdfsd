@@ -19,7 +19,7 @@ import { TranslateService } from '@ngx-translate/core';
   styleUrls: ['pages.component.scss'],
   template: `
     <ngx-one-column-layout>
-      <nb-menu [items]="menu" tag="menu" autoCollapse="true" (click)="onClickMenu()"></nb-menu>
+      <nb-menu [items]="menu" tag="menu" autoCollapse="true" (click)="onClickMenu($event,menu)"></nb-menu>
       <router-outlet></router-outlet>
     </ngx-one-column-layout>
   `,
@@ -64,28 +64,38 @@ export class PagesComponent implements OnInit {
     this.menuservice.addItems([], 'menu');
   }
 
-  onClickMenu() {
+  onClickMenu(item,menu) {
+
     this.menuservice.onSubmenuToggle().subscribe(res => {
-      // console.error("============res=======",res)
       const selectMenu = res.item;
       const parent = selectMenu['parent'];
-      
       if (parent && parent.children.length) {
         parent.children.forEach(item => {
           if (selectMenu.title === item.title) {
-           // item.expanded = selectMenu.title === item.title;
+            
           } else {
             item.expanded = false;
+
           }
         });
-      };
-      // 目录跳转
-      if(res.item["link"] !== "" && res.item["type"] === 0 && res.item["link"].search("equipment") !== -1){
-        console.error("===目录跳转=========res=======",res);
-        
-        this.router.navigate([res.item["link"]])
       }
     });
+
+    // console.error("=======item=======",item, menu);
+    var item_title = item["target"]["innerText"];
+    var item_dict = [
+      {title: "设备在线",url: "/pages/equipment/first-level"},
+      {title: "研究院功能组",url: "/pages/equipment/second-level"},
+      {title: "结构",url: "/pages/equipment/third-level/structural"},
+    ]
+    var device_menu = menu[1];
+    item_dict.forEach(item=>{
+      if(item["title"] === item_title){
+        this.router.navigate([item.url])
+      }
+    })
+    
+   
   }
 
   loadMenu(){

@@ -1,8 +1,8 @@
 <div class="month_select">
 
 
-    <nb-select id="month" [(selected)]="selectedItem"   status="success" size="small">
-        <nb-option class="month_option" value="一月">1月</nb-option>
+    <!-- <nb-select id="target_month" [(selected)]="selectedItem"   status="success" size="small">
+        <nb-option class="month_option"  value="一月">1月</nb-option>
         <nb-option class="month_option" value="二月">2月</nb-option>
         <nb-option class="month_option" value="三月">3月</nb-option>
         <nb-option class="month_option" value="四月">4月</nb-option>
@@ -14,5 +14,9 @@
         <nb-option class="month_option" value="十月">10月</nb-option>
         <nb-option class="month_option" value="十一月">11月</nb-option>
         <nb-option class="month_option" value="十二月">12月</nb-option>
-    </nb-select>
+
+    </nb-select> -->
+
+    <select name="month" id="target_month"></select>
+    <nb-icon class="month_xiala" [icon]="xialaicon"></nb-icon>
 </div>

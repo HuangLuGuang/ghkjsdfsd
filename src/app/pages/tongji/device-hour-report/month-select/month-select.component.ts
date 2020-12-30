@@ -19,6 +19,7 @@ export class MonthSelectComponent implements OnInit {
   
   ngOnInit(): void {
     // this.change_icon();
+    $(".select-button").attr("style", "font-weight:520")
   }
   
   ngAfterViewInit(){
