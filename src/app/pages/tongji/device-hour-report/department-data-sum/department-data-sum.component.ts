@@ -12,6 +12,7 @@ export class DepartmentDataSumComponent implements OnInit {
   @ViewChild("ag_Grid") agGrid:any; // table
   @ViewChild("myYear") myYear:any; // 年
   @ViewChild("myMonth") myMonth:any; // 月
+  @ViewChild("department") department:any; // 部门
 
   loading: boolean = false;
   button; // 权限button
@@ -19,10 +20,10 @@ export class DepartmentDataSumComponent implements OnInit {
 
   // 用户id
   employeeid = this.userinfo.getEmployeeID();
-
+  department_placeholder = "请选择部门"
 
   TABLE = "device";
-  METHOD = "dev_get_device_ratio";
+  METHOD = "dev_get_device_ratio_department";
 
   tableDatas = {
     action: false,
@@ -30,21 +31,22 @@ export class DepartmentDataSumComponent implements OnInit {
     PageSize: 10, // 每页 10条数据
     isno_refresh_page_size: false, // 是否重新将 每页多少条数据，赋值为默认值
     columnDefs:[ // 列字段 多选：headerCheckboxSelection checkboxSelection , flex: 1 自动填充宽度 pinned: 'left' 固定左侧
-      { field: 'deviceno', headerName: '设备编号', resizable: true, width: 150, headerCheckboxSelection: true, checkboxSelection: true, autoHeight: true, fullWidth: true,},
-      { field: 'devicename', headerName: '设备名称',fullWidth: true,resizable: true, width: 160,},
-      { field: 'deviceid', headerName: '设备ID',  resizable: true,fullWidth: true, width: 200,},
-      // { field: 'groups', headerName: '科室/功能组', resizable: true, fullWidth: true,width: 330,},
-      { field: 'groups', headerName: '科室/功能组', resizable: true, fullWidth: true,width: 330},
-      { field: 'linklevel', headerName: '设备关重度', resizable: true,fullWidth: true,width: 130,},
-      { field: 'devicetype', headerName: '设备统计归类', resizable: true, fullWidth: true,width: 130,}, //设备类型
-      { field: 'month', headerName: '月份', resizable: true, fullWidth: true,width: 100,},
-      { field: 'totaltime', headerName: '总目标时长(h)', resizable: true, fullWidth: true,width: 130,},
-      { field: 'running', headerName: '运行时长(h)', resizable: true, fullWidth: true,width: 130,},
+      // { field: 'deviceno', headerName: '设备编号', resizable: true, width: 150, headerCheckboxSelection: true, checkboxSelection: true, autoHeight: true, fullWidth: true,},
+      // { field: 'devicename', headerName: '设备名称',fullWidth: true,resizable: true, width: 160,},
+      // { field: 'deviceid', headerName: '设备ID',  resizable: true,fullWidth: true, width: 200,},
+      // { field: 'groups', headerName: '科室/功能组', resizable: true, fullWidth: true,width: 330},
+      // { field: 'linklevel', headerName: '设备关重度', resizable: true,fullWidth: true,width: 130,},
+      // { field: 'devicetype', headerName: '设备统计归类', resizable: true, fullWidth: true,width: 130,}, //设备类型
+      { field: 'totaltime', headerName: '总目标时长(h)', resizable: true, headerCheckboxSelection: true, checkboxSelection: true, autoHeight: true,fullWidth: true,width: 130,},
+      { field: 'month', headerName: '月份', resizable: true,  fullWidth: true,width: 100,},
+      { field: 'placeon', headerName: '占位时长(h)', resizable: true,fullWidth: true, width: 130,}, 
       { field: 'stop', headerName: '空闲时长(h)', resizable: true, fullWidth: true,width: 130,},
       { field: 'warning', headerName: '维修时长(h)', resizable: true, fullWidth: true,width: 130,},
-      { field: 'placeon', headerName: '占位时长(h)', resizable: true,fullWidth: true, width: 130,}, 
+      { field: 'running', headerName: '运行时长(h)', resizable: true, fullWidth: true,width: 130,},
       { field: 'ratio', headerName: '利用率(%)', resizable: true, fullWidth: true,width: 130,},
       { field: 'rate', headerName: '开动率(%)', resizable: true, fullWidth: true,width: 130,},
+      { field: 'starttime', headerName: '开始时间', resizable: true, fullWidth: true,width: 130,},
+      { field: 'endtime', headerName: '结束时间', resizable: true, fullWidth: true,minWidth: 10,flex:1},
       {field: 'option', headerName: '详情', resizable: true, fullWidth: true,width: 100, pinned: 'right',}
 
     ],
@@ -102,7 +104,8 @@ export class DepartmentDataSumComponent implements OnInit {
   }
   // 搜索
   query(){
-
+    this.gridData = [];
+    this.inttable();
   }
 
   // 导出
@@ -147,6 +150,9 @@ export class DepartmentDataSumComponent implements OnInit {
 
   inittable_before(){
     var get_start_end = this.get_start_end();
+    // 部门
+    var department = this.department?.getselect();
+    var department_ = department ===""?[] :department.split(";");
     return {
       limit: this.agGrid.get_pagesize(),
       employeeid: this.userinfo.getEmployeeID(),
@@ -154,6 +160,7 @@ export class DepartmentDataSumComponent implements OnInit {
       year: this.myYear.getselect(),
       start: get_start_end.start,
       end: get_start_end.end,
+      department: department_[0]?department_[0]: "验证中心",
     }
 
   }
@@ -180,6 +187,7 @@ export class DepartmentDataSumComponent implements OnInit {
       year: this.myYear.getselect(),
       start: inittable_before.start,
       end: inittable_before.end,
+      department: inittable_before.department,
     }
     var table = this.TABLE;
     var methond = this.METHOD;

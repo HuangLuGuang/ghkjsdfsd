@@ -16,6 +16,13 @@
             </div>
         </div>
 
+        <!-- 部门下拉 -->
+        <div class="example-items-rows button_item" >
+            <div class="gongneng_keshi">
+                <ngx-my-select-tree #department [placeholder]="department_placeholder"></ngx-my-select-tree>
+            </div>
+        </div>
+
         <!-- 搜索 -->
         <div class="example-items-rows button_item query" *ngIf="button?.query">
             <button nbButton [status]="button?.query.class" size="small" (click)="action(button?.query.permission)"  [disabled]="button?.query.active == 0? true:false"><nb-icon [icon]="button?.query.icon"></nb-icon>{{button?.query.title}}</button>

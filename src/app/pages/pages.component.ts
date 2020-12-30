@@ -85,7 +85,7 @@ export class PagesComponent implements OnInit {
     var item_title = item["target"]["innerText"];
     var item_dict = [
       {title: "设备在线",url: "/pages/equipment/first-level"},
-      {title: "研究院功能组",url: "/pages/equipment/second-level"},
+      {title: "研究总院",url: "/pages/equipment/second-level"},
       {title: "结构",url: "/pages/equipment/third-level/structural"},
     ]
     var device_menu = menu[1];

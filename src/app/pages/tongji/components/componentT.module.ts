@@ -18,6 +18,7 @@ import { MyDateRangeComponent } from './my-date-range/my-date-range.component';
 import { MyInputComponent } from './my-input/my-input.component';
 import { MyInputTwoComponent } from './my-input-two/my-input-two.component';
 import { TableGroupComponent } from './table-group/table-group.component';
+import { MySelectTreeSingleComponent } from './my-select-tree-single/my-select-tree-single.component';
 @NgModule({
   declarations: [
     AgTableComponent, MySelectTreeComponent, MySelectTreeTypeComponent,
@@ -26,6 +27,7 @@ import { TableGroupComponent } from './table-group/table-group.component';
     MyInputComponent,
     MyInputTwoComponent,
     TableGroupComponent,
+    MySelectTreeSingleComponent,
   ],
   imports: [
     CommonModule,

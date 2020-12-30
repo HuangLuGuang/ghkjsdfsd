@@ -94,6 +94,11 @@ export class HourConfigComponent implements OnInit {
       // console.log("得到pathname --在得到button\t\t", result)
       localStorage.setItem("buttons_list", JSON.stringify(result));
     })
+
+    // ======= 使用 NbDialog 切换标签时，无法再次弹出问题！
+    // var dom = document.createElement("div");
+    // dom.className = "cdk-overlay-container"
+    // document.getElementsByTagName("nb-layout")[0].appendChild(dom)
    
   }
 
@@ -105,6 +110,10 @@ export class HourConfigComponent implements OnInit {
 
     // 初始化aggrid
     this.inttable();
+  }
+
+  ngOnDestroy(){
+
   }
 
   
