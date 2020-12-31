@@ -86,7 +86,11 @@ export class PagesComponent implements OnInit {
     var item_dict = [
       {title: "设备在线",url: "/pages/equipment/first-level"},
       {title: "研究总院",url: "/pages/equipment/second-level"},
-      {title: "结构",url: "/pages/equipment/third-level/structural"},
+      {title: "结构试验室",url: "/pages/equipment/third-level/structural"},
+      {title: "环模试验室",url: "/pages/equipment/third-level/environment"},
+      {title: "电机试验室",url: "/pages/equipment/third-level/energy"},
+      {title: "理化与环保试验室",url: ""},
+      {title: "噪声与震动试验室",url: ""},
     ]
     var device_menu = menu[1];
     item_dict.forEach(item=>{

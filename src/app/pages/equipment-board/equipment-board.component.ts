@@ -1,10 +1,11 @@
 import { Route } from '@angular/compiler/src/core';
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
+import { ActivatedRoute, NavigationEnd, Router,Event } from '@angular/router';
 import * as screenfull from 'screenfull';
 import { Screenfull } from 'screenfull';
 import { LayoutService } from '../../@core/utils';
 import { create_img_16_9 } from './equipment-board';
+
 declare var $:any;
 @Component({
   selector: 'ngx-equipment-board',
@@ -14,7 +15,8 @@ declare var $:any;
 export class EquipmentBoardComponent implements OnInit {
   is_not_fullscreen = true; // 是否处于全屏
 
-  title = '智慧实验室';//标题
+  title = '智慧实验室(G-iLAB)';//标题
+  isFirstLevel;
   date = {
     year: 0,
     month: 0,
@@ -50,7 +52,18 @@ export class EquipmentBoardComponent implements OnInit {
   }
   
   ngAfterViewInit(){
+    // 监听路由
+    this.isFirstLevel =  this.router.events.subscribe((event: Event) => {
+      if (event instanceof NavigationEnd) {
+        var url = event.url.split("/").pop();
+        if (url === 'first-level'){
+          $("#head_title").text("智慧实验室(G-iLAB)")
+        }
+      }
+    });
   }
+
+
 
   resize=()=>{
     setTimeout(() => {
@@ -104,6 +117,7 @@ export class EquipmentBoardComponent implements OnInit {
   ngOnDestroy(){
     clearInterval(this.dateInterval);
     window.removeEventListener('resize',this.resize);
+    this.isFirstLevel.unsubscribe();
   }
 
    // 全屏切换
