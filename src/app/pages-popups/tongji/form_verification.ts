@@ -48,3 +48,9 @@ export const Device =  {
     linklevel: "^[a-cA-C]{1}$"
 
 }
+
+// 新增试验任务信息！
+export const Tesk_Info = {
+    special_sql: special_sql, // sql 注入
+    
+}

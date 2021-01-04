@@ -1,6 +1,14 @@
 <div class="row">
     <div class="col-lg-9" style="display: flex;">
 
+        <!-- 功能组 -->
+        <div class="example-items-rows button_item" >
+            <div class="gongneng_keshi">
+                <ngx-my-select-tree #groups [placeholder]="groups_placeholder"></ngx-my-select-tree>
+            </div>
+        </div>
+
+
         <!-- 设备名称，input -->
         <div class="example-items-rows button_item"  *ngIf="button?.query">
             <div class="gongneng_keshi">
@@ -18,16 +26,13 @@
         <!-- 月下拉框 -->
         <div class="example-items-rows button_item">
             <div class="month">
-                <ngx-month-select #myMonth></ngx-month-select>
+                <ngx-month-select #myMonth [placeholder]="month_placeholder"></ngx-month-select>
+                <!-- <ngx-my-select-tree-single #myMonth [placeholder]="month_placeholder"></ngx-my-select-tree-single> -->
+
             </div>
         </div>
 
-        <!-- 功能组 -->
-        <div class="example-items-rows button_item" >
-            <div class="gongneng_keshi">
-                <ngx-my-select-tree #groups [placeholder]="groups_placeholder"></ngx-my-select-tree>
-            </div>
-        </div>
+        
 
         <!-- 设备类型 eimdevicetpye-->
         <div class="example-items-rows button_item" >

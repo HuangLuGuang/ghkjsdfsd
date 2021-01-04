@@ -875,7 +875,7 @@ export class NewUserEmployeeComponent implements OnInit {
     this.publicmethod.showngxtoastr({position: 'toast-top-right', status: 'danger', conent:"删除失败!"});
   }
   searchdanger(data){
-    this.publicmethod.showngxtoastr({position: 'toast-top-right', status: 'danger', conent:"没要该域账号：" + data});
+    this.publicmethod.showngxtoastr({position: 'toast-top-right', status: 'danger', conent:"没有该域账号：" + data});
   }
 
   // 提示!

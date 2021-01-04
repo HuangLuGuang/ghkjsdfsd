@@ -1,0 +1,37 @@
+// title
+.test_task_info_title{
+    margin-bottom: 10px;
+    padding-left: 0px;
+    div{
+        background-color: #4672c4;
+        padding: 9px 2px;
+        color: #fff;
+        font-size: larger;
+    }
+}
+
+.button_item{
+    margin: 0px 10px 10px 0px;
+}
+
+// 必填
+.mulu_title::before{
+    content: "*";
+    color: #ff4949;
+    margin-right: 4px;
+
+}
+.mylabel{
+    padding: 9px 0px;
+    text-align: inherit !important;
+}
+.test_task_info_left{
+    width: 47%;
+}
+.test_task_info_right{
+    width: 50%;
+}
+
+.layui-btn-disabled{
+    cursor: not-allowed;
+}

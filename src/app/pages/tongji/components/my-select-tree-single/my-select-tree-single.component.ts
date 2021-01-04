@@ -14,7 +14,7 @@ export class MySelectTreeSingleComponent implements OnInit {
   placeholder_title;
 
   // el5
-  single_el5s;
+  single_tree_el5s;
 
   constructor() { }
 
@@ -23,7 +23,7 @@ export class MySelectTreeSingleComponent implements OnInit {
 
   ngAfterViewInit(){
     this.placeholder_title = this.placeholder;
-    $("[name='single_title']").attr("placeholder", this.placeholder_title);
+    $("[name='single_tree_title']").attr("placeholder", this.placeholder_title);
     // $(".tree_isShow").hide();
   }
   ngOnDestroy(){
@@ -36,19 +36,19 @@ export class MySelectTreeSingleComponent implements OnInit {
   init_select_tree(data){
     var that = this;
     that.tree_data = data;
-    var single_el5s;
+    var single_tree_el5s;
     layui.use(['eleTree',],function(){
       var eleTree = layui.eleTree;
-      $("[name='single_title']").on("click",function (e) {
+      $("[name='single_tree_title']").on("click",function (e) {
         if (that.xialaicon === "arrow-ios-upward-outline"){
           that.xialaicon = "arrow-ios-downward-outline"
         }else{
           that.xialaicon = "arrow-ios-upward-outline";
         }
         e.stopPropagation();
-        if(!single_el5s){
-          single_el5s=eleTree.render({
-            elem: '.single_ele5',
+        if(!single_tree_el5s){
+          single_tree_el5s=eleTree.render({
+            elem: '.single_tree_ele5',
             data: data,
             defaultExpandAll: false,
             showCheckbox: false,
@@ -58,40 +58,40 @@ export class MySelectTreeSingleComponent implements OnInit {
             // defaultCheckedKeys: that.defaultCheckedKeys, // 默认勾选
             checkOnClickNode: true, // 点击节点时选中节点！
           });
-          that.single_el5s = single_el5s;
+          that.single_tree_el5s = single_tree_el5s;
         }
-        $(".single_ele5").toggle();
+        $(".single_tree_ele5").toggle();
       })
       
       // 节点被选择
       // var select_data = that.select_data; //[{id: 3, label: "nvh"},]
       // var select_label_list = that.select_label_list;
-      eleTree.on("nodeClick(single_data5)",function(d) {
+      eleTree.on("nodeClick(single_tree_data5)",function(d) {
         console.error("select_data",d.data.currentData)
-        $("[name='single_title']").val(d.data.currentData.label);
-        $(".single_ele5").hide();
+        $("[name='single_tree_title']").val(d.data.currentData.label);
+        $(".single_tree_ele5").hide();
     })
     $(document).on("click",function() {
-          $(".single_ele5").hide();
+          $(".single_tree_ele5").hide();
           that.xialaicon = "arrow-ios-downward-outline";
       })
     })
   }
   
   getselect(){
-    return $("[name='single_title']").val();
+    return $("[name='single_tree_title']").val();
   }
   // 删除选择的
   delselect(){
-    $("[name='single_title']").val("");
+    $("[name='single_tree_title']").val("");
   }
   // 清空下拉数据
   dropselect(){
     this.delselect();
-    console.log("清空下拉数据",$("[name='single_title']").val());
-    var select = this.single_el5s?.getChecked();
-    this.single_el5s?.reload({data:this.tree_data}); // 重新加载树
-    // this.single_el5s?.unCheckNodes() //取消所有选中的节点
+    console.log("清空下拉数据",$("[name='single_tree_title']").val());
+    var select = this.single_tree_el5s?.getChecked();
+    this.single_tree_el5s?.reload({data:this.tree_data}); // 重新加载树
+    // this.single_tree_el5s?.unCheckNodes() //取消所有选中的节点
 
   }
 

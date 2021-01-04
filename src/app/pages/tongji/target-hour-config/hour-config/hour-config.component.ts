@@ -21,6 +21,7 @@ export class HourConfigComponent implements OnInit {
   @ViewChild("groups") groups_func:any;          // 功能组
   @ViewChild("myYear") myYear:any; // 年
   @ViewChild("myMonth") myMonth:any; // 月
+  // @ViewChild("myMonth") myMonth:any; // 月
 
   TABLE = "device";
   METHOD = "dev_get_target_time_search";
@@ -33,6 +34,8 @@ export class HourConfigComponent implements OnInit {
   groups_placeholder = "请选择功能组";
   myinput_placeholder = "请输入设备名称"
 
+  month_placeholder = "选择月份"
+
   // 用户id
   employeeid = this.userinfo.getEmployeeID()
 
@@ -43,7 +46,7 @@ export class HourConfigComponent implements OnInit {
     PageSize: 10, // 每页 10条数据
     isno_refresh_page_size: false, // 是否重新将 每页多少条数据，赋值为默认值
     columnDefs:[ // 列字段 多选：headerCheckboxSelection checkboxSelection , flex: 1 自动填充宽度 pinned: 'left' 固定左侧
-      { field: 'month', headerName: '月份', headerCheckboxSelection: true, checkboxSelection: true, autoHeight: true, fullWidth: true,resizable: true,width: 100,},
+      { field: 'month', headerName: '月份',  fullWidth: true,resizable: true,width: 150,headerCheckboxSelection: true,checkboxSelection: true},
       { field: 'devicename', headerName: '设备名称', width: 160,resizable: true, },
       { field: 'deviceno', headerName: '设备编号', width: 150, resizable: true, },
       { field: 'group', headerName: '科室/功能组',  resizable: true, width: 330,},
@@ -298,6 +301,23 @@ export class HourConfigComponent implements OnInit {
 
         var groups = res["message"][0]["groups"];
         this.groups_func.init_select_tree(groups);
+
+        // 月份
+        var month = [
+          {id: 1,label: "一月"},
+          {id: 2,label: "二月"},
+          {id: 3,label: "三月"},
+          {id: 4,label: "四月"},
+          {id: 5,label: "五月"},
+          {id: 6,label: "六月"},
+          {id: 7,label: "七月"},
+          {id: 8,label: "八月"},
+          {id: 9,label: "九月"},
+          {id: 10,label: "十月"},
+          {id: 11,label: "十一月"},
+          {id: 12,label: "十二月"},
+        ]
+        this.myMonth.init_select_tree(month);
       }
     })
 

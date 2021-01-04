@@ -24,14 +24,17 @@ import { NewMenuComponent } from './system-set/new-menu/new-menu.component';
 import { NzMenuModule } from 'ng-zorro-antd/menu';
 import { ChangePassowrdForallComponent } from './change-passowrd-forall/change-passowrd-forall.component';
 import { TargetHourConfigComponent } from './tongji/target-hour-config/target-hour-config.component';
+import { AddComponent } from './tongji/test_task_conf/add/add.component';
+import { GroupDevicesComponent } from './tongji/test_task_conf/components/group-devices/group-devices.component';
 
-
+import { NzSelectModule } from 'ng-zorro-antd/select';
+import { EditComponent } from './tongji/test_task_conf/edit/edit.component';
 
 // DateComponent
 @NgModule({
   declarations: [PagesPopupsComponent, RoleComponent, 
     MySelectComponent, UserEmployeeComponent,  
-    UserEmployeeGroupComponent, EditDelTooltipComponent, DeviceManageComponent, PreinstallDialogComponent,  ExpiredTokenComponent, NewMenuComponent, ChangePassowrdForallComponent, TargetHourConfigComponent],
+    UserEmployeeGroupComponent, EditDelTooltipComponent, DeviceManageComponent, PreinstallDialogComponent,  ExpiredTokenComponent, NewMenuComponent, ChangePassowrdForallComponent, TargetHourConfigComponent, AddComponent, GroupDevicesComponent, EditComponent],
   imports: [
     CommonModule,
     PagesPopupsRoutingModule,
@@ -50,6 +53,9 @@ import { TargetHourConfigComponent } from './tongji/target-hour-config/target-ho
     NbButtonModule,
 
     NzMenuModule, // menu
+
+    NzSelectModule,
+    FormsModule,
 
 
 

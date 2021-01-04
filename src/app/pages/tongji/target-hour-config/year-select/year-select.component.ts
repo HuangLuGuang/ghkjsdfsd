@@ -22,6 +22,10 @@ export class YearSelectComponent implements OnInit {
     this.init_year_select();
   }
 
+  ngOnDestroy(){
+    $("#year").remove();
+  }
+
   // 初始化
   init_year_select(){
     var that = this;

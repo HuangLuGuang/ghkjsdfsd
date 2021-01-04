@@ -118,6 +118,23 @@ export class DeviceDataSumComponent implements OnInit {
         this.groups_func.init_select_tree(groups);
         var eimdevicetpyedata = res["message"][0]["type"];
         this.eimdevicetpye.init_select_trees(eimdevicetpyedata);
+
+        // 月份
+        var month = [
+          {id: 1,label: "一月"},
+          {id: 2,label: "二月"},
+          {id: 3,label: "三月"},
+          {id: 4,label: "四月"},
+          {id: 5,label: "五月"},
+          {id: 6,label: "六月"},
+          {id: 7,label: "七月"},
+          {id: 8,label: "八月"},
+          {id: 9,label: "九月"},
+          {id: 10,label: "十月"},
+          {id: 11,label: "十一月"},
+          {id: 12,label: "十二月"},
+        ]
+        this.myMonth.init_select_tree(month);
       }
     })
   }

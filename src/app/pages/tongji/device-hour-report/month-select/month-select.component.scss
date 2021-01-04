@@ -1,30 +1,43 @@
-.month_select{
-    position: relative;
-    #month{
-        height: 32px;
-        width: 100%;
-        border-color: rgb(0,214,143) !important;
-        border-radius: 4px;
-        border-width: 1.5px;
+.single_eleTree{
+    display: none;
+    z-index: 2;
+    position: absolute;
+    border-color: #e4e9f2;
+    background: white;
+    pointer-events: auto;
+    transform: translateY(8px);
+    // width: 169px;
+    width: 103px;
+    z-index: 3;
 
-       
-        
-    }
-    #month:hover{
-        cursor: pointer;
-        height: 32px;
-        border-color: rgb(0,214,143) !important;
-        border-radius: 4px;
-        border-width: 1.5px;
-        background-color: rgb(237,241,247);
-    }
+    border-style: solid;
+    border-width: 0.0625rem;
+    border-radius: 0.25rem;
+    box-shadow: none;
+    overflow: hidden;
+}
+.single_xiala{
+    position: absolute;
+    right: 5px;
+    top: 9px;
+    font-size: 0.95rem;
+}
 
-    .xiala{
-        position: absolute;
-        top: 7px;
-        right: 1px;
-    }
+
+.single_employeenumber_2{
+    // line-height: 29px;
+    height: 32px;
+    // width: 107%;
+    border-color: rgb(0,214,143) !important;
+    border-radius: 4px;
+    border-width: 1.5px;
 }
-.month_option{
-    padding: 0rem 1rem !important;
+.single_employeenumber_2:hover{
+    cursor: pointer;
+    height: 32px;
+    border-color: rgb(0,214,143) !important;
+    border-radius: 4px;
+    border-width: 1.5px;
+    background-color: rgb(237,241,247);
 }
+

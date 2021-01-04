@@ -1,0 +1,37 @@
+<div class="row" style="padding:0px 0px 0px 11px;">
+    <form action="" class="layui-form" lay-filter="test_task_conf_add_inline_groups">
+        <!-- 功能组 下拉框、单选 -->
+
+        <!-- 功能组 -->
+        <div class="layui-form-item">
+            <div class="layui-input-inline test_task_conf_add_inline_group">
+                <label class="layui-form-label mylabel">功能组：</label>
+                <div class="layui-input-block">
+                    <select id="test_task_conf_add_group" name="test_task_conf_add_group" lay-filter="test_task_conf_add_group">
+                        <!-- <option value="" selected="">请选择科室</option> -->
+                        <!-- <option *ngFor="let item of groups" [value]="item.id">{{item.label}}</option> -->
+                    </select>
+                </div>
+            </div>
+            
+            <!-- 设备名称 -->
+            <div class="layui-input-inline test_task_conf_add_inline">
+                <label class="layui-form-label mylabel">设备名称：</label>
+                <div class="layui-input-block">
+                    <select id="test_task_conf_add_devicename" name="test_task_conf_add_devicename" lay-filter="test_task_conf_add_devicename">
+                        <!-- <option value="">直接选择或搜索选择</option> -->
+                        <!-- <option *ngFor="let item of devicename" [value]="item.deviceno">{{item.devicename}}</option> -->
+                    </select>
+                </div>
+            </div>
+            
+            <!-- 设备编号 -->
+            <div class="layui-input-inline test_task_conf_add_inline">
+                <label class="layui-form-label mylabel">设备编号：</label>
+                <div class="layui-input-block">
+                    <input id="test_task_conf_add_deviceno" type="text" name="title" disabled lay-verify="title" autocomplete="off" placeholder="请输入设备编号" class="layui-input">
+                </div>
+            </div>
+        </div>
+    </form>
+</div>

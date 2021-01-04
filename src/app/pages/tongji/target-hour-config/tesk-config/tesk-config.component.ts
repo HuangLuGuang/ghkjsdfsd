@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-
+import { AddComponent } from '../../../../pages-popups/tongji/test_task_conf/add/add.component';
 
 import * as XLSX from 'xlsx';
 
@@ -18,6 +18,8 @@ import { UserInfoService } from '../../../../services/user-info/user-info.servic
 import { NbDialogService } from '@nebular/theme';
 import { EditDelTooltipComponent } from '../../../../pages-popups/prompt-diallog/edit-del-tooltip/edit-del-tooltip.component';
 import { ActionComponent } from './action/action.component';
+import { DatePipe } from '@angular/common';
+import { EditComponent } from '../../../../pages-popups/tongji/test_task_conf/edit/edit.component';
 
 
 @Component({
@@ -27,11 +29,10 @@ import { ActionComponent } from './action/action.component';
 })
 export class TeskConfigComponent implements OnInit {
   @ViewChild("ag_Grid") agGrid:any;
-  @ViewChild("group") group:any;
-  @ViewChild("eimdevicetpye") eimdevicetpye:any;
-  @ViewChild("data_range") data_range:any;
-  @ViewChild("myinput") myinput:any;
-  @ViewChild("myinput2") myinput2:any;
+  @ViewChild("group") group:any; // 功能/科室
+  @ViewChild("myYear") myYear:any; // 年
+  @ViewChild("myMonth") myMonth:any; // 月
+  @ViewChild("myinput2") myinput2:any; // 试验任务子单号
 
 
   // 导出文件名
@@ -49,12 +50,11 @@ export class TeskConfigComponent implements OnInit {
   date_ranges = "device_kpi_date_range"
 
   // 得到table method
-  GETTABLE = "dev_get_device_taskinfo_search";
+  GETTABLE = "dev_get_device_taskinfo_search_new";
 
 
   eimdevicetpye_placeholder = "请选择设备类型"; // eim 设备类型
   groups_placeholder = "请选择科室/功能组";     // 科室/功能组
-  myinput_placeholder = "请输入设备名称"; // input 设备名称
   myinput_placeholder2 = "请输入任务子单号"; // input 任务子单号
   button; // 权限button
   refresh = false; // 刷新tabel
@@ -64,7 +64,7 @@ export class TeskConfigComponent implements OnInit {
   active; // aggrid 操作
 
   constructor(private publicservice: PublicmethodService, private http: HttpserviceService,
-    private userinfo: UserInfoService, private dialogService:NbDialogService) { 
+    private userinfo: UserInfoService, private dialogService:NbDialogService, private datepip: DatePipe) { 
     // 会话过期
     localStorage.removeItem("alert401flag");
     // 选择框
@@ -77,7 +77,8 @@ export class TeskConfigComponent implements OnInit {
     this.active = { field: 'option', headerName: '操作', resizable: true, fullWidth: true, width: 100, pinned: 'right',cellRendererFramework: ActionComponent,
       cellRendererParams: {
         clicked: function(data: any) {
-          console.log("--添加操作列---",data)
+          console.log("--编辑操作列---",data);
+          that.edit(data);
           // that.change_target_hour([data]);
         }
       },
@@ -150,15 +151,15 @@ export class TeskConfigComponent implements OnInit {
     var method = actionmethod.split(":")[1];
     console.log("--------------->method", method)
     switch (method) {
-      // case 'add':
-      //   this.add();
-      //   break;
+      case 'add':
+        this.add();
+        break;
       // case 'del':
       //   this.del();
       //   break;
-      // case 'edit':
-      //   this.edit();
-      //   break;
+      case 'edit':
+        this.edit();
+        break;
       case 'query':
         this.query();
         break;
@@ -182,9 +183,23 @@ export class TeskConfigComponent implements OnInit {
       // console.log("得到下拉框的数据", res)
       if (res["code"] === 1){
         var groups = res["message"][0]["groups"];
-        var type = res["message"][0]["type"];
         this.group.init_select_tree(groups);
-        this.eimdevicetpye.init_select_trees(type);
+        // 月份
+        var month = [
+          {id: 1,label: "一月"},
+          {id: 2,label: "二月"},
+          {id: 3,label: "三月"},
+          {id: 4,label: "四月"},
+          {id: 5,label: "五月"},
+          {id: 6,label: "六月"},
+          {id: 7,label: "七月"},
+          {id: 8,label: "八月"},
+          {id: 9,label: "九月"},
+          {id: 10,label: "十月"},
+          {id: 11,label: "十一月"},
+          {id: 12,label: "十二月"},
+        ]
+        this.myMonth.init_select_tree(month);
       }
     })
   }
@@ -204,15 +219,46 @@ export class TeskConfigComponent implements OnInit {
     }
   }
 
+  // 新增试验任务
+  add(){
+    
+    this.dialogService.open(AddComponent, { closeOnBackdropClick: false,context: { }}).onClose.subscribe(res=>{
+      if (res){
+        // 标识 插入数据
+        // 刷新tabel
+        this.refresh_table()
+      }
+    })
+  }
+
+  // 编辑试验任务
+  edit(data?){
+    var rowdata
+    if(data){
+      rowdata = [data];
+    }else{
+      rowdata = this.agGrid.getselectedrows();
+    }
+    if (rowdata.length === 1){
+      this.dialogService.open(EditComponent, { closeOnBackdropClick: false,context: { rowdata: rowdata[0] }}).onClose.subscribe(res=>{
+        if (res){
+          // 标识 插入数据
+          // 刷新tabel
+          this.refresh_table()
+        }
+      })
+    }else{
+      this.dialogService.open(EditDelTooltipComponent, { closeOnBackdropClick: false, autoFocus: true,context: { title: '提示', content:   `请选择一行数据！`}} ).onClose.subscribe(
+        istrue=>{
+          console.log("----istrue-----", istrue)
+        }
+      );
+    }
+  }
 
   // 搜索按钮
   query(inpuvalue?){
-    var devicename;
-    if (inpuvalue&&inpuvalue["devicename"]){
-      devicename = inpuvalue["devicename"];
-    }else{
-      devicename = this.myinput?.getinput();// 设备名称
-    }
+    var inittable_before = this.inittable_before();
     // 任务子单号
     var taskchildnum;
     if (inpuvalue&&inpuvalue["taskchildnum"]){
@@ -225,53 +271,49 @@ export class TeskConfigComponent implements OnInit {
     // 科室/功能组
     var groups_data = this.group.getselect();
     // 设备类型
-    var device_tpye_data = this.eimdevicetpye.getselect();
     // 日期范围
-    var daterange_data = this.data_range.getselect()
     // 将科室/功能组，转为列表
     var groups_data_ = groups_data ===""?[] :groups_data.split(";");
     // 搜索的 时间范围 daterange 必选，修改为 start end
     // console.log("**************\n") EditDelTooltipComponent
 
-    if(devicename == "" && device_tpye_data.length < 1 && groups_data_.length < 1 && daterange_data.length < 1){
-      this.dialogService.open(EditDelTooltipComponent, { closeOnBackdropClick: false, context: { title: '提示', content:   `请选择要搜索的数据！`}} ).onClose.subscribe(
-        name=>{
-          // console.log("----name-----", name);
-        }
-      );
-    }else {
-      var columns = {
-        offset: 0, 
-        limit: this.agGrid.get_pagesize(),
-        employeeid: this.userinfo.getEmployeeID(),
-        devicename: [devicename],
-        group: groups_data_,
-        start:daterange_data[0],
-        end:daterange_data[1],
-        eimdevicetype:device_tpye_data,
-        taskchildnum: taskchildnum
-      }
-      // console.log("**************\n", columns);
-      // 执行搜索函数！GETTABLE  dev_get_kpi_device_search
-      this.http.callRPC('device', this.GETTABLE,columns).subscribe(result=>{
-        var tabledata = result["result"]["message"][0];
-        this.loading = false;
-        if (tabledata["code"] === 1){
-          var message = tabledata["message"];
-          this.gridData = [];
-          this.gridData.push(...message);
-          this.tableDatas.rowData = this.gridData;
-          var totalpagenumbers = tabledata['numbers']? tabledata['numbers'][0]['numbers']: '未得到总条数';
-          this.tableDatas.totalPageNumbers = totalpagenumbers;
-          this.agGrid.update_agGrid(this.tableDatas); // 告诉组件刷新！
-          this.RecordOperation('搜索', 1,  "设备报表")
-          if (message.length < 1){
-            this.searchdanger();
-          }
-        }else{this.RecordOperation('搜索', 0,  "设备报表")}
-      })
-
+    // if(groups_data_.length < 1 ){
+    //   this.dialogService.open(EditDelTooltipComponent, { closeOnBackdropClick: false, context: { title: '提示', content:   `请选择要搜索的数据！`}} ).onClose.subscribe(
+    //     name=>{
+    //       // console.log("----name-----", name);
+    //     }
+    //   );
+    // }else {
+      
+    // }
+    var columns = {
+      offset: 0, 
+      limit: this.agGrid.get_pagesize(),
+      employeeid: this.userinfo.getEmployeeID(),
+      group: groups_data_,
+      taskchildnum: taskchildnum,
+      start: inittable_before.start,
+      end: inittable_before.end
     }
+    // console.log("**************\n", columns);
+    // 执行搜索函数！GETTABLE  dev_get_kpi_device_search
+    this.http.callRPC('device', this.GETTABLE,columns).subscribe(result=>{
+      var tabledata = result["result"]["message"][0];
+      this.loading = false;
+      if (tabledata["code"] === 1){
+        var message = tabledata["message"];
+        this.gridData = [];
+        this.gridData.push(...message);
+        this.tableDatas.rowData = this.gridData;
+        var totalpagenumbers = tabledata['numbers']? tabledata['numbers'][0]['numbers']: '未得到总条数';
+        this.tableDatas.totalPageNumbers = totalpagenumbers;
+        this.agGrid.update_agGrid(this.tableDatas); // 告诉组件刷新！
+        this.RecordOperation('搜索', 1,  "设备报表")
+        if (message.length < 1){
+          this.searchdanger();
+        }
+      }else{this.RecordOperation('搜索', 0,  "设备报表")}
+    })
       
   }
 
@@ -288,12 +330,9 @@ export class TeskConfigComponent implements OnInit {
     this.tableDatas.isno_refresh_page_size = true;
 
     // 取消选择的数据 delselect
-    this.myinput.del_input_value(); // 设备名称
     this.myinput2.del_input_value(); // 任务子单号
 
     this.group.dropselect();
-    this.eimdevicetpye.dropselect();
-    this.data_range.reset_mydate();
 
 
     this.inttable();
@@ -313,27 +352,20 @@ export class TeskConfigComponent implements OnInit {
       task_progress: "TaskProgressForAggridComponent",
     }, // 这是单元格要渲染的 组件！
     columnDefs:[ // 列字段 多选：headerCheckboxSelection checkboxSelection , flex: 1 自动填充宽度, pinned: 'left'
-      { field: 'id', headerName: '序号', headerCheckboxSelection: true, checkboxSelection: true, autoHeight: true,  minWidth: 5,maxwidth: 15,resizable: true},
-      // { field: 'rate', headerName: '任务进度', resizable: true, minWidth: 10, cellRendererFramework: TaskProgressForAggridComponent,},
-      { field: 'rate', headerName: '任务进度', resizable: true, minWidth: 10, },
-      { field: 'devicename', headerName: '设备名称',  resizable: true, minWidth: 10},
-      // { field: 'department', headerName: '部门信息', resizable: true, minWidth: 10},
-      { field: 'deviceid', headerName: '设备ID',  resizable: true, minWidth: 10},
-      { field: 'belonged', headerName: '负责人',  resizable: true, minWidth: 10},
-      { field: 'tasknum', headerName: '任务单号', resizable: true, minWidth: 10},
-      { field: 'taskchildnum', headerName: '任务子单号', resizable: true, minWidth: 10},
+      { field: 'tasknum', headerName: '试验任务编号', headerCheckboxSelection: true, checkboxSelection: true, autoHeight: true,  minWidth: 5,maxwidth: 15,resizable: true},
+      { field: 'taskchildnum', headerName: '试验编号', resizable: true, minWidth: 10, },
+      { field: 'taskitemnumbers', headerName: '条目编号(测试项)',  resizable: true, minWidth: 10}, // 试验条目编号
+      { field: 'devicetaskname', headerName: '条目名称(测试项)', resizable: true, minWidth: 10}, // 试验名称
+      { field: 'executor', headerName: '执行人',  resizable: true, minWidth: 10},
+      { field: 'expectedtime', headerName: '试验预计时长',  resizable: true, minWidth: 10},
+      { field: 'taskstart', headerName: '实际开始时间', resizable: true, minWidth: 10},
+      { field: 'taskstatus', headerName: '试验状态', resizable: true, minWidth: 10},
+      { field: 'lastupdateon', headerName: '状态变更时间', resizable: true, minWidth: 10},  // 更新时间
+      { field: 'curr_total', headerName: '当前轮次/总轮次', resizable: true, minWidth: 10}, // ==============计算得来 当前轮次/总轮次   devicetasknownumbers/devicetasknumbers
+      { field: 'timerate', headerName: '时间计算进度/轮次计算进度', resizable: true, minWidth: 10},
+      { field: 'rate', headerName: '进度', resizable: true, minWidth: 10}, // 
+      { field: 'option', headerName: '操作', resizable: true, minWidth: 10}, // 
       
-      // { field: 'departmentInfo', headerName: '自定义统计时间(默认最近一周)', 
-      //   children:[
-      //     { field: 'starttime', headerName: '开始时间', resizable: true},
-      //     { field: 'endtime', headerName: '结束时间', resizable: true},
-      //   ]
-      // },
-
-      { field: 'taskstart', headerName: '试验开始时间', resizable: true, minWidth: 10}, // 自定义设备编号！
-      { field: 'taskend', headerName: '试验结束时间', resizable: true, minWidth: 10},
-      { field: 'numberstime', headerName: '试验持续时长(h)', resizable: true, minWidth: 10},
-      { field: 'lastupdateon', headerName: '数据更新时间', resizable: true, minWidth: 10},
     ],
     rowData: [ // data
     ]
@@ -341,28 +373,56 @@ export class TeskConfigComponent implements OnInit {
 
   private gridData = [];
 
+  // 得到 start end 根据month(一月\二月)
+  get_start_end(){
+    var month = this.myMonth.getselect();
+    var year = this.myYear.getselect();
+    var month_value = {
+      "一月": 1,
+      "二月": 2,
+      "三月": 3,
+      "四月": 4,
+      "五月": 5,
+      "六月": 6,
+      "七月": 7,
+      "八月": 8,
+      "九月": 9,
+      "十月": 10,
+      "十一月": 11,
+      "十二月": 12,
+    };
+    month = month_value[month];
+    year = Number(year.split("年")[0]);
+    var start = this.datepip.transform(new Date(year, month-1, 1), 'yyyy-MM-dd'); // start
+    var end = this.datepip.transform(new Date(year, month, 0), 'yyyy-MM-dd');   // end
+    // var current = new Date()
+    // var start = this.datepip.transform(new Date(current.getFullYear(), current.getMonth(), 1),  'yyyy-MM-dd'); // 当前start
+    // var end = this.datepip.transform(new Date(current.getFullYear(), current.getMonth() + 1, 0), 'yyyy-MM-dd');   // end
+    return {
+      start: start,
+      end: end
+    }
+  }
+
   // 初始化前确保 搜索条件 
   inittable_before(){
-    var devicename = this.myinput?.getinput()===undefined?"":this.myinput?.getinput();// 设备名称
+    var get_start_end = this.get_start_end();
     var taskchildnum = this.myinput2?.getinput()===undefined?"":this.myinput2?.getinput();// 任务子单号
-
     // 科室/功能组
     var groups_data = this.group?.getselect();
     // 设备类型
-    var device_tpye_data = this.eimdevicetpye?.getselect();
     // 日期范围
-    var daterange_data = this.data_range?.getselect()
     // 将科室/功能组，转为列表
     var groups_data_ = groups_data ===""?[] :groups_data.split(";");
     return {
       limit: this.agGrid.get_pagesize(),
       employeeid: this.userinfo.getEmployeeID(),
-      devicename: [devicename],
       taskchildnum: [taskchildnum],
       group: groups_data_,
-      eimdevicetype:device_tpye_data,
-      start:daterange_data[0],
-      end:daterange_data[1],
+      month: this.myMonth.getselect(),
+      year: this.myYear.getselect(),
+      start: get_start_end.start,
+      end: get_start_end.end,
     }
 
   }
@@ -382,15 +442,15 @@ export class TeskConfigComponent implements OnInit {
       PageSize = inittable_before.limit;
     }
     var colmun = {
-      start: inittable_before.start,
-      end: inittable_before.end,
+      month: inittable_before.month,
+      year: inittable_before.year,
       offset: offset,
       limit: limit,
       employeeid:inittable_before.employeeid,
-      devicename: inittable_before.devicename,
       group:inittable_before.group,
-      eimdevicetype:inittable_before.eimdevicetype,
-      taskchildnum:inittable_before.taskchildnum
+      taskchildnum:inittable_before.taskchildnum,
+      start: inittable_before.start,
+      end: inittable_before.end
     }
     // 得到设备信息！
     this.http.callRPC('device', this.GETTABLE, colmun).subscribe((res)=>{
@@ -415,6 +475,7 @@ export class TeskConfigComponent implements OnInit {
   }
 
   update_agGrid(event?){
+    var inittable_before = this.inittable_before();
     // 是否 每页多少也，设置为默认值
     this.tableDatas.isno_refresh_page_size = true;
     var offset;
@@ -424,18 +485,19 @@ export class TeskConfigComponent implements OnInit {
       limit = event.limit;
     }else{
       offset = 0;
-      limit = 50;
+      limit = 10;
     }
     var colmun = {
-      start: '2020-10-1',
-      end: '2020-11-21',
+      start: inittable_before.start,
+      end: inittable_before.end,
       offset: offset,
       limit: limit,
       employeeid:this.userinfo.getEmployeeID(),
       devicename: "",
       group:[],
       eimdevicetype:[],
-      taskchildnum:[]
+      taskchildnum:[],
+      
     }
     // 得到员工信息！
     this.http.callRPC('deveice', this.GETTABLE, colmun).subscribe((res)=>{
@@ -480,6 +542,9 @@ export class TeskConfigComponent implements OnInit {
 
   searchdanger(){
     this.publicservice.showngxtoastr({position: 'toast-top-right', status: 'danger', conent:"没有搜索到数据！"});
+  }
+  danger(){
+    this.publicservice.showngxtoastr({position: 'toast-top-right', status: 'danger', conent:"请选择一行数据！"});
   }
 
 }
