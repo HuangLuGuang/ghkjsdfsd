@@ -17,7 +17,7 @@
     <!-- 自定义mapcss -->
     <link href="/assets/pages/mobile-asset-management/css/my_map.css" rel="stylesheet">
 
-  
+
 
     <!-- bootstrap-table -->
     <link href="/assets/pages/system-set/bootstrap-table/bootstrap.min.css" rel="stylesheet">
@@ -35,8 +35,40 @@
 </head>
 
 <body>
+    <!-- jquery -->
+    <script type="text/javascript" src="/assets/pages/device-inline/js/jquery.js"></script>
+
+    <script type="text/javascript">
+        // 20201225151850
+        $.ajax({
+            // url: 'https://api.map.baidu.com/api?v=2.0&ak=4TBS12lmsagsuOBKhPTx3QQGbp19Y78Q&services=false',
+            url: "https://api.map.baidu.com/getscript?v=2.0&ak=4TBS12lmsagsuOBKhPTx3QQGbp19Y78Q&services=true",
+            type: "GET",
+            dataType: 'script',
+            cache: true,
+            // async: false,
+            success: function(data, textStatus, jqxhr) {
+                // var script = document.createElement('script');
+                // script.src = "https://api.map.baidu.com/api?v=2.0&ak=4TBS12lmsagsuOBKhPTx3QQGbp19Y78Q&services=false";
+                // script.type = "text/javascript";
+                // document.getElementsByTagName('body')[0].appendChild(script);
+                // console.log(data);
+                // console.log(textStatus);
+                // console.log(jqxhr)
+            },
+            error: function(XMLHttpRequest, textStatus, errorThrown) {
+                console.log("请求失败，status：" + XMLHttpRequest.status);
+                console.log("readystate：" + XMLHttpRequest.readyState);
+                console.log("responseText：" + XMLHttpRequest.responseText);
+                console.log("错误信息：" + textStatus);
+                alert('百度地图获取失败')
+            }
+        });
+    </script>
+
+
     <!--引入百度地图的jssdk，这里需要使用你在百度地图开发者平台申请的 ak -->
-    <script type="text/javascript" src="https://api.map.baidu.com/api?v=2.0&ak=4TBS12lmsagsuOBKhPTx3QQGbp19Y78Q&services=true"></script>
+    <!-- <script type="text/javascript" src="https://api.map.baidu.com/api?v=2.0&ak=4TBS12lmsagsuOBKhPTx3QQGbp19Y78Q&services=false"></script> -->
 
     <!-- 鼠标实例 -->
     <script type="text/javascript" src="/assets/pages/mobile-asset-management/js/DistanceTool_min.js"></script>
@@ -46,9 +78,6 @@
 
     <!-- echart -->
     <script type="text/javascript" src="/assets/pages/device-inline/js/echarts.min.js"></script>
-
-    <!-- jquery -->
-    <script type="text/javascript" src="/assets/pages/device-inline/js/jquery.js"></script>
 
 
     <!-- layui -->
