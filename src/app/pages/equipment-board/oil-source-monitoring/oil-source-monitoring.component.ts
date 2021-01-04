@@ -477,6 +477,7 @@ export class OilSourceMonitoringComponent implements OnInit {
       if(f.result.error || f.result.message[0].code == 0)return;
       res = f.result.message[0].message;
       res.forEach(el => {
+        if(el.length == 0)return;
         let i = parseInt(el[0].deviceid.split('_')[el[0].deviceid.split('_').length-1]);
         this.HPUlist[i-1].pumpList.forEach((f,j)=>{
           f.s = el[0][`hs3${j+1}`]?true:false;
@@ -534,25 +535,26 @@ export class OilSourceMonitoringComponent implements OnInit {
     this.subscribeList.cleanlinss = this.http.callRPC('get_particle','device_monitor.get_particle',{"deviceid":"device_hpu_0"+i[0]}).subscribe((f:any)=>{
       if(f.result.error || f.result.message[0].code == 0)return;
       res = f.result.message[0].message[0];
+      if(!res)res = {}
       // 粒子数 > 4u
-      this.cleanlinss[0].dataLine.value = res.cs01;
+      this.cleanlinss[0].dataLine.value = res.cs01 || 0;
       // 粒子数 > 6u
-      this.cleanlinss[1].dataLine.value = res.cs02;
+      this.cleanlinss[1].dataLine.value = res.cs02 || 0;
       // 粒子数 > 14u
-      this.cleanlinss[2].dataLine.value = res.cs03;
+      this.cleanlinss[2].dataLine.value = res.cs03 || 0;
       // 粒子数 > 21u
-      this.cleanlinss[3].dataLine.value = res.cs07;
+      this.cleanlinss[3].dataLine.value = res.cs07 || 0;
       this.cleanlinss.forEach(f=>{
         if(document.getElementById(f.id)){
           oilsrouce.create_bar_j(f.dataLine,echarts.init(document.getElementById(f.id)),'20%');
         }
       })
-      this.attrs_cleanliss[0].value.push(res.cs01);
-      this.attrs_cleanliss[1].value.push(res.cs02);
-      this.attrs_cleanliss[2].value.push(res.cs03);
-      this.attrs_cleanliss[3].value.push(res.cs07);
+      this.attrs_cleanliss[0].value.push(res.cs01  || 0);
+      this.attrs_cleanliss[1].value.push(res.cs02 || 0);
+      this.attrs_cleanliss[2].value.push(res.cs03 || 0);
+      this.attrs_cleanliss[3].value.push(res.cs07 || 0);
 // dateformat(new Date(res.recordtime),' hh:mm:ss')
-      this.xdata_cleanliss.push(res.recordtime );
+      this.xdata_cleanliss.push(res.recordtime  || 0);
       if(this.xdata_cleanliss.length> 10){
         this.xdata_cleanliss.splice(0,1);
         this.attrs_cleanliss[0].value.splice(0,1);
@@ -590,17 +592,18 @@ export class OilSourceMonitoringComponent implements OnInit {
     this.subscribeList.water = this.http.callRPC('get_water','device_monitor.get_water',{"deviceid":"device_hpu_0"+i[0]}).subscribe((f:any)=>{
       if(f.result.error || f.result.message[0].code == 0)return;
       res = f.result.message[0].message[0];
+      if(!res)res = {};
       
       this.HE_Water.data.forEach((f,i)=>{
         if(document.getElementById(f.id)){
-          f.dataLine.value = res[j[i]];
+          f.dataLine.value = res[j[i]] || 0;
           oilsrouce.create_bar_j(f.dataLine,echarts.init(document.getElementById(f.id)),'20%');
         }
       })
       this.HE_Water.attrs.forEach((f,i)=>{
-        f.value.push(res[j[i]]);
+        f.value.push(res[j[i]]|| 0);
       })
-      this.HE_Water.xData.push(res.recordtime);
+      this.HE_Water.xData.push(res.recordtime|| 0);
       if(this.HE_Water.xData.length>10){
         this.HE_Water.xData.splice(0,1);
         this.HE_Water.attrs.forEach(f=>{
@@ -641,7 +644,7 @@ export class OilSourceMonitoringComponent implements OnInit {
     this.subscribeList.rader = this.http.callRPC('get_accumulator','device_monitor.get_accumulator',{"deviceid":""}).subscribe((f:any)=>{
       if(f.result.error || f.result.message[0].code == 0)return;
       res = f.result.message[0].message[0];
-
+      if(!res)res = {};
       this.radar_1.value = [
         res.ab11,res.ab81,res.ab71,res.ab61,res.ab51,res.ab51,res.ab31,res.ab21,
       ];

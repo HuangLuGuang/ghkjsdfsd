@@ -57,7 +57,7 @@
     </div>
     <div class="table_bo" style="overflow: auto;position: relative;height: 60%;">
         <table style="position: absolute;height: 100%;">
-            <tr class="body" *ngFor="let items of experiment.data">
+            <tr class="body" *ngFor="let items of experiment.data_next">
                 <td style="width: 20%;" *ngFor="let item of items;let i = index">
                     <div *ngIf="i == 4;else fontTemp" class="progres_1">
                         <nz-progress [nzPercent]="item" nzSize="small" [nzShowInfo]="false" nzStatus="{{true?'active':'exception'}}"></nz-progress>

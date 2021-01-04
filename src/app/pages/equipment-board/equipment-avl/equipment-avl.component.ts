@@ -185,7 +185,7 @@ export class EquipmentAvlComponent implements OnInit {
 
   obser = new Observable(f=>{
     this.outRenturnWind.forEach((f:any,i:number) => {
-      if(!echarts.init(document.getElementById('electric_chart_'+i)))return;
+      if(!document.getElementById('electric_chart_'+i))return;
       echarts.init(document.getElementById('electric_chart_'+i)).resize();
     })
     this.avl_speed.forEach(el=>{

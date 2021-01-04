@@ -27,7 +27,8 @@ export class TestInformationComponent implements OnInit {
       // [1,'2020-10-11','2020-10-11',1,1],
       // [1,'2020-10-11','2020-10-11',1,1],
       // [1,'2020-10-11','2020-10-11',1,1],
-    ]
+    ],
+    data_next:[]
   }
   timer60s;
   subscribeList:any = {};
@@ -50,6 +51,9 @@ export class TestInformationComponent implements OnInit {
       if(f.result.error || f.result.message[0].code == 0)return;
       this.experiment.data = f.result.message[0].message.map(m =>
             ([m.taskchildnum,dateformat(new Date(m.taskstart),'yy/MM/dd'),dateformat(new Date(m.taskend),'yy/MM/dd'),m.numberstime+'h',parseInt((m.rate).toString())])
+      );
+      this.experiment.data_next = f.result.message[0].message.map(m =>
+        ([m.taskchildnum,dateformat(new Date(m.taskstart),'yy/MM/dd'),dateformat(new Date(m.taskend),'yy/MM/dd'),m.numberstime+'h',parseInt((m.rate).toString())])
       );
     })
     // this.http.callRPC('get_device_mts_progress','device_monitor.get_device_mts_progress',{
