@@ -24,7 +24,7 @@ export class EnvironmentLaboratoryComponent implements OnInit {
       number:'S1060',
       andon:0,
       speed:[0],
-      router:'pages/equipment/twodrive/两驱底盘测功机-1/device_avldyno_02'
+      router:'pages/equipment/twodrive/两驱底盘测功机-2/device_avldyno_02'
     },
     {
       name:'AVL耐久4驱',
@@ -99,7 +99,7 @@ export class EnvironmentLaboratoryComponent implements OnInit {
 
   ngOnInit(): void {
     if(document.getElementById('head_title'))
-        document.getElementById('head_title').innerText = '验证中心-环境lib';
+        document.getElementById('head_title').innerText = '验证中心-环境实验室';
     
     
   }
