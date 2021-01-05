@@ -55,11 +55,25 @@ export class SecondLevelComponent implements OnInit {
 
 
 
+    
+  }
+
+  ngAfterViewInit(){
     // 关键指标
     second_level.key_index();
     // 设备开动率、完好lv
     second_level.device_rate(70);
+    setTimeout(() => {
+      let key_index = document.querySelector('.key-index');
+      if(key_index) echarts.init(key_index).resize();
+      let device_rate = document.querySelector('.device-rate');
+      if(device_rate) echarts.init(device_rate).resize();
+      
+  
+    }, 100);
   }
+
+  
 
   ngOnDestroy(){
   }

@@ -13,59 +13,80 @@ export class StructuralLaboratoryComponent implements OnInit {
   list = [
     {
       name:'Master',
+      src:'assets/eimdoard/equipment/images/zcdz.png',//实验图片路径
       andon:0,
-      speed:[0],
+      speed:[0],//实验编号
+      speed_name:[''],//实验名称
       router:'pages/equipment/coupling/整车多轴轴耦合道路模拟试验台-329',
     },
     {
       name:'320四立柱',
+      src:'assets/eimdoard/equipment/images/slz.png',//实验图片路径
       andon:0,
       speed:[0],
+      speed_name:[''],//实验名称
       router:'pages/equipment/road/四立柱道路模拟试验台-320.5'
     },
     {
       name:'Mast Table',
+      src:'assets/eimdoard/equipment/images/lzyd.png',//实验图片路径
       andon:0,
       speed:[0],
+      speed_name:[''],//实验名称
       router:'pages/equipment/shock/六自由度振动台-353.2'
     },
     {
       name:'TestLine',
+      src:'assets/eimdoard/equipment/images/yy.png',//实验图片路径
       andon:0,
       speed:[0,0,0,0],
+      speed_name:['','','',''],//实验名称
       router:'pages/equipment/hydraulic/液压伺服系统扩展系统-Testline'
     },
     {
       name:'油源',
+      src:'assets/eimdoard/equipment/images/yy.png',//实验图片路径
       andon:0,
       open_close:[0,0,0,0,0],
       type:'oil',
+      speed_name:[''],//实验名称
       router:'pages/equipment/oilsrouce/油源健康监控系统'
     },
     {
       name:'天窗开闭',
+      src:'',//实验图片路径
       andon:0,
       speed:[0],
+      speed_name:[''],//实验名称
       router:''
     },
     {
       name:'玻璃升降系统',
+      src:'',//实验图片路径
       andon:0,
       speed:[0],
+      speed_name:[''],//实验名称
       router:''
     },
     {
       name:'开闭件台架',
+      src:'',//实验图片路径
       andon:0,
       speed:[0],
+      speed_name:[''],//实验名称
       router:''
     },
     {
       name:'环境仓集中监控',
+      src:'',//实验图片路径
       andon:0,
       speed:[0],
+      speed_name:[''],//实验名称
       router:''
-    }
+    },
+    {},
+    {},
+    {},
   ]
   //安灯状态
   andon = [
@@ -111,10 +132,15 @@ export class StructuralLaboratoryComponent implements OnInit {
       this.thrid.get_device_taskinfo_list(param,this.right).subscribe((f:any)=>{
         console.log(new Date().getTime()-int)
         f.forEach(el => {
-          if(!el.deviceid.includes('hpu') && 'device_mts_04' != el.deviceid)
+          if(!el.deviceid.includes('hpu') && 'device_mts_04' != el.deviceid){
             this.param[el.deviceid].speed[0] = el.rate;
-          if('device_mts_04' == el.deviceid)
+            this.param[el.deviceid].speed_name[0] = el.taskchildnum;
+          }
+          if('device_mts_04' == el.deviceid){
+
             this.list[3].speed[o] = el.rate,o++;
+            this.list[3].speed_name[o] = el.taskchildnum;
+          }
         });
       });
     },1000)

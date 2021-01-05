@@ -1,4 +1,4 @@
-<div id="rtmv2" style="padding-bottom: 5px;">
+<div id="rtmv2" style="padding-bottom: 5px;height: 100%;">
     <!-- 主题 -->
     <div class="row content" style="padding: 0 11px;">
         <!-- 主体-第一列 -->
@@ -6,13 +6,13 @@
 
 
             <!-- 试验设备总理与分布 -->
-            <div class="chunk">
+            <div class="chunk" style="height: 47%;">
                 <div class="part_title">试验设备总理与分布</div>
                 <div class="key-index"></div>
             </div>
 
             <!-- 设备活跃度 -->
-            <div class="chunk">
+            <div class="chunk" style="height: 50%;">
                 <div class="part_title">设备活跃度</div>
                 <div class="warning-information ">
                     <span class="warning-title">预警信息</span>
@@ -71,6 +71,14 @@
                     </div>
                 </div>
 
+                <div style="position: relative;">
+                    <div class="group  noiseshock" (click)="goto_test_room('noiseshock')">
+                        <span>工程中心-理化与环保试验室</span>
+                        <!-- 连线 -->
+                        <div class="noiseshock_line"></div>
+                    </div>
+                </div>
+
 
 
             </div>
@@ -79,12 +87,12 @@
         <!-- 主题第三列 -->
         <div class="col-md-3" style="padding: 0px;">
 
-            <div class="chunk">
+            <div class="chunk" style="height: 47%;">
                 <div class="part_title">试验条目状态</div>
                 <div class="device-rate ">
                 </div>
             </div>
-            <div class="chunk">
+            <div class="chunk" style="height: 50%;">
                 <div class="part_title">VMDS</div>
                 <div class="geely-info "></div>
             </div>
