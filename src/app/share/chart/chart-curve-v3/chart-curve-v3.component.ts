@@ -246,8 +246,8 @@ export class ChartCurveV3Component implements OnInit {
             top: '80.5%',
             width: '100%',
             right: 'center',
-            itemWidth: 16.5,
-            itemHeight: 6,
+            // itemWidth: 16.5,
+            // itemHeight: 6,
             padding :1,
             pageIconColor :'rgba(217, 244, 45, 1)',
             pageTextStyle:{

@@ -31,12 +31,18 @@ export class FirstLevelComponent implements OnInit {
     })
 
     // map 地图
-    first_level.chian_map(this.eclick);
 
     // this.currenttime_timer = setInterval(this.currenttime, 1000);
 
     window.addEventListener('resize',this.resize)
     
+  }
+  
+  ngAfterViewInit(){
+    first_level.chian_map(this.eclick);
+    setTimeout(() => {
+      this.resize();
+    }, 100);
   }
 
   resize=()=>{

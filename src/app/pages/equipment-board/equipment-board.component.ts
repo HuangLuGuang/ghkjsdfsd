@@ -75,9 +75,9 @@ export class EquipmentBoardComponent implements OnInit {
 
   //点击返回按钮
   return_btn_click(){
-    
+    // this.router.
     console.log('返回上一级')
-    window.history.go(-1);
+    window.history.back();
   }
 
   //点击菜单
@@ -96,7 +96,7 @@ export class EquipmentBoardComponent implements OnInit {
 	//获取当前时间字符串
   get_now_date_str(){
 	  let d = this.date;
-	  return d.year+'-'+(d.month+1<10?'0'+d.month:d.month)+'-'+(d.day<10?'0'+d.day:d.day)+' '+(d.hours<10?'0'+d.hours:d.hours)+':'
+	  return d.year+'-'+(d.month<10?'0'+d.month:d.month)+'-'+(d.day<10?'0'+d.day:d.day)+' '+(d.hours<10?'0'+d.hours:d.hours)+':'
 	  +(d.minute<10?'0'+d.minute:d.minute)+':'+(d.second<10?'0'+d.second:d.second);
   }
   
@@ -105,7 +105,7 @@ export class EquipmentBoardComponent implements OnInit {
     var date = new Date();
     return {
       year: date.getFullYear(),
-      month: date.getMonth(),
+      month: date.getMonth()+1,
       day: date.getDate(),
       hours: date.getHours(),
       minute: date.getMinutes(),

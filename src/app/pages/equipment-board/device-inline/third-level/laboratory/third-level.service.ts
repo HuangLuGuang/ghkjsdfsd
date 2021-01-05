@@ -102,7 +102,7 @@ export class ThirdLevelService {
       this.http.callRPC('get_device_taskinfo_list','get_device_taskinfo_list',{deviceid:param}).subscribe((f:any)=>{
         if(f.result.error || f.result.message[0].code == 0)return;
         tableBody = f.result.message[0].message.map(m=>(
-          {device:m.devicename,experiment:m.taskchildnum,speed:m.rate,deviceid:m.deviceid}
+          {device:m.devicetaskname,experiment:m.taskchildnum,speed:m.rate,deviceid:m.deviceid}
         ));
         view.tableBody = tableBody;
         s.next( f.result.message[0].message );

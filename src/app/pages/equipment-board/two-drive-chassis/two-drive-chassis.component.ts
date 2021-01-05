@@ -145,7 +145,7 @@ export class TwoDriveChassisComponent implements OnInit {
         echarts.init(chart).resize();
     });
     ['discharge_chart','avl_param_chart_1','avl_param_chart_2',
-    't_real_temperature_5','t_real_temperature_4','discharge_chart_1'].forEach(f => {
+    't_real_temperature_5','t_real_temperature_4','two_discharge_chart_1'].forEach(f => {
       chart = document.getElementById(f);
       if(chart)
         echarts.init(chart).resize();
@@ -163,10 +163,13 @@ export class TwoDriveChassisComponent implements OnInit {
   }
 
   getData(){
+    let now:Date;
     this.timer = setInterval(() =>{
 
       this.get_real_time();
       this.get_device_Temp_hum();
+      // now = new Date();
+      // if(now.getDay() == 15)this.get_his_temp_hum();
     },1000)
     // this.get_his_temp_hum();
     
@@ -312,8 +315,8 @@ export class TwoDriveChassisComponent implements OnInit {
         })
       }
 
-      if(document.getElementById('discharge_chart_1')){
-        let myChart_9 = echarts.init(document.getElementById('discharge_chart_1'));;
+      if(document.getElementById('two_discharge_chart_1')){
+        let myChart_9 = echarts.init(document.getElementById('two_discharge_chart_1'));;
         equipment_four_road.create_real_discharge({attrs:this.temp_hum_attrs,xData:this.temp_hum_xData},myChart_9);
       }
     })
@@ -328,8 +331,8 @@ export class TwoDriveChassisComponent implements OnInit {
       this.temp_hum_attrs[0].value = res.map(f => f.temperature);
       this.temp_hum_attrs[1].value = res.map(f => f.humidity);
       this.temp_hum_xData = res.map(f => rTime(f.recordtime));
-      if(document.getElementById('discharge_chart_1')){
-        let myChart_9 = echarts.init(document.getElementById('discharge_chart_1'));;
+      if(document.getElementById('two_discharge_chart_1')){
+        let myChart_9 = echarts.init(document.getElementById('two_discharge_chart_1'));;
         equipment_four_road.create_real_discharge({attrs:this.temp_hum_attrs,xData:this.temp_hum_xData},myChart_9);
       }
 

@@ -1,6 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { HttpserviceService } from '../../../../services/http/httpservice.service';
-import {dateformat} from '../../equipment-board';
+import {dateformat, rTime} from '../../equipment-board';
 
 @Component({
   selector: 'ngx-test-information',
@@ -46,15 +46,28 @@ export class TestInformationComponent implements OnInit {
    * 获取进度
    */
   get_device_mst_progress(){
+    let now = new Date();
+    now = new Date(`${now.getFullYear()}-${now.getMonth()+1}-${now.getDay()} 24:00:00`);
+    let data = [];
+    let data_next = [];
     this.subscribeList.mts_p = this.http.callRPC('get_device_taskinfo','get_device_taskinfo',{"deviceid":this.device}).subscribe((f:any)=>{
       // console.log(f)
       if(f.result.error || f.result.message[0].code == 0)return;
-      this.experiment.data = f.result.message[0].message.map(m =>
-            ([m.taskchildnum,dateformat(new Date(m.taskstart),'yy/MM/dd'),dateformat(new Date(m.taskend),'yy/MM/dd'),m.numberstime+'h',parseInt((m.rate).toString())])
-      );
-      this.experiment.data_next = f.result.message[0].message.map(m =>
-        ([m.taskchildnum,dateformat(new Date(m.taskstart),'yy/MM/dd'),dateformat(new Date(m.taskend),'yy/MM/dd'),m.numberstime+'h',parseInt((m.rate).toString())])
-      );
+      f.result.message[0].message.forEach(el => {
+        if(new Date(rTime(el.taskstart)).getTime() < now.getTime())
+          data.push(this.return_data(el));
+        else
+          data_next.push(this.return_data(el));
+      });
+      this.experiment.data = data;
+      this.experiment.data_next = data_next;
+      // this.experiment.data = f.result.message[0].message.map(m =>
+      //       ([m.taskchildnum,dateformat(new Date(m.taskstart),'yy/MM/dd'),dateformat(new Date(m.taskend),'yy/MM/dd'),m.numberstime+'h',parseInt((m.rate).toString())])
+      // );
+      // f.result.message[0].message
+      // this.experiment.data_next = f.result.message[0].message.map(m =>
+      //   ([m.taskchildnum,dateformat(new Date(m.taskstart),'yy/MM/dd'),dateformat(new Date(m.taskend),'yy/MM/dd'),m.numberstime+'h',parseInt((m.rate).toString())])
+      // );
     })
     // this.http.callRPC('get_device_mts_progress','device_monitor.get_device_mts_progress',{
     //   "device":this.device,"arr":"status"
@@ -65,6 +78,10 @@ export class TestInformationComponent implements OnInit {
     //     ([m[1],'——',dateformat(new Date(m[0]),'yy/mm/dd'),'——',parseInt((m[2]*100).toString())])
     //     );
     // })
+  }
+
+  return_data(m){
+    return [m.taskchildnum,dateformat(new Date(m.taskstart),'yy/MM/dd'),dateformat(new Date(m.taskend),'yy/MM/dd'),m.numberstime+'h',parseInt((m.rate).toString())]
   }
 
   get_height(){

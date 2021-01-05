@@ -382,7 +382,9 @@ export class OilSourceMonitoringComponent implements OnInit {
 
     this.HPUlist.forEach(f=>{
       f.series = copy(this.HPUlist_series);
+     
     })
+
     
     let i = 0;
     this.timer = setInterval(f=>{
@@ -492,14 +494,17 @@ export class OilSourceMonitoringComponent implements OnInit {
         //油温
         this.HPUlist[i-1].series[2].data.value = el[0].hv03;
 
-        if(document.getElementById(this.HPUlist[i-1].id))
-          oilsrouce.create_gauge_3( this.HPUlist[i-1].series,echarts.init(document.getElementById( this.HPUlist[i-1].id)));
+        
       });
 
       let HPUlist_series = this.HPUlist.find(f => this.HPUselect.value == f.name);
       if(document.getElementById('pumpClick'))
           oilsrouce.create_gauge_3(HPUlist_series.series,echarts.init(document.getElementById('pumpClick')),'big');
+      this.HPUlist.forEach(f=>{
+        if(document.getElementById( f.id))
+        oilsrouce.create_gauge_3( f.series,echarts.init(document.getElementById( f.id)));
       })
+    })
   }
 
 
