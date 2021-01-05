@@ -22,6 +22,7 @@ import { UserInfoService } from '../../../services/user-info/user-info.service';
 import { ActionComponent } from './action/action.component';
 import { TranActiveComponent } from './tran-active/tran-active.component';
 import { StatusForTableComponent } from './status-for-table/status-for-table.component';
+import { TableGroupComponent } from '../components/table-group/table-group.component';
 @Component({
   selector: 'ngx-device-manage',
   templateUrl: './device-manage.component.html',
@@ -968,7 +969,8 @@ export class DeviceManageComponent implements OnInit {
       { field: 'deviceid', headerName: '设备ID', resizable: true, width: 200}, // 自定义设备编号！
       { field: 'active', headerName: '是否启用', resizable: true, cellRendererFramework: TranActiveComponent,width: 150},
       { field: 'location', headerName: '存放地点', resizable: true, width: 130},
-      { field: 'group', headerName: '科室/功能组', resizable: true, width: 330},
+      { field: 'group', headerName: '科室/功能组', resizable: true, width: 330, cellRendererFramework: TableGroupComponent},
+      // { field: 'group', headerName: '科室/功能组', resizable: true, width: 330},
       { field: 'belonged', headerName: '归属人', resizable: true, width: 130},
       { field: 'supplier', headerName: '供应商', resizable: true, minWidth: 10},
       { field: 'linklevel', headerName: '设备ABC分类', resizable: true, width: 130},

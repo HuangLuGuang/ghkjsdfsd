@@ -91,13 +91,19 @@ export class FirstLevelComponent implements OnInit {
 
   // 跳转到二级
   eclick=(params)=> {
+    // console.error("******************",params.data)
+    // console.error("******************",params)
     if (params.seriesType === 'scatter') {
-      console.log("点击执行： ", params);
-      console.log("点击执行： ", params.seriesType);
+      // console.log("点击执行： ", params);
+      // console.log("点击执行： ", params.seriesType);
       var store = require('store');
       store.set('first_level', JSON.stringify(params.data));
       // 跳转页面 _parent:在当前页面打开，_blank、默认：在新的窗口打开
-      this.router.navigate(['/pages/equipment/second-level']);
+      var lng = params.data[0];
+      var lat = params.data[1];
+      if (lng === 121.25158 && lat ===  30.342533){
+        this.router.navigate(['/pages/equipment/second-level']);
+      }else{}
     }
 }
 

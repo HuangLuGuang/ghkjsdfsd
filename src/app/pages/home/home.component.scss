@@ -1,23 +1,7 @@
-// @import '../../../assets/pages/home/css/eim-home-iconfont.css';
-
-.number{
-    .title, .value{
-        text-align: center;
-    }
-    .value{
-        font-size: small;
-    }
-}
-
-.default{
-    color: rgb(172, 172, 172);
-}
-.info{
-    color: rgb(80, 241, 177);
-}
-.warning{
-    color: rgb(245, 232, 115);
-}
-.danger{
-    color: red;
+.home_chian_map {
+    background-size: cover;
+    min-height: 800px;
+    background-position: center center;
+    height: 100%;
+    margin-right: 0.5%;
 }

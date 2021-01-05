@@ -11,7 +11,8 @@ export class TableGroupComponent implements OnInit,ICellRendererAngularComp {
   groups; // 科室/功能组
 
   ngOnInit(): void {
-    this.groups = this.params.node.data.groups;
+    this.groups = this.params.node.data.group;
+    console.log("this.groups>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>",this.groups)
   }
 
 
