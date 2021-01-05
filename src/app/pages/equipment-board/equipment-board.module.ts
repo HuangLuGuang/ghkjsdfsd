@@ -3,56 +3,21 @@ import { CommonModule } from '@angular/common';
 import { EimboardEimboardRoutingModule } from './equipment-board-routing.module';
 import { ShareModule } from '../../share/share.module';
 import { NzProgressModule } from 'ng-zorro-antd';
-import { TranslateModule, TranslatePipe } from '@ngx-translate/core';
+import { TranslateModule } from '@ngx-translate/core';
 import { NbCardModule, NbIconModule } from '@nebular/theme';
 import { NzCarouselModule } from 'ng-zorro-antd/carousel';
 
 
-import { LaboratoryBoardComponent } from './laboratory-board/laboratory-board.component';
-import { LogWarmComponent } from './temp/log-warm/log-warm.component';
-import { TestInformationComponent } from './temp/test-information/test-information.component';
-import { ExperimentParamsComponent } from './temp/experiment-params/experiment-params.component';
-import { TestInformationV2Component } from './temp/test-information-v2/test-information-v2.component';
-import { EquipIntroduceComponent } from './temp/equip-introduce/equip-introduce.component';
-import { OilSourceMonitoringComponent } from './oil-source-monitoring/oil-source-monitoring.component';
-import { EquipmentStatusComponent } from './temp/equipment-status/equipment-status.component';
-import { EquipmentHydraulicPressureComponent } from './equipment-hydraulic-pressure/equipment-hydraulic-pressure.component';
-import { EquipmentShockComponent } from './equipment-shock/equipment-shock.component';
-import { EquipmentCouplingPathComponent } from './equipment-coupling-path/equipment-coupling-path.component';
-import { EquipmentMotorSystemComponent } from './equipment-motor-system/equipment-motor-system.component';
-import { EquipmentAvlComponent } from './equipment-avl/equipment-avl.component';
-import { EquipmentDetailsComponent } from './equipment-details/equipment-details.component';
-import { EquipmentFourRoadComponent } from './equipment-four-road/equipment-four-road.component';
-import { EquipmentBoardComponent } from './equipment-board.component';
-import { DigitCompletionPipe } from './pipe/digit-completion.pipe';
-import { TwoDriveChassisComponent } from './two-drive-chassis/two-drive-chassis.component';
-import { EquipmentAvlAtecComponent } from './equipment-avl-atec/equipment-avl-atec.component';
-import { CentralFourJinhuaComponent } from './central-four-jinhua/central-four-jinhua.component';
-import { CabinCentralizedMonitoringComponent } from './cabin-centralized-monitoring/cabin-centralized-monitoring.component';
-import { EquipmentMotorSixSevenComponent } from './equipment-motor-six-seven/equipment-motor-six-seven.component';
 
+import { EquipmentBoardComponent } from './equipment-board.component';
 
 import { FirstLevelComponent } from './device-inline/first-level/first-level.component';
 import { SecondLevelComponent } from './device-inline/second-level/second-level.component';
+import { BoardTempModule } from './temp/board-temp.module';
 
 // 组件
 const COMPONENT = [
-  EquipmentBoardComponent,EquipmentFourRoadComponent,
-  EquipmentHydraulicPressureComponent,EquipmentShockComponent,
-  EquipmentCouplingPathComponent,EquipmentMotorSystemComponent,
-  EquipmentAvlComponent,EquipIntroduceComponent,
-  EquipmentDetailsComponent,
-  EquipmentStatusComponent,LaboratoryBoardComponent,LogWarmComponent,
-  TestInformationComponent,
-  ExperimentParamsComponent,TestInformationV2Component,
-  OilSourceMonitoringComponent,
-  DigitCompletionPipe,
-  TwoDriveChassisComponent,
-  EquipmentAvlAtecComponent,
-  CentralFourJinhuaComponent,
-  CabinCentralizedMonitoringComponent,
-  EquipmentMotorSixSevenComponent,
-
+  EquipmentBoardComponent,
   FirstLevelComponent,
   SecondLevelComponent,
 
@@ -63,12 +28,9 @@ const COMPONENT = [
   declarations: COMPONENT,
   imports: [
     CommonModule,ShareModule,EimboardEimboardRoutingModule,NzProgressModule,TranslateModule,
-    NbIconModule,NbCardModule,NzCarouselModule,
+    NbIconModule,NbCardModule,NzCarouselModule,BoardTempModule
 
     // ---device inline 
-  ],
-  providers:[
-    TranslatePipe,
   ],
   entryComponents:COMPONENT
 })

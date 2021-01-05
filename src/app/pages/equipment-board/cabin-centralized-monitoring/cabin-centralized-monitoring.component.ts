@@ -227,11 +227,13 @@ export class CabinCentralizedMonitoringComponent implements OnInit {
 
   getData(){
     this.timer = setInterval(() =>{
-      this.get_environmental_warehouse_jinhua();
-      this.get_ATEC();
-      this.get_TempHumidity('sensor_t_h_01',[this.TempHumidity[0],this.TempHumidity[3]]);
-      this.get_TempHumidity('sensor_t_h_02',[this.TempHumidity[1],this.TempHumidity[4]]);
-      this.get_TempHumidity('sensor_t_h_03',[this.TempHumidity[2],this.TempHumidity[5]]);
+      setTimeout(() => {
+        this.get_environmental_warehouse_jinhua();
+        this.get_ATEC();
+        this.get_TempHumidity('sensor_t_h_01',[this.TempHumidity[0],this.TempHumidity[3]]);
+        this.get_TempHumidity('sensor_t_h_02',[this.TempHumidity[1],this.TempHumidity[4]]);
+        this.get_TempHumidity('sensor_t_h_03',[this.TempHumidity[2],this.TempHumidity[5]]);
+      });
       
       // this.TempHumidity.forEach(f=>{
       //   if(document.getElementById(f.id))

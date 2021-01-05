@@ -1248,10 +1248,10 @@ let equipment_four_road = {
                 orient: 'horizontal',
                 top: '87.5%',
                 width: '100%',
-                height: '20%',
+                height: 20,
                 right: 'center',
-                itemWidth: 16.5,
-                itemHeight: 10,
+                // itemWidth: 10,
+                // itemHeight: 30,
                 padding: 1,
                 pageIconColor: 'rgba(217, 244, 45, 1)',
                 pageTextStyle: {
@@ -1264,10 +1264,6 @@ let equipment_four_road = {
                 //过滤
                 data: series.map(m => (m.name)),
                 z: 10,
-                // formatter:function(data){
-                //   console.log(data);
-                //   return '';
-                // }
             },
             xAxis: [{
                 type: 'category',
@@ -1371,6 +1367,7 @@ let equipment_four_road = {
                     end: 100
                 }
             ];
+        // console.log(JSON.stringify(option_t))
         myChart.setOption(option_t);
         // myChart.resize();
     },

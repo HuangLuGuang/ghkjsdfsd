@@ -99,7 +99,7 @@ export class EnvironmentLaboratoryComponent implements OnInit {
 
   ngOnInit(): void {
     if(document.getElementById('head_title'))
-        document.getElementById('head_title').innerText = '验证中心-环境实验室';
+        document.getElementById('head_title').innerText = '验证中心-环境试验室';
     
     
   }

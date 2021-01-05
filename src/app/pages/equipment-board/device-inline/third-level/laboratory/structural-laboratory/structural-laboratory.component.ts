@@ -93,23 +93,23 @@ export class StructuralLaboratoryComponent implements OnInit {
 
   ngOnInit(): void {
     if(document.getElementById('head_title'))
-        document.getElementById('head_title').innerText = '验证中心-结构实验室';
+        document.getElementById('head_title').innerText = '验证中心-结构试验室';
 
     
   }
 
   ngAfterViewInit(){
     let param = Object.keys(this.param);
-
+    let int = new Date().getTime();
     this.thrid.get_andon_status_year(param,this.left);
     this.thrid.get_andon_status_last_year(param,this.left);
-    
     this.timer = setInterval(f=>{
+
       this.get_center_data();
       this.thrid.get_log_list(param,this.left)
       let o = 0;
       this.thrid.get_device_taskinfo_list(param,this.right).subscribe((f:any)=>{
-        console.log(f)
+        console.log(new Date().getTime()-int)
         f.forEach(el => {
           if(!el.deviceid.includes('hpu') && 'device_mts_04' != el.deviceid)
             this.param[el.deviceid].speed[0] = el.rate;
