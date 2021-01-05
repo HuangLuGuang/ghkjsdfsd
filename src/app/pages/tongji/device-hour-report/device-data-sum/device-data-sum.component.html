@@ -1,5 +1,20 @@
 <div class="row">
     <div class="col-lg-9" style="display: flex;">
+
+        <!-- 年下拉框 -->
+        <div class="example-items-rows button_item">
+            <div class="year">
+                <ngx-year-select #myYear></ngx-year-select>
+            </div>
+        </div>
+
+        <!-- 月下拉框 -->
+        <div class="example-items-rows button_item">
+            <div class="month">
+                <ngx-month-select #myMonth></ngx-month-select>
+            </div>
+        </div>
+        
                         
         <!-- 科室功能组 -->
         <div class="example-items-rows button_item" >
@@ -17,19 +32,7 @@
 
         
 
-        <!-- 年下拉框 -->
-        <div class="example-items-rows button_item">
-            <div class="year">
-                <ngx-year-select #myYear></ngx-year-select>
-            </div>
-        </div>
-
-        <!-- 月下拉框 -->
-        <div class="example-items-rows button_item">
-            <div class="month">
-                <ngx-month-select #myMonth></ngx-month-select>
-            </div>
-        </div>
+        
 
         <!-- 设备名称，input -->
         <div class="example-items-rows button_item"  *ngIf="button?.query">

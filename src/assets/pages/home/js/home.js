@@ -70,7 +70,7 @@ let home = {
 
         var option_chian_map = {
             // backgroundColor: '#00294E',
-            backgroundColor: '#fff',
+            backgroundColor: 'rgb(214 219 219)',
             geo: {
                 map: 'china',
                 aspectScale: 0.85,
@@ -115,6 +115,9 @@ let home = {
         
                 }],
         
+            },
+            tooltip:{
+                trigger: 'item'
             },
 
             series: [
@@ -321,16 +324,17 @@ let home = {
                 // 气球 、scatter 散点图
                 {
                     zoom: 1,
-                    name: 'Top 5',
                     type: 'scatter',
                     coordinateSystem: 'geo',
                     symbol: 'pin',
                     symbolSize: [50, 50],
-                    label: {
+                    label: { // 气球上的文字
                         normal: {
-                            show: true,
+                            show: false,
+                            fontSize: 10,
                             formatter(value) {
                                 return value.data[2]
+
                             }
                         }
                     },
@@ -340,13 +344,18 @@ let home = {
                         }
                     },
                     data: [
-                        [127.528588, 50.247033, 2],  // 黑河三高专属基地
-                        [89.192125, 42.956351, 4],   // 吐鲁番夏季试车专属基地
+                        [127.528588, 50.247033, '黑河三高专属基地'],  // 黑河三高专属基地
+                        [89.192125, 42.956351, '吐鲁番夏季试车专属基地'],   // 吐鲁番夏季试车专属基地
                         // [121.25158, 30.342533, 200], // 吉利研究院
-                        [120.168403, 33.355342,2],// 盐城试车基地
-                        [94.794758, 36.405633,2],// 格尔木高原试车基地
-                        [119.417702, 30.919115,2], //广德试车基地
+                        [120.168403, 33.355342,'盐城试车基地'],// 盐城试车基地
+                        [94.794758, 36.405633,'格尔木高原试车基地'],// 格尔木高原试车基地
+                        [119.417702, 30.919115,'广德试车基地'], //广德试车基地
                     ],
+                    tooltip:{
+                        formatter: function (params){
+                            return params.data[2]
+                        }
+                    },
                     showEffectOn: 'render',
                     rippleEffect: {
                         brushType: 'stroke'
@@ -357,14 +366,14 @@ let home = {
                 // 气球 、scatter 散点图 === 吉利研究院
                 {
                     zoom: 1,
-                    name: 'Top 5',
                     type: 'scatter',
                     coordinateSystem: 'geo',
                     symbol: 'pin',
                     symbolSize: [50, 50],
                     label: {
-                        normal: {
-                            show: true,
+                        normal: { // 气球上的文字
+                            show: false,
+                            fontSize: 10,
                             formatter(value) {
                                 return value.data[2]
                             }
@@ -376,8 +385,13 @@ let home = {
                         }
                     },
                     data: [
-                        [121.25158, 30.342533, 200], // 吉利研究院
+                        [121.25158, 30.342533, '吉利研究院'], // 吉利研究院
                     ],
+                    tooltip:{
+                        formatter: function (params){
+                            return params.data[2]
+                        }
+                    },
                     showEffectOn: 'render',
                     rippleEffect: {
                         brushType: 'stroke'

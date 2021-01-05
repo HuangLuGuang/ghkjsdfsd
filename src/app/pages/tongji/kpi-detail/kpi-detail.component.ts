@@ -98,6 +98,7 @@ export class KpiDetailComponent implements OnInit {
     }
 
     console.log("kpi_detail----", this.kpi_for_detail);
+    console.log("type----", this.type);
 
     // this.columns["start"] = this.kpi_for_detail["starttime"]
     // this.columns["end"] = this.kpi_for_detail["endtime"]

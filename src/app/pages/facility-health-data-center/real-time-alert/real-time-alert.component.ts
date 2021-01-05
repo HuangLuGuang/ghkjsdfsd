@@ -4,6 +4,8 @@ import { EditDelTooltipComponent } from '../../../pages-popups/prompt-diallog/ed
 import { HttpserviceService } from '../../../services/http/httpservice.service';
 import { PublicmethodService } from '../../../services/publicmethod/publicmethod.service';
 import { UserInfoService } from '../../../services/user-info/user-info.service';
+import { TableDevicenameComponent } from '../components/table-devicename/table-devicename.component';
+import { TableGroupComponent } from '../components/table-group/table-group.component';
 import { AlertMessageComponent } from './alert-message/alert-message.component';
 
 @Component({
@@ -49,9 +51,9 @@ export class RealTimeAlertComponent implements OnInit {
     PageSize: 10, // 每页 10条数据
     isno_refresh_page_size: false, // 是否重新将 每页多少条数据，赋值为默认值
     columnDefs:[ // 列字段 多选：headerCheckboxSelection checkboxSelection , flex: 1 自动填充宽度  pinned: 'left' 固定在左侧！
-      { field: 'devicename', headerName: '设备名称', headerCheckboxSelection: true, checkboxSelection: true, autoHeight: true, fullWidth: true, minWidth: 50,resizable: true,},
+      { field: 'devicename', headerName: '设备名称', headerCheckboxSelection: true, checkboxSelection: true, autoHeight: true, fullWidth: true, minWidth: 50,resizable: true,cellRendererFramework:TableDevicenameComponent},
       { field: 'deviceid', headerName: '设备ID',  resizable: true, minWidth: 10},
-      { field: 'group', headerName: '科室/用户组', resizable: true, minWidth: 10},
+      { field: 'group', headerName: '科室/用户组', resizable: true, minWidth: 10,cellRendererFramework: TableGroupComponent},
       { field: 'location', headerName: '设备位置', resizable: true, minWidth: 10}, // 自定义设备编号！
       // { field: 'message', headerName: '报警内容', resizable: true, minWidth: 10},
       { field: 'message', headerName: '报警内容', resizable: true, width: 800, cellRendererFramework: AlertMessageComponent},

@@ -23,6 +23,7 @@ import { ActionComponent } from './action/action.component';
 import { TranActiveComponent } from './tran-active/tran-active.component';
 import { StatusForTableComponent } from './status-for-table/status-for-table.component';
 import { TableGroupComponent } from '../components/table-group/table-group.component';
+import { TableDevicenameComponent } from '../components/table-devicename/table-devicename.component';
 @Component({
   selector: 'ngx-device-manage',
   templateUrl: './device-manage.component.html',
@@ -964,7 +965,8 @@ export class DeviceManageComponent implements OnInit {
     isno_refresh_page_size: false, // 是否重新将 每页多少条数据，赋值为默认值
     columnDefs:[ // 列字段 多选：headerCheckboxSelection checkboxSelection , flex: 1 自动填充宽度  pinned: 'left' 固定在左侧！
       { field: 'deviceno', headerName: '设备编号', headerCheckboxSelection: true, checkboxSelection: true, autoHeight: true, fullWidth: true, minWidth: 50,resizable: true,},
-      { field: 'devicename', headerName: '设备名称', fullWidth: true, minWidth: 50,resizable: true,},
+      // { field: 'devicename', headerName: '设备名称', fullWidth: true, minWidth: 50,resizable: true,},
+      { field: 'devicename', headerName: '设备名称', fullWidth: true, minWidth: 50,resizable: true,cellRendererFramework: TableDevicenameComponent},
       { field: 'type', headerName: '设备类型', fullWidth: true, width: 130,resizable: true,},
       { field: 'deviceid', headerName: '设备ID', resizable: true, width: 200}, // 自定义设备编号！
       { field: 'active', headerName: '是否启用', resizable: true, cellRendererFramework: TranActiveComponent,width: 150},

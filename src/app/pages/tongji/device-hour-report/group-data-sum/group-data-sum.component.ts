@@ -4,6 +4,7 @@ import { UserInfoService } from '../../../../services/user-info/user-info.servic
 import { PublicmethodService } from '../../../../services/publicmethod/publicmethod.service';
 import { HttpserviceService } from '../../../../services/http/httpservice.service';
 import { ActionComponent } from '../action/action.component';
+import { TableGroupComponent } from '../../components/table-group/table-group.component';
 @Component({
   selector: 'ngx-group-data-sum',
   templateUrl: './group-data-sum.component.html',
@@ -32,7 +33,7 @@ export class GroupDataSumComponent implements OnInit {
     PageSize: 10, // 每页 10条数据
     isno_refresh_page_size: false, // 是否重新将 每页多少条数据，赋值为默认值
     columnDefs:[ // 列字段 多选：headerCheckboxSelection checkboxSelection , flex: 1 自动填充宽度 pinned: 'left' 固定左侧
-    { field: 'groups', headerName: '科室/功能组', resizable: true, fullWidth: true,width: 330, headerCheckboxSelection: true, checkboxSelection: true, autoHeight: true,},
+    { field: 'groups', headerName: '科室/功能组', resizable: true, fullWidth: true,width: 330, headerCheckboxSelection: true, checkboxSelection: true, autoHeight: true,cellRendererFramework: TableGroupComponent},
     { field: 'totaltime', headerName: '总目标时长(h)', resizable: true, fullWidth: true,width: 130,},
       { field: 'month', headerName: '月份', resizable: true, fullWidth: true,width: 100,},
       { field: 'placeon', headerName: '占位时长(h)', resizable: true,fullWidth: true, width: 130,}, 

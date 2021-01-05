@@ -1,13 +1,7 @@
 <!-- button -->
 <div class="row" >
     <div class="col-lg-10" style="display: flex;">
-        <!-- 科室/功能组 group-->
-        <div class="example-items-rows button_item"  >
-            <div class="gongneng_keshi">
-                <ngx-my-select-tree #group [placeholder]="groups_placeholder"></ngx-my-select-tree>
-            </div>
-        </div>
-        
+                
         <!-- 年下拉框 -->
         <div class="example-items-rows button_item">
             <div class="year">
@@ -19,6 +13,13 @@
         <div class="example-items-rows button_item">
             <div class="month">
                 <ngx-month-select #myMonth></ngx-month-select>
+            </div>
+        </div>
+
+        <!-- 科室/功能组 group-->
+        <div class="example-items-rows button_item"  >
+            <div class="gongneng_keshi">
+                <ngx-my-select-tree #group [placeholder]="groups_placeholder"></ngx-my-select-tree>
             </div>
         </div>
 

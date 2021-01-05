@@ -9,6 +9,7 @@ import { EditDelTooltipComponent } from '../../../pages-popups/prompt-diallog/ed
 import { UserInfoService } from '../../../services/user-info/user-info.service';
 import { ActionComponent } from './action/action.component';
 import { TranActiveComponent } from '../new-user-employee/tran-active/tran-active.component';
+import { TableGroupComponent } from '../../tongji/components/table-group/table-group.component';
 
 
 
@@ -46,7 +47,7 @@ export class UserEmployeeGroupComponent implements OnInit {
     PageSize: 10, // 每页 10条数据
     isno_refresh_page_size: false, // 是否重新将 每页多少条数据，赋值为默认值
     columnDefs:[ // 列字段 多选：headerCheckboxSelection checkboxSelection , flex: 1 自动填充宽度
-      { field: 'group', headerName: '科室/功能组', headerCheckboxSelection: true, checkboxSelection: true, autoHeight: true, fullWidth: true, width: 360,resizable: true},
+      { field: 'group', headerName: '科室/功能组', headerCheckboxSelection: true, checkboxSelection: true, autoHeight: true, fullWidth: true, width: 360,resizable: true, cellRendererFramework:TableGroupComponent},
       { field: 'group_name', headerName: '科室/功能组(en)',  resizable: true, width: 250,},
       { field: 'active', headerName: '是否启用', resizable: true, cellRendererFramework: TranActiveComponent,width: 100,},
       { field: 'createdon', headerName: '创建时间', resizable: true, width: 180,},

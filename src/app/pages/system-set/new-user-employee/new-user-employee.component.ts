@@ -15,6 +15,7 @@ import { EditDelTooltipComponent } from '../../../pages-popups/prompt-diallog/ed
 import { UserEmployeeComponent } from '../../../pages-popups/system-set/user-employee/user-employee.component';
 import { Observable } from 'rxjs';
 import { ChangePassowrdForallComponent } from '../../../pages-popups/change-passowrd-forall/change-passowrd-forall.component';
+import { TableGroupComponent } from '../../tongji/components/table-group/table-group.component';
 type AOA = any[][];
 
 @Component({
@@ -47,7 +48,7 @@ export class NewUserEmployeeComponent implements OnInit {
       { field: 'loginname', headerName: '域账号',  headerCheckboxSelection: true, checkboxSelection: true, autoHeight: true, fullWidth: true, width: 140,resizable: true,},
       { field: 'name', headerName: '姓名', resizable: true,width: 140,},
       { field: 'role_name', headerName: '角色', resizable: true,width: 240,},
-      { field: 'groups_name', headerName: '科室/功能组', resizable: true,width: 360,},
+      { field: 'groups_name', headerName: '科室/功能组', resizable: true,width: 360,cellRendererFramework:TableGroupComponent},
       { field: 'active', headerName: '是否启用', resizable: true, cellRendererFramework: TranActiveComponent,width: 100,},
       { field: 'email', headerName: '邮箱', resizable: true,},
       { field: 'createdon', headerName: '创建时间', resizable: true,minWidth:10,},

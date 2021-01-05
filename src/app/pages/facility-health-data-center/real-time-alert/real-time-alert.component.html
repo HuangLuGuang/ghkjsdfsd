@@ -2,10 +2,12 @@
 <div class="row">
 
     <div class="col-lg-9" style="display: flex;">
-        <!-- 设备名称 -->
-        <div class="example-items-rows button_item"  >
-            <ngx-my-input #myinput (inpuvalue)="inpuvalue($event)"  [placeholder]="myinput_placeholder"></ngx-my-input>
+        
+        <!-- 日期选择器  *ngIf="button?.query" -->
+        <div class="example-items-rows button_item" >
+            <ngx-my-date-range #data_range></ngx-my-date-range>
         </div>
+
         <!-- 科室功能组 -->
         <div class="example-items-rows button_item" >
             <div class="gongneng_keshi">
@@ -20,9 +22,9 @@
             </div>
         </div>
         
-        <!-- 日期选择器  *ngIf="button?.query" -->
-        <div class="example-items-rows button_item" >
-            <ngx-my-date-range #data_range></ngx-my-date-range>
+        <!-- 设备名称 -->
+        <div class="example-items-rows button_item"  >
+            <ngx-my-input #myinput (inpuvalue)="inpuvalue($event)"  [placeholder]="myinput_placeholder"></ngx-my-input>
         </div>
 
         <!-- 搜索 -->

@@ -5,6 +5,7 @@ import { NbDialogService } from '@nebular/theme';
 import { HttpserviceService } from '../../../../services/http/httpservice.service';
 import { PublicmethodService } from '../../../../services/publicmethod/publicmethod.service';
 import { UserInfoService } from '../../../../services/user-info/user-info.service';
+import { TableDevicenameComponent } from '../../components/table-devicename/table-devicename.component';
 import { TableGroupComponent } from '../../components/table-group/table-group.component';
 import { ActionComponent } from '../action/action.component';
 
@@ -47,7 +48,7 @@ export class DeviceDataSumComponent implements OnInit {
     isno_refresh_page_size: false, // 是否重新将 每页多少条数据，赋值为默认值
     columnDefs:[ // 列字段 多选：headerCheckboxSelection checkboxSelection , flex: 1 自动填充宽度 pinned: 'left' 固定左侧
       { field: 'deviceno', headerName: '设备编号', resizable: true, width: 150, headerCheckboxSelection: true, checkboxSelection: true, autoHeight: true, fullWidth: true,},
-      { field: 'devicename', headerName: '设备名称',fullWidth: true,resizable: true, width: 160,},
+      { field: 'devicename', headerName: '设备名称',fullWidth: true,resizable: true, width: 160,cellRendererFramework: TableDevicenameComponent},
       { field: 'deviceid', headerName: '设备ID',  resizable: true,fullWidth: true, width: 200,},
       // { field: 'groups', headerName: '科室/功能组', resizable: true, fullWidth: true,width: 330,},
       { field: 'groups', headerName: '科室/功能组', resizable: true, fullWidth: true,width: 330,cellRendererFramework:TableGroupComponent},

@@ -19,10 +19,12 @@ import { AgGridModule } from 'ag-grid-angular';
 import { RealTimeAlertComponent } from './real-time-alert/real-time-alert.component';
 import { HistoryAlertComponent } from './history-alert/history-alert.component';
 import { AlertMessageComponent } from './real-time-alert/alert-message/alert-message.component';
+import { TableDevicenameComponent } from './components/table-devicename/table-devicename.component';
+import { TableGroupComponent } from './components/table-group/table-group.component';
 
 
 @NgModule({
-  declarations: [FacilityHealthDataCenterComponent, MySelectTreeComponent, MySelectTreeTypeComponent, MyInputComponent, MyDateRangeComponent, AgTableComponent, RealTimeAlertComponent, HistoryAlertComponent, AlertMessageComponent, 
+  declarations: [FacilityHealthDataCenterComponent, MySelectTreeComponent, MySelectTreeTypeComponent, MyInputComponent, MyDateRangeComponent, AgTableComponent, RealTimeAlertComponent, HistoryAlertComponent, AlertMessageComponent, TableDevicenameComponent, TableGroupComponent, 
   ],
   imports: [
     CommonModule,

@@ -13,14 +13,10 @@ export class TableGroupComponent implements OnInit,ICellRendererAngularComp {
   ngOnInit(): void {
     
     var group = this.params.node.data.groups;
-    var groups_name = this.params.node.data.groups_name;
     if (group){
       this.groups = group
-    }else if(groups_name){
-      this.groups = groups_name
     }else{
       this.groups = this.params.node.data.group;
-
     }
     // console.log("this.groups>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>",this.groups)
   }

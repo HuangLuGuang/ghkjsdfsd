@@ -8,10 +8,7 @@
         <!-- buttons -->
         <div class="row" >
             <div class="col-lg-9" style="display: flex;">
-                <!-- input 设备名称输入框 -->
-                <div class="example-items-rows button_item"  *ngIf="button?.query">
-                    <ngx-my-input #myinput (inpuvalue)="inpuvalue($event)"  [placeholder]="myinput_placeholder"></ngx-my-input>
-                </div>
+                
 
                 <!-- 科室/功能组 --> 
                 <div class="example-items-rows button_item " >
@@ -26,6 +23,12 @@
                     </div>
 
                 </div>
+
+                <!-- input 设备名称输入框 -->
+                <div class="example-items-rows button_item"  *ngIf="button?.query">
+                    <ngx-my-input #myinput (inpuvalue)="inpuvalue($event)"  [placeholder]="myinput_placeholder"></ngx-my-input>
+                </div>
+                
                 <!-- 搜索 -->
                 <div class="example-items-rows button_item query" *ngIf="button?.query">
                     <button nbButton [status]="button?.query.class" size="small" (click)="action(button?.query.permission)"  [disabled]="button?.query.active == 0? true:false"><nb-icon [icon]="button?.query.icon"></nb-icon>{{button?.query.title}}</button>
