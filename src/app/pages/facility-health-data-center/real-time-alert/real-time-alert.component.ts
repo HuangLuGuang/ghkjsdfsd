@@ -57,7 +57,7 @@ export class RealTimeAlertComponent implements OnInit {
       { field: 'message', headerName: '报警内容', resizable: true, width: 800, cellRendererFramework: AlertMessageComponent},
       { field: 'recordtime', headerName: '报警时间', resizable: true},
       { field: 'level', headerName: '报警等级', resizable: true, minWidth: 10},
-      { field: 'devicestatus', headerName: '状态', resizable: true, minWidth: 10},
+      // { field: 'devicestatus', headerName: '状态', resizable: true, minWidth: 10},
       { field: 'belonged', headerName: '负责人', resizable: true, width: 100},
     ],
     rowData: [ // data

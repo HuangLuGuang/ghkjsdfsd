@@ -154,9 +154,9 @@ export class TeskConfigComponent implements OnInit {
       case 'add':
         this.add();
         break;
-      // case 'del':
-      //   this.del();
-      //   break;
+      case 'del':
+        this.del();
+        break;
       case 'edit':
         this.edit();
         break;
@@ -250,9 +250,38 @@ export class TeskConfigComponent implements OnInit {
     }else{
       this.dialogService.open(EditDelTooltipComponent, { closeOnBackdropClick: false, autoFocus: true,context: { title: '提示', content:   `请选择一行数据！`}} ).onClose.subscribe(
         istrue=>{
-          console.log("----istrue-----", istrue)
         }
       );
+    }
+  }
+
+  // 删除试验任务
+  del(){
+    var rowdata = this.agGrid.getselectedrows();
+    if (rowdata.length < 1){
+      this.dialogService.open(EditDelTooltipComponent, { closeOnBackdropClick: false, autoFocus: true,context: { title: '提示', content:   `请选择一行数据！`}} ).onClose.subscribe(
+        istrue=>{}
+      )
+    }else{
+      var monthed = "dev_delete_task";
+      var columns = rowdata;
+      var taskchildnum = [];
+      columns.forEach(element => {
+        taskchildnum.push(element["taskchildnum"]);
+      });
+      this.http.callRPC('device', monthed, columns).subscribe(result=>{
+        var res = result["result"]["message"][0];
+        if (res["code"] === 1){
+          // 刷新tabel
+          this.refresh_table();
+          this.delsuccess();
+          this.RecordOperation('删除', 1,  "taskchildnum:"+JSON.stringify(taskchildnum))
+        }else{
+          var data = JSON.stringify(res["message"])
+          this.deldanger(data);
+          this.RecordOperation('搜索', 0,  "taskchildnum:"+JSON.stringify(taskchildnum))
+        }
+      })
     }
   }
 
@@ -324,20 +353,14 @@ export class TeskConfigComponent implements OnInit {
 
   // 刷新tabel
   refresh_table(){
-    this.loading = true;
     this.gridData = [];
     // 是否 每页多少也，设置为默认值
     this.tableDatas.isno_refresh_page_size = true;
-
     // 取消选择的数据 delselect
     this.myinput2.del_input_value(); // 任务子单号
-
     this.group.dropselect();
-
-
+    this.loading = true;
     this.inttable();
-
-    
   }
 
   // 得到buttons----------------------------------------------------------
@@ -364,7 +387,6 @@ export class TeskConfigComponent implements OnInit {
       { field: 'curr_total', headerName: '当前轮次/总轮次', resizable: true, minWidth: 10}, // ==============计算得来 当前轮次/总轮次   devicetasknownumbers/devicetasknumbers
       { field: 'timerate', headerName: '时间计算进度/轮次计算进度', resizable: true, minWidth: 10},
       { field: 'rate', headerName: '进度', resizable: true, minWidth: 10}, // 
-      { field: 'option', headerName: '操作', resizable: true, minWidth: 10}, // 
       
     ],
     rowData: [ // data
@@ -452,6 +474,7 @@ export class TeskConfigComponent implements OnInit {
       start: inittable_before.start,
       end: inittable_before.end
     }
+    
     // 得到设备信息！
     this.http.callRPC('device', this.GETTABLE, colmun).subscribe((res)=>{
       var result  = res['result']['message'][0];
@@ -543,8 +566,17 @@ export class TeskConfigComponent implements OnInit {
   searchdanger(){
     this.publicservice.showngxtoastr({position: 'toast-top-right', status: 'danger', conent:"没有搜索到数据！"});
   }
+  // 删除
   danger(){
     this.publicservice.showngxtoastr({position: 'toast-top-right', status: 'danger', conent:"请选择一行数据！"});
+  }
+
+  // 删除
+  delsuccess(){
+    this.publicservice.showngxtoastr({position: 'toast-top-right', status: 'success', conent:"删除成功!"});
+  }
+  deldanger(data){
+    this.publicservice.showngxtoastr({position: 'toast-top-right', status: 'danger', conent:"删除失败" + data});
   }
 
 }

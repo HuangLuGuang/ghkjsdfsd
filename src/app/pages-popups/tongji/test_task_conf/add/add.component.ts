@@ -174,7 +174,7 @@ export class AddComponent implements OnInit {
   // option_record
   RecordOperation(option, result,infodata){
     // option:操作类型, result:操作的结果, infodata:附加信息!
-    console.warn("==============>", this.userinfo.getLoginName())
+    // console.warn("==============>", this.userinfo.getLoginName())
     if(this.userinfo.getLoginName()){
       var employeeid = this.userinfo.getEmployeeID();
       var result = result; // 1:成功 0 失败
