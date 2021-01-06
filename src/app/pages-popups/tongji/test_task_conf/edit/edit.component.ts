@@ -156,12 +156,12 @@ export class EditComponent implements OnInit {
       console.log("++++++++++++++++更新编辑的试验任务信息", result);
       if (res["code"] === 1){
         this.success();
-        this.RecordOperation('编辑', 1, '试验任务信息');
+        this.RecordOperation('编辑', 1, '试验任务配置：' + JSON.stringify(columns));
         this.dialogRef.close(true);
       }else{
         var data = JSON.stringify(res["messsage"]);
         this.danger(data);
-        this.RecordOperation('编辑', 0, '试验任务信息')
+        this.RecordOperation('编辑', 0, '试验任务配置：' + JSON.stringify(columns))
       }
     })
   }

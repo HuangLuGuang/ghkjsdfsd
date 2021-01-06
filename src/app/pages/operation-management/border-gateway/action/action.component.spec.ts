@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { StatusForTableComponent } from './status-for-table.component';
+import { ActionComponent } from './action.component';
 
-describe('StatusForTableComponent', () => {
-  let component: StatusForTableComponent;
-  let fixture: ComponentFixture<StatusForTableComponent>;
+describe('ActionComponent', () => {
+  let component: ActionComponent;
+  let fixture: ComponentFixture<ActionComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ StatusForTableComponent ]
+      declarations: [ ActionComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(StatusForTableComponent);
+    fixture = TestBed.createComponent(ActionComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

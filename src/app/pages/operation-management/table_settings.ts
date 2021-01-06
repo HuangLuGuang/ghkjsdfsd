@@ -48,7 +48,7 @@ export const BORDER_GATEWAY_SETTINGS=  {
     dateGatherStatus: {
       title: '数据采集状态',
       type: 'custom',
-      renderComponent: StatusForTableComponent,
+      // renderComponent: StatusForTableComponent,
       onComponentInitFunction(instance) {
         instance.save.subscribe(row => {
         console.log("************TaskProgressForTableComponent**************", row)
@@ -72,7 +72,7 @@ export const BORDER_GATEWAY_SETTINGS=  {
 };
 
 // -----视频集成服务器管理！
-import { StatusForTableComponent } from './video-integration/status-for-table/status-for-table.component'
+// import { StatusForTableComponent } from './video-integration/status-for-table/status-for-table.component'
 export const VIDEO_INTEGRATION_SETTINGS =  {
     actions: {
       columnTitle: '操作',
@@ -122,7 +122,7 @@ export const VIDEO_INTEGRATION_SETTINGS =  {
       videoServiceStatus: {
         title: '视频服务器状态',
         type: 'custom',
-        renderComponent: StatusForTableComponent,
+        // renderComponent: StatusForTableComponent,
         onComponentInitFunction(instance) {
           instance.save.subscribe(row => {
           console.log("************TaskProgressForTableComponent**************", row)

@@ -70,6 +70,9 @@ let home = {
 
         var option_chian_map = {
             // backgroundColor: '#00294E',
+            // rgb(74,174,182)       rgb(122,194,200)           rgb(175,220,223)
+            // rgb(143,170,220)     rgb(180,199,231)           rgb(218,227,243)
+
             backgroundColor: 'rgb(214 219 219)',
             geo: {
                 map: 'china',
@@ -137,7 +140,8 @@ let home = {
                     itemStyle: {
                         normal: {
                             // areaColor: '#0c274b',
-                            areaColor: '#1e4f6c',
+                            areaColor: 'rgb(175,220,223)',
+                            // areaColor: '#1e4f6c',
                             borderColor: '#888a8b',
                             borderWidth: 1.5
                         },

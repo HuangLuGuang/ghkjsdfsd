@@ -6,16 +6,19 @@ import { OperationManagementComponent } from './operation-management.component';
 import { BorderGatewayComponent } from './border-gateway/border-gateway.component';
 import { MySelectComponent } from './components/my-select/my-select.component';
 import { MySelectGroupComponent } from './components/my-select-group/my-select-group.component';
-import { NbSelectModule, NbButtonModule, NbCardModule, NbSpinnerModule } from '@nebular/theme';
+import { NbSelectModule, NbButtonModule, NbCardModule, NbSpinnerModule, NbIconModule } from '@nebular/theme';
 import { FormsModule } from '@angular/forms';
 // import { Ng2SmartTableModule } from 'ng2-smart-table';
 import {Ng2SmartTableModule} from '@mykeels/ng2-smart-table';
 import { VideoIntegrationComponent } from './video-integration/video-integration.component';
-import { StatusForTableComponent } from './video-integration/status-for-table/status-for-table.component';
+import { AgTableComponent } from './components/ag-table/ag-table.component';
+import { AgGridModule } from 'ag-grid-angular';
+import { NzPaginationModule } from 'ng-zorro-antd';
+import { ActionComponent } from './border-gateway/action/action.component';
 
 @NgModule({
-  declarations: [OperationManagementComponent, BorderGatewayComponent,VideoIntegrationComponent, StatusForTableComponent,
-   MySelectComponent, MySelectGroupComponent, 
+  declarations: [OperationManagementComponent, BorderGatewayComponent,VideoIntegrationComponent, 
+   MySelectComponent, MySelectGroupComponent, AgTableComponent, ActionComponent,  
   ],
   imports: [
     CommonModule,
@@ -25,6 +28,10 @@ import { StatusForTableComponent } from './video-integration/status-for-table/st
     FormsModule,
     NbCardModule,
     NbSpinnerModule,
+
+    AgGridModule,
+    NzPaginationModule,
+    NbIconModule,
     
 
     Ng2SmartTableModule,

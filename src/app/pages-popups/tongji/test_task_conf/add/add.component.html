@@ -59,6 +59,20 @@
                 </div>
             </div>
 
+            <!-- 当前主设备信息 -->
+            <div class="row">
+              <div class="col-lg-3 test_task_info_title" >
+                  <span>当前主设备信息：</span>
+              </div>
+              <div class="col-lg-9" >
+              </div>
+            </div>
+
+            <!-- 功能组 下拉 -->
+            <!-- 设备名称 下拉 -->
+            <!-- 设备编号，根据选的 设备名称自动填充 -->
+            <ngx-group-devices #groups_devices></ngx-group-devices>
+
             <div class="layui-form-item">
                 <div class="layui-inline test_task_info_left">
                   <label class="layui-form-label mylabel mulu_title">样件三级编号：</label>
@@ -78,23 +92,11 @@
                 </div>
             </div>
         </form>
-        <!-- 当前主设备信息 -->
-        <div class="row">
-            <div class="col-lg-3 test_task_info_title" >
-                <span>当前主设备信息：</span>
-            </div>
-            <div class="col-lg-9" >
-            </div>
-        </div>
 
-        <!-- 功能组 下拉 -->
-        <!-- 设备名称 下拉 -->
-        <!-- 设备编号，根据选的 设备名称自动填充 -->
-        <ngx-group-devices #groups_devices></ngx-group-devices>
 
         
         <!-- 当前输入试验信息预览 -->
-        <div class="row">
+        <div class="row" style="margin-top: 10px;">
             <div class="col-lg-3 test_task_info_title" >
                 <span>当前输入试验信息预览：</span>
             </div>

@@ -68,6 +68,11 @@ export class AddComponent implements OnInit {
         // layer.alert(JSON.stringify(data.field), {
         //   title: '最终的提交信息'
         // })
+        // 得到当前主设备信息！
+        var groups_devices_datas = that.groups_devices.get_form_val()
+        // console.log("得到form的值 devicename", groups_devices_datas)
+        data.field["devicename"] = groups_devices_datas.devicename
+        data.field["devicenum"] = groups_devices_datas.deviceid
         that.previewinfo(data.field)
         return false;
       });
@@ -79,13 +84,13 @@ export class AddComponent implements OnInit {
         // })
         // 得到当前主设备信息！
         var groups_devices_datas = that.groups_devices.get_form_val()
-        console.log("得到form的值 deviceid", groups_devices_datas.deviceid)
-        console.log("得到form的值 deviceno", groups_devices_datas.deviceno)
-        console.log("得到form的值 devicename", groups_devices_datas.devicename)
+        // console.log("得到form的值 deviceid", groups_devices_datas.deviceid)
+        // console.log("得到form的值 deviceno", groups_devices_datas.deviceno)
+        // console.log("得到form的值 devicename", groups_devices_datas.devicename)
 
         // 得到预览的数据
         var previewinfodata = that.previewinfodata;
-        console.log("previewinfodata----->",previewinfodata);
+        // console.log("previewinfodata----->",previewinfodata);
 
         // 要保存的数据！
         var save_data = {};
@@ -110,7 +115,6 @@ export class AddComponent implements OnInit {
         var conlumns = save_data;
         that.http.callRPC(table, monthed, conlumns).subscribe(result=>{
           var res = result['result']['message'][0];
-          console.log("dev_insert_task>>>> ",res)
           if (res["code"] === 1){
             // 保存成功
             that.dialogRef.close(true);
@@ -144,16 +148,14 @@ export class AddComponent implements OnInit {
       exemplarname: info.exemplarname, // 样件名称
       taskitemnumbers: info.taskitemnumbers, // 试验条目编号
       taskchildnum: info.tasknum + "-" + info.taskitemnumbers,
-      devicenum: "devicenum",
+      devicenum: info.devicenum, // 设备编号
       devicetaskname: info.devicetaskname,
-      devicename: "", // 从 当前设备信息中得到的
+      devicename: info.devicename, // 从 当前设备信息中得到的
       executor: info.executor,
       taskmessage: this.explarinfo_list,
     }
     this.previewinfodata = previewinfodata,
     console.log("最终预览的数据：", this.previewinfodata);
-
-    
     
     // 清空 样件三级编号、样件名称！
     $("input[name='exemplarchildnumbers']").val("");

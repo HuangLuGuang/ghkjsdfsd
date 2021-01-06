@@ -122,8 +122,8 @@ export class GroupDevicesComponent implements OnInit {
   // 更改设备编号 deveceno
   update_deviceno(deviceno){
     // test_task_conf_add_deviceno
-    this.deviceid = deviceno.split(';')[0];
-    this.deviceno = deviceno.split(';')[1];
+    this.deviceid = deviceno.split(';')[1];
+    this.deviceno = deviceno.split(';')[0];
     this.devicename = $("#test_task_conf_add_devicename").find("option:selected").text();
     // console.log("更改设备编号 deveceno",deviceno);
     $("#test_task_conf_add_deviceno").val(this.deviceid)
