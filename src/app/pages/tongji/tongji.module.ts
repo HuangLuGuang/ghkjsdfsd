@@ -59,11 +59,12 @@ import { AgGridModule } from 'ag-grid-angular';
 import { TaskProgressForAggridComponent } from './test-task-manage/task-progress-for-aggrid/task-progress-for-aggrid.component';
 import { ActionComponent } from './device-manage/action/action.component';
 import { TranActiveComponent } from './device-manage/tran-active/tran-active.component';
+import { TranIscalkpiComponent } from './device-manage/tran-iscalkpi/tran-iscalkpi.component';
 @NgModule({
   declarations: [TongjiComponent, DeviceManageComponent, 
     // MySelectComponent, MySelectGroupComponent, MyTableNg2Component, DateRangeComponent,
     TestTaskManageComponent,  TaskProgressForTableComponent, 
-    KpiDetailComponent, StatusForTableComponent, TaskProgressForAggridComponent, ActionComponent, TranActiveComponent,],
+    KpiDetailComponent, StatusForTableComponent, TaskProgressForAggridComponent, ActionComponent, TranActiveComponent, TranIscalkpiComponent,],
   imports: [
     CommonModule,
     TongjiRoutingModule,

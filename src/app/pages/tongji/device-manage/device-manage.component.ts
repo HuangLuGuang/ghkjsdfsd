@@ -24,6 +24,7 @@ import { TranActiveComponent } from './tran-active/tran-active.component';
 import { StatusForTableComponent } from './status-for-table/status-for-table.component';
 import { TableGroupComponent } from '../components/table-group/table-group.component';
 import { TableDevicenameComponent } from '../components/table-devicename/table-devicename.component';
+import { TranIscalkpiComponent } from './tran-iscalkpi/tran-iscalkpi.component';
 @Component({
   selector: 'ngx-device-manage',
   templateUrl: './device-manage.component.html',
@@ -568,7 +569,8 @@ export class DeviceManageComponent implements OnInit {
           createdby:data.createdby,
           lastupdateon: data.lastupdateon,
           lastupdatedby: data.lastupdatedby,
-          groupsid: data.groupsid
+          groupsid: data.groupsid,
+          iscalkpi: data.iscalkpi
         }
         after_datas.push(after_data)
       });
@@ -631,7 +633,8 @@ export class DeviceManageComponent implements OnInit {
         lastupdateon:data.lastupdateon,
         lastupdatedby:data.lastupdatedby,
         
-        groupsid:data.groupsid
+        groupsid:data.groupsid,
+        iscalkpi:data.iscalkpi
       }
       after_datas.push(after_data)
     });
@@ -1018,6 +1021,7 @@ export class DeviceManageComponent implements OnInit {
       { field: 'createdby', headerName: '创建人', resizable: true,width: 130},
       { field: 'lastupdateon', headerName: '更新时间', resizable: true, width: 200},
       { field: 'lastupdatedby', headerName: '更新人', resizable: true, minWidth: 10},
+      { field: 'iscalkpi', headerName: 'KPI计算', resizable: true, minWidth: 10,cellRendererFramework: TranIscalkpiComponent},
 
     ],
     rowData: [ // data
@@ -1188,7 +1192,8 @@ interface DeviceData {
   createdby:string,
   lastupdateon: string,
   lastupdatedby: string
-  groupsid: number
+  groupsid: number,
+  iscalkpi: number
 
 }
 
@@ -1210,6 +1215,7 @@ interface OptionDeviceData {
   createdby:string,
   lastupdateon: string,
   lastupdatedby: string
-  groupsid: number
+  groupsid: number,
+  iscalkpi:number
 
 }

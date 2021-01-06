@@ -51,10 +51,7 @@ export class DeviceManageComponent implements OnInit {
 
   // 科室/用户组
   groups = [
-    // { id: 1, group: "环境试验室11", groupid: 1},
-    // { id: 2, group: "结构试验室2", groupid: 2},
-    // { id: 3, group: "能源试验室1", groupid: 3},
-    // { id: 4, group: "测试用户组", groupid: 5},
+    
   ]
 
   // 设备ABC分类
@@ -411,6 +408,12 @@ export class DeviceManageComponent implements OnInit {
         }else{
           data.field["active"] = 0;
         }
+        // 是否纳入kpi计算
+        if (data.field["iscalkpi"] != undefined){
+          data.field["iscalkpi"] = 1;
+        }else{
+          data.field["iscalkpi"] = 0;
+        }
         if (data.field["type"] != undefined){
           data.field["type"] = Number(data.field["type"]);
         }
@@ -420,6 +423,9 @@ export class DeviceManageComponent implements OnInit {
         colums["createdby"] = that.loginname;
         // 更新人
         colums["lastupdatedby"] = that.loginname;
+
+        // 当前年份 year
+        colums['year'] = that.get_year();
 
         const table = "device";
         http.callRPC(table, method, colums).subscribe((result)=>{
@@ -445,13 +451,6 @@ export class DeviceManageComponent implements OnInit {
         })
         return false;
       });
-
-      
-
-      // // 监听 switch开关！
-      // form.on('switch(filter)', function(data){
-      //   // console.log("开关是否开启，true或者false", data.elem.checked); //开关是否开启，true或者false
-      // });
      
     })
 
@@ -465,6 +464,13 @@ export class DeviceManageComponent implements OnInit {
   // 取消
   cancel(){
     this.dialogRef.close(false);
+  }
+
+  // 得到当前年份
+  get_year(){
+    var date = new Date();
+    var year = date.getFullYear();
+    return year;
   }
 
   // 展示状态
