@@ -43,7 +43,7 @@ export class EnvironmentLaboratoryComponent implements OnInit {
       name:'AVL排放2驱',
       number:'S1070',
       andon:0,
-      src:'',//实验图片
+      src:'assets/eimdoard/equipment/images/sqdp.png',//实验图片
       speed:[0],
       speed_name:[''],
       router:'pages/equipment/avl/AVL转毂+久鼎环境舱+排放分析'
@@ -52,7 +52,7 @@ export class EnvironmentLaboratoryComponent implements OnInit {
       name:'AVL环模四驱',
       number:'S1070',
       andon:0,
-      src:'',//实验图片
+      src:'assets/eimdoard/equipment/images/sqdp.png',//实验图片
       speed:[0],
       speed_name:[''],
       router:'pages/equipment/central-jinhua/中置式四驱底盘测功机+锦华高低温环境舱'
@@ -61,6 +61,7 @@ export class EnvironmentLaboratoryComponent implements OnInit {
       name:'AVL排放2驱',
       number:'S1074',
       andon:0,
+      src:'assets/eimdoard/equipment/images/hm_1074.png',//实验图片
       speed:[0],
       speed_name:[''],
       router:'pages/equipment/avl-etec/两驱AVL转毂+ATEC环境舱+排放分析/two'
@@ -69,7 +70,7 @@ export class EnvironmentLaboratoryComponent implements OnInit {
       name:'AVL排放4驱',
       number:'S1074',
       andon:0,
-      src:'',//实验图片
+      src:'assets/eimdoard/equipment/images/hm_4_1074.png',//实验图片
       speed:[0],
       speed_name:[''],
       router:'pages/equipment/avl-etec2/四驱AVL转毂+ATEC环境舱+排放分析/four'
@@ -115,7 +116,7 @@ export class EnvironmentLaboratoryComponent implements OnInit {
 
   ngOnInit(): void {
     if(document.getElementById('head_title'))
-        document.getElementById('head_title').innerText = '验证中心-环境试验室';
+        document.getElementById('head_title').innerText = '验证中心-环模试验室';
     
     
   }

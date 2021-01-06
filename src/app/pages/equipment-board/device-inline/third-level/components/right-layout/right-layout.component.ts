@@ -38,6 +38,7 @@ export class RightLayoutComponent implements OnInit {
   }
 
   initChart(){
+    if(!document.getElementById('right_chart_1'))return;
     let xdata = ['1111','2222','3333'];
     let completed  = [{
       value:100,

@@ -78,7 +78,7 @@ export class StructuralLaboratoryComponent implements OnInit {
     },
     {
       name:'环境仓集中监控',
-      src:'',//实验图片路径
+      src:'assets/eimdoard/equipment/images/jg_hjc.png',//实验图片路径
       andon:0,
       speed:[0],
       speed_name:[''],//实验名称
