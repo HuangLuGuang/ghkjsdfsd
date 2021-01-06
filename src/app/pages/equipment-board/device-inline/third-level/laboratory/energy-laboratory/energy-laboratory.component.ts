@@ -16,6 +16,8 @@ export class EnergyLaboratoryComponent implements OnInit {
       number:'S1013',
       andon:0,
       speed:[0],
+      src:'assets/eimdoard/equipment/images/dj1.png',//实验图片地址
+      speed_name:[''],//实验编号
       router:'pages/equipment/motor/电机系统测试台架-1/device_avlmotor_01',
     },
     {
@@ -23,6 +25,8 @@ export class EnergyLaboratoryComponent implements OnInit {
       number:'S1014',
       andon:0,
       speed:[0],
+      src:'assets/eimdoard/equipment/images/dj1.png',//实验图片地址
+      speed_name:[''],//实验编号
       router:'pages/equipment/motor2/电机系统测试台架-2/device_avlmotor_02'
     },
     {
@@ -30,6 +34,8 @@ export class EnergyLaboratoryComponent implements OnInit {
       number:'S1003',
       andon:0,
       speed:[0],
+      src:'assets/eimdoard/equipment/images/dj1.png',//实验图片地址
+      speed_name:[''],//实验编号
       router:'pages/equipment/motor3/电机系统测试台架-3/device_avlmotor_03'
     },
     {
@@ -37,6 +43,8 @@ export class EnergyLaboratoryComponent implements OnInit {
       number:'S1010',
       andon:0,
       speed:[0],
+      src:'assets/eimdoard/equipment/images/dj1.png',//实验图片地址
+      speed_name:[''],//实验编号
       router:'pages/equipment/motor4/电机系统测试台架-4/device_avlmotor_04'
     },
     {
@@ -44,6 +52,8 @@ export class EnergyLaboratoryComponent implements OnInit {
       number:'S1008',
       andon:0,
       speed:[0],
+      src:'assets/eimdoard/equipment/images/dj2.png',//实验图片地址
+      speed_name:[''],//实验编号
       router:''
     },
     {
@@ -51,6 +61,8 @@ export class EnergyLaboratoryComponent implements OnInit {
       number:'S1011',
       andon:0,
       speed:[0],
+      src:'assets/eimdoard/equipment/images/dj2.png',//实验图片地址
+      speed_name:[''],//实验编号
       router:'pages/equipment/motor6/电机系统测试台架-6/six'
     },
     {
@@ -58,8 +70,11 @@ export class EnergyLaboratoryComponent implements OnInit {
       number:'S1012',
       andon:0,
       speed:[0],
-      router:'pages/equipment/motor7/电机系统测试台架-7/seven'
-    },
+      src:'assets/eimdoard/equipment/images/dj2.png',//实验图片地址
+      speed_name:[''],//实验编号
+      router:'pages/equipment/motor7/电机系统测试台架-7/seven',
+      type:''
+    },{},{},{},{},{}
   ]
   @ViewChild('left')left:any;
   @ViewChild('right')right:any;
@@ -95,6 +110,7 @@ export class EnergyLaboratoryComponent implements OnInit {
       this.thrid.get_device_taskinfo_list(param,this.right).subscribe((f:any)=>{
         f.forEach(el => {
           this.param[el.deviceid].speed[0] = el.rate;
+          this.param[el.deviceid].speed_name[0] = el.taskchildnum;
         });
       });
       this.thrid.get_log_list(param,this.left)

@@ -1,5 +1,5 @@
 <!-- 设备-级报警概览 -->
-<div class="row" style="margin: 0px;">
+<div class="row" style="margin: 0px;height: 48%;">
     <div class="chunk one_alert">
         <div class="part_title">实验进度</div>
         <div class="_table">
@@ -16,7 +16,7 @@
 
                         <ng-container *ngIf="key == 'speed';else temp">
                             <nz-progress [nzPercent]="items.speed" [nzStrokeColor]="{ '0%': '#66FF00', '100%': '#66FF00' }" nzSize="small" [nzShowInfo]="false"></nz-progress>
-                            <div style="position: absolute;color: black;top: 8px;">
+                            <div style="position: absolute;color: black;top: 30%;">
                                 {{items[key]}}%
                             </div>
                         </ng-container>
@@ -30,7 +30,7 @@
     </div>
 </div>
 
-<div class="row" style="display: flex;margin: 20px 0 0 0;">
+<div class="row" style="display: flex;margin: 20px 0 0 0;height: 49%;">
     <div class="chunk quantity">
         <div class="part_title">已完成试验数/计划实验数</div>
         <div class="height_30" style="display: flex;width: 100%;align-items: center;justify-content: center;">
