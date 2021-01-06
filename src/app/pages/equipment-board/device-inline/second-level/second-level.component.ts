@@ -84,7 +84,7 @@ export class SecondLevelComponent implements OnInit {
     setTimeout(() => {
       switch(testname){
         case 'newpower':
-        case 'electrical':
+        // case 'electrical':
           this.router.navigate(['pages/equipment/third-level/energy']);
           break;
         case 'environment':
