@@ -4,8 +4,6 @@ import { CommonModule } from '@angular/common';
 import { OperationManagementRoutingModule } from './operation-management-routing.module';
 import { OperationManagementComponent } from './operation-management.component';
 import { BorderGatewayComponent } from './border-gateway/border-gateway.component';
-import { MySelectComponent } from './components/my-select/my-select.component';
-import { MySelectGroupComponent } from './components/my-select-group/my-select-group.component';
 import { NbSelectModule, NbButtonModule, NbCardModule, NbSpinnerModule, NbIconModule } from '@nebular/theme';
 import { FormsModule } from '@angular/forms';
 // import { Ng2SmartTableModule } from 'ng2-smart-table';
@@ -15,10 +13,13 @@ import { AgTableComponent } from './components/ag-table/ag-table.component';
 import { AgGridModule } from 'ag-grid-angular';
 import { NzPaginationModule } from 'ng-zorro-antd';
 import { ActionComponent } from './border-gateway/action/action.component';
+import { MySelectTreeComponent } from './components/my-select-tree/my-select-tree.component';
+import { MySelectTreeTypeComponent } from './components/my-select-tree-type/my-select-tree-type.component';
+import { MyInputComponent } from './components/my-input/my-input.component';
 
 @NgModule({
   declarations: [OperationManagementComponent, BorderGatewayComponent,VideoIntegrationComponent, 
-   MySelectComponent, MySelectGroupComponent, AgTableComponent, ActionComponent,  
+  AgTableComponent, ActionComponent, MySelectTreeComponent, MySelectTreeTypeComponent, MyInputComponent,   
   ],
   imports: [
     CommonModule,

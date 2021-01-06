@@ -2,15 +2,15 @@
     <div class="col-lg-9" style="display: flex;">
         <!-- 部门信息 -->
         <div class="example-items-rows button_item">
-            <ngx-my-select-group #departmentselect [selectdatas]="departments"></ngx-my-select-group>
+            <ngx-my-select-tree #departmentselect [placeholder]="groups_placeholder"></ngx-my-select-tree>
         </div>
         <!-- 设备类型 -->
         <div class="example-items-rows button_item">
-            <ngx-my-select #device_tpye [selectdatas]="devicetpye"></ngx-my-select>
+            <ngx-my-select-tree-type #devicetpye [placeholder]="eimdevicetpye_placeholder"></ngx-my-select-tree-type>
         </div>
-        <!-- 摄像头 -->
+        <!-- 边缘网关 -->
         <div class="example-items-rows button_item">
-            <ngx-my-select #asset_number [selectdatas]="camera"></ngx-my-select>
+            <ngx-my-input #myinput (inpuvalue)="inpuvalue($event)"  [placeholder]="myinput_placeholder"></ngx-my-input>
         </div>
         <!-- 搜索 -->
         <div class="example-items-rows button_item query" *ngIf="button?.query">
@@ -24,7 +24,7 @@
 
     </div>
 
-    <div class="col-lg-3" style="display: flex;">
+    <div class="col-lg-3" style="display: flex; padding: 0px 11px;">
         <div style="flex: auto;">
         </div>
         <!-- 导出、重置 -->
@@ -45,12 +45,9 @@
 </div>
 
 
-<div class="row"  style="margin-top: 20px;">
-    <div class="col-md-12">
-        <nb-card>
-            <nb-card-body [nbSpinner]="loading" nbSpinnerStatus="info">
-                <ngx-ag-table #ag_Grid   (nzpageindexchange)="nzpageindexchange_ag($event)" (clickrow)="clickrow($event)"></ngx-ag-table>
-            </nb-card-body>
-        </nb-card>
+<div class="row" >
+    <div class="col-md-12" [nbSpinner]="loading" nbSpinnerStatus="info">
+        <ngx-ag-table #ag_Grid   (nzpageindexchange)="nzpageindexchange_ag($event)" (clickrow)="clickrow($event)"></ngx-ag-table>
+       
     </div>
 </div>

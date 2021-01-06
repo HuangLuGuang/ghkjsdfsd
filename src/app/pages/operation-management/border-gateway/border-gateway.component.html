@@ -1,17 +1,17 @@
 <div class="row" style="margin: 0px -11px;">
 
-    <div class="col-lg-9" style="display: flex;">
+    <div class="col-lg-9" style="display: flex; padding: 0px 11px;">
         <!-- 部门信息 -->
         <div class="example-items-rows button_item">
-            <ngx-my-select-group #departmentselect [selectdatas]="departments"></ngx-my-select-group>
+            <ngx-my-select-tree #departmentselect [placeholder]="groups_placeholder"></ngx-my-select-tree>
         </div>
         <!-- 设备类型 -->
         <div class="example-items-rows button_item">
-            <ngx-my-select #device_tpye [selectdatas]="devicetpye"></ngx-my-select>
+            <ngx-my-select-tree-type #devicetpye [placeholder]="eimdevicetpye_placeholder"></ngx-my-select-tree-type>
         </div>
         <!-- 边缘网关 -->
         <div class="example-items-rows button_item">
-            <ngx-my-select #asset_number [selectdatas]="assetsnumber"></ngx-my-select>
+            <ngx-my-input #myinput (inpuvalue)="inpuvalue($event)"  [placeholder]="myinput_placeholder"></ngx-my-input>
         </div>
         <!-- 搜索 -->
         <div class="example-items-rows button_item query" *ngIf="button?.query">
@@ -47,13 +47,9 @@
     
 </div>
 
-<div class="row"  style="margin-top: 20px;">
-    <div class="col-md-12">
-        <nb-card>
-            <nb-card-body [nbSpinner]="loading" nbSpinnerStatus="info">
-                <ngx-ag-table #ag_Grid   (nzpageindexchange)="nzpageindexchange_ag($event)" (clickrow)="clickrow($event)"></ngx-ag-table>
-                <!-- <ngx-my-table-ng2 #mytable  [datas]="border_gateway_table_data"></ngx-my-table-ng2> -->
-            </nb-card-body>
-        </nb-card>
+<div class="row">
+    <div class="col-md-12" [nbSpinner]="loading" nbSpinnerStatus="info">
+        <ngx-ag-table #ag_Grid   (nzpageindexchange)="nzpageindexchange_ag($event)" (clickrow)="clickrow($event)"></ngx-ag-table>
+        
     </div>
 </div>

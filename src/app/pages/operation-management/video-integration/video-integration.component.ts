@@ -14,53 +14,16 @@ import { ActionComponent } from './action/action.component';
   styleUrls: ['./video-integration.component.scss']
 })
 export class VideoIntegrationComponent implements OnInit {
-
-  @ViewChild("departmentselect") departmentselect:any; // 部门信息
-  @ViewChild("device_tpye") device_tpye:any;           // 设备类型
-  @ViewChild("asset_number") asset_number:any;         // 摄像头
-
+  @ViewChild("departmentselect") department:any;  // 部门信息
+  @ViewChild("devicetpye") devicetpye:any;             // 设备类型
+  @ViewChild("myinput") myinput:any;          // 摄像头
   @ViewChild("ag_Grid") agGrid: any;
 
-  
-  // 下拉框---部门
-  departments = {
-    name: "部门信息",
-    placeholder: '请选择部门',
-    groups:[
-      { title: '动力', datas: [{ name: '动力-1' },{ name: '动力-2' },{ name: '动力-3' },{ name: '动力-4' }] },
-      { title: '资产', datas: [{ name: '资产-1' },{ name: '资产-2' },{ name: '资产-3' },{ name: '资产-4' }] },
-      { title: '新能源', datas: [{ name: '新能源-1' },{ name: '新能源-2' },{ name: '新能源-3' },{ name: '新能源-4' }] },
-    ]
-  };
-
-  // 下拉框---设备类型
-  devicetpye = {
-    placeholder: "请选择设备类型",
-    name: '设备类型',
-    datas: [
-      { name: 'GT-2030-123' },
-      { name: 'GT-2030-149' },
-      { name: 'GT-2030-230' },
-      { name: 'GT-2030-359' },
-      { name: 'GT-2030-666' },
-    ]
-  }
-
-  // 下拉框---摄像头
-  camera = {
-    placeholder: "请选择摄像头",
-    name: '摄像头',
-    datas: [
-      { name: 'GT1918-1720TM' },
-      { name: 'GT1917-1819TM' },
-      { name: 'GT1916-1919TM' },
-      { name: 'GT1915-2018TM' },
-      { name: 'GT1914-2117TM' },
-      { name: 'GT1913-2216TM' },
-    ]
-  }
-
   active; // aggrid 操作
+
+  groups_placeholder = "请选择部门信息";
+  eimdevicetpye_placeholder = "请选择设备类型";
+  myinput_placeholder = "请输入摄像头";
 
   // 加载数据
   loading = false;
@@ -70,8 +33,6 @@ export class VideoIntegrationComponent implements OnInit {
   employeeid = this.userinfo.getEmployeeID();
   TABLE = "device";
   METHOD = "dev_get_device_ratio";
-
-
   // agGrid
   tableDatas = {
     totalPageNumbers: 0, // 总页数
@@ -125,6 +86,8 @@ export class VideoIntegrationComponent implements OnInit {
   constructor(private userinfo:UserInfoService,private http: HttpserviceService,private publicmethod: PublicmethodService) { 
      // 会话过期
      localStorage.removeItem("alert401flag");
+
+     this.get_tree_selecetdata();
   }
 
   ngOnInit(): void {
@@ -161,6 +124,37 @@ export class VideoIntegrationComponent implements OnInit {
     )
     // 初始化aggrid
     this.inttable();
+  }
+  // 得到下拉框的数据
+  get_tree_selecetdata(){
+    var columns = {
+      employeeid:this.employeeid,
+    }
+    this.http.callRPC("deveice","dev_get_device_type",columns).subscribe(result=>{
+      var res = result["result"]["message"][0]
+      if (res["code"] === 1){
+        // 部门信息
+        var department_list = [
+          { id:1,label: "动力中心", },
+          { id:6,label: "资产",},
+          { id:7,label: "新能源",},
+
+        ];
+        this.department.init_select_tree(department_list);
+        // 设备类别  devicetpye
+        var devicetpye = [
+          { id: 1, label: "GT-2030-123"},
+          { id: 2, label: "GT-2030-149"},
+          { id: 3, label: "GT-2030-230"},
+          { id: 4, label: "GT-2030-359"},
+          { id: 5, label: "GT-2030-666"},
+        ];
+        this.devicetpye.init_select_trees(devicetpye);
+        
+      }
+    })
+    
+    
   }
 
   action(actionmethod){
@@ -200,16 +194,20 @@ export class VideoIntegrationComponent implements OnInit {
     console.log("视频集成服务器管理：修改、编辑>>>",active_data)
   }
 
+  // input 传入的值
+  inpuvalue(inpuvalue){
+    if (inpuvalue != ""){
+      console.log("传入的值设备名称----->",inpuvalue);
+      // this.query(inpuvalue);
+    }
+  }
+
   // 搜索按钮
   query(){
-    var departmentselect_data = this.departmentselect.getselect();
-    var device_tpye_data = this.device_tpye.getselect();
-    var asset_number_data = this.asset_number.getselect();
-    // var daterange_data = this.daterange.getselect()
-    console.log("<------------搜索----------->", departmentselect_data, device_tpye_data,asset_number_data,);
-    // this.test_task_table_data.source = null;
-    this.loading = true;
-    setTimeout(() => this.loading = false, 3000);
+    var department = this.department.getselect();
+    var devicetpye_data = this.devicetpye.getselect();
+    var myinput = this.myinput.getinput();
+    console.log("<------------搜索----------->", department, devicetpye_data,myinput);
   }
 
   // 导出
@@ -227,9 +225,9 @@ export class VideoIntegrationComponent implements OnInit {
     // 取消选择的数据 delselect
     // this.myYear.reset_year();
     // this.myMonth.reset_month();
-    // this.myinput.del_input_value();
-    // this.groups_func.dropselect();
-    // this.eimdevicetpye.dropselect();
+    this.myinput.del_input_value();
+    this.department.dropselect();
+    this.devicetpye.dropselect();
     this.inttable();
   }
 
@@ -246,14 +244,14 @@ export class VideoIntegrationComponent implements OnInit {
   // 初始化前确保 搜索条件 
   inittable_before(){
 
-    var departmentselect = this.departmentselect.getselect(); // 部门信息
-    var device_tpye = this.device_tpye?.getselect()===undefined?"":this.device_tpye?.getselect();// 设备类型
-    var asset_number = this.asset_number?.getselect(); // 视频集成服务器管理
+    var department = this.department.getselect(); // 部门信息
+    var devicetpye = this.devicetpye?.getselect()===undefined?"":this.devicetpye?.getselect();// 设备类型
+    var asset_number = this.myinput.getinput(); // 边缘网关
     return {
       limit: this.agGrid.get_pagesize(),
       employeeid: this.userinfo.getEmployeeID(),
-      departmentselect: departmentselect,
-      device_tpye: device_tpye,
+      department: department,
+      devicetpye: devicetpye,
       asset_number:asset_number,
     }
 
@@ -276,8 +274,8 @@ export class VideoIntegrationComponent implements OnInit {
     var colmun = {
       offset: offset,
       limit: limit,
-      departmentselect: inittable_before.departmentselect,
-      device_tpye: inittable_before.device_tpye,
+      departmentselect: inittable_before.department,
+      device_tpye: inittable_before.devicetpye,
       asset_number:inittable_before.asset_number,
     }
     var table = this.TABLE;
