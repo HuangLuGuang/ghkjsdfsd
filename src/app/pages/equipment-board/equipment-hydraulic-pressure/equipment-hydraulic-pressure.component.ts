@@ -95,21 +95,24 @@ xData:[]
     title:[`stationNameCGF`,'OnOff','InternalLock','Programlock'],
     // title:[`Station name（cfg）`,'开/关','内锁','程序内锁'],
     data:[
-      ['',
-      {value:1,id:'circle',color:''}
-      ,{value:1,id:'strip',color:''},{value:1,id:'strip',color:''},],
-      ['',
-      {value:0,id:'circle',color:''}
-      ,{value:0,id:'strip',color:''},{value:0,id:'strip',color:''},],
-      ['',
-      {value:1,id:'circle',color:''}
-      ,{value:1,id:'strip',color:''},{value:1,id:'strip',color:''},],
-      ['',
-      {value:0,id:'circle',color:''}
-      ,{value:0,id:'strip',color:''},{value:0,id:'strip',color:''},],
-      ['',
-      {value:0,id:'circle',color:''}
-      ,{value:0,id:'strip',color:''},{value:0,id:'strip',color:''},]
+      // ['',
+      // {value:1,id:'circle',color:''}
+      // ,{value:1,id:'strip',color:''},{value:1,id:'strip',color:''},],
+      // ['',
+      // {value:0,id:'circle',color:''}
+      // ,{value:0,id:'strip',color:''},{value:0,id:'strip',color:''},],
+      // ['',
+      // {value:1,id:'circle',color:''}
+      // ,{value:1,id:'strip',color:''},{value:1,id:'strip',color:''},],
+      // ['',
+      // {value:0,id:'circle',color:''}
+      // ,{value:0,id:'strip',color:''},{value:0,id:'strip',color:''},],
+      // ['',
+      // {value:0,id:'circle',color:''}
+      // ,{value:0,id:'strip',color:''},{value:0,id:'strip',color:''},],
+      // ['',
+      // {value:0,id:'circle',color:''}
+      // ,{value:0,id:'strip',color:''},{value:0,id:'strip',color:''},]
     ]
   }
 
@@ -249,19 +252,29 @@ xData:[]
    */
   get_device_mts_status(){
     this.subscribeList.status = this.http.callRPC('get_device_mts_status','device_monitor.get_device_mts_status',{device:this.deviceid}).subscribe((g:any) =>{
-      this.switchStatus.data.forEach((f,i) => {
-        if(i>=g.result.message[0].length)return;
-        f[0] =  g.result.message[0][i].stationname;
-        //起停状态
-        f[1].value =  g.result.message[0][i].runstop;
-        f[1].color =  f[1].value == 1?'green':'#C0C0C0';
-        //内锁
-        f[2].value =  g.result.message[0][i].interlock;
-        f[2].color =  f[2].value == 1?'white':'orange';
-        //程序锁
-        f[3].value =  g.result.message[0][i].programinterlock;
-        f[3].color =  f[3].value == 1?'white':'orange';
-      });
+      if(g.result.error || g.result.message[0].code == 0)return;
+      // this.switchStatus.data.forEach((f,i) => {
+      //   if(i>=g.result.message[0].length)return;
+      //   f[0] =  g.result.message[0][i].stationname;
+      //   //起停状态
+      //   f[1].value =  g.result.message[0][i].runstop;
+      //   f[1].color =  f[1].value == 1?'green':'#C0C0C0';
+      //   //内锁
+      //   f[2].value =  g.result.message[0][i].interlock;
+      //   f[2].color =  f[2].value == 1?'white':'orange';
+      //   //程序锁
+      //   f[3].value =  g.result.message[0][i].programinterlock;
+      //   f[3].color =  f[3].value == 1?'white':'orange';
+      // });
+
+      this.switchStatus.data = g.result.message[0].map(m =>(
+        [
+          m.stationname,{value:m.runstop,color:m.runstop == 1?'green':'#C0C0C0',id:'circle'},
+          {value:m.interlock,color:m.interlock== 1?'white':'orange',id:'strip'},
+          {value:m.programinterlock,color:m.programinterlock== 1?'white':'orange',id:'strip'}
+        ] 
+      ))
+      console.log(this.switchStatus.data)
 
     })
   }

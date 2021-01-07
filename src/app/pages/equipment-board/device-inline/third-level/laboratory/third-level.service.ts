@@ -98,6 +98,7 @@ export class ThirdLevelService {
   //获取试验进度
   get_device_taskinfo_list(param,view){
     let tableBody = [];
+    let deviceList = {};
     return new Observable(s =>{
       this.http.callRPC('get_device_taskinfo_list','get_device_taskinfo_list',{deviceid:param}).subscribe((f:any)=>{
         if(f.result.error || f.result.message[0].code == 0)return;
@@ -105,7 +106,14 @@ export class ThirdLevelService {
           {device:m.devicetaskname,experiment:m.taskchildnum,speed:m.rate,deviceid:m.deviceid}
         ));
         view.tableBody = tableBody;
-        s.next( f.result.message[0].message );
+        //生成
+        tableBody.forEach(f=>{
+          if(!deviceList[f.deviceid])
+            deviceList[f.deviceid] = [];
+            
+          deviceList[f.deviceid].push(f)
+        })
+        s.next( deviceList );
       })
     })
   }

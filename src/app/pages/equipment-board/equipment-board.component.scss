@@ -37,9 +37,21 @@
     }
     .return_button_1 {
         background: url('/assets/eimdoard/equipment/images/home.png') no-repeat;
+        background-size: 100% 100%;
+        width: 42px;
+        height: 62px;
+        float: left;
+        margin-top: 11px;
+        margin-left: 18px;
     }
     .return_button_2 {
         background: url('/assets/eimdoard/equipment/images/back.png') no-repeat;
+        background-size: 100% 100%;
+        width: 42px;
+        height: 40px;
+        float: left;
+        margin-top: 6px;
+        margin-left: 9px;
     }
     .right_button {
         position: absolute;
@@ -57,8 +69,8 @@
     nb-icon {
         background: rgba(22, 67, 127, 1);
         cursor: pointer;
-        width: 53px;
-        height: 53px;
+        width: 45px;
+        height: 45px;
     }
     .body {
         height: 95%;
