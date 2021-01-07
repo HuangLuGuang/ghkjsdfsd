@@ -204,7 +204,9 @@ export const painting_time = (f,time,isthis,arr) =>{
   // }
   let item:any;
   let xtime:any;
+  let ol = false;//是否可以改变x轴数据
   isthis.click_list.forEach((c,i)=>{
+      ol = true;
       isthis[`attrs_${i+1}`][c].forEach((el,j) => {
         item = data[el.nameEn.replace(".","").toLocaleLowerCase()];
         if(!item)return;
@@ -215,10 +217,10 @@ export const painting_time = (f,time,isthis,arr) =>{
 
         if(time == 10){
           el.value = item.slice();
-          if(j == 0)isthis[`attrs_${i+1}`].xData = xtime.slice();
+          if(ol)isthis[`attrs_${i+1}`].xData = xtime.slice(),ol = false;
         }else{
           el.value.push(item[0]);
-          if(j == 0)isthis[`attrs_${i+1}`].xData.push(xtime[0]);
+          if(ol)isthis[`attrs_${i+1}`].xData.push(xtime[0]),ol = false;
         }
 
       //echart 数值显示是以数组下标做对应    判断x轴和数据是否是相同的数量
@@ -234,8 +236,10 @@ export const painting_time = (f,time,isthis,arr) =>{
   // }
   
   //吧当前所有的全部更新
-  arr.forEach((f,i)=>{
-    isthis[`chart_${i+1}`].painting({attrs:isthis[`attrs_${i+1}`][isthis.click_list[i]],xData:isthis[`attrs_${i+1}`].xData,index:1});
+  let i = -1;
+  arr.forEach((f)=>{
+    i = parseInt(f.replace(/[^\d.]/g, ""));
+    isthis[f].painting({attrs:isthis[`attrs_${i}`][isthis.click_list[i-1]],xData:isthis[`attrs_${i}`].xData,index:1});
   })
   // console.log('本次时长',new Date().getTime()-timest)
 }

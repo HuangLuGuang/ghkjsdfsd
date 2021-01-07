@@ -12,7 +12,7 @@ import { ThirdLevelService } from '../third-level.service';
 export class StructuralLaboratoryComponent implements OnInit {
   list = [
     {
-      name:'Master',
+      name:'MTS 329',
       src:'assets/eimdoard/equipment/images/zcdz.png',//实验图片路径
       andon:0,
       speed:[],//实验编号
@@ -20,7 +20,7 @@ export class StructuralLaboratoryComponent implements OnInit {
       router:'pages/equipment/coupling/整车多轴轴耦合道路模拟试验台-329',
     },
     {
-      name:'320四立柱',
+      name:'MTS 320',
       src:'assets/eimdoard/equipment/images/slz.png',//实验图片路径
       andon:0,
       speed:[],
@@ -28,7 +28,7 @@ export class StructuralLaboratoryComponent implements OnInit {
       router:'pages/equipment/road/四立柱道路模拟试验台-320.5'
     },
     {
-      name:'Mast Table',
+      name:'MTS Mast table',
       src:'assets/eimdoard/equipment/images/lzyd.png',//实验图片路径
       andon:0,
       speed:[],
@@ -36,7 +36,7 @@ export class StructuralLaboratoryComponent implements OnInit {
       router:'pages/equipment/shock/六自由度振动台-353.2'
     },
     {
-      name:'TestLine',
+      name:'MTS Testline',
       src:'assets/eimdoard/equipment/images/yy.png',//实验图片路径
       andon:0,
       speed:[],
@@ -44,7 +44,7 @@ export class StructuralLaboratoryComponent implements OnInit {
       router:'pages/equipment/hydraulic/液压伺服系统扩展系统-Testline'
     },
     {
-      name:'油源',
+      name:'MTS HPU',
       src:'assets/eimdoard/equipment/images/yy.png',//实验图片路径
       andon:0,
       open_close:[],
@@ -170,6 +170,17 @@ export class StructuralLaboratoryComponent implements OnInit {
         return '停止';
       case -1:
         return '离线';
+    }
+  }
+
+  getoilstatusColor(item){
+    switch(item){
+      case 1:
+        return '#00FF00';
+      case 3:
+        return '#d68f47';
+      case -1:
+        return '#C0C0C0';
     }
   }
 

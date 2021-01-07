@@ -111,8 +111,48 @@ export class EquipmentFourRoadComponent implements OnInit {
   }],
   xData:[]
     };
-  attrs_3:any = {"equipment.dataChannelList":[{ 
-      name: "右前位移",nameEn :'RightFrontDisplacement', unit: "V",value: [],show:true
+  attrs_3:any = {"equipment.road.centerbottom.SampleSurfaceTemp":[{ 
+      name: "前方顶部温度",nameEn :'IrrFrametopFrontActual', unit: "",value: [],show:true
+      ,color:["", ""]
+    },
+    { 
+      name: "顶部温度",nameEn :'IrrFrametoProofActual', unit: "",value: [],show:true
+      ,color:["", ""]
+    },
+    { 
+      name: "顶部后方温度",nameEn :'IrrFrametoPrearActual', unit: "",value: [],show:true
+      ,color:["", ""]
+    },
+    { 
+      name: "前方温度",nameEn :'IrrFrameFrontActual', unit: "",value: [],show:false
+      ,color:["", ""]
+    },
+    { 
+      name: "后方温度",nameEn :'IrrFrameRearActual', unit: "",value: [],show:false
+      ,color:["", ""]
+    },
+    { 
+      name: "左1部位温度",nameEn :'IrrFrame1LeftActual', unit: "",value: [],show:false
+      ,color:["", ""]
+    },
+    { 
+      name: "左2部位温度",nameEn :'IrrFrame2LeftActual', unit: "",value: [],show:false
+      ,color:["", ""]
+    },
+    { 
+      name: "左3部位温度",nameEn :'IrrFrame3LeftActual', unit: "",value: [],show:false
+      ,color:["", ""]
+    },
+    { 
+      name: "右1部位温度",nameEn :'IrrFrame1RightActual', unit: "",value: [],show:false
+      ,color:["", ""]
+    },
+    { 
+      name: "右2部位温度",nameEn :'IrrFrame2RightActual', unit: "",value: [],show:false
+      ,color:["", ""]
+    },
+    { 
+      name: "右3部位温度",nameEn :'IrrFrame3RightActual', unit: "",value: [],show:false
       ,color:["", ""]
     }],
     xData:[]};
@@ -150,7 +190,7 @@ export class EquipmentFourRoadComponent implements OnInit {
   // ngx-chart-curve-v3有哪些tag
   list_2 = ['equipment.road.LeftFront.Params','equipment.road.RightFront.Params'];
   list_1 = ['equipment.road.LeftRear.Params','equipment.road.RightRear.Params'];
-  list_3 = ['equipment.dataChannelList'];
+  list_3 = ['equipment.road.centerbottom.SampleSurfaceTemp'];
   click_list = [];//当前选中的tag
   deviceid = 'device_mts_01';//设备信息
 
@@ -216,17 +256,28 @@ export class EquipmentFourRoadComponent implements OnInit {
     // 定时添加数据
     let table,method = '';
     this.timer = setInterval(f =>{
-      let param = this.create_param();
+      let param = this.create_param([
+        {value:this.click_list[0],index:1},{value:this.click_list[1],index:2}
+        ]);
       this.get_device_mts_status();
       if(param[0].length > 0){
         table = 'get_device_mts_time',method = 'device_monitor.get_device_mts_timerangedata';
-        this.get_device_mts_time(table,method,param);
+        this.get_device_mts_time(table,method,param,this.deviceid,['chart_1','chart_2']);
       }
       if(param[1].length > 0){
         table = 'get_device_mts_realtimedata',method = 'device_monitor.get_device_mts_realtimedata';
-        this.get_device_mts_realtimedata(table,method,param);
+        this.get_device_mts_realtimedata(table,method,param,this.deviceid,['chart_1','chart_2']);
       }
-      
+
+      param = this.create_param([{value:[this.click_list[2]],index:3}]);
+      if(param[0].length > 0){
+        table = 'get_device_mts_time',method = 'device_monitor.get_device_mts_timerangedata';
+        this.get_device_mts_time(table,method,param,'device_weiss_01',['chart_3']);
+      }
+      if(param[1].length > 0){
+        table = 'get_device_mts_realtimedata',method = 'device_monitor.get_device_mts_realtimedata';
+        this.get_device_mts_realtimedata(table,method,param,'device_weiss_01',['chart_3']);
+      }
     },1000)
     
    
@@ -263,11 +314,11 @@ export class EquipmentFourRoadComponent implements OnInit {
 
 
   //生成实时数据需要的参数
-  create_param(){
+  create_param(arr){
     let arr10s = [];
     let arr1s = [];
-    this.click_list.forEach((f,i)=>{
-      this[`attrs_${i+1}`][f].forEach(el => {
+    arr.forEach((f,i)=>{
+      this[`attrs_${f.index}`][f.value].forEach(el => {
         if(el.value &&  el.value.length <= 0)
           if( arr10s.findIndex(g=> g==el.value) == -1)arr10s.push(el.nameEn.replace(".","").toLocaleLowerCase());
         if(el.value &&  el.value.length > 0)
@@ -314,15 +365,15 @@ export class EquipmentFourRoadComponent implements OnInit {
    * @param method 
    * @param param 
    */
-  get_device_mts_time(table,method,param){
+  get_device_mts_time(table,method,param,deviceid,arr){
     // let datestr = dateformat(new Date(),'yyyy-MM-dd hh:mm');
     // let datestr_ = dateformat(new Date(),'yyyy-MM-dd hh:mm');
     // dateformat(new Date(now.getTime()-10000)
     let now = new Date();
-    this.subscribeList.time = this.http.callRPC(table,method,{"start":dateformat(new Date(now.getTime()-10000),'yyyy-MM-dd hh:mm:ss'),"end": dateformat(now,'yyyy-MM-dd hh:mm:ss'),"device":this.deviceid,
+    this.subscribeList.time = this.http.callRPC(table,method,{"start":dateformat(new Date(now.getTime()-10000),'yyyy-MM-dd hh:mm:ss'),"end": dateformat(now,'yyyy-MM-dd hh:mm:ss'),"device":deviceid,
     arr:param[0].join(',')}).subscribe((f:any) =>{
       if(f.result.error || f.result.message[0].code == 0)return;
-      painting_time(f,10,this,['chart_1','chart_2','chart_3']);
+      painting_time(f,10,this,arr);
       
     })
   }
@@ -333,11 +384,11 @@ export class EquipmentFourRoadComponent implements OnInit {
    * @param method 
    * @param param 
    */
-  get_device_mts_realtimedata(table,method,param){
-    this.subscribeList.real = this.http.callRPC(table,method,{"device":this.deviceid,
+  get_device_mts_realtimedata(table,method,param,deviceid,arr){
+    this.subscribeList.real = this.http.callRPC(table,method,{"device":deviceid,
     arr:param[1].join(',')}).subscribe((g:any) =>{
       if(g.result.error || g.result.message[0].code == 0)return;
-      painting_time(g,1,this,['chart_1','chart_2','chart_3']);
+      painting_time(g,1,this,arr);
     })
   }
 

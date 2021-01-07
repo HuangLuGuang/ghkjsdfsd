@@ -1,14 +1,18 @@
 // 块元素 样式！
 .chunk {
     position: relative;
-    border-width: 1px;
-    border-color: rgb(100, 116, 211);
-    border-style: solid;
-    background-color: rgba(100, 116, 211, 0.402);
+    // border-width: 1px;
+    // border-color: rgb(100, 116, 211);
+    // border-style: solid;
+    // background-color: rgba(100, 116, 211, 0.402);
+    background: url('/assets/eimdoard/equipment/images/blue_beijing.png') center center;
+    background-size: cover;
+    -webkit-background-size: cover;
+    -o-background-size: cover;
     width: 100%;
     text-align: center;
     // margin-top: 10px;
-    box-shadow: 0 0 3.2vh 1.34vh #365f96b3 inset;
+    // box-shadow: 0 0 3.2vh 1.34vh #365f96b3 inset;
 }
 
 // 标题

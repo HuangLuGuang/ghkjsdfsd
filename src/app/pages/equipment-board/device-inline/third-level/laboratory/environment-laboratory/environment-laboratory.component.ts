@@ -87,6 +87,8 @@ export class EnvironmentLaboratoryComponent implements OnInit {
       },
       src:'',//实验图片
       andon:0,
+      speed:[],
+      speed_name:[''],
       type:'multiple',
       router:'pages/equipment/monitoring/环境舱集中监控'
     },

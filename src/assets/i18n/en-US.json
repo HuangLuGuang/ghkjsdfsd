@@ -160,6 +160,9 @@
                 "DisplacementAbs": {
                     "Error": "RightRearDisplacementAbs.Error"
                 }
+            },
+            "centerbottom": {
+                "SampleSurfaceTemp": "SampleSurfaceTemp"
             }
 
         },

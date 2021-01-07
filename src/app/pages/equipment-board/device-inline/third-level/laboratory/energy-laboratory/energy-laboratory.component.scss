@@ -3,9 +3,13 @@
     height: 99%;
     // height: 100%;
     padding-top: 5%;
-    border-width: 1px;
-    border-color: rgba(100, 183, 211, 1);
-    border-style: solid;
+    // border-width: 1px;
+    // border-color: rgba(100, 183, 211, 1);
+    // border-style: solid;
+    background: url('/assets/eimdoard/equipment/images/blue_beijing.png') center center;
+    background-size: cover;
+    -webkit-background-size: cover;
+    -o-background-size: cover;
     display: flex;
     flex-wrap: wrap;
     // align-items: center;

@@ -160,6 +160,9 @@
                 "DisplacementAbs": {
                     "Error": "右后位移绝对误差"
                 }
+            },
+            "centerbottom": {
+                "SampleSurfaceTemp": "样件表面温度"
             }
 
         },

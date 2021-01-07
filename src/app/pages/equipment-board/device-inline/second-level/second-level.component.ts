@@ -39,7 +39,7 @@ export class SecondLevelComponent implements OnInit {
 
   ngOnInit(): void {
 
-    var title = "研究总院"
+    var title = "吉利汽车研究院"
     $("#head_title").text(title)
 
     this.layoutService.onInitLayoutSize().subscribe(f=>{

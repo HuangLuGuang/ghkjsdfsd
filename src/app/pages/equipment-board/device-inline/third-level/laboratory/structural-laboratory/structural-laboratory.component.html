@@ -27,9 +27,9 @@
                 </div>
                 <!-- 油源 -->
                 <div *ngIf="map.type == 'oil'" class="oil">
-                    <div *ngFor="let item of map.open_close;let i = index" style="width: 30%;margin-right: 2%;">
-                        <div>{{ i+1 }}#</div>
-                        <div style="color: black;display: flex;align-items: center;justify-content: center;" [ngStyle]="{background: item == 1?'#00FF00':(item == 2?'#006ced':(item == 3?'#d68f47':'#d71345'))}">
+                    <div *ngFor="let item of map.open_close;let i = index" class="one_row">
+                        <div class="name">HPU{{ i+1 }}</div>
+                        <div class="value" [ngStyle]="{background: getoilstatusColor(item)}">
                             {{ getoilstatus(item) }}
                         </div>
                     </div>

@@ -1,7 +1,7 @@
 #rtmv2 {
     // 1920*1080
     // background: url('/assets/pages/device-inline/images/one/bei-jin.jpg') ;
-    background-color: #003E61;
+    // background-color: #003E61;
     min-height: 900px;
     // padding-bottom: 5px;
     height: 98%;
@@ -45,14 +45,18 @@
 // 块元素 样式！
 .chunk {
     position: relative;
-    border-width: 1px;
-    border-color: rgb(100, 116, 211);
-    border-style: solid;
-    background-color: rgba(100, 116, 211, 0.402);
+    // border-width: 1px;
+    // border-color: rgb(100, 116, 211);
+    // border-style: solid;
+    // background-color: rgba(100, 116, 211, 0.402);
+    background: url('/assets/eimdoard/equipment/images/blue_beijing.png') center center;
+    background-size: cover;
+    -webkit-background-size: cover;
+    -o-background-size: cover;
     width: 100%;
     text-align: center;
     margin-top: 10px;
-    box-shadow: 0 0 3.2vh 1.34vh #365f96b3 inset;
+    // box-shadow: 0 0 3.2vh 1.34vh #365f96b3 inset;
 }
 
 // newpower 新能源与电子电气试验室
@@ -64,6 +68,7 @@
     height: 8%;
     font-size: 13px;
     display: flex;
+    border-radius: 20px;
     justify-content: center;
     align-items: center;
     width: 16%;
@@ -78,6 +83,7 @@
     height: 8%;
     font-size: 13px;
     display: flex;
+    border-radius: 20px;
     justify-content: center;
     align-items: center;
     width: 16%;
@@ -92,6 +98,7 @@
     height: 8%;
     font-size: 13px;
     display: flex;
+    border-radius: 20px;
     justify-content: center;
     align-items: center;
     width: 16%;
@@ -106,6 +113,7 @@
     height: 8%;
     font-size: 13px;
     display: flex;
+    border-radius: 20px;
     justify-content: center;
     align-items: center;
     width: 16%;
@@ -122,6 +130,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    border-radius: 20px;
     width: 16%;
 }
 
@@ -137,6 +146,7 @@
     justify-content: center;
     align-items: center;
     width: 16%;
+    border-radius: 20px;
 }
 
 .noiseshock {
