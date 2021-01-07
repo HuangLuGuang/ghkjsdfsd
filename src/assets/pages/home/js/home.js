@@ -120,7 +120,10 @@ let home = {
         
             },
             tooltip:{
-                trigger: 'item'
+                trigger: 'item',
+                formatter:function(params){
+                    return null
+                }
             },
 
             series: [
