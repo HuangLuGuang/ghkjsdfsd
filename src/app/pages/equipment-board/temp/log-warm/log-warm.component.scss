@@ -109,6 +109,14 @@
     border: 1px solid #4472c4;
 }
 
+.scrollbar {
+    position: absolute;
+    width: 60%;
+    left: 40%;
+    overflow-x: auto;
+    height: 100%;
+}
+
 .overflow_height_75::-webkit-scrollbar {
     /*滚动条整体样式*/
     width: 5px;

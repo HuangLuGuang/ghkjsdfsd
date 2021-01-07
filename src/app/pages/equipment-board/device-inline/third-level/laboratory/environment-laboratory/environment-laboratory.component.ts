@@ -17,7 +17,7 @@ export class EnvironmentLaboratoryComponent implements OnInit {
       number:'S1060',
       andon:0,
       src:'assets/eimdoard/equipment/images/lqdp.png',//实验图片
-      speed:[0],
+      speed:[],
       speed_name:[''],//实验名称
       router:'pages/equipment/twodrive/两驱底盘测功机-1/device_avldyno_01',
     },
@@ -26,7 +26,7 @@ export class EnvironmentLaboratoryComponent implements OnInit {
       number:'S1060',
       andon:0,
       src:'assets/eimdoard/equipment/images/lqdp.png',
-      speed:[0],
+      speed:[],
       speed_name:[''],
       router:'pages/equipment/twodrive/两驱底盘测功机-2/device_avldyno_02'
     },
@@ -35,7 +35,7 @@ export class EnvironmentLaboratoryComponent implements OnInit {
       number:'S1060',
       andon:0,
       src:'assets/eimdoard/equipment/images/lqdp.png',//实验图片
-      speed:[0],
+      speed:[],
       speed_name:[''],
       router:''
     },
@@ -44,7 +44,7 @@ export class EnvironmentLaboratoryComponent implements OnInit {
       number:'S1070',
       andon:0,
       src:'assets/eimdoard/equipment/images/sqdp.png',//实验图片
-      speed:[0],
+      speed:[],
       speed_name:[''],
       router:'pages/equipment/avl/AVL转毂+久鼎环境舱+排放分析'
     },
@@ -53,7 +53,7 @@ export class EnvironmentLaboratoryComponent implements OnInit {
       number:'S1070',
       andon:0,
       src:'assets/eimdoard/equipment/images/sqdp.png',//实验图片
-      speed:[0],
+      speed:[],
       speed_name:[''],
       router:'pages/equipment/central-jinhua/中置式四驱底盘测功机+锦华高低温环境舱'
     },
@@ -62,7 +62,7 @@ export class EnvironmentLaboratoryComponent implements OnInit {
       number:'S1074',
       andon:0,
       src:'assets/eimdoard/equipment/images/hm_1074.png',//实验图片
-      speed:[0],
+      speed:[],
       speed_name:[''],
       router:'pages/equipment/avl-etec/两驱AVL转毂+ATEC环境舱+排放分析/two'
     },
@@ -71,7 +71,7 @@ export class EnvironmentLaboratoryComponent implements OnInit {
       number:'S1074',
       andon:0,
       src:'assets/eimdoard/equipment/images/hm_4_1074.png',//实验图片
-      speed:[0],
+      speed:[],
       speed_name:[''],
       router:'pages/equipment/avl-etec2/四驱AVL转毂+ATEC环境舱+排放分析/four'
     },
@@ -82,7 +82,7 @@ export class EnvironmentLaboratoryComponent implements OnInit {
         name:'ATEC舱',
         number:'S1074',
         andon:0,
-        speed:[0],
+        speed:[],
         speed_name:[''],
       },
       src:'',//实验图片
@@ -127,13 +127,17 @@ export class EnvironmentLaboratoryComponent implements OnInit {
     this.thrid.get_andon_status_last_year(param,this.left);
     
     this.timer = setInterval(f=>{
-    this.get_center_data();
+      this.get_center_data();
       this.thrid.get_device_taskinfo_list(param,this.right).subscribe((f:any)=>{
-        f.forEach(el => {
-          if(this.param[el.deviceid].speed)return;
-          this.param[el.deviceid].speed[0] = el.rate;
-          this.param[el.deviceid].speed_name[0] = el.taskchildnum;
-        });
+        // f.forEach(el => {
+        //   if(this.param[el.deviceid].speed)return;
+        //   this.param[el.deviceid].speed[0] = el.rate;
+        //   this.param[el.deviceid].speed_name[0] = el.taskchildnum;
+        // });
+        for(let key in f){
+          this.param[key].speed = f[key].map(m=> (m.speed));
+          this.param[key].speed_name = f[key].map(m=> (m.experiment));
+        }
       });
       this.thrid.get_log_list(param,this.left);
     },1000)

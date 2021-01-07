@@ -1,8 +1,8 @@
 <div class="row" style="margin: 0 20px;height: 100%;">
-    <div class="col-md-3" style="padding:0;">
+    <div class="col-md-3 height_100" style="padding:0;">
         <ngx-left-layout #left></ngx-left-layout>
     </div>
-    <div class="col-md-6" style="padding:0 20px;">
+    <div class="col-md-6 height_100" style="padding:0 20px;">
         <div class="center">
             <div class="one" *ngFor="let map of list" (click)="goto_borad(map)">
                 <img [src]="map.src || 'assets/eimdoard/equipment/images/blue_beijing.png'" alt="" />
@@ -30,14 +30,14 @@
                     <div *ngFor="let item of map.open_close;let i = index" style="width: 30%;margin-right: 2%;">
                         <div>{{ i+1 }}#</div>
                         <div style="color: black;display: flex;align-items: center;justify-content: center;" [ngStyle]="{background: item == 1?'#00FF00':(item == 2?'#006ced':(item == 3?'#d68f47':'#d71345'))}">
-                            {{ item == 1?'运行':(item == 2?'空闲':(item == 3?'占位':'维护')) }}
+                            {{ getoilstatus(item) }}
                         </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-    <div class="col-md-3" style="padding:0">
+    <div class="col-md-3 height_100" style="padding:0">
         <ngx-right-layout #right></ngx-right-layout>
     </div>
 </div>

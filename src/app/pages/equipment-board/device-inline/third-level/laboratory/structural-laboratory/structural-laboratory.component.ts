@@ -15,7 +15,7 @@ export class StructuralLaboratoryComponent implements OnInit {
       name:'Master',
       src:'assets/eimdoard/equipment/images/zcdz.png',//实验图片路径
       andon:0,
-      speed:[0],//实验编号
+      speed:[],//实验编号
       speed_name:[''],//实验名称
       router:'pages/equipment/coupling/整车多轴轴耦合道路模拟试验台-329',
     },
@@ -23,7 +23,7 @@ export class StructuralLaboratoryComponent implements OnInit {
       name:'320四立柱',
       src:'assets/eimdoard/equipment/images/slz.png',//实验图片路径
       andon:0,
-      speed:[0],
+      speed:[],
       speed_name:[''],//实验名称
       router:'pages/equipment/road/四立柱道路模拟试验台-320.5'
     },
@@ -31,7 +31,7 @@ export class StructuralLaboratoryComponent implements OnInit {
       name:'Mast Table',
       src:'assets/eimdoard/equipment/images/lzyd.png',//实验图片路径
       andon:0,
-      speed:[0],
+      speed:[],
       speed_name:[''],//实验名称
       router:'pages/equipment/shock/六自由度振动台-353.2'
     },
@@ -39,16 +39,17 @@ export class StructuralLaboratoryComponent implements OnInit {
       name:'TestLine',
       src:'assets/eimdoard/equipment/images/yy.png',//实验图片路径
       andon:0,
-      speed:[0,0,0,0],
-      speed_name:['','','',''],//实验名称
+      speed:[],
+      speed_name:[],//实验名称
       router:'pages/equipment/hydraulic/液压伺服系统扩展系统-Testline'
     },
     {
       name:'油源',
       src:'assets/eimdoard/equipment/images/yy.png',//实验图片路径
       andon:0,
-      open_close:[0,0,0,0,0],
+      open_close:[],
       type:'oil',
+      speed:[],
       speed_name:[''],//实验名称
       router:'pages/equipment/oilsrouce/油源健康监控系统'
     },
@@ -56,7 +57,7 @@ export class StructuralLaboratoryComponent implements OnInit {
       name:'天窗开闭',
       src:'',//实验图片路径
       andon:0,
-      speed:[0],
+      speed:[],
       speed_name:[''],//实验名称
       router:''
     },
@@ -64,7 +65,7 @@ export class StructuralLaboratoryComponent implements OnInit {
       name:'玻璃升降系统',
       src:'',//实验图片路径
       andon:0,
-      speed:[0],
+      speed:[],
       speed_name:[''],//实验名称
       router:''
     },
@@ -72,7 +73,7 @@ export class StructuralLaboratoryComponent implements OnInit {
       name:'开闭件台架',
       src:'',//实验图片路径
       andon:0,
-      speed:[0],
+      speed:[],
       speed_name:[''],//实验名称
       router:''
     },
@@ -80,7 +81,7 @@ export class StructuralLaboratoryComponent implements OnInit {
       name:'环境仓集中监控',
       src:'assets/eimdoard/equipment/images/jg_hjc.png',//实验图片路径
       andon:0,
-      speed:[0],
+      speed:[],
       speed_name:[''],//实验名称
       router:''
     },
@@ -128,20 +129,11 @@ export class StructuralLaboratoryComponent implements OnInit {
 
       this.get_center_data();
       this.thrid.get_log_list(param,this.left)
-      let o = 0;
       this.thrid.get_device_taskinfo_list(param,this.right).subscribe((f:any)=>{
-        console.log(new Date().getTime()-int)
-        f.forEach(el => {
-          if(!el.deviceid.includes('hpu') && 'device_mts_04' != el.deviceid){
-            this.param[el.deviceid].speed[0] = el.rate;
-            this.param[el.deviceid].speed_name[0] = el.taskchildnum;
-          }
-          if('device_mts_04' == el.deviceid){
-
-            this.list[3].speed[o] = el.rate,o++;
-            this.list[3].speed_name[o] = el.taskchildnum;
-          }
-        });
+        for(let key in f){
+          this.param[key].speed = f[key].map(m=> (m.speed));
+          this.param[key].speed_name = f[key].map(m=> (m.experiment));
+        }
       });
     },1000)
     setTimeout(() => {
@@ -156,15 +148,29 @@ export class StructuralLaboratoryComponent implements OnInit {
   }
 
   get_center_data(){
+    let status = -1;
     this.http.callRPC('get_andon_status_list','get_andon_status_list',{deviceid:Object.keys(this.param)}).subscribe((f:any)=>{
       if(f.result.error || f.result.message[0].code == 0)return;
       f.result.message[0].message.forEach(el => {
+        status = s_role[el.status]
         if(el.deviceid.includes('hpu'))
-          this.list[4].open_close[this.param[el.deviceid]] = s_role[el.status];//油源
+          this.list[4].open_close[this.param[el.deviceid]] = [1,3].includes(status)?status:-1;//油源
         else
-          this.param[el.deviceid].andon = s_role[el.status];
+          this.param[el.deviceid].andon = status;
       });
     })
+  }
+
+  //获取oil油源状态
+  getoilstatus(item){
+    switch(item){
+      case 1:
+        return '运行';
+      case 3:
+        return '停止';
+      case -1:
+        return '离线';
+    }
   }
 
   ngOnDestroy(){

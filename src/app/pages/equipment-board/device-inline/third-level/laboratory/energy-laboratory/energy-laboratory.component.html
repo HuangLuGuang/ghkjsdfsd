@@ -1,8 +1,8 @@
 <div class="row" style="margin: 0 20px;height: 100%;">
-    <div class="col-md-3" style="padding:0">
+    <div class="col-md-3 height_100" style="padding:0">
         <ngx-left-layout #left></ngx-left-layout>
     </div>
-    <div class="col-md-6" style="padding:0 20px;">
+    <div class="col-md-6 height_100" style="padding:0 20px;">
         <div class="center">
             <div class="one" *ngFor="let map of list;let i =index" (click)="goto_borad(map)">
                 <img [src]="map.src || 'assets/eimdoard/equipment/images/blue_beijing.png'" alt="" />
@@ -29,7 +29,7 @@
             </div>
         </div>
     </div>
-    <div class="col-md-3" style="padding:0">
+    <div class="col-md-3 height_100" style="padding:0">
         <ngx-right-layout #right></ngx-right-layout>
     </div>
 </div>

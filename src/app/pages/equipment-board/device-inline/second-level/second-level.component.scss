@@ -1,12 +1,10 @@
-// 中间气泡的背景色
-$tag-background-color:rgb(246, 107, 49);
 #rtmv2 {
     // 1920*1080
     // background: url('/assets/pages/device-inline/images/one/bei-jin.jpg') ;
     background-color: #003E61;
     min-height: 900px;
-    padding-bottom: 5px;
-    height: 100%;
+    // padding-bottom: 5px;
+    height: 98%;
     // 头部
     .head {
         position: relative;
@@ -292,24 +290,15 @@ nb-icon {
 }
 
 .row_buttom {
-    background: url('assets/pages/device-inline/images/one/onebj_buttom3.png') no-repeat;
+    background: url('assets/pages/device-inline/images/one/onebj_buttom2.jpg') no-repeat;
     background-repeat: no-repeat;
+    background-size: 100% 100%;
     height: 5%;
-    background-position-y: 29%;
-}
-
-.row_buttom::before{
-    content: ""; 
-    display: flex; 
-    padding-bottom: 10%;
-    img{
-        position: absolute; 
-        top: 0; 
-        left: 0; 
-        bottom: 0; 
-        right: 0; 
-        width:100%; 
-        height:100%; 
+    image-rendering: pixelated;
+    // background-position-y: 29%;
+    img {
+        width: 100%;
+        height: 100%;
     }
 }
 
@@ -323,8 +312,5 @@ nb-icon {
 //         width: 100%;
 //         height: 100%;
 //     }
-
 //     // 
-
-
 // }
