@@ -4,7 +4,7 @@
     <div class="col-lg-9" style="display: flex;">
         <!-- 设备信息 hover-->
         <div class="example-items-rows " >
-            <button nbButton size="tiny" nbPopoverTrigger="click" [nbPopover]="templateRef" status="info" *ngIf="kpi_for_detail"> {{kpi_for_detail.devicename}} </button>
+            <button nbButton size="tiny" nbPopoverTrigger="click" [nbPopover]="templateRef" status="info" *ngIf="kpi_for_detail"> {{button_title}} </button>
         </div>
         <ng-template #templateRef >
             <div class="row" style="margin: 10px 0px 0px 0px; min-width: 250px;">

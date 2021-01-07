@@ -296,6 +296,7 @@ export class DeviceDataSumComponent implements OnInit {
       }
     })
   }
+  
 
   // 添加详情link
   add_detail_kpi(datas:any[]){

@@ -10,7 +10,8 @@ import { DeviceManageComponent } from './device-manage/device-manage.component';
 import { TestTaskManageComponent } from './test-task-manage/test-task-manage.component';
 
 // kpi报表详情---> 适应于设备kpi报表、工时kpi
-import { KpiDetailComponent } from './kpi-detail/kpi-detail.component';
+// import { KpiDetailComponent } from './kpi-detail/kpi-detail.component';
+import { KpiDetailComponent } from '../kpi/kpi-detail/kpi-detail.component';
 
 const routes: Routes = [
   { 
@@ -35,7 +36,12 @@ const routes: Routes = [
         loadChildren: ()=>import('./device-hour-report/device-hour-report.module')
         .then(m=>m.DeviceHourReportModule)
       },
-      { path: 'device_hour_report/kpidetail', component: KpiDetailComponent },
+      // // 同一个 kpi详情组件，
+      // { path: 'device_hour_report/kpidetail', component: KpiDetailComponent }, // 设备数据汇总的kpi
+      // { path: 'group_data_sum/kpidetail', component: KpiDetailComponent },     //  功能组数据汇总的kpi
+      // { path: 'department_data_sum/kpidetail', component: KpiDetailComponent }, // 部门数据汇总的kpi
+
+
       // { path: '', redirectTo: 'deviceManage', pathMatch: 'full' },
       { path: '', redirectTo: 'device_hour_report', pathMatch: 'full' },
     ]

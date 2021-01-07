@@ -6,7 +6,7 @@ import { ICellRendererAngularComp } from 'ag-grid-angular';
   templateUrl: './action.component.html',
   styleUrls: ['./action.component.scss']
 })
-export class ActionComponent implements OnInit {
+export class ActionComponent implements OnInit,ICellRendererAngularComp {
   private params: any;
   constructor(private router:Router) { }
   url; // 设备详情的url

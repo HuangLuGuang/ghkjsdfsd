@@ -6,10 +6,7 @@ import { TongjiComponent } from './tongji.component';
 import { DeviceManageComponent } from './device-manage/device-manage.component';
 import { NbSelectModule, NbCardModule, NbButtonModule, NbInputModule, NbProgressBarModule, NbIconModule, NbSpinnerModule, NbLayoutModule, NbPopoverModule } from '@nebular/theme';
 
-// import { MySelectComponent } from './components/my-select/my-select.component';
-// import { MySelectGroupComponent } from './components/my-select-group/my-select-group.component';
-// import { MyTableNg2Component } from './components/my-table-ng2/my-table-ng2.component';
-// import { DateRangeComponent } from './components/date-range/date-range.component';
+
 
 import { FormsModule } from '@angular/forms';
 
@@ -24,7 +21,6 @@ import { TestTaskManageComponent } from './test-task-manage/test-task-manage.com
 // datetime
 import { OwlDateTimeModule, OwlNativeDateTimeModule, OWL_DATE_TIME_LOCALE,OwlDateTimeIntl } from 'ng-pick-datetime';
 import { TaskProgressForTableComponent } from './test-task-manage/task-progress-for-table/task-progress-for-table.component';
-import { KpiDetailComponent } from './kpi-detail/kpi-detail.component';
 import { StatusForTableComponent } from './device-manage/status-for-table/status-for-table.component';
 // datetime 本地化标签 
 export class DefaultIntl extends OwlDateTimeIntl {
@@ -63,9 +59,7 @@ import { TranIscalkpiComponent } from './device-manage/tran-iscalkpi/tran-iscalk
 import { NzTabsModule } from 'ng-zorro-antd';
 @NgModule({
   declarations: [TongjiComponent, DeviceManageComponent, 
-    // MySelectComponent, MySelectGroupComponent, MyTableNg2Component, DateRangeComponent,
-    TestTaskManageComponent,  TaskProgressForTableComponent, 
-    KpiDetailComponent, StatusForTableComponent, TaskProgressForAggridComponent, ActionComponent, TranActiveComponent, TranIscalkpiComponent,],
+    TestTaskManageComponent,  TaskProgressForTableComponent, StatusForTableComponent, TaskProgressForAggridComponent, ActionComponent, TranActiveComponent, TranIscalkpiComponent,],
   imports: [
     CommonModule,
     TongjiRoutingModule,

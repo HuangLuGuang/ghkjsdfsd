@@ -2,13 +2,11 @@ import { RouterModule, Routes } from '@angular/router';
 import { NgModule } from '@angular/core';
 
 import { PagesComponent } from './pages.component';
-// import { NotFoundComponent } from './miscellaneous/not-found/not-found.component';
-
 import { HomeComponent } from './home/home.component';
-
 // 404
 import { NotFoundComponent } from '../miscellaneous/not-found/not-found.component';
 
+import { KpiDetailComponent } from './kpi/kpi-detail/kpi-detail.component';
 
 const routes: Routes = [{
   path: '',
@@ -45,6 +43,12 @@ const routes: Routes = [{
       loadChildren: () => import('./tongji-config/tongji-config-routing.module')
         .then(m => m.TongjiConfigRoutingModule),
     },
+
+    // 同一个 kpi详情组件，
+    { path: 'tongji/device_hour_report/kpidetail', component: KpiDetailComponent }, // 设备数据汇总的kpi
+    { path: 'tongji/group_data_sum/kpidetail', component: KpiDetailComponent },     //  功能组数据汇总的kpi
+    { path: 'tongji/department_data_sum/kpidetail', component: KpiDetailComponent }, // 部门数据汇总的kpi
+
     // 设备健康数据中心
     {
       path: 'datacenter',

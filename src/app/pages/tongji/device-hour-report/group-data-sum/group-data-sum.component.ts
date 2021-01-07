@@ -264,7 +264,7 @@ export class GroupDataSumComponent implements OnInit {
 
   // 添加详情link
   add_detail_kpi(datas:any[]){
-    var option = '/pages/tongji/device_hour_report/kpidetail';
+    var option = '/pages/tongji/group_data_sum/kpidetail?name=group';
     datas.forEach(data=>{
       data["option"] =  option
     })

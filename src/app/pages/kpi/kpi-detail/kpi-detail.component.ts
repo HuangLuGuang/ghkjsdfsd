@@ -19,6 +19,10 @@ export class KpiDetailComponent implements OnInit {
   // 得到出入的数据 kpi_for_detail
   kpi_for_detail;
 
+  // button title，设备的未 devicename，功能组的未 groups
+  button_title;
+
+
   // 左侧函数
   left_method1 = "dev_get_device_columnar_kpi"; // 设备数据汇总详细柱状图KPI
   left_method2 = "dev_get_device_month_kpi"; // 设备数据汇总详细月份KPI
@@ -36,7 +40,7 @@ export class KpiDetailComponent implements OnInit {
       left_method2: "dev_get_device_month_kpi",// 设备数据汇总详细月份KPI
       right_method1: "dev_get_device_pie_kpi", // 设备数据汇总详细饼图KPI
       right_method2: "dev_get_device_year_kpi", // 设备数据汇总详细年份KPI
-      kpi_for_detail: JSON.parse(localStorage.getItem("device_hour_report_kpi_for_detail"))
+      kpi_for_detail: JSON.parse(localStorage.getItem("device_hour_report_kpi_for_detail")),
     },
     group: {
       url: "/pages/tongji/device_hour_report/group_data_sum",
@@ -44,7 +48,7 @@ export class KpiDetailComponent implements OnInit {
       left_method2: "dev_get_device_month_kpi",// 功能组数据汇总详细月份KPI
       right_method1: "dev_get_device_pie_kpi", // 功能组数据汇总详细饼图KPI
       right_method2: "dev_get_device_year_kpi", // 功能组数据汇总详细年份KPI
-      kpi_for_detail: JSON.parse(localStorage.getItem("device_hour_report_kpi_for_detail"))
+      kpi_for_detail: JSON.parse(localStorage.getItem("device_hour_report_kpi_for_detail")),
     },
   }
 
@@ -70,6 +74,7 @@ export class KpiDetailComponent implements OnInit {
     // 会话过期
     localStorage.removeItem("alert401flag");
     this.kpi_for_detail = JSON.parse(localStorage.getItem("device_hour_report_kpi_for_detail"));
+    
   
     // 得到路由参数！
     this.activerouter.queryParamMap.subscribe(res=>{
@@ -81,6 +86,8 @@ export class KpiDetailComponent implements OnInit {
     if (this.type === 'device'){
       this.table_url = this.mothed_table_url.device.url;
       var kpi_for_detail = this.mothed_table_url.device.kpi_for_detail;
+      this.button_title = this.kpi_for_detail["devicename"]
+      
       var columns = {
         start: kpi_for_detail["starttime"],
         end: kpi_for_detail["endtime"],
@@ -95,6 +102,11 @@ export class KpiDetailComponent implements OnInit {
       // 这是 右侧第二个 柱状图 right-two
       this.init_right_two(this.mothed_table_url.device.left_method1,columns);
 
+    }else if (this.type === 'group'){
+      this.table_url = this.mothed_table_url.group.url;
+      var kpi_for_detail = this.mothed_table_url.group.kpi_for_detail;
+      this.button_title = this.kpi_for_detail["groups"]
+      console.error("group------------------------>")
     }
 
     console.log("kpi_detail----", this.kpi_for_detail);
