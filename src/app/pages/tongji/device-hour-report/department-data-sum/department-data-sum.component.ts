@@ -68,7 +68,13 @@ export class DepartmentDataSumComponent implements OnInit {
   ngOnInit(): void {
 
     // 得到pathname --在得到button
-    this.button = JSON.parse(localStorage.getItem('buttons_list'));
+    var roleid = this.userinfo.getEmployeeRoleID();
+    this.publicservice.get_buttons_bypath(roleid).subscribe(result=>{
+      this.button = result;
+    })
+
+    // 得到pathname --在得到button
+    // this.button = JSON.parse(localStorage.getItem('buttons_list'));
 
   }
 
@@ -77,6 +83,8 @@ export class DepartmentDataSumComponent implements OnInit {
     this.inttable();
     
   }
+
+  
 
   // 得到下拉框的数据
   get_tree_selecetdata(){

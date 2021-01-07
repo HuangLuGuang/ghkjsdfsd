@@ -60,6 +60,7 @@ import { TaskProgressForAggridComponent } from './test-task-manage/task-progress
 import { ActionComponent } from './device-manage/action/action.component';
 import { TranActiveComponent } from './device-manage/tran-active/tran-active.component';
 import { TranIscalkpiComponent } from './device-manage/tran-iscalkpi/tran-iscalkpi.component';
+import { NzTabsModule } from 'ng-zorro-antd';
 @NgModule({
   declarations: [TongjiComponent, DeviceManageComponent, 
     // MySelectComponent, MySelectGroupComponent, MyTableNg2Component, DateRangeComponent,
@@ -91,6 +92,8 @@ import { TranIscalkpiComponent } from './device-manage/tran-iscalkpi/tran-iscalk
     AgGridModule,
 
     ComponentTModule,
+
+    NzTabsModule,
 
   ],
   providers:[

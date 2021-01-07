@@ -139,7 +139,7 @@ export class MySelectTreeComponent implements OnInit {
   // 清空下拉数据
   dropselect(){
     this.delselect();
-    console.log("清空下拉数据",$("[name='title']").val());
+    // console.log("清空下拉数据",$("[name='title']").val());
 
     var select = this.el5s?.getChecked();
     // if (select != undefined &&select.length >0){

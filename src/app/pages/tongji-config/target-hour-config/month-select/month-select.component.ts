@@ -89,7 +89,7 @@ export class MonthSelectComponent implements OnInit {
   // 清空下拉数据
   reset_month(){
     this.delselect();
-    console.log("清空下拉数据",$("[name='single_title']").val());
+    // console.log("清空下拉数据",$("[name='single_title']").val());
     var select = this.single_el5s?.getChecked();
     this.single_el5s?.reload({data:this.tree_data}); // 重新加载树
     // this.single_el5s?.unCheckNodes() //取消所有选中的节点

@@ -64,7 +64,13 @@ export class GroupDataSumComponent implements OnInit {
   ngOnInit(): void {
 
     // 得到pathname --在得到button
-    this.button = JSON.parse(localStorage.getItem('buttons_list'));
+    var roleid = this.userinfo.getEmployeeRoleID();
+    this.publicservice.get_buttons_bypath(roleid).subscribe(result=>{
+      this.button = result;
+    })
+    
+    // 得到pathname --在得到button
+    // this.button = JSON.parse(localStorage.getItem('buttons_list'));
 
   }
 

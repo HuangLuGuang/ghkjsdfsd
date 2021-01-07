@@ -28,12 +28,7 @@ const routes: Routes = [
         loadChildren:() =>import('./man-hour-kpi-report2/man-hour-kpi-report2-routing.module')
           .then(m=>m.ManHourKpiReport2RoutingModule)
       },
-      // 目标工时配置
-      {
-        path:"target_hour_config",
-        loadChildren:() => import('./target-hour-config/target-hour-config.module')
-          .then(m=>m.TargetHourConfigModule)
-      },
+      
       // 设备-工时报表
       {
         path: "device_hour_report",
@@ -41,7 +36,8 @@ const routes: Routes = [
         .then(m=>m.DeviceHourReportModule)
       },
       { path: 'device_hour_report/kpidetail', component: KpiDetailComponent },
-      { path: '', redirectTo: 'deviceManage', pathMatch: 'full' },
+      // { path: '', redirectTo: 'deviceManage', pathMatch: 'full' },
+      { path: '', redirectTo: 'device_hour_report', pathMatch: 'full' },
     ]
   },
   

@@ -94,6 +94,9 @@ export class EditComponent implements OnInit {
       form.on('submit(confirm)', function(data){
         data.field["taskstatus"] = that.taskstatus_value;
         data.field["taskchildnum"] = that.rowdata.taskchildnum;
+        // 添加 域账号
+        data.field["lastupdatedby"] = that.userinfo.getLoginName();
+
         // layer.alert(JSON.stringify(data.field), {
         //   title: '最终的提交信息'
         // })

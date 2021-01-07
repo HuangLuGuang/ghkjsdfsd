@@ -45,7 +45,7 @@ export class PagesComponent implements OnInit {
   }
 
   ngOnInit() {
-    console.log("pages.component------------->")
+    // console.log("pages.component------------->")
     this.loadMenu();
     
   }
@@ -91,6 +91,11 @@ export class PagesComponent implements OnInit {
       {title: "电机试验室",url: "/pages/equipment/third-level/energy"},
       {title: "理化与环保试验室",url: ""},
       {title: "噪声与震动试验室",url: ""},
+      
+      // 统计分析
+      {title: "统计分析",url: "/pages/tongji"},
+      // 数据导入
+      {title: "数据导入",url: "/pages/dataimport"},
     ]
     var device_menu = menu[1];
     item_dict.forEach(item=>{

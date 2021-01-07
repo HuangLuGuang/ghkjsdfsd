@@ -1,15 +1,12 @@
-<!-- <router-outlet></router-outlet> -->
-
 <nb-card>
     <nb-card-header style="font-size: small;">
-        统计分析
+        数据导入
     </nb-card-header>
-    <nb-card-body style="background-color: #ffffff;">
+    <nb-card-body style="background-color: #ffffff;" >
         <nz-tabset [nzType]="'card'" [nzSelectedIndex]='index'>
-            <nz-tab *ngFor="let item of children; " [nzTitle]="item.title" (nzSelect)="toggle_sum(item)">
+            <nz-tab *ngFor="let item of children" [nzTitle]="item.title" (nzSelect)="toggle_config(item)">
             </nz-tab>
         </nz-tabset>
         <router-outlet></router-outlet>
-
     </nb-card-body>
 </nb-card>

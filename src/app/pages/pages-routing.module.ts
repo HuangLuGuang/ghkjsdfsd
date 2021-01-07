@@ -39,6 +39,12 @@ const routes: Routes = [{
       loadChildren: () => import('./tongji/tongji.module')
         .then(m => m.TongjiModule),
     },
+    // 数据导入
+    {
+      path: 'dataimport',
+      loadChildren: () => import('./tongji-config/tongji-config-routing.module')
+        .then(m => m.TongjiConfigRoutingModule),
+    },
     // 设备健康数据中心
     {
       path: 'datacenter',

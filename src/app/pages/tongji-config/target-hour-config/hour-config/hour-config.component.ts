@@ -7,8 +7,10 @@ import { TargetHourConfigComponent as ChangeTargetHourConfigComponent} from '../
 import { PublicmethodService } from '../../../../services/publicmethod/publicmethod.service';
 import { EditDelTooltipComponent } from '../../../../pages-popups/prompt-diallog/edit-del-tooltip/edit-del-tooltip.component';
 import { ActionComponent } from './action/action.component';
-import { TableGroupComponent } from '../../components/table-group/table-group.component';
-import { TableDevicenameComponent } from '../../components/table-devicename/table-devicename.component';
+// import { TableGroupComponent } from '../../components/table-group/table-group.component';
+// import { TableDevicenameComponent } from '../../components/table-devicename/table-devicename.component';
+import { TableGroupComponent } from '../../../tongji/components/table-group/table-group.component';
+import { TableDevicenameComponent } from '../../../tongji/components/table-devicename/table-devicename.component';
 
 
 @Component({
@@ -251,9 +253,7 @@ export class HourConfigComponent implements OnInit {
     var table = this.TABLE;
     var methond = this.METHOD;
     this.http.callRPC(table, methond, colmun).subscribe((res)=>{
-      console.log("-----------man-kpi-table---", res)
       var get_employee_limit = res['result']['message'][0]
-      
       this.loading = false;
       if (get_employee_limit["code"]===1){
         // 发布组件，编辑用户的组件

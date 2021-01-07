@@ -2,17 +2,17 @@ import { Component, OnInit } from '@angular/core';
 import { Event, NavigationEnd, Router } from '@angular/router';
 import { HttpserviceService } from '../../services/http/httpservice.service';
 import { PublicmethodService } from '../../services/publicmethod/publicmethod.service';
-
 @Component({
-  selector: 'ngx-tongji',
-  templateUrl: './tongji.component.html',
-  styleUrls: ['./tongji.component.scss']
+  selector: 'ngx-tongji-config',
+  templateUrl: './tongji-config.component.html',
+  styleUrls: ['./tongji-config.component.scss']
 })
-export class TongjiComponent implements OnInit {
+export class TongjiConfigComponent implements OnInit {
 
-  constructor(private publicservice: PublicmethodService, private httpservice:HttpserviceService,private router: Router) { 
+  constructor(private publicservice:PublicmethodService,  private httpservice: HttpserviceService, private router:Router) {
     this.get_children();
-  }
+
+   }
 
   ngOnInit(): void {
     // 监听路由
@@ -25,8 +25,8 @@ export class TongjiComponent implements OnInit {
 
     // 刷新时得到url
     this.publicservice.get_current_url().subscribe((res:string)=>{
-      // console.error("+++++++++++++刷新时得到url：", res);
-      // if (res.search("/pages/tongji/device_hour_report/group_data_sum") != -1){
+      // if (res.search("/pages/dataimport/target_hour_config/hour_config") !== -1){
+      //   console.error("+++++++++++++index：", this.index);
       // }
       this.index = this.url_after_path[res.split("/").pop()]
     })
@@ -47,13 +47,12 @@ export class TongjiComponent implements OnInit {
   isDocument;
   // 根据url最后一个路径确定 index的值
   url_after_path = {
-    deivce_data_sum: 0,
-    group_data_sum: 1,
-    department_data_sum: 2,
+    hour_config: 0,
+    tesk_config: 1,
+    result_config: 2,
   }
-
   // 切换页签
-  toggle_sum(item){
+  toggle_config(item){
     this.router.navigate([item["link"]])
   }
 
@@ -85,6 +84,7 @@ export class TongjiComponent implements OnInit {
             const baseData = result['result']['message'][0];
             if (baseData["code"]===1) {
               const menuData = this.dataTranslation(baseData["message"]);
+              // console.log("menuData>>>>",menuData);
               menuData.forEach(item=>{
                 if (item["link"] === link){
                   var children = item["children"] 
