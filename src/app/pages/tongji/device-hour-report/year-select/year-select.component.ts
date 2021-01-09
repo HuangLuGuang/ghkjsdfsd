@@ -48,7 +48,8 @@ export class YearSelectComponent implements OnInit {
 
   // 得到年
   getselect(){
-    return this.default_year;
+    var default_year = this.default_year.split('年')[0]
+    return default_year;
   }
 
   // 重置日期，默认当前年份

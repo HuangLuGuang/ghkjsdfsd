@@ -60,7 +60,7 @@ export class SecurityLogComponent implements OnInit {
         // this.import();
         // break;
       case 'download':
-        this.download('安全日志');
+        this.download('登录日志');
         break;
     }
   }
@@ -147,9 +147,9 @@ export class SecurityLogComponent implements OnInit {
         this.agGrid.init_agGrid(this.tableDatas);
         // 刷新table后，改为原来的！
         this.tableDatas.isno_refresh_page_size = false;
-        this.RecordOperation(1, '查看', "安全日志");
+        this.RecordOperation(1, '查看', "登录日志");
       }else{
-        this.RecordOperation(0, '查看', "安全日志");
+        this.RecordOperation(0, '查看', "登录日志");
       }
       
     })

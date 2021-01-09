@@ -93,7 +93,7 @@ export class DeviceDataSumComponent implements OnInit {
     var roleid = this.userinfo.getEmployeeRoleID();
     this.publicservice.get_buttons_bypath(roleid).subscribe(result=>{
       this.button = result;
-      console.log("得到pathname --在得到button\t\t", result)
+      // console.log("得到pathname --在得到button\t\t", result)
       localStorage.setItem("buttons_list", JSON.stringify(result));
     })
 
@@ -172,7 +172,7 @@ export class DeviceDataSumComponent implements OnInit {
   // input 传入的值
   inpuvalue(inpuvalue){
     if (inpuvalue != ""){
-      console.log("传入的值资产编号----->",inpuvalue);
+      // console.log("传入的值资产编号----->",inpuvalue);
       this.query(inpuvalue);
     }
   }
@@ -194,18 +194,18 @@ export class DeviceDataSumComponent implements OnInit {
     var month = this.myMonth.getselect();
     var year = this.myYear.getselect();
     var month_value = {
-      "一月": 1,
-      "二月": 2,
-      "三月": 3,
-      "四月": 4,
-      "五月": 5,
-      "六月": 6,
-      "七月": 7,
-      "八月": 8,
-      "九月": 9,
-      "十月": 10,
-      "十一月": 11,
-      "十二月": 12,
+      "01": 1,
+      "02": 2,
+      "03": 3,
+      "04": 4,
+      "05": 5,
+      "06": 6,
+      "07": 7,
+      "08": 8,
+      "09": 9,
+      "10": 10,
+      "11": 11,
+      "12": 12,
     };
     month = month_value[month];
     year = Number(year.split("年")[0]);
@@ -275,7 +275,7 @@ export class DeviceDataSumComponent implements OnInit {
     var table = this.TABLE;
     var methond = this.METHOD;
     this.http.callRPC(table, methond, colmun).subscribe((res)=>{
-      console.log("-----------man-kpi-table---", res)
+      // console.log("-----------man-kpi-table---", res)
       var get_employee_limit = res['result']['message'][0]
       this.loading = false;
       if(get_employee_limit["code"] === 1){
@@ -290,9 +290,10 @@ export class DeviceDataSumComponent implements OnInit {
         this.agGrid.init_agGrid(this.tableDatas); // 告诉组件刷新！
         // 刷新table后，改为原来的！
         this.tableDatas.isno_refresh_page_size = false;
-        this.RecordOperation('查看', 1,  "设备/工时报表");
+        this.RecordOperation('查看', 1,  "设备数据汇总");
       }else{
-        this.RecordOperation('查看', 0,  "设备/工时报表");
+        this.warning();
+        this.RecordOperation('查看', 0,  "设备数据汇总");
       }
     })
   }
@@ -350,6 +351,10 @@ export class DeviceDataSumComponent implements OnInit {
       var createdby = this.userinfo.getLoginName();
       this.publicservice.option_record(employeeid, result,transactiontype,info,createdby);
     }
+  }
+
+  warning(){
+    this.publicservice.showngxtoastr({position: 'toast-top-right', status: 'warning', conent:"没有得到数据！"});
   }
 
   

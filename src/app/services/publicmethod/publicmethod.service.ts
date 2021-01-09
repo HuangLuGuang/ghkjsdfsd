@@ -420,14 +420,14 @@ export class PublicmethodService {
       this.get_current_pathname().subscribe(result=>{
         if (result["type"] === 1){
           var link = result["link"];
-          console.warn("pathname: ", result, "link: ", link);
+          // console.warn("pathname: ", result, "link: ", link);
           // 更具link 得到button
           var table = "menu_item";
           var method = "get_button";
           // var columns = {redirecturl: link}
           var columns = {redirecturl: link, roleid: roleid}
           this.httpservice.callRPC(table, method, columns).subscribe(result=>{
-            console.log("get_button: ", result);
+            // console.log("get_button: ", result);
             if(result["result"]["message"][0]["code"] === 1){
               // console.log("--------->", result["result"]["message"][0]["message"])
               var button = result["result"]["message"][0]["message"];

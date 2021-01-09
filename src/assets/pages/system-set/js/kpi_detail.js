@@ -1,8 +1,394 @@
 
 let left_one_chart
 
+
 let kpi_detail = {
+    // row_one 第一行第一个
+    one_row_one(element, afterdata){
+        var mychart = echarts.init(document.getElementById(element));
+        one_row_one_chart = mychart;
+        var option = {
+            color:['#DBB70D', '#5D920D'],
+            tooltip:{},
+            title: {
+                text: "试验总数",
+                subtext: afterdata.pieTotal,
+                top: '18%',
+                textAlign: "center",
+                left: "74%",
+                textStyle: {
+                    color: '#000',
+                    fontSize: 10,
+                    // fontWeight: '400'
+                },
+                subtextStyle:{
+                    color: '#000',
+                    fontSize: 20,
+                    // fontWeight: '200'
+                }
+            },
+            tooltip: {
+                trigger: 'axis',
+                axisPointer: {            // 坐标轴指示器，坐标轴触发有效
+                    type: 'shadow'        // 默认为直线，可选为：'line' | 'shadow'
+                },
+                // formatter: '{b} <br/>{a0}: {c0}<br/>{a1}: {c1}'
+            },
+            legend: {
+                bottom: '0',
+                itemWidth:9,
+                itemHeight:9,
+                data: ['未完成', '已完成', ]
+            },
+            grid: {
+                left: '3%',
+                right: '4%',
+                bottom: '10%',
+                top: '40%',
+                containLabel: true
+            },
+            xAxis: [
+                {
+                    type: 'category',
+                    data: afterdata.Xdata
+                }
+            ],
+            yAxis: [
+                {
+                    type: 'value'
+                }
+            ],
+            series: afterdata.Series,
+        }
+        mychart.setOption(option);
+    },
+
+    // row_two 第二行第二个
+    one_row_two(element, afterdata){
+        var mychart = echarts.init(document.getElementById(element));
+        one_row_one_chart = mychart;
+        var option  = {
+            // backgroundColor: "#344b58",
+            backgroundColor: "#ffffff",
+            tooltip: {
+                trigger: "axis",
+                axisPointer: {
+                    type: "shadow",
+                    textStyle: {
+                        color: "#fff"
+                    }
+                },
+
+
+                // formatter: '{b0}: {c0}<br />{b1}: {c1}'
+            },
+            grid: {
+                borderWidth: 0,
+                top: 20,
+                bottom: 70,
+                right: 10,
+                textStyle: {
+                    color: "#fff"
+                }
+            },
+            legend: {
+                //x: '4%',
+                bottom: "4%",
+                textStyle: {
+                    color: '#90979c',
+                },
+                // data: afterdata.title
+            },
+
+            calculable: true,
+            xAxis: [{
+                type: "category",
+                
+                // axisLine: {
+                //     lineStyle: {
+                //         color: '#90979c'
+                //     }
+                // },
+                // splitLine: {
+                //     show: false
+                // },
+                // axisTick: {
+                //     show: false
+                // },
+                // splitArea: {
+                //     show: false
+                // },
+                // axisLabel: {
+                //     interval: 0,
+                //     rotate: 35,
+                //     fontSize:9,
+                // },
+                data: afterdata.xData,
+            }],
+            yAxis: [{
+                type: "value",
+                splitLine: {
+                    show: false
+                },
+                axisLine: {
+                    lineStyle: {
+                        color: '#90979c'
+                    }
+                },
+                axisTick: {
+                    show: false
+                },
+                axisLabel: {
+                    interval: 0,
+                    formatter: '{value} h'
+                },
+                splitArea: {
+                    show: false
+                },
+
+            }],
+
+            series: [{
+                    // "name": "running",
+                    name: afterdata.title[0],
+                    type: "bar",
+                    stack: "总量",
+                    barMaxWidth: 20,
+                    barGap: "10%",
+                    itemStyle: {
+                        normal: {
+                            color: afterdata.color[0], //运行
+                            label: {
+                                show: true,
+                                textStyle: {
+                                    color: "#fff"
+                                },
+                                position: "insideTop",
+                                formatter: function(p) {
+                                    return p.value > 0 ? (p.value) : '';
+                                }
+                            }
+                        }
+                    },
+                    
+                    data: afterdata.running,
+                },
+
+                {
+                    // "name": "stop",
+                    name: afterdata.title[1],
+                    type: "bar",
+                    stack: "总量",
+                    barMaxWidth: 20,
+                    itemStyle: {
+                        normal: {
+                            color: afterdata.color[1], // 空闲
+                            barBorderRadius: 0,
+                            label: {
+                                show: true,
+                                position: "top",
+                                formatter: function(p) {
+                                    return p.value > 0 ? (p.value) : '';
+                                }
+                            }
+                        }
+                    },
+                    
+                    data: afterdata.stop
+                },
+                {
+                    // "name": "placeout",
+                    name: afterdata.title[2],
+                    type: "bar",
+                    stack: "总量",
+                    itemStyle: {
+                        normal: {
+                            color: afterdata.color[2], // 占位
+                            barBorderRadius: 0,
+                            label: {
+                                show: true,
+                                position: "top",
+                                formatter: function(p) {
+                                    return p.value > 0 ? (p.value) : '';
+                                }
+                            }
+                        }
+                    },
+                    data: afterdata.placeon
+                },
+                {
+                    // "name": "warning",
+                    name: afterdata.title[3],
+                    type: "bar",
+                    stack: "总量",
+                    itemStyle: {
+                        normal: {
+                            color: afterdata.color[3], // 维保
+                            barBorderRadius: 0,
+                            label: {
+                                show: true,
+                                position: "top",
+                                formatter: function(p) {
+                                    return p.value > 0 ? (p.value) : '';
+                                }
+                            }
+                        }
+                    },
+                    data: afterdata.warning
+                }
+            ]
+        }
+        mychart.setOption(option);
+    },
+
+    one_row_three(element, afterdata){
+        var mychart = echarts.init(document.getElementById(element));
+        one_row_one_chart = mychart;
+        var option = {
+            // backgroundColor: '#0A2E5D',
+        
+            color: ["#FFBF9F", "#93C9FF"],
+        
+            tooltip: {
+                show: true,
+                trigger: "item"
+            },
+            legend: {
+                show: true,
+                icon: "rect", // circle 
+                left: "35%",
+                bottom: "-1%",
+                itemHeight: 3,
+                itemWidth: 20,
+                orient: "horizontal",
+                textStyle: {
+                    // fontSize: 8,
+                    // color: "#fff"
+                },
+                // data: ["2019年", "2020年"]
+                data: [afterdata.data1.name, afterdata.data2.name]
+            },
+            radar: {
+                center: ["50%", "50%"],
+                radius: "70%",
+                startAngle: 90,
+                splitNumber: 4,
+                shape: "circle",
+                splitArea: {
+                    areaStyle: {
+                        color: ["transparent"]
+                    }
+                },
+                axisLabel: {
+                    show: true,
+                    fontSize: 8,
+                    // color: "red",
+                    fontStyle: "normal",
+                    fontWeight: "normal"
+                },
+                axisLine: {
+                    show: false,
+                    lineStyle: {
+                        color: "#a1a8b3" //white
+                    }
+                },
+        
+                splitLine: {
+                    show: true,
+                    lineStyle: {
+                        color: "#a1a8b3" //white
+                    }
+                },
+                indicator: [{
+                    name: "占位",
+                    max: 88
+                }, {
+                    name: "空闲",
+                    max: 88
+                }, {
+                    name: "维修",
+                    max: 88
+                }, {
+                    name: "运行",
+                    max: 88
+                }]
+            },
+            series: [{
+                name: afterdata.data1.name,
+                // name: "2019年",
+                type: "radar",
+                symbol: "circle",
+                symbolSize: 10, // 标记点的大小
+                areaStyle: {
+                    normal: {
+                        color: "rgba(255,191,159, 0.9)" // 19
+                    }
+                },
+                // 标记点的 样式
+                itemStyle: {
+                    color: 'rgba(245, 166, 35, 1)',
+                    // borderColor:'rgba(255,191,159, 0.3)',
+                    borderWidth: 10,
+                },
+        
+                data: [{
+                    value: afterdata.data1.value,// 占位、空闲、维修、运行
+                    // value: [80, 50,  48, 43],// 占位、空闲、维修、运行
+                    //在拐点处显示数值
+                    // label: {
+                    //     normal: {
+                    //         show: true,
+                    //         formatter: (params) => {
+                    //             return params.value
+                    //         },
+                    //     },
+                    // },
+                }]
+            }, {
+                name: afterdata.data2.name,
+                // name: "2020年",
+                type: "radar",
+                symbol: "circle",
+                symbolSize: 10,
+                // 标记点的 样式
+                itemStyle: {
+                    normal: {
+                        color: 'rgba(19, 173, 255, 1)',
+                        // borderColor: "rgba(19, 173, 255, 0.4)",
+                        borderWidth: 10
+                    }
+                },
+        
+                areaStyle: {
+                    normal: {
+                        color: "rgba(19, 173, 255, 0.5)"
+                    }
+                },
+                lineStyle: {
+                    normal: {
+                        color: "rgba(19, 173, 255, 1)",
+                        width: 2,
+                        // 面积线类型 dashed 大虚线 dotted 小虚线   solid 实线
+                        type: "solid"
+                    }
+                },
+                data: [{
+                    value: afterdata.data2.value
+                    // value: [60, 60, 80, 63]
+                }]
+            }]
+        };
+        mychart.setOption(option);
+    },
     
+    // one_row_two(element, afterdata){
+    //     var mychart = echarts.init(document.getElementById(element));
+    //     one_row_one_chart = mychart;
+    //     var option = {
+
+    //     }
+    //     mychart.setOption(option);
+    // },
     // left_one 设备时间统计 参考： https://gallery.echartsjs.com/editor.html?c=xHyoiv-D-e
     left_one(element, afterdata) {
         // 实例化对象
@@ -182,7 +568,7 @@ let kpi_detail = {
                         data: afterdata.warning
                     }
                 ]
-            }
+        }
             // 配置给实例化对象
         mychart.setOption(option);
         mychart.resize();

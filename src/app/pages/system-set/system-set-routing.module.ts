@@ -11,13 +11,14 @@ import { UserEmployeeGroupComponent } from './user-employee-group/user-employee-
 import { OperationLogComponent } from './operation-log/operation-log.component';
 import { GocronComponent } from './gocron/gocron.component';
 import { NewUserEmployeeComponent } from './new-user-employee/new-user-employee.component';
+import { DeviceManageComponent } from '../tongji/device-manage/device-manage.component';
 
 const routes: Routes = [
   {
     path: '',
     component: SystemSetComponent,
-    children: [
-
+    children: [// DeviceManageComponent
+      { path: 'deviceManage', component: DeviceManageComponent },
       {
         path: 'role',
         component: RoleComponent,

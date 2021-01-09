@@ -23,11 +23,32 @@
         <div style="flex: auto;">
         </div>
 
+        <!-- 下拉选择年份 -->
+        <div class="example-items-rows" style="width: 103px !important; margin-right: 10px;">
+            <ngx-year #myYear (select_year)="select_year($event)"></ngx-year>
+            <!-- <button nbButton size="tiny" status="success" (click)="kpireport()"> 设备/工时报表 </button> -->
+        </div>
+
         <div class="example-items-rows " >
             <button nbButton size="tiny" status="success" (click)="kpireport()"> 设备/工时报表 </button>
         </div>
     </div>
 </div>
+
+
+<!-- 设备数据汇总、功能数据汇总、部门数据汇总 kpi详情 3*3 -->
+<div class="row" style="margin: 0 -11px;" *ngFor='let row of mothed_table_url.device.cards; let row_index = index;'>
+    <div class="col-md-4 myechart" *ngFor='let col of row; let col_index = index'>
+        <nb-card accent='info'>
+            <nb-card-header>{{col.title}}</nb-card-header>
+            <nb-card-body class="mychart_body">
+                <div id="kpi_{{row_index}}{{col_index}}" ></div>
+            </nb-card-body>
+        </nb-card>
+    </div>
+</div>
+
+
 
 <div class="row" style="margin: 0 -11px;">
     <div class="col-md-6 myechart">

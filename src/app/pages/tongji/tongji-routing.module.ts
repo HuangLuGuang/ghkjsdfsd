@@ -18,7 +18,7 @@ const routes: Routes = [
     path: '', 
     component: TongjiComponent,
     children:[
-      { path: 'deviceManage', component: DeviceManageComponent },
+      // { path: 'deviceManage', component: DeviceManageComponent },
       { path: 'testManage', component: TestTaskManageComponent },
       {
         path: 'deviceKpiReport',
