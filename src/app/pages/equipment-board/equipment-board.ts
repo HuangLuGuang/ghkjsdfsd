@@ -15,6 +15,7 @@ export const rgb_del_red = ()=> {//rgb颜色随机
  */
 export const create_img_16_9=()=>{
   let center_img = $('.center_img');
+  if(!center_img.length)return;
   let img = $('#img');
 
   let height;

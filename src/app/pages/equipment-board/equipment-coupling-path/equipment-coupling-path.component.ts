@@ -370,25 +370,33 @@ export class EquipmentCouplingPathComponent implements OnInit {
       if(f.result.error || f.result.message[0].code == 0)return;
       res = f.result.message[0];
       // console.log(f)
-      this.switchStatus.data.forEach((el,i) => {
-        //实验名
-        el[0] = res[i].stationname;
-        //开关
-        el[1].value = res[i].stationstatus;
-        el[1].color = res[i].stationstatus == 1?'green':'#C0C0C0';
-        //内锁
-        el[2].value = res[i].interlock;
-        el[2].color = res[i].interlock == 1?'green':'#C0C0C0';
-        //程序内锁
-        el[3].value = res[i].programinterlock;
-        el[3].color = res[i].programinterlock == 1?'white':'orange';
-//         interlock: 0
-// programinterlock: 0
-// recordtime: "2020-12-11T09:00:23.000Z"
-// stationname: "Direct_rear_1120.cfg"
-// stationrunningcount: 2
-// stationstatus: 1
-      });
+//       this.switchStatus.data.forEach((el,i) => {
+//         //实验名
+//         el[0] = res[i].stationname;
+//         //开关
+//         el[1].value = res[i].stationstatus;
+//         el[1].color = res[i].stationstatus == 1?'green':'#C0C0C0';
+//         //内锁
+//         el[2].value = res[i].interlock;
+//         el[2].color = res[i].interlock == 1?'green':'#C0C0C0';
+//         //程序内锁
+//         el[3].value = res[i].programinterlock;
+//         el[3].color = res[i].programinterlock == 1?'white':'orange';
+// //         interlock: 0
+// // programinterlock: 0
+// // recordtime: "2020-12-11T09:00:23.000Z"
+// // stationname: "Direct_rear_1120.cfg"
+// // stationrunningcount: 2
+// // stationstatus: 1
+//       });
+      this.switchStatus.data = res.map(m =>(
+        [
+          m.stationname,{value:m.stationstatus,color:m.stationstatus == 1?'green':'#C0C0C0',id:'circle'},
+          {value:m.interlock,color:m.interlock== 1?'white':'orange',id:'strip'},
+          {value:m.programinterlock,color:m.programinterlock== 1?'white':'orange',id:'strip'}
+        ] 
+      ))
+      // console.log(this.switchStatus.data)
 
     })
   }

@@ -274,7 +274,7 @@ xData:[]
           {value:m.programinterlock,color:m.programinterlock== 1?'white':'orange',id:'strip'}
         ] 
       ))
-      console.log(this.switchStatus.data)
+      // console.log(this.switchStatus.data)
 
     })
   }

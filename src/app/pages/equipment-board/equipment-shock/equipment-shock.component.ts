@@ -324,6 +324,7 @@ export class EquipmentShockComponent implements OnInit {
       // TIF 2
       this.real_list[2].value = res.tif2on == 1?(res.tif2high==1?'高':'低'):'关';
       this.real_list[2].color = res.tif2on == 0?'red':(res.tif2high == 0?'white':'yellow');
+    
     })
   }
 

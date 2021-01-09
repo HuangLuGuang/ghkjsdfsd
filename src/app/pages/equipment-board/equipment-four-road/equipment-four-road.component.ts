@@ -335,22 +335,33 @@ export class EquipmentFourRoadComponent implements OnInit {
   get_device_mts_status(){
       this.subscribeList.status = this.http.callRPC('get_device_mts_status','device_monitor.get_device_mts_status',{device:this.deviceid}).subscribe((f:any) =>{
         if(f.result.error || f.result.message[0].code == 0)return;
-        this.switchStatus.data[0][0] =  f.result.message[0][1].stationname;
-        //起停状态
-        this.switchStatus.data[0][1].value =  f.result.message[0][0].runstop;
-        this.switchStatus.data[0][1].color =  this.switchStatus.data[0][1].value == 1?'green':'#C0C0C0';
-        //分油器开
-        this.switchStatus.data[0][2].value =  f.result.message[0][0].hsmt9j28aon;
-        this.switchStatus.data[0][2].color =  this.switchStatus.data[0][1].value == 1?'green':'#C0C0C0';
-        //分油器高
-        this.switchStatus.data[0][3].value =  f.result.message[0][0].hsmt9j28ahigh;
-        this.switchStatus.data[0][3].color =  this.switchStatus.data[0][1].value == 1?'green':'#C0C0C0';
-        //内锁
-        this.switchStatus.data[0][4].value =  f.result.message[0][0].interlock;
-        this.switchStatus.data[0][4].color =  this.switchStatus.data[0][1].value == 1?'white':'orange';
-        //程序锁
-        this.switchStatus.data[0][5].value =  f.result.message[0][0].programinterlock;
-        this.switchStatus.data[0][5].color =  this.switchStatus.data[0][1].value == 1?'white':'orange';
+        // this.switchStatus.data[0][0] =  f.result.message[0][1].stationname;
+        // //起停状态
+        // this.switchStatus.data[0][1].value =  f.result.message[0][0].runstop;
+        // this.switchStatus.data[0][1].color =  this.switchStatus.data[0][1].value == 1?'green':'#C0C0C0';
+        // //分油器开
+        // this.switchStatus.data[0][2].value =  f.result.message[0][0].hsmt9j28aon;
+        // this.switchStatus.data[0][2].color =  this.switchStatus.data[0][1].value == 1?'green':'#C0C0C0';
+        // //分油器高
+        // this.switchStatus.data[0][3].value =  f.result.message[0][0].hsmt9j28ahigh;
+        // this.switchStatus.data[0][3].color =  this.switchStatus.data[0][1].value == 1?'green':'#C0C0C0';
+        // //内锁
+        // this.switchStatus.data[0][4].value =  f.result.message[0][0].interlock;
+        // this.switchStatus.data[0][4].color =  this.switchStatus.data[0][1].value == 1?'white':'orange';
+        // //程序锁
+        // this.switchStatus.data[0][5].value =  f.result.message[0][0].programinterlock;
+        // this.switchStatus.data[0][5].color =  this.switchStatus.data[0][1].value == 1?'white':'orange';
+
+        this.switchStatus.data = f.result.message[0].map(m =>(
+          [
+            m.stationname,
+            {value:m.runstop,color:m.runstop == 1?'green':'#C0C0C0',id:'circle'},
+            {value:m.hsmt9j28aon,color:m.hsmt9j28aon == 1?'green':'#C0C0C0',id:'circle'},
+            {value:m.hsmt9j28ahigh,color:m.hsmt9j28ahigh == 1?'green':'#C0C0C0',id:'circle'},
+            {value:m.interlock,color:m.interlock== 1?'white':'orange',id:'strip'},
+            {value:m.programinterlock,color:m.programinterlock== 1?'white':'orange',id:'strip'}
+          ] 
+        ))
       })
   }
 
