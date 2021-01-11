@@ -57,18 +57,10 @@ export class PagesComponent implements OnInit {
       this.loadMenu();
       menu_ = localStorage.getItem(MULU)?JSON.parse(localStorage.getItem(MULU)):[];
     }, 1000);
-  
-    
-  }
-
-  ngOnDestory() {
-    this.menuservice.addItems([], 'menu');
-  }
-
-  onClickMenu(item,menu) {
-    let select_title = item["target"]["innerText"];
-    if(!this.menusub)
-    this.menusub = this.menuservice.onSubmenuToggle().subscribe((res:any) => {
+    this.menuservice.onItemClick().subscribe((res:any) => {
+      this.selectMenu = res.item;
+    })
+    this.menuservice.onSubmenuToggle().subscribe((res:any) => {
       this.selectMenu = res.item;
       const selectMenu = res.item;
       const parent = selectMenu['parent'];
@@ -83,12 +75,19 @@ export class PagesComponent implements OnInit {
         });
 
       }
-      
-      
     });
+    
+  }
+
+  ngOnDestory() {
+    this.menuservice.addItems([], 'menu');
+  }
+
+  onClickMenu(item,menu) {
+    let select_title = item["target"]["innerText"];
     setTimeout(() => {
       if(this.selectMenu.type === 0 && this.selectMenu.link && 
-        this.router.url != this.selectMenu.link)
+        this.router.url != this.selectMenu.link && this.selectMenu.children)
           this.router.navigate([this.selectMenu.link])
     }, 200);
     
