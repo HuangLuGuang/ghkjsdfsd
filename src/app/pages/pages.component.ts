@@ -1,6 +1,5 @@
 import {Component, OnInit} from '@angular/core';
 
-import { MENU_ITEMS } from './pages-menu';
 import {NbMenuItem} from "@nebular/theme";
 import { LocalStorageService } from '../services/local-storage/local-storage.service';
 import { PublicmethodService } from '../services/publicmethod/publicmethod.service';
@@ -13,6 +12,7 @@ import { UserInfoService } from '../services/user-info/user-info.service';
 import { SYSMENU, loginurl,ssotoken, MULU } from '../appconfig';
 import { Router } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
+import { Subject } from 'rxjs';
 
 @Component({
   selector: 'ngx-pages',
@@ -28,6 +28,7 @@ export class PagesComponent implements OnInit {
 
   // menu = MENU_ITEMS;
   menu: NbMenuItem[] = [];
+  menusub:any;
 
   constructor(private localStorageService: LocalStorageService,
     private publicservice: PublicmethodService,
@@ -47,7 +48,6 @@ export class PagesComponent implements OnInit {
   ngOnInit() {
     // console.log("pages.component------------->")
     this.loadMenu();
-    
   }
   
   ngAfterViewInit(){
@@ -57,7 +57,7 @@ export class PagesComponent implements OnInit {
       menu_ = localStorage.getItem(MULU)?JSON.parse(localStorage.getItem(MULU)):[];
     }, 1000);
   
-
+    
   }
 
   ngOnDestory() {
@@ -65,8 +65,8 @@ export class PagesComponent implements OnInit {
   }
 
   onClickMenu(item,menu) {
-
-    this.menuservice.onSubmenuToggle().subscribe(res => {
+    if(!this.menusub)
+    this.menusub = this.menuservice.onSubmenuToggle().subscribe((res:any) => {
       const selectMenu = res.item;
       const parent = selectMenu['parent'];
       if (parent && parent.children.length) {
@@ -78,31 +78,36 @@ export class PagesComponent implements OnInit {
 
           }
         });
-      }
-    });
 
-    // console.error("=======item=======",item, menu);
-    var item_title = item["target"]["innerText"];
-    var item_dict = [
-      {title: "设备在线",url: "/pages/equipment/first-level"},
-      {title: "研究总院",url: "/pages/equipment/second-level"},
-      {title: "结构试验室",url: "/pages/equipment/third-level/structural"},
-      {title: "环模试验室",url: "/pages/equipment/third-level/environment"},
-      {title: "电机试验室",url: "/pages/equipment/third-level/energy"},
-      {title: "理化与环保试验室",url: ""},
-      {title: "噪声与震动试验室",url: ""},
-      
-      // 统计分析
-      {title: "统计分析",url: "/pages/tongji"},
-      // 数据导入
-      {title: "数据导入",url: "/pages/dataimport"},
-    ]
-    var device_menu = menu[1];
-    item_dict.forEach(item=>{
-      if(item["title"] === item_title){
-        this.router.navigate([item.url])
       }
-    })
+      
+      if(selectMenu.type === 0 && selectMenu.link && 
+          this.router.url != selectMenu.link)
+            this.router.navigate([selectMenu.link])
+    });
+    
+    // console.error("=======item=======",item, menu);
+    
+    // var item_dict = [
+    //   {title: "设备在线",url: "/pages/equipment/first-level"},
+    //   {title: "研究总院",url: "/pages/equipment/second-level"},
+    //   {title: "结构试验室",url: "/pages/equipment/third-level/structural"},
+    //   {title: "环模试验室",url: "/pages/equipment/third-level/environment"},
+    //   {title: "电机试验室",url: "/pages/equipment/third-level/energy"},
+    //   {title: "理化与环保试验室",url: ""},
+    //   {title: "噪声与震动试验室",url: ""},
+      
+    //   // 统计分析
+    //   {title: "统计分析",url: "/pages/tongji"},
+    //   // 数据导入
+    //   {title: "数据导入",url: "/pages/dataimport"},
+    // ]
+    // var device_menu = menu[1];
+    // item_dict.forEach(item=>{
+    //   if(item["title"] === item_title){
+    //     this.router.navigate([item.url])
+    //   }
+    // })
     
    
   }
