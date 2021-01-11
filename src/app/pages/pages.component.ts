@@ -28,6 +28,7 @@ export class PagesComponent implements OnInit {
 
   // menu = MENU_ITEMS;
   menu: NbMenuItem[] = [];
+  selectMenu:any;
   menusub:any;
 
   constructor(private localStorageService: LocalStorageService,
@@ -65,8 +66,10 @@ export class PagesComponent implements OnInit {
   }
 
   onClickMenu(item,menu) {
+    let select_title = item["target"]["innerText"];
     if(!this.menusub)
     this.menusub = this.menuservice.onSubmenuToggle().subscribe((res:any) => {
+      this.selectMenu = res.item;
       const selectMenu = res.item;
       const parent = selectMenu['parent'];
       if (parent && parent.children.length) {
@@ -81,10 +84,13 @@ export class PagesComponent implements OnInit {
 
       }
       
-      if(selectMenu.type === 0 && selectMenu.link && 
-          this.router.url != selectMenu.link)
-            this.router.navigate([selectMenu.link])
+      
     });
+    setTimeout(() => {
+      if(this.selectMenu.type === 0 && this.selectMenu.link && 
+        this.router.url != this.selectMenu.link)
+          this.router.navigate([this.selectMenu.link])
+    }, 200);
     
     // console.error("=======item=======",item, menu);
     
