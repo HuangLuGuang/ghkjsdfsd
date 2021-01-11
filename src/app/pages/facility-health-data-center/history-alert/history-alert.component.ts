@@ -41,13 +41,13 @@ export class HistoryAlertComponent implements OnInit {
     PageSize: 10, // 每页 10条数据
     isno_refresh_page_size: false, // 是否重新将 每页多少条数据，赋值为默认值
     columnDefs:[ // 列字段 多选：headerCheckboxSelection checkboxSelection , flex: 1 自动填充宽度  pinned: 'left' 固定在左侧！
-      { field: 'id', headerName: '序号', headerCheckboxSelection: true, checkboxSelection: true, autoHeight: true, fullWidth: true, minWidth: 50,resizable: true,},
-      { field: 'deviceName', headerName: '设备名称',  resizable: true, minWidth: 10},
-      { field: 'devicePosition', headerName: '设备位置', resizable: true, minWidth: 10}, // 自定义设备编号！
-      { field: 'alertContent', headerName: '报警内容', resizable: true, minWidth: 10},
-      { field: 'alertTime', headerName: '报警时间', resizable: true},
-      { field: 'status', headerName: '状态', resizable: true, minWidth: 10},
-      { field: 'handleTime', headerName: '处理时间', resizable: true, minWidth: 10},
+      { field: 'id', headerName: '序号', headerCheckboxSelection: true, checkboxSelection: true, autoHeight: true, fullWidth: true, minWidth: 50,resizable: true, sortable: true},
+      { field: 'deviceName', headerName: '设备名称',  resizable: true, minWidth: 10, sortable: true},
+      { field: 'devicePosition', headerName: '设备位置', resizable: true, minWidth: 10, sortable: true}, // 自定义设备编号！
+      { field: 'alertContent', headerName: '报警内容', resizable: true, minWidth: 10, sortable: true},
+      { field: 'alertTime', headerName: '报警时间', resizable: true, sortable: true},
+      { field: 'status', headerName: '状态', resizable: true, minWidth: 10, sortable: true},
+      { field: 'handleTime', headerName: '处理时间', resizable: true, minWidth: 10, sortable: true},
     ],
     rowData: [ // data
     ]

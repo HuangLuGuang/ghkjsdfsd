@@ -63,12 +63,11 @@ let kpi_detail = {
         mychart.setOption(option);
     },
 
-    // row_two 第二行第二个
+    // row_two 第一行第二个
     one_row_two(element, afterdata){
         var mychart = echarts.init(document.getElementById(element));
         one_row_one_chart = mychart;
         var option  = {
-            // backgroundColor: "#344b58",
             backgroundColor: "#ffffff",
             tooltip: {
                 trigger: "axis",
@@ -78,8 +77,6 @@ let kpi_detail = {
                         color: "#fff"
                     }
                 },
-
-
                 // formatter: '{b0}: {c0}<br />{b1}: {c1}'
             },
             grid: {
@@ -94,6 +91,8 @@ let kpi_detail = {
             legend: {
                 //x: '4%',
                 bottom: "4%",
+                itemWidth:9,
+                itemHeight:9,
                 textStyle: {
                     color: '#90979c',
                 },
@@ -103,26 +102,6 @@ let kpi_detail = {
             calculable: true,
             xAxis: [{
                 type: "category",
-                
-                // axisLine: {
-                //     lineStyle: {
-                //         color: '#90979c'
-                //     }
-                // },
-                // splitLine: {
-                //     show: false
-                // },
-                // axisTick: {
-                //     show: false
-                // },
-                // splitArea: {
-                //     show: false
-                // },
-                // axisLabel: {
-                //     interval: 0,
-                //     rotate: 35,
-                //     fontSize:9,
-                // },
                 data: afterdata.xData,
             }],
             yAxis: [{
@@ -241,6 +220,7 @@ let kpi_detail = {
         mychart.setOption(option);
     },
 
+    // row_three 第一行第三个
     one_row_three(element, afterdata){
         var mychart = echarts.init(document.getElementById(element));
         one_row_one_chart = mychart;
@@ -381,6 +361,487 @@ let kpi_detail = {
         mychart.setOption(option);
     },
     
+    // 第二行第一个 
+    two_row_one(element, afterdata){
+        var mychart = echarts.init(document.getElementById(element));
+        one_row_one_chart = mychart;
+        var option = {
+            // color:["#5D7FE5", "#26FF26"],
+            color:afterdata.color,
+            tooltip: {
+                trigger: 'axis',
+                axisPointer: {
+                    type: 'cross',
+                    crossStyle: {
+                        color: '#999'
+                    }
+                }
+            },
+            toolbox: {
+                // feature: {
+                //     dataView: {show: true, readOnly: false},
+                //     magicType: {show: true, type: ['line', 'bar']},
+                //     restore: {show: true},
+                //     saveAsImage: {show: true}
+                // }
+            },
+            legend: {
+                // data: ['蒸发量', '降水量', '平均温度']
+                bottom:'1%',
+                itemWidth:9,
+                itemHeight:9,
+            },
+            grid:[
+                {top:'30%'},
+                {
+                    height:'20%',
+                    width:'20%',
+                    right:'10%',
+                    top:'10%'
+                }
+            ],
+            xAxis: [
+                {
+                    type: 'category',
+                    // data: ['1月', '2月', '3月', '4月', '5月', '6月', '7月', '8月', '9月', '10月', '11月', '12月'],
+                    data: afterdata.xData,
+                    axisPointer: {
+                        type: 'shadow'
+                    },
+                    axisLabel:{
+                        interval: 0
+                    },
+                    gridIndex: 0
+                },
+                {
+                    type: 'value', 
+                    gridIndex: 1,
+                    axisLine:{
+                        show:false
+                    },
+                     axisLabel:{
+                        show:false,
+                    },
+                    splitLine:{
+                        show:false
+                    },
+                    axisTick:{
+                        show:false
+                    },
+                    splitArea:{
+                        show:false
+                    },
+                }
+            ],
+            yAxis: [
+                {
+                    type: 'value',
+                    // name: '水量',
+                    min: 0,
+                    max: 100,
+                    interval: 50,
+                    gridIndex: 0,
+                    axisLabel: {
+                        formatter: '{value}'
+                    }
+                },
+                {
+                    type: 'value',
+                    // name: '温度',
+                    min: 0,
+                    max: 100,
+                    interval: 50,
+                    gridIndex: 0,
+                    axisLabel: {
+                        formatter: '{value} %'
+                    }
+                },
+                {
+                    type:'category',
+                    gridIndex: 1,
+                    axisLine:{
+                        show:false
+                    },
+                    axisTick:{
+                        show:false
+                    },
+                    data:afterdata.Total.yAxis.data
+                }
+            ],
+            series: afterdata.Series,
+            // series: [
+            //     // 去年bar
+            //     {
+            //         name: '2020年',
+            //         type: 'bar',
+            //         data: [2.0, 4.9, 7.0, 23.2, 25.6, 76.7, 135.6, 162.2, 32.6, 20.0, 6.4, 3.3]
+            //     },
+            //     // 今年bar
+            //     {
+            //         name: '2021年',
+            //         type: 'bar',
+            //         data: [2.6, 5.9, 9.0, 26.4, 28.7, 70.7, 175.6, 182.2, 48.7, 18.8, 6.0, 2.3]
+            //     },
+            //     // 去年line
+            //     {
+            //         name: '2020年利用率',
+            //         type: 'line',
+            //         // yAxisIndex: 1,
+            //         data: [2.0, 2.2, 3.3, 4.5, 6.3, 10.2, 20.3, 23.4, 23.0, 16.5, 12.0, 6.2]
+            //     },
+            //     // 今年line
+            //     {
+            //         name: '2021年利用率',
+            //         type: 'line',
+            //         // yAxisIndex: 1,
+            //         data: [2.6, 5.9, 9.0, 26.4, 28.7, 70.7, 175.6, 182.2, 48.7, 18.8, 6.0, 2.3]
+            //     },
+            //     {
+            //         type: 'bar', xAxisIndex: 1, yAxisIndex: 2,
+            //         data:[{
+            //             value:100,
+            //             itemStyle:{
+            //                  color:'#5D7FE5'
+            //             },
+            //         },{
+            //             value:20,
+            //             itemStyle:{
+            //                  color:'#26FF26' 
+            //             }
+            //         }],
+                    
+            //       },
+                
+                
+            // ],
+            
+        }
+        mychart.setOption(option);
+    },
+
+    // 第二行第二个
+    two_row_two(element, afterdata){
+        var mychart = echarts.init(document.getElementById(element));
+        one_row_one_chart = mychart;
+        var option = {
+            color:afterdata.color,
+            tooltip:{},
+            title:{
+                subtext: afterdata.Total.name,
+                right: '1%',
+                subtextStyle:{
+                    fontSize:20,
+                    color: '#7E7EFF'
+                    
+                }
+            },
+            tooltip: {
+                trigger: 'axis',
+                axisPointer: {            // 坐标轴指示器，坐标轴触发有效
+                    type: 'shadow'        // 默认为直线，可选为：'line' | 'shadow'
+                },
+            },
+            legend: {
+                bottom: '0',
+                itemWidth:9,
+                itemHeight:9,
+                data: ['占位', '运行', ]
+            },
+            grid: {
+                left: '3%',
+                right: '4%',
+                bottom: '10%',
+                top: '15%',
+                containLabel: true
+            },
+            xAxis: [
+                {
+                    type: 'category',
+                    data: afterdata.xData
+                }
+            ],
+            yAxis: [
+                {
+                    type: 'value'
+                }
+            ],
+            series: afterdata.Series,
+        }
+        mychart.setOption(option);
+    },
+    
+    // 第二行第三个
+    two_row_three(element, afterdata){
+        var mychart = echarts.init(document.getElementById(element));
+        one_row_one_chart = mychart;
+        var option = {
+            color:afterdata.color,
+            tooltip:{},
+            title:{
+                subtext: afterdata.Total.name,
+                right: '1%',
+                subtextStyle:{
+                    fontSize:20,
+                    color: '#7E7EFF'
+                    
+                }
+            },
+            tooltip: {
+                trigger: 'axis',
+                axisPointer: {            // 坐标轴指示器，坐标轴触发有效
+                    type: 'shadow'        // 默认为直线，可选为：'line' | 'shadow'
+                },
+            },
+            legend: {
+                bottom: '0',
+                itemWidth:9,
+                itemHeight:9,
+                data: ['完好率', '故障率', ]
+            },
+            grid: {
+                left: '3%',
+                right: '4%',
+                bottom: '10%',
+                top: '15%',
+                containLabel: true
+            },
+            xAxis: [
+                {
+                    type: 'category',
+                    data: afterdata.xData
+                }
+            ],
+            yAxis: [
+                {
+                    type: 'value'
+                }
+            ],
+            series: afterdata.Series,
+        }
+        mychart.setOption(option);
+    },
+    
+    // 第三行，第一个
+    three_row_one(element, afterdata){
+        var mychart = echarts.init(document.getElementById(element));
+        one_row_one_chart = mychart;
+        var option = {
+            baseOption: {
+                timeline: {
+                    show: false,
+                    top: 0,
+                    data: []
+                },
+                legend: {
+                    bottom:'3%',
+                    right: 'center',
+                    icon: 'horizontal',
+                    itemWidth:9,
+                    itemHeight:9,
+                    textStyle: {
+                        color: 'black',
+                        // fontSize: 20,
+                    },
+                    data: afterdata.legend
+                },
+                tooltip:{
+                    show:true,
+                    trigger: 'axis',
+                    axisPointer: {            // 坐标轴指示器，坐标轴触发有效
+                        type: 'shadow'        // 默认为直线，可选为：'line' | 'shadow'
+                    },
+                   formatter:function(d){
+                      let i = d[0].dataIndex;
+                      return d[0].marker+afterdata.legend[0]+'  '+afterdata.lastYearData[i]+'<br>'+
+                      '<span style="display:inline-block;margin-right:5px;border-radius:10px;width:10px;height:10px;background-color:'+
+                      afterdata.colors[1]+'"></span>'+afterdata.legend[1]+'  '+afterdata.thisYearData[i]
+                    }
+                },
+                grid: [{
+                    show: false,
+                    left: '5%',
+                    top: '10%',
+                    bottom: '16%',
+                    containLabel: true,
+                    width: '37%'
+                }, {
+                    show: false,
+                    left: '51%',
+                    top: '10%',
+                    bottom: '16%',
+                    width: '0%'
+                }, {
+                    show: false,
+                    right: '2%',
+                    top: '10%',
+                    bottom: '16%',
+                    containLabel: true,
+                    width: '37%'
+                }],
+                xAxis: [{
+                    type: 'value',
+                    inverse: true,
+                    axisLine: {
+                        show: false
+                    },
+                    axisTick: {
+                        show: false
+                    },
+                    position: 'top',
+                    axisLabel: {
+                        show: true,
+                        color: "black"
+                    },
+                    splitLine:{
+                         show: true,
+                        lineStyle:{
+                            color:"rgba(255,255,255,0.2)"
+                        }
+                    },
+                }, {
+                    gridIndex: 1,
+                    show: false
+                }, {
+                    gridIndex: 2,
+                    axisLine: {
+                        show: false
+                    },
+                    axisTick: {
+                        show: false
+                    },
+                    position: 'top',
+                    axisLabel: {
+                        show: true,
+                        color: "black"
+                    },
+                     splitLine:{
+                         show: true,
+                        lineStyle:{
+                            color:"rgba(255,255,255,0.2)"
+                        }
+                    },
+                }],
+                yAxis: [{
+                    
+                    type: 'category',
+                    inverse: true,
+                    position: 'right',
+                    axisLine: {
+                        show: true,
+                        lineStyle:{
+                            color:"rgba(255,255,255,0.2)"
+                        }
+                    },
+                   
+                    axisTick: {
+                        show: false
+                    },
+                    axisLabel: {
+                        show: false
+                    },
+                    data: afterdata.xData,
+                    
+                    
+                }, {
+                    gridIndex: 1,
+                    type: 'category',
+                    inverse: true,
+                    position: 'left',
+                    axisLine: {
+                        show: false
+                    },
+                    axisTick: {
+                        show: false
+                    },
+                    axisLabel: {
+                        show: true,
+                        interval:0,
+                        padding:[30,0,0,0],
+                        textStyle: {
+                            color: 'black',
+                            fontSize: 20
+                        },
+                        align: "center"
+    
+                    },
+                    data: afterdata.xData.map(function(value) {
+                        return {
+                            value: value,
+                            textStyle: {
+                                align: 'center',
+                                fontSize:8
+                            }
+                        }
+                    }),
+                    
+                }, {
+                    gridIndex: 2,
+                    type: 'category',
+                    inverse: true,
+                    position: 'left',
+                    axisLine: {
+                         show: true,
+                        lineStyle:{
+                            color:"rgba(255,255,255,0.2)"
+                        }
+                    },
+                    axisTick: {
+                        show: false
+                    },
+                    axisLabel: {
+                        show: false
+    
+                    },
+                    data: afterdata.xData,
+                }],
+                series: []
+    
+            },
+            options: [{
+                series: [{
+                    name: "2017",
+                    type: "bar",
+                    barWidth: 10,
+                    stack: "1",
+                    itemStyle: {
+                        normal: {
+                            color:afterdata.colors[0],
+                        }
+                    },
+                    label: {
+                        normal: {
+                            show: false,
+                        }
+                    },
+                    data: afterdata.lastYearData,
+                    animationEasing: "elasticOut"
+                },
+                {
+                    name: "2018",
+                    type: "bar",
+                    stack: "2",
+                    barWidth: 10,
+                    xAxisIndex: 2,
+                    yAxisIndex: 2,
+                    itemStyle: {
+                        normal: {
+                            color:afterdata.colors[1],
+                        }
+                    },
+                    label: {
+                        normal: {
+                            show: false,
+                        }
+                    },
+                    data: afterdata.thisYearData,
+                    animationEasing: "elasticOut"
+                },
+            ]
+            }]
+        }
+        mychart.setOption(option);
+    },
+
     // one_row_two(element, afterdata){
     //     var mychart = echarts.init(document.getElementById(element));
     //     one_row_one_chart = mychart;
@@ -389,6 +850,7 @@ let kpi_detail = {
     //     }
     //     mychart.setOption(option);
     // },
+
     // left_one 设备时间统计 参考： https://gallery.echartsjs.com/editor.html?c=xHyoiv-D-e
     left_one(element, afterdata) {
         // 实例化对象

@@ -940,13 +940,13 @@ export class RoleComponent implements OnInit {
     PageSize: 10, // 每页 10条数据
     isno_refresh_page_size: false, // 是否重新将 每页多少条数据，赋值为默认值
     columnDefs:[ // 列字段 多选：headerCheckboxSelection checkboxSelection
-      { field: 'role_name', headerName: '角色名称', headerCheckboxSelection: true, checkboxSelection: true, autoHeight: true, fullWidth: true, width: 200,resizable: true,},
-      { field: 'role', headerName: '角色名称(en)', resizable: true,width: 150},
-      { field: 'active', headerName: '是否启用',resizable: true,cellRendererFramework: TranActiveComponent,width: 100},
-      { field: 'createdon', headerName: '创建时间', resizable: true,width: 180},
-      { field: 'createdby', headerName: '创建人', resizable: true,width: 130},
-      { field: 'lastupdateon', headerName: '更新时间', resizable: true,width: 180},
-      { field: 'lastupdatedby', headerName: '更新人', resizable: true,width: 130},
+      { field: 'role_name', headerName: '角色名称', headerCheckboxSelection: true, checkboxSelection: true, autoHeight: true, fullWidth: true, width: 200,resizable: true, sortable: true},
+      { field: 'role', headerName: '角色名称(en)', resizable: true,width: 150, sortable: true},
+      { field: 'active', headerName: '是否启用',resizable: true,cellRendererFramework: TranActiveComponent,width: 100, sortable: true},
+      { field: 'createdon', headerName: '创建时间', resizable: true,width: 180, sortable: true},
+      { field: 'createdby', headerName: '创建人', resizable: true,width: 130, sortable: true},
+      { field: 'lastupdateon', headerName: '更新时间', resizable: true,width: 180, sortable: true},
+      { field: 'lastupdatedby', headerName: '更新人', resizable: true,width: 130, sortable: true},
       
     ],
     rowData: [ // data

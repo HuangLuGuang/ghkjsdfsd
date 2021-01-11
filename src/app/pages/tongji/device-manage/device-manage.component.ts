@@ -634,7 +634,8 @@ export class DeviceManageComponent implements OnInit {
         lastupdatedby:data.lastupdatedby,
         
         groupsid:data.groupsid,
-        iscalkpi:data.iscalkpi
+        iscalkpi:data.iscalkpi === '是'||data.active == 1? 1:0,
+        year: new Date().getFullYear(),
       }
       after_datas.push(after_data)
     });
@@ -967,19 +968,19 @@ export class DeviceManageComponent implements OnInit {
     PageSize: 10, // 每页 10条数据
     isno_refresh_page_size: false, // 是否重新将 每页多少条数据，赋值为默认值
     columnDefs:[ // 列字段 多选：headerCheckboxSelection checkboxSelection , flex: 1 自动填充宽度  pinned: 'left' 固定在左侧！
-      { field: 'deviceno', headerName: '设备编号', headerCheckboxSelection: true, checkboxSelection: true, autoHeight: true, fullWidth: true, minWidth: 50,resizable: true,},
+      { field: 'deviceno', headerName: '设备编号', headerCheckboxSelection: true, checkboxSelection: true, autoHeight: true, fullWidth: true, minWidth: 50,resizable: true, sortable: true},
       // { field: 'devicename', headerName: '设备名称', fullWidth: true, minWidth: 50,resizable: true,},
-      { field: 'devicename', headerName: '设备名称', fullWidth: true, minWidth: 50,resizable: true,cellRendererFramework: TableDevicenameComponent},
-      { field: 'type', headerName: '设备类型', fullWidth: true, width: 130,resizable: true,},
-      { field: 'deviceid', headerName: '设备ID', resizable: true, width: 200}, // 自定义设备编号！
-      { field: 'active', headerName: '是否启用', resizable: true, cellRendererFramework: TranActiveComponent,width: 150},
+      { field: 'devicename', headerName: '设备名称', fullWidth: true, minWidth: 50,resizable: true,cellRendererFramework: TableDevicenameComponent, sortable: true},
+      { field: 'type', headerName: '设备类型', fullWidth: true, width: 130,resizable: true, sortable: true},
+      { field: 'deviceid', headerName: '设备ID', resizable: true, width: 200, sortable: true}, // 自定义设备编号！
+      { field: 'active', headerName: '是否启用', resizable: true, cellRendererFramework: TranActiveComponent,width: 150, sortable: true},
       { field: 'location', headerName: '存放地点', resizable: true, width: 130},
-      { field: 'group', headerName: '科室/功能组', resizable: true, width: 330, cellRendererFramework: TableGroupComponent},
+      { field: 'group', headerName: '科室/功能组', resizable: true, width: 330, cellRendererFramework: TableGroupComponent, sortable: true},
       // { field: 'group', headerName: '科室/功能组', resizable: true, width: 330},
-      { field: 'belonged', headerName: '归属人', resizable: true, width: 130},
-      { field: 'supplier', headerName: '供应商', resizable: true, minWidth: 10},
-      { field: 'linklevel', headerName: '设备ABC分类', resizable: true, width: 130},
-      { field: 'devicetype', headerName: '设备统计归类', resizable: true,width: 130,
+      { field: 'belonged', headerName: '归属人', resizable: true, width: 130, sortable: true},
+      { field: 'supplier', headerName: '供应商', resizable: true, minWidth: 10, sortable: true},
+      { field: 'linklevel', headerName: '设备ABC分类', resizable: true, width: 130, sortable: true},
+      { field: 'devicetype', headerName: '设备统计归类', resizable: true,width: 130, sortable: true,
         cellStyle: function(params){
           var value = params.value;
           switch (value) {
@@ -1017,11 +1018,11 @@ export class DeviceManageComponent implements OnInit {
           }
         }
       },
-      { field: 'createdon', headerName: '创建时间', resizable: true, width: 200},
-      { field: 'createdby', headerName: '创建人', resizable: true,width: 130},
-      { field: 'lastupdateon', headerName: '更新时间', resizable: true, width: 200},
-      { field: 'lastupdatedby', headerName: '更新人', resizable: true, minWidth: 10},
-      { field: 'iscalkpi', headerName: 'KPI计算', resizable: true, minWidth: 10,cellRendererFramework: TranIscalkpiComponent},
+      { field: 'createdon', headerName: '创建时间', resizable: true, width: 200, sortable: true},
+      { field: 'createdby', headerName: '创建人', resizable: true,width: 130, sortable: true},
+      { field: 'lastupdateon', headerName: '更新时间', resizable: true, width: 200, sortable: true},
+      { field: 'lastupdatedby', headerName: '更新人', resizable: true, minWidth: 10, sortable: true},
+      { field: 'iscalkpi', headerName: 'KPI计算', resizable: true, minWidth: 10,cellRendererFramework: TranIscalkpiComponent, sortable: true},
 
     ],
     rowData: [ // data
@@ -1216,6 +1217,7 @@ interface OptionDeviceData {
   lastupdateon: string,
   lastupdatedby: string
   groupsid: number,
-  iscalkpi:number
+  iscalkpi:number,
+  year:number
 
 }

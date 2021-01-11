@@ -322,7 +322,9 @@ export class TeskConfigComponent implements OnInit {
       group: groups_data_,
       taskchildnum: taskchildnum,
       start: inittable_before.start,
-      end: inittable_before.end
+      end: inittable_before.end,
+      month: inittable_before.month,
+      year: inittable_before.year,
     }
     // console.log("**************\n", columns);
     // 执行搜索函数！GETTABLE  dev_get_kpi_device_search
@@ -375,18 +377,18 @@ export class TeskConfigComponent implements OnInit {
       task_progress: "TaskProgressForAggridComponent",
     }, // 这是单元格要渲染的 组件！
     columnDefs:[ // 列字段 多选：headerCheckboxSelection checkboxSelection , flex: 1 自动填充宽度, pinned: 'left'
-      { field: 'tasknum', headerName: '试验任务编号', headerCheckboxSelection: true, checkboxSelection: true, autoHeight: true,  minWidth: 5,maxwidth: 15,resizable: true},
-      { field: 'taskchildnum', headerName: '试验编号', resizable: true, minWidth: 10, },
-      { field: 'taskitemnumbers', headerName: '条目编号(测试项)',  resizable: true, minWidth: 10}, // 试验条目编号
-      { field: 'devicetaskname', headerName: '条目名称(测试项)', resizable: true, minWidth: 10}, // 试验名称
-      { field: 'executor', headerName: '执行人',  resizable: true, minWidth: 10},
-      { field: 'expectedtime', headerName: '试验预计时长',  resizable: true, minWidth: 10},
-      { field: 'taskstart', headerName: '实际开始时间', resizable: true, minWidth: 10},
-      { field: 'taskstatus', headerName: '试验状态', resizable: true, minWidth: 10},
-      { field: 'lastupdateon', headerName: '状态变更时间', resizable: true, minWidth: 10},  // 更新时间
-      { field: 'curr_total', headerName: '当前轮次/总轮次', resizable: true, minWidth: 10}, // ==============计算得来 当前轮次/总轮次   devicetasknownumbers/devicetasknumbers
-      { field: 'timerate', headerName: '时间计算进度/轮次计算进度', resizable: true, minWidth: 10},
-      { field: 'rate', headerName: '进度', resizable: true, minWidth: 10}, // 
+      { field: 'tasknum', headerName: '试验任务编号', headerCheckboxSelection: true, checkboxSelection: true, autoHeight: true,  minWidth: 5,maxwidth: 15,resizable: true, sortable: true},
+      { field: 'taskchildnum', headerName: '试验编号', resizable: true, minWidth: 10, sortable: true},
+      { field: 'taskitemnumbers', headerName: '条目编号(测试项)',  resizable: true, minWidth: 10, sortable: true}, // 试验条目编号
+      { field: 'devicetaskname', headerName: '条目名称(测试项)', resizable: true, minWidth: 10, sortable: true}, // 试验名称
+      { field: 'executor', headerName: '执行人',  resizable: true, minWidth: 10, sortable: true},
+      { field: 'expectedtime', headerName: '试验预计时长',  resizable: true, minWidth: 10, sortable: true},
+      { field: 'taskstart', headerName: '实际开始时间', resizable: true, minWidth: 10, sortable: true},
+      { field: 'taskstatus', headerName: '试验状态', resizable: true, minWidth: 10, sortable: true},
+      { field: 'lastupdateon', headerName: '状态变更时间', resizable: true, minWidth: 10, sortable: true},  // 更新时间
+      { field: 'curr_total', headerName: '当前轮次/总轮次', resizable: true, minWidth: 10, sortable: true}, // ==============计算得来 当前轮次/总轮次   devicetasknownumbers/devicetasknumbers
+      { field: 'timerate', headerName: '时间计算进度/轮次计算进度', resizable: true, minWidth: 10, sortable: true},
+      { field: 'rate', headerName: '进度', resizable: true, minWidth: 10, sortable: true}, // 
       
     ],
     rowData: [ // data
@@ -428,6 +430,21 @@ export class TeskConfigComponent implements OnInit {
 
   // 初始化前确保 搜索条件 
   inittable_before(){
+    var month_value = {
+      "一月": '01',
+      "二月": '02',
+      "三月": '03',
+      "四月": '04',
+      "五月": '05',
+      "六月": '06',
+      "七月": '07',
+      "八月": '08',
+      "九月": '09',
+      "十月": '10',
+      "十一月": '11',
+      "十二月": '12',
+    };
+
     var get_start_end = this.get_start_end();
     var taskchildnum = this.myinput2?.getinput()===undefined?"":this.myinput2?.getinput();// 任务子单号
     // 科室/功能组
@@ -436,13 +453,17 @@ export class TeskConfigComponent implements OnInit {
     // 日期范围
     // 将科室/功能组，转为列表
     var groups_data_ = groups_data ===""?[] :groups_data.split(";");
+    var month = month_value[this.myMonth.getselect()]; // 选择的月
+
     return {
       limit: this.agGrid.get_pagesize(),
       employeeid: this.userinfo.getEmployeeID(),
       taskchildnum: [taskchildnum],
       group: groups_data_,
-      month: this.myMonth.getselect(),
-      year: this.myYear.getselect(),
+      month: month,
+      // month: this.myMonth.getselect(),
+      // year: this.myYear.getselect(),
+      year: this.myYear.getselect().split('年')[0],
       start: get_start_end.start,
       end: get_start_end.end,
     }
@@ -474,7 +495,6 @@ export class TeskConfigComponent implements OnInit {
       start: inittable_before.start,
       end: inittable_before.end
     }
-    
     // 得到设备信息！
     this.http.callRPC('device', this.GETTABLE, colmun).subscribe((res)=>{
       var result  = res['result']['message'][0];

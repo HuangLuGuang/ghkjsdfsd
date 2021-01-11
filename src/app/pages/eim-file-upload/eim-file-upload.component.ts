@@ -40,9 +40,9 @@ export class EimFileUploadComponent implements OnInit, AfterViewInit {
     PageSize: 10, // 每页 10条数据
     isno_refresh_page_size: false, // 是否重新将 每页多少条数据，赋值为默认值
     columnDefs: [ // 列字段 多选：headerCheckboxSelection checkboxSelection , flex: 1 自动填充宽度  pinned: 'left' 固定在左侧！
-      {field: 'filesize', headerName: '文件大小', resizable: true, minWidth: 10},
-      {field: 'people', headerName: '上传人', resizable: true, minWidth: 10},
-      {field: 'time', headerName: '修改时间', resizable: true, minWidth: 10, flex: 1},
+      {field: 'filesize', headerName: '文件大小', resizable: true, minWidth: 10, sortable: true},
+      {field: 'people', headerName: '上传人', resizable: true, minWidth: 10, sortable: true},
+      {field: 'time', headerName: '修改时间', resizable: true, minWidth: 10, flex: 1, sortable: true},
     ],
     rowData: [],
   };

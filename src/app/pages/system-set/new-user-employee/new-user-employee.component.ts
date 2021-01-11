@@ -45,16 +45,16 @@ export class NewUserEmployeeComponent implements OnInit {
     PageSize: 10, // 每页 10条数据
     isno_refresh_page_size: false, // 是否重新将 每页多少条数据，赋值为默认值
     columnDefs:[ // 列字段 多选：headerCheckboxSelection checkboxSelection
-      { field: 'loginname', headerName: '域账号',  headerCheckboxSelection: true, checkboxSelection: true, autoHeight: true, fullWidth: true, width: 140,resizable: true,},
-      { field: 'name', headerName: '姓名', resizable: true,width: 140,},
-      { field: 'role_name', headerName: '角色', resizable: true,width: 240,},
-      { field: 'groups_name', headerName: '科室/功能组', resizable: true,width: 360,cellRendererFramework:TableGroupComponent},
-      { field: 'active', headerName: '是否启用', resizable: true, cellRendererFramework: TranActiveComponent,width: 100,},
-      { field: 'email', headerName: '邮箱', resizable: true,},
-      { field: 'createdon', headerName: '创建时间', resizable: true,minWidth:10,},
-      { field: 'createdby', headerName: '创建人', resizable: true,minWidth:10,width: 140,},
-      { field: 'lastupdateon', headerName: '更新时间', resizable: true,minWidth:10,},
-      { field: 'lastupdatedby', headerName: '更新人', resizable: true,minWidth:10,width: 140,},
+      { field: 'loginname', headerName: '域账号',  headerCheckboxSelection: true, checkboxSelection: true, autoHeight: true, fullWidth: true, width: 140,resizable: true, sortable: true},
+      { field: 'name', headerName: '姓名', resizable: true,width: 140, sortable: true},
+      { field: 'role_name', headerName: '角色', resizable: true,width: 240, sortable: true},
+      { field: 'groups_name', headerName: '科室/功能组', resizable: true,width: 360,cellRendererFramework:TableGroupComponent, sortable: true},
+      { field: 'active', headerName: '是否启用', resizable: true, cellRendererFramework: TranActiveComponent,width: 100, sortable: true,},
+      { field: 'email', headerName: '邮箱', resizable: true, sortable: true},
+      { field: 'createdon', headerName: '创建时间', resizable: true,minWidth:10, sortable: true},
+      { field: 'createdby', headerName: '创建人', resizable: true,minWidth:10,width: 140, sortable: true},
+      { field: 'lastupdateon', headerName: '更新时间', resizable: true,minWidth:10, sortable: true},
+      { field: 'lastupdatedby', headerName: '更新人', resizable: true,minWidth:10,width: 140, sortable: true},
       { field: 'lastsignondate', headerName: '最后登录时间', resizable: true,minWidth:10, sort: "desc", sortable: true},
 
       

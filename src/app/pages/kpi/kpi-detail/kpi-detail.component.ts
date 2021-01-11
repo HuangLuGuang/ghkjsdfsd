@@ -28,7 +28,7 @@ export class KpiDetailComponent implements OnInit {
   button_title;
 
   // eleclass 得到对应的div，monthed得到对应的数据 columns，方法需要的参数！
-  // 第一行第一个
+  // 第一行第一个 https://echarts.apache.org/examples/zh/editor.html?c=mix-timeline-finance
   one_row_one = (eleid, monthed, columns)=>{
     this.querst("", monthed, columns).subscribe(result=>{
       // console.log("第一行第一个 ", result);
@@ -71,7 +71,7 @@ export class KpiDetailComponent implements OnInit {
             ]
           }
         ],
-        pieTotal:null,
+        pieTotal:0,
       }
       var success = {
         xdata: [],
@@ -131,25 +131,27 @@ export class KpiDetailComponent implements OnInit {
           
         }
         // pie
-        pie.forEach(element => {
-          if (element["taskstatus"] === "已完成"){
-            pie_success.xdata.push(element["dates"])
-            pie_success.ydata.push(element["numbers"])
-            pie_success.title = element["taskstatus"]
-          }else{
-            pie_nosuccess.xdata.push(element["dates"])
-            pie_nosuccess.ydata.push(element["numbers"])
-            pie_nosuccess.title = element["taskstatus"]
-          }
-        });
-        // all 已完成 {name: '已完成', value:0},
-        defalultdata.Series[2].data[0]["name"] = pie_success.title;
-        defalultdata.Series[2].data[0]["value"] = this.get_tal(pie_success.ydata)
-        // all 未完成 {name: '未完成', value:0}, 
-        defalultdata.Series[2].data[1]["name"] = pie_nosuccess.title;
-        defalultdata.Series[2].data[1]["value"] = this.get_tal(pie_nosuccess.ydata)
-        // pieTotal 总数 提示
-        defalultdata.pieTotal = numbers
+        if (pie.length){
+          pie.forEach(element => {
+            if (element["taskstatus"] === "已完成"){
+              pie_success.xdata.push(element["dates"])
+              pie_success.ydata.push(element["numbers"])
+              pie_success.title = element["taskstatus"]
+            }else{
+              pie_nosuccess.xdata.push(element["dates"])
+              pie_nosuccess.ydata.push(element["numbers"])
+              pie_nosuccess.title = element["taskstatus"]
+            }
+          });
+          // all 已完成 {name: '已完成', value:0},
+          defalultdata.Series[2].data[0]["name"] = pie_success.title;
+          defalultdata.Series[2].data[0]["value"] = this.get_tal(pie_success.ydata)
+          // all 未完成 {name: '未完成', value:0}, 
+          defalultdata.Series[2].data[1]["name"] = pie_nosuccess.title;
+          defalultdata.Series[2].data[1]["value"] = this.get_tal(pie_nosuccess.ydata)
+          // pieTotal 总数 提示
+          defalultdata.pieTotal = numbers
+        }
       }
       kpi_detail.one_row_one(eleid, defalultdata);
 
@@ -164,13 +166,12 @@ export class KpiDetailComponent implements OnInit {
     return tal
   }
 
-  // 第二行第二个
+  // 第一行第二个
   one_row_two = (eleid, monthed, columns)=>{
     
     this.querst("", monthed, columns).subscribe(result=>{
       console.log("第二行第二个 ", result);
       var res = result["result"]["message"][0]
-      console.log("columns ", columns);
       var defaultdata = {
         color: ['#5D920D', '#3333FF', '#FF4E0D', "#DBB70D"],
         xData:['01','02','03','04','05','06','07','08','09','10','11','12',],
@@ -211,14 +212,14 @@ export class KpiDetailComponent implements OnInit {
 
       }
       kpi_detail.one_row_two(eleid, defaultdata);
-      console.log("需要的数据格式：", defaultdata)
+      // console.log("需要的数据格式：", defaultdata)
   
     });
     
   }
  
 
-  // 第二行第三个
+  // 第一行第三个
   one_row_three = (eleid, monthed, columns)=>{
     columns.end = columns.year; // end 为 今年的
     columns.start = columns.year - 1; // start 为 去年的
@@ -261,17 +262,324 @@ export class KpiDetailComponent implements OnInit {
           
         }
       }
-      console.log("第三个数据：", defaultdata)
+      // console.log("第三个数据：", defaultdata)
       kpi_detail.one_row_three(eleid, defaultdata);
     })
   }
   
+  // 第二行 第一个 https://echarts.apache.org/examples/zh/editor.html?c=mix-line-bar
+  two_row_one = (eleid, monthed, columns)=>{
+    columns["startyear"]= columns.start;
+    columns["endyear"]= columns.end;
+    var _columns = {};
+    
+    _columns["deviceid"]=  columns.deviceid;
+    _columns["laststartmonth"]=  this.datepip.transform(new Date(columns.start, 0, 1), 'yyyy-MM-dd');
+    _columns["lastendmonth"]= this.datepip.transform(new Date(columns.start, 12, 0), 'yyyy-MM-dd');
+
+    _columns["nowstartmonth"]=  this.datepip.transform(new Date(columns.end, 0, 1), 'yyyy-MM-dd');
+    _columns["nowendmonth"]= this.datepip.transform(new Date(columns.end, 12, 0), 'yyyy-MM-dd');
+    
+    _columns["startyear"]= columns.start;
+    _columns["endyear"]= columns.end;
+    this.querst("", monthed, _columns).subscribe(result=>{
+      console.log("得到第二行第一个数据res： ", result);
+      var defaultdata = {
+        color:["#5D7FE5", "#26FF26"],
+        xData:['01','02','03','04','05','06','07','08','09','10','11','12',],
+        Series:[
+          // 去年bar
+          {
+              name: _columns["startyear"] + '年',
+              type: 'bar',
+              data: [0,0,0,0,0,0,0,0,0,0,0,0,]
+          },
+          // 今年bar
+          {
+              name: _columns["endyear"] + '年',
+              type: 'bar',
+              data: [0,0,0,0,0,0,0,0,0,0,0,0,]
+          },
+          // 去年line
+          {
+              name: _columns["startyear"] + '年利用率',
+              type: 'line',
+              // yAxisIndex: 1,
+              data: [0,0,0,0,0,0,0,0,0,0,0,0,]
+          },
+          // 今年line
+          {
+              name: _columns["endyear"] + '年利用率',
+              type: 'line',
+              // yAxisIndex: 1,
+              data: [0,0,0,0,0,0,0,0,0,0,0,0,]
+          },
+          // 总的
+          {
+            type: 'bar', xAxisIndex: 1, yAxisIndex: 2,
+            data:[{
+                value:100,
+                itemStyle:{
+                     color:'#5D7FE5'
+                },
+            },{
+                value:20,
+                itemStyle:{
+                     color:'#26FF26' 
+                }
+            }],
+            
+          },
+        ],
+        Total:{
+          yAxis:{
+            data: [
+              {
+                value: _columns["endyear"] + '年-利用率',
+                textStyle:{
+                  color:'#5D7FE5'
+                }
+              },
+              {
+                value:_columns["startyear"] + '年-利用率',
+                textStyle:{
+                  color:'#26FF26'
+                }
+              },
+            ]
+          }
+        }
+
+      }
+      var res = result["result"]["message"][0];
+      if (res["code"] === 1){
+        var nowmonth = res["nowmonth"]; // 今年的
+        var lastmonth = res["lastmonth"]; // 去年的
+        var year = res["year"];
+        if(nowmonth){
+          for (let index = 0; index < nowmonth.length; index++) {
+            const element = nowmonth[index];
+            defaultdata.xData[index] = element["dates"];
+            defaultdata.Series[1].name = columns.end + '年';
+            defaultdata.Series[1].data = element["ratio"];
+            defaultdata.Series[3].name = columns.end + '年利用率';
+            defaultdata.Series[3].data = element["ratio"];
+          }
+        }
+        if(lastmonth){
+          for (let index = 0; index < lastmonth.length; index++) {
+            const element = lastmonth[index];
+            defaultdata.xData[index] = element["dates"];
+            defaultdata.Series[0].name = columns.end + '年';
+            defaultdata.Series[0].data = element["ratio"];
+            defaultdata.Series[2].name = columns.end + '年利用率';
+            defaultdata.Series[2].data = element["ratio"];
+          }
+        }
+        // 年度的
+        if(year[0]){
+          defaultdata.Series[4].data[0]["value"] = year[0].ratio;
+        }
+        if(year[1]){
+          defaultdata.Series[4].data[0]["value"] = year[1].ratio;
+        }
+
+      }else{}
+      console.log("第二行，第一个数据格式：", defaultdata)
+      kpi_detail.two_row_one(eleid, defaultdata);
+    })
+  }
+  
+  // 第二行第二个 https://echarts.apache.org/examples/zh/editor.html?c=bar-stack
+  two_row_two = (eleid, monthed, columns)=>{
+    var _columns = {};
+    _columns["nowstartmonth"]=  this.datepip.transform(new Date(columns.end, 0, 1), 'yyyy-MM-dd');
+    _columns["nowendmonth"]= this.datepip.transform(new Date(columns.end, 12, 0), 'yyyy-MM-dd');
+    _columns["startyear"]= columns.start;
+    _columns["endyear"]= columns.end;
+    _columns["deviceid"]= columns.deviceid;
+    var defaultdata = {
+      color: ['#DBB70D', '#5D920D', '#7E7EFF'],
+      xData:['01','02','03','04','05','06','07','08','09','10','11','12',],
+      Series: [
+        {
+            name: '占位',
+            type: 'bar',
+            barWidth: '20%',
+            stack: '设备占位运行及开动率年度变化趋势',
+            data: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+            zlevel:1222,
+            itemStyle: {
+              normal: {
+                color: "rgba(255,144,128,1)",
+                label: {
+                  show: true,
+                  textStyle: {
+                    color: "#DBB70D"
+                        },
+                        position: [0,-10],
+                    
+                    formatter: function(p) {
+                        return p.value > 0 ? (p.value) : '';
+                    }
+                  }
+                }
+            },
+        },
+        {
+            name: '运行',
+            type: 'bar',
+            barWidth: '20%',
+            stack: '设备占位运行及开动率年度变化趋势',
+            data: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+            zlevel:1222,
+            itemStyle: {
+              normal: {
+                color: "rgba(255,144,128,1)",
+                label: {
+                  show: true,
+                  textStyle: {
+                    color: "#5D920D"
+                        },
+                        position: [0,-10],
+                    
+                    formatter: function(p) {
+                        return p.value > 0 ? (p.value) : '';
+                    }
+                  }
+                }
+            },
+        },
+        {
+            name: '开动率',
+            type: 'line',
+            barWidth: '20%',
+            stack: '设备占位运行及开动率年度变化趋势',
+            data: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+        },
+
+      ],
+      Total:{
+          name: _columns["endyear"] + '开动率:\t' + 0,
+      }
+    }
+    this.querst("", monthed, _columns).subscribe(result=>{
+      console.log("第二行第二个res： ", result);
+      var res = result["result"]["message"][0]
+      if (res["code"]===1){
+        var month = res["month"];
+        var year = res["year"];
+        if (month.length > 0){
+          for (let index = 0; index < 12; index++) {
+            const element = month[index];
+            if (element){
+              defaultdata.xData[index] = element["dates"];
+              defaultdata.Series[0].data[index] = element["placeon"]; // 占位
+              defaultdata.Series[1].data[index] = element["running"]; // 运行
+              defaultdata.Series[2].data[index] = element["rate"]; // 运行
+            }
+          }
+        }
+        if (year.length > 0){
+          defaultdata.Total.name = year[0]["dates"]+ "开动率" + ":\t" + year[0]["rate"]
+        }
+      }
+      console.log("第二行第二个数据格式：", defaultdata)
+      kpi_detail.two_row_two(eleid, defaultdata);
+    })
+  }
+
+  // 第二行第三个
+  two_row_three = (eleid, monthed, columns)=>{
+    var _columns = {};
+    _columns["nowstartmonth"]=  this.datepip.transform(new Date(columns.end, 0, 1), 'yyyy-MM-dd');
+    _columns["nowendmonth"]= this.datepip.transform(new Date(columns.end, 12, 0), 'yyyy-MM-dd');
+    _columns["startyear"]= columns.start;
+    _columns["endyear"]= columns.end;
+    _columns["deviceid"]= columns.deviceid;
+
+    var defaultdata = {
+      color:['#DBB70D', '#5D920D', '#7E7EFF'],
+      xData: ['01','02','03','04','05','06','07','08','09','10','11','12',],
+      Series: [
+        {
+            name: '完好率',
+            type: 'line',
+            barWidth: '20%',
+            data: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+        },
+        {
+            name: '故障率',
+            type: 'line',
+            barWidth: '20%',
+            data: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+        },
+      ],
+      Total:{
+        name: _columns["endyear"] + '可用率:\t' + 0,
+      }
+    }
+    this.querst("", monthed, _columns).subscribe(result=>{
+      console.log("第二行第三个res： ", result);
+      var res = result["result"]["message"][0];
+      if (res["code"]===1){
+        var availability = res["availability"]; // 可用率
+        var failure = res["failure"]; // 故障率
+        var year = res["year"]; // 年 可用率
+        if (availability.length > 1){
+          for (let index = 0; index < 12; index++) {
+            const element = availability[index];
+            if (element){
+              defaultdata.xData[index] = element["dates"];
+              defaultdata.Series[0].data[index] = element["availability"];
+            }
+          }
+        }
+        if (failure.length > 1){
+          for (let index = 0; index < 12; index++) {
+            const element = failure[index];
+            if (element){
+              defaultdata.Series[1].data[index] = element["failure"];
+            }
+          }
+        }
+        if (year[0]){
+          defaultdata.Total.name = year[0]["dates"] + '可用率:\t' + year[0]["availability"]
+        }
+      }
+      console.log("第二行第三个数据格式：", defaultdata)
+      kpi_detail.two_row_three(eleid, defaultdata);
+    })
+  }
+
+  // 第三行，第一个
+  three_row_one = (eleid, monthed, columns)=>{
+    var _columns = {};
+    _columns["start"]=  this.datepip.transform(new Date(columns.end, 0, 1), 'yyyy-MM-dd');
+    _columns["end"]= this.datepip.transform(new Date(columns.end, 12, 0), 'yyyy-MM-dd');
+    _columns["deviceid"]= columns.deviceid;
+
+    var defaultdata = {
+      xData: ['Dec', 'Nov', 'Oct', 'Sep', 'Aug', 'Jul', 'Jun','May','Apr','Mar','Feb','Jan'],
+      lineData: [100, 100, 100, 100, 100, 100, 100],
+      lastYearData: [3, 20, 62, 34, 55, 65, 33,1,1,1,1,1],
+      thisYearData: [11, 38, 23, 39, 66, 66, 79,1,1,1,1,1],
+      legend: ['2017', '2018'],
+      colors: ["rgb(119,134,150)","rgb(60,208,60)"],
+    }
+
+    this.querst("", monthed, columns).subscribe(result=>{
+      console.log("得到第三行，第三个： ", result);
+      kpi_detail.three_row_one(eleid, defaultdata);
+    })
+  }
+
   // one_row_three = (eleid, monthed, columns)=>{
-  //   this.querst("", monthed, columns).subscribe(res=>{
-  //     console.log("得到左侧第一个数据res： ", res);
+  //   this.querst("", monthed, columns).subscribe(result=>{
+  //     console.log("得到左侧第一个数据res： ", result);
+  //     kpi_detail.two_row_one(eleid, defaultdata);
   //   })
   // }
-  
 
 
   // device 设备数据汇总、group 功能组数据汇总、department 部门数据汇总 
@@ -287,12 +595,12 @@ export class KpiDetailComponent implements OnInit {
           { title: "设备2年安灯状态累计对比",id:'kpi_02', method:'dev_get_device_columnar_kpi_year', myfun:this.one_row_three },
         ],
         [
-          { title: "设备利用率同比环比",id:'kpi_10', method:'' },
-          { title: "设备占位运行及开动率年度变化趋势",id:'kpi_11', method:'' },
-          { title: "完好率与故障率变化趋势",id:'kpi_12', method:'' },
+          { title: "设备利用率同比环比",id:'kpi_10', method:'dev_get_device_ratio_kpi_month', myfun:this.two_row_one},
+          { title: "设备占位运行及开动率年度变化趋势",id:'kpi_11', method:'dev_get_device_rate_kpi_month', myfun: this.two_row_two },
+          { title: "完好率与故障率变化趋势",id:'kpi_12', method:'dev_get_device_availability_kpi_month', myfun:this.two_row_three },
         ],
         [
-          { title: "平均维修(故障停机)时同比环比",id:'kpi_20', method:'' },
+          { title: "平均维修(故障停机)时同比环比",id:'kpi_20', method:'dev_get_device_failure_kpi',myfun: this.three_row_one },
           { title: "设备报警统计",id:'kpi_21', method:'' },
           { title: "设备当天启停状态数据统计",id:'kpi_22', method:'' },
         ],
@@ -349,14 +657,20 @@ export class KpiDetailComponent implements OnInit {
 
 
     this.layoutService.onInitLayoutSize().subscribe(f=>{
-      let left_one = document.querySelector('.left-one');
-      if(left_one) echarts.init(left_one).resize();
-      let right_one = document.querySelector('.right-one');
-      if(right_one) echarts.init(right_one).resize();
-      let left_two = document.querySelector('.left-two');
-      if(left_two) echarts.init(left_two).resize();
-      let right_two = document.querySelector('.right-two');
-      if(right_two) echarts.init(right_two).resize();
+      if (this.type === 'device'){
+        var device_ids = [
+          'kpi_00', "kpi_01", "kpi_02", 
+          "kpi_10", "kpi_11", "kpi_12", 
+          "kpi_20", "kpi_21", "kpi_22", 
+        ]
+        device_ids.forEach(item=>{
+          var item_echart = document.getElementById(item);
+          if(item_echart) echarts.init(item_echart).resize();
+        })
+      }
+      // let left_one = document.querySelector('.left-one');
+      // if(left_one) echarts.init(left_one).resize();
+      
     })
 
   }
@@ -409,7 +723,7 @@ export class KpiDetailComponent implements OnInit {
 
   // 选择年份时，执行
   select_year(year){
-    console.log("选择年份时，执行",year)
+    // console.log("选择年份时，执行",year)
     if (this.type === 'device'){
       this.init_all_echart(year)
       // 这是 左侧第一个柱状图

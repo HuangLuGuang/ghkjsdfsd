@@ -80,12 +80,12 @@ export class OperationLogComponent implements OnInit, OnDestroy {
     isno_refresh_page_size: false, // 是否重新将 每页多少条数据，赋值为默认值
     columnDefs:[ // 列字段 多选：headerCheckboxSelection checkboxSelection , flex: 1 自动填充宽度
       // { field: 'application', headerName: '应用', headerCheckboxSelection: true, checkboxSelection: true, autoHeight: true, fullWidth: true, minWidth: 50,resizable: true},
-      { field: 'createdby', headerName: '域账号',headerCheckboxSelection: true, checkboxSelection: true, autoHeight: true, fullWidth: true,  resizable: true, flex: 1},
-      { field: 'name', headerName: '姓名', resizable: true, flex: 1},
-      { field: 'result', headerName: '状态',  resizable: true, flex: 1},
-      { field: 'transactiontype', headerName: '类型',  resizable: true, flex: 1},
-      { field: 'info', headerName: '信息', resizable: true, flex: 1},
-      { field: 'createdon', headerName: '记录时间', resizable: true, flex: 1},
+      { field: 'createdby', headerName: '域账号',headerCheckboxSelection: true, checkboxSelection: true, autoHeight: true, fullWidth: true,  resizable: true, flex: 1, sortable: true},
+      { field: 'name', headerName: '姓名', resizable: true, flex: 1, sortable: true},
+      { field: 'result', headerName: '状态',  resizable: true, flex: 1, sortable: true},
+      { field: 'transactiontype', headerName: '类型',  resizable: true, flex: 1, sortable: true},
+      { field: 'info', headerName: '信息', resizable: true, flex: 1, sortable: true},
+      { field: 'createdon', headerName: '记录时间', resizable: true, flex: 1, sortable: true},
     ],
     rowData: [ // data
     ]

@@ -50,15 +50,15 @@ export class HourConfigComponent implements OnInit {
     PageSize: 10, // 每页 10条数据
     isno_refresh_page_size: false, // 是否重新将 每页多少条数据，赋值为默认值
     columnDefs:[ // 列字段 多选：headerCheckboxSelection checkboxSelection , flex: 1 自动填充宽度 pinned: 'left' 固定左侧
-      { field: 'month', headerName: '月份',  fullWidth: true,resizable: true,width: 150,headerCheckboxSelection: true,checkboxSelection: true},
-      { field: 'devicename', headerName: '设备名称', width: 160,resizable: true, cellRendererFramework:TableDevicenameComponent},
-      { field: 'deviceno', headerName: '设备编号', width: 150, resizable: true, },
-      { field: 'group', headerName: '科室/功能组',  resizable: true, width: 330,cellRendererFramework: TableGroupComponent},
-      { field: 'targettime', headerName: '每日目标时长(h)', resizable: true, width: 140,},
-      { field: 'numberdaily', headerName: '计数天数(d)', resizable: true, width: 130,},
-      { field: 'totaltime', headerName: '总目标时长(h)', resizable: true, width: 130,}, 
-      { field: 'lastupdateon', headerName: '更新时间', resizable: true, width: 180,},
-      { field: 'lastupdatedby', headerName: '更新人', resizable: true, minWidth: 10,fullWidth: true, flex: 1},
+      { field: 'month', headerName: '月份',  fullWidth: true,resizable: true,width: 150,headerCheckboxSelection: true,checkboxSelection: true, sortable: true},
+      { field: 'devicename', headerName: '设备名称', width: 160,resizable: true, cellRendererFramework:TableDevicenameComponent, sortable: true},
+      { field: 'deviceno', headerName: '设备编号', width: 150, resizable: true, sortable: true},
+      { field: 'group', headerName: '科室/功能组',  resizable: true, width: 330,cellRendererFramework: TableGroupComponent, sortable: true},
+      { field: 'targettime', headerName: '每日目标时长(h)', resizable: true, width: 140, sortable: true},
+      { field: 'numberdaily', headerName: '计数天数(d)', resizable: true, width: 130, sortable: true},
+      { field: 'totaltime', headerName: '总目标时长(h)', resizable: true, width: 130, sortable: true}, 
+      { field: 'lastupdateon', headerName: '更新时间', resizable: true, width: 180, sortable: true},
+      { field: 'lastupdatedby', headerName: '更新人', resizable: true, minWidth: 10,fullWidth: true, flex: 1, sortable: true},
       
 
 

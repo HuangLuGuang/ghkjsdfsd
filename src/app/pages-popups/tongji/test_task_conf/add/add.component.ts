@@ -103,8 +103,10 @@ export class AddComponent implements OnInit {
         save_data["devicenum"] = previewinfodata.devicenum;
         save_data["executor"] = previewinfodata.executor;
 
-        save_data["deviceid"] = groups_devices_datas.deviceid;
-        save_data["deviceno"] = groups_devices_datas.deviceno;
+        save_data["deviceid"] = groups_devices_datas.deviceno;
+        save_data["deviceno"] = groups_devices_datas.deviceid;
+        // save_data["deviceid"] = groups_devices_datas.deviceid;
+        // save_data["deviceno"] = groups_devices_datas.deviceno;
         save_data["devicename"] = groups_devices_datas.devicename;
         
         // 添加创建人

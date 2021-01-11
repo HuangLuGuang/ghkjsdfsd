@@ -60,16 +60,16 @@ export class DeviceKpiTongjiComponent implements OnInit {
     PageSize: 10, // 每页 10条数据
     isno_refresh_page_size: false, // 是否重新将 每页多少条数据，赋值为默认值
     columnDefs:[ // 列字段 多选：headerCheckboxSelection checkboxSelection
-      { field: 'id', headerName: '序号',  headerCheckboxSelection: true, checkboxSelection: true, autoHeight: true, fullWidth: true, minWidth: 30,resizable: true,},
-      { field: 'liftMachineId', headerName: '举升机编号', resizable: true,},
-      { field: 'liftMachinePosition', headerName: '举升机位置', resizable: true,},
-      { field: 'startTime', headerName: '开始作业时间', resizable: true,},
-      { field: 'time', headerName: '本次作业时间', resizable: true,},
-      { field: 'principal', headerName: '负责人', resizable: true,},
-      { field: 'totalTime', headerName: '累计作业时长', resizable: true,},
-      { field: 'status', headerName: '状态', resizable: true,minWidth:10,},
-      { field: 'chargePerson', headerName: '责任人', resizable: true,minWidth:10,},
-      { field: 'detail', headerName: 'kpi详情', resizable: true,minWidth:10,},
+      { field: 'id', headerName: '序号',  headerCheckboxSelection: true, checkboxSelection: true, autoHeight: true, fullWidth: true, minWidth: 30,resizable: true, sortable: true},
+      { field: 'liftMachineId', headerName: '举升机编号', resizable: true, sortable: true},
+      { field: 'liftMachinePosition', headerName: '举升机位置', resizable: true, sortable: true},
+      { field: 'startTime', headerName: '开始作业时间', resizable: true, sortable: true},
+      { field: 'time', headerName: '本次作业时间', resizable: true, sortable: true},
+      { field: 'principal', headerName: '负责人', resizable: true, sortable: true},
+      { field: 'totalTime', headerName: '累计作业时长', resizable: true, sortable: true},
+      { field: 'status', headerName: '状态', resizable: true,minWidth:10, sortable: true},
+      { field: 'chargePerson', headerName: '责任人', resizable: true,minWidth:10, sortable: true},
+      { field: 'detail', headerName: 'kpi详情', resizable: true,minWidth:10, sortable: true},
     ],
     rowData: [ // data
     ]

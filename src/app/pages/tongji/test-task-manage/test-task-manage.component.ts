@@ -289,14 +289,14 @@ export class TestTaskManageComponent implements OnInit {
       task_progress: "TaskProgressForAggridComponent",
     }, // 这是单元格要渲染的 组件！
     columnDefs:[ // 列字段 多选：headerCheckboxSelection checkboxSelection , flex: 1 自动填充宽度, pinned: 'left'
-      { field: 'id', headerName: '序号', headerCheckboxSelection: true, checkboxSelection: true, autoHeight: true,  minWidth: 5,maxwidth: 15,resizable: true},
-      { field: 'rate', headerName: '任务进度', resizable: true, minWidth: 10, cellRendererFramework: TaskProgressForAggridComponent,},
-      { field: 'devicename', headerName: '设备名称',  resizable: true, minWidth: 10},
+      { field: 'id', headerName: '序号', headerCheckboxSelection: true, checkboxSelection: true, autoHeight: true,  minWidth: 5,maxwidth: 15,resizable: true, sortable: true},
+      { field: 'rate', headerName: '任务进度', resizable: true, minWidth: 10, cellRendererFramework: TaskProgressForAggridComponent, sortable: true},
+      { field: 'devicename', headerName: '设备名称',  resizable: true, minWidth: 10, sortable: true},
       // { field: 'department', headerName: '部门信息', resizable: true, minWidth: 10},
       { field: 'deviceid', headerName: '设备ID',  resizable: true, minWidth: 10},
-      { field: 'belonged', headerName: '负责人',  resizable: true, minWidth: 10},
-      { field: 'tasknum', headerName: '任务单号', resizable: true, minWidth: 10},
-      { field: 'taskchildnum', headerName: '任务子单号', resizable: true, minWidth: 10},
+      { field: 'belonged', headerName: '负责人',  resizable: true, minWidth: 10, sortable: true},
+      { field: 'tasknum', headerName: '任务单号', resizable: true, minWidth: 10, sortable: true},
+      { field: 'taskchildnum', headerName: '任务子单号', resizable: true, minWidth: 10, sortable: true},
       
       // { field: 'departmentInfo', headerName: '自定义统计时间(默认最近一周)', 
       //   children:[
@@ -305,12 +305,12 @@ export class TestTaskManageComponent implements OnInit {
       //   ]
       // },
 
-      { field: 'taskstart', headerName: '试验开始时间', resizable: true, minWidth: 10}, // 自定义设备编号！
-      { field: 'taskend', headerName: '试验结束时间', resizable: true, minWidth: 10},
-      { field: 'numberstime', headerName: '试验持续时长(h)', resizable: true, minWidth: 10},
+      { field: 'taskstart', headerName: '试验开始时间', resizable: true, minWidth: 10, sortable: true}, // 自定义设备编号！
+      { field: 'taskend', headerName: '试验结束时间', resizable: true, minWidth: 10, sortable: true},
+      { field: 'numberstime', headerName: '试验持续时长(h)', resizable: true, minWidth: 10, sortable: true},
 
 
-      { field: 'lastupdateon', headerName: '数据更新时间', resizable: true, minWidth: 10},
+      { field: 'lastupdateon', headerName: '数据更新时间', resizable: true, minWidth: 10, sortable: true},
     ],
     rowData: [ // data
     ]

@@ -43,15 +43,15 @@ export class BorderGatewayComponent implements OnInit {
     PageSize: 10, // 每页 10条数据
     isno_refresh_page_size: false, // 是否重新将 每页多少条数据，赋值为默认值
     columnDefs:[ // 列字段 多选：headerCheckboxSelection checkboxSelection
-      { field: 'id', headerName: '序号',  headerCheckboxSelection: true, checkboxSelection: true, autoHeight: true, fullWidth: true, minWidth: 30,resizable: true,},
-      { field: 'deviceName', headerName: '设备名称', resizable: true,},
-      { field: 'edgeGatewayId', headerName: '边缘网关编号', resizable: true,},
-      { field: 'edgeGatewayStatus', headerName: '边缘网关开关状态', resizable: true,},
-      { field: 'dateGatherStatus', headerName: '数据采集状态', resizable: true,},
+      { field: 'id', headerName: '序号',  headerCheckboxSelection: true, checkboxSelection: true, autoHeight: true, fullWidth: true, minWidth: 30,resizable: true, sortable: true},
+      { field: 'deviceName', headerName: '设备名称', resizable: true, sortable: true},
+      { field: 'edgeGatewayId', headerName: '边缘网关编号', resizable: true, sortable: true},
+      { field: 'edgeGatewayStatus', headerName: '边缘网关开关状态', resizable: true, sortable: true},
+      { field: 'dateGatherStatus', headerName: '数据采集状态', resizable: true, sortable: true},
       // { field: 'active', headerName: '是否启用', resizable: true, cellRendererFramework: TranActiveComponent,},
-      { field: 'ipAddress', headerName: 'IP地址', resizable: true,},
-      { field: 'continueTime', headerName: '持续时间', resizable: true,minWidth:10,},
-      { field: 'heartTime', headerName: '心跳时间', resizable: true,minWidth:10,},
+      { field: 'ipAddress', headerName: 'IP地址', resizable: true, sortable: true},
+      { field: 'continueTime', headerName: '持续时间', resizable: true,minWidth:10, sortable: true},
+      { field: 'heartTime', headerName: '心跳时间', resizable: true,minWidth:10, sortable: true},
     ],
     rowData: [ // data
     ]

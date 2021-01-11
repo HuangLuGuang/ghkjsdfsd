@@ -39,15 +39,15 @@ export class VideoIntegrationComponent implements OnInit {
     PageSize: 10, // 每页 10条数据
     isno_refresh_page_size: false, // 是否重新将 每页多少条数据，赋值为默认值
     columnDefs:[ // 列字段 多选：headerCheckboxSelection checkboxSelection
-      { field: 'id', headerName: '序号',  headerCheckboxSelection: true, checkboxSelection: true, autoHeight: true, fullWidth: true, minWidth: 30,resizable: true,},
-      { field: 'cameraIP', headerName: '摄像头IP', resizable: true,},
-      { field: 'territory', headerName: '负责区域', resizable: true,},
-      { field: 'departmentInfo', headerName: '部门信息', resizable: true,},
-      { field: 'description', headerName: '描述', resizable: true,},
-      { field: 'videoServiceStatus', headerName: '视频服务器状态', resizable: true,},
-      { field: 'ipAddress', headerName: 'IP地址', resizable: true,minWidth:10,},
-      { field: 'continueTime', headerName: '持续时间', resizable: true,minWidth:10,},
-      { field: 'principal', headerName: '负责人', resizable: true,minWidth:10,}, // 编辑、删除
+      { field: 'id', headerName: '序号',  headerCheckboxSelection: true, checkboxSelection: true, autoHeight: true, fullWidth: true, minWidth: 30,resizable: true, sortable: true},
+      { field: 'cameraIP', headerName: '摄像头IP', resizable: true, sortable: true},
+      { field: 'territory', headerName: '负责区域', resizable: true, sortable: true},
+      { field: 'departmentInfo', headerName: '部门信息', resizable: true, sortable: true},
+      { field: 'description', headerName: '描述', resizable: true, sortable: true},
+      { field: 'videoServiceStatus', headerName: '视频服务器状态', resizable: true, sortable: true},
+      { field: 'ipAddress', headerName: 'IP地址', resizable: true,minWidth:10, sortable: true},
+      { field: 'continueTime', headerName: '持续时间', resizable: true,minWidth:10, sortable: true},
+      { field: 'principal', headerName: '负责人', resizable: true,minWidth:10, sortable: true}, // 编辑、删除
     ],
     rowData: [ // data
     ]

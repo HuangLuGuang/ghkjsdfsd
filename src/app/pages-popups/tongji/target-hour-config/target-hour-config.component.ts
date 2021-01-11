@@ -190,7 +190,7 @@ export class TargetHourConfigComponent implements OnInit {
         item["numberdaily"] = numberdaily;
         item["targettime"] = targettime;
         item["lastupdatedby"] = this.lastupdatedby;
-        item["year"] = this.data["year"] + "年";
+        item["year"] = this.data["year"];
         item["selectedtime"] = this.selectedDates.join(',');
       })
       console.log("---要修改的数据：", devicelist);
