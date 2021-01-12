@@ -1,9 +1,10 @@
 <div style="height: 100%;width: 100%;display: flex;flex-wrap: wrap;">
     <div class="part_title">{{'equipment.LogWarm' | translate}}</div>
     <div class="h_46_w_30">
-        <!-- <div style="width: 10%;">{{'equipment.LV1Warm'|translate}}</div> -->
-        <div style="width: 100%;">{{getwarm() | translate}}</div>
-        <div id="circular" [ngStyle]="{'color':getwarmStr() == 1?'red':getwarmStr()==3?'':'yellow'}"></div>
+        <div style="width: 100%;">{{'equipment.LV3Warm'|translate}}</div>
+        <!-- <div style="width: 100%;">{{getwarm() | translate}}</div> -->
+        <!-- <div id="circular" [ngStyle]="{'color':getwarmStr() == 3?'red':getwarmStr()==2?'':'yellow'}"></div> -->
+        <div id="circular" [ngStyle]="{'color':getwarmStr() == 3?'red':''}"></div>
     </div>
     <div class="h_40_w_70" [ngStyle]="{'height': getWin_H()}" id="warning"></div>
     <div class="_table height_50">
@@ -30,7 +31,7 @@
             </table>
             <div class="scrollbar">
                 <table>
-                    <tr *ngFor="let items of log_warm.data;let i = index" class="body" style="height: 12px;" [ngStyle]="{'color':items[3] == 1?'red':items[3]==3?'':'yellow'}">
+                    <tr *ngFor="let items of log_warm.data;let i = index" class="body" style="height: 12px;" [ngStyle]="{'color':items[3] == 3?'red':items[3]==2?'':'yellow'}">
                         <td style="padding: 0%;height: 20%;width:60%;max-width: 400px;">
                             <div class="font_w_too_long_1" title="{{items[2]}}" style="width: 100%;">{{items[2]}}</div>
                         </td>

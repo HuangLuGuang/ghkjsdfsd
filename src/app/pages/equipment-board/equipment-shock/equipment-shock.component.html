@@ -60,7 +60,7 @@
                             <div class="height_30" style="margin-top: 10px;" *ngFor="let item of real_list">
                                 {{item.name}}{{'equipment.OilSeparator'|translate}}：
                                 <span [ngStyle]="{'color':item.color}">
-                                    {{item.value}}
+                                    {{item?.value}}
                                 </span>
                             </div>
                         </div>

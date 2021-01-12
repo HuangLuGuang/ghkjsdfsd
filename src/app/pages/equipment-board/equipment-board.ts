@@ -120,9 +120,9 @@ export const  getMessage=(f,data)=>{
       i = aee.findIndex(f => f && f !=' ');
       arr = [
           m.recordtime,
-          m.level==1?'Error':m.level == 2?'Warning':'Information',
-          // m.message,
-          aee[aee.length-1].length > aee[aee.length-2].length?aee[aee.length-1]:aee[aee.length-2],
+          m.level==3?'Error':m.level == 1?'Warning':'Information',
+          m.message,
+          // aee[aee.length-1].length > aee[aee.length-2].length?aee[aee.length-1]:aee[aee.length-2],
           m.level,
         ]
       if(!data.find(g => g[0] == arr[0] && g[1] == arr[1] && g[2] == arr[2])){

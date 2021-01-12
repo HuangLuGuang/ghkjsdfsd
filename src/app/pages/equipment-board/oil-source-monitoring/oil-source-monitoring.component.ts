@@ -520,7 +520,7 @@ export class OilSourceMonitoringComponent implements OnInit {
       this.equip_alarm = f.result.message[0].message.sort((h,c)=> c-h).map(g=>{
         
         if(g.level == 2)color = 'yellow',s ='warm';
-        if(g.level == 3)color = 'red',s ='error';
+        if(g.level == 1)color = 'red',s ='error';
         return {data:[g.source.split(' ')[0],g.message],s:'',color:color};
       })
     })

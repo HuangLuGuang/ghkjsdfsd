@@ -124,7 +124,7 @@ export class ThirdLevelService {
     this.http.callRPC('get_log_list','device_monitor.get_log_list',{deviceid:param}).subscribe((f:any)=>{
       if(f.result.error || f.result.message[0].code == 0)return;
       
-      view.tableBody = f.result.message[0].message.filter(g=> g[0] && g[0].level == 1).map(m=>(
+      view.tableBody = f.result.message[0].message.filter(g=> g[0] && g[0].level == 3).map(m=>(
         aee = m[0].message.split("\""),
         {
           device:this.deviceid_to_name[m[0].deviceid],
