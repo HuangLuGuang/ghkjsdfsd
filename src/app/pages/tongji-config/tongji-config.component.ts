@@ -34,7 +34,7 @@ export class TongjiConfigComponent implements OnInit {
 
   ngAfterViewInit(){
     setTimeout(() => {
-      // console.log("children>>>>",this.children);
+      console.log("children>>>>",this.children);
     }, 500);
   }
   ngOnDestroy(){
@@ -89,7 +89,6 @@ export class TongjiConfigComponent implements OnInit {
                 if (item["link"] === link){
                   var children = item["children"] 
                   this.children = children;
-
                 }
               })
             } 

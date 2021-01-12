@@ -27,6 +27,8 @@ export class KpiDetailComponent implements OnInit {
   // button title，设备的未 devicename，功能组的未 groups
   button_title;
 
+  mothed_table_url_card = [];
+
   // eleclass 得到对应的div，monthed得到对应的数据 columns，方法需要的参数！
   // 第一行第一个 https://echarts.apache.org/examples/zh/editor.html?c=mix-timeline-finance
   one_row_one = (eleid, monthed, columns)=>{
@@ -116,16 +118,19 @@ export class KpiDetailComponent implements OnInit {
           const noydata = nosuccess.ydata[index];
           // x 
           if (xdata){
-            defalultdata.Xdata[index] = xdata;
+            var _index = defalultdata.Xdata.indexOf(xdata);
+            defalultdata.Xdata[_index] = xdata;
           }
           // y 已完成   
           if (ydata){
-            defalultdata.Series[1].data[index] = success.ydata[index]  // 已完成 
+            var _index = defalultdata.Xdata.indexOf(xdata);
+            defalultdata.Series[1].data[_index] = success.ydata[index]  // 已完成 
             defalultdata.Series[1].name = success.title
           }
           // y 未完成
           if (noydata){
-            defalultdata.Series[0].data[index] = nosuccess.ydata[index]  // 未完成 
+            var _index = defalultdata.Xdata.indexOf(xdata);
+            defalultdata.Series[0].data[_index] = nosuccess.ydata[index]  // 未完成 
             defalultdata.Series[0].name = nosuccess.title
           }
           
@@ -153,6 +158,7 @@ export class KpiDetailComponent implements OnInit {
           defalultdata.pieTotal = numbers
         }
       }
+      console.log("第一行，第一列：",defalultdata)
       kpi_detail.one_row_one(eleid, defalultdata);
 
     })
@@ -184,7 +190,6 @@ export class KpiDetailComponent implements OnInit {
       if (res["code"] === 1){
         // 得到 x 轴！
         var resdatas = res['message'];
-        console.log("resdatas ", resdatas);
         var xData = [];
         var running = [];
         var stop = [];
@@ -201,11 +206,12 @@ export class KpiDetailComponent implements OnInit {
         // 赋值！
         for (let index = 0; index < defaultdata.xData.length; index++) {
           if (xData[index]){
-            defaultdata.xData[index] = xData[index];
-            defaultdata.running[index] = running[index];
-            defaultdata.stop[index] = stop[index];
-            defaultdata.warning[index] = warning[index];
-            defaultdata.placeon[index] = placeon[index];
+            var _index = defaultdata.xData.indexOf(xData[index]);
+            defaultdata.xData[_index] = xData[index];
+            defaultdata.running[_index] = running[index];
+            defaultdata.stop[_index] = stop[index];
+            defaultdata.warning[_index] = warning[index];
+            defaultdata.placeon[_index] = placeon[index];
           }
         }
         
@@ -273,7 +279,13 @@ export class KpiDetailComponent implements OnInit {
     columns["endyear"]= columns.end;
     var _columns = {};
     
-    _columns["deviceid"]=  columns.deviceid;
+    if (columns.deviceid){
+      _columns["deviceid"]=  columns.deviceid;
+    }else if(columns["groupid"]){
+      _columns["groupid"]=  columns.groupid;
+    }else if (columns["department"]){
+      _columns["department"]=  columns.department;
+    }
     _columns["laststartmonth"]=  this.datepip.transform(new Date(columns.start, 0, 1), 'yyyy-MM-dd');
     _columns["lastendmonth"]= this.datepip.transform(new Date(columns.start, 12, 0), 'yyyy-MM-dd');
 
@@ -318,12 +330,12 @@ export class KpiDetailComponent implements OnInit {
           {
             type: 'bar', xAxisIndex: 1, yAxisIndex: 2,
             data:[{
-                value:100,
+                value:0,
                 itemStyle:{
                      color:'#5D7FE5'
                 },
             },{
-                value:20,
+                value:0,
                 itemStyle:{
                      color:'#26FF26' 
                 }
@@ -359,7 +371,8 @@ export class KpiDetailComponent implements OnInit {
         if(nowmonth){
           for (let index = 0; index < nowmonth.length; index++) {
             const element = nowmonth[index];
-            defaultdata.xData[index] = element["dates"];
+            var _index = defaultdata.xData.indexOf(element["dates"]);
+            defaultdata.xData[_index] = element["dates"];
             defaultdata.Series[1].name = columns.end + '年';
             defaultdata.Series[1].data = element["ratio"];
             defaultdata.Series[3].name = columns.end + '年利用率';
@@ -369,7 +382,8 @@ export class KpiDetailComponent implements OnInit {
         if(lastmonth){
           for (let index = 0; index < lastmonth.length; index++) {
             const element = lastmonth[index];
-            defaultdata.xData[index] = element["dates"];
+            var _index = defaultdata.xData.indexOf(element["dates"]);
+            defaultdata.xData[_index] = element["dates"];
             defaultdata.Series[0].name = columns.end + '年';
             defaultdata.Series[0].data = element["ratio"];
             defaultdata.Series[2].name = columns.end + '年利用率';
@@ -377,10 +391,10 @@ export class KpiDetailComponent implements OnInit {
           }
         }
         // 年度的
-        if(year[0]){
+        if(year && year[0]){
           defaultdata.Series[4].data[0]["value"] = year[0].ratio;
         }
-        if(year[1]){
+        if(year && year[1]){
           defaultdata.Series[4].data[0]["value"] = year[1].ratio;
         }
 
@@ -397,7 +411,13 @@ export class KpiDetailComponent implements OnInit {
     _columns["nowendmonth"]= this.datepip.transform(new Date(columns.end, 12, 0), 'yyyy-MM-dd');
     _columns["startyear"]= columns.start;
     _columns["endyear"]= columns.end;
-    _columns["deviceid"]= columns.deviceid;
+    if (columns.deviceid){
+      _columns["deviceid"]=  columns.deviceid;
+    }else if(columns["groupid"]){
+      _columns["groupid"]=  columns.groupid;
+    }else if (columns["department"]){
+      _columns["department"]=  columns.department;
+    }
     var defaultdata = {
       color: ['#DBB70D', '#5D920D', '#7E7EFF'],
       xData:['01','02','03','04','05','06','07','08','09','10','11','12',],
@@ -411,7 +431,7 @@ export class KpiDetailComponent implements OnInit {
             zlevel:1222,
             itemStyle: {
               normal: {
-                color: "rgba(255,144,128,1)",
+                // color: "rgba(255,144,128,1)",
                 label: {
                   show: true,
                   textStyle: {
@@ -435,7 +455,7 @@ export class KpiDetailComponent implements OnInit {
             zlevel:1222,
             itemStyle: {
               normal: {
-                color: "rgba(255,144,128,1)",
+                // color: "rgba(255,144,128,1)",
                 label: {
                   show: true,
                   textStyle: {
@@ -473,7 +493,8 @@ export class KpiDetailComponent implements OnInit {
           for (let index = 0; index < 12; index++) {
             const element = month[index];
             if (element){
-              defaultdata.xData[index] = element["dates"];
+              var _index = defaultdata.xData.indexOf(element["dates"]);
+              defaultdata.xData[_index] = element["dates"];
               defaultdata.Series[0].data[index] = element["placeon"]; // 占位
               defaultdata.Series[1].data[index] = element["running"]; // 运行
               defaultdata.Series[2].data[index] = element["rate"]; // 运行
@@ -496,7 +517,13 @@ export class KpiDetailComponent implements OnInit {
     _columns["nowendmonth"]= this.datepip.transform(new Date(columns.end, 12, 0), 'yyyy-MM-dd');
     _columns["startyear"]= columns.start;
     _columns["endyear"]= columns.end;
-    _columns["deviceid"]= columns.deviceid;
+    if (columns.deviceid){
+      _columns["deviceid"]=  columns.deviceid;
+    }else if(columns["groupid"]){
+      _columns["groupid"]=  columns.groupid;
+    }else if (columns["department"]){
+      _columns["department"]=  columns.department;
+    }
 
     var defaultdata = {
       color:['#DBB70D', '#5D920D', '#7E7EFF'],
@@ -530,8 +557,9 @@ export class KpiDetailComponent implements OnInit {
           for (let index = 0; index < 12; index++) {
             const element = availability[index];
             if (element){
-              defaultdata.xData[index] = element["dates"];
-              defaultdata.Series[0].data[index] = element["availability"];
+              var _index = defaultdata.xData.indexOf(element["dates"]);
+              defaultdata.xData[_index] = element["dates"];
+              defaultdata.Series[0].data[_index] = element["availability"];
             }
           }
         }
@@ -539,7 +567,8 @@ export class KpiDetailComponent implements OnInit {
           for (let index = 0; index < 12; index++) {
             const element = failure[index];
             if (element){
-              defaultdata.Series[1].data[index] = element["failure"];
+              var _index = defaultdata.xData.indexOf(element["dates"]);
+              defaultdata.Series[1].data[_index] = element["failure"] === null? 0: element["failure"];
             }
           }
         }
@@ -555,31 +584,181 @@ export class KpiDetailComponent implements OnInit {
   // 第三行，第一个
   three_row_one = (eleid, monthed, columns)=>{
     var _columns = {};
-    _columns["start"]=  this.datepip.transform(new Date(columns.end, 0, 1), 'yyyy-MM-dd');
-    _columns["end"]= this.datepip.transform(new Date(columns.end, 12, 0), 'yyyy-MM-dd');
-    _columns["deviceid"]= columns.deviceid;
+    if (columns.deviceid){
+      _columns["deviceid"]=  columns.deviceid;
+    }else if(columns["groupid"]){
+      _columns["groupid"]=  columns.groupid;
+    }else if (columns["department"]){
+      _columns["department"]=  columns.department;
+    }
+    _columns["laststartmonth"]=  this.datepip.transform(new Date(columns.start, 0, 1), 'yyyy-MM-dd');
+    _columns["lastendmonth"]= this.datepip.transform(new Date(columns.start, 12, 0), 'yyyy-MM-dd');
+
+    _columns["nowstartmonth"]=  this.datepip.transform(new Date(columns.end, 0, 1), 'yyyy-MM-dd');
+    _columns["nowendmonth"]= this.datepip.transform(new Date(columns.end, 12, 0), 'yyyy-MM-dd');
+    
+    _columns["startyear"]= columns.start;
+    _columns["endyear"]= columns.end;
 
     var defaultdata = {
-      xData: ['Dec', 'Nov', 'Oct', 'Sep', 'Aug', 'Jul', 'Jun','May','Apr','Mar','Feb','Jan'],
+      // 月份-倒序
+      // xData: ['Dec', 'Nov', 'Oct', 'Sep', 'Aug', 'Jul', 'Jun','May','Apr','Mar','Feb','Jan'],
+      xData: ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec',],
       lineData: [100, 100, 100, 100, 100, 100, 100],
-      lastYearData: [3, 20, 62, 34, 55, 65, 33,1,1,1,1,1],
-      thisYearData: [11, 38, 23, 39, 66, 66, 79,1,1,1,1,1],
-      legend: ['2017', '2018'],
+      lastYearData: [0, 0, 0, 0, 0, 0, 0,0,0,0,0,0],
+      thisYearData: [0, 0, 0, 0, 0, 0, 0,0,0,0,0,0],
+      legend: [columns.start, columns.end],
       colors: ["rgb(119,134,150)","rgb(60,208,60)"],
     }
+    var month_zh_en = {
+      '01':'Jan',
+      '02':'Feb',
+      '03':'Mar',
+      '04':'Apr',
+      '05':'May',
+      '06':'Jun',
+      '07':'Jul',
+      '08':'Aug',
+      '09':'Sep',
+      '10':'Oct',
+      '11':'Nov',
+      '12':'Dec'
+    }
 
-    this.querst("", monthed, columns).subscribe(result=>{
-      console.log("得到第三行，第三个： ", result);
+    this.querst("", monthed, _columns).subscribe(result=>{
+      console.log("得到第三行，第一个： ", result);
+      var res = result["result"]["message"][0];
+      if (res["code"] ===1){
+        var lastyear = res["lastyear"];
+        var nowyear = res["nowyear"];
+        if (lastyear.length){
+          for (let index = 0; index < lastyear.length; index++) {
+            const element = lastyear[index];
+            if (element){
+              var _index = defaultdata.xData.indexOf(element["dates"]);
+              defaultdata.xData[_index] = month_zh_en[element["dates"]];
+              defaultdata.lastYearData[_index] = element["average"];
+            }
+          }
+        };
+        if (nowyear.length){
+          for (let index = 0; index < nowyear.length; index++) {
+            const element = nowyear[index];
+            if (element){
+              var _index = defaultdata.xData.indexOf(element["dates"]);
+              defaultdata.xData[_index] = month_zh_en[element["dates"]];
+              defaultdata.thisYearData[_index] = element["average"];
+            }
+          }
+        }
+      }
+      // 列表倒序
+      defaultdata.xData.reverse();
+      defaultdata.lastYearData.reverse();
+      defaultdata.thisYearData.reverse();
+      console.log("得到第三行，第一个数据格式：", defaultdata)
       kpi_detail.three_row_one(eleid, defaultdata);
     })
   }
+  // 第三行，第二个
+  three_row_two = (eleid, monthed, columns)=>{
+    var _columns = {};
+    _columns["start"]=  this.datepip.transform(new Date(columns.end, 0, 1), 'yyyy-MM-dd');
+    _columns["end"]= this.datepip.transform(new Date(columns.end, 12, 0), 'yyyy-MM-dd');
+    if (columns.deviceid){
+      _columns["deviceid"]=  columns.deviceid;
+    }else if(columns["groupid"]){
+      _columns["groupid"]=  columns.groupid;
+    }else if (columns["department"]){
+      _columns["department"]=  columns.department;
+    }
+    
+    var defaultdata = {
+      // 月份-倒序
+      xData: ['1月', '2月', '3月', '4月', '5月','6月','7月','8月','9月','10月','11月','12月'],
+      error:[0, 0, 0, 0, 0,0,0,0,0,0,0,0],
+      warning:[0, 0, 0, 0, 0,0,0,0,0,0,0,0],
+      info:[0, 0, 0, 0, 0,0,0,0,0,0,0,0],
+      legend: ['error', 'warning', 'info'],
+      colors: ['rgb(255,0,0)', 'rgb(255,166,0)', 'rgb(60,179,113)'],
+    }
+    var month_zh_en = {
+      '01':'1月',
+      '02':'2月',
+      '03':'3月',
+      '04':'4月',
+      '05':'5月',
+      '06':'6月',
+      '07':'7月',
+      '08':'8月',
+      '09':'9月',
+      '10':'10月',
+      '11':'11月',
+      '12':'12月'
+    }
 
-  // one_row_three = (eleid, monthed, columns)=>{
-  //   this.querst("", monthed, columns).subscribe(result=>{
-  //     console.log("得到左侧第一个数据res： ", result);
-  //     kpi_detail.two_row_one(eleid, defaultdata);
-  //   })
-  // }
+    this.querst("", monthed, _columns).subscribe(result=>{
+      console.log("第三行，第二个： ", result);
+      var res = result["result"]["message"][0];
+      if (res["code"]===1){
+        var message = res["message"];
+        if (message.length){
+          for (let index = 0; index < message.length; index++) {
+            const element = message[index];
+            if (element){
+              var _index = defaultdata.xData.indexOf(month_zh_en[element["dates"]]);
+              defaultdata.xData[_index] = month_zh_en[element["dates"]];
+              switch (element["level"]) {
+                case 1: //info
+                  defaultdata.info[_index] = element["count"];
+                  break;
+                case 2: // warning
+                  defaultdata.warning[_index] = element["count"];
+                  
+                  break;
+                case 3: // error
+                  defaultdata.error[_index] = element["count"];
+                  break;
+              
+              }
+            }
+          }
+        }
+      }
+      console.log("得到第三行，第二个数据格式：", defaultdata)
+      kpi_detail.three_row_two(eleid, defaultdata);
+    })
+  }
+
+  // 第三行，第三个
+  three_row_three = (eleid, monthed, columns)=>{
+    // columns.deviceid = "device_mts_01";
+    var defaultdata = {
+      // 月份-倒序
+      xData: [0],
+      SeriesData: [0]
+    }
+    this.querst("", monthed, columns).subscribe(result=>{
+      console.log("得到第三行，第三个： ", result);
+      var res = result["result"]["message"][0];
+      if (res["code"]===1){
+        var message = res["message"];
+        if (message){
+          for (let index = 0; index < message.length; index++) {
+            const element = message[index];
+            if (element){
+              var _index = defaultdata.xData.indexOf(element["dates"]);
+              defaultdata.xData[_index] = element["dates"];
+              defaultdata.SeriesData[_index] = element["status"];
+            }
+            
+          }
+        }
+      }
+      console.log("得到第三行，第三个数据格式：", defaultdata)
+      kpi_detail.three_row_three(eleid, defaultdata);
+    })
+  }
 
 
   // device 设备数据汇总、group 功能组数据汇总、department 部门数据汇总 
@@ -600,22 +779,65 @@ export class KpiDetailComponent implements OnInit {
           { title: "完好率与故障率变化趋势",id:'kpi_12', method:'dev_get_device_availability_kpi_month', myfun:this.two_row_three },
         ],
         [
-          { title: "平均维修(故障停机)时同比环比",id:'kpi_20', method:'dev_get_device_failure_kpi',myfun: this.three_row_one },
-          { title: "设备报警统计",id:'kpi_21', method:'' },
-          { title: "设备当天启停状态数据统计",id:'kpi_22', method:'' },
+          { title: "平均维修(故障停机)时同比环比",id:'kpi_20', method:'dev_get_device_average_kpi',myfun: this.three_row_one },
+          { title: "设备报警统计",id:'kpi_21', method:'dev_get_device_log_kpi',myfun: this.three_row_two },
+          { title: "设备当天启停状态数据统计",id:'kpi_22', method:'dev_get_device_status_kpi', myfun: this.three_row_three },
         ],
       ]
     },
     group: {
       url: "/pages/tongji/device_hour_report/group_data_sum",
       kpi_for_detail: JSON.parse(localStorage.getItem("device_hour_report_kpi_for_detail")),
+      cards:[
+        [
+          { title: "试验各状态每月变化趋势",id:'kpi_00', method:' dev_task_count_kpi_groups', myfun:this.one_row_one  },
+          { title: "设备安灯月度趋势表",id:'kpi_01', method:'dev_get_device_columnar_kpi_groups',myfun:this.one_row_two},//  
+          { title: "设备2年安灯状态累计对比",id:'kpi_02', method:'dev_get_device_columnar_kpi_year_groups',myfun:this.one_row_three},// myfun:this.one_row_three 
+        ],
+        [
+          { title: "耐久类设备利用率同比和环比",id:'kpi_10', method:'dev_get_device_ratio_kpi_groups_durable', myfun:this.two_row_one},//myfun:this.two_row_one
+          { title: "设备占位运行及开动率年度变化趋势",id:'kpi_11', method:'dev_get_device_rate_kpi_groups', myfun: this.two_row_two  },//myfun: this.two_row_two
+          { title: "可用率与故障率每月变化趋势",id:'kpi_12', method:'dev_get_device_availability_kpi_groups', myfun:this.two_row_three},// myfun:this.two_row_three
+        ],
+        // 第三行和device的第三行不统一
+        [
+          { title: "性能类设备利用率同比和环比",id:'kpi_20', method:'dev_get_device_ratio_kpi_groups_performance', myfun:this.two_row_one},// 与第二行第一个相同myfun: this.three_row_one
+          { title: "平均维修（故障停机）时长同比环比",id:'kpi_21', method:'dev_get_device_average_kpi_groups', myfun: this.three_row_one}, // 原第三行 第一个相同 myfun: this.three_row_two
+          { title: "设备报警统计",id:'kpi_22', method:'dev_get_device_log_kpi_groups',  myfun: this.three_row_two },// 原第三行 第二个相同 myfun: this.three_row_three
+        ],
+      ]
     },
+    department:{
+      url: "/pages/tongji/device_hour_report/department_data_sum",
+      kpi_for_detail: JSON.parse(localStorage.getItem("device_hour_report_kpi_for_detail")),
+      cards:[
+        [
+          { title: "试验各状态每月变化趋势",id:'kpi_00', method:' dev_task_count_kpi_department', myfun:this.one_row_one  },
+          { title: "设备安灯月度趋势表",id:'kpi_01', method:'dev_get_device_columnar_kpi_department',myfun:this.one_row_two},//  myfun:this.one_row_two
+          { title: "设备2年安灯状态累计对比",id:'kpi_02', method:'dev_get_device_columnar_kpi_year_department',myfun:this.one_row_three},// myfun:this.one_row_three
+        ],
+        [
+          { title: "耐久类设备利用率同比和环比",id:'kpi_10', method:'dev_get_device_ratio_kpi_department_durable', myfun:this.two_row_one},//myfun:this.two_row_one
+          { title: "设备占位运行及开动率年度变化趋势",id:'kpi_11', method:'dev_get_device_rate_kpi_department', myfun: this.two_row_two },//myfun: this.two_row_two
+          { title: "可用率与故障率每月变化趋势",id:'kpi_12', method:'dev_get_device_availability_kpi_department', myfun:this.two_row_three},// myfun:this.two_row_three
+        ],
+        // 第三行和device的第三行不统一
+        [
+          { title: "性能类设备利用率同比和环比",id:'kpi_20', method:'dev_get_device_ratio_kpi_department_performance', myfun:this.two_row_one},// 与第二行第一个相同myfun: this.three_row_one
+          { title: "平均维修（故障停机）时长同比环比",id:'kpi_21', method:'dev_get_device_average_kpi_department', myfun: this.three_row_one },// 原第三行 第二个相同 myfun: this.three_row_three
+          { title: "设备报警统计",id:'kpi_22', method:'dev_get_device_log_kpi_department', myfun: this.three_row_two }, // 原第三行 第一个相同 myfun: this.three_row_two
+        ],
+      ]
+    }
   }
 
   table_url = "";
 
   // 参数
   columns = {}
+
+  // 返回button name
+  button_name;
 
   // plv8请求
   querst(table: string, method: string, colmun: Object){
@@ -651,28 +873,41 @@ export class KpiDetailComponent implements OnInit {
     }else if (this.type === 'group'){
       this.table_url = this.mothed_table_url.group.url;
       this.button_title = this.kpi_for_detail["groups"]
+    }else if (this.type === 'department'){
+      this.table_url = this.mothed_table_url.department.url;
+      this.button_title = this.kpi_for_detail["department"]
     }
     console.log("kpi_detail----", this.kpi_for_detail);
     console.log("type----", this.type);
 
 
     this.layoutService.onInitLayoutSize().subscribe(f=>{
-      if (this.type === 'device'){
-        var device_ids = [
-          'kpi_00', "kpi_01", "kpi_02", 
-          "kpi_10", "kpi_11", "kpi_12", 
-          "kpi_20", "kpi_21", "kpi_22", 
-        ]
-        device_ids.forEach(item=>{
-          var item_echart = document.getElementById(item);
-          if(item_echart) echarts.init(item_echart).resize();
-        })
-      }
-      // let left_one = document.querySelector('.left-one');
-      // if(left_one) echarts.init(left_one).resize();
+      var ids = [
+        'kpi_00', "kpi_01", "kpi_02", 
+        "kpi_10", "kpi_11", "kpi_12", 
+        "kpi_20", "kpi_21", "kpi_22", 
+      ]
+      ids.forEach(item=>{
+        var item_echart = document.getElementById(item);
+        if(item_echart) echarts.init(item_echart).resize();
+      })
+      
+      
       
     })
 
+    // 返回的数据button device
+    // this.type
+    if (this.type === 'device'){
+      this.button_name = "设备数据汇总";
+      this.mothed_table_url_card = this.mothed_table_url.device.cards;
+    }else if (this.type === 'group'){
+      this.button_name = "功能组数据汇总";
+      this.mothed_table_url_card = this.mothed_table_url.group.cards;
+    }else if(this.type === 'department'){
+      this.button_name = "部门数据汇总";
+      this.mothed_table_url_card = this.mothed_table_url.department.cards;
+    }
   }
   
   ngAfterViewInit(){
@@ -711,10 +946,44 @@ export class KpiDetailComponent implements OnInit {
             }
           })
         })
-        
         break;
     
-      default:
+      case 'group': // 科室/功能组
+        var kpi_for_detail = this.mothed_table_url.group.kpi_for_detail;
+        var groups_columns = {
+          start: this.datepip.transform(new Date(year, 0, 1), 'yyyy-MM-dd'),
+          end: this.datepip.transform(new Date(year, 12, 0), 'yyyy-MM-dd'),
+          year: year,
+          groupid: kpi_for_detail["groupid"],
+        }
+        this.mothed_table_url.group.cards.forEach(row=>{
+          row.forEach(col=>{
+            var eleid = col.id;
+            var monthed = col.method;
+            if (col.myfun){
+              col.myfun(eleid, monthed, groups_columns)
+            }
+          })
+        })
+        break;
+
+      case 'department': // 科室/功能组
+        var kpi_for_detail = this.mothed_table_url.department.kpi_for_detail;
+        var department_columns = {
+          start: this.datepip.transform(new Date(year, 0, 1), 'yyyy-MM-dd'),
+          end: this.datepip.transform(new Date(year, 12, 0), 'yyyy-MM-dd'),
+          year: year,
+          department: kpi_for_detail["department"],
+        }
+        this.mothed_table_url.department.cards.forEach(row=>{
+          row.forEach(col=>{
+            var eleid = col.id;
+            var monthed = col.method;
+            if (col.myfun){
+              col.myfun(eleid, monthed, department_columns)
+            }
+          })
+        })
         break;
     }
   }
@@ -726,17 +995,12 @@ export class KpiDetailComponent implements OnInit {
     // console.log("选择年份时，执行",year)
     if (this.type === 'device'){
       this.init_all_echart(year)
-      // 这是 左侧第一个柱状图
-      // this.init_left_one(this.mothed_table_url.device.left_method1,columns);
-      // // 这是 右侧第一个饼图 right-one
-      // this.init_right_ong(this.mothed_table_url.device.left_method1,columns);
-      // // 这是左侧第二个饼图 left_two
-      // this.init_left_two(this.mothed_table_url.device.left_method1,columns);
-      // // 这是 右侧第二个 柱状图 right-two
-      // this.init_right_two(this.mothed_table_url.device.left_method1,columns);
-
     }else if (this.type === 'group'){
-      console.error("group------------------------>")
+      // console.error("group------------------------>")
+      this.init_all_echart(year)
+    }else if(this.type === 'department'){
+      // console.error("department------------------------>")
+      this.init_all_echart(year)
     }
   }
   

@@ -3,7 +3,7 @@
 <div class="row" style="margin: 0 -11px;">
     <div class="col-lg-9" style="display: flex;">
         <!-- 设备信息 hover-->
-        <div class="example-items-rows " >
+        <div class="example-items-rows " *ngIf="type !== 'department'">
             <button nbButton size="tiny" nbPopoverTrigger="click" [nbPopover]="templateRef" status="info" *ngIf="kpi_for_detail"> {{button_title}} </button>
         </div>
         <ng-template #templateRef >
@@ -30,60 +30,22 @@
         </div>
 
         <div class="example-items-rows " >
-            <button nbButton size="tiny" status="success" (click)="kpireport()"> 设备/工时报表 </button>
+            <button nbButton size="tiny" status="success" (click)="kpireport()"> {{button_name}} </button>
         </div>
     </div>
 </div>
 
 
 <!-- 设备数据汇总、功能数据汇总、部门数据汇总 kpi详情 3*3 -->
-<div class="row" style="margin: 0 -11px;" *ngFor='let row of mothed_table_url.device.cards; let row_index = index;'>
+<!-- <div class="row" style="margin: 0 -11px;" *ngFor='let row of mothed_table_url.device.cards; let row_index = index;'> -->
+<div class="row" style="margin: 0 -11px;" *ngFor='let row of mothed_table_url_card; let row_index = index;'>
     <div class="col-md-4 myechart" *ngFor='let col of row; let col_index = index'>
-        <nb-card accent='info'>
-            <nb-card-header>{{col.title}}</nb-card-header>
-            <nb-card-body class="mychart_body">
+        <nb-card accent='info' style="    position: relative;">
+            <nb-card-header style="    position: absolute;border-bottom: 0px solid #edf1f7;">{{col.title}}</nb-card-header>
+            <nb-card-body class="mychart_body" style="width: 100%;    padding-top: 20px;">
                 <div id="kpi_{{row_index}}{{col_index}}" ></div>
             </nb-card-body>
         </nb-card>
     </div>
 </div>
 
-
-
-<div class="row" style="margin: 0 -11px;">
-    <div class="col-md-6 myechart">
-        <nb-card accent="info">
-            <nb-card-header>设备时间统计(小时)</nb-card-header>
-            <nb-card-body class="mychart_body">
-                <div class="left-one"></div>
-            </nb-card-body>
-        </nb-card>
-    </div>
-    <div class="col-md-6 myechart">
-        <nb-card accent="info">
-            <nb-card-header>运行/停止/故障/非占位(百分比)</nb-card-header>
-            <nb-card-body class="mychart_body">
-                <div class="right-one"></div>
-            </nb-card-body>
-        </nb-card>
-    </div>
-</div>
-
-<div class="row" style="margin: 0 -11px;">
-    <div class="col-md-6 myechart">
-        <nb-card class="card_two" accent="info">
-            <nb-card-header>月份运行时间(小时)</nb-card-header>
-            <nb-card-body class="mychart_body">
-                <div class="left-two"></div>
-            </nb-card-body>
-        </nb-card>
-    </div>
-    <div class="col-md-6 myechart">
-        <nb-card class="card_two" accent="info">
-            <nb-card-header>年份运行时间(小时)</nb-card-header>
-            <nb-card-body class="mychart_body">
-                <div class="right-two"></div>
-            </nb-card-body>
-        </nb-card>
-    </div>
-</div>

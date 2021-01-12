@@ -61,6 +61,7 @@ let kpi_detail = {
             series: afterdata.Series,
         }
         mychart.setOption(option);
+        mychart.resize();
     },
 
     // row_two 第一行第二个
@@ -218,6 +219,7 @@ let kpi_detail = {
             ]
         }
         mychart.setOption(option);
+        mychart.resize();
     },
 
     // row_three 第一行第三个
@@ -359,6 +361,7 @@ let kpi_detail = {
             }]
         };
         mychart.setOption(option);
+        mychart.resize();
     },
     
     // 第二行第一个 
@@ -517,6 +520,7 @@ let kpi_detail = {
             
         }
         mychart.setOption(option);
+        mychart.resize();
     },
 
     // 第二行第二个
@@ -527,7 +531,7 @@ let kpi_detail = {
             color:afterdata.color,
             tooltip:{},
             title:{
-                subtext: afterdata.Total.name,
+                subtext: afterdata.Total.name + "%",
                 right: '1%',
                 subtextStyle:{
                     fontSize:20,
@@ -568,6 +572,7 @@ let kpi_detail = {
             series: afterdata.Series,
         }
         mychart.setOption(option);
+        mychart.resize();
     },
     
     // 第二行第三个
@@ -578,7 +583,7 @@ let kpi_detail = {
             color:afterdata.color,
             tooltip:{},
             title:{
-                subtext: afterdata.Total.name,
+                subtext: afterdata.Total.name + "%",
                 right: '1%',
                 subtextStyle:{
                     fontSize:20,
@@ -619,6 +624,7 @@ let kpi_detail = {
             series: afterdata.Series,
         }
         mychart.setOption(option);
+        mychart.resize();
     },
     
     // 第三行，第一个
@@ -769,7 +775,7 @@ let kpi_detail = {
                             value: value,
                             textStyle: {
                                 align: 'center',
-                                fontSize:8
+                                fontSize:12 // 月份的字体大小
                             }
                         }
                     }),
@@ -840,6 +846,149 @@ let kpi_detail = {
             }]
         }
         mychart.setOption(option);
+        mychart.resize();
+    },
+    // 第三行第二个
+    three_row_two(element, afterdata){
+        var mychart = echarts.init(document.getElementById(element));
+        one_row_one_chart = mychart;
+        var labelOption = {
+            show: true,
+            rotate: 90,
+            align: 'left',
+            verticalAlign: 'middle',
+            position: 'top',
+            formatter: '{c}  {name|{a}}',
+            fontSize: 14,
+            rich: {
+                name: {
+                    // textBorderColor: '#fff'
+                    color:'black'
+                }
+            }
+        };
+        var option = {
+            color: afterdata.colors,
+            tooltip: {
+                trigger: 'axis',
+                axisPointer: {
+                    type: 'shadow'
+                }
+            },
+            legend: {
+                bottom:'3%',
+                right: 'center',
+                icon: 'horizontal',
+                itemWidth:9,
+                itemHeight:9,
+                textStyle: {
+                    color: 'black',
+                },
+                data: afterdata.legend
+            },
+            grid:{
+                top:'20%',
+                bottom:'20%',
+                left:'5%',
+                right: '5%'
+            },
+            xAxis: [
+                {
+                    type: 'category',
+                    axisTick: {show: false},
+                    axisLabel:{
+                        interval: 0
+                    },
+                    data: afterdata.xData,
+                    
+                }
+            ],
+            yAxis: [
+                {
+                    type: 'value'
+                }
+            ],
+            series: [
+                {
+                    name: 'error',
+                    type: 'bar',
+                    barGap: 0,
+                    label: labelOption,
+                    data: afterdata.error
+                },
+                {
+                    name: 'warning',
+                    type: 'bar',
+                    label: labelOption,
+                    data: afterdata.warning
+                },
+                {
+                    name: 'info',
+                    type: 'bar',
+                    label: labelOption,
+                    data: afterdata.info
+                },
+        
+            ]
+        };
+        mychart.setOption(option);
+        mychart.resize();
+    },
+
+    // 第三行，第三个
+    three_row_three(element, afterdata){
+        var mychart = echarts.init(document.getElementById(element));
+        one_row_one_chart = mychart;
+        var option = {
+
+            tooltip: {
+                trigger: 'axis'
+            },
+            grid: {
+                left: '3%',
+                right: '4%',
+                bottom: '3%',
+                containLabel: true
+            },
+            xAxis: {
+                type: 'category',
+                // data: [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24],
+                data: afterdata.xData,
+                
+               
+            },
+            yAxis: {
+                type: 'value',
+                max:2,
+                axisLine: {
+                    show: false
+                },
+                 axisTick: {
+                    show: false
+                },
+            },
+            
+
+            series: [
+                {
+                    name: 'Step Start',
+                    type: 'line',
+                    step: 'start',
+                    // data: [1, 0, 1, 0, 1, 0,1,1,1,0,1,1,1,0,0,0,0,0,0,0,1,1,0,1,1,1,0,1,1,0],
+                    data: afterdata.SeriesData,
+                    lineStyle:{
+                         color:'rgb(138,43,226)',
+                         width:4,
+                    },
+                    areaStyle:{
+                          color: 'rgb(138,43,226,0.3)'  
+                        
+                    },
+                },
+            ]
+        };
+        mychart.setOption(option);
+        mychart.resize();
     },
 
     // one_row_two(element, afterdata){
