@@ -103,13 +103,13 @@ export class TargetHourConfigComponent implements OnInit {
       maxDate: that.get_date_return_date().current_max, // 最大值
 
       onClose:function(selectedDates, dateStr, instance){
-        console.log("selectedDates, dateStr, instance",selectedDates, dateStr, instance)
+        // console.log("selectedDates, dateStr, instance",selectedDates, dateStr, instance)
       },
       onChange:function(selectedDates, dateStr, instance){
         // console.log("onChange>>>selectedDates, dateStr, instance",selectedDates, dateStr, instance);
         // console.log("选择的日期》》》",selectedDates);
         var data = dateStr.split(", ")
-        console.log("选择的日期dateStr》》》",data);
+        // console.log("选择的日期dateStr》》》",data);
         that.selectedDates.push(...data);
         // 去重
         that.selectedDates = Array.from(new Set(that.selectedDates))
@@ -124,13 +124,13 @@ export class TargetHourConfigComponent implements OnInit {
       minDate: that.get_date_return_date().before_min, // 最小值
       maxDate: that.get_date_return_date().before_max, // 最大值
       onClose:function(selectedDates, dateStr, instance){
-        console.log("selectedDates, dateStr, instance",selectedDates, dateStr, instance)
+        // console.log("selectedDates, dateStr, instance",selectedDates, dateStr, instance)
       },
       onChange:function(selectedDates, dateStr, instance){
         // console.log("onChange>>>selectedDates, dateStr, instance",selectedDates, dateStr, instance);
         // console.log("选择的日期》》》",selectedDates);
         var data = dateStr.split(", ")
-        console.log("选择的日期dateStr》》》",data);
+        // console.log("选择的日期dateStr》》》",data);
         that.selectedDates.push(...data);
         // 去重
         that.selectedDates = Array.from(new Set(that.selectedDates))

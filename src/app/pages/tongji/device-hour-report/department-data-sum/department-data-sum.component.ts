@@ -32,23 +32,20 @@ export class DepartmentDataSumComponent implements OnInit {
     PageSize: 10, // 每页 10条数据
     isno_refresh_page_size: false, // 是否重新将 每页多少条数据，赋值为默认值
     columnDefs:[ // 列字段 多选：headerCheckboxSelection checkboxSelection , flex: 1 自动填充宽度 pinned: 'left' 固定左侧
-      // { field: 'deviceno', headerName: '设备编号', resizable: true, width: 150, headerCheckboxSelection: true, checkboxSelection: true, autoHeight: true, fullWidth: true,},
-      // { field: 'devicename', headerName: '设备名称',fullWidth: true,resizable: true, width: 160,},
-      // { field: 'deviceid', headerName: '设备ID',  resizable: true,fullWidth: true, width: 200,},
-      // { field: 'groups', headerName: '科室/功能组', resizable: true, fullWidth: true,width: 330},
-      // { field: 'linklevel', headerName: '设备关重度', resizable: true,fullWidth: true,width: 130,},
-      // { field: 'devicetype', headerName: '设备统计归类', resizable: true, fullWidth: true,width: 130,}, //设备类型
-      { field: 'totaltime', headerName: '总目标时长(h)', resizable: true, headerCheckboxSelection: true, checkboxSelection: true, autoHeight: true,fullWidth: true,width: 130, sortable: true},
+     
+      { field: 'totaltime', headerName: '总目标时长(h)', resizable: true, headerCheckboxSelection: true, checkboxSelection: true, autoHeight: true,fullWidth: true,width: 140, sortable: true},
       { field: 'month', headerName: '月份', resizable: true,  fullWidth: true,width: 100, sortable: true},
       { field: 'placeon', headerName: '占位时长(h)', resizable: true,fullWidth: true, width: 130, sortable: true}, 
       { field: 'stop', headerName: '空闲时长(h)', resizable: true, fullWidth: true,width: 130, sortable: true},
       { field: 'warning', headerName: '维修时长(h)', resizable: true, fullWidth: true,width: 130, sortable: true},
       { field: 'running', headerName: '运行时长(h)', resizable: true, fullWidth: true,width: 130, sortable: true},
-      { field: 'ratio', headerName: '利用率(%)', resizable: true, fullWidth: true,width: 130, sortable: true},
-      { field: 'rate', headerName: '开动率(%)', resizable: true, fullWidth: true,width: 130, sortable: true},
+      { field: 'performancerate', headerName: '性能设备开动率(%)', resizable: true, fullWidth: true,width: 150, sortable: true},
+      { field: 'performanceratio', headerName: '性能设备利用率(%)', resizable: true, fullWidth: true,width: 150, sortable: true},
+      { field: 'durablerate', headerName: '耐久设备开动率(%)', resizable: true, fullWidth: true,width: 150, sortable: true},
+      { field: 'durableratio', headerName: '耐久设备利用率(%)', resizable: true, fullWidth: true,width: 150, sortable: true},
       { field: 'starttime', headerName: '开始时间', resizable: true, fullWidth: true,width: 130, sortable: true},
-      { field: 'endtime', headerName: '结束时间', resizable: true, fullWidth: true,minWidth: 10,flex:1, sortable: true},
-      {field: 'option', headerName: '详情', cellRendererFramework: ActionComponent,resizable: true, fullWidth: true,width: 100, pinned: 'right', sortable: true}
+      { field: 'endtime', headerName: '结束时间', resizable: true, fullWidth: true,minWidth: 10,sortable: true, width: 130,},
+      {field: 'option', headerName: '详情', cellRendererFramework: ActionComponent,resizable: true, fullWidth: true,width: 100, pinned: 'right', sortable: true,flex:1, }
 
     ],
     rowData: [ // data

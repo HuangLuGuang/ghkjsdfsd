@@ -68,7 +68,7 @@ export class MonthSelectComponent implements OnInit {
       // var select_data = that.select_data; //[{id: 3, label: "nvh"},]
       // var select_label_list = that.select_label_list;
       eleTree.on("nodeClick(single_data5)",function(d) {
-        console.error("select_data",d.data.currentData)
+        // console.error("select_data",d.data.currentData)
         $("[name='single_title']").val(d.data.currentData.label);
         $(".single_ele5").hide();
     })

@@ -77,7 +77,7 @@ export class TeskConfigComponent implements OnInit {
     this.active = { field: 'option', headerName: '操作', resizable: true, fullWidth: true, width: 100, pinned: 'right',cellRendererFramework: ActionComponent,
       cellRendererParams: {
         clicked: function(data: any) {
-          console.log("--编辑操作列---",data);
+          // console.log("--编辑操作列---",data);
           that.edit(data);
           // that.change_target_hour([data]);
         }

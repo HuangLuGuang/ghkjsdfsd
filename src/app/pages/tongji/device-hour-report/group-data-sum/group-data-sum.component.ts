@@ -42,7 +42,10 @@ export class GroupDataSumComponent implements OnInit {
     { field: 'stop', headerName: '空闲时长(h)', resizable: true, fullWidth: true,width: 130, sortable: true},
     { field: 'warning', headerName: '维修时长(h)', resizable: true, fullWidth: true,width: 130, sortable: true},
     { field: 'running', headerName: '运行时长(h)', resizable: true, fullWidth: true,width: 130, sortable: true},
-    { field: 'rate', headerName: '开动率(%)', resizable: true, fullWidth: true,width: 130, sortable: true},
+    { field: 'performancerate', headerName: '性能设备开动率(%)', resizable: true, fullWidth: true,width: 150, sortable: true},
+    { field: 'performanceratio', headerName: '性能设备利用率(%)', resizable: true, fullWidth: true,width: 150, sortable: true},
+    { field: 'durablerate', headerName: '耐久设备开动率(%)', resizable: true, fullWidth: true,width: 150, sortable: true},
+    { field: 'durableratio', headerName: '耐久设备利用率(%)', resizable: true, fullWidth: true,width: 150, sortable: true},
     { field: 'starttime', headerName: '开始时间', resizable: true, fullWidth: true,width: 130, sortable: true},
     { field: 'endtime', headerName: '结束时间', resizable: true, fullWidth: true,minWidth: 10, sortable: true},
     {field: 'option', headerName: '详情', resizable: true, fullWidth: true,width: 100, pinned: 'right',cellRendererFramework: ActionComponent, sortable: true}
