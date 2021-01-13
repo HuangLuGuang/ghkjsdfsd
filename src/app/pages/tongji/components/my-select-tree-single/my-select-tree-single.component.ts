@@ -95,4 +95,9 @@ export class MySelectTreeSingleComponent implements OnInit {
 
   }
 
+  // 设置选择的数据
+  setselect(data){
+    $("[name='single_tree_title']").val(data);
+  }
+
 }

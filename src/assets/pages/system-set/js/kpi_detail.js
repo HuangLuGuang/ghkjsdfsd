@@ -1,5 +1,5 @@
 
-let left_one_chart
+
 
 
 let kpi_detail = {
@@ -8,12 +8,12 @@ let kpi_detail = {
         var mychart = echarts.init(document.getElementById(element));
         one_row_one_chart = mychart;
         var option = {
-            color:['#DBB70D', '#5D920D'],
-            tooltip:{},
+            color:afterdata.color,
+          
             title: {
                 text: "试验总数",
                 subtext: afterdata.pieTotal,
-                top: '17%',
+                top: '15%',
                 textAlign: "center",
                 left: "71%",
                 textStyle: {
@@ -45,7 +45,7 @@ let kpi_detail = {
                 // right: '4%',
                 right: 30,
                 bottom: '10%',
-                top: '40%',
+                top: '10%',
                 containLabel: true
             },
             xAxis: [
@@ -65,7 +65,10 @@ let kpi_detail = {
             ],
             yAxis: [
                 {
-                    type: 'value'
+                    type: 'value',
+                    max: function (value) {
+                        return value.max * 1.7;
+                    }
                 }
             ],
             series: afterdata.Series,
@@ -257,7 +260,7 @@ let kpi_detail = {
         var option = {
             // backgroundColor: '#0A2E5D',
         
-            color: ["#FFBF9F", "#93C9FF"],
+            color: afterdata.color,
         
             tooltip: {
                 show: true,
@@ -332,7 +335,17 @@ let kpi_detail = {
                 symbolSize: 10, // 标记点的大小
                 areaStyle: {
                     normal: {
-                        color: "rgba(255,191,159, 0.9)" // 19
+                        // color: "rgba(255,191,159, 0.9)" // 19
+                        color: afterdata.areacolor[0]
+                    }
+                },
+                lineStyle: {
+                    normal: {
+                        // color: "rgba(255,191,159, 1)",
+                        color: afterdata.linecolor[0],
+                        width: 2,
+                        // 面积线类型 dashed 大虚线 dotted 小虚线   solid 实线
+                        type: "solid"
                     }
                 },
                 // 标记点的 样式
@@ -345,15 +358,6 @@ let kpi_detail = {
                 data: [{
                     value: afterdata.data1.value,// 占位、空闲、维修、运行
                     // value: [80, 50,  48, 43],// 占位、空闲、维修、运行
-                    //在拐点处显示数值
-                    // label: {
-                    //     normal: {
-                    //         show: true,
-                    //         formatter: (params) => {
-                    //             return params.value
-                    //         },
-                    //     },
-                    // },
                 }]
             }, {
                 name: afterdata.data2.name,
@@ -365,19 +369,21 @@ let kpi_detail = {
                 itemStyle: {
                     normal: {
                         color: 'rgba(19, 173, 255, 1)',
-                        // borderColor: "rgba(19, 173, 255, 0.4)",
+                        
                         borderWidth: 10
                     }
                 },
         
                 areaStyle: {
                     normal: {
-                        color: "rgba(19, 173, 255, 0.5)"
+                        // color: "rgba(19, 173, 255, 0.5)"
+                        color: afterdata.areacolor[1]
                     }
                 },
                 lineStyle: {
                     normal: {
-                        color: "rgba(19, 173, 255, 1)",
+                        // color: "rgba(19, 173, 255, 1)",
+                        color: afterdata.linecolor[1],
                         width: 2,
                         // 面积线类型 dashed 大虚线 dotted 小虚线   solid 实线
                         type: "solid"

@@ -8,6 +8,7 @@ import { ActivatedRoute } from '@angular/router';
 import { DatePipe } from '@angular/common';
 import { UserInfoService } from '../../../services/user-info/user-info.service';
 import { PublicmethodService } from '../../../services/publicmethod/publicmethod.service';
+import { color } from 'd3-color';
 
 let kpi_detail = require("../../../../assets/pages/system-set/js/kpi_detail");
 
@@ -37,7 +38,9 @@ export class KpiDetailComponent implements OnInit {
     this.querst("", monthed, columns).subscribe(result=>{
       // console.log("第一行第一个 ", result);
       var res = result["result"]["message"][0];
+      var color = ['#DBB70D', '#5D920D'];
       var defalultdata = {
+        color:color,
         Xdata: ['01','02','03','04','05','06','07','08','09','10','11','12',],
         Series:[
           {
@@ -59,20 +62,25 @@ export class KpiDetailComponent implements OnInit {
             type: 'pie',
             center: ['75%', '35%'],
             // radius: '28%',
-            radius: ['20%', '30%'],
+            radius: ['20%', '28%'],
             tooltip: {
               trigger: 'item',
               axisPointer: {            // 坐标轴指示器，坐标轴触发有效
                   type: 'shadow'        // 默认为直线，可选为：'line' | 'shadow'
               },
+              
+              formatter: function(params){
+                var data = params.data;
+                return data["title"] + ':\t' + data["value"] + '\t' + (data["value"]/(defalultdata.pieTotal===0?1:defalultdata.pieTotal)).toFixed(2) + "%"
+              }
               // formatter: '{b} <br/>{a0}: {c0}<br/>{a1}: {c1}'
             },
             z: 100,
             y: -60,
             x: -60,
             data:[
-              {name: '未完成', value:0},
-              {name: '已完成', value:0},
+              {name: '未完成', value:0, title: '未完成',itemStyle: {color: color[1]},},
+              {name: '已完成', value:0, title: '已完成',itemStyle: {color: color[0]}},
             ]
           }
         ],
@@ -152,10 +160,14 @@ export class KpiDetailComponent implements OnInit {
             }
           });
           // all 已完成 {name: '已完成', value:0},
-          defalultdata.Series[2].data[0]["name"] = pie_success.title;
+          // defalultdata.Series[2].data[0]["name"] = pie_success.title;
+          defalultdata.Series[2].data[0]["title"] = pie_success.title;
+          defalultdata.Series[2].data[0]["name"] = this.get_tal(pie_success.ydata) + '个';
           defalultdata.Series[2].data[0]["value"] = this.get_tal(pie_success.ydata)
           // all 未完成 {name: '未完成', value:0}, 
-          defalultdata.Series[2].data[1]["name"] = pie_nosuccess.title;
+          // defalultdata.Series[2].data[1]["name"] = pie_nosuccess.title;
+          defalultdata.Series[2].data[1]["title"] = pie_nosuccess.title;
+          defalultdata.Series[2].data[1]["name"] = this.get_tal(pie_nosuccess.ydata) + '个';
           defalultdata.Series[2].data[1]["value"] = this.get_tal(pie_nosuccess.ydata)
           // pieTotal 总数 提示
           defalultdata.pieTotal = numbers
@@ -233,9 +245,13 @@ export class KpiDetailComponent implements OnInit {
     columns.end = columns.year; // end 为 今年的
     columns.start = columns.year - 1; // start 为 去年的
     this.querst("", monthed, columns).subscribe(result=>{
-      console.log("第二行第三个 ", result);
+      console.log("第一行第三个 ", result);
       var res = result["result"]["message"][0];
       var defaultdata = {
+        // ["#FFBF9F", "#93C9FF"]
+        color: ['rgba(225,191,159,1)','rgba(147,201,255,1)'],
+        areacolor: ['rgba(225,191,159,0.9)','rgba(19, 173, 255, 0.5)'],
+        linecolor:['rgba(255,191,159, 1)','rgba(19, 173, 255, 1)'],
         data1: { // 去年
           name: columns.start + "年",
           value: [0,0,0,0]
@@ -248,17 +264,17 @@ export class KpiDetailComponent implements OnInit {
       // 占位、空闲、维修、运行
       if (res["code"] === 1){
         var message = res["message"];
-        for (let index = 0; index < 2; index++) { 
-          if (message[index]){
-            switch (index) {
-              case 0:
+        for (let index = 0; index < message.length; index++) { 
+          if (message[index] && message[index]["dates"]){
+            switch (Number(message[index]["dates"])) {
+              case columns.start:
                 defaultdata.data1.name = message[index]["dates"]+ "年";
                 defaultdata.data1.value[0]= message[index]["placeon"]
                 defaultdata.data1.value[1]= message[index]["stop"]
                 defaultdata.data1.value[2]= message[index]["warning"]
                 defaultdata.data1.value[3]= message[index]["running"]
                 break;
-              case 1:
+              case columns.end:
                 defaultdata.data2.name = message[index]["dates"]+ "年";
                 defaultdata.data2.value[0]= message[index]["placeon"]
                 defaultdata.data2.value[1]= message[index]["stop"]
@@ -430,10 +446,11 @@ export class KpiDetailComponent implements OnInit {
         {
             name: '占位',
             type: 'bar',
-            barWidth: '20%',
+            barMaxWidth: 20,
+            // barWidth: '20%',
             stack: '设备占位运行及开动率年度变化趋势',
             data: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-            zlevel:1222,
+            z:2,
             itemStyle: {
               normal: {
                 // color: "rgba(255,144,128,1)",
@@ -442,7 +459,8 @@ export class KpiDetailComponent implements OnInit {
                   textStyle: {
                     color: "#DBB70D"
                         },
-                        position: [0,-10],
+                        // position: [0,-10],
+                        position: 'top',
                     
                     formatter: function(p) {
                         return p.value > 0 ? (p.value) : '';
@@ -454,10 +472,11 @@ export class KpiDetailComponent implements OnInit {
         {
             name: '运行',
             type: 'bar',
-            barWidth: '20%',
+            barMaxWidth: 20,
+            // barWidth: '20%',
             stack: '设备占位运行及开动率年度变化趋势',
             data: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-            zlevel:1222,
+            z:1,
             itemStyle: {
               normal: {
                 // color: "rgba(255,144,128,1)",
@@ -466,7 +485,8 @@ export class KpiDetailComponent implements OnInit {
                   textStyle: {
                     color: "#5D920D"
                         },
-                        position: [0,-10],
+                        // position: [0,-10],
+                        position: 'top',
                     
                     formatter: function(p) {
                         return p.value > 0 ? (p.value) : '';
@@ -990,7 +1010,7 @@ export class KpiDetailComponent implements OnInit {
     }else if (this.type === 'group'){
       // console.error("group------------------------>")
       this.init_all_echart(year)
-      this.RecordOperation(1,'查看',year + '功能组数据汇总KPI详情');
+      this.RecordOperation(1,'查看',year +'功能组数据汇总KPI详情');
     }else if(this.type === 'department'){
       // console.error("department------------------------>")
       this.init_all_echart(year)

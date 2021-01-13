@@ -29,6 +29,7 @@
                     </td>
                 </tr>
             </table>
+            
             <div class="scrollbar">
                 <table>
                     <tr *ngFor="let items of log_warm.data;let i = index" class="body" style="height: 12px;" [ngStyle]="{'color':items[3] == 3?'red':items[3]==2?'':'yellow'}">

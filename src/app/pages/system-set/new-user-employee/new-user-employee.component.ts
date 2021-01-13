@@ -92,10 +92,10 @@ export class NewUserEmployeeComponent implements OnInit {
             that.del(data["data"]);
           }else{
             var loginname = { loginname: data["data"][0]["loginname"] }
-            console.log("*********************************\n")
-            console.log("data>>",loginname)
+            // console.log("*********************************\n")
+            // console.log("data>>",loginname)
             that.change_password(loginname);
-            console.log("*********************************\n")
+            // console.log("*********************************\n")
           }
         }
       },
@@ -506,7 +506,7 @@ export class NewUserEmployeeComponent implements OnInit {
         this.RecordOperation('更新', 1, "用户管理")
       }else{
         // 更新tabel失败！
-        console.log("更新tabel失败！", tabledata);
+        // console.log("更新tabel失败！", tabledata);
         this.RecordOperation('更新', 0, "用户管理")
       }
       

@@ -185,7 +185,7 @@ export class DeviceDataSumComponent implements OnInit {
 
   // 导出
   download(){
-    this.agGrid.download('设备工时报表')
+    this.agGrid.download('设备数据汇总')
   }
 
   // aggrid==================================

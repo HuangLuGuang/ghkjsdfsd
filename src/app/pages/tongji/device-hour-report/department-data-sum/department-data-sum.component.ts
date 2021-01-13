@@ -98,6 +98,7 @@ export class DepartmentDataSumComponent implements OnInit {
           {id:2, label: "工程中心"}
         ];
         this.department.init_select_tree(department_list);
+        this.department.setselect(department_list[0].label);
         // var groups = res["message"][0]["groups"];
         // this.department.init_select_tree(groups);
         // var eimdevicetpyedata = res["message"][0]["type"];
@@ -161,7 +162,7 @@ export class DepartmentDataSumComponent implements OnInit {
 
   // 导出
   download(){
-    // this.agGrid.download('设备工时报表')
+    this.agGrid.download('部门数据汇总')
   }
 
   // 重置

@@ -152,7 +152,7 @@ export class GroupDataSumComponent implements OnInit {
 
   // 导出
   download(){
-    // this.agGrid.download('设备工时报表')
+    this.agGrid.download('功能组数据汇总')
   }
 
   // 重置
