@@ -41,26 +41,32 @@
     <script type="text/javascript">
         // 20201225151850
         $.ajax({
-            // url: 'https://api.map.baidu.com/api?v=2.0&ak=4TBS12lmsagsuOBKhPTx3QQGbp19Y78Q&services=false',
-            url: "https://api.map.baidu.com/getscript?v=2.0&ak=4TBS12lmsagsuOBKhPTx3QQGbp19Y78Q&services=true",
+            url: 'https://api.map.baidu.com/api?v=2.0&ak=4TBS12lmsagsuOBKhPTx3QQGbp19Y78Q&services=false',
+            // url: "https://api.map.baidu.com/getscript?v=2.0&ak=4TBS12lmsagsuOBKhPTx3QQGbp19Y78Q&services=true",
             type: "GET",
             dataType: 'script',
             cache: true,
             // async: false,
             success: function(data, textStatus, jqxhr) {
-                // var script = document.createElement('script');
-                // script.src = "https://api.map.baidu.com/api?v=2.0&ak=4TBS12lmsagsuOBKhPTx3QQGbp19Y78Q&services=false";
-                // script.type = "text/javascript";
-                // document.getElementsByTagName('body')[0].appendChild(script);
                 console.log(data);
                 console.log(textStatus);
                 console.log(jqxhr)
+                $.ajax({
+                    url: "https://api.map.baidu.com/getscript?v=2.0&ak=4TBS12lmsagsuOBKhPTx3QQGbp19Y78Q&services=true",
+                    type: "GET",
+                    dataType: 'script',
+                    cache: true,
+                    success: function(data, textStatus, jqxhr) {},
+                    error: function(XMLHttpRequest, textStatus, errorThrown) {
+                        alert('百度地图获取失败')
+                    }
+                })
             },
             error: function(XMLHttpRequest, textStatus, errorThrown) {
-                console.log("请求失败，status：" + XMLHttpRequest.status);
-                console.log("readystate：" + XMLHttpRequest.readyState);
-                console.log("responseText：" + XMLHttpRequest.responseText);
-                console.log("错误信息：" + textStatus);
+                // console.log("请求失败，status：" + XMLHttpRequest.status);
+                // console.log("readystate：" + XMLHttpRequest.readyState);
+                // console.log("responseText：" + XMLHttpRequest.responseText);
+                // console.log("错误信息：" + textStatus);
                 alert('百度地图获取失败')
             }
         });
