@@ -267,7 +267,12 @@ let rtm3a = {
                     symbolSize: 10,
                     showAllSymbol: true,
                     color: color[3],
-                    data: yearPlanData
+                    data: yearPlanData,
+                    itemStyle: {
+                        lineStyle: {
+                            width: 2
+                        }
+                    }
                 },
                 {
                     name: '湿度',
@@ -278,10 +283,8 @@ let rtm3a = {
                     showAllSymbol: true,
                     color: '#F90',
                     itemStyle: {
-                        normal: {
-                            lineStyle: {
-                                width: 2
-                            }
+                        lineStyle: {
+                            width: 2
                         }
                     },
                     data: yearOrderData

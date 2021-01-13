@@ -24,6 +24,10 @@
                     </div>
                 </div>
             </div>
+            <!-- 左右滚动条 -->
+            <div class="scrollbar_l">
+                <div id="s"></div>
+            </div>
             <div class="table_body" style="display: flex;">
                 <div class="table_body_th_1">
                     <ng-container *ngFor="let items of tableBody;">
@@ -34,14 +38,24 @@
                         </ng-container>
                     </ng-container>
                 </div>
+
                 <div class="table_body_th_2">
-                    <ng-container *ngFor="let items of tableBody;">
+                    <table id="table_body_2" style="height: 100%;text-align: left;">
+                        <tr *ngFor="let items of tableBody;">
+                            <td *ngFor="let key of fixed;">
+                                <div style="white-space: pre;height: 30px;display: inline-grid;">
+                                    {{ items[key] }}
+                                </div>
+                            </td>
+                        </tr>
+                    </table>
+                    <!-- <ng-container *ngFor="let items of tableBody;">
                         <ng-container *ngFor="let key of obejct.keys(tableHeader);let i = index">
                             <div style="white-space: pre;height: 10%;display: inline-grid;" *ngIf="i == 2">
                                 {{ items[key] }}
                             </div>
                         </ng-container>
-                    </ng-container>
+                    </ng-container> -->
                 </div>
             </div>
         </div>
