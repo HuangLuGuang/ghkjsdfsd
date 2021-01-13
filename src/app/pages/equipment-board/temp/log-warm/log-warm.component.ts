@@ -33,7 +33,7 @@ export class LogWarmComponent implements OnInit {
       // [1,1,1,1],
       // [1,1,1,1],
       // [1,1,1,1],
-      // [1,1,1,1],
+      // [1,1,'111111111111111111111111111111111111111111111111111111111111',1],
     ]
   }
   timer;
@@ -52,6 +52,7 @@ export class LogWarmComponent implements OnInit {
     this.subscribeList.layout = this.layoutService.onInitLayoutSize().subscribe(f=>{
       if(document.getElementById('warning'))
         echarts.init(document.getElementById('warning')).resize();
+        this.create_scrollbar();
     })
     let date;
     this.timer = setInterval(f=>{
@@ -61,8 +62,17 @@ export class LogWarmComponent implements OnInit {
     },1000)
     
     this.get_device_mts_log_his();
-    this.get_device_mts_log_daily();
-    
+    $('.scrollbar_l').bind("scroll",f=>{
+      // $('.scrollbar_l').scrollLeft()
+      $('.scrollbar').scrollLeft($('.scrollbar_l').scrollLeft())
+    })
+
+    // this.get_device_mts_log_daily();
+    this.create_scrollbar();
+  }
+
+  create_scrollbar(){
+    $('#s').width( $('#table_lr').width())
   }
 
 
@@ -72,6 +82,7 @@ export class LogWarmComponent implements OnInit {
 
   obser = new Observable(f=>{
     if(document.getElementById('warning'))echarts.init(document.getElementById('warning')).resize();
+    this.create_scrollbar();
     f.next('log-warm刷新')
   }).pipe(take(1));
   
@@ -103,6 +114,7 @@ export class LogWarmComponent implements OnInit {
       // console.log(g)
       if(g.result.error || g.result.message[0].code == 0)return;
       getMessage(g,this.log_warm.data);
+      this.create_scrollbar();
     })
   }
 

@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { LayoutService } from '../../../../../../@core/utils';
 let equipment_four_road = require('../../../../../../../assets/eimdoard/equipment/js/equipment-four-road');
 
-
+declare var $;
 @Component({
   selector: 'ngx-left-layout',
   templateUrl: './left-layout.component.html',
@@ -24,6 +24,9 @@ export class LeftLayoutComponent implements OnInit {
     // {time:'2020-10-11',device:'四立柱',log:'Not ready'},
     // {time:'2020-10-11',device:'四立柱',log:'Not ready'},
     // {time:'2020-10-11',device:'四立柱',log:'Not ready'},
+    // {time:'2020-10-11',device:'四立柱',log:'Not ready'},
+    // {time:'2020-10-11',device:'四立柱',log:'Not ready'},
+    // {time:'2020-10-11',device:'四立柱',log:'Not ready'},
   ]
 
   fixed = ['log'];
@@ -33,8 +36,21 @@ export class LeftLayoutComponent implements OnInit {
   ngOnInit(): void {
     this.layoutService.onInitLayoutSize().subscribe(f=>{
       this.resize();
+      this.create_scrollbar();
     })
     window.addEventListener('resize',this.resize);
+
+    $('.scrollbar_l').bind("scroll",f=>{
+      // $('.scrollbar_l').scrollLeft()
+      $('.table_body_th_2').scrollLeft($('.scrollbar_l').scrollLeft())
+    })
+
+    this.create_scrollbar();
+  }
+
+  
+  create_scrollbar(){
+    $('#s').width( $('#table_body_2').width())
   }
 
   resize=()=>{
@@ -44,6 +60,7 @@ export class LeftLayoutComponent implements OnInit {
     })
     if(document.getElementById('left_chart_hour_year'))
       echarts.init(document.getElementById('left_chart_hour_year')).resize();
+    this.create_scrollbar();
   }
 
    //  running运行 placeon占位 stop等待 warning维护 

@@ -334,11 +334,11 @@ export class EquipmentCouplingPathComponent implements OnInit {
    * param param 
    */
   get_device_mts_time(table,method,param){
-    // let datestr = dateformat(new Date(),'yyyy-MM-dd hh:mm');
-    // let datestr_ = dateformat(new Date(),'yyyy-MM-dd hh:mm');
+    // let datestr = dateformat(new Date(new Date().getTime()-10000),'yyyy-MM-dd hh:mm:ss');
+    // let datestr_ = dateformat(new Date(),'yyyy-MM-dd hh:mm:ss');
     // dateformat(new Date(now.getTime()-10000)
     let now = new Date();
-    this.subscribeList.time = this.http.callRPC(table,method,{"start":dateformat(new Date(now.getTime()-10000),'yyyy-MM-dd'),"end": dateformat(now,'yyyy-MM-dd hh:mm:ss'),"device":this.deviceid,
+    this.subscribeList.time = this.http.callRPC(table,method,{"start":dateformat(new Date(now.getTime()-10000),'yyyy-MM-dd  hh:mm:ss'),"end": dateformat(now,'yyyy-MM-dd hh:mm:ss'),"device":this.deviceid,
     arr:param[0].join(',')}).subscribe((f:any) =>{
       if(f.result.error || f.result.message[0].code == 0)return;
       painting_time(f,10,this,['chart_1','chart_2','chart_3']);
