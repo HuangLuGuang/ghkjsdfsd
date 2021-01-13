@@ -67,7 +67,7 @@ export class MySelectTreeSingleComponent implements OnInit {
       // var select_data = that.select_data; //[{id: 3, label: "nvh"},]
       // var select_label_list = that.select_label_list;
       eleTree.on("nodeClick(single_tree_data5)",function(d) {
-        console.error("select_data",d.data.currentData)
+        // console.error("select_data",d.data.currentData)
         $("[name='single_tree_title']").val(d.data.currentData.label);
         $(".single_tree_ele5").hide();
     })
@@ -88,7 +88,7 @@ export class MySelectTreeSingleComponent implements OnInit {
   // 清空下拉数据
   dropselect(){
     this.delselect();
-    console.log("清空下拉数据",$("[name='single_tree_title']").val());
+    // console.log("清空下拉数据",$("[name='single_tree_title']").val());
     var select = this.single_tree_el5s?.getChecked();
     this.single_tree_el5s?.reload({data:this.tree_data}); // 重新加载树
     // this.single_tree_el5s?.unCheckNodes() //取消所有选中的节点

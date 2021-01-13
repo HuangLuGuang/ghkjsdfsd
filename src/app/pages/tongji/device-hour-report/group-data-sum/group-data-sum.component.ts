@@ -35,15 +35,17 @@ export class GroupDataSumComponent implements OnInit {
     columnDefs:[ // 列字段 多选：headerCheckboxSelection checkboxSelection , flex: 1 自动填充宽度 pinned: 'left' 固定左侧
     { field: 'groups', headerName: '科室/功能组', resizable: true, fullWidth: true,width: 330, headerCheckboxSelection: true, checkboxSelection: true, autoHeight: true,cellRendererFramework: TableGroupComponent, sortable: true},
     { field: 'totaltime', headerName: '总目标时长(h)', resizable: true, fullWidth: true,width: 130, sortable: true},
-      { field: 'month', headerName: '月份', resizable: true, fullWidth: true,width: 100, sortable: true},
-      { field: 'placeon', headerName: '占位时长(h)', resizable: true,fullWidth: true, width: 130, sortable: true}, 
-      { field: 'stop', headerName: '空闲时长(h)', resizable: true, fullWidth: true,width: 130, sortable: true},
-      { field: 'warning', headerName: '维修时长(h)', resizable: true, fullWidth: true,width: 130, sortable: true},
-      { field: 'running', headerName: '运行时长(h)', resizable: true, fullWidth: true,width: 130, sortable: true},
-      { field: 'rate', headerName: '开动率(%)', resizable: true, fullWidth: true,width: 130, sortable: true},
-      { field: 'starttime', headerName: '开始时间', resizable: true, fullWidth: true,width: 130, sortable: true},
-      { field: 'endtime', headerName: '结束时间', resizable: true, fullWidth: true,minWidth: 10, sortable: true},
-      {field: 'option', headerName: '详情', resizable: true, fullWidth: true,width: 100, pinned: 'right',cellRendererFramework: ActionComponent, sortable: true}
+    // { field: 'devicetype', headerName: '设备统计归类', resizable: true, fullWidth: true,width: 100, sortable: true},
+
+    { field: 'month', headerName: '月份', resizable: true, fullWidth: true,width: 100, sortable: true},
+    { field: 'placeon', headerName: '占位时长(h)', resizable: true,fullWidth: true, width: 130, sortable: true}, 
+    { field: 'stop', headerName: '空闲时长(h)', resizable: true, fullWidth: true,width: 130, sortable: true},
+    { field: 'warning', headerName: '维修时长(h)', resizable: true, fullWidth: true,width: 130, sortable: true},
+    { field: 'running', headerName: '运行时长(h)', resizable: true, fullWidth: true,width: 130, sortable: true},
+    { field: 'rate', headerName: '开动率(%)', resizable: true, fullWidth: true,width: 130, sortable: true},
+    { field: 'starttime', headerName: '开始时间', resizable: true, fullWidth: true,width: 130, sortable: true},
+    { field: 'endtime', headerName: '结束时间', resizable: true, fullWidth: true,minWidth: 10, sortable: true},
+    {field: 'option', headerName: '详情', resizable: true, fullWidth: true,width: 100, pinned: 'right',cellRendererFramework: ActionComponent, sortable: true}
 
     ],
     rowData: [ // data

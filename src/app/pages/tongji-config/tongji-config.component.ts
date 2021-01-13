@@ -34,7 +34,7 @@ export class TongjiConfigComponent implements OnInit {
 
   ngAfterViewInit(){
     setTimeout(() => {
-      console.log("children>>>>",this.children);
+      // console.log("children>>>>",this.children);
     }, 500);
   }
   ngOnDestroy(){

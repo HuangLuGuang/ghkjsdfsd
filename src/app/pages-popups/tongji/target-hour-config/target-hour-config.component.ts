@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, } from '@angular/core';
+import { Component, OnInit, Input, ViewChild} from '@angular/core';
 import { NbDialogRef, } from '@nebular/theme';
 import { DatePipe } from '@angular/common';
 import { UserInfoService } from '../../../services/user-info/user-info.service';
@@ -18,16 +18,17 @@ let Mandarin = require('../../../../assets/pages/tongji/flatpickr/zh.js').defaul
 export class TargetHourConfigComponent implements OnInit {
   @Input() data: any;
   @Input() deveiceids: number[];
-
+  @ViewChild("myMonth") myMonth:any; // 每日目标时长
   selectedDates: any[] = []; // 选择的当前月、和选择的当前月的上一个月的日期
 
   myinput_placeholder = "每日目标时长(h)";
-
   TABLE = "device";
   METHOD = "dev_get_target_time_update"; // 批量修改工时！
 
   lastupdatedby = this.userinfo.getLoginName(); // 域账号
   employeeid = this.userinfo.getEmployeeID(); // 用户id
+
+  month_placeholder = "选择每日目标时长";
 
 
 
@@ -38,8 +39,8 @@ export class TargetHourConfigComponent implements OnInit {
   ngOnInit(): void {
     $(".delet_input_value_target_hour").hide()
 
-    console.log("data:", this.data);
-    console.log("deveiceids:", this.deveiceids);// 选择的行的数据
+    // console.log("data:", this.data);
+    // console.log("deveiceids:", this.deveiceids);// 选择的行的数据
     flatpickr.localize(Mandarin);
     
   }
@@ -77,8 +78,8 @@ export class TargetHourConfigComponent implements OnInit {
     }
     var before_min = new Date(before_date.getFullYear(), before_date.getMonth(), 1);
     var before_max = new Date(before_date.getFullYear(), before_date.getMonth() +1, 0);
-    console.log("current, current_min, current_max",this.datepipe.transform(default_date, 'yyyy-MM-dd'),this.datepipe.transform(current_min, 'yyyy-MM-dd'), this.datepipe.transform(current_max, 'yyyy-MM-dd'))
-    console.log("before,before_min,before_max",this.datepipe.transform(before_date, 'yyyy-MM-dd'),this.datepipe.transform(before_min, 'yyyy-MM-dd'), this.datepipe.transform(before_max, 'yyyy-MM-dd'))
+    // console.log("current, current_min, current_max",this.datepipe.transform(default_date, 'yyyy-MM-dd'),this.datepipe.transform(current_min, 'yyyy-MM-dd'), this.datepipe.transform(current_max, 'yyyy-MM-dd'))
+    // console.log("before,before_min,before_max",this.datepipe.transform(before_date, 'yyyy-MM-dd'),this.datepipe.transform(before_min, 'yyyy-MM-dd'), this.datepipe.transform(before_max, 'yyyy-MM-dd'))
     return {
       current:default_date,
       current_min: current_min,
@@ -176,6 +177,7 @@ export class TargetHourConfigComponent implements OnInit {
 
   // 确定
   confirm(){
+
     // 去重
     var selectedDates = [];
     this.selectedDates.forEach(item=>{
@@ -184,7 +186,8 @@ export class TargetHourConfigComponent implements OnInit {
     })
     if (this.selectedDates.length > 0 && $(".target_time").val() !== ""){
       var numberdaily = this.selectedDates.length; // 计入的天数
-      var targettime = Number($(".target_time").val());   // 每日目标时长
+      // var targettime = Number($(".target_time").val());   // 每日目标时长
+      var targettime = Number(this.myMonth.getselect().split('h')[0]);   // 每日目标时长
       var devicelist = Object.assign([],this.deveiceids);
       devicelist.forEach(item=>{
         item["numberdaily"] = numberdaily;
@@ -276,9 +279,9 @@ export class TargetHourConfigComponent implements OnInit {
     var max_date = new Date(Number(year), month, 0);
     var max_date_value = max_date.getFullYear() + '-' + (Number(max_date.getMonth()) + 1) + '-' + max_date.getDate();
     max_date_value = this.datepipe.transform(max_date_value, 'yyyy-MM-dd');
-    console.log("得到参考时间", this.data)
-    console.log("得到参考时间 最小时间", min_date_value)
-    console.log("得到参考时间 最大时间", max_date_value)
+    // console.log("得到参考时间", this.data)
+    // console.log("得到参考时间 最小时间", min_date_value)
+    // console.log("得到参考时间 最大时间", max_date_value)
     // ===============最大时间的范围，本月15号---下个月底
     return {
       min: min_date_value,

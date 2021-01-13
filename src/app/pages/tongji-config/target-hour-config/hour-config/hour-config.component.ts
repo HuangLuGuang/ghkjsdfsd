@@ -89,7 +89,7 @@ export class HourConfigComponent implements OnInit {
     this.active = { field: 'option', headerName: '操作', resizable: true, fullWidth: true, width: 100, pinned: 'right',cellRendererFramework: ActionComponent,
       cellRendererParams: {
         clicked: function(data: any) {
-          console.log("--添加操作列---",data)
+          // console.log("--添加操作列---",data)
           that.change_target_hour([data]);
         }
       },
@@ -316,7 +316,7 @@ export class HourConfigComponent implements OnInit {
 
   // 点击行数据 子组件调用
   clickrow(data){
-    console.log("---------------->",data)
+    // console.log("---------------->",data)
   }
 
   // 得到设备类型
@@ -359,8 +359,8 @@ export class HourConfigComponent implements OnInit {
   change_target_hour(datalist?){
     // 得到选择的数据！
     var getselectedrows = this.agGrid.getselectedrows();
-    console.log("得到选择的数据>>>", getselectedrows);
-    console.log("datalist>>>", datalist);
+    // console.log("得到选择的数据>>>", getselectedrows);
+    // console.log("datalist>>>", datalist);
     if (datalist !== undefined){
       getselectedrows = datalist;
     }
@@ -372,7 +372,7 @@ export class HourConfigComponent implements OnInit {
       var get_month = this.myMonth.getselect();
       // 得到年份
       var get_year = this.myYear.getselect().slice(0, this.myYear.getselect().length -1);
-      console.log("得到月份：", get_month, "得到年份:", get_year);
+      // console.log("得到月份：", get_month, "得到年份:", get_year);
   
       // 传递的数据，1、month，2、设备唯一标识符！
       this.dialogService.open(ChangeTargetHourConfigComponent, {closeOnBackdropClick: false,context:{data: {month: get_month, year: get_year}, deveiceids:getselectedrows}}).onClose.subscribe(result=>{

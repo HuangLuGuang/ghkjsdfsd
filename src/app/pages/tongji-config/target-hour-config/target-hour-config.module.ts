@@ -14,7 +14,7 @@ import { ActionComponent } from './hour-config/action/action.component';
 import { NzTabsModule  } from 'ng-zorro-antd/tabs';
 
 @NgModule({
-  declarations: [TargetHourConfigComponent, YearSelectComponent, MonthSelectComponent, HourConfigComponent, TeskConfigComponent, ActionComponent,],
+  declarations: [TargetHourConfigComponent, YearSelectComponent, MonthSelectComponent, HourConfigComponent, TeskConfigComponent, ActionComponent, ],
   imports: [
     CommonModule,
     TargetHourConfigRoutingModule,

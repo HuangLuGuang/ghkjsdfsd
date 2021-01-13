@@ -66,7 +66,8 @@ export class KpiDetailComponent implements OnInit {
               // formatter: '{b} <br/>{a0}: {c0}<br/>{a1}: {c1}'
             },
             z: 100,
-            y: -50,
+            y: -60,
+            x: -60,
             data:[
               {name: '未完成', value:0},
               {name: '已完成', value:0},

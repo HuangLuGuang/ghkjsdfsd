@@ -29,12 +29,15 @@ import { GroupDevicesComponent } from './tongji/test_task_conf/components/group-
 
 import { NzSelectModule } from 'ng-zorro-antd/select';
 import { EditComponent } from './tongji/test_task_conf/edit/edit.component';
+import { DailyTargetDurationComponent } from './tongji/target-hour-config/daily-target-duration/daily-target-duration.component';
+
 
 // DateComponent
 @NgModule({
   declarations: [PagesPopupsComponent, RoleComponent, 
     MySelectComponent, UserEmployeeComponent,  
-    UserEmployeeGroupComponent, EditDelTooltipComponent, DeviceManageComponent, PreinstallDialogComponent,  ExpiredTokenComponent, NewMenuComponent, ChangePassowrdForallComponent, TargetHourConfigComponent, AddComponent, GroupDevicesComponent, EditComponent],
+    UserEmployeeGroupComponent, EditDelTooltipComponent, DeviceManageComponent, PreinstallDialogComponent,  ExpiredTokenComponent, NewMenuComponent, ChangePassowrdForallComponent, TargetHourConfigComponent, AddComponent, GroupDevicesComponent, EditComponent, DailyTargetDurationComponent,
+  ],
   imports: [
     CommonModule,
     PagesPopupsRoutingModule,
@@ -61,7 +64,7 @@ import { EditComponent } from './tongji/test_task_conf/edit/edit.component';
 
   ],
   exports: [
-    PreinstallDialogComponent
+    PreinstallDialogComponent,DailyTargetDurationComponent
   ],
 })
 export class PagesPopupsModule { }

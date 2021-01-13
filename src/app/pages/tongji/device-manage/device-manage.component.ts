@@ -416,11 +416,11 @@ export class DeviceManageComponent implements OnInit {
 
   // 将sheet_json转换为smart-table 数据格式！ 
   analysis_sheet_to_json_to_ng2(importdata){
-    console.log("这是导入的Excel的原始数据！", importdata, "\n")
+    // console.log("这是导入的Excel的原始数据！", importdata, "\n")
     var rowData_list = importdata.slice(1,importdata.length);
     var excel_title = importdata.slice(0,1)[0];
-    console.log("rowData_list----excel 除了表头的数据>", rowData_list)
-    console.log("excel_title---- excel的表头>", excel_title)
+    // console.log("rowData_list----excel 除了表头的数据>", rowData_list)
+    // console.log("excel_title---- excel的表头>", excel_title)
     var ag_Grid_columns = this.tableDatas.columnDefs.slice(0, excel_title.length);
     // console.log("ag_Grid_columns--------->ag_Grid_columns 的表头", ag_Grid_columns, "\n")
 
@@ -433,7 +433,7 @@ export class DeviceManageComponent implements OnInit {
       if (agitem.headerName === exitem){
         agGridTitle.push(agitem.field);
       }else{
-        console.log("字段不一致", "agTitle != exetitle", agitem.headerName, '!=', exitem);
+        // console.log("字段不一致", "agTitle != exetitle", agitem.headerName, '!=', exitem);
         noexist_title.push(agitem.headerName)
       }
     }
@@ -461,7 +461,7 @@ export class DeviceManageComponent implements OnInit {
       }else{
         // 插入数据库之前 处理数据
         var datas = this.option_table_before(rowData)
-        console.log("插入数据库之前 处理数据---->", datas);
+        // console.log("插入数据库之前 处理数据---->", datas);
         // 将导入的数据存入数据库
         this.dev_insert_device(datas).subscribe(result=>{
           if (result){
@@ -550,6 +550,9 @@ export class DeviceManageComponent implements OnInit {
           case 2:
             devicetype = "耐久";
             break;
+          case 3:
+            devicetype = "其它";
+            break;
 
         }
         var after_data: DeviceData = {
@@ -611,6 +614,9 @@ export class DeviceManageComponent implements OnInit {
           break;
         case "耐久":
           devicetype = 2;
+          break;
+        case "其它":
+          devicetype = 3;
           break;
 
       }

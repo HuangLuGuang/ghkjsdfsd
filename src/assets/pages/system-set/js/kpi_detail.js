@@ -13,9 +13,9 @@ let kpi_detail = {
             title: {
                 text: "试验总数",
                 subtext: afterdata.pieTotal,
-                top: '18%',
+                top: '17%',
                 textAlign: "center",
-                left: "74%",
+                left: "71%",
                 textStyle: {
                     color: '#000',
                     fontSize: 10,
@@ -42,16 +42,26 @@ let kpi_detail = {
             },
             grid: {
                 left: '3%',
-                right: '4%',
+                // right: '4%',
+                right: 30,
                 bottom: '10%',
                 top: '40%',
                 containLabel: true
             },
             xAxis: [
                 {
+                    name: "月份",
+                    nameTextStyle:{
+                        padding:[30,0,0,-20]
+                    },
                     type: 'category',
-                    data: afterdata.Xdata
-                }
+                    data: afterdata.Xdata,
+                    // axisLabel: {
+                    //     show: true,
+                    //     formatter: '{value}月'
+                    // },
+                },
+                
             ],
             yAxis: [
                 {
@@ -84,7 +94,7 @@ let kpi_detail = {
                 borderWidth: 0,
                 top: 20,
                 bottom: 70,
-                right: 10,
+                right: 30,
                 textStyle: {
                     color: "#fff"
                 }
@@ -102,13 +112,23 @@ let kpi_detail = {
 
             calculable: true,
             xAxis: [{
+                name: "月份",
+                nameTextStyle:{
+                    padding:[30,0,0,-20]
+                },
                 type: "category",
+                axisLine: {
+                    show: true,
+                    lineStyle:{
+                        color:"rgba(51,51,51,1)"
+                    }
+                },
                 data: afterdata.xData,
             }],
             yAxis: [{
                 type: "value",
                 splitLine: {
-                    show: false
+                    show: true
                 },
                 axisLine: {
                     lineStyle: {
@@ -134,7 +154,9 @@ let kpi_detail = {
                     type: "bar",
                     stack: "总量",
                     barMaxWidth: 20,
+                    // barWidth: '20%',
                     barGap: "10%",
+                    z:4,
                     itemStyle: {
                         normal: {
                             color: afterdata.color[0], //运行
@@ -160,6 +182,8 @@ let kpi_detail = {
                     type: "bar",
                     stack: "总量",
                     barMaxWidth: 20,
+                    // barWidth: '20%',
+                    z:3,
                     itemStyle: {
                         normal: {
                             color: afterdata.color[1], // 空闲
@@ -181,6 +205,8 @@ let kpi_detail = {
                     name: afterdata.title[2],
                     type: "bar",
                     stack: "总量",
+                    // barWidth: '20%',
+                    z:2,
                     itemStyle: {
                         normal: {
                             color: afterdata.color[2], // 占位
@@ -201,6 +227,8 @@ let kpi_detail = {
                     name: afterdata.title[3],
                     type: "bar",
                     stack: "总量",
+                    // barWidth: '20%',
+                    z:1,
                     itemStyle: {
                         normal: {
                             color: afterdata.color[3], // 维保
@@ -235,6 +263,7 @@ let kpi_detail = {
                 show: true,
                 trigger: "item"
             },
+
             legend: {
                 show: true,
                 icon: "rect", // circle 
@@ -399,12 +428,17 @@ let kpi_detail = {
                 {
                     height:'20%',
                     width:'20%',
-                    right:'10%',
-                    top:'10%'
+                    // right:'10%',
+                    right:30,
+                    top:'1%'
                 }
             ],
             xAxis: [
                 {
+                    name: "月份",
+                    nameTextStyle:{
+                        padding:[30,0,0,-20]
+                    },
                     type: 'category',
                     // data: ['1月', '2月', '3月', '4月', '5月', '6月', '7月', '8月', '9月', '10月', '11月', '12月'],
                     data: afterdata.xData,
@@ -553,13 +587,18 @@ let kpi_detail = {
             },
             grid: {
                 left: '3%',
-                right: '4%',
+                // right: '4%',
+                right: 30,
                 bottom: '10%',
                 top: '15%',
                 containLabel: true
             },
             xAxis: [
                 {
+                    name: "月份",
+                    nameTextStyle:{
+                        padding:[30,0,0,-20]
+                    },
                     type: 'category',
                     data: afterdata.xData
                 }
@@ -605,13 +644,18 @@ let kpi_detail = {
             },
             grid: {
                 left: '3%',
-                right: '4%',
+                // right: '4%',
+                right: 30,
                 bottom: '10%',
                 top: '15%',
                 containLabel: true
             },
             xAxis: [
                 {
+                    name: "月份",
+                    nameTextStyle:{
+                        padding:[30,0,0,-20]
+                    },
                     type: 'category',
                     data: afterdata.xData
                 }

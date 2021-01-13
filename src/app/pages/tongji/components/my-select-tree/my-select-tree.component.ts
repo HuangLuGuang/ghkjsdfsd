@@ -32,7 +32,7 @@ export class MySelectTreeComponent implements OnInit {
     // --------------和 设备类型 交互
     this.selectService.currentMessage.subscribe(result=>{
       if (result){
-        console.log("----------设备类型 交互----------")
+        // console.log("----------设备类型 交互----------")
         $(".ele5").hide();
         this.xialaicon = "arrow-ios-downward-outline";
       }

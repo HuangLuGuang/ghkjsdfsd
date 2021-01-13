@@ -134,7 +134,7 @@ export class PublicmethodService {
         });
 
       }else{
-        console.log("***********sysmenu is exic")
+        // console.log("***********sysmenu is exic")
         for (const i in this.location){
           if (i === 'location'){
             sysmenu.forEach(element => {

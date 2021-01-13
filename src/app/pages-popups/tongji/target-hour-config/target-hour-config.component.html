@@ -32,11 +32,14 @@
         </div>
 
         <div class="row" style="margin-bottom: 20px;">
-          <div class="col-lg-12" style="position: relative;padding-left: 10%;">
-            <input type="number" [(ngModel)]="inputvalue" (ngModelChange)="changeValue($event)" class="layui-input target_time" placeholder="每日目标时长(h)"  autocomplete="off">
+          <div class="col-lg-12" style="position: relative;padding-left: 10%;padding-right: 8%;">
+            <ngx-daily-target-duration #myMonth [placeholder]="month_placeholder"></ngx-daily-target-duration>
+            <!-- 每日目标时长h 改为 下拉框 8、12、16、24  -->
+            <!-- <input type="number" [(ngModel)]="inputvalue" (ngModelChange)="changeValue($event)" class="layui-input target_time" placeholder="每日目标时长(h)"  autocomplete="off">
             <span class="delet_input_value_target_hour">
               <i class="layui-icon layui-icon-close-fill" (click)="del_input_value()"></i>   
-            </span>
+            </span> -->
+
           </div>
         </div>
         
