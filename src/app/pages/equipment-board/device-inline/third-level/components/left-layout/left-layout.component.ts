@@ -13,7 +13,7 @@ export class LeftLayoutComponent implements OnInit {
   obejct = Object;
   tableHeader = {time:'时间',device:'设备',log:'日志'};
   tableBody = [
-    // {time:'2020-10-11',device:'四立柱',log:'Not ready'},
+    // {time:'2020-10-11',device:'四立柱',log:'Not ready1111111111111111111111111111111111111111'},
     // {time:'2020-10-11',device:'四立柱',log:'Not ready'},
     // {time:'2020-10-11',device:'四立柱',log:'Not ready'},
     // {time:'2020-10-11',device:'四立柱',log:'Not ready'},

@@ -152,7 +152,7 @@ export class CentralFourJinhuaComponent implements OnInit {
     name:''
   }
 
-  deviceid_four = 'device_avldyno_02';//四驱底盘
+  deviceid_four = 'device_avl4dyno_02';//四驱底盘
   deviceid_jinhua = 'device_jinhua_cabin01';//锦华
   rw = 0;
    

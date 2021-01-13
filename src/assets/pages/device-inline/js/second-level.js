@@ -285,10 +285,10 @@ let second_level = {
         myChart.setOption(option_device_rate);
 
         // 让图标跟随屏幕自适应
-        window.addEventListener('resize', f => {
-            console.log("重置的屏幕大小！")
-            myChart.resize();
-        })
+        // window.addEventListener('resize', f => {
+        //     console.log("重置的屏幕大小！")
+        //     myChart.resize();
+        // })
     },
 };
 

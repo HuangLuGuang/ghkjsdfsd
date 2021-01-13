@@ -19,21 +19,26 @@
         </div>
         <div class="table_bo overflow_height_75" style="position: relative;">
             <table style="position: absolute;width: 40%;">
-                <tr *ngFor="let items of log_warm.data;let j = index" class="body" style="height: 12px;" [ngStyle]="{'color':items[3] == 1?'red':items[3]==3?'':'yellow'}">
+                <tr *ngFor="let items of log_warm.data;let j = index" class="body" style="height: 12px;" [ngStyle]="{'color':items[3] == 3?'red':(items[3]==2?'yellow':'')}">
                     <td style="padding: 0%;height: 20%;width: 50%" *ngFor="let item of items;let i = index">
                         <div class="font_w_too_long" *ngIf="i == 0;else logTemp">{{item | date:'yyyy-MM-dd'}}</div>
                         <ng-template #logTemp>
                             <div class="font_w_too_long" title="{{item}}" style="width: 100%;max-width: 249px;" *ngIf="i == 1;else nullTemp">{{item}}</div>
-                            <ng-template #nullTemp></ng-template>
+                            <ng-template #nullTemp>
+                            </ng-template>
                         </ng-template>
                     </td>
                 </tr>
             </table>
             <div class="scrollbar">
-                <table>
-                    <tr *ngFor="let items of log_warm.data;let i = index" class="body" style="height: 12px;" [ngStyle]="{'color':items[3] == 3?'red':items[3]==2?'':'yellow'}">
-                        <td style="padding: 0%;height: 20%;width:60%;max-width: 400px;">
-                            <div class="font_w_too_long_1" title="{{items[2]}}" style="width: 100%;">{{items[2]}}</div>
+                <table style="height: max-content;">
+                    <tr *ngFor="let items of log_warm.data;let i = index" class="body" style="height: 12px;">
+                        <td style="padding: 0%;">
+                            <div class="font_w_too_long_1" title="{{items[2]}}" style="width: 100%;"> {{items[2]}}
+                                <!-- <div id="p_{{i }}" style="display: inline-block;margin: 0;position: absolute;" [ngStyle]="{'color':items[3] == 3?'red':items[3]==2?'yellow':'white'}">
+                                       
+                                    </div> -->
+                            </div>
                         </td>
                     </tr>
                 </table>

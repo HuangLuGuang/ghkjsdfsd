@@ -8,6 +8,8 @@ import { HttpserviceService } from '../../../../services/http/httpservice.servic
 import { dateformat, getMessage } from '../../equipment-board';
 let equipment_four_road = require('../../../../../assets/eimdoard/equipment/js/equipment-four-road');
 
+declare var $
+
 @Component({
   selector: 'ngx-log-warm',
   templateUrl: './log-warm.component.html',
@@ -20,9 +22,22 @@ export class LogWarmComponent implements OnInit {
     // '时间','日志等级','日志信息'
     title:['time','Loglevel','logInfor'],
     data:[
+      // [1,1,'111111111111111111111111111111111111111111111111111111111111',1],
+      // [1,1,1,1],
+      // [1,1,1,1],
+      // [1,1,1,1],
+      // [1,1,1,1],
+      // [1,1,1,1],
+      // [1,1,1,1],
+      // [1,1,1,1],
+      // [1,1,1,1],
+      // [1,1,1,1],
+      // [1,1,1,1],
+      // [1,1,1,1],
     ]
   }
   timer;
+  time_w;
   language = '';
   errorC = true;
   subscribeList:any = {};
@@ -46,7 +61,7 @@ export class LogWarmComponent implements OnInit {
     },1000)
     
     this.get_device_mts_log_his();
-    // this.get_device_mts_log_daily();
+    this.get_device_mts_log_daily();
     
   }
 
@@ -180,6 +195,8 @@ export class LogWarmComponent implements OnInit {
   //组件销毁  
   ngOnDestroy(){
     clearInterval(this.timer);
+    clearInterval(this.time_w);
+    
     for(let key in this.subscribeList){
       this.subscribeList[key].unsubscribe();
     }
