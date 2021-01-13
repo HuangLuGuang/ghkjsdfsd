@@ -6,6 +6,8 @@ import { HttpserviceService } from '../../../services/http/httpservice.service';
 
 import { ActivatedRoute } from '@angular/router';
 import { DatePipe } from '@angular/common';
+import { UserInfoService } from '../../../services/user-info/user-info.service';
+import { PublicmethodService } from '../../../services/publicmethod/publicmethod.service';
 
 let kpi_detail = require("../../../../assets/pages/system-set/js/kpi_detail");
 
@@ -350,13 +352,15 @@ export class KpiDetailComponent implements OnInit {
               {
                 value: _columns["endyear"] + '年-利用率',
                 textStyle:{
-                  color:'#5D7FE5'
+                  // color:'#5D7FE5'
+                  color:'rgb(51,51,51)'
                 }
               },
               {
                 value:_columns["startyear"] + '年-利用率',
                 textStyle:{
-                  color:'#26FF26'
+                  // color:'#26FF26'
+                  color:'rgb(51,51,51)'
                 }
               },
             ]
@@ -676,26 +680,12 @@ export class KpiDetailComponent implements OnInit {
     
     var defaultdata = {
       // 月份-倒序
-      xData: ['1月', '2月', '3月', '4月', '5月','6月','7月','8月','9月','10月','11月','12月'],
+      xData: ['01', '02', '03', '04', '05','06','07','08','09','10','11','12'],
       error:[0, 0, 0, 0, 0,0,0,0,0,0,0,0],
       warning:[0, 0, 0, 0, 0,0,0,0,0,0,0,0],
       info:[0, 0, 0, 0, 0,0,0,0,0,0,0,0],
       legend: ['error', 'warning', 'info'],
       colors: ['rgb(255,0,0)', 'rgb(255,166,0)', 'rgb(60,179,113)'],
-    }
-    var month_zh_en = {
-      '01':'1月',
-      '02':'2月',
-      '03':'3月',
-      '04':'4月',
-      '05':'5月',
-      '06':'6月',
-      '07':'7月',
-      '08':'8月',
-      '09':'9月',
-      '10':'10月',
-      '11':'11月',
-      '12':'12月'
     }
 
     this.querst("", monthed, _columns).subscribe(result=>{
@@ -707,8 +697,8 @@ export class KpiDetailComponent implements OnInit {
           for (let index = 0; index < message.length; index++) {
             const element = message[index];
             if (element){
-              var _index = defaultdata.xData.indexOf(month_zh_en[element["dates"]]);
-              defaultdata.xData[_index] = month_zh_en[element["dates"]];
+              var _index = defaultdata.xData.indexOf(element["dates"]);
+              defaultdata.xData[_index] = element["dates"];
               switch (element["level"]) {
                 case 1: //info
                   defaultdata.info[_index] = element["count"];
@@ -852,7 +842,7 @@ export class KpiDetailComponent implements OnInit {
 
   constructor(private http: HttpserviceService, private router: Router,
     private layoutService: LayoutService,private activerouter: ActivatedRoute,
-    private datepip: DatePipe
+    private datepip: DatePipe, private userinfo: UserInfoService, private publicservice: PublicmethodService,
   ) {
     // 会话过期
     localStorage.removeItem("alert401flag");
@@ -995,13 +985,16 @@ export class KpiDetailComponent implements OnInit {
   select_year(year){
     // console.log("选择年份时，执行",year)
     if (this.type === 'device'){
-      this.init_all_echart(year)
+      this.init_all_echart(year);
+      this.RecordOperation(1,'查看', year + '设备数据汇总KPI详情');
     }else if (this.type === 'group'){
       // console.error("group------------------------>")
       this.init_all_echart(year)
+      this.RecordOperation(1,'查看',year + '功能组数据汇总KPI详情');
     }else if(this.type === 'department'){
       // console.error("department------------------------>")
       this.init_all_echart(year)
+      this.RecordOperation(1,'查看',year + '部门数据汇总KPI详情');
     }
   }
   
@@ -1140,5 +1133,19 @@ export class KpiDetailComponent implements OnInit {
       if(right_two) echarts.init(right_two).resize();
     }
   }
+
+// option_record  
+RecordOperation(result,transactiontype, infodata){
+  if(this.userinfo.getLoginName()){
+    var employeeid = this.userinfo.getEmployeeID();
+    var result = result; // 1:成功 0 失败
+    var transactiontype = transactiontype; // '新增用户';
+    var info = infodata;
+    var createdby = this.userinfo.getLoginName();
+    this.publicservice.option_record(employeeid, result, transactiontype, info, createdby);
+  }
+
+}
+
 
 }

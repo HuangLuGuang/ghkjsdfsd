@@ -29,6 +29,7 @@ export class EimFileUploadComponent implements OnInit, AfterViewInit {
     }),
   };
 
+  employeeid = this.userinfo.getEmployeeID();
   loading = false;  // 加载
   refresh = false; // 刷新tabel
   button; // 权限button
@@ -151,6 +152,7 @@ export class EimFileUploadComponent implements OnInit, AfterViewInit {
       this.http.post<any>('/api/v1/new_folder', params, this.hearder).subscribe(res => {
         if (res['isSuccess'] === true) {
           this.get_current_path_files();
+          this.RecordOperation('创建试验条目', 1,  JSON.stringify(params.folder_name));
         } else if (res['msg'] === 'Folder already exists') {
           const toastr = {
             status: 'danger',
@@ -158,6 +160,7 @@ export class EimFileUploadComponent implements OnInit, AfterViewInit {
             conent: '该文件夹已存在',
           };
           this.publicservice.showngxtoastr(toastr);
+          this.RecordOperation('创建试验条目', 0,  JSON.stringify(params.folder_name) + JSON.stringify(toastr.conent));
         } else {
           const toastr = {
             status: 'danger',
@@ -165,6 +168,7 @@ export class EimFileUploadComponent implements OnInit, AfterViewInit {
             conent: '文件夹创建失败，请重试',
           };
           this.publicservice.showngxtoastr(toastr);
+          this.RecordOperation('创建试验条目', 0,  JSON.stringify(params.folder_name));
         }
       });
     });
@@ -191,6 +195,7 @@ export class EimFileUploadComponent implements OnInit, AfterViewInit {
       this.message.remove(id);
       if (response['isSuccess'] === true) {
           this.refresh_table();
+          this.RecordOperation('发送到S3', 1,  JSON.stringify(params.selected_file));
       } else {
         const toastr = {
             status: 'danger',
@@ -198,6 +203,7 @@ export class EimFileUploadComponent implements OnInit, AfterViewInit {
             conent: `发送失败，请重试`,
           };
           this.publicservice.showngxtoastr(toastr);
+          this.RecordOperation('发送到S3', 0,  JSON.stringify(params.selected_file));
       }
     });
   }
@@ -249,6 +255,9 @@ export class EimFileUploadComponent implements OnInit, AfterViewInit {
     this.http.post('/api/v1/delete_file', params, this.hearder).subscribe(result => {
       if (result['isSuccess'] === true) {
         this.refresh_table();
+        this.RecordOperation('删除', 1,  JSON.stringify(filename));
+      }else{
+        this.RecordOperation('删除', 0,  JSON.stringify(filename));
       }
     });
 
@@ -276,6 +285,7 @@ export class EimFileUploadComponent implements OnInit, AfterViewInit {
         if (body['isSuccess'] === true) {
           this.refresh_table();
           item.onSuccess(event.body, item.file, event);
+          this.RecordOperation('上传文件', 1,  "文件名称："+JSON.stringify(item.file));
         } else if (body['msg'] === 'file already exists') {
           const toastr = {
             status: 'danger',
@@ -283,6 +293,7 @@ export class EimFileUploadComponent implements OnInit, AfterViewInit {
             conent: `${body['filename']}已存在`,
           };
           this.publicservice.showngxtoastr(toastr);
+          this.RecordOperation('上传文件', 0,  JSON.stringify(toastr.conent));
         } else {
           const toastr = {
             status: 'danger',
@@ -290,6 +301,7 @@ export class EimFileUploadComponent implements OnInit, AfterViewInit {
             conent: `${body['filename']}上传失败，请重试`,
           };
           this.publicservice.showngxtoastr(toastr);
+          this.RecordOperation('上传文件', 0, JSON.stringify(toastr.conent));
         }
       }
     });
@@ -310,6 +322,21 @@ export class EimFileUploadComponent implements OnInit, AfterViewInit {
       this.tableDatas.rowData = this.gridData;
       this.tableDatas.totalPageNumbers = this.gridData.length;
       this.agGrid.update_agGrid(this.tableDatas); // 告诉组件刷新！
+      this.RecordOperation('更新', 1,  "试验结果:"+ JSON.stringify(event));
+    }else{
+      this.RecordOperation('更新', 0,  "试验结果");
+    }
+  }
+
+  // option_record
+  RecordOperation(option, result,infodata){
+    if(this.userinfo.getLoginName()){
+      var employeeid = this.employeeid;
+      var result = result; // 1:成功 0 失败
+      var transactiontype = option; // '新增用户';
+      var info = infodata;
+      var createdby = this.userinfo.getLoginName();
+      this.publicservice.option_record(employeeid, result,transactiontype,info,createdby);
     }
   }
 

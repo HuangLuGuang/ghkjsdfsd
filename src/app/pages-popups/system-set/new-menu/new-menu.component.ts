@@ -235,10 +235,10 @@ export class NewMenuComponent implements OnInit {
             var res = result["result"]["message"][0];
             if (res["code"] === 1){
               that.dialogRef.close(true);
-              that.RecordOperation(1,'编辑', '菜单管理, 按钮');
+              that.RecordOperation(1,'编辑菜单管理, 目录', JSON.stringify(colums));
             }else{
               that.dialogRef.close(false);
-              that.RecordOperation(0,'编辑', '菜单管理, 按钮');
+              that.RecordOperation(0,'编辑菜单管理, 目录', JSON.stringify(colums));
             }
             return false;
           })
@@ -265,10 +265,10 @@ export class NewMenuComponent implements OnInit {
             var res = result["result"]["message"][0];
             if (res === 1){
               that.dialogRef.close(true);
-              that.RecordOperation(1,'新增', '菜单管理, 目录');
+              that.RecordOperation(1,'新增菜单管理, 目录', JSON.stringify(colums));
             }else{
               that.dialogRef.close(false);
-              that.RecordOperation(0,'新增', '菜单管理, 目录');
+              that.RecordOperation(0,'新增菜单管理, 目录', JSON.stringify(colums));
             }
             return false;
           })
@@ -308,10 +308,10 @@ export class NewMenuComponent implements OnInit {
             var res = result["result"]["message"][0];
             if (res["code"] === 1){
               that.dialogRef.close(true);
-              that.RecordOperation(1,'编辑', '菜单管理, 按钮');
+              that.RecordOperation(1,'编辑菜单管理, 菜单',  JSON.stringify(colums));
             }else{
               that.dialogRef.close(false);
-              that.RecordOperation(0,'编辑', '菜单管理, 按钮');
+              that.RecordOperation(0,'编辑菜单管理, 菜单', JSON.stringify(colums));
             }
             return false;
           })
@@ -335,10 +335,10 @@ export class NewMenuComponent implements OnInit {
             var res = result["result"]["message"][0];
             if (res === 1){
               that.dialogRef.close(true);
-              that.RecordOperation(1,'新增', '菜单管理, 菜单');
+              that.RecordOperation(1,'新增菜单管理, 菜单', JSON.stringify(colums));
             }else{
               that.dialogRef.close(false);
-              that.RecordOperation(0,'新增', '菜单管理, 菜单');
+              that.RecordOperation(0,'新增菜单管理, 菜单', JSON.stringify(colums));
             }
             return false;
           })
@@ -384,10 +384,10 @@ export class NewMenuComponent implements OnInit {
             var res = result["result"]["message"][0];
             if (res["code"] === 1){
               that.dialogRef.close(true);
-              that.RecordOperation(1,'编辑', '菜单管理, 按钮');
+              that.RecordOperation(1,'编辑菜单管理, 按钮', JSON.stringify(colums));
             }else{
               that.dialogRef.close(false);
-              that.RecordOperation(0,'编辑', '菜单管理, 按钮');
+              that.RecordOperation(0,'编辑菜单管理, 按钮', JSON.stringify(colums));
             }
             return false;
           })
@@ -435,10 +435,10 @@ export class NewMenuComponent implements OnInit {
             var res = result["result"]["message"][0];
             if (res === 1){
               that.dialogRef.close(true);
-              that.RecordOperation(1,'新增', '菜单管理, 按钮');
+              that.RecordOperation(1,'新增菜单管理, 按钮', JSON.stringify(colums));
             }else{
               that.dialogRef.close(false);
-              that.RecordOperation(0,'新增', '菜单管理, 按钮');
+              that.RecordOperation(0,'新增菜单管理, 按钮', JSON.stringify(colums));
             }
             return false;
           })

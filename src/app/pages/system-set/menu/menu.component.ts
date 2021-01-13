@@ -236,7 +236,8 @@ export class MenuComponent implements OnInit {
           if (name){
             this.updatetable(name)
             // 调用删除功能
-            deleteitem(row, http, publicservice, success, danger,that)
+            deleteitem(row, http, publicservice, success, danger,that);
+            
           }
         }
       );
@@ -655,9 +656,12 @@ export class MenuComponent implements OnInit {
               }else{
 
               }
+              this.RecordOperation(1,'更新菜单管理', JSON.stringify(colums));
               // location.reload();
             }
             
+          }else{
+            this.RecordOperation(0,'更新菜单管理', JSON.stringify(colums));
           }
         })
       }
@@ -697,6 +701,9 @@ export class MenuComponent implements OnInit {
               localStorage.setItem(SYSMENU, JSON.stringify(menu));
               // 按钮
               this.RanderTable(menu);
+              this.RecordOperation(1,'查看','更新菜单管理');
+            }else{
+              this.RecordOperation(0,'查看','更新菜单管理');
             }
           })
         }
@@ -812,9 +819,6 @@ export class MenuComponent implements OnInit {
 
   // option_record  
   RecordOperation(result,transactiontype, infodata){
-    // console.warn("==============>", this.userinfo.getLoginName())
-    // console.warn("infodata==============>", infodata)
-    // console.warn("==============>")
     if(this.userinfo.getLoginName()){
       var employeeid = this.userinfo.getEmployeeID();
       var result = result; // 1:成功 0 失败

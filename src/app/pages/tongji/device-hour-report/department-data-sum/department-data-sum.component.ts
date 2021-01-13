@@ -33,7 +33,8 @@ export class DepartmentDataSumComponent implements OnInit {
     isno_refresh_page_size: false, // 是否重新将 每页多少条数据，赋值为默认值
     columnDefs:[ // 列字段 多选：headerCheckboxSelection checkboxSelection , flex: 1 自动填充宽度 pinned: 'left' 固定左侧
      
-      { field: 'totaltime', headerName: '总目标时长(h)', resizable: true, headerCheckboxSelection: true, checkboxSelection: true, autoHeight: true,fullWidth: true,width: 140, sortable: true},
+      { field: 'department', headerName: '部门', resizable: true,  headerCheckboxSelection: true, checkboxSelection: true, autoHeight: true, fullWidth: true,width: 140, sortable: true},
+      { field: 'totaltime', headerName: '总目标时长(h)', resizable: true, fullWidth: true,width: 140, sortable: true},
       { field: 'month', headerName: '月份', resizable: true,  fullWidth: true,width: 100, sortable: true},
       { field: 'placeon', headerName: '占位时长(h)', resizable: true,fullWidth: true, width: 130, sortable: true}, 
       { field: 'stop', headerName: '空闲时长(h)', resizable: true, fullWidth: true,width: 130, sortable: true},
