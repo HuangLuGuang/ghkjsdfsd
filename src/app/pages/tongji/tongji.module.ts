@@ -13,14 +13,12 @@ import { FormsModule } from '@angular/forms';
 // import { Ng2SmartTableModule } from 'ng2-smart-table';
 import {Ng2SmartTableModule} from '@mykeels/ng2-smart-table';
 
-import { TestTaskManageComponent } from './test-task-manage/test-task-manage.component';
 
 
 
 
 // datetime
 import { OwlDateTimeModule, OwlNativeDateTimeModule, OWL_DATE_TIME_LOCALE,OwlDateTimeIntl } from 'ng-pick-datetime';
-import { TaskProgressForTableComponent } from './test-task-manage/task-progress-for-table/task-progress-for-table.component';
 import { StatusForTableComponent } from './device-manage/status-for-table/status-for-table.component';
 // datetime 本地化标签 
 export class DefaultIntl extends OwlDateTimeIntl {
@@ -52,14 +50,13 @@ import { NzPaginationModule } from 'ng-zorro-antd/pagination';
 
 import  { ComponentTModule } from './components/componentT.module'
 import { AgGridModule } from 'ag-grid-angular';
-import { TaskProgressForAggridComponent } from './test-task-manage/task-progress-for-aggrid/task-progress-for-aggrid.component';
 import { ActionComponent } from './device-manage/action/action.component';
 import { TranActiveComponent } from './device-manage/tran-active/tran-active.component';
 import { TranIscalkpiComponent } from './device-manage/tran-iscalkpi/tran-iscalkpi.component';
 import { NzTabsModule } from 'ng-zorro-antd';
 @NgModule({
   declarations: [TongjiComponent, DeviceManageComponent, 
-    TestTaskManageComponent,  TaskProgressForTableComponent, StatusForTableComponent, TaskProgressForAggridComponent, ActionComponent, TranActiveComponent, TranIscalkpiComponent,],
+    StatusForTableComponent, ActionComponent, TranActiveComponent, TranIscalkpiComponent,],
   imports: [
     CommonModule,
     TongjiRoutingModule,
