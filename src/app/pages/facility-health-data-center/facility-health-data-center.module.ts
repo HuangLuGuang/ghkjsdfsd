@@ -21,10 +21,11 @@ import { HistoryAlertComponent } from './history-alert/history-alert.component';
 import { AlertMessageComponent } from './real-time-alert/alert-message/alert-message.component';
 import { TableDevicenameComponent } from './components/table-devicename/table-devicename.component';
 import { TableGroupComponent } from './components/table-group/table-group.component';
+import { AlertLevelComponent } from './components/alert-level/alert-level.component';
 
 
 @NgModule({
-  declarations: [FacilityHealthDataCenterComponent, MySelectTreeComponent, MySelectTreeTypeComponent, MyInputComponent, MyDateRangeComponent, AgTableComponent, RealTimeAlertComponent, HistoryAlertComponent, AlertMessageComponent, TableDevicenameComponent, TableGroupComponent, 
+  declarations: [FacilityHealthDataCenterComponent, MySelectTreeComponent, MySelectTreeTypeComponent, MyInputComponent, MyDateRangeComponent, AgTableComponent, RealTimeAlertComponent, HistoryAlertComponent, AlertMessageComponent, TableDevicenameComponent, TableGroupComponent, AlertLevelComponent, 
   ],
   imports: [
     CommonModule,

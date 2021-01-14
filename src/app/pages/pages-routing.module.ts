@@ -3,8 +3,6 @@ import { NgModule } from '@angular/core';
 
 import { PagesComponent } from './pages.component';
 import { HomeComponent } from './home/home.component';
-// 404
-import { NotFoundComponent } from '../miscellaneous/not-found/not-found.component';
 
 import { KpiDetailComponent } from './kpi/kpi-detail/kpi-detail.component';
 
@@ -79,27 +77,25 @@ const routes: Routes = [{
       loadChildren: () => import('./lift-machine/lift-machine.module')
       .then(m => m.LiftMachineModule),
     },
+    // 安灯与工时系统
+    {
+      path: 'andon-man-hour',
+      loadChildren: ()=> import('./andon-man-hour/andon-man-hour.module')
+      .then(m => m.AndonManHourModule)
+    },
+
     // 系统设置
     {
       path: 'system-set',
       loadChildren: () => import('./system-set/system-set.module')
       .then(m => m.SystemSetModule),
     },
-    // 404 界面
-    // {
-    //   path: 'miscellaneous',
-    //   loadChildren: () => import('./miscellaneous/miscellaneous.module')
-    //     .then(m => m.MiscellaneousModule),
-    // },
     {
       path: '',
       redirectTo: 'home',
       pathMatch: 'full',
     },
-    // {
-    //   path: '**',
-    //   component: NotFoundComponent,
-    // },
+
   ],
 }];
 

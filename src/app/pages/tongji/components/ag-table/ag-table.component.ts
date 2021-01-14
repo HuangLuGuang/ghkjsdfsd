@@ -246,13 +246,19 @@ export class AgTableComponent implements OnInit {
     if (select_data.length != 0){
       // console.log("table_header----", table_header);
       table_data.push(table_header);
-      // console.log("导出数据>>>>>>>>", select_data);
+      console.log("导出数据>>>>>>>>", select_data);
       var data = Object.assign([], select_data);
       data.forEach(element => {
         if(element["active"] === 1){
           element["active"] = '是'
         }else{
           element["active"] = '否'
+        }
+        // kpi计算
+        if(element["iscalkpi"] === 1){
+          element["iscalkpi"] = '是'
+        }else{
+          element["iscalkpi"] = '否'
         }
 
         var data_item = [];

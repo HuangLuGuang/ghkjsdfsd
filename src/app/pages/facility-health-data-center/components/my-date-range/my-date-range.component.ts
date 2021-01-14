@@ -1,3 +1,4 @@
+import { DatePipe } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { LayoutService } from '../../../../@core/utils';
 import { PublicmethodService } from '../../../../services/publicmethod/publicmethod.service';
@@ -13,7 +14,11 @@ declare let layui;
 })
 export class MyDateRangeComponent implements OnInit {
 
-  constructor(private publicservice: PublicmethodService, private layoutService: LayoutService) { }
+  constructor(private publicservice: PublicmethodService, private layoutService: LayoutService, private datepip: DatePipe) { 
+    var start_end = this.get_start_end();
+    // "2019-12-01 - 2020-12-21"
+    this.init_value = start_end.start + ' - ' + start_end.end
+  }
 
   ngOnInit(): void {
 
@@ -29,21 +34,26 @@ export class MyDateRangeComponent implements OnInit {
       if(geely_info) echarts.init(geely_info).resize();
     })
     
+
     // 初始化 日期范围！
     this.initdate();
 
     // 得到默认的日期
     var get_curr_mounth_one = this.publicservice.get_curr_mounth_one();
     var default_date = get_curr_mounth_one[0] + ' - ' + get_curr_mounth_one[1]
-    console.log("得到默认的日期:>>",default_date); // 2020-12-01 - 2020-12-15
+    // console.log("得到默认的日期:>>",default_date); // 2020-12-01 - 2020-12-15
+
+    
   }
   ngAfterViewInit(){
+    
   }
 
   ngOnDestroy(){
     $(".datacenter_report_date").remove();
   }
-  init_value = "2019-12-01 - 2020-12-21" // 默认日期
+  // init_value = "2019-12-01 - 2020-12-21" // 默认日期
+  init_value; // 默认日期
 
   // 初始化日期范围
   initdate(){
@@ -87,8 +97,24 @@ export class MyDateRangeComponent implements OnInit {
 
   // 重置日期范围 到默认的日期！
   reset_mydate(){
-    this.init_value = "2019-12-01 - 2020-12-21";
+    var start_end = this.get_start_end();
+    // "2019-12-01 - 2020-12-21"
+    this.init_value = start_end.start + ' - ' + start_end.end;
     this.initdate()
+  }
+
+  // 得到 日期范围： 本月1号-到现在
+  get_start_end(){
+    var curr_date = new Date();
+    var curr_year = curr_date.getFullYear();
+    var curr_month = curr_date.getMonth() + 1;
+
+    var start = this.datepip.transform(new Date(curr_year, curr_month-1, 1), 'yyyy-MM-dd'); // start
+    var end = this.datepip.transform(new Date(curr_year, curr_month, 0), 'yyyy-MM-dd');   // end
+    return {
+      start: start,
+      end: end
+    }
   }
 
 }

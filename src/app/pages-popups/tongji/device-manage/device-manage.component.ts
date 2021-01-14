@@ -1,7 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { NbDialogRef } from '@nebular/theme';
-import { copyFileSync } from 'fs';
-import { from } from 'rxjs';
 import { HttpserviceService } from '../../../services/http/httpservice.service';
 import { PublicmethodService } from '../../../services/publicmethod/publicmethod.service';
 import { UserInfoService } from '../../../services/user-info/user-info.service';
@@ -65,8 +63,8 @@ export class DeviceManageComponent implements OnInit {
   loginname = this.userinfo.getLoginName();
   
   ngAfterViewInit(){
-    console.log("编辑----添加",this.rowData)
-    console.log("编辑----添加  content---",this.content)
+    // console.log("编辑----添加",this.rowData)
+    // console.log("编辑----添加  content---",this.content)
 
     // form 表单
     this.layuiform();

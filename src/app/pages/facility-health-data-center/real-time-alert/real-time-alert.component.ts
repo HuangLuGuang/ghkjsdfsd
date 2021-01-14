@@ -1,9 +1,11 @@
+import { DatePipe } from '@angular/common';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { NbDialogService } from '@nebular/theme';
 import { EditDelTooltipComponent } from '../../../pages-popups/prompt-diallog/edit-del-tooltip/edit-del-tooltip.component';
 import { HttpserviceService } from '../../../services/http/httpservice.service';
 import { PublicmethodService } from '../../../services/publicmethod/publicmethod.service';
 import { UserInfoService } from '../../../services/user-info/user-info.service';
+import { AlertLevelComponent } from '../components/alert-level/alert-level.component';
 import { TableDevicenameComponent } from '../components/table-devicename/table-devicename.component';
 import { TableGroupComponent } from '../components/table-group/table-group.component';
 import { AlertMessageComponent } from './alert-message/alert-message.component';
@@ -28,7 +30,7 @@ export class RealTimeAlertComponent implements OnInit {
   groups_placeholder = "请选中科室/功能组"; // 下拉框---科室功能组
 
   constructor(private userinfo: UserInfoService, private publicservice: PublicmethodService,
-    private http: HttpserviceService, private dialogService: NbDialogService
+    private http: HttpserviceService, private dialogService: NbDialogService, private datepip: DatePipe,
   ) {
     // 会话过期
     // localStorage.removeItem("alert401flag");
@@ -58,7 +60,38 @@ export class RealTimeAlertComponent implements OnInit {
       // { field: 'message', headerName: '报警内容', resizable: true, minWidth: 10},
       { field: 'message', headerName: '报警内容', resizable: true, width: 800, cellRendererFramework: AlertMessageComponent, sortable: true},
       { field: 'recordtime', headerName: '报警时间', resizable: true, sortable: true},
-      { field: 'level', headerName: '报警等级', resizable: true, minWidth: 10, sortable: true},
+      { field: 'level', headerName: '报警等级', resizable: true, minWidth: 10, sortable: true, cellRendererFramework: AlertLevelComponent,
+        cellStyle: function(params){
+          var level = params.value;
+          switch (level) {
+            case 3:
+              return {
+                border: 'rgb(203, 238, 164) 1px solid',
+                background: 'rgb(255,0,0)',
+              }
+              break;
+            case 2:
+              return {
+                border: 'rgb(216, 236, 162) 1px solid',
+                background: 'rgb(255,166,0)',
+              }
+            
+              break;
+            case 1:
+              return {
+                border: 'rgb(228, 144, 129) 1px solid',
+                background: 'rgb(60,179,113)',
+              }
+              break;
+            default:
+              return {
+                // border: 'rgb(203, 238, 164) 1px solid',
+                // background: 'rgb(203, 238, 164)',
+              }
+              break;
+          }
+        }
+      },
       // { field: 'devicestatus', headerName: '状态', resizable: true, minWidth: 10},
       { field: 'belonged', headerName: '负责人', resizable: true, width: 100, sortable: true},
     ],
@@ -302,8 +335,11 @@ export class RealTimeAlertComponent implements OnInit {
   }
 
 
+
   // 更新table
   update_agGrid(event?){
+    var start_end = this.get_start_end();
+    console.error("++++++++++++++++++start_end+++++++++++++++",start_end)
     // 是否 每页多少也，设置为默认值
     this.tableDatas.isno_refresh_page_size = true;
     var offset;
@@ -372,4 +408,19 @@ export class RealTimeAlertComponent implements OnInit {
       this.publicservice.option_record(employeeid, result,transactiontype,info,createdby);
     }
   }
+
+  // 得到 日期范围： 本月1号-到现在
+  get_start_end(){
+    var curr_date = new Date();
+    var curr_year = curr_date.getFullYear();
+    var curr_month = curr_date.getMonth() + 1;
+
+    var start = this.datepip.transform(new Date(curr_year, curr_month-1, 1), 'yyyy-MM-dd'); // start
+    var end = this.datepip.transform(new Date(curr_year, curr_month, 0), 'yyyy-MM-dd');   // end
+    return {
+      start: start,
+      end: end
+    }
+  }
+
 }

@@ -63,6 +63,7 @@ export class KpiDetailComponent implements OnInit {
             center: ['75%', '35%'],
             // radius: '28%',
             radius: ['20%', '28%'],
+            hoverOffset: 5,
             tooltip: {
               trigger: 'item',
               axisPointer: {            // 坐标轴指示器，坐标轴触发有效

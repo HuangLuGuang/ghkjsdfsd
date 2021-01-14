@@ -18,15 +18,15 @@ export class MyInputComponent implements OnInit {
     $(".delet_input_value").hide()
     
   }
-  // employeenumber
+  // facility_health_employeenumber
   ngOnDestroy(){
-    $("#employeenumber").remove();
+    $("#facility_health_employeenumber").remove();
     
   }
   
   ngAfterViewInit(){
     // console.log("myinput_placeholder------------->",this.myinput_placeholder)
-    $("#employeenumber").attr("placeholder", this.myinput_placeholder)
+    $("#facility_health_employeenumber").attr("placeholder", this.myinput_placeholder)
   }
 
 

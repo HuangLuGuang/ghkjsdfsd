@@ -313,18 +313,37 @@ let kpi_detail = {
                         color: "#a1a8b3" //white
                     }
                 },
+                axisLabel: {
+                    show: true,
+                    textStyle: {
+                        color: "#646464", // 坐标轴刻度文字的样式
+                    }
+                },
                 indicator: [{
                     name: "占位",
-                    max: 88
+                    max: 100,
+                    axisLabel: {
+                        show: true,
+                        
+                    }
                 }, {
                     name: "空闲",
-                    max: 88
+                    max: 100,
+                    axisLabel: {
+                        show: false
+                    }
                 }, {
                     name: "维修",
-                    max: 88
+                    max: 100,
+                    axisLabel: {
+                        show: false
+                    }
                 }, {
                     name: "运行",
-                    max: 88
+                    max: 100,
+                    axisLabel: {
+                        show: false
+                    }
                 }]
             },
             series: [{

@@ -196,7 +196,7 @@ export class DeviceManageComponent implements OnInit {
               id_list.push(item["devicename"])
             });
             var id_str = id_list.join(',');
-            data_info  = '删除(eim台账):' + id_str;
+            data_info  = '设备名称(devicename):' + id_str;
             // console.log("要删除的数据:", rowdata)
 
             var table = 'device';
@@ -214,7 +214,7 @@ export class DeviceManageComponent implements OnInit {
                   break;
               
                 default:
-                  var err_date = status["message"]
+                  var err_date = "error:" + status["message"]
                   this.RecordOperation("删除(eim台账)", 0, String(err_date))
                   this.deldanger();
                   break;
@@ -627,7 +627,7 @@ export class DeviceManageComponent implements OnInit {
         devicename:data.devicename,
         type:type,
         deviceid:String(data.deviceid),
-        active:data.active === '是'||data.active == 1? 1:0,
+        active:data.active=== '是'||data.active === 1? 1:0,// 
         location:data.location,
         group:data.group,
         belonged:data.belonged,
@@ -640,7 +640,7 @@ export class DeviceManageComponent implements OnInit {
         lastupdatedby:data.lastupdatedby,
         
         groupsid:data.groupsid,
-        iscalkpi:data.iscalkpi === '是'||data.active == 1? 1:0,
+        iscalkpi:data.iscalkpi=== '是'||data.iscalkpi === 1? 1:0,// 
         year: new Date().getFullYear(),
       }
       after_datas.push(after_data)
@@ -757,7 +757,7 @@ export class DeviceManageComponent implements OnInit {
     }
   
     if (!str){
-      console.log("==============>",data, data.length)
+      // console.log("==============>",data, data.length)
       return title + "不能有特殊字符！"
     }
     return 1
@@ -881,7 +881,7 @@ export class DeviceManageComponent implements OnInit {
       return verify_sql_str
     }
     if (linklevel.length > 1){
-      console.log("linklevel:\n\n\n",linklevel)
+      // console.log("linklevel:\n\n\n",linklevel)
       return "设备ABC分类最大长度不超过1！"
     }
     if (! new RegExp(Device["linklevel"]).test(linklevel)){
@@ -1188,7 +1188,7 @@ interface DeviceData {
   devicename:string,
   type: string,
   deviceid:number, 
-  active:string,
+  active:number,
   location:string,
   group:string,
   belonged:string,
