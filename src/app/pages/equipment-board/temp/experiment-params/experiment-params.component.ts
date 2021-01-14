@@ -46,8 +46,8 @@ export class ExperimentParamsComponent implements OnInit {
           this.get_device_Temp_hum();
           i = 0;
         }
+        i++;
       }
-      i++;
     },1000)
     window.addEventListener('resize',this.chartResize);
   }
