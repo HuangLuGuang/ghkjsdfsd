@@ -278,6 +278,40 @@
     width: 30%;
 }
 
+.scrollbar_l::-webkit-scrollbar {
+    z-index: 10;
+    width: 5px;
+    height: 5px;
+    // position: relative;
+}
+
+.scrollbar_l::-webkit-scrollbar-thumb {
+    /*滚动条里面小方块*/
+    border-radius: 10px;
+    box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.2);
+    background: #535353;
+}
+
+.scrollbar_l::-webkit-scrollbar-track {
+    /*滚动条里面轨道*/
+    box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.2);
+    border-radius: 10px;
+    background: #888888;
+}
+
+.scrollbar_l {
+    position: absolute;
+    top: 98%;
+    left: 33%;
+    width: 66%;
+    height: 10px;
+    overflow-y: hidden;
+    z-index: 10;
+    div {
+        height: 10px
+    }
+}
+
 .fanzhuan {
     position: relative;
     width: 40px;
@@ -324,22 +358,7 @@
 }
 
 .scrollbar::-webkit-scrollbar {
-    z-index: 10;
-    width: 5px;
-    height: 5px;
-}
-
-.scrollbar::-webkit-scrollbar-thumb {
-    border-radius: 10px;
-    box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.2);
-    // background: #535353;
-    background: #888888;
-}
-
-.scrollbar::-webkit-scrollbar-track {
-    box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.2);
-    border-radius: 10px;
-    background: #888888;
+    display: none;
 }
 
 .font_w_too_long {

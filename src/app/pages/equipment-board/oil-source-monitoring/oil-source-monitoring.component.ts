@@ -7,6 +7,9 @@ import { colors, copy, create_img_16_9 } from '../equipment-board';
 
 let oilsrouce = require('../../../../assets/eimdoard/equipment/js/oilsrouce');
 let equipment_four_road = require('../../../../assets/eimdoard/equipment/js/equipment-four-road');
+
+declare var $
+
 /**
  * 油源健康监控系统
  */
@@ -70,11 +73,7 @@ export class OilSourceMonitoringComponent implements OnInit {
       name:'HPU1',
       id:'oil_dashboard_1',
       status:false,//当前HPU状态
-      time:{//以运行时间
-        h:0,
-        m:0,
-        s:0,
-      },
+      time:0,//以运行时间
       pumpList:[
         {name:1,s:false},{name:2,s:false},{name:3,s:false},
         {name:4,s:false},{name:5,s:false},{name:6,s:false}
@@ -85,11 +84,7 @@ export class OilSourceMonitoringComponent implements OnInit {
       name:'HPU2',
       id:'oil_dashboard_2',
       status:false,//当前HPU状态
-      time:{
-        h:0,
-        m:0,
-        s:0,
-      },
+      time:0,//以运行时间
       pumpList:[
         {name:1,s:false},{name:2,s:false},{name:3,s:false},
         {name:4,s:false},{name:5,s:false},{name:6,s:false}
@@ -100,11 +95,7 @@ export class OilSourceMonitoringComponent implements OnInit {
       name:'HPU3',
       id:'oil_dashboard_3',
       status:false,//当前HPU状态
-      time:{
-        h:0,
-        m:0,
-        s:0,
-      },
+      time:0,//以运行时间
       pumpList:[
         {name:1,s:false},{name:2,s:false},{name:3,s:false},
         {name:4,s:false},{name:5,s:false},{name:6,s:false}
@@ -115,11 +106,7 @@ export class OilSourceMonitoringComponent implements OnInit {
       name:'HPU4',
       id:'oil_dashboard_4',
       status:false,//当前HPU状态
-      time:{
-        h:0,
-        m:0,
-        s:0,
-      },
+      time:0,//以运行时间
       pumpList:[
         {name:1,s:false},{name:2,s:false},{name:3,s:false},
         {name:4,s:false},{name:5,s:false},{name:6,s:false}
@@ -130,11 +117,7 @@ export class OilSourceMonitoringComponent implements OnInit {
       name:'HPU5',
       id:'oil_dashboard_5',
       status:false,//当前HPU状态
-      time:{
-        h:0,
-        m:0,
-        s:0,
-      },
+      time:0,//以运行时间
       pumpList:[
         {name:1,s:false},{name:2,s:false},{name:3,s:false},
         {name:4,s:false},{name:5,s:false},{name:6,s:false}
@@ -297,7 +280,7 @@ export class OilSourceMonitoringComponent implements OnInit {
     // {data:['HPU1','Cs Communication Erroe111111111111111111111111111111111111111111'],s:'',color:'white'},
     // {data:['HPU2','Oil Level High Alarm'],s:'warm',color:'yellow'},
     // {data:['HPU3','Leak Detect 1'],s:'error',color:'red'},
-    // {data:['HPU3','Leak Detect 1'],s:'error',color:'red'},
+    // {data:['HPU3','Leak Detect 1111111111111111111232141231111111111'],s:'error',color:'red'},
     // {data:['HPU3','Leak Detect 1'],s:'error',color:'red'},
     // {data:['HPU3','Leak Detect 1'],s:'error',color:'red'},
     // {data:['HPU3','Leak Detect 1'],s:'error',color:'red'},
@@ -399,6 +382,19 @@ export class OilSourceMonitoringComponent implements OnInit {
       i++;
     },1000);
     window.addEventListener('resize',this.resize);
+
+    $('.scrollbar_l').bind("scroll",f=>{
+      // $('.scrollbar_l').scrollLeft()
+      var line = $('.line_1');
+      for(let i = 0;i<line.length;i++){
+        $('#line_'+i).scrollLeft($('.scrollbar_l').scrollLeft())
+      }
+      // $('.scrollbar').scrollLeft($('.scrollbar_l').scrollLeft())
+    })
+  }
+
+  ngAfterViewInit(){
+    this.create_scrollbar();
   }
 
   obser = new Observable(f=>{
@@ -434,6 +430,17 @@ export class OilSourceMonitoringComponent implements OnInit {
           console.log(f)
       })
     }, 500);
+  }
+
+
+  create_scrollbar(){
+    var line = $('.line_1');
+    let max = 0;
+    for(let i = 0;i<line.length;i++){
+      if(max<line[i].clientWidth)max = line[i].clientWidth;
+    }
+
+    $('#s').width( max)
   }
   
   
@@ -484,9 +491,9 @@ export class OilSourceMonitoringComponent implements OnInit {
         this.HPUlist[i-1].pumpList.forEach((f,j)=>{
           f.s = el[0][`hs3${j+1}`]?true:false;
         })
-        this.HPUlist[i-1].status = el[0].hs30?true:false;
+        this.HPUlist[i-1].status = el[0].status?true:false;
         //时间
-        this.HPUlist[i-1].time = this.date_h_to_hms(el[0].hh01);
+        this.HPUlist[i-1].time = el[0].hh01;
         //油压
         this.HPUlist[i-1].series[0].data.value = el[0].hv01;
         //油流量
