@@ -53,40 +53,40 @@ export class EquipmentShockComponent implements OnInit {
               color:["", ""]
             }],
       'equipment.shock.LeftFrontRightFront':[{ 
-        name: "右前扭矩加载机构输出",nameEn :'RF_TIF1output', unit: "V",value: [],show:true
+        name: "右前扭矩加载机构输出",nameEn :'RFTIF1output', unit: "V",value: [],show:true
         ,color:["", ""]
         },{ 
-            name: "右前TIF位移",nameEn :'RF_TIF1displacement', unit: "mm",value: [],show:true,
+            name: "右前TIF位移",nameEn :'RFTIF1displacement', unit: "mm",value: [],show:true,
             color:["", ""]
         },{ 
-          name: "右前TIF力",nameEn :'RF_TIF1force', unit: "kN",value: [],show:true,
+          name: "右前TIF力",nameEn :'RFTIF1force', unit: "kN",value: [],show:true,
           color:["", ""]
         },{ 
-        name: "右前TIF力矩",nameEn :'RF_TIF1torque', unit: "kN-m",value: [],
+        name: "右前TIF力矩",nameEn :'RFTIF1torque', unit: "kN-m",value: [],
         color:["", ""]
         },{ 
-            name: "右前TIF角度",nameEn :'RF_TIF1angle', unit: "°",value: [],
+            name: "右前TIF角度",nameEn :'RFTIF1angle', unit: "°",value: [],
             color:["", ""]
         },{ 
-          name: "右前TIF循环次数",nameEn :'RF_TIF1count', unit: "segments",value: [],
+          name: "右前TIF循环次数",nameEn :'RFTIF1count', unit: "segments",value: [],
           color:["", ""]
         },{ 
-        name: "左前TIF输出",nameEn :'LF_TIF2output', unit: "V",value: []
+        name: "左前TIF输出",nameEn :'LFTIF2output', unit: "V",value: []
         ,color:["", ""]
         },{ 
-            name: "左前TIF位移",nameEn :'LF_TIF2displacement', unit: "mm",value: [],
+            name: "左前TIF位移",nameEn :'LFTIF2displacement', unit: "mm",value: [],
             color:["", ""]
         },{ 
-          name: "左前TIF力",nameEn :'LF_TIF2force', unit: "kN",value: [],
+          name: "左前TIF力",nameEn :'LFTIF2force', unit: "kN",value: [],
           color:["", ""]
         },{ 
-        name: "左前TIF力矩",nameEn :'LF_TIF2torque', unit: "kN·m",value: []
+        name: "左前TIF力矩",nameEn :'LFTIF2torque', unit: "kN·m",value: []
         ,color:["", ""]
         },{ 
-            name: "左前TIF角度",nameEn :'LF_TIF2angle', unit: "°",value: [],
+            name: "左前TIF角度",nameEn :'LFTIF2angle', unit: "°",value: [],
             color:["", ""]
         },{ 
-          name: "左前TIF循环次数",nameEn :'LF_TIF2count', unit: "segments",value: [],
+          name: "左前TIF循环次数",nameEn :'LFTIF2count', unit: "segments",value: [],
           color:["", ""]
         }]};
   attrs_2 = 

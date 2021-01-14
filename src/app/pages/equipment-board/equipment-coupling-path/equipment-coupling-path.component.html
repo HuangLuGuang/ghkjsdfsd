@@ -29,7 +29,7 @@
             </div>
             <div class="sceond_third height_33" style="display: inherit;;box-shadow:0px 0px;padding: 0%;margin-top: 20px;">
                 <ngx-chart-curve-v3 #chart_3 [chartName]="'chart_3'" (clicEvent)="clicEvent($event,3)" [list]="list_3">
-                    <div style="width: 100%;display: flex;padding-left: 4%;">
+                    <div style="width: 100%;display: flex;padding-left: 4%; height: 100%; ">
                         <div class="_table height_100" style="width: 66%;margin-bottom: 0px;">
                             <div class="table_bo height_48">
                                 <table>
@@ -40,7 +40,7 @@
                                     </tr>
                                 </table>
                             </div>
-                            <div class="table_bo height_58">
+                            <div class="table_bo height_58" style="    overflow-x: hidden;">
                                 <table>
                                     <tr class="body" *ngFor="let items of switchStatus.data">
                                         <td *ngFor="let item of items;let i = index" [ngStyle]="{'width':switchStatus.width[i]}">
@@ -57,7 +57,7 @@
                             </div>
                         </div>
                         <div class="width_26 height_100">
-                            <div class="height_30" style="margin-top: 5px;" *ngFor="let item of real_list">
+                            <div class="height_18" style="margin-top: 5px;" *ngFor="let item of real_list">
                                 {{item.name}}{{'equipment.OilSeparator'|translate}}：
                                 <span [ngStyle]="{'color':item.color}">
                                     {{item.value}}

@@ -26,6 +26,7 @@
                             <div class="d" *ngFor="let f of item.pumpList" [ngStyle]="{'background':f.s?'#00FF33':'',width:(100-item.pumpList.length)/item.pumpList.length+'%'}">
                                 {{ f.name }}
                             </div>
+
                         </div>
                     </div>
                 </div>
@@ -41,9 +42,14 @@
                         <ng-container *ngFor="let item of equip_alarm;let i = index;">
                             <div class="bo" style="height: 35px;" [ngStyle]="{color:item.color}">
                                 <div class="w_30">{{item.data[0]}}</div>
-                                <div class="scrollbar font_w_too_long" style="overflow: auto;max-width: 70%;">{{ item.data[1] }}</div>
+                                <div id="line_{{i}}" class="line_1 scrollbar font_w_too_long" style="overflow: auto;max-width: 67%;">{{ item.data[1] }}</div>
                             </div>
+                            <!-- 左右滚动条 -->
+
                         </ng-container>
+                    </div>
+                    <div class="scrollbar_l">
+                        <div id="s"></div>
                     </div>
                 </div>
             </div>
@@ -81,7 +87,8 @@
                         <div class="height_100 w_60">
                             <div>HPU 在线时间</div>
                             <div id="clock">
-                                {{ HPUselect.HPUselectItem.time.h | digitCompletion:2}} 时 {{ HPUselect.HPUselectItem.time.m | digitCompletion:2}} 分 {{ HPUselect.HPUselectItem.time.s | digitCompletion:2}}秒
+                                {{HPUselect.HPUselectItem.time}}时
+                                <!-- {{ HPUselect.HPUselectItem.time.h | digitCompletion:2}} 时 {{ HPUselect.HPUselectItem.time.m | digitCompletion:2}} 分 {{ HPUselect.HPUselectItem.time.s | digitCompletion:2}}秒 -->
                                 <!-- <div class="fanzhuan">
                                     <div id="d_1" class="d_1">
                                         {{ HPUselect.HPUselectItem.time.s | digitCompletion:2}}

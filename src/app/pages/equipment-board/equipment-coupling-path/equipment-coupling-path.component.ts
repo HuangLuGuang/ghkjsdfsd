@@ -207,10 +207,16 @@ export class EquipmentCouplingPathComponent implements OnInit {
     title:[`stationName`,'OnOff','InternalLock','Programlock'],
     width:['25.5%','16.5%','16.5%','16.5%'],
     data:[
-      ['',
-      {value:0,color:'#C0C0C0',id:'circle'},{value:0,color:'white',id:'strip'},{value:0,color:'white',id:'strip'},],
-      ['',
-      {value:0,color:'#C0C0C0',id:'circle'},{value:0,color:'yellow',id:'strip'},{value:0,color:'white',id:'strip'},],
+    //   ['111',
+    //   {value:0,color:'#C0C0C0',id:'circle'},{value:0,color:'white',id:'strip'},{value:0,color:'white',id:'strip'},],
+    //   ['11',
+    //   {value:0,color:'#C0C0C0',id:'circle'},{value:0,color:'yellow',id:'strip'},{value:0,color:'white',id:'strip'},], ['',
+    //   {value:0,color:'#C0C0C0',id:'circle'},{value:0,color:'yellow',id:'strip'},{value:0,color:'white',id:'strip'},], ['',
+    //   {value:0,color:'#C0C0C0',id:'circle'},{value:0,color:'yellow',id:'strip'},{value:0,color:'white',id:'strip'},], ['',
+    //   {value:0,color:'#C0C0C0',id:'circle'},{value:0,color:'yellow',id:'strip'},{value:0,color:'white',id:'strip'},], ['',
+    //   {value:0,color:'#C0C0C0',id:'circle'},{value:0,color:'yellow',id:'strip'},{value:0,color:'white',id:'strip'},], ['',
+    //   {value:0,color:'#C0C0C0',id:'circle'},{value:0,color:'yellow',id:'strip'},{value:0,color:'white',id:'strip'},], ['',
+    //   {value:0,color:'#C0C0C0',id:'circle'},{value:0,color:'yellow',id:'strip'},{value:0,color:'white',id:'strip'},],
 
     ]
   }
