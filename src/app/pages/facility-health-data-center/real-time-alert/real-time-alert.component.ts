@@ -69,26 +69,22 @@ export class RealTimeAlertComponent implements OnInit {
                 border: 'rgb(203, 238, 164) 1px solid',
                 background: 'rgb(255,0,0)',
               }
-              break;
             case 2:
               return {
                 border: 'rgb(216, 236, 162) 1px solid',
                 background: 'rgb(255,166,0)',
               }
             
-              break;
             case 1:
               return {
                 border: 'rgb(228, 144, 129) 1px solid',
                 background: 'rgb(60,179,113)',
               }
-              break;
             default:
               return {
                 // border: 'rgb(203, 238, 164) 1px solid',
                 // background: 'rgb(203, 238, 164)',
               }
-              break;
           }
         }
       },

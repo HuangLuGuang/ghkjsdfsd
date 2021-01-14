@@ -1,4 +1,4 @@
-<nb-card style="width: 800px;">
+<nb-card style="width: 800px;height: 700px;">
     <nb-card-header>
         <div class="row">
           <div class="col-md-4">编辑试验任务信息</div>
@@ -64,7 +64,7 @@
                 <div class="layui-inline test_task_info_right">
                     <label class="layui-form-label mylabel ">上次状态修改时间：</label>
                     <div class="layui-input-block">
-                        <input type="text" disabled name="lastupdateon"  lay-verify="required|lastupdateon" placeholder="上次状态修改时间" autocomplete="off" class="layui-input">
+                        <input type="text" disabled name="lastupdateon"  lay-verify="required|lastupdateon" placeholder="上次状态修改时间" autocomplete="off" class="layui-input" style="    cursor: no-drop;">
                     </div>
                 </div>
             </div>
@@ -79,11 +79,14 @@
             </div>
             
             <div class="layui-form-item" *ngIf="isShow">
-                <label class="layui-form-label mylabel mulu_title">其它备注：</label>
+                <label class="layui-form-label mylabel ">其它备注：</label>
                 <div class="layui-input-block">
                     <textarea placeholder="其它备注" class="layui-textarea" name="causemessage"></textarea>
                 </div>
             </div>
+
+            <!-- 扩充高度 -->
+            <div style="height: 110px;"></div>
 
             <!-- button 取消、确定 -->
             <div class="layui-form-item">
