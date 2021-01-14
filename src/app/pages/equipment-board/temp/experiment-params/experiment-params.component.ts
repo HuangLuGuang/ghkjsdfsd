@@ -30,20 +30,24 @@ export class ExperimentParamsComponent implements OnInit {
     this.subscribeList.layout = this.layoutService.onInitLayoutSize().subscribe(f=>{
       if(document.getElementById('third_second'))echarts.init(document.getElementById('third_second')).resize();
     })
-
     setTimeout(() => {
       if(this.device.includes('weiss'))
-        this.get_device_mts_timerangedata();
+      this.get_device_mts_timerangedata();
       else
         this.get_device_his_Temp_hum();
     }, 1000);
-
+    let i = 0;
     this.timer = setInterval(f =>{
       if(this.device.includes('weiss'))
         this.get_device_mts_weiss();
-      else {
-        this.get_device_Temp_hum();
+      else 
+      {
+        if(i == 5){
+          this.get_device_Temp_hum();
+          i = 0;
+        }
       }
+      i++;
     },1000)
     window.addEventListener('resize',this.chartResize);
   }
