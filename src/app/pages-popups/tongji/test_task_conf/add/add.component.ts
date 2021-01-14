@@ -7,6 +7,8 @@ import { UserInfoService } from '../../../../services/user-info/user-info.servic
 declare let $;
 declare let layui;
 
+import { Tesk_Info } from '../../form_verification';
+
 @Component({
   selector: 'ngx-add',
   templateUrl: './add.component.html',
@@ -55,13 +57,40 @@ export class AddComponent implements OnInit {
 
   // 表单 form
   layuiform(){
+    var tesk_info = Tesk_Info;
     var that = this;
     layui.use('form', function(){
       var form = layui.form,
       layer = layui.layer;
 
       // 验证表单
-      form.verify({});
+      form.verify({
+        // 试验任务编号
+        tasknum: function(value, item){
+          // sql注入
+          var verify_sql_str = that.verify_sql_str(value, '试验任务编号');
+          if (verify_sql_str != 1){
+            return verify_sql_str
+          };
+          // 格式是否匹配
+          if (! new RegExp(tesk_info.tasknum).test(value)){
+            return '试验任务编号格式不符：WTxxxx-xxxxxx';
+          }
+        },
+        // 样件编号
+        exemplarnumbers: function(value, item){
+          // sql注入
+          var verify_sql_str = that.verify_sql_str(value, '样件编号');
+          if (verify_sql_str != 1){
+            return verify_sql_str
+          };
+          // 格式是否匹配
+          if (! new RegExp(tesk_info.exemplarnumbers).test(value)){
+            return '样件编号格式不符：YP-xxxx-xxxxxx';
+          }
+        }
+
+      });
 
       //监听提交
       form.on('submit(add)', function(data){
@@ -176,6 +205,21 @@ export class AddComponent implements OnInit {
   }
   danger(data){
     this.publicmethod.showngxtoastr({position: 'toast-top-right', status: 'danger', conent:"新增失败" + data});
+  }
+
+  // 验证 sql 注入、 特殊字符！
+  verify_sql_str(data, title){
+    var special_sql = Tesk_Info['special_sql']["special_sql"];
+    var special_str = Tesk_Info['special_sql']["special_str"];
+    var sql = special_sql.test(data);
+    var str = special_str.test(data);
+    if(sql){
+      return "防止SQL注入，请不要输入关于sql语句的特殊字符！"
+    }
+    if (!str){
+      return title + "不能有特殊字符！"
+    }
+    return 1
   }
 
 
