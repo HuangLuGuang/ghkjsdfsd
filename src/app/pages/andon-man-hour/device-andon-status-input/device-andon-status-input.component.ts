@@ -17,6 +17,7 @@ declare let $;
 export class DeviceAndonStatusInputComponent implements OnInit {
 
   @ViewChild("groups_devieces") groups_devieces:any;
+  @ViewChild("timeline") timeline:any;
 
 
   // 用户id
@@ -24,6 +25,9 @@ export class DeviceAndonStatusInputComponent implements OnInit {
 
   // 设备数据
   device_message;
+
+  // 历史时间选择器
+  selectedItem = '3';
 
   constructor(private userinfo: UserInfoService, private http: HttpserviceService, private dialogService: NbDialogService, private publicservice: PublicmethodService) {
     // 会话过期
@@ -71,7 +75,7 @@ export class DeviceAndonStatusInputComponent implements OnInit {
         }
       })
     }else{
-      this.dialogService.open(EditDelTooltipComponent,{ closeOnBackdropClick: false, context: { title: '提示', content:   `请选择要搜索的数据！`}} ).onClose.subscribe(
+      this.dialogService.open(EditDelTooltipComponent,{ closeOnBackdropClick: false, context: { title: '提示', content:   `请选择设备!`}} ).onClose.subscribe(
         name=>{}
       )
     }
@@ -129,6 +133,31 @@ export class DeviceAndonStatusInputComponent implements OnInit {
         name=>{}
       )
     }
+  }
+
+  // 得到设备状态历史
+  get_history(){
+    var times = this.selectedItem;
+    var groups_devieces = this.groups_devieces.get_form_val();
+    var devicename = groups_devieces["devicename"]
+    if (devicename){
+      var table = "andon";
+      var method = "pc_device_status_log";
+      var colums = {
+        devicename: devicename,
+        times: times,
+      }
+      this.http.callRPC(table,method,colums).subscribe(result=>{
+        console.log("得到设备状态历史", result);
+        var res = result["result"]["message"][0];
+        if (res["code"]===1){}else{}
+      })
+    }else{
+      this.dialogService.open(EditDelTooltipComponent,{ closeOnBackdropClick: false, context: { title: '提示', content:   `请选择设备!`}} ).onClose.subscribe(
+        name=>{}
+      )
+    }
+
   }
 
   // option_record

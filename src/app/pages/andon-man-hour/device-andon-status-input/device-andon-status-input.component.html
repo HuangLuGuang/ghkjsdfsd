@@ -24,7 +24,7 @@
 
 <div class="row" style="margin: 0px -11px;">
     <!-- 当前设备运行状态 -->
-    <div class="col-md-9">
+    <div class="col-md-8">
         <nb-card>
             <nb-card-header style="font-size: small;">
                 当前设备运行状态
@@ -71,12 +71,36 @@
 
     </div>
     <!-- 设备状态历史(仅20天) -->
-    <div class="col-md-3 ">
+    <div class="col-md-4 " style="padding-left: 0px;">
         <nb-card>
-            <nb-card-header style="font-size: small;">
-                设备状态历史(仅20天)
+            <nb-card-header>
+                <div class="row" >
+                    <div class="col-md-6" style="font-size: small;">设备状态历史(仅20天)</div>
+                    <div class="col-md-4" style="text-align: end;">
+                        <nb-select placeholder="请选择时间" [(selected)]="selectedItem" 
+                            size="small" status="info">
+                            <!-- <nb-option value="">Option empty</nb-option> -->
+                            <nb-option value="1">最近1天</nb-option>
+                            <nb-option value="3">最近3天</nb-option>
+                            <nb-option value="7">最近1周</nb-option>
+                            <nb-option value="30">最近1月</nb-option>
+                        </nb-select>
+                    </div>
+                    
+                    <div class="col-md-2" style="display: flex;">
+                        <div style="flex: auto;">
+                        </div>
+                        <button nbButton size="small" (click)="get_history()">
+                            <nb-icon icon="sync-outline"></nb-icon>
+                        </button>
+                    </div>
+                    
+                </div>
             </nb-card-header>
-            <nb-card-body></nb-card-body>
+            <nb-card-body>
+                <!-- 时间轴 ant的 -->
+                <ngx-ant-time-line #timeline></ngx-ant-time-line>
+            </nb-card-body>
         </nb-card>
     </div>
 </div>
