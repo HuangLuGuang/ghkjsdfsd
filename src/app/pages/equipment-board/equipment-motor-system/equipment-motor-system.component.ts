@@ -246,7 +246,7 @@ export class EquipmentMotorSystemComponent implements OnInit {
     this.subscribeList.exp = this.http.callRPC('get_avl_temperature','device_monitor.get_avl_temperature',
     {"deviceid":this.deviceid}).subscribe((f:any)=>{
       if(f.result.error || f.result.message[0].code == 0)return;
-      res = f.result.message[0].message[0];
+      res = f.result.message[0].message[0] || {};
 
       let chart = document.getElementById('coolingWater');
       if(chart)
@@ -303,7 +303,7 @@ torque: 0.151 扭矩
     let res,chart;;
     this.subscribeList.right = this.http.callRPC('get_avl_parameter','device_monitor.get_avl_parameter',{"deviceid":this.deviceid}).subscribe((f:any)=>{
       if(f.result.error || f.result.message[0].code == 0)return;
-      res = f.result.message[0].message[0];
+      res = f.result.message[0].message[0] || {};
       this.motor = res;
       //系统效率 控制器效率  电机效率 控制器输出功率
       let arr = [res.cal_eff_sys, res.cal_eff_inv, res.cal_eff_mot, res.pa_pa, res.pa_p1].forEach((f,i)=>{

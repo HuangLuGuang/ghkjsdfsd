@@ -70,7 +70,7 @@ export class ExperimentParamsComponent implements OnInit {
   get_device_mts_weiss(){
     // temp温度
     //  humi湿度
-    this.subscribeList.weiss = this.subscribeList.device_mts_weiss = this.http.callRPC('get_device_mts_realtimedata','device_monitor.get_device_mts_realtimedata'
+   this.subscribeList.device_mts_weiss = this.http.callRPC('get_device_mts_realtimedata','device_monitor.get_device_mts_realtimedata'
     ,{device:this.device,arr:"temperatureactual,temperatureset,humidityactual,humidityset"}).subscribe((g:any) =>{
       if(g.result.error || g.result.message[0].code == 0)return;
       let obj = this.temp_humi_change(g.result.message[0].message);
@@ -90,7 +90,7 @@ export class ExperimentParamsComponent implements OnInit {
   //环境历史信息
   get_device_mts_timerangedata(){
    let startStr = this.getPreMonth(dateformat(new Date(),'yyyy-MM-dd'))
-    this.subscribeList.mcotah = this.subscribeList.device_mts_timerangedata = this.http.callRPC('get_device_mts_timerangedata','device_monitor.get_device_mts_timerangedata'
+    this.subscribeList.device_mts_timerangedata = this.http.callRPC('get_device_mts_timerangedata','device_monitor.get_device_mts_timerangedata'
     ,{start:startStr+' 00:00:00',end:dateformat(new Date(),'yyyy-MM-dd hh:mm:ss'),device:this.device,arr:"temperatureactual,humidityactual"}).subscribe((g:any) =>{
       if(g.result.error || g.result.message[0].code == 0)return;
       // console.log(this.temp_humi_change(g.result.message[0].message));
