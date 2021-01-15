@@ -76,6 +76,7 @@ let home = {
             backgroundColor: 'rgb(214 219 219)',
             geo: {
                 map: 'china',
+                z: 10,
                 aspectScale: 0.85,
                 layoutCenter: ["50%", "50%"], //地图位置
                 layoutSize: '100%',
@@ -130,6 +131,7 @@ let home = {
                 // 常规地图
                 {
                     type: 'map',
+                    z: 10,
                     mapType: 'china',
                     aspectScale: 0.85,
                     layoutCenter: ["50%", "50%"], //地图位置
@@ -143,8 +145,8 @@ let home = {
                     itemStyle: {
                         normal: {
                             // areaColor: '#0c274b',
-                            areaColor: 'rgb(175,220,223)',
                             // areaColor: '#1e4f6c',
+                            areaColor: 'rgb(175,220,223)',
                             borderColor: '#888a8b',
                             borderWidth: 1.5
                         },
@@ -167,7 +169,8 @@ let home = {
                     type: 'effectScatter',
                     coordinateSystem: 'geo',
                     showEffectOn: 'render',
-                    zlevel: 2,
+                    // zlevel: 2,
+                    z:20,
                     symbolSize: 10,
                     rippleEffect: { //坐标点动画
                         period: 3,
@@ -202,31 +205,23 @@ let home = {
                 // 线 和 点
                 {
                     type: 'lines',
-                    zlevel: 1, //设置这个才会有轨迹线的小尾巴
+                    // zlevel: 0.0001, //设置这个才会有轨迹线的小尾巴
+                    z:21,
                     //polyline:true,
                     effect: {
                         show: true,
                         period: 4,
                         trailLength: 0.7,
-                        color: '#fff', //流动点颜色
+                        color: 'red', //流动点颜色
                         symbol: 'arrow',
                         symbolSize: 6
                     },
                     lineStyle: {
                             normal: {
-                                color:'#1DE9B6'
-                                /* function (value){ //随机颜色
-                                
-                                ['#f21347','#f3243e','#f33736','#f34131','#f34e2b',
-                                '#f56321','#f56f1c','#f58414','#f58f0e','#f5a305',
-                                '#e7ab0b','#dfae10','#d5b314','#c1bb1f','#b9be23',
-                                '#a6c62c','#96cc34','#89d23b','#7ed741','#77d64c',
-                                '#71d162','#6bcc75','#65c78b','#5fc2a0','#5abead',
-                                '#52b9c7','#4fb6d2','#4ab2e5']
-         return "#"+("00000"+((Math.random()*16777215+0.5)>>0).toString(16)).slice(-6);
-         }*/,
+                                color:'#1DE9B6',
+                         
                                 width: 1, //线条宽度
-                                opacity: 0.1, //尾迹线条透明度
+                                opacity: 0.6, //尾迹线条透明度
                                 curveness: .3 //尾迹线条曲直度
                             }
                         },
@@ -294,7 +289,8 @@ let home = {
                 {
         
                     type: 'lines',
-                    zlevel: 3,
+                    // zlevel: 0.2,
+                    z: 21,
                     symbol: 'circle',
                     symbolSize: [5, 5],
                     color: '#ff8003',
@@ -368,7 +364,8 @@ let home = {
                         brushType: 'stroke'
                     },
                     hoverAnimation: true,
-                    zlevel: 1
+                    // zlevel: 1 // 添加上有痕迹
+                    z:22
                 },
                 // 气球 、scatter 散点图 === 吉利研究院
                 {
@@ -404,7 +401,8 @@ let home = {
                         brushType: 'stroke'
                     },
                     hoverAnimation: true,
-                    zlevel: 1
+                    // zlevel: 1, // 添加上有痕迹
+                    z:22
                 },
             ]
         };

@@ -48,6 +48,7 @@ export class FirstLevelComponent implements OnInit {
   resize=()=>{
     let chian_map = document.querySelector('.chian_map');
     if(chian_map) echarts.init(chian_map).resize();
+    
   }
 
   ngOnDestroy(){

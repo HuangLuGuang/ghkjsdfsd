@@ -1,16 +1,15 @@
-import { Component, OnInit } from '@angular/core';
-import { HttpserviceService } from '../../../../../services/http/httpservice.service';
-import { UserInfoService } from '../../../../../services/user-info/user-info.service';
-
+import { Component, OnInit, Input } from '@angular/core';
+import { HttpserviceService } from '../../../../services/http/httpservice.service';
+import { UserInfoService } from '../../../../services/user-info/user-info.service';
 declare let $;
 declare let layui;
 
 @Component({
-  selector: 'ngx-group-devices',
-  templateUrl: './group-devices.component.html',
-  styleUrls: ['./group-devices.component.scss']
+  selector: 'ngx-my-select-tree',
+  templateUrl: './my-select-tree.component.html',
+  styleUrls: ['./my-select-tree.component.scss']
 })
-export class GroupDevicesComponent implements OnInit {
+export class MySelectTreeComponent implements OnInit {
 
   // 科室/功能组下拉框
   groups = [];
@@ -21,10 +20,16 @@ export class GroupDevicesComponent implements OnInit {
   // 设备编号
   deviceno;
 
+  //  功能组名称
+  groups_name;
+
+  // 功能组id
+  groups_id;
+
   form_data; // 表单数据
-  constructor(private userinfo: UserInfoService, private http: HttpserviceService) {
-    // this.init_groups();
-   }
+ 
+
+  constructor(private http: HttpserviceService, private userinfo: UserInfoService) { }
 
   ngOnInit(): void {
   }
@@ -50,8 +55,10 @@ export class GroupDevicesComponent implements OnInit {
       that.init_groups(form)
       // 监听选择的功能组
       form.on('select(test_task_conf_add_group)', function(data){
-        // console.log("监听选择 功能组：",data.value); //得到被选中的值,即为 group 的id
+        console.log("监听选择 功能组：",data); //得到被选中的值,即为 group 的id
         if (data.value !== ""){
+          that.groups_id = data.value;
+
           that.init_devicename_deviceno(data.value,form)
         }
       }); 
@@ -130,9 +137,9 @@ export class GroupDevicesComponent implements OnInit {
 
   // 得到 form值！
   get_form_val(){
-    
    
     return {
+      groups_id: this.groups_id,
       deviceid: this.deviceid,
       deviceno: this.deviceno,
       devicename: this.devicename,

@@ -1,0 +1,83 @@
+<nb-card style="width: 800px;height: 500px;margin-bottom: 0px; " size="tiny"
+
+>
+  <nb-card-header>
+    <div class="row">
+      <div class="col-md-4">{{title}}</div>
+        <div class="col-md-6"></div>
+        <div class="col-md-2" style="text-align: right;">
+            <nb-icon icon="close-outline" style="cursor: pointer;" (click)="closedialog()"></nb-icon>
+        </div>
+    </div>
+  </nb-card-header>
+
+  <nb-card-body style="padding-bottom: 0px;">
+      <!-- table 切换当前设备状态 -->
+      <table>
+        <tr>
+            <td class="name">科室名称:</td>
+            <td class="group"></td>
+        </tr>
+        <tr>
+            <td class="name">设备名称:</td>
+            <td class="devicename"></td>
+        </tr>
+        <tr>
+            <td class="name">设备编号</td>
+            <td class="deviceno"></td>
+        </tr>
+        <tr>
+            <td class="name createdby_title">提交人</td>
+            <td><input id="createdby" class="createdby" type="text"></td>
+        </tr>
+        
+        
+        <tr>
+            <td class="name">当前设备状态</td>
+            <td class="device_status">
+                <div class="device_line">
+                    <input type="radio" name="groupStatus" value="running" ><span>运行</span>
+                    <br>
+                </div>
+                <div class="device_line">
+                    <input type="radio" name="groupStatus" value="stop"><span>空闲</span>
+                    <br>
+
+                </div>
+                <div class="device_line">
+                    <input type="radio" name="groupStatus" value="warning"><span>维修</span>
+                    <br>
+
+                </div>
+                <div class="device_line">
+                    <input type="radio" name="groupStatus" value="placeon"><span>占位</span>
+                </div>
+
+                
+            </td>
+        </tr>
+        <tr>
+            <td class="name">故障描述</td>
+            <td><textarea  name="errmsg" id="errmsg" class="errmsg" style="width: 100%;"></textarea></td>
+        </tr>
+        
+        
+    </table>
+
+    <form class="layui-form" action="" lay-filter="tooltip" style="margin-top: 23px;">
+        <div class="layui-form-item">
+            <div class="layui-row" style="text-align: end;">
+                
+                <div class="layui-inline">
+                  <div class="layui-input-inline">
+                      <button class="layui-btn layui-btn-primary" (click)="cancel()">取消</button>
+                      <button type="submit" class="layui-btn" lay-submit="" lay-filter="tooltip" >确定</button>
+                  </div>
+                </div>
+                
+            </div>
+        </div>
+    </form>
+    
+  </nb-card-body>
+</nb-card>

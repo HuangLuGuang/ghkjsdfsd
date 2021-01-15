@@ -1,0 +1,30 @@
+// 科室/功能组
+.gongneng_keshi{
+    // width: 168px;
+    line-height: 23px;
+
+}
+
+.button_item{
+    margin: 0px 10px 0px 0px;
+}
+
+// 表格
+table{
+    width: 100%;
+}
+table>tr{
+    height: 40px;
+    border: 1px #250202 solid;
+    text-align: center;
+}
+.name{
+    width: 40%;
+    border-right: 1px #250202 solid;
+}
+
+// 编辑button
+.submit{
+    text-align: end;
+    margin-top: 20px;
+}

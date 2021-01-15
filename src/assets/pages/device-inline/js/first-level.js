@@ -244,7 +244,7 @@ let first_level = {
                     type: 'effectScatter',
                     coordinateSystem: 'geo',
                     showEffectOn: 'render',
-                    zlevel: 2,
+                    // zlevel: 2,
                     symbolSize: 10,
                     rippleEffect: { //坐标点动画
                         period: 3,
@@ -279,7 +279,8 @@ let first_level = {
                 // 线 和 点
                 {
                     type: 'lines',
-                    zlevel: 1, //设置这个才会有轨迹线的小尾巴
+                    // zlevel: 1, //设置这个才会有轨迹线的小尾巴
+                    zlevel: 0.1, //设置这个才会有轨迹线的小尾巴
                     //polyline:true,
                     effect: {
                         show: true,
@@ -371,7 +372,8 @@ let first_level = {
                 {
         
                     type: 'lines',
-                    zlevel: 3,
+                    // zlevel: 3,
+                    zlevel: 0.2,
                     symbol: 'circle',
                     symbolSize: [5, 5],
                     color: '#ff8003',

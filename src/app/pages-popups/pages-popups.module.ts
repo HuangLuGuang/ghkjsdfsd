@@ -30,13 +30,14 @@ import { GroupDevicesComponent } from './tongji/test_task_conf/components/group-
 import { NzSelectModule } from 'ng-zorro-antd/select';
 import { EditComponent } from './tongji/test_task_conf/edit/edit.component';
 import { DailyTargetDurationComponent } from './tongji/target-hour-config/daily-target-duration/daily-target-duration.component';
+import { DeviceStatusInfoComponent } from './andon-man-hour/device-status-info/device-status-info.component';
 
 
 // DateComponent
 @NgModule({
   declarations: [PagesPopupsComponent, RoleComponent, 
     MySelectComponent, UserEmployeeComponent,  
-    UserEmployeeGroupComponent, EditDelTooltipComponent, DeviceManageComponent, PreinstallDialogComponent,  ExpiredTokenComponent, NewMenuComponent, ChangePassowrdForallComponent, TargetHourConfigComponent, AddComponent, GroupDevicesComponent, EditComponent, DailyTargetDurationComponent,
+    UserEmployeeGroupComponent, EditDelTooltipComponent, DeviceManageComponent, PreinstallDialogComponent,  ExpiredTokenComponent, NewMenuComponent, ChangePassowrdForallComponent, TargetHourConfigComponent, AddComponent, GroupDevicesComponent, EditComponent, DailyTargetDurationComponent, DeviceStatusInfoComponent,
   ],
   imports: [
     CommonModule,

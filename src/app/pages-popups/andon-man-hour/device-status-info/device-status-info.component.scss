@@ -1,0 +1,36 @@
+// 表格
+table {
+    width: 100%; 
+    border-collapse: collapse;
+    border: none;
+    background: #fafafa;
+}
+table>tr{
+    height: 40px;
+    border: 1px #d0d2d4 solid;
+    text-align: center;
+}
+.name{
+    width: 30%;
+    border-right: 1px #d0d2d4 solid;
+}
+.createdby_title::before{
+    content: "*";
+    color: #ff4949;
+    margin-right: 4px;
+}
+#createdby{
+    width: 100%;
+    height: 30px;
+}
+
+td {
+    border:.04266667rem solid #d8d8d8; 
+    padding: .512rem .34133333rem; 
+    text-align: left;
+}
+
+// 状态
+.device_line{position: relative;}
+.device_line>input{width: 20px; height: 20px;}
+.device_line>span{font-size: large; position: absolute;top: 0px;}

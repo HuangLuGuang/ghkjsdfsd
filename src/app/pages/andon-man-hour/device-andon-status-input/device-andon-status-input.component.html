@@ -1,0 +1,82 @@
+<div class="row" style="margin: 0px -11px;">
+    <div class="col-lg-9" style="display: flex;">
+    
+        <!-- 功能组 设备-->
+        <div class="example-items-rows button_item">
+            <div class="gongneng_keshi">
+                <ngx-my-select-tree #groups_devieces></ngx-my-select-tree>
+            </div>
+        </div>
+        
+        <!-- 搜索 -->
+        <div class="example-items-rows button_item query" >
+            <button nbButton status="info" size="small" (click)="query()"><nb-icon icon="search-outline"></nb-icon>搜索</button>
+        </div>
+
+    </div>
+
+    <div class="col-lg-3" style="display: flex;">
+        <div style="flex: auto;">
+        </div>
+        
+    </div>
+</div>
+
+<div class="row" style="margin: 0px -11px;">
+    <!-- 当前设备运行状态 -->
+    <div class="col-md-9">
+        <nb-card>
+            <nb-card-header style="font-size: small;">
+                当前设备运行状态
+            </nb-card-header>
+            <nb-card-body>
+                <table>
+                    <tr>
+                        <td class="name">科室名称:</td>
+                        <td class="group"></td>
+                    </tr>
+                    <tr>
+                        <td class="name">设备名称:</td>
+                        <td class="devicename"></td>
+                    </tr>
+                    <tr>
+                        <td class="name">设备编号</td>
+                        <td class="deviceno"></td>
+                    </tr>
+                    <tr>
+                        <td class="name">提交人</td>
+                        <td class="createdby"></td>
+                    </tr>
+                    <tr>
+                        <td class="name">状态更新时间</td>
+                        <td class="recordtime"></td>
+                    </tr>
+                    <tr>
+                        <td class="name">当前设备状态</td>
+                        <td class="status"></td>
+                    </tr>
+                    <tr>
+                        <td class="name">故障描述</td>
+                        <td class="errmsg"></td>
+                    </tr>
+                    
+                    
+                </table>
+                <!-- 设备状态切换 -->
+                <div class="submit">
+                    <button nbButton status='info' (click)="edit()">设备状态切换</button>
+                </div>
+            </nb-card-body>
+        </nb-card>
+
+    </div>
+    <!-- 设备状态历史(仅20天) -->
+    <div class="col-md-3 ">
+        <nb-card>
+            <nb-card-header style="font-size: small;">
+                设备状态历史(仅20天)
+            </nb-card-header>
+            <nb-card-body></nb-card-body>
+        </nb-card>
+    </div>
+</div>
