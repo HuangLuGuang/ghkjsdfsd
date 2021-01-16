@@ -1,23 +1,47 @@
-<div class="row" style="margin: 0px -11px;">
-    <div class="col-lg-9" style="display: flex;">
-    
-        <!-- 功能组 设备-->
-        <div class="example-items-rows button_item">
-            <div class="gongneng_keshi">
-                <ngx-my-select-tree #groups_devieces></ngx-my-select-tree>
+
+
+<nb-card>
+    <nb-card-header style="font-size: small;">设备安灯状态信息</nb-card-header>
+    <nb-card-body>
+        <div class="row" style="margin: 0px -11px;">
+            <div class="col-lg-9" style="display: flex;">
+            
+                <!-- 功能组 设备-->
+                <div class="example-items-rows button_item">
+                    <div class="gongneng_keshi">
+                        <ngx-my-select-tree #groups_devieces></ngx-my-select-tree>
+                    </div>
+                </div>
+                
+                <!-- 搜索 -->
+                <div class="example-items-rows button_item query" >
+                    <button nbButton status="info" size="small" (click)="query()"><nb-icon icon="search-outline"></nb-icon>搜索</button>
+                </div>
+        
+            </div>
+        
+            <div class="col-lg-3" style="display: flex;">
+                <div style="flex: auto;">
+                </div>
+                <!-- 导出 -->
+                <div class="example-items-rows button_item query" >
+                    <button nbButton status="success" size="small" (click)="import()"><nb-icon icon="cloud-download-outline"></nb-icon>导出</button>
+                </div>
+                <!-- 重置table -->
+                <div class="" style="text-align: right;">
+                    <!-- loader-outline -->
+                    <button nbButton  size="small" (click)="refresh_table()">
+                        <nb-icon icon="sync-outline"></nb-icon>
+                    </button>
+                </div>
+                
             </div>
         </div>
-        
-        <!-- 搜索 -->
-        <div class="example-items-rows button_item query" >
-            <button nbButton status="info" size="small" (click)="query()"><nb-icon icon="search-outline"></nb-icon>搜索</button>
-        </div>
-
-    </div>
-
-    <div class="col-lg-3" style="display: flex;">
-        <div style="flex: auto;">
-        </div>
-        
-    </div>
-</div>
+        <!-- table -->
+        <div class="row">
+            <div class="col-md-12">
+                <ngx-ag-table #ag_Grid   (nzpageindexchange)="nzpageindexchange($event)"></ngx-ag-table>
+            </div>
+        </div>        
+    </nb-card-body>
+</nb-card>

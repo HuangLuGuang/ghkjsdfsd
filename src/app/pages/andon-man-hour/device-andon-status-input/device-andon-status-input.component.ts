@@ -74,12 +74,14 @@ export class DeviceAndonStatusInputComponent implements OnInit {
           this.init_table(message);
         }
       })
+      //  点击搜索时，得到设备状态历史
+      this.get_history();
     }else{
       this.dialogService.open(EditDelTooltipComponent,{ closeOnBackdropClick: false, context: { title: '提示', content:   `请选择设备!`}} ).onClose.subscribe(
         name=>{}
       )
     }
-    //  pc_device_status_get
+    
   }
 
 

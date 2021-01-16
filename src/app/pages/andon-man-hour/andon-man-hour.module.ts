@@ -8,11 +8,14 @@ import { DeviceAndonStatusInputComponent } from './device-andon-status-input/dev
 import { DeviceAndonStatusInfoComponent } from './device-andon-status-info/device-andon-status-info.component';
 import { MySelectTreeComponent } from './components/my-select-tree/my-select-tree.component';
 import { AntTimeLineComponent } from './components/ant-time-line/ant-time-line.component';
-import { NzTimelineModule } from 'ng-zorro-antd';
+import { NzPaginationModule, NzTimelineModule } from 'ng-zorro-antd';
+import { AgTableComponent } from './components/ag-table/ag-table.component';
+import { AgGridModule } from 'ag-grid-angular';
+import { DetailComponent } from './device-andon-status-info/detail/detail.component';
 
 
 @NgModule({
-  declarations: [AndonManHourComponent, DeviceAndonStatusInputComponent, DeviceAndonStatusInfoComponent, MySelectTreeComponent, AntTimeLineComponent],
+  declarations: [AndonManHourComponent, DeviceAndonStatusInputComponent, DeviceAndonStatusInfoComponent, MySelectTreeComponent, AntTimeLineComponent, AgTableComponent, DetailComponent],
   imports: [
     CommonModule,
     AndonManHourRoutingModule,
@@ -24,6 +27,9 @@ import { NzTimelineModule } from 'ng-zorro-antd';
     NbSelectModule,
     
     NzTimelineModule,
+
+    NzPaginationModule,
+    AgGridModule,
 
   ]
 })
