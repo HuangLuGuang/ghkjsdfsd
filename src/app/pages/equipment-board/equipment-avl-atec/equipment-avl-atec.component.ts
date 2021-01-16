@@ -208,7 +208,7 @@ export class EquipmentAvlAtecComponent implements OnInit {
   get_avl_igem(){
     let res,data:any = {};
     this.subscribeList.igem = this.http.callRPC('get_device_mts_realtimedata','device_monitor.get_device_mts_realtimedata',
-    {"device":this.aetc_deviceid,
+    {"device":this.light_deviceid,
     arr:avl_igem_param.join(',')}).subscribe((g:any)=>{
       if(g.result.error || g.result.message[0].code == 0)return;
         res = g.result.message[0].message;

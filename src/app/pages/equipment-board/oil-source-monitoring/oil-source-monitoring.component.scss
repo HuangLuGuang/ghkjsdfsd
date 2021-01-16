@@ -55,6 +55,7 @@
         display: flex;
         flex-wrap: wrap;
         align-items: center;
+        padding: 3px 0;
     }
     .cleanliness {
         display: flex;
@@ -285,14 +286,16 @@
     // position: relative;
 }
 
-.scrollbar_l::-webkit-scrollbar-thumb {
+.scrollbar_l::-webkit-scrollbar-thumb,
+.scrollbar::-webkit-scrollbar-thumb {
     /*滚动条里面小方块*/
     border-radius: 10px;
     box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.2);
     background: #535353;
 }
 
-.scrollbar_l::-webkit-scrollbar-track {
+.scrollbar_l::-webkit-scrollbar-track,
+.scrollbar::-webkit-scrollbar-track {
     /*滚动条里面轨道*/
     box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.2);
     border-radius: 10px;
@@ -358,7 +361,16 @@
 }
 
 .scrollbar::-webkit-scrollbar {
-    display: none;
+    // display: none;
+    z-index: 10;
+    width: 5px;
+    height: 5px;
+}
+
+.line_1 {
+    max-width: 67%;
+    text-align: left;
+    word-break: break-all;
 }
 
 .font_w_too_long {

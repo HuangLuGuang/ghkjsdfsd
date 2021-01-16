@@ -111,30 +111,7 @@ export const dateformat=(date:Date,format:string)=>{
 }
 
 
-export const  getMessage=(f,data)=>{
-    let arr:any = [];
-    var aee = [];
-    var i = 0;
-    f.result.message[0].message.forEach(m => {
-      aee = m.message.split("\"");
-      i = aee.findIndex(f => f && f !=' ');
-      arr = [
-          m.recordtime,
-          m.level==3?'Error':m.level == 1?'Warning':'Information',
-          m.message,
-          // aee[aee.length-1].length > aee[aee.length-2].length?aee[aee.length-1]:aee[aee.length-2],
-          m.level,
-        ]
-      if(!data.find(g => g[0] == arr[0] && g[1] == arr[1] && g[2] == arr[2])){
-        data.push(
-          arr
-        )
-      }
-    });
-    //锁定滚动条最下面
-    var showContent = $(".overflow_height_75");
-    if(showContent[0])showContent[0].scrollTop = showContent[0].scrollHeight;
-}
+
 
 export const copy=(d)=>{
   return JSON.parse(JSON.stringify(d));

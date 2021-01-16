@@ -113,6 +113,7 @@ export class ThirdLevelService {
             
           deviceList[f.deviceid].push(f)
         })
+        
         s.next( deviceList );
       })
     })
@@ -132,6 +133,7 @@ export class ThirdLevelService {
           ,log:aee[aee.length-1]?aee[aee.length-1]:aee[aee.length-2],
         }
       ));
+      // view.create_scrollbar();
     })
   }
 

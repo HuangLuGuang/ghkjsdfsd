@@ -107,17 +107,21 @@
         width: 33%;
     }
     .table_body_th_1 {
-        height: 100%;
+        // height: 100%;
         // margin-bottom: 2%;
-        width: 66%;
-        // display: flex;
+        width: 100%;
+        display: flex;
         // flex-wrap: wrap;
         .table_body_tr {
-            height: 30px;
-            display: inline-grid;
-            overflow: auto;
+            // height: 30px;
+            // display: inline-grid;
+            word-break: break-all;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            // overflow: auto;
             /*设置不换行*/
-            white-space: nowrap;
+            // white-space: nowrap
             /*设置隐藏*/
             // overflow: hidden;
             /*设置隐藏部分为省略号*/
@@ -128,8 +132,8 @@
         // height: 100%;
         // margin-bottom: 2%;
         position: absolute;
-        left: 66%;
-        width: 33%;
+        left: 60%;
+        width: 39%;
         // overflow: auto;
         overflow-y: hidden;
         // display: flex;

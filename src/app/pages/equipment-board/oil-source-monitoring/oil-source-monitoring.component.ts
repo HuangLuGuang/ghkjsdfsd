@@ -383,18 +383,16 @@ export class OilSourceMonitoringComponent implements OnInit {
     },1000);
     window.addEventListener('resize',this.resize);
 
-    $('.scrollbar_l').bind("scroll",f=>{
-      // $('.scrollbar_l').scrollLeft()
-      var line = $('.line_1');
-      for(let i = 0;i<line.length;i++){
-        $('#line_'+i).scrollLeft($('.scrollbar_l').scrollLeft())
-      }
-      // $('.scrollbar').scrollLeft($('.scrollbar_l').scrollLeft())
-    })
+    // $('.scrollbar_l').bind("scroll",f=>{
+    //   var line = $('.line_1');
+    //   for(let i = 0;i<line.length;i++){
+    //     $('#line_'+i).scrollLeft($('.scrollbar_l').scrollLeft())
+    //   }
+    // })
   }
 
   ngAfterViewInit(){
-    this.create_scrollbar();
+    // this.create_scrollbar();
   }
 
   obser = new Observable(f=>{
@@ -433,15 +431,15 @@ export class OilSourceMonitoringComponent implements OnInit {
   }
 
 
-  create_scrollbar(){
-    var line = $('.line_1');
-    let max = 0;
-    for(let i = 0;i<line.length;i++){
-      if(max<line[i].clientWidth)max = line[i].clientWidth;
-    }
+  // create_scrollbar(){
+  //   var line = $('.line_1');
+  //   let max = 0;
+  //   for(let i = 0;i<line.length;i++){
+  //     if(max<line[i].clientWidth)max = line[i].clientWidth;
+  //   }
 
-    $('#s').width( max)
-  }
+  //   $('#s').width( max)
+  // }
   
   
   //刷新表格
@@ -527,7 +525,7 @@ export class OilSourceMonitoringComponent implements OnInit {
       this.equip_alarm = f.result.message[0].message.sort((h,c)=> c-h).map(g=>{
         
         if(g.level == 2)color = 'yellow',s ='warm';
-        if(g.level == 1)color = 'red',s ='error';
+        if(g.level == 3)color = '#f595ca',s ='error';//红
         return {data:[g.source.split(' ')[0],g.message],s:'',color:color};
       })
     })

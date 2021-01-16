@@ -248,8 +248,8 @@ export class EquipmentMotorSixSevenComponent implements OnInit {
             this.th_deviceid = 'device_thbox_01';
           }else if(f.deviceid == 'seven'){
             this.boyang_deviceid = 'device_boyang_02';
-            this.ct_deviceid = 'device_ct_01';
-            this.th_deviceid = 'device_thbox_01';
+            this.ct_deviceid = 'device_ct_02';
+            this.th_deviceid = 'device_thbox_02';
           }
      })
 
@@ -323,6 +323,7 @@ export class EquipmentMotorSixSevenComponent implements OnInit {
             data[key] = el[key][0][0];
           }
         });
+      else data = 
       this.motor = data;
 
 
@@ -330,23 +331,23 @@ export class EquipmentMotorSixSevenComponent implements OnInit {
       let arr = [data.eff_sys, data.eff_con, data.eff_mot, data.prmsa, data.prms4].forEach((f,i)=>{
         chart = document.getElementById('electric_'+(i+1)+'_67');
         if(chart)
-          equipment_four_road.create_real_electric({text:f,title:''},echarts.init(chart));
+          equipment_four_road.create_real_electric({text:f||0,title:''},echarts.init(chart));
       })
 
       chart = document.getElementById('dashboard_67');
       if(chart)
         equipment_four_road.create_real_dashboard([{
-          name: '扭矩',unit: 'N/m',value:data.torque
+          name: '扭矩',unit: 'N/m',value:data.torque||0
         },{
-          name: '转速',unit: 'km/h',value:data.speed
+          name: '转速',unit: 'km/h',value:data.speed||0
         },{
-          name: '功率',unit: 'W',value:data.p
+          name: '功率',unit: 'W',value:data.p||0
         }],echarts.init(chart));
 
       chart = document.getElementById('line_chart_12_67');
-      this.speedTorque_attrs[0].data.push(data.torque);
-      this.speedTorque_attrs[1].data.push(data.speed);
-      this.speedTorque_attrs[2].data.push(data.p);
+      this.speedTorque_attrs[0].data.push(data.torque||0);
+      this.speedTorque_attrs[1].data.push(data.speed||0);
+      this.speedTorque_attrs[2].data.push(data.p||0);
       
       this.speedTorque_xData.push(rTime(res?res[0].urms1[0][1]:''));
       if(this.speedTorque_xData.length>10){
@@ -362,9 +363,9 @@ export class EquipmentMotorSixSevenComponent implements OnInit {
               echarts.init(chart));
 
       this.threePhase.forEach((f,i)=>{
-        this.threePhase_attrs[i].value.push(data[j[i]]);//表格插入线条的值插入
+        this.threePhase_attrs[i].value.push(data[j[i]]||0);//表格插入线条的值插入
         if(document.getElementById(f.id)){
-          f.dataLine.value = data[j[i]];
+          f.dataLine.value = data[j[i]]||0;
           oilsrouce.create_bar_j(f.dataLine,echarts.init(document.getElementById(f.id)),'30%');
         }
       })
@@ -433,7 +434,7 @@ export class EquipmentMotorSixSevenComponent implements OnInit {
         //温度上 流量上  温度下 流量下
         [data.liquidsupplytemperaturetop,data.liquidsupplyflowtop,
           data.liquidsupplytemperaturedown,data.liquidsupplyflowdown].forEach((f:any,i:any)=>{
-          this.HealthParam_left[i].dataLine.value =  f;
+          this.HealthParam_left[i].dataLine.value =  f||0;
           this.HealthParam_left_chart[i].value.push(f);
           equipment_four_road.create_temp_h_1_p_gauge(
             this.HealthParam_left[i].dataLine

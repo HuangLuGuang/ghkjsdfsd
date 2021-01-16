@@ -5,7 +5,7 @@ import * as screenfull from 'screenfull';
 import { Screenfull } from 'screenfull';
 import { LayoutService } from '../../../../@core/utils';
 import { HttpserviceService } from '../../../../services/http/httpservice.service';
-import { dateformat, getMessage } from '../../equipment-board';
+import { dateformat } from '../../equipment-board';
 let equipment_four_road = require('../../../../../assets/eimdoard/equipment/js/equipment-four-road');
 
 declare var $
@@ -52,7 +52,7 @@ export class LogWarmComponent implements OnInit {
     this.subscribeList.layout = this.layoutService.onInitLayoutSize().subscribe(f=>{
       if(document.getElementById('warning'))
         echarts.init(document.getElementById('warning')).resize();
-        this.create_scrollbar();
+        // this.create_scrollbar();
     })
     let date;
     this.timer = setInterval(f=>{
@@ -67,12 +67,12 @@ export class LogWarmComponent implements OnInit {
     })
 
     // this.get_device_mts_log_daily();
-    this.create_scrollbar();
+    // this.create_scrollbar();
   }
 
-  create_scrollbar(){
-    $('#s').width( $('#table_lr').width())
-  }
+  // create_scrollbar(){
+  //   $('#s').width( $('#table_lr').width())
+  // }
 
 
   ngAfterViewInit(){
@@ -81,7 +81,7 @@ export class LogWarmComponent implements OnInit {
 
   obser = new Observable(f=>{
     if(document.getElementById('warning'))echarts.init(document.getElementById('warning')).resize();
-    this.create_scrollbar();
+    // this.create_scrollbar();
     f.next('log-warm刷新')
   }).pipe(take(1));
   
@@ -112,8 +112,10 @@ export class LogWarmComponent implements OnInit {
     this.subscribeList.device_mts_log = this.http.callRPC('get_log','device_monitor.get_log',{"deviceid":"device_mts_01"}).subscribe((g:any) =>{
       // console.log(g)
       if(g.result.error || g.result.message[0].code == 0)return;
-      getMessage(g,this.log_warm.data);
-      this.create_scrollbar();
+      this.log_warm.data = this.getMessage(g);
+      var showContent = $(".overflow_height_75");
+      if(showContent[0])showContent[0].scrollTop = showContent[0].scrollHeight;
+      // this.create_scrollbar();
     })
   }
 
@@ -199,6 +201,27 @@ export class LogWarmComponent implements OnInit {
 
   getwarmStr(){
     return this.log_warm.data.length > 0 ?"equipment.LV"+this.log_warm.data[this.log_warm.data.length-1][3]+"Warm" :'';
+  }
+
+
+  getMessage(f){
+    let arr:any = [];
+    var aee = [];
+    var i = 0;
+    f.result.message[0].message.forEach(m => {
+      aee = m.message.split("\"");
+      i = aee.findIndex(f => f && f !=' ');
+      arr.push([
+          m.recordtime,
+          m.level==3?'Error':m.level == 1?'Informatio':'nWarning',
+          m.message,
+          // aee[aee.length-1].length > aee[aee.length-2].length?aee[aee.length-1]:aee[aee.length-2],
+          m.level,
+        ]);
+    });
+    return arr;
+    
+    
   }
 
 
