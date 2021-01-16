@@ -19,7 +19,7 @@
         <div class="_table">
             <div class="table_head">
                 <div class="table_head_th">
-                    <div class="table_head_tr" [ngStyle]="{width: '33%'}" *ngFor="let key of obejct.keys(tableHeader)">
+                    <div class="table_head_tr" [ngStyle]="{width: '30%'}" *ngFor="let key of obejct.keys(tableHeader)">
                         {{tableHeader[key]}}
                     </div>
                 </div>
@@ -28,35 +28,27 @@
             <div class="scrollbar_l">
                 <div id="s"></div>
             </div>
-            <div class="table_body" style="display: flex;">
-                <div class="table_body_th_1">
-                    <ng-container *ngFor="let items of tableBody;">
-                        <ng-container *ngFor="let key of obejct.keys(tableHeader);let i = index">
-                            <div class="table_body_tr" [ngStyle]="{width: '50%'}" *ngIf="i < 2">
-                                {{ items[key] }}
-                            </div>
-                        </ng-container>
+            <div class="table_body" style="display: flex;flex-wrap: wrap;">
+                <div class="table_body_th_1" *ngFor="let items of tableBody;">
+                    <ng-container *ngFor="let key of obejct.keys(tableHeader);let i = index">
+                        <div class="table_body_tr" [ngStyle]="{width: i ==2?'39%':'30%'}">
+                            {{ items[key] }}
+                        </div>
                     </ng-container>
                 </div>
 
-                <div class="table_body_th_2">
+                <!-- <div class="table_body_th_2">
                     <table id="table_body_2" style="height: 100%;text-align: left;">
                         <tr *ngFor="let items of tableBody;">
-                            <td *ngFor="let key of fixed;">
-                                <div style="white-space: pre;height: 30px;display: inline-grid;">
+                            <td *ngFor="let key of fixed;" title="{{items[key]}}">
+                                <div style="display: inline-grid;">
                                     {{ items[key] }}
                                 </div>
                             </td>
                         </tr>
                     </table>
-                    <!-- <ng-container *ngFor="let items of tableBody;">
-                        <ng-container *ngFor="let key of obejct.keys(tableHeader);let i = index">
-                            <div style="white-space: pre;height: 10%;display: inline-grid;" *ngIf="i == 2">
-                                {{ items[key] }}
-                            </div>
-                        </ng-container>
-                    </ng-container> -->
-                </div>
+                    
+                </div> -->
             </div>
         </div>
     </div>

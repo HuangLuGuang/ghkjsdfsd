@@ -173,7 +173,7 @@ export class StructuralLaboratoryComponent implements OnInit {
       if(f.result.error || f.result.message[0].code == 0)return;
       res = f.result.message[0].message;
       res.forEach((el,i) => {
-        this.list[4].open_close[i] = el.length>0?el[0].stauts || 0:0;
+        this.list[4].open_close[i] = el.length>0?(el[0].status || 0):0;
       });
     })
   }

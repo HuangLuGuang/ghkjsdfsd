@@ -8,6 +8,7 @@ import { EquipIntroduceComponent } from '../temp/equip-introduce/equip-introduce
 import { EquipmentStatusComponent } from '../temp/equipment-status/equipment-status.component';
 import { TranslateModule } from '@ngx-translate/core';
 import { DigitCompletionPipe } from '../pipe/digit-completion.pipe';
+import { NzProgressModule } from 'ng-zorro-antd';
 
 
 @NgModule({
@@ -17,7 +18,7 @@ import { DigitCompletionPipe } from '../pipe/digit-completion.pipe';
     EquipmentStatusComponent,DigitCompletionPipe
   ],
   imports: [
-    CommonModule,TranslateModule
+    CommonModule,TranslateModule,NzProgressModule
   ],
   exports:[
     EquipIntroduceComponent,LogWarmComponent,TestInformationComponent,

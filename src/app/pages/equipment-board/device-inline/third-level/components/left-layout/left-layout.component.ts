@@ -36,22 +36,21 @@ export class LeftLayoutComponent implements OnInit {
   ngOnInit(): void {
     this.layoutService.onInitLayoutSize().subscribe(f=>{
       this.resize();
-      this.create_scrollbar();
+      // this.create_scrollbar();
     })
     window.addEventListener('resize',this.resize);
 
-    $('.scrollbar_l').bind("scroll",f=>{
-      // $('.scrollbar_l').scrollLeft()
-      $('.table_body_th_2').scrollLeft($('.scrollbar_l').scrollLeft())
-    })
+    // $('.scrollbar_l').bind("scroll",f=>{
+    //   $('.table_body_th_2').scrollLeft($('.scrollbar_l').scrollLeft())
+    // })
 
-    this.create_scrollbar();
+    // this.create_scrollbar();
   }
 
   
-  create_scrollbar(){
-    $('#s').width( $('#table_body_2').width())
-  }
+  // create_scrollbar(){
+  //   $('#s').width( $('#table_body_2').width())
+  // }
 
   resize=()=>{
     ['left_chart_1','left_chart_2','left_chart_3'].forEach(f=>{
@@ -60,7 +59,7 @@ export class LeftLayoutComponent implements OnInit {
     })
     if(document.getElementById('left_chart_hour_year'))
       echarts.init(document.getElementById('left_chart_hour_year')).resize();
-    this.create_scrollbar();
+    // this.create_scrollbar();
   }
 
    //  running运行 placeon占位 stop等待 warning维护 

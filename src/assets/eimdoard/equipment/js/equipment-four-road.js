@@ -426,7 +426,7 @@ let equipment_four_road = {
                     stack: data.title[1],
                     itemStyle: {
                         barBorderRadius: 20,
-                        color: 'rgb(237,239,111)',
+                        color: 'rgb(230,90,0)',
                     },
                     data: data.secondData
                 }

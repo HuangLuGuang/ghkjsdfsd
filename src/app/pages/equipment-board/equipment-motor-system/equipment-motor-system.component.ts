@@ -258,10 +258,10 @@ export class EquipmentMotorSystemComponent implements OnInit {
       if(chart)
         equipment_four_road.create_real_temperature( {value:res.imb_t_2,unit:'℃'},echarts.init(chart));
 
-      this.experiment_attrs[0].value.push(res.cc_t_act);
-      this.experiment_attrs[1].value.push(res.imb_t_1);
-      this.experiment_attrs[2].value.push(res.imb_t_2);
-      this.experiment_xData.push(res.recordtime);
+      this.experiment_attrs[0].value.push(res.cc_t_act ||0);
+      this.experiment_attrs[1].value.push(res.imb_t_1||0);
+      this.experiment_attrs[2].value.push(res.imb_t_2||0);
+      this.experiment_xData.push(res.recordtime||0);
       if(this.experiment_xData.length>10){
         this.experiment_xData.splice(0,1);
         this.experiment_attrs[0].value.splice(0,1);
@@ -306,27 +306,27 @@ torque: 0.151 扭矩
       res = f.result.message[0].message[0] || {};
       this.motor = res;
       //系统效率 控制器效率  电机效率 控制器输出功率
-      let arr = [res.cal_eff_sys, res.cal_eff_inv, res.cal_eff_mot, res.pa_pa, res.pa_p1].forEach((f,i)=>{
+      let arr = [res.cal_eff_sys, res.cal_eff_inv, res.cal_eff_mot, res.pa_pa, res.pa_p1].forEach((c,i)=>{
         chart = document.getElementById('electric_'+(i+1));
         if(chart)
-          equipment_four_road.create_real_electric({text:f,title:''},echarts.init(chart));
+          equipment_four_road.create_real_electric({text:c|| 0,title:''},echarts.init(chart));
       })
 
       chart = document.getElementById('dashboard');
       if(chart)
         equipment_four_road.create_real_dashboard([{
-          name: '扭矩',unit: 'N/m',value:res.torque
+          name: '扭矩',unit: 'N/m',value:res.torque||0
         },{
-          name: '转速',unit: 'km/h',value:res.speed
+          name: '转速',unit: 'km/h',value:res.speed||0
         },{
-          name: '功率',unit: 'W',value:res.p
+          name: '功率',unit: 'W',value:res.p||0
         }],echarts.init(chart));
 
       chart = document.getElementById('line_chart_12');
-      this.speedTorque_attrs[0].data.push(res.torque);
-      this.speedTorque_attrs[1].data.push(res.speed);
-      this.speedTorque_attrs[2].data.push(res.p);
-      this.speedTorque_xData.push(res.recordtime);
+      this.speedTorque_attrs[0].data.push(res.torque||0);
+      this.speedTorque_attrs[1].data.push(res.speed||0);
+      this.speedTorque_attrs[2].data.push(res.p||0);
+      this.speedTorque_xData.push(res.recordtime||0);
       if(this.speedTorque_xData.length>10){
         this.speedTorque_attrs[0].data.splice(0,1);
         this.speedTorque_attrs[1].data.splice(0,1);
@@ -342,13 +342,13 @@ torque: 0.151 扭矩
       this.threePhase.forEach((f,i)=>{
         this.threePhase_attrs[i].value.push(res[j[i]]);//表格插入线条的值插入
         if(document.getElementById(f.id)){
-          f.dataLine.value = res[j[i]];
-          oilsrouce.create_bar_j(f.dataLine,echarts.init(document.getElementById(f.id)),'30%');
+          f.dataLine.value = res[j[i]]||0;
+          oilsrouce.create_bar_j(f.dataLine||0,echarts.init(document.getElementById(f.id)),'30%');
         }
       })
 
       chart = document.getElementById('threePhase');
-      this.threePhase_xData.push(res.recordtime);
+      this.threePhase_xData.push(res.recordtime||0);
       if(this.threePhase_xData.length>10){
         this.threePhase_attrs.forEach(f=>{ f.value.splice(0,1)})
         this.threePhase_xData.splice(0,1);

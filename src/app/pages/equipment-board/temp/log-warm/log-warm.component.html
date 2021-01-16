@@ -21,20 +21,16 @@
             <div id="s"></div>
         </div>
         <div class="table_bo overflow_height_75" style="position: relative;">
-            <table style="position: absolute;width: 40%;">
-                <tr *ngFor="let items of log_warm.data;let j = index" class="body" style="height: 12px;" [ngStyle]="{'color':items[3] == 3?'red':(items[3]==2?'yellow':'')}">
-                    <td style="padding: 0%;height: 20%;width: 50%" *ngFor="let item of items;let i = index">
-                        <div class="font_w_too_long" *ngIf="i == 0;else logTemp">{{item | date:'yyyy-MM-dd'}}</div>
-                        <ng-template #logTemp>
-                            <div class="font_w_too_long" title="{{item}}" style="width: 100%;max-width: 249px;" *ngIf="i == 1;else nullTemp">{{item}}</div>
-                            <ng-template #nullTemp>
-                            </ng-template>
-                        </ng-template>
+            <table style="position: absolute;width: 100%;">
+                <tr *ngFor="let items of log_warm.data;let j = index" class="body" [ngStyle]="{'color':items[3] == 3?'#f595ca':(items[3]==2?'yellow':'')}">
+                    <td style="padding: 0%;" [ngStyle]="{width: i==2?'59%':'20%'}" *ngFor="let item of items;let i = index">
+                        <div class="font_w_too_long" *ngIf="i == 0">{{item | date:'yyyy-MM-dd'}}</div>
+                        <div class="font_w_too_long" title="{{item}}" *ngIf="[1,2].includes(i)">{{item}}</div>
                     </td>
                 </tr>
             </table>
 
-            <div class="scrollbar">
+            <!-- <div class="scrollbar">
 
                 <table id="table_lr">
                     <tr *ngFor="let items of log_warm.data;let i = index" class="body" style="height: 12px;">
@@ -45,7 +41,7 @@
                     </tr>
                 </table>
 
-            </div>
+            </div> -->
 
         </div>
     </div>

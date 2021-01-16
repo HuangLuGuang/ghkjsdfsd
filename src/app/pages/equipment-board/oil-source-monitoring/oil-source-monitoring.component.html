@@ -40,17 +40,16 @@
                     </div>
                     <div class='scrollbar' style="height: 84%;overflow: auto;position: absolute;width: 100%;">
                         <ng-container *ngFor="let item of equip_alarm;let i = index;">
-                            <div class="bo" style="height: 35px;" [ngStyle]="{color:item.color}">
+                            <div class="bo" [ngStyle]="{color:item.color}">
                                 <div class="w_30">{{item.data[0]}}</div>
-                                <div id="line_{{i}}" class="line_1 scrollbar font_w_too_long" style="overflow: auto;max-width: 67%;">{{ item.data[1] }}</div>
+                                <div id="line_{{i}}" class="line_1 ">{{ item.data[1] }}</div>
                             </div>
-                            <!-- 左右滚动条 -->
 
                         </ng-container>
                     </div>
-                    <div class="scrollbar_l">
+                    <!-- <div class="scrollbar_l">
                         <div id="s"></div>
-                    </div>
+                    </div> -->
                 </div>
             </div>
         </div>
