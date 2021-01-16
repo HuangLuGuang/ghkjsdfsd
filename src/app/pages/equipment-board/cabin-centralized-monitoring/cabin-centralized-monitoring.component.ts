@@ -391,7 +391,7 @@ export class CabinCentralizedMonitoringComponent implements OnInit {
     for(let key in this.subscribeList){
       this.subscribeList[key].unsubscribe();
     }
-    window.removeEventListener('resize',this.resize)
+    window.removeEventListener('resize',this.resize);
   }
 }
 

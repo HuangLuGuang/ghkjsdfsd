@@ -4,7 +4,7 @@
         <div style="width: 100%;">{{'equipment.LV3Warm'|translate}}</div>
         <!-- <div style="width: 100%;">{{getwarm() | translate}}</div> -->
         <!-- <div id="circular" [ngStyle]="{'color':getwarmStr() == 3?'red':getwarmStr()==2?'':'yellow'}"></div> -->
-        <div id="circular" [ngStyle]="{'color':getwarmStr() == 3?'red':''}"></div>
+        <div id="circular" [ngStyle]="{'color':getwarm() == 3?'red':''}"></div>
     </div>
     <div class="h_40_w_70" [ngStyle]="{'height': getWin_H()}" id="warning"></div>
     <div class="_table height_50">
@@ -33,7 +33,7 @@
                     </td>
                 </tr>
             </table>
-            
+
             <div class="scrollbar">
 
                 <table id="table_lr">

@@ -549,6 +549,7 @@ export class ChartCurveV3Component implements OnInit {
   //组件销毁
   ngOnDestroy(){
     window.removeEventListener('resize',this.chartResize_v3);
+    this.dashboard_select= null; 
   }
 
 }

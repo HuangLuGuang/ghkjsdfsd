@@ -63,7 +63,6 @@ export class LogWarmComponent implements OnInit {
     
     this.get_device_mts_log_his();
     $('.scrollbar_l').bind("scroll",f=>{
-      // $('.scrollbar_l').scrollLeft()
       $('.scrollbar').scrollLeft($('.scrollbar_l').scrollLeft())
     })
 
@@ -177,29 +176,28 @@ export class LogWarmComponent implements OnInit {
   /**
    * 获取报警状态
    */
-  get_device_mts_log_daily(){
+  // get_device_mts_log_daily(){
 
-    this.http.callRPC('get_device_log_daily_error_status','device_monitor.get_device_log_daily_error_status',
-    {"device":this.device,"today":dateformat(new Date(),'yyyy-MM-dd'),"thishour":"hour"+new Date().getHours(),"level":1}).subscribe((g:any) =>{
-      // console.log(g)
-      if(g.result.error || g.result.message[0].code == 0)return;
-      let arr = g.result.message[0].message[0];
-      if(arr && arr.errorcount == 1)this.errorC = true;
+  //   this.http.callRPC('get_device_log_daily_error_status','device_monitor.get_device_log_daily_error_status',
+  //   {"device":this.device,"today":dateformat(new Date(),'yyyy-MM-dd'),"thishour":"hour"+new Date().getHours(),"level":1}).subscribe((g:any) =>{
+  //     // console.log(g)
+  //     if(g.result.error || g.result.message[0].code == 0)return;
+  //     let arr = g.result.message[0].message[0];
+  //     if(arr && arr.errorcount == 1)this.errorC = true;
 
-    })
-    // device_monitor.get_device_log_daily_error_status('{"device":"device_mts_01","today":"2020-11-23","thishour":"hour14","level":1}');
-  }
+  //   })
+  // }
   
   getWin_H(){
     var sf = <Screenfull>screenfull;
     return sf.isFullscreen?'150px':'120px';
   }
 
-  getwarmStr(){
+  getwarm(){
     return this.log_warm.data.length > 0 ?this.log_warm.data[this.log_warm.data.length-1][3]:'';
   }
 
-  getwarm(){
+  getwarmStr(){
     return this.log_warm.data.length > 0 ?"equipment.LV"+this.log_warm.data[this.log_warm.data.length-1][3]+"Warm" :'';
   }
 

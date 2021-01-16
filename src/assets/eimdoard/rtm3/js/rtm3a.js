@@ -262,10 +262,10 @@ let rtm3a = {
             series: [{
                     name: '温度',
                     type: 'line',
-                    smooth: true,
-                    // symbol: 'circle',
+                    // smooth: true,
+                    symbol: 'none',
                     // symbolSize: 10,
-                    showAllSymbol: true,
+                    // showAllSymbol: true,
                     color: color[3],
                     data: yearPlanData,
                     itemStyle: {
@@ -277,10 +277,10 @@ let rtm3a = {
                 {
                     name: '湿度',
                     type: 'line',
-                    smooth: true,
-                    // symbol: 'circle',
+                    // smooth: true,
+                    symbol: 'none',
                     // symbolSize: 10,
-                    showAllSymbol: true,
+                    // showAllSymbol: true,
                     color: '#F90',
                     itemStyle: {
                         lineStyle: {
@@ -288,21 +288,6 @@ let rtm3a = {
                         }
                     },
                     data: yearOrderData
-                },
-                {
-                    name: '不可见',
-                    type: 'bar',
-                    stack: '1',
-                    barWidth: 1,
-                    itemStyle: {
-                        normal: {
-                            color: 'rgba(0,0,0,0)'
-                        },
-                        emphasis: {
-                            color: 'rgba(0,0,0,0)'
-                        }
-                    },
-                    data: visibityData
                 }
             ]
         }

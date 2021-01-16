@@ -56,11 +56,14 @@ export class EquipmentBoardComponent implements OnInit {
     this.isFirstLevel =  this.router.events.subscribe((event: Event) => {
       if (event instanceof NavigationEnd) {
         var url = event.url.split("/").pop();
+        console.log(url)
         if (url === 'first-level'){
           $("#head_title").text("智慧实验室(G-iLAB)")
         }
       }
     });
+    
+    window.onpageshow = this.onpageshow;
   }
 
 
@@ -70,6 +73,13 @@ export class EquipmentBoardComponent implements OnInit {
       create_img_16_9();
     }, 1000)
 
+  }
+
+  //解决页面后退后不加载
+  onpageshow=(event)=>{
+    if (event.persisted) {
+      window.location.reload();
+    }
   }
 
 
@@ -84,6 +94,7 @@ export class EquipmentBoardComponent implements OnInit {
   menu_btn_click(){
     console.log('点击菜单');
     this.router.navigate(['/pages']);
+    
   }
 
   //创建时间 定时

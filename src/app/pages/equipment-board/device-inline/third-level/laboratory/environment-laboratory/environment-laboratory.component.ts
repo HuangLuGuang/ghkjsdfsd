@@ -127,7 +127,7 @@ export class EnvironmentLaboratoryComponent implements OnInit {
     let param = Object.keys(this.param)
     this.thrid.get_andon_status_year(param,this.left);
     this.thrid.get_andon_status_last_year(param,this.left);
-    
+    let now;
     this.timer = setInterval(f=>{
       this.get_center_data();
       this.thrid.get_device_taskinfo_list(param,this.right).subscribe((f:any)=>{
@@ -141,6 +141,12 @@ export class EnvironmentLaboratoryComponent implements OnInit {
           this.param[key].speed_name = f[key].map(m=> (m.experiment));
         }
       });
+
+      now = new Date();
+      if(now.getDate() == 1){
+        this.thrid.get_andon_status_year(param,this.left);
+        this.thrid.get_andon_status_last_year(param,this.left);
+      }
       this.thrid.get_log_list(param,this.left);
     },1000)
     setTimeout(() => {

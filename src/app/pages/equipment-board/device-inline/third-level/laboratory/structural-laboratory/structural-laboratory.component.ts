@@ -47,7 +47,7 @@ export class StructuralLaboratoryComponent implements OnInit {
       name:'MTS HPU',
       src:'assets/eimdoard/equipment/images/yy.png',//实验图片路径
       andon:0,
-      open_close:[],
+      open_close:[0,0,0,0,0],
       type:'oil',
       speed:[],
       speed_name:[''],//实验名称
@@ -104,11 +104,11 @@ export class StructuralLaboratoryComponent implements OnInit {
     'device_mts_01':this.list[1],//四立柱道路模拟试验台
     'device_mts_03':this.list[2],//六自由度振动台
     "device_mts_04":this.list[3],//液压伺服
-    'device_hpu_01':0,//油源1
-    'device_hpu_02':1,//油源2
-    'device_hpu_03':2,//油源3
-    'device_hpu_04':3,//油源4
-    'device_hpu_05':4,//油源5
+    // 'device_hpu_01':0,//油源1
+    // 'device_hpu_02':1,//油源2
+    // 'device_hpu_03':2,//油源3
+    // 'device_hpu_04':3,//油源4
+    // 'device_hpu_05':4,//油源5
   }
   timer:any;
   constructor(private router:Router,private http:HttpserviceService,private thrid:ThirdLevelService) { }
@@ -122,11 +122,11 @@ export class StructuralLaboratoryComponent implements OnInit {
 
   ngAfterViewInit(){
     let param = Object.keys(this.param);
-    let int = new Date().getTime();
+    let now;
     this.thrid.get_andon_status_year(param,this.left);
     this.thrid.get_andon_status_last_year(param,this.left);
     this.timer = setInterval(f=>{
-
+      this.get_oil_status();
       this.get_center_data();
       this.thrid.get_log_list(param,this.left)
       this.thrid.get_device_taskinfo_list(param,this.right).subscribe((f:any)=>{
@@ -135,6 +135,11 @@ export class StructuralLaboratoryComponent implements OnInit {
           this.param[key].speed_name = f[key].map(m=> (m.experiment));
         }
       });
+      now = new Date();
+      if(now.getDate() == 1){
+        this.thrid.get_andon_status_year(param,this.left);
+      this.thrid.get_andon_status_last_year(param,this.left);
+      }
     },1000)
     setTimeout(() => {
       this.right.initChart();
@@ -147,16 +152,28 @@ export class StructuralLaboratoryComponent implements OnInit {
     if(map.router)this.router.navigate([map.router]);
   }
 
+
   get_center_data(){
     let status = -1;
     this.http.callRPC('get_andon_status_list','get_andon_status_list',{deviceid:Object.keys(this.param)}).subscribe((f:any)=>{
       if(f.result.error || f.result.message[0].code == 0)return;
       f.result.message[0].message.forEach(el => {
         status = s_role[el.status]
-        if(el.deviceid.includes('hpu'))
-          this.list[4].open_close[this.param[el.deviceid]] = [1,3].includes(status)?status:-1;//油源
-        else
+        // if(el.deviceid.includes('hpu'))
+        //   this.list[4].open_close[this.param[el.deviceid]] = [1,3].includes(status)?status:-1;//油源
+        // else
           this.param[el.deviceid].andon = status;
+      });
+    })
+  }
+
+  get_oil_status(){
+    let res;
+    this.http.callRPC('get_hpu','device_monitor.get_hpu',{"deviceid":""}).subscribe((f:any)=>{
+      if(f.result.error || f.result.message[0].code == 0)return;
+      res = f.result.message[0].message;
+      res.forEach((el,i) => {
+        this.list[4].open_close[i] = el.length>0?el[0].stauts || 0:0;
       });
     })
   }
@@ -166,9 +183,9 @@ export class StructuralLaboratoryComponent implements OnInit {
     switch(item){
       case 1:
         return '运行';
-      case 3:
+      case 0:
         return '停止';
-      case -1:
+      default:
         return '离线';
     }
   }
@@ -177,9 +194,9 @@ export class StructuralLaboratoryComponent implements OnInit {
     switch(item){
       case 1:
         return '#00FF00';
-      case 3:
+      case 0:
         return '#d68f47';
-      case -1:
+      default:
         return '#C0C0C0';
     }
   }
