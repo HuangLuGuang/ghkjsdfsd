@@ -126,7 +126,12 @@ export class DeviceAndonStatusInputComponent implements OnInit {
     console.log("设备状态切换 button", this.device_message);
     if (this.device_message && this.device_message["deviceid"]){
       this.dialogService.open(DeviceStatusInfoComponent,{ closeOnBackdropClick: false, context: { title: '切换当前设备状态', rowData:this.device_message,}}).onClose.subscribe(
-        name=>{}
+        name=>{
+          if (name){
+            // 修改成功
+            this.query();
+          }
+        }
       )
     }else{
       this.dialogService.open(EditDelTooltipComponent,{ closeOnBackdropClick: false, context: { title: '提示', content:   `没有可切换的设备状态!`}} ).onClose.subscribe(
@@ -150,7 +155,20 @@ export class DeviceAndonStatusInputComponent implements OnInit {
       this.http.callRPC(table,method,colums).subscribe(result=>{
         console.log("得到设备状态历史", result);
         var res = result["result"]["message"][0];
-        if (res["code"]===1){}else{}
+        if (res["code"]===1){
+          if (res['message'].length<1){
+
+            this.danger(JSON.stringify('数据为[]'));
+          }else{
+            var data = "查看设备历史状态"
+            this.success(data)
+            this.timeline.inint_timeline(res['message']);
+          }
+          this.RecordOperation('搜索', 1,  "设备状态历史:"+ JSON.stringify(colums));
+        }else{
+          this.danger(JSON.stringify(res["message"]));
+          this.RecordOperation('搜索', 0,  "设备状态历史:"+ JSON.stringify(colums));
+        }
       })
     }else{
       this.dialogService.open(EditDelTooltipComponent,{ closeOnBackdropClick: false, context: { title: '提示', content:   `请选择设备!`}} ).onClose.subscribe(
@@ -158,6 +176,13 @@ export class DeviceAndonStatusInputComponent implements OnInit {
       )
     }
 
+  }
+
+  success(data){
+    this.publicservice.showngxtoastr({position: 'toast-top-right', status: 'success', conent:data});
+  }
+  danger(data){
+    this.publicservice.showngxtoastr({position: 'toast-top-right', status: 'danger', conent: data});
   }
 
   // option_record

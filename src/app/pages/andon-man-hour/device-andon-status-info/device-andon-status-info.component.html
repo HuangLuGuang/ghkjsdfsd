@@ -1,1 +1,23 @@
-<p>device-andon-status-info works!</p>
+<div class="row" style="margin: 0px -11px;">
+    <div class="col-lg-9" style="display: flex;">
+    
+        <!-- 功能组 设备-->
+        <div class="example-items-rows button_item">
+            <div class="gongneng_keshi">
+                <ngx-my-select-tree #groups_devieces></ngx-my-select-tree>
+            </div>
+        </div>
+        
+        <!-- 搜索 -->
+        <div class="example-items-rows button_item query" >
+            <button nbButton status="info" size="small" (click)="query()"><nb-icon icon="search-outline"></nb-icon>搜索</button>
+        </div>
+
+    </div>
+
+    <div class="col-lg-3" style="display: flex;">
+        <div style="flex: auto;">
+        </div>
+        
+    </div>
+</div>

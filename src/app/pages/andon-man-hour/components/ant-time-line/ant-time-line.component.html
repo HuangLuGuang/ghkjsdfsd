@@ -1,9 +1,18 @@
 <div class="mytimeline">
     <nz-timeline  nzMode="alternate">
-        <nz-timeline-item nzColor="green">Create a services site 2021-09-01</nz-timeline-item>
-        <nz-timeline-item nzColor="red">Solve initial network problems 2015-09-01</nz-timeline-item>
-        <nz-timeline-item>Solve initial network problems 2015-09-01</nz-timeline-item>
-        <nz-timeline-item nzColor="red">Technical testing 2015-09-01</nz-timeline-item>
-        <nz-timeline-item>Network problems being solved 2015-09-01</nz-timeline-item>
+        
+        <nz-timeline-item *ngFor="let item of timelinedata" [nzColor]="item.statusColor">
+            <div>
+                <strong>{{item.recordtime}}</strong>
+            </div>
+            <div>
+                <span style="font-weight: 500;">{{item.createdby}}</span>
+            </div>
+            <div>
+                <!-- {{item.status}} -->
+                <span style="font-weight: 300;">{{item.title}}</span>
+            </div>
+        </nz-timeline-item>
     </nz-timeline>
 </div>
+
