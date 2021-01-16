@@ -1,25 +1,35 @@
-
-
 <nb-card>
-    <nb-card-header style="font-size: small;">设备安灯状态信息</nb-card-header>
+    <nb-card-header>
+        <div class="row">
+            <div class="col-lg-9" style="display: flex;font-size: small;">
+                设备安灯历史状态
+            </div>
+            <div class="col-lg-3" style="display: flex;">
+                <div style="flex: auto;">
+                </div>
+                <div class=" button_item my_import ">
+                    <button nbButton status="info" size="tiny" (click)="goback()">设备安灯状态信息</button>
+        
+                </div>
+            </div>
+        </div>
+    </nb-card-header>
     <nb-card-body>
         <div class="row" style="margin: 0px -11px;">
             <div class="col-lg-9" style="display: flex;">
-            
-                <!-- 功能组 设备-->
-                <div class="example-items-rows button_item">
-                    <div class="gongneng_keshi">
-                        <ngx-my-select-tree #groups_devieces></ngx-my-select-tree>
-                    </div>
+                <!-- 日期范围 -->
+                <div class="example-items-rows button_item" style="display: flex;">
+                    <label style=" margin: 8px;margin-left: -5px;">日期范围：</label>
+                    <input type="text" class="layui-input" id="test10" placeholder=" - " style="width: 350px;">
                 </div>
-                
+                    
                 <!-- 搜索 -->
                 <div class="example-items-rows button_item query" >
                     <button nbButton status="success" size="small" (click)="query()"><nb-icon icon="search-outline"></nb-icon>搜索</button>
                 </div>
-        
+
             </div>
-        
+
             <div class="col-lg-3" style="display: flex;">
                 <div style="flex: auto;">
                 </div>
@@ -36,14 +46,15 @@
                         <nb-icon icon="sync-outline"></nb-icon>
                     </button>
                 </div>
-                
             </div>
         </div>
+
         <!-- table -->
-        <div class="row" [nbSpinner]="loading" nbSpinnerStatus="basic">
+        <div class="row" [nbSpinner]="loading" nbSpinnerStatus="basic" style="margin-top: 10px;">
             <div class="col-md-12">
                 <ngx-ag-table #ag_Grid   (nzpageindexchange)="nzpageindexchange($event)"></ngx-ag-table>
             </div>
-        </div>        
+        </div>
+
     </nb-card-body>
 </nb-card>

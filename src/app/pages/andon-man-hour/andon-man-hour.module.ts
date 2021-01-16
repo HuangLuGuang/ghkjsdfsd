@@ -12,10 +12,11 @@ import { NzPaginationModule, NzTimelineModule } from 'ng-zorro-antd';
 import { AgTableComponent } from './components/ag-table/ag-table.component';
 import { AgGridModule } from 'ag-grid-angular';
 import { DetailComponent } from './device-andon-status-info/detail/detail.component';
+import { DeviceAndonHistoryComponent } from './device-andon-history/device-andon-history.component';
 
 
 @NgModule({
-  declarations: [AndonManHourComponent, DeviceAndonStatusInputComponent, DeviceAndonStatusInfoComponent, MySelectTreeComponent, AntTimeLineComponent, AgTableComponent, DetailComponent],
+  declarations: [AndonManHourComponent, DeviceAndonStatusInputComponent, DeviceAndonStatusInfoComponent, MySelectTreeComponent, AntTimeLineComponent, AgTableComponent, DetailComponent, DeviceAndonHistoryComponent],
   imports: [
     CommonModule,
     AndonManHourRoutingModule,

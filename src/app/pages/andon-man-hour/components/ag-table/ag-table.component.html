@@ -7,9 +7,8 @@
     [rowData]="rowData"
     [columnDefs]="columnDefs"
 
-    [context]="context"
-    [getRowNodeId]="getRowNodeId"
     [defaultColDef]="defaultColDef"
+    [context]="context"
 
     [pagination]="true"
     [rowSelection]="rowSelection"
@@ -30,24 +29,24 @@
     (gridReady)="onGridReady($event)"
     (rowClicked)="onRowClicked($event)"
 
+
 >
 </ag-grid-angular>
-
 <div class="row" style="margin-top: 10px;">
     <div class="col-md-10" style="text-align: right;">
         <nz-pagination [(nzPageIndex)]="current" [nzTotal]="totalPageNumbers"
                     [nzPageSize] = "setPageCount"
-                    (nzPageIndexChange)="pageIndexChange($event)"
                    nzShowQuickJumper
-                   [nzShowTotal]="totalTemplate"
+                   (nzPageIndexChange)="pageIndexChange($event)"
                    
+                   [nzShowTotal]="totalTemplate"
         >
         </nz-pagination>
     </div>
 
     <div class="col-md-2" class="isShow">
         <div class="select_page">
-            <nb-select placeholder="10条/页" size="small" [(selected)]="PageSize"  (selectedChange)="onPageSizeChanged()">
+            <nb-select placeholder="10条/页" size="small" [(selected)]="PageSize"  (selectedChange)="onPageSizeChanged2()">
                 <nb-option value="10" >10条/页</nb-option>
                 <nb-option value="20">20条/页</nb-option>
                 <nb-option value="30">30条/页</nb-option>
@@ -60,4 +59,5 @@
     </div>
 </div>
 
-<ng-template  #totalTemplate let-total>共 {{ alltotalPageNumbers }} 条, 已选{{selectedRows.length}}条</ng-template>
+<ng-template #totalTemplate let-total>共 {{ alltotalPageNumbers }} 条, 已选{{selectedRows.length}}条</ng-template>
+

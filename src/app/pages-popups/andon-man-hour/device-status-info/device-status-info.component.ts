@@ -1,6 +1,5 @@
 import { Component, OnInit,Input } from '@angular/core';
 import { NbDialogRef } from '@nebular/theme';
-import { Observable } from 'rxjs';
 import { HttpserviceService } from '../../../services/http/httpservice.service';
 import { PublicmethodService } from '../../../services/publicmethod/publicmethod.service';
 import { UserInfoService } from '../../../services/user-info/user-info.service';
@@ -90,7 +89,10 @@ export class DeviceStatusInfoComponent implements OnInit {
         $(sttus_).attr("checked", true);
       }
       else if(item === 'createdby'){ // 提交人!
-        $('.'+ item).val(message[item]===undefined?null:message[item]);
+        var createdby = this.userinfo.getLoginName();
+        message[item] = createdby;
+        // $('.'+ item).val(message[item]===undefined?null:message[item]);
+        $('.'+ item).text(createdby);
       }else{
         $('.'+ item).text(message[item]===undefined?null:message[item]);
       }
@@ -102,15 +104,9 @@ export class DeviceStatusInfoComponent implements OnInit {
     // 得到当前设备状态
     var status = "input[name='groupStatus']:checked"
     var status_valu = $(status).val()
-    // 得到提交人
-    var createdby = $("#createdby").val();
-    if (createdby === ""){
-      this.not_null();
-    }else{
-      rowData["createdby"] = createdby;
-      rowData["status"] = status_valu;
-      return rowData
-    }
+    
+    rowData["status"] = status_valu;
+    return rowData
     
   };
 

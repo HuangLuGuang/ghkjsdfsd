@@ -75,7 +75,7 @@ export class HourConfigComponent implements OnInit {
   constructor(private userinfo:UserInfoService, private http:HttpserviceService,
     private dialogService: NbDialogService, private publicservice: PublicmethodService) { 
 
-      // 会话过期
+    // 会话过期
     localStorage.removeItem("alert401flag");
 
     // 选择框

@@ -37,7 +37,7 @@ import { DeviceStatusInfoComponent } from './andon-man-hour/device-status-info/d
 @NgModule({
   declarations: [PagesPopupsComponent, RoleComponent, 
     MySelectComponent, UserEmployeeComponent,  
-    UserEmployeeGroupComponent, EditDelTooltipComponent, DeviceManageComponent, PreinstallDialogComponent,  ExpiredTokenComponent, NewMenuComponent, ChangePassowrdForallComponent, TargetHourConfigComponent, AddComponent, GroupDevicesComponent, EditComponent, DailyTargetDurationComponent, DeviceStatusInfoComponent, 
+    UserEmployeeGroupComponent, EditDelTooltipComponent, DeviceManageComponent, PreinstallDialogComponent,  ExpiredTokenComponent, NewMenuComponent, ChangePassowrdForallComponent, TargetHourConfigComponent, AddComponent, GroupDevicesComponent, EditComponent, DailyTargetDurationComponent, DeviceStatusInfoComponent,  
   ],
   imports: [
     CommonModule,
