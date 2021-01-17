@@ -14,10 +14,11 @@ import { AgGridModule } from 'ag-grid-angular';
 import { DetailComponent } from './device-andon-status-info/detail/detail.component';
 import { DeviceAndonHistoryComponent } from './device-andon-history/device-andon-history.component';
 import { ErrmsgComponent } from './device-andon-history/errmsg/errmsg.component';
+import { StatusComponent } from './device-andon-history/status/status.component';
 
 
 @NgModule({
-  declarations: [AndonManHourComponent, DeviceAndonStatusInputComponent, DeviceAndonStatusInfoComponent, MySelectTreeComponent, AntTimeLineComponent, AgTableComponent, DetailComponent, DeviceAndonHistoryComponent, ErrmsgComponent],
+  declarations: [AndonManHourComponent, DeviceAndonStatusInputComponent, DeviceAndonStatusInfoComponent, MySelectTreeComponent, AntTimeLineComponent, AgTableComponent, DetailComponent, DeviceAndonHistoryComponent, ErrmsgComponent, StatusComponent],
   imports: [
     CommonModule,
     AndonManHourRoutingModule,

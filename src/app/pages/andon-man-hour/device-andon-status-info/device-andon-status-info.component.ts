@@ -7,6 +7,7 @@ import { PublicmethodService } from '../../../services/publicmethod/publicmethod
 import { UserInfoService } from '../../../services/user-info/user-info.service';
 import { TableGroupComponent } from '../../tongji/components/table-group/table-group.component';
 import { DetailComponent } from './detail/detail.component';
+import { StatusComponent } from './status/status.component';
 
 
 
@@ -69,7 +70,7 @@ export class DeviceAndonStatusInfoComponent implements OnInit {
       // { field: 'id', headerName: '序号',  headerCheckboxSelection: true, checkboxSelection: true, autoHeight: true, fullWidth: true, minWidth: 30,resizable: true, sortable: true},
       { field: 'group', headerName: '科室功能组',cellRendererFramework: TableGroupComponent, headerCheckboxSelection: true, checkboxSelection: true, autoHeight: true, fullWidth: true, width: 400,resizable: true, sortable: true},
       { field: 'deviceid', headerName: '试验设备', resizable: true, sortable: true},
-      { field: 'status', headerName: '当前设备状态', resizable: true, sortable: true},
+      { field: 'status', headerName: '当前设备状态',cellRendererFramework: StatusComponent, resizable: true, sortable: true},
       { field: 'createdby', headerName: '执行人', resizable: true, sortable: true},
       { field: 'recordtime', headerName: '状态变更时间', resizable: true, sortable: true, flex:1},
       // { field: 'taskstatus', headerName: '当前试验状态', resizable: true,minWidth:10, sortable: true,flex:1,},
