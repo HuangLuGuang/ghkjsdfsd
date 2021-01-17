@@ -42,9 +42,9 @@ export class CentralFourJinhuaComponent implements OnInit {
     // {value:'12',name:'roadAnalogyDragCoeff_F0R',unit:'N'},
     // {value:'12',name:'roadAnalogyDragCoeff_F1R',unit:'N/km/h'},
     // {value:'12',name:'roadAnalogyDragCoeff_F2R',unit:'N/(km/h)^2'},
-    {value:'12',name:'drumDragCoeff_F0D',unit:'N'},
-    {value:'12',name:'drumDragCoeff_F1D',unit:'N/km/h'},
-    {value:'12',name:'drumDragCoeff_F2D',unit:'N/(km/h)^2'},
+    // {value:'12',name:'drumDragCoeff_F0D',unit:'N'},
+    // {value:'12',name:'drumDragCoeff_F1D',unit:'N/km/h'},
+    // {value:'12',name:'drumDragCoeff_F2D',unit:'N/(km/h)^2'},
   ]
 
   gauge =[
@@ -283,9 +283,9 @@ export class CentralFourJinhuaComponent implements OnInit {
       }
 
       // 道路模拟阻力系数
-      this.avl_paramlist[0].value = data.f0r ||0;
-      this.avl_paramlist[1].value = data.f1r||0;
-      this.avl_paramlist[2].value = data.f2r||0;
+      // this.avl_paramlist[0].value = data.f0r ||0;
+      // this.avl_paramlist[1].value = data.f1r||0;
+      // this.avl_paramlist[2].value = data.f2r||0;
       //转鼓阻力系数
       // this.avl_paramlist[3].value = data.f0d;
       // this.avl_paramlist[4].value = data.f1d;
@@ -427,9 +427,9 @@ export const four_param = [
   'f',//牵引力
   'p',//功率
   'a',//加速度
-  'f0r',//道路模拟阻力系数F0R
-  'f1r',//道路模拟阻力系数F1R
-  'f2r',//道路模拟阻力系数F2R
+  // 'f0r',//道路模拟阻力系数F0R
+  // 'f1r',//道路模拟阻力系数F1R
+  // 'f2r',//道路模拟阻力系数F2R
   'n0',//风扇转动系数n0
   'n1',//风扇转动系数n1
   'n2',//风扇转动系数n2
