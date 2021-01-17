@@ -111,8 +111,10 @@ export class HeaderComponent implements OnInit, OnDestroy {
       .subscribe((users: any) => {
         // this.user = users.nick
         var token = this.localStorageService.get(ssotoken)? this.localStorageService.get(ssotoken): false;
+        var name = this.userinfoservice.getName();// zh name
         if(token){
-          this.user = {name: token.name, picture: token.picture};
+          // this.user = {name: token.name, picture: token.picture};
+          this.user = {name: name, picture: token.picture};
         }
       });
 

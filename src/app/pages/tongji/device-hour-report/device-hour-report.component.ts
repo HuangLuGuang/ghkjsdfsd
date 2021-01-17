@@ -41,11 +41,10 @@ export class DeviceHourReportComponent implements OnInit {
       // 会话过期
       localStorage.removeItem("alert401flag");
       // 得到url
-
       this.publicservice.get_current_url().subscribe((res:string)=>{
-        // console.error("+++++++++++++得到url：", res);
         this.index = this.url_after_path[res.split("/").pop()]
       })
+
 
   }
   ngOnInit(): void {
@@ -53,10 +52,16 @@ export class DeviceHourReportComponent implements OnInit {
     this.isDocument =  this.router.events.subscribe((event: Event) => {
       if (event instanceof NavigationEnd) {
         var url = event.url;
-        // console.error("+++++++++++++得到url：", url);
         this.index = this.url_after_path[url.split("/").pop()]
       }
     });
+
+    // ======= 使用 NbDialog 切换标签时，无法再次弹出问题！
+    if (document.getElementsByClassName('cdk-overlay-container').length < 1){
+      var dom = document.createElement("div");
+      dom.className = "cdk-overlay-container"
+      document.getElementsByTagName("nb-layout")[0].appendChild(dom)
+    }
   }
   ngOnDestroy(){
     this.isDocument.unsubscribe();
@@ -69,7 +74,6 @@ export class DeviceHourReportComponent implements OnInit {
 
   // 切换数据汇总-------------------
   toggle_sum(type){
-    // console.error("=++++++++++++++++==切换数据汇总++++++++++=",type)
     if (type === "department"){
       this.router.navigate(["/pages/tongji/device_hour_report/department_data_sum"])
     }else if(type === "group"){

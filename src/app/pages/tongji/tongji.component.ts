@@ -29,7 +29,15 @@ export class TongjiComponent implements OnInit {
       // if (res.search("/pages/tongji/device_hour_report/group_data_sum") != -1){
       // }
       this.index = this.url_after_path[res.split("/").pop()]
-    })
+    });
+
+    // ======= 使用 NbDialog 切换标签时，无法再次弹出问题！
+    if (document.getElementsByClassName('cdk-overlay-container').length < 1){
+      var dom = document.createElement("div");
+      dom.className = "cdk-overlay-container"
+      document.getElementsByTagName("nb-layout")[0].appendChild(dom)
+    }
+    
   }
 
   ngAfterViewInit(){

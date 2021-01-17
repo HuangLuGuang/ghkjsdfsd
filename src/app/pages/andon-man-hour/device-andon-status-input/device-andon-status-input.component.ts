@@ -43,7 +43,6 @@ export class DeviceAndonStatusInputComponent implements OnInit {
   // 搜索
   query(){
     var groups_devieces = this.groups_devieces.get_form_val();
-    // console.error("++++++++++++++groups_devieces",groups_devieces);
     if (groups_devieces["devicename"]){
       var monthed = "pc_device_status_get";
       var table = "device";
@@ -51,12 +50,10 @@ export class DeviceAndonStatusInputComponent implements OnInit {
         devicename: groups_devieces["devicename"]
       }
       this.http.callRPC(table,monthed,columns).subscribe(result=>{
-        console.log("当前设备运行状态:", result);
         var res = result["result"]["message"][0];
         if (res["code"]===1){
           var message = res["message"][0];
           // message["loginname"] = this.userinfo.getLoginName();
-          // console.log("当前message:", message);
           this.RecordOperation('搜索', 1,  "安灯状态:"+ JSON.stringify(columns));
           this.init_table(message);
         }else{
@@ -97,21 +94,25 @@ export class DeviceAndonStatusInputComponent implements OnInit {
         var status_val = message[item];
         switch (status_val) {
           case 'running':
-            $('.'+ item).attr("style", "color: black; background: #5D920D;font-weight:600");
+            // $('.'+ item).attr("style", "color: black; background: #5D920D;font-weight:600");
+            $('.'+ item).attr("style", "color: #5D920D;font-weight:600");
             $('.'+ item).text('运行');
             break;
           case 'stop':
-            $('.'+ item).attr("style", "color: black; background: #3333FF;font-weight:600");
+            // $('.'+ item).attr("style", "color: black; background: #3333FF;font-weight:600");
+            $('.'+ item).attr("style", "color: #3333FF;font-weight:600");
             $('.'+ item).text('空闲');
             
           break;
           case 'warning':
-            $('.'+ item).attr("style", "color: black; background: #FF4E0D;font-weight:600");
+            // $('.'+ item).attr("style", "color: black; background: #FF4E0D;font-weight:600");
+            $('.'+ item).attr("style", "color: #FF4E0D; font-weight:600");
             $('.'+ item).text('维修');
             break;
         
           case 'placeon':
-            $('.'+ item).attr("style", "color: black; background: #DBB70D;font-weight:600");
+            // $('.'+ item).attr("style", "color: black; background: #DBB70D;font-weight:600");
+            $('.'+ item).attr("style", "color: #DBB70D; font-weight:600");
             $('.'+ item).text('占位');
             break
           default:
@@ -127,7 +128,6 @@ export class DeviceAndonStatusInputComponent implements OnInit {
 
   // 设备状态切换 button
   edit(){
-    console.log("设备状态切换 button", this.device_message);
     if (this.device_message && this.device_message["deviceid"]){
       this.dialogService.open(DeviceStatusInfoComponent,{ closeOnBackdropClick: false, context: { title: '切换当前设备状态', rowData:this.device_message,}}).onClose.subscribe(
         name=>{
@@ -157,7 +157,6 @@ export class DeviceAndonStatusInputComponent implements OnInit {
         times: times,
       }
       this.http.callRPC(table,method,colums).subscribe(result=>{
-        console.log("得到设备状态历史", result);
         var res = result["result"]["message"][0];
         if (res["code"]===1){
           if (res['message'].length !== 0){
@@ -165,7 +164,6 @@ export class DeviceAndonStatusInputComponent implements OnInit {
             this.success(data)
             this.timeline.inint_timeline(res['message']);
           }else{
-            console.log("得到设备状态历史", res['message'].length);
             this.warning(JSON.stringify('设备状态历史为空'));
             this.timeline.inint_timeline([])
           }

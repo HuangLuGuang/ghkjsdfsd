@@ -27,7 +27,6 @@ export class AntTimeLineComponent implements OnInit {
 
   // 根据item中的 status 改变状态，running stop warning placeon
   znStatuse(item){
-    console.log("+++++++++++++++++++++++++++++++++++",item)
     switch (item['status']) {
       case "running":
         item["statusColor"] = '#5D920D';

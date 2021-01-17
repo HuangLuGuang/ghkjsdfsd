@@ -22,7 +22,6 @@ export class DeviceStatusInfoComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    console.log("-------------------->>>>>this.device_message", this.rowData);
     this.init_table(this.rowData)
   }
   
@@ -48,31 +47,33 @@ export class DeviceStatusInfoComponent implements OnInit {
     var rowData = this.rowData;
     var that = this;
     layui.use(['layer','form'], function(){
-      // console.log("单层----",rowData)
       var layer = layui.layer;
       var form = layui.form;
       form.render();
 
       form.on('submit(tooltip)', function(data){
         var save_data = that.save_data(rowData);
-        
+
         if (save_data){
-          var monthed = "pc_device_status_insert";
-          var table = "andon";
-          that.http.callRPC(table,monthed,save_data).subscribe(result=>{
-            console.error("保存修改的:", result)
-            var res = result["result"]["message"][0];
-            var data = res["message"]
-            if (res['code']===1){
-              that.success(data);
-              dialogRef.close(true);
-              that.RecordOperation('修改', 1,  "安灯状态:"+ JSON.stringify(save_data));
-            }else{
-              that.danger(data);
-              dialogRef.close(false);
-              that.RecordOperation('修改', 0,  "安灯状态:"+ JSON.stringify(data));
-            }
-          })
+          if (save_data["status"]===rowData["status"]){
+            that.alert_status();
+          }else{
+            var monthed = "pc_device_status_insert";
+            var table = "andon";
+            that.http.callRPC(table,monthed,save_data).subscribe(result=>{
+              var res = result["result"]["message"][0];
+              var data = res["message"]
+              if (res['code']===1){
+                that.success(data);
+                dialogRef.close(true);
+                that.RecordOperation('修改', 1,  "安灯状态:"+ JSON.stringify(save_data));
+              }else{
+                that.danger(data);
+                dialogRef.close(false);
+                that.RecordOperation('修改', 0,  "安灯状态:"+ JSON.stringify(data));
+              }
+            })
+          }
         }
         
         return false;
@@ -90,7 +91,7 @@ export class DeviceStatusInfoComponent implements OnInit {
         $(sttus_).attr("checked", true);
       }
       else if(item === 'createdby'){ // 提交人!
-        var createdby = this.userinfo.getLoginName();
+        var createdby = this.userinfo.getName();
         message[item] = createdby;
         // $('.'+ item).val(message[item]===undefined?null:message[item]);
         $('.'+ item).text(createdby);
@@ -102,14 +103,15 @@ export class DeviceStatusInfoComponent implements OnInit {
 
   // 保存修改的数据
   save_data(rowData){
+    var save_data = Object.assign({},rowData)
     // 得到当前设备状态
     var status = "input[name='groupStatus']:checked"
     var status_valu = $(status).val()
-    rowData["status"] = status_valu;
+    save_data["status"] = status_valu;
     // 故障描述
     var errmsg = $('textarea').val();
-    rowData["errmsg"] = errmsg;
-    return rowData
+    save_data["errmsg"] = errmsg;
+    return save_data
     
   };
 
@@ -124,6 +126,25 @@ export class DeviceStatusInfoComponent implements OnInit {
         ,btnAlign: 'r'
         ,moveType: 1 //拖拽模式，0或者1
         ,content: "提交人必填!"
+        ,yes:function () {
+          layer.closeAll();
+        }
+
+      })
+    })
+  }
+
+  // 弹出提示，状态不能相同！
+  alert_status(){
+    layui.use('layer',function() {
+      var layer = layui.layer
+      layer.open({
+        title: ["提示","padding: 1rem 1.5rem;border-bottom: 1px solid #edf1f7;border-top-left-radius: 0.25rem;border-top-right-radius: 0.25rem;color: #222b45;font-family: Open Sans, sans-serif;font-size: 0.9375rem;font-weight: 600;line-height: 0.5rem;background: #fff;"]
+        ,id: 'LAY_layuipro' //设定一个id，防止重复弹出
+        ,btn: ['关闭']
+        ,btnAlign: 'r'
+        ,moveType: 1 //拖拽模式，0或者1
+        ,content: "当前设备状态必须改变!"
         ,yes:function () {
           layer.closeAll();
         }

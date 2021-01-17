@@ -55,7 +55,6 @@ export class MySelectTreeComponent implements OnInit {
       that.init_groups(form)
       // 监听选择的功能组
       form.on('select(test_task_conf_add_group)', function(data){
-        console.log("监听选择 功能组：",data); //得到被选中的值,即为 group 的id
         if (data.value !== ""){
           that.groups_id = data.value;
 
@@ -83,9 +82,7 @@ export class MySelectTreeComponent implements OnInit {
       var res = result["result"]["message"][0];
       if (res["code"] === 1){
         var groups = res["message"][0]["groups"];
-        console.log("得到科室功能组", groups)
         // 动态创建option
-        console.log("得到科室功能组", groups)
         // this.groups = groups;
         var option = `<option value="">请选择功能组</option>`;
         groups.forEach(element => {

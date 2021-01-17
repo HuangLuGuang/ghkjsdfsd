@@ -71,8 +71,8 @@ export class DeviceAndonStatusInfoComponent implements OnInit {
       { field: 'deviceid', headerName: '试验设备', resizable: true, sortable: true},
       { field: 'status', headerName: '当前设备状态', resizable: true, sortable: true},
       { field: 'createdby', headerName: '执行人', resizable: true, sortable: true},
-      { field: 'recordtime', headerName: '状态变更时间', resizable: true, sortable: true},
-      { field: 'taskstatus', headerName: '当前试验状态', resizable: true,minWidth:10, sortable: true,flex:1,},
+      { field: 'recordtime', headerName: '状态变更时间', resizable: true, sortable: true, flex:1},
+      // { field: 'taskstatus', headerName: '当前试验状态', resizable: true,minWidth:10, sortable: true,flex:1,},
       // { field: 'detail', headerName: '详情', resizable: true,width:100, sortable: true,pinned: 'right'},
     ],
     rowData: [ // data

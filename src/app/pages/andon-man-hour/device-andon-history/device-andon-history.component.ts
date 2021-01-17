@@ -7,6 +7,7 @@ import { PublicmethodService } from '../../../services/publicmethod/publicmethod
 import { UserInfoService } from '../../../services/user-info/user-info.service';
 import { TableDevicenameComponent } from '../../tongji/components/table-devicename/table-devicename.component';
 import { TableGroupComponent } from '../../tongji/components/table-group/table-group.component';
+import { ErrmsgComponent } from './errmsg/errmsg.component';
 
 declare let layui;
 declare let $;
@@ -40,7 +41,7 @@ export class DeviceAndonHistoryComponent implements OnInit {
       { field: 'recordtime', headerName: '状态变更时间', width: 200, resizable: true, sortable: true},
       { field: 'status', headerName: '设备状态', width: 150, resizable: true, sortable: true},
       { field: 'createdby', headerName: '执行人', width: 150, resizable: true, sortable: true},
-      { field: 'errmsg', headerName: '故障描述', width: 170, resizable: true, sortable: true, flex:1},
+      { field: 'errmsg', headerName: '故障描述', cellRendererFramework: ErrmsgComponent, width: 170, resizable: true, sortable: true, flex:1},
       // { field: 'group', headerName: '科室/功能组',  resizable: true, width: 330,cellRendererFramework: TableGroupComponent, sortable: true},
       
       
