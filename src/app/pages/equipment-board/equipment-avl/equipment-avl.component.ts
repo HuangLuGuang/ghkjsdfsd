@@ -337,9 +337,9 @@ export class EquipmentAvlComponent implements OnInit {
       // 新风系统
       this.environmental_real_data.arr[1].value = data.xf_start;
       // 转轮排湿
-      this.environmental_real_data.arr[2].value = data.wd_status;
+      this.environmental_real_data.arr[2].value = data.wd_running;
       // 制冷除湿
-      this.environmental_real_data.arr[3].value = data.rd_status;
+      this.environmental_real_data.arr[3].value = data.rd_running;
       // 制冷机组1
       this.environmental_real_data.arr[4].value = data.select_unit_1;
       // 制冷机组2
@@ -451,8 +451,8 @@ export const environmental_param = [
   'ct_pressure_set',//压强
   'start',//舱状态
   'xf_start',//新风状态
-  'wd_status',//轮转排湿
-  'rd_status',//制冷除湿
+  'wd_running',//轮转排湿
+  'rd_running',//制冷除湿
 
   'ct_fun_hz_set',//循环风机频率
   'xf_fun_hz_set',//新风风机频率
