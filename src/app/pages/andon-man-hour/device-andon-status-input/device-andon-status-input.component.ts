@@ -181,6 +181,12 @@ export class DeviceAndonStatusInputComponent implements OnInit {
 
   }
 
+  // ---- 选择设备触发搜索功能！
+  parent_query(parent_query){
+    // console.error("更改设备编号 parent_query",parent_query);
+    this.query();
+  }
+
   success(data){
     this.publicservice.showngxtoastr({position: 'toast-top-right', status: 'success', conent:data});
   }

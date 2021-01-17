@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { HttpserviceService } from '../../../../services/http/httpservice.service';
 import { UserInfoService } from '../../../../services/user-info/user-info.service';
 declare let $;
@@ -10,6 +10,8 @@ declare let layui;
   styleUrls: ['./my-select-tree.component.scss']
 })
 export class MySelectTreeComponent implements OnInit {
+
+  @Output() parent_query = new EventEmitter<Parent_Query>()
 
   // 科室/功能组下拉框
   groups = [];
@@ -65,7 +67,7 @@ export class MySelectTreeComponent implements OnInit {
       // 监听选择的设备名称
       form.on('select(test_task_conf_add_devicename)', function(data){
         // console.log("监听选择 设备名称：",data); //得到被选中的值,即为 group 的id
-        that.update_deviceno(data.value)
+        that.update_deviceno(data.value);
       })
       
 
@@ -85,12 +87,12 @@ export class MySelectTreeComponent implements OnInit {
         // 动态创建option
         // this.groups = groups;
         var option = `<option value="">请选择功能组</option>`;
+        // var option = '`<option value=""></option>`';
         groups.forEach(element => {
           option += `<option  value ="${element.id}">${element.label}</option>`;
           $("#test_task_conf_add_group").html(option)
         });
         form.render();
-        
       }
     })
 
@@ -128,8 +130,11 @@ export class MySelectTreeComponent implements OnInit {
     this.deviceid = deviceno.split(';')[1];
     this.deviceno = deviceno.split(';')[0];
     this.devicename = $("#test_task_conf_add_devicename").find("option:selected").text();
-    // console.log("更改设备编号 deveceno",deviceno);
     $("#test_task_conf_add_deviceno").val(this.deviceid)
+    // console.error("更改设备编号 deveceno",this.get_form_val());
+    setTimeout(() => {
+      this.parent_query.emit(this.get_form_val());
+    }, 100);
   }
 
   // 得到 form值！
@@ -139,8 +144,16 @@ export class MySelectTreeComponent implements OnInit {
       groups_id: this.groups_id,
       deviceid: this.deviceid,
       deviceno: this.deviceno,
-      devicename: this.devicename,
+      devicename: this.devicename===""?$("#test_task_conf_add_devicename").find("option:selected").text():this.devicename,
     }
   }
 
+  // 调用父组件---搜索
+
+}
+interface Parent_Query {
+  groups_id: string,
+  deviceid: string,
+  deviceno: string,
+  devicename: string,
 }
