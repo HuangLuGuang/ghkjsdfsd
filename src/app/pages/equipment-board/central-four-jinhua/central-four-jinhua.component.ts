@@ -239,7 +239,7 @@ export class CentralFourJinhuaComponent implements OnInit {
     this.subscribeList.four = this.http.callRPC('device_monitor.get_device_mts_realtimedata','device_monitor.get_device_mts_realtimedata',{"device":this.deviceid_four,
     arr:four_param.join(',')}).subscribe((g:any)=>{
       if(g.result.error || g.result.message[0].code == 0)return;
-      res = g.result.message[0].message;
+      res = g.result.message[0].message || [];
       if(res)
         res.forEach(el => {
           for(let key in el){
@@ -247,15 +247,15 @@ export class CentralFourJinhuaComponent implements OnInit {
           }
         });
       //里程
-      this.discharge[0].value = data.distance1;
-      this.discharge[1].value = data.distance2;
-      this.discharge[2].value = data.distance3;
-      this.discharge[3].value = data.distance4;
+      this.discharge[0].value = data.distance1 ||0;
+      this.discharge[1].value = data.distance2||0;
+      this.discharge[2].value = data.distance3||0;
+      this.discharge[3].value = data.distance4||0;
       // 风扇转动系数
-      this.discharge[4].value = data.n0;
-      this.discharge[5].value = data.n1;
-      this.discharge[6].value = data.n2;
-      this.discharge_chart[0].value.push(data.p);
+      this.discharge[4].value = data.n0||0;
+      this.discharge[5].value = data.n1||0;
+      this.discharge[6].value = data.n2||0;
+      this.discharge_chart[0].value.push(data.p||0);
 
       // this.discharge_chart[0].value.push(data.distance1);
       // this.discharge_chart[1].value.push(data.distance2);
@@ -264,7 +264,7 @@ export class CentralFourJinhuaComponent implements OnInit {
       // this.discharge_chart[4].value.push(data.n0);
       // this.discharge_chart[5].value.push(data.n1);
       // this.discharge_chart[6].value.push(data.n2);
-      this.discharge_xdata.push(rTime(res?res[0].v[0][1]:''));//x轴时间
+      this.discharge_xdata.push(rTime(res && res[0]?res[0].v[0][1]:''));//x轴时间
       if(this.discharge_xdata.length>10){
         this.discharge_xdata.splice(0,1);
         this.discharge_chart.forEach(g=>{
@@ -283,9 +283,9 @@ export class CentralFourJinhuaComponent implements OnInit {
       }
 
       // 道路模拟阻力系数
-      this.avl_paramlist[0].value = data.f0r;
-      this.avl_paramlist[1].value = data.f1r;
-      this.avl_paramlist[2].value = data.f2r;
+      this.avl_paramlist[0].value = data.f0r ||0;
+      this.avl_paramlist[1].value = data.f1r||0;
+      this.avl_paramlist[2].value = data.f2r||0;
       //转鼓阻力系数
       // this.avl_paramlist[3].value = data.f0d;
       // this.avl_paramlist[4].value = data.f1d;
@@ -294,15 +294,15 @@ export class CentralFourJinhuaComponent implements OnInit {
 
 
       //惯量
-      this.rw =  data.rw;
+      this.rw =  data.rw||0;
       //轮边力  -- 牵引力
-      this.gauge[0].dataLine.value = data.f;
+      this.gauge[0].dataLine.value = data.f||0;
       //速度
-      this.gauge[1].dataLine.value = data.v;
+      this.gauge[1].dataLine.value = data.v||0;
       //加速度
-      this.gauge[2].dataLine.value = data.a;
+      this.gauge[2].dataLine.value = data.a||0;
       //功率
-      this.gauge[3].dataLine.value = data.p;
+      this.gauge[3].dataLine.value = data.p||0;
       this.gauge.forEach(el => {
         if(document.getElementById(el.id))
         equipment_four_road.create_temp_h_1_p_gauge(
@@ -311,10 +311,10 @@ export class CentralFourJinhuaComponent implements OnInit {
       });
 
       // this.gauge_chart[0].value.push(data.f);
-      this.gauge_chart[0].value.push(data.v);
-      this.gauge_chart[1].value.push(data.a);
+      this.gauge_chart[0].value.push(data.v||0);
+      this.gauge_chart[1].value.push(data.a||0);
       // this.gauge_chart[0].value.push(data.p);
-      this.gauge_xData.push(rTime(res?res[0].v[0][1]:''));
+      this.gauge_xData.push(rTime(res && res[0]?res[0].v[0][1]:''));
       if(this.gauge_xData.length>10){
         this.gauge_xData.splice(0,1);
         this.gauge_chart.forEach(g=>{
@@ -345,35 +345,35 @@ export class CentralFourJinhuaComponent implements OnInit {
     this.subscribeList.jinhua = this.http.callRPC('device_monitor.get_device_mts_realtimedata','device_monitor.get_device_mts_realtimedata',{"device":this.deviceid_jinhua,
     arr:jinhua_param.join(',')}).subscribe((g:any)=>{
       if(g.result.error || g.result.message[0].code == 0)return;
-      res = g.result.message[0].message;
+      res = g.result.message[0].message || [];
       res.forEach(el => {
         for(let key in el){
           data[key] = el[key][0][0];
         }
       });
       //温度
-      this.EnvironBin[0].dataLine.value =  data.mwsmart_main_emission_vw200;
+      this.EnvironBin[0].dataLine.value =  data.mwsmart_main_emission_vw200 ||0;
       this.EnvironBin[0].dataLine.color[0] =  [data.mwsmart_main_emission_vw202/this.EnvironBin[0].dataLine.max,'#203add'];
 
       //湿度
-      this.EnvironBin[1].dataLine.value =  data.mwsmart_main_emission_vw206;
+      this.EnvironBin[1].dataLine.value =  data.mwsmart_main_emission_vw206 ||0;
       this.EnvironBin[1].dataLine.color[0] =  [data.mwsmart_main_emission_vw208/this.EnvironBin[1].dataLine.max,'#203add'];
       
       //阳光辐射
-      this.EnvironBin[2].dataLine.value =  data.mwsmart_main_emission_vw212;
+      this.EnvironBin[2].dataLine.value =  data.mwsmart_main_emission_vw212 ||0;
       this.EnvironBin[2].dataLine.color[0] =  [data.mwsmart_main_emission_vw214/this.EnvironBin[2].dataLine.max,'#203add'];
 
       //舱内压力
-      this.EnvironBin[3].dataLine.value =  data.mwsmart_main_emission_vw218;
+      this.EnvironBin[3].dataLine.value =  data.mwsmart_main_emission_vw218 ||0;
       this.EnvironBin[3].dataLine.color[0] =  [data.mwsmart_main_emission_vw220/this.EnvironBin[3].dataLine.max,'#203add'];
 
       //排费压力
-      this.EnvironBin[4].dataLine.value =  data.mwsmart_main_emission_vw224;
+      this.EnvironBin[4].dataLine.value =  data.mwsmart_main_emission_vw224 ||0;
       this.EnvironBin[4].dataLine.color[0] =  [data.mwsmart_main_emission_vw226/this.EnvironBin[4].dataLine.max,'#203add'];
 
-      this.EnvironBinParam[0].value = data.mwsmart_main_emission_vw228;
-      this.EnvironBinParam[1].value = data.mwsmart_main_emission_v322;
-      this.EnvironBinParam[2].value = data.mwsmart_main_emission_v320;
+      this.EnvironBinParam[0].value = data.mwsmart_main_emission_vw228 ||0;
+      this.EnvironBinParam[1].value = data.mwsmart_main_emission_v322 ||0;
+      this.EnvironBinParam[2].value = data.mwsmart_main_emission_v320 ||0;
 
       
       this.EnvironBin.forEach(el=>{
@@ -386,14 +386,14 @@ export class CentralFourJinhuaComponent implements OnInit {
       if(document.getElementById('en_gauge_7'))
         equipment_four_road.create_gauge_jinhua(
           {
-            value:data.mwsmart_main_emission_vw246,title:'冷却水进水温度',max:100,unit:'℃'
+            value:data.mwsmart_main_emission_vw246||0,title:'冷却水进水温度',max:100,unit:'℃'
           }
           ,echarts.init(document.getElementById('en_gauge_7')));
     
       if(document.getElementById('en_gauge_8'))
         equipment_four_road.create_gauge_jinhua(
           {
-            value:data.mwsmart_main_emission_vw244,title:'冷却水进水压力',max:100,unit:'Pa'
+            value:data.mwsmart_main_emission_vw244||0,title:'冷却水进水压力',max:100,unit:'Pa'
           }
           ,echarts.init(document.getElementById('en_gauge_8')));
 
@@ -454,8 +454,8 @@ export const jinhua_param = [
   'mwsmart_main_emission_vw224',//排废压力
   'mwsmart_main_emission_vw226',//排废压力设定值
   'mwsmart_main_emission_vw228',//排废输出
-  'mwsmart_main_emission_v322',//出水温度
-  'mwsmart_main_emission_v320',//出水压力
+  'mwsmart_main_emission_vw322',//出水温度
+  'mwsmart_main_emission_vw320',//出水压力
 
   'mwsmart_main_emission_vw246',//冷金水温度
   'mwsmart_main_emission_vw244',//冷金水压力
