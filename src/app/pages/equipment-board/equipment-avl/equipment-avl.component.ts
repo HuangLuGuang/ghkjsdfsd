@@ -243,16 +243,16 @@ export class EquipmentAvlComponent implements OnInit {
             data[key] = el[key][0][0];
           }
         });
-      this.discharge[0].value = data.co2;
-      this.discharge[1].value = data.thc;
-      this.discharge[2].value = data.co1;
-      this.discharge[3].value = data.ch4;
-      this.discharge[4].value = data.nox;
-      this.discharge[5].value = data.n2o;
+      this.discharge[0].value = data.co2 ||0;
+      this.discharge[1].value = data.thc ||0;
+      this.discharge[2].value = data.co1 ||0;
+      this.discharge[3].value = data.ch4 ||0;
+      this.discharge[4].value = data.nox ||0;
+      this.discharge[5].value = data.n2o ||0;
       this.discharge_charts.forEach((f,i)=>{
-        f.value.push( this.discharge[i].value);
+        f.value.push( this.discharge[i].value ||0);
       });
-      this.discharge_xdata.push(rTime(res?res[0].co2[0][1]:''))
+      this.discharge_xdata.push(rTime(res && res[0]?res[0].co2[0][1]||res[0]:''))
       if(this.discharge_xdata.length>10){
         this.discharge_xdata.splice(0,1);
         this.discharge_charts.forEach(el => {
