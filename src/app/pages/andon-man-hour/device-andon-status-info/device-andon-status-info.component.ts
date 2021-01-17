@@ -5,6 +5,7 @@ import { EditDelTooltipComponent } from '../../../pages-popups/prompt-diallog/ed
 import { HttpserviceService } from '../../../services/http/httpservice.service';
 import { PublicmethodService } from '../../../services/publicmethod/publicmethod.service';
 import { UserInfoService } from '../../../services/user-info/user-info.service';
+import { TableGroupComponent } from '../../tongji/components/table-group/table-group.component';
 import { DetailComponent } from './detail/detail.component';
 
 
@@ -66,7 +67,7 @@ export class DeviceAndonStatusInfoComponent implements OnInit {
     isno_refresh_page_size: false, // 是否重新将 每页多少条数据，赋值为默认值
     columnDefs:[ // 列字段 多选：headerCheckboxSelection checkboxSelection
       // { field: 'id', headerName: '序号',  headerCheckboxSelection: true, checkboxSelection: true, autoHeight: true, fullWidth: true, minWidth: 30,resizable: true, sortable: true},
-      { field: 'group', headerName: '科室功能组', headerCheckboxSelection: true, checkboxSelection: true, autoHeight: true, fullWidth: true, width: 400,resizable: true, sortable: true},
+      { field: 'group', headerName: '科室功能组',cellRendererFramework: TableGroupComponent, headerCheckboxSelection: true, checkboxSelection: true, autoHeight: true, fullWidth: true, width: 400,resizable: true, sortable: true},
       { field: 'deviceid', headerName: '试验设备', resizable: true, sortable: true},
       { field: 'status', headerName: '当前设备状态', resizable: true, sortable: true},
       { field: 'createdby', headerName: '执行人', resizable: true, sortable: true},
@@ -171,6 +172,7 @@ export class DeviceAndonStatusInfoComponent implements OnInit {
 
   // 重置table
   refresh_table(){
+    
     this.refresh = true;
     this.loading = true;
     this.gridData = [];

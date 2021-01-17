@@ -15,11 +15,14 @@ export class AntTimeLineComponent implements OnInit {
 
   // 初始化时间线
   inint_timeline(data){
-    console.error("初始化时间线", data);
-    data.forEach(item => {
-      this.znStatuse(item)
-    });
-    this.timelinedata = data;
+    if (data.length > 0){
+      data.forEach(item => {
+        this.znStatuse(item)
+      });
+      this.timelinedata = data;
+    }else{
+      this.timelinedata = []
+    }
   }
 
   // 根据item中的 status 改变状态，running stop warning placeon

@@ -55,6 +55,7 @@ export class DeviceStatusInfoComponent implements OnInit {
 
       form.on('submit(tooltip)', function(data){
         var save_data = that.save_data(rowData);
+        
         if (save_data){
           var monthed = "pc_device_status_insert";
           var table = "andon";
@@ -93,7 +94,7 @@ export class DeviceStatusInfoComponent implements OnInit {
         message[item] = createdby;
         // $('.'+ item).val(message[item]===undefined?null:message[item]);
         $('.'+ item).text(createdby);
-      }else{
+      }else {
         $('.'+ item).text(message[item]===undefined?null:message[item]);
       }
     }
@@ -104,8 +105,10 @@ export class DeviceStatusInfoComponent implements OnInit {
     // 得到当前设备状态
     var status = "input[name='groupStatus']:checked"
     var status_valu = $(status).val()
-    
     rowData["status"] = status_valu;
+    // 故障描述
+    var errmsg = $('textarea').val();
+    rowData["errmsg"] = errmsg;
     return rowData
     
   };

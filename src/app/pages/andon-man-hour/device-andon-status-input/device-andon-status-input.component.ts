@@ -90,6 +90,8 @@ export class DeviceAndonStatusInputComponent implements OnInit {
   // ['运行', '空闲', '维修', "占位"],
   init_table(message){
     this.device_message = message;
+    // var errmsg = $('.errmsg').text();
+
     for(let item in message){
       if (item === 'status'){
         var status_val = message[item];
@@ -158,13 +160,14 @@ export class DeviceAndonStatusInputComponent implements OnInit {
         console.log("得到设备状态历史", result);
         var res = result["result"]["message"][0];
         if (res["code"]===1){
-          if (res['message'].length<1){
-
-            this.danger(JSON.stringify('数据为[]'));
-          }else{
+          if (res['message'].length !== 0){
             var data = "查看设备历史状态"
             this.success(data)
             this.timeline.inint_timeline(res['message']);
+          }else{
+            console.log("得到设备状态历史", res['message'].length);
+            this.warning(JSON.stringify('设备状态历史为空'));
+            this.timeline.inint_timeline([])
           }
           this.RecordOperation('搜索', 1,  "设备状态历史:"+ JSON.stringify(colums));
         }else{
@@ -185,6 +188,9 @@ export class DeviceAndonStatusInputComponent implements OnInit {
   }
   danger(data){
     this.publicservice.showngxtoastr({position: 'toast-top-right', status: 'danger', conent: data});
+  }
+  warning(data){
+    this.publicservice.showngxtoastr({position: 'toast-top-right', status: 'warning', conent: data});
   }
 
   // option_record

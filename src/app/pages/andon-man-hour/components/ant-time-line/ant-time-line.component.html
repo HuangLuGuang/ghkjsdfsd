@@ -1,5 +1,5 @@
 <div class="mytimeline">
-    <nz-timeline  nzMode="alternate">
+    <nz-timeline  nzMode="alternate" *ngIf="timelinedata.length > 0">
         
         <nz-timeline-item *ngFor="let item of timelinedata" [nzColor]="item.statusColor">
             <div>

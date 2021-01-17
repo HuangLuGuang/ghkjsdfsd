@@ -40,7 +40,7 @@ export class DeviceAndonHistoryComponent implements OnInit {
       { field: 'recordtime', headerName: '状态变更时间', width: 200, resizable: true, sortable: true},
       { field: 'status', headerName: '设备状态', width: 150, resizable: true, sortable: true},
       { field: 'createdby', headerName: '执行人', width: 150, resizable: true, sortable: true},
-      { field: 'errmsg', headerName: '故障描述', width: 170, resizable: true, sortable: true, },
+      { field: 'errmsg', headerName: '故障描述', width: 170, resizable: true, sortable: true, flex:1},
       // { field: 'group', headerName: '科室/功能组',  resizable: true, width: 330,cellRendererFramework: TableGroupComponent, sortable: true},
       
       
@@ -125,12 +125,7 @@ export class DeviceAndonHistoryComponent implements OnInit {
   }
   // 搜索
   query(){
-    var date_reange = this.date_reange;
-    var date_reange_dict ={
-      starttime: date_reange.split(" - ")[0],
-      endtime: date_reange.split(" - ")[1],
-    }
-    var inttable_before = this.inttable_before(date_reange_dict);
+    var inttable_before = this.inttable_before();
     var offset;
     var limit;
     var PageSize;
@@ -138,8 +133,8 @@ export class DeviceAndonHistoryComponent implements OnInit {
     var method = 'pc_device_status_historylog';
     var colums = {
       deviceid: inttable_before.deviceid,
-      starttime: date_reange_dict.starttime,
-      endtime: date_reange_dict.endtime,
+      starttime: inttable_before.starttime,
+      endtime: inttable_before.endtime,
       offset: offset, 
       limit: limit,
     }
@@ -172,20 +167,24 @@ export class DeviceAndonHistoryComponent implements OnInit {
   // 重置table
   refresh_table(){
     this.reset_mydate(); // 重置日期
+    this.refresh = true;
+    this.loading = true;
+    this.gridData = [];
+    // 是否 每页多少也，设置为默认值
+    this.tableDatas.isno_refresh_page_size = true;
+    this.inttable();
+    this.loading = false;
+    this.refresh = false;
   }
 
   // table
-  inttable_before(date_reange_dict?){
-    var starttime = '';
-    var endtime = '';
-    if (date_reange_dict){
-      starttime = date_reange_dict['starttime'];
-      endtime = date_reange_dict['endtime'];
-    }
+  inttable_before(){
+    var date_reange = this.date_reange;
     return {
+      limit: this.agGrid.get_pagesize(),
       deviceid:this.device_andon_history_status["deviceid"],
-      starttime:starttime,
-      endtime:starttime,
+      starttime: date_reange.split(" - ")[0],
+      endtime: date_reange.split(" - ")[1],
     }
   }
 
@@ -201,8 +200,8 @@ export class DeviceAndonHistoryComponent implements OnInit {
       PageSize = event.PageSize? Number(event.PageSize):10;
     }else{
       offset = 0;
-      limit = 10;
-      PageSize = 10;
+      limit = inttable_before.limit;
+      PageSize = inttable_before.limit;
     }
     var colums = {
       offset: offset, 
