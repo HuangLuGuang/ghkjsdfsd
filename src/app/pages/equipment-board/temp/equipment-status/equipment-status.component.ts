@@ -160,7 +160,7 @@ export class EquipmentStatusComponent implements OnInit {
           f.result.message[0].message.forEach((el,i) => {
             // xAxisData.push(el.recordtime+unit);
             // arr.push(el.running?el.running:0);
-            arr[parseInt(el.recordtime+unit)-1] = el.running?el.running:0;
+            arr[parseInt(el.recordtime)] = el.running?el.running:0;
           });
           this.initOperatingRate({
                   xAxisData:xAxisData,

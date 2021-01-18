@@ -354,6 +354,7 @@ export class EquipmentFourRoadComponent implements OnInit {
             {value:m.programinterlock,color:m.programinterlock== 1?'white':'orange',id:'strip'}
           ] 
         ))
+        this.subscribeList.status.unsubscribe();
       })
   }
 
@@ -377,6 +378,7 @@ export class EquipmentFourRoadComponent implements OnInit {
     arr:param[0].join(',')}).subscribe((f:any) =>{
       if(f.result.error || f.result.message[0].code == 0)return;
       painting_time(f,10,this,arr);
+      this.subscribeList.time.unsubscribe();
       
     })
   }
@@ -392,6 +394,8 @@ export class EquipmentFourRoadComponent implements OnInit {
     arr:param[1].join(',')}).subscribe((g:any) =>{
       if(g.result.error || g.result.message[0].code == 0)return;
       painting_time(g,1,this,arr);
+      this.subscribeList.real.unsubscribe();
+
     })
   }
 

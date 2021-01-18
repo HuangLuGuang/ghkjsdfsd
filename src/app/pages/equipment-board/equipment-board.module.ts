@@ -19,18 +19,13 @@ import { EquipmentBoardService } from './serivice/equipment-board.service';
 // 组件
 const COMPONENT = [
   EquipmentBoardComponent,
-  FirstLevelComponent,
-  SecondLevelComponent,
-
-  
 ]
 //设备看板模块
 @NgModule({
   declarations: COMPONENT,
   imports: [
-    CommonModule,ShareModule,EimboardEimboardRoutingModule,NzProgressModule,TranslateModule,
-    NbIconModule,NbCardModule,NzCarouselModule,BoardTempModule,NbSpinnerModule
-
+    CommonModule,EimboardEimboardRoutingModule,TranslateModule,
+    NbIconModule,NbCardModule,NzCarouselModule,NbSpinnerModule
     // ---device inline 
   ],
   entryComponents:COMPONENT,

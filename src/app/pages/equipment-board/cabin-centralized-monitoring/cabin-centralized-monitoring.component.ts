@@ -345,6 +345,7 @@ export class CabinCentralizedMonitoringComponent implements OnInit {
       this.gauge[2].dataLine.value = data.micro_pressure_pv;
       this.gauge[2].dataLine.color[0] = [data.micro_pressure_sp/this.gauge[2].dataLine.max, '#203add'];
       [0,1,2].forEach(f=>{
+        if(document.getElementById(this.gauge[f].id))
         equipment_four_road.create_temp_h_1_p_gauge(
           this.gauge[f].dataLine
           ,echarts.init(document.getElementById(this.gauge[f].id)));

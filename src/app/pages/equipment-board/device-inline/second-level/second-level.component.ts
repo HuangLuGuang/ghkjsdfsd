@@ -61,7 +61,7 @@ export class SecondLevelComponent implements OnInit {
   }
 
   ngAfterViewInit(){
-    this.boardservice.sendLoad({close:false})
+    
 
     // 关键指标
     second_level.key_index();
@@ -73,8 +73,8 @@ export class SecondLevelComponent implements OnInit {
       let device_rate = document.querySelector('.device-rate');
       if(device_rate) echarts.init(device_rate).resize();
       
-  
     }, 100);
+    this.boardservice.sendLoad({close:false})
   }
 
   
@@ -90,16 +90,19 @@ export class SecondLevelComponent implements OnInit {
         case 'newpower':
         // case 'electrical':
           this.router.navigate(['pages/equipment/third-level/energy']);
+          this.boardservice.sendLoad({close:true})
           break;
         case 'environment':
           this.router.navigate(['pages/equipment/third-level/environment']);
+          this.boardservice.sendLoad({close:true})
           break;
         case 'structural':
           this.router.navigate(['pages/equipment/third-level/structural']);
+          this.boardservice.sendLoad({close:true})
           break;
       }
     }, 100);
-    this.boardservice.sendLoad({close:true})
+    
   }
 
 

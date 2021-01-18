@@ -47,13 +47,11 @@
                             <table>
                                 <tr class="body" *ngFor="let items of switchStatus.data">
                                     <td *ngFor="let item of items;let i = index" [ngStyle]="{'width':get_td_width(switchStatus.title.length)}">
-                                        <div class="font_w_too_long" style="padding-top: 1%;" title="{{item}}" *ngIf="i == 0;else graphical">{{item}}</div>
-                                        <ng-template #graphical>
-                                            <div style="display: flex;justify-content: center;">
-                                                <div id="{{item.id}}" [ngStyle]="{'background': item.color}">
-                                                </div>
+                                        <div class="font_w_too_long" style="padding-top: 1%;" title="{{item}}" *ngIf="i == 0">{{item}}</div>
+                                        <div *ngIf="i != 0" style="display: flex;justify-content: center;">
+                                            <div id="{{item.id}}" [ngStyle]="{'background': item.color}">
                                             </div>
-                                        </ng-template>
+                                        </div>
                                     </td>
                                 </tr>
                             </table>

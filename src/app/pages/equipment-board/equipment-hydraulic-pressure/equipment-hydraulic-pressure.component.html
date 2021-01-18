@@ -44,11 +44,9 @@
                             <table>
                                 <tr class="body" *ngFor="let items of switchStatus.data">
                                     <td *ngFor="let item of items;let i = index" style="height: 30px;" [ngStyle]="{'width':get_td_width(switchStatus.title.length,i)}">
-                                        <div class="font_w_too_long" *ngIf="i == 0;else graphical">{{item}}</div>
-                                        <ng-template #graphical>
-                                            <div id="{{item.id}}" [ngStyle]="{'background': item.color}">
-                                            </div>
-                                        </ng-template>
+                                        <div class="font_w_too_long" *ngIf="i == 0">{{item}}</div>
+                                        <div *ngIf="i != 0" id="{{item.id}}" [ngStyle]="{'background': item.color}">
+                                        </div>
                                     </td>
                                 </tr>
                             </table>

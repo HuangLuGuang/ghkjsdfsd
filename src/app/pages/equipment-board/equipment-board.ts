@@ -460,7 +460,7 @@ export const  four_road_htmlstr = [
 `
 ];
 
-// 整车
+// 整车 设备介绍
 export const coupling = [
 `
 <p class="indent_2 p_white">24通道轴耦合道路模拟试验机，是应用MTS RPC再现技术，主要是在24通道模拟机上重现试验场车辆轴头六分力传感器测量的Fx、Fy、Fz、Mx、My、Mz的载荷，来评价整车结构耐久性。 </p>
@@ -651,6 +651,7 @@ Vertica1.2m/s、Lateral0.9m/s、Longitudinal1.0m/s
 `
 ]
 
+// 油源设备介绍
 export const oil_htmlStr = [
 `
 <p class="indent_2 p_white">MTS液压泵站，共有5个独立的HPU油泵组，每组HPU由6个油泵组成。为试验室24通道台架、四立柱等台架设备提供液压油输入输出。</p>

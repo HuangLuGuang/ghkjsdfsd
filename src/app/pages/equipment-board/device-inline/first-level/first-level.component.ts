@@ -97,6 +97,7 @@ export class FirstLevelComponent implements OnInit {
   eclick=(params)=> {
     // console.error("******************",params.data)
     // console.error("******************",params)
+    this.boardservice.sendLoad({close:true});
     if (params.seriesType === 'scatter') {
       // console.log("点击执行： ", params);
       // console.log("点击执行： ", params.seriesType);

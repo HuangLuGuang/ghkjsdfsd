@@ -14,15 +14,16 @@
                 <div class="table_body_th" *ngFor="let items of tableBody">
                     <div class="table_body_tr" style="position: relative;" [ngStyle]="{width: '33%'}" *ngFor="let key of obejct.keys(tableHeader)">
 
-                        <ng-container *ngIf="key == 'speed';else temp">
+                        <ng-container *ngIf="key == 'speed'">
                             <nz-progress [nzPercent]="items.speed" [nzStrokeColor]="{ '0%': '#66FF00', '100%': '#66FF00' }" nzSize="small" [nzShowInfo]="false"></nz-progress>
                             <div style="position: absolute;color: black;top: 30%;">
                                 {{items[key]}}%
                             </div>
                         </ng-container>
-                        <ng-template #temp>
+
+                        <ng-container *ngIf="key != 'speed'">
                             {{ items[key] }}
-                        </ng-template>
+                        </ng-container>
                     </div>
                 </div>
             </div>

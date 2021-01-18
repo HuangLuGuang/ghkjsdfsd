@@ -33,9 +33,7 @@
                             {{item}}%
                         </div>
                     </div>
-                    <ng-template #fontTemp>
-                        <div class="font_tolong">{{item}}</div>
-                    </ng-template>
+                    <div *ngIf="i != 4;" class="font_tolong">{{item}}</div>
 
                 </td>
             </tr>

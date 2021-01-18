@@ -100,7 +100,7 @@ export class EnergyLaboratoryComponent implements OnInit {
 
   ngOnInit(): void {
     if(document.getElementById('head_title'))
-        document.getElementById('head_title').innerText = '验证中心-电机试验室';
+        document.getElementById('head_title').innerText = '验证中心-新能源电机试验室';
   }
 
   ngAfterViewInit(){

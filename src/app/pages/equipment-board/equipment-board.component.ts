@@ -1,9 +1,9 @@
-import { Route } from '@angular/compiler/src/core';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, NavigationEnd, Router,Event } from '@angular/router';
 import * as screenfull from 'screenfull';
 import { Screenfull } from 'screenfull';
 import { LayoutService } from '../../@core/utils';
+import { SYSMENU } from '../../appconfig';
 import { create_img_16_9 } from './equipment-board';
 import { EquipmentBoardService } from './serivice/equipment-board.service';
 
@@ -30,6 +30,13 @@ export class EquipmentBoardComponent implements OnInit {
   };//时间
   dateInterval:any;//定时器
 
+  //看板路由下所有菜单配置
+  menu;
+  // 按钮的显影
+  b_show = {
+    back:true,//返回按钮
+  }
+
   subscribeList:any = {};
   
 
@@ -45,32 +52,37 @@ export class EquipmentBoardComponent implements OnInit {
     this.layoutService.onInitLayoutSize().subscribe(f=>{
       create_img_16_9();
     })
-
-    // this.router.events.subscribe((e:any) => {
-    //   if(e instanceof NavigationEnd){
-    //     console.log(e.url);
-    //     let arr = e.url.split('/');
-    //     //判断哪些看板需要哪些功能
-    //     console.log("判断哪些看板需要哪些功能",e.url)
-        
-            
-    //   }
-    // })
+    
+    //获取看板路由下所有菜单配置
+    var menu = localStorage.getItem(SYSMENU);
+    if(menu)this.menu = JSON.parse(menu).filter(f =>f.link && f.link.includes('equipment'));
+    
+    
     this.subscribeList.load = this.boradservice.get_Load_Observable().subscribe(f=>{
+      if(f.close)this.loading = f.close;
       setTimeout(() => {
         this.loading = f.close;
       }, 100);
     })
   }
   
-  ngAfterViewInit(){
+  ngAfterViewInit(){ 
+    let url = decodeURIComponent(window.location.pathname);
+    if (url === 'first-level'){
+      this.b_show.back = false;//最上级看板的影藏返回按钮
+    }else{
+      this.b_show.back = true;
+    }
+
     // 监听路由
     this.isFirstLevel =  this.router.events.subscribe((event: Event) => {
       if (event instanceof NavigationEnd) {
-        var url = event.url.split("/").pop();
+        url = event.url.split("/").pop();
         console.log(url)
-        if (url === 'first-level'){
-          $("#head_title").text("智慧实验室(G-iLAB)")
+        if (['first-level','equipment'].includes(url)){
+          this.b_show.back = false;//最上级看板的影藏返回按钮
+        }else{
+          this.b_show.back = true;
         }
       }
     });
@@ -99,14 +111,15 @@ export class EquipmentBoardComponent implements OnInit {
   return_btn_click(){
     this.loading = true;
     console.log('返回上一级')
-    window.history.back();
+    let router_str = this.boradservice.back_router_str(this.menu)
+    this.router.navigate([router_str]);
+    //当为最上级看板时
   }
 
   //点击菜单
   menu_btn_click(){
     console.log('点击菜单');
     this.router.navigate(['/pages']);
-    
   }
 
   //创建时间 定时
