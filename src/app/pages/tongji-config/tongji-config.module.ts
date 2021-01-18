@@ -6,7 +6,7 @@ import { TongjiConfigComponent } from './tongji-config.component';
 import { NzPaginationModule, NzTabsModule } from 'ng-zorro-antd';
 import { AgGridModule } from 'ag-grid-angular';
 import { ComponentTModule } from '../tongji/components/componentT.module';
-import { NbCardModule } from '@nebular/theme';
+import { NbButtonModule, NbCardModule } from '@nebular/theme';
 
 
 @NgModule({
@@ -16,6 +16,7 @@ import { NbCardModule } from '@nebular/theme';
     TongjiConfigRoutingModule,
 
     NbCardModule,
+    NbButtonModule,
 
 
     NzPaginationModule,

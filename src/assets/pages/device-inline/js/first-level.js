@@ -208,6 +208,7 @@ let first_level = {
                 // 常规地图
                 {
                     type: 'map',
+                    z: 10,
                     mapType: 'china',
                     aspectScale: 0.85,
                     layoutCenter: ["50%", "50%"], //地图位置
@@ -245,6 +246,7 @@ let first_level = {
                     coordinateSystem: 'geo',
                     showEffectOn: 'render',
                     // zlevel: 2,
+                    z:20,
                     symbolSize: 10,
                     rippleEffect: { //坐标点动画
                         period: 3,
@@ -280,7 +282,8 @@ let first_level = {
                 {
                     type: 'lines',
                     // zlevel: 1, //设置这个才会有轨迹线的小尾巴
-                    zlevel: 0.1, //设置这个才会有轨迹线的小尾巴
+                    // zlevel: 0.1, //设置这个才会有轨迹线的小尾巴
+                    z:21,
                     //polyline:true,
                     effect: {
                         show: true,
@@ -304,7 +307,7 @@ let first_level = {
          return "#"+("00000"+((Math.random()*16777215+0.5)>>0).toString(16)).slice(-6);
          }*/,
                                 width: 1, //线条宽度
-                                opacity: 0.1, //尾迹线条透明度
+                                opacity: 0.6, //尾迹线条透明度
                                 curveness: .3 //尾迹线条曲直度
                             }
                         },
@@ -373,7 +376,8 @@ let first_level = {
         
                     type: 'lines',
                     // zlevel: 3,
-                    zlevel: 0.2,
+                    // zlevel: 0.2,
+                    z:21,
                     symbol: 'circle',
                     symbolSize: [5, 5],
                     color: '#ff8003',
@@ -452,7 +456,8 @@ let first_level = {
                         brushType: 'stroke'
                     },
                     hoverAnimation: true,
-                    zlevel: 1
+                    // zlevel: 1
+                    z:22
                 },
                 // 气球 、scatter 散点图 === 吉利研究院
                 {
@@ -482,7 +487,8 @@ let first_level = {
                         brushType: 'stroke'
                     },
                     hoverAnimation: true,
-                    zlevel: 1
+                    // zlevel: 1
+                    z:22
                 },
             ]
         };

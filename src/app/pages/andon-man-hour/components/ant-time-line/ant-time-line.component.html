@@ -1,7 +1,7 @@
 <div class="mytimeline">
     <nz-timeline  nzMode="alternate" *ngIf="timelinedata.length > 0">
         
-        <nz-timeline-item *ngFor="let item of timelinedata" [nzColor]="item.statusColor">
+        <nz-timeline-item *ngFor="let item of timelinedata" [nzColor]="item.statusColor" [nzDot]="getdot(item.status)">
             <div>
                 <strong>{{item.recordtime}}</strong>
             </div>
@@ -14,5 +14,23 @@
             </div>
         </nz-timeline-item>
     </nz-timeline>
+    
 </div>
 
+
+<!-- running -->
+<ng-template #running>
+    <i nz-icon nzType="check-square"   style="font-size: 16px;color:#5D920D;"></i>
+</ng-template>
+<!-- stop -->
+<ng-template #stop>
+    <i nz-icon nzType="stop"  style="font-size: 16px;color:#3333FF;"></i>
+</ng-template>
+<!-- warning -->
+<ng-template #warning>
+    <i nz-icon nzType="warning"  style="font-size: 16px;color: #FF4E0D;"></i>
+</ng-template>
+<!-- placeon -->
+<ng-template #placeon>
+    <i nz-icon nzType="clock-circle-o"  style="font-size: 16px;color: #DBB70D;"></i>
+</ng-template>

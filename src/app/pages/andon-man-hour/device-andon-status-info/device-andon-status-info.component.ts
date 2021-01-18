@@ -70,7 +70,30 @@ export class DeviceAndonStatusInfoComponent implements OnInit {
       // { field: 'id', headerName: '序号',  headerCheckboxSelection: true, checkboxSelection: true, autoHeight: true, fullWidth: true, minWidth: 30,resizable: true, sortable: true},
       { field: 'group', headerName: '科室功能组',cellRendererFramework: TableGroupComponent, headerCheckboxSelection: true, checkboxSelection: true, autoHeight: true, fullWidth: true, width: 400,resizable: true, sortable: true},
       { field: 'deviceid', headerName: '试验设备', resizable: true, sortable: true},
-      { field: 'status', headerName: '当前设备状态',cellRendererFramework: StatusComponent, resizable: true, sortable: true},
+      { field: 'status', headerName: '当前设备状态',cellRendererFramework: StatusComponent, resizable: true, sortable: true,
+        cellStyle: function(params){
+          var value = params.value;
+          switch (value) {
+            case 'running':
+              return {
+                background: '#5D920D'
+              };
+            case 'stop':
+              return {
+                background: '#3333FF'
+              };
+            case 'warning':
+              return {
+                background: '#FF4E0D'
+              };
+            case 'placeon':
+              return {
+                background: '#DBB70D'
+              };
+      
+          }
+        }
+      },
       { field: 'createdby', headerName: '执行人', resizable: true, sortable: true},
       { field: 'recordtime', headerName: '状态变更时间', resizable: true, sortable: true, flex:1},
       // { field: 'taskstatus', headerName: '当前试验状态', resizable: true,minWidth:10, sortable: true,flex:1,},

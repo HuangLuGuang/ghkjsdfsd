@@ -40,7 +40,30 @@ export class DeviceAndonHistoryComponent implements OnInit {
       { field: 'deviceno', headerName: '设备编号', width: 130, resizable: true, sortable: true},
       { field: 'deviceid', headerName: '设备ID', width: 150, resizable: true, sortable: true},
       { field: 'recordtime', headerName: '状态变更时间', width: 200, resizable: true, sortable: true},
-      { field: 'status', headerName: '设备状态', cellRendererFramework: StatusComponent, width: 150, resizable: true, sortable: true, },
+      { field: 'status', headerName: '设备状态', cellRendererFramework: StatusComponent, width: 150, resizable: true, sortable: true, 
+        cellStyle: function(params){
+          var value = params.value;
+          switch (value) {
+            case 'running':
+              return {
+                background: '#5D920D'
+              };
+            case 'stop':
+              return {
+                background: '#3333FF'
+              };
+            case 'warning':
+              return {
+                background: '#FF4E0D'
+              };
+            case 'placeon':
+              return {
+                background: '#DBB70D'
+              };
+      
+          }
+        }
+      },
       { field: 'createdby', headerName: '执行人', width: 150, resizable: true, sortable: true},
       { field: 'errmsg', headerName: '故障描述', cellRendererFramework: ErrmsgComponent, width: 170, resizable: true, sortable: true, flex:1},
       // { field: 'group', headerName: '科室/功能组',  resizable: true, width: 330,cellRendererFramework: TableGroupComponent, sortable: true},

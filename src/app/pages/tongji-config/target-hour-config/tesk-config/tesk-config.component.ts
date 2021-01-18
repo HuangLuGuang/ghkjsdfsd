@@ -34,6 +34,7 @@ export class TeskConfigComponent implements OnInit {
   @ViewChild("myMonth") myMonth:any; // 月
   @ViewChild("myinput2") myinput2:any; // 试验任务子单号
 
+  @ViewChild("timeline") timeline:any; //  时间轴
 
   // 导出文件名
   filename;
@@ -71,14 +72,51 @@ export class TeskConfigComponent implements OnInit {
     this.get_tree_selecetdata();
   }
 
+  // 抽屉
+  visible = false;
+
+  open(data): void {
+    this.visible = true;
+    var table = 'device';
+    var method = 'get_task_historylog';
+    var colums = {
+      taskchildnum: data["taskchildnum"],
+    }
+    this.http.callRPC(table, method, colums).subscribe(result=>{
+      var res = result["result"]["message"][0];
+      if (res["code"]===1){
+        this.timeline.inint_timeline(res["message"]);
+        this.RecordOperation('查看', 1,  "试验任务配置历史详情:"+JSON.stringify(colums))
+      }else{
+        this.RecordOperation('查看', 0,  "试验任务配置历史详情:"+JSON.stringify(colums))
+      }
+    })
+
+    // this.timeline.inint_timeline(
+    //   [
+    //     {createdby: "admin", createdon: "2021-01-18", status: "试验启动"},
+        
+    //   ]
+    // );
+  }
+
+  close(): void {
+    this.visible = false;
+  }
+
+
   ngOnInit(): void {
     // 添加操作列
     var that = this;
     this.active = { field: 'option', headerName: '操作', resizable: true, fullWidth: true, width: 100, pinned: 'right',cellRendererFramework: ActionComponent,
       cellRendererParams: {
         clicked: function(data: any) {
-          // console.log("--编辑操作列---",data);
-          that.edit(data);
+          if (data.action==='edit'){
+            that.edit(data.data);
+          }else{
+            
+            that.open(data.data);
+          }
           // that.change_target_hour([data]);
         }
       },
@@ -149,7 +187,6 @@ export class TeskConfigComponent implements OnInit {
   // button按钮
   action(actionmethod){
     var method = actionmethod.split(":")[1];
-    console.log("--------------->method", method)
     switch (method) {
       case 'add':
         this.add();

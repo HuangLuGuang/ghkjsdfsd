@@ -46,14 +46,16 @@ export class KpiDetailComponent implements OnInit {
           {
             name: '未完成',
             type: 'bar',
-            barWidth: '20%',
+            // barWidth: '20%',
+            barMaxWidth: 20,
             stack:'试验各状态每月变化趋势', // 堆叠
             data: [0,0,0,0,0,0,0,0,0,0,0,0,]
           },
           {
               name: '已完成',
               type: 'bar',
-              barWidth: '20%',
+              // barWidth: '20%',
+              barMaxWidth: 20,
               stack:'试验各状态每月变化趋势', // 堆叠
               data: [0,0,0,0,0,0,0,0,0,0,0,0,]
           },
@@ -72,7 +74,7 @@ export class KpiDetailComponent implements OnInit {
               
               formatter: function(params){
                 var data = params.data;
-                return data["title"] + ':\t' + data["value"] + '\t' + (data["value"]/(defalultdata.pieTotal===0?1:defalultdata.pieTotal)).toFixed(2) + "%"
+                return data["title"] + ':\t' + data["value"] + '个\t' + (data["value"]*100/(defalultdata.pieTotal===0?1:defalultdata.pieTotal)).toFixed(2) + "%"
               }
               // formatter: '{b} <br/>{a0}: {c0}<br/>{a1}: {c1}'
             },
@@ -349,15 +351,21 @@ export class KpiDetailComponent implements OnInit {
           // 总的
           {
             type: 'bar', xAxisIndex: 1, yAxisIndex: 2,
+            showBackground:true,
+            backgroundStyle:{
+              // borderColor:"red"
+            },
             data:[{
                 value:0,
                 itemStyle:{
-                     color:'#5D7FE5'
+                     color:'#5D7FE5',
+                     
                 },
+                
             },{
                 value:0,
                 itemStyle:{
-                     color:'#26FF26' 
+                     color:'#26FF26',
                 }
             }],
             
@@ -783,7 +791,7 @@ export class KpiDetailComponent implements OnInit {
         [
           { title: "试验各状态每月变化趋势",id:'kpi_00', method:'dev_task_count_kpi_year', myfun:this.one_row_one  },
           { title: "设备安灯月度趋势表",id:'kpi_01', method:'dev_get_device_columnar_kpi_month', myfun:this.one_row_two},// dev_get_device_columnar_kpi_month
-          { title: "设备2年安灯状态累计对比",id:'kpi_02', method:'dev_get_device_columnar_kpi_year', myfun:this.one_row_three },
+          { title: "设备两年安灯状态累计对比",id:'kpi_02', method:'dev_get_device_columnar_kpi_year', myfun:this.one_row_three },
         ],
         [
           { title: "设备利用率同比环比",id:'kpi_10', method:'dev_get_device_ratio_kpi_month', myfun:this.two_row_one},
@@ -804,7 +812,7 @@ export class KpiDetailComponent implements OnInit {
         [
           { title: "试验各状态每月变化趋势",id:'kpi_00', method:' dev_task_count_kpi_groups', myfun:this.one_row_one  },
           { title: "设备安灯月度趋势表",id:'kpi_01', method:'dev_get_device_columnar_kpi_groups',myfun:this.one_row_two},//  
-          { title: "设备2年安灯状态累计对比",id:'kpi_02', method:'dev_get_device_columnar_kpi_year_groups',myfun:this.one_row_three},// myfun:this.one_row_three 
+          { title: "设备两年安灯状态累计对比",id:'kpi_02', method:'dev_get_device_columnar_kpi_year_groups',myfun:this.one_row_three},// myfun:this.one_row_three 
         ],
         [
           { title: "耐久类设备利用率同比和环比",id:'kpi_10', method:'dev_get_device_ratio_kpi_groups_durable', myfun:this.two_row_one},//myfun:this.two_row_one
@@ -826,7 +834,7 @@ export class KpiDetailComponent implements OnInit {
         [
           { title: "试验各状态每月变化趋势",id:'kpi_00', method:' dev_task_count_kpi_department', myfun:this.one_row_one  },
           { title: "设备安灯月度趋势表",id:'kpi_01', method:'dev_get_device_columnar_kpi_department',myfun:this.one_row_two},//  myfun:this.one_row_two
-          { title: "设备2年安灯状态累计对比",id:'kpi_02', method:'dev_get_device_columnar_kpi_year_department',myfun:this.one_row_three},// myfun:this.one_row_three
+          { title: "设备两年安灯状态累计对比",id:'kpi_02', method:'dev_get_device_columnar_kpi_year_department',myfun:this.one_row_three},// myfun:this.one_row_three
         ],
         [
           { title: "耐久类设备利用率同比和环比",id:'kpi_10', method:'dev_get_device_ratio_kpi_department_durable', myfun:this.two_row_one},//myfun:this.two_row_one

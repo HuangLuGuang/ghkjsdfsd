@@ -46,6 +46,15 @@ import { AgGridModule } from 'ag-grid-angular';
 import { httpInterceptorProviders } from './services/http-interceptor';
 import { EmqClientModule } from './services/emq-client/emq-client.module';
 
+// nzicon
+import { IconDefinition } from '@ant-design/icons-angular';
+import { NzIconModule, NZ_ICON_DEFAULT_TWOTONE_COLOR, NZ_ICONS } from 'ng-zorro-antd/icon';
+
+// 引入你需要的图标，比如你需要 fill 主题的 AccountBook Alert 和 outline 主题的 Alert，推荐 ✔️
+import { AccountBookFill, AlertFill, AlertOutline } from '@ant-design/icons-angular/icons';
+
+const icons: IconDefinition[] = [ AccountBookFill, AlertOutline, AlertFill ];
+
 @NgModule({
   declarations: [AppComponent],
   imports: [
@@ -81,13 +90,18 @@ import { EmqClientModule } from './services/emq-client/emq-client.module';
 
     ComponentTModule, // 自定义共享模块
     AgGridModule.withComponents([]),
-    EmqClientModule
+    EmqClientModule,
+
+    NzIconModule
 
   ],
   bootstrap: [AppComponent],
   providers:[
     // httpInterceptorProviders 拦截器
-    httpInterceptorProviders
+    httpInterceptorProviders,
+
+    { provide: NZ_ICON_DEFAULT_TWOTONE_COLOR, useValue: '#00ff00' }, // 不提供的话，即为 Ant Design 的主题蓝色
+    { provide: NZ_ICONS, useValue: icons }
   ]
 
   // 刷新

@@ -94,19 +94,20 @@ let kpi_detail = {
                 // formatter: '{b0}: {c0}<br />{b1}: {c1}'
             },
             grid: {
-                borderWidth: 0,
-                top: 20,
-                bottom: 70,
+                left: '3%',
+                // right: '4%',
                 right: 30,
-                textStyle: {
-                    color: "#fff"
-                }
+                bottom: '10%',
+                top: '10%',
+                containLabel: true
             },
+          
             legend: {
-                //x: '4%',
-                bottom: "4%",
+                bottom: '0',
                 itemWidth:9,
                 itemHeight:9,
+                // bottom: "4%",
+
                 textStyle: {
                     color: '#90979c',
                 },
@@ -123,7 +124,7 @@ let kpi_detail = {
                 axisLine: {
                     show: true,
                     lineStyle:{
-                        color:"rgba(51,51,51,1)"
+                        // color:"rgba(51,51,51,1)"
                     }
                 },
                 data: afterdata.xData,
@@ -135,7 +136,7 @@ let kpi_detail = {
                 },
                 axisLine: {
                     lineStyle: {
-                        color: '#90979c'
+                        // color: '#90979c'
                     }
                 },
                 axisTick: {
@@ -193,7 +194,7 @@ let kpi_detail = {
                             barBorderRadius: 0,
                             label: {
                                 show: true,
-                                position: "top",
+                                position: "insideTop",
                                 formatter: function(p) {
                                     return p.value > 0 ? (p.value) : '';
                                 }
@@ -216,7 +217,7 @@ let kpi_detail = {
                             barBorderRadius: 0,
                             label: {
                                 show: true,
-                                position: "top",
+                                position: "insideTop",
                                 formatter: function(p) {
                                     return p.value > 0 ? (p.value) : '';
                                 }
@@ -238,7 +239,7 @@ let kpi_detail = {
                             barBorderRadius: 0,
                             label: {
                                 show: true,
-                                position: "top",
+                                position: "insideTop",
                                 formatter: function(p) {
                                     return p.value > 0 ? (p.value) : '';
                                 }
@@ -321,26 +322,27 @@ let kpi_detail = {
                 },
                 indicator: [{
                     name: "占位",
-                    max: 100,
+                    max: 366*24,
                     axisLabel: {
                         show: true,
                         
                     }
                 }, {
                     name: "空闲",
-                    max: 100,
+                    max: 366*24,
                     axisLabel: {
-                        show: false
+                        show: true,
+                        rotate: -45
                     }
                 }, {
                     name: "维修",
-                    max: 100,
+                    max: 366*24,
                     axisLabel: {
                         show: false
                     }
                 }, {
                     name: "运行",
-                    max: 100,
+                    max: 366*24,
                     axisLabel: {
                         show: false
                     }
@@ -449,11 +451,16 @@ let kpi_detail = {
                 itemHeight:9,
             },
             grid:[
-                {top:'30%'},
+                {top:'30%',
+                right:10,
+                left:'3%',
+                bottom:'10%',
+                containLabel: true
+                },
                 {
                     height:'20%',
                     width:'20%',
-                    // right:'10%',
+                    // left:'10%',
                     right:30,
                     top:'1%'
                 }
@@ -534,6 +541,7 @@ let kpi_detail = {
             
             
         }
+        // console.error("option",JSON.stringify(option))
         mychart.setOption(option);
         mychart.resize();
     },

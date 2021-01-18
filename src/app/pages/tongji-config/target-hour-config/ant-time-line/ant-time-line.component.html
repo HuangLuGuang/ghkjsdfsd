@@ -1,0 +1,39 @@
+<div class="mytimeline">
+    <nz-timeline  nzMode="alternate" *ngIf="timelinedata.length > 0">
+        
+        <nz-timeline-item *ngFor="let item of timelinedata" [nzColor]="item.statusColor" [nzDot]="getdot(item.status)">
+            <div>
+                <strong>{{item.createdon}}</strong>
+            </div>
+            <div>
+                <span style="font-weight: 500;">{{item.createdby}}</span>
+            </div>
+            <div>
+                <!-- {{item.status}} -->
+                <span style="font-weight: 300;">{{item.status}}</span>
+            </div>
+        </nz-timeline-item>
+    </nz-timeline>
+</div>
+
+
+<!-- 创建试验号 -->
+<ng-template #creat>
+    <i nz-icon nzType="plus-circle"   style="font-size: 16px;color:#0095FF;"></i>
+</ng-template>
+<!-- 试验启动 -->
+<ng-template #running>
+    <i nz-icon nzType="caret-right"  style="font-size: 16px;color:#00D68F;"></i>
+</ng-template>
+<!-- 试验暂停 -->
+<ng-template #stop>
+    <i nz-icon nzType="stop"  style="font-size: 16px;color: #FF3D71;"></i>
+</ng-template>
+<!-- 试验继续 -->
+<ng-template #goto>
+    <i nz-icon nzType="down-circle"  style="font-size: 16px;color: #19d697;"></i>
+</ng-template>
+<!-- 试验完成 -->
+<ng-template #done>
+    <i nz-icon nzType="check-square"  style="font-size: 16px;color: #3366FF;"></i>
+</ng-template>

@@ -80,3 +80,14 @@
         <ngx-ag-table #ag_Grid   (nzpageindexchange)="nzpageindexchange_ag($event)"></ngx-ag-table>
     </div>
 </div>
+
+<nz-drawer
+      [nzClosable]="false"
+      [nzVisible]="visible"
+      nzPlacement="right"
+      nzTitle="历史试验状态"
+      (nzOnClose)="close()"
+    >
+      <!-- 时间轴 ant的 -->
+      <ngx-ant-time-line #timeline></ngx-ant-time-line>
+</nz-drawer>

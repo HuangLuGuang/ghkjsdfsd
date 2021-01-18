@@ -71,7 +71,12 @@ export class ActionComponent implements OnInit,ICellRendererAngularComp {
 
   // 修改按钮
   change_target_hour(){
-    this.params.clicked(this.params.data);
+    this.params.clicked({action: 'edit',data:this.params.data});
+  }
+
+  // 详情
+  detail(){
+    this.params.clicked({action: 'detail',data:this.params.data});
   }
   
 }

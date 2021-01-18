@@ -144,30 +144,54 @@ export class AddComponent implements OnInit {
 
         save_data["taskmessage"] = previewinfodata["taskmessage"].join(',');
         console.error("要保存的数据！>>>", save_data);
+        if (save_data["tasknum"] !==""){
+          var table = "device";
+          var monthed = 'dev_insert_task';
+          var conlumns = save_data;
+          that.http.callRPC(table, monthed, conlumns).subscribe(result=>{
+            var res = result['result']['message'][0];
+            if (res["code"] === 1){
+              // 保存成功
+              that.dialogRef.close(true);
+              that.RecordOperation("新增", 1, '试验任务配置：' + JSON.stringify(conlumns));
+              that.success();
+            }else{
+              // 保存失败
+              that.dialogRef.close(false);
+              that.RecordOperation("新增", 0, '试验任务配置:' + JSON.stringify(conlumns));
+              that.danger(JSON.stringify(res["message"]))
+            }
+          })
+        }else{
+          that.not_null();
+        }
         
-        var table = "device";
-        var monthed = 'dev_insert_task';
-        var conlumns = save_data;
-        that.http.callRPC(table, monthed, conlumns).subscribe(result=>{
-          var res = result['result']['message'][0];
-          if (res["code"] === 1){
-            // 保存成功
-            that.dialogRef.close(true);
-            that.RecordOperation("新增", 1, '试验任务配置：' + JSON.stringify(conlumns));
-            that.success();
-          }else{
-            // 保存失败
-            that.dialogRef.close(false);
-            that.RecordOperation("新增", 0, '试验任务配置:' + JSON.stringify(conlumns));
-            that.danger(JSON.stringify(res["message"]))
-          }
-        })
         
         return false;
       });
 
     })
   }
+
+  // 弹出提示，不为空！
+  not_null(){
+    layui.use('layer',function() {
+      var layer = layui.layer
+      layer.open({
+        title: ["提示","padding: 1rem 1.5rem;border-bottom: 1px solid #edf1f7;border-top-left-radius: 0.25rem;border-top-right-radius: 0.25rem;color: #222b45;font-family: Open Sans, sans-serif;font-size: 0.9375rem;font-weight: 600;line-height: 0.5rem;background: #fff;"]
+        ,id: 'LAY_layuipro' //设定一个id，防止重复弹出
+        ,btn: ['关闭']
+        ,btnAlign: 'r'
+        ,moveType: 1 //拖拽模式，0或者1
+        ,content: "试验信息必填!"
+        ,yes:function () {
+          layer.closeAll();
+        }
+
+      })
+    })
+  }
+
 
   // 预览info
   previewinfo(info){

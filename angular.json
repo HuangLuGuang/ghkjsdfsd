@@ -25,8 +25,8 @@
               "src/favicon.png",
               {
                 "glob": "**/*",
-                "input": "node_modules/leaflet/dist/images",
-                "output": "/assets/img/markers"
+                "input": "./node_modules/@ant-design/icons-angular/src/inline-svg/outline/",
+                "output": "/assets/outline/"
               }
             ],
             "styles": [

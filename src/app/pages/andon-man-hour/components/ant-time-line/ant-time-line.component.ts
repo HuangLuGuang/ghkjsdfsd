@@ -1,4 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit,ViewChild } from '@angular/core';
+declare let $;
+
 
 @Component({
   selector: 'ngx-ant-time-line',
@@ -7,10 +9,19 @@ import { Component, OnInit } from '@angular/core';
 })
 export class AntTimeLineComponent implements OnInit {
 
+  @ViewChild('running') running:any;
+  @ViewChild('stop') stop:any;
+  @ViewChild('warning') warning:any;
+  @ViewChild('placeon') placeon:any;
   constructor() { }
 
   ngOnInit(): void {
   }
+
+  ngAfterViewInit(){
+    
+  }
+
   timelinedata = [];
 
   // 初始化时间线
@@ -20,9 +31,15 @@ export class AntTimeLineComponent implements OnInit {
         this.znStatuse(item)
       });
       this.timelinedata = data;
+      // 将空心的圆圈--改为实心的 fill
+      
+
     }else{
       this.timelinedata = []
     }
+
+    
+
   }
 
   // 根据item中的 status 改变状态，running stop warning placeon
@@ -45,6 +62,20 @@ export class AntTimeLineComponent implements OnInit {
         item["title"] = '设备占位';
         break;
     
+    }
+  }
+
+  // ----icon
+  getdot(status){
+    switch (status) {
+      case "running":
+        return this.running
+      case "stop":
+        return this.stop
+      case "warning":
+        return this.warning
+      case "placeon":
+        return this.placeon
     }
   }
 
