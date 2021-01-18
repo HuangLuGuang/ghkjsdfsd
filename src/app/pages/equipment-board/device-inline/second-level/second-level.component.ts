@@ -10,6 +10,7 @@ import * as screenfull from 'screenfull';
 import { Screenfull } from 'screenfull';
 import { LayoutService } from '../../../../@core/utils';
 import { Router } from '@angular/router';
+import { EquipmentBoardService } from '../../serivice/equipment-board.service';
 
 declare let $;
 
@@ -30,7 +31,8 @@ export class SecondLevelComponent implements OnInit {
   constructor(
     private localstorage:LocalStorageService,
     private layoutService: LayoutService,
-    private router:Router
+    private router:Router,
+    private boardservice:EquipmentBoardService
   ) {
     // 得到从first-leve级传递的数据
     this.first_level = this.localstorage.get("first_level");
@@ -59,6 +61,8 @@ export class SecondLevelComponent implements OnInit {
   }
 
   ngAfterViewInit(){
+    this.boardservice.sendLoad({close:false})
+
     // 关键指标
     second_level.key_index();
     // 设备开动率、完好lv
@@ -95,6 +99,7 @@ export class SecondLevelComponent implements OnInit {
           break;
       }
     }, 100);
+    this.boardservice.sendLoad({close:true})
   }
 
 

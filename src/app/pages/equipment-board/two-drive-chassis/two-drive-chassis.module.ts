@@ -15,11 +15,6 @@ const  router = [
         component:TwoDriveChassisComponent
       },
       // {
-      //   //两驱底盘测功机-2
-      //   path:':title/:deviceid',
-      //   component:TwoDriveChassisComponent
-      // },
-      // {
       //   //四驱底盘测功机（未验收）
       //   path:':title/:deviceid',
       //   component:TwoDriveChassisComponent

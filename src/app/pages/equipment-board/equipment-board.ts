@@ -234,213 +234,478 @@ export const guid2=()=> {
 }
 
 
-export const list_jion =(list,name,isthis)=>{
-  list.forEach((f,i)=>{
-    isthis[name][f].forEach(element => {
-      element.value.push(parseInt((Math.random()*100).toString()))
-      if(element.value.length > 10)element.value.splice(0,1)
-    });
-  })
-}
-export const list_copy=(list,name,isthis)=>{
-  list.forEach((f,i)=>{
-    isthis[name][f] = JSON.parse(JSON.stringify(isthis.attrs));
-  })
-}
-export const list_copy_new = (list,attr,name,isthis)=>{
-  list.forEach(element => {
-    isthis[name][element] = copy(attr);
-  });
-  isthis[name].xData = [];
-}
 
-export const list_jion_new = (list,name,isthis)=>{
-  list.forEach((f,i)=>{
-    isthis[name][f].forEach(element => {
-      element.value.push(parseInt((Math.random()*100).toString()));
-      if(element.value.length > 10)element.value.splice(0,1)
-    });
-  });
-  isthis[name].xData.push(dateformat(new Date(),'mm:ss'));
-  if(isthis[name].xData.length>10)isthis[name].xData.splice(0,1)
-}
 
-export const create_third_chart_line=(rtm3a,isthis)=>{
-  if(!document.getElementById('third_second'))return;
-  if(echarts.init(document.getElementById('third_second')).getOption()){
-    echarts.init(document.getElementById('third_second')).resize();
-    return;
-  }
-  var yearPlanData=[],yearOrderData = [],differenceData = [],visibityData = [],xAxisData = [];
-  // for (var i = 0; i < 12; i++) {
-  //   yearPlanData.push(Math.round(Math.random() * 900) + 100);//温度
-  //   yearOrderData.push(Math.round(Math.random() * yearPlanData[i]));//湿度
-  //   differenceData.push(yearPlanData[i] - yearOrderData[i]);
-  //   visibityData.push(yearOrderData[i]);
-  //   xAxisData.push((i + 1).toString() + "月");
-  // }
-  
-  // data.tempreal.forEach(element => {
-  //   xAxisData.push(element[1]);//x轴时间
-  //   yearPlanData.push();
-  //   yearOrderData.push();
-  // });
-  rtm3a.create_third_chart_line({
-    yearPlanData:yearPlanData,
-    yearOrderData:yearOrderData,
-    differenceData:differenceData,
-    visibityData:visibityData,
-    xAxisData:xAxisData,
-    title:isthis.language?'MonthlyChartOfTemperatureAndHumidity':'温湿度月度图线'
-  }, 'third_second');
-}
+
+
 
 //液压伺服设备介绍
 export const hydraulic_htmlstr = [
-  '',''
-//   `
-//   2.使用标准\规范 <br>
-//   &emsp;Q/JLY J7110489B-2016  乘用车前、后副车架总成技术条件 <br>
-//   &emsp;Q/JLY J7110439D-2016 J05204 悬架摆臂总成类技术条件 <br>
-//   &emsp;Q/JLY J7110490B-2016 J05204 后桥总成（扭力梁）技术条件<br>
-//   &emsp;Q/JLY J7110371C-2016 J05204 前、后稳定杆总成技术条件等<br>
-//   `,
-  
-//   `
-//   <div class="equipments_table_title" style="padding-right: 10px">3.设备构成及参数</div>
-//   <div class="equipments_table">
-  
-//   <div  class="column_20 border_1px">
-//     <div>名称</div>
-//     <div class="border_top_1px">MTS直线缸</div>
-//   </div>
-//   <div  class="column_42 border_1px">
-//     <div>基本参数</div>
-//     <div class="border_top_1px">载荷：±25kN；位移：±125mm</div>
-//     <div class="border_top_1px">载荷：±50kN；位移：±125mm</div>
-//   </div>
-//   <div  class="column_20 border_1px">
-//     <div>数量</div>
-//     <div class="border_top_1px">4</div>
-//     <div class="border_top_1px">2</div>
-//   </div>
-// </div>`
+`
+<p class="indent_2 p_white">主要用于底盘结构件台架试验如：副车架、摆臂、稳定杆、后桥等</p>
+<p class="p_white p_margin">适用标准规范： </p>
+<p class="indent_2 p_white"> Q/JLY J7110489B-2016  乘用车前、后副车架总成技术条件
+</p>
+<p class="indent_2 p_white">Q/JLY J7110439D-2016 J05204 悬架摆臂总成类技术条件
+</p>
+<p class="indent_2 p_white">Q/JLY J7110490B-2016 J05204 后桥总成（扭力梁）技术条件
+</p>
+<p class="indent_2 p_white">Q/JLY J7110371C-2016 J05204 前、后稳定杆总成技术条件
+</p>
+  `,
+
+`
+<div class="equipments_table height_99">
+<div class="column_100">
+<div class="border_top_1px column_35">名称 </div>
+<div class="border_top_1px column_35">基本参数 </div>
+<div class="border_top_1px column_35">数量</div>
+</div>
+
+<div class="column_100">
+<div class="border_top_1px column_35">MTS直线缸</div>
+<div class="border_top_1px column_35">
+<div class="height_50 column_100 border_top_1px">
+载荷：±25kN；<br>
+位移：±125mm
+</div>
+<div class="height_50 column_100 border_top_1px">
+载荷：±50kN；<br>
+位移：±125mm
+</div>
+</div>
+<div class="border_top_1px column_35">
+<div class="height_50 column_100 border_top_1px">
+4
+</div>
+<div class="height_50 column_100 border_top_1px">
+2
+</div>
+</div>
+</div>
+
+
+
+
+<div class="column_100">
+<div class="border_top_1px column_35">IST 扭转缸</div>
+<div class="border_top_1px column_35">
+扭矩：±4kNm；<br>
+角度：±50°
+</div>
+<div class="border_top_1px column_35">
+1
+</div>
+</div>
+
+
+
+</div>
+  `,
+`
+<div class="equipments_table height_99">
+<div class="column_100">
+<div class="border_top_1px column_35">名称 </div>
+<div class="border_top_1px column_35">基本参数 </div>
+<div class="border_top_1px column_35">数量</div>
+</div>
+<div class="column_100">
+<div class="border_top_1px column_35">IST 直线缸</div>
+<div class="border_top_1px column_35">
+<div class="height_33 column_100 border_top_1px">
+载荷：±16kN ；<br>
+位移：±125mm
+</div>
+<div class="height_33 column_100 border_top_1px">
+载荷：±63kN；<br>
+位移：±75mm
+</div>
+<div class="height_33 column_100 border_top_1px">
+载荷：±16kN；<br>
+位移：±75mm
+</div>
+</div>
+<div class="border_top_1px column_35">
+<div class="height_33 column_100 border_top_1px">
+2
+</div>
+<div class="height_33 column_100 border_top_1px">
+1
+</div>
+<div class="height_33 column_100 border_top_1px">
+2
+</div>
+</div>
+</div>
+</div>
+`
 ]
 
   //四立柱设备介绍
 export const  four_road_htmlstr = [
-  '',''
-//   `
-//   1、使用标准\规范<br>
-//   &emsp;Q/JLY J7210680A-2017<br>
-//   &emsp;带环境条件的四立柱耐久试验规范<br>
-//   &emsp;Q/JLY J7210624A-2016<br>
-//   &emsp;整车四通道轮耦合道路模拟试验规范<br>
-// `,
+  `
+<p class="indent_2 p_white">四立柱轮耦合道路模拟试验主要在试验场采集车辆轮心加速度和螺旋弹簧应变（螺旋弹簧位移或者悬架位移）作为目标信号，在试验室台架上应用MTS RPC技术，来模拟4个车轮的垂向激励或者载荷，可以很精确地再现车辆在试验场道路的垂向工况，加快汽车产品耐久性的开发进度。同时，在试验室配备环境仓和红外灯的情况，可以对汽车内外饰的疲劳寿命和异响进行精确的考核。 </p>
+<p class="p_white p_margin">适用标准规范： </p>
+<p class="indent_2 p_white">Q/JLY J7210680A-2017 带环境条件的四立柱耐久试验规范
+</p>
+<p class="indent_2 p_white"> Q/JLY J7210624A-2016 整车四通道轮耦合道路模拟试验规范
+</p>
+`,
 
-// ` <div class="equipments_table height_99">
-//   <div class="column_65 border_1px">
-//     <div class="border_top_1px height_10">名称 name</div>
-//     <div class="border_top_1px height_11">最大整车重量 Max.GVW	Up to</div>
-//     <div class="border_top_1px height_11">轴距 Wheel base</div>
-//     <div class="border_top_1px height_11">轮距 Track width</div>
-//     <div class="border_top_1px height_11">轮胎宽度 Tire width</div>
-//     <div class="border_top_1px height_11">作动器最大承载
-//          Actuator Max. Forc</div>
-//     <div class="border_top_1px height_11">作动器最大行程
-//           Actuator Max. stroke</div>
-//     <div class="border_top_1px height_11">作动器最大速度
-//          Actuator Max. Velocity</div>
-//     <div class="border_top_1px height_11">轮盘最大加速度
-//          Max Acceleration</div>
-//   </div>
-//   <div class="column_35 border_1px">
-//     <div class="border_top_1px height_10">基本参数 specifications</div>
-//     <div class="border_top_1px height_11">3500kg</div>
-//     <div class="border_top_1px height_11">2m-3.5m</div>
-//     <div class="border_top_1px height_11">1.2m-1.8m</div>
-//     <div class="border_top_1px height_11">13 to 20 inches</div>
-//     <div class="border_top_1px height_11">50kN</div>
-//     <div class="border_top_1px height_11">±150 mm</div>
-//     <div class="border_top_1px height_11">3.0  m/s </div>
-//     <div class="border_top_1px height_11">21g</div>
-//   </div>
-// </div>
-// `,
+` 
+<div class="equipments_table height_99">
+<div class="column_100">
+<div class="border_top_1px column_65">名称 name</div>
+<div class="border_top_1px column_35">基本参数 specifications</div>
+</div>
+<div class="column_100">
+<div class="border_top_1px column_65">最大整车重量 Max.GVW</div>
+<div class="border_top_1px column_35">Up to 3500kg</div>
+</div>
+<div class="column_100">
+<div class="border_top_1px column_65">轴距 Wheel base</div>
+<div class="border_top_1px column_35">U2m-3.5m</div>
+</div>
+<div class="column_100">
+<div class="border_top_1px column_65">轮距 Track width</div>
+<div class="border_top_1px column_35">1.2m-1.8m</div>
+</div>
+<div class="column_100">
+<div class="border_top_1px column_65">轮胎宽度 Tire width</div>
+<div class="border_top_1px column_35">13 to 20 inches</div>
+</div>
+<div class="column_100">
+<div class="border_top_1px column_65">作动器最大承载 Actuator Max. Force
+</div>
+<div class="border_top_1px column_35">50kN
+</div>
+</div>
+<div class="column_100">
+<div class="border_top_1px column_65">作动器最大行程 Actuator Max. stroke</div>
+<div class="border_top_1px column_35">±150 mm
+</div>
+</div>
+<div class="column_100">
+<div class="border_top_1px column_65">作动器最大速度 Actuator Max. Velocity
+</div>
+<div class="border_top_1px column_35">3.0 m/s
+</div>
+</div>
+<div class="column_100">
+<div class="border_top_1px column_65">轮盘最大加速度 Max Acceleration
+</div>
+<div class="border_top_1px column_35">21g
+</div>
+</div>
+</div>
+`,
+`
+<div class="equipments_table height_99">
+<div class="column_100">
+<div class="border_top_1px column_35">名称 name</div>
+<div class="border_top_1px column_65">基本参数 specifications</div>
+</div>
+<div class="column_100">
+<div class="border_top_1px column_35">环境舱尺寸（内部尺寸）<br> Environmental chamber Inside Demension</div>
+<div class="border_top_1px column_65">8m×6m×5m
+</div>
+</div>
+<div class="column_100">
+<div class="border_top_1px column_35">温度工作范围<br> Temperature working range
+</div>
+<div class="border_top_1px column_65">40 ℃～ +80 ℃<br> （不带日照系统Excluding IR simulation）</div>
+</div>
+<div class="column_100">
+<div class="border_top_1px column_35">湿度范围 <br> Humidity range
+</div>
+<div class="border_top_1px column_65">10 ～ 95 % r.h.
+</div>
+</div>
+<div class="column_100">
+<div class="border_top_1px column_35">辐射区域Irradiated area
+
+</div>
+<div class="border_top_1px column_65">6m×2.5m
+
+</div>
+</div>
+</div>
+`,
+`
+<div class="equipments_table height_99">
+<div class="column_100">
+<div class="border_top_1px column_35">名称 name</div>
+<div class="border_top_1px column_65">基本参数 specifications</div>
+</div>
+<div class="column_100">
+<div class="border_top_1px column_35">辐射强度 <br> Irradiation capacity
+</div>
+<div class="border_top_1px column_65">Max. 1200 W/m² <br> 10% ～100%可调<br> Adjustable between 10% to 100%
+</div>
+</div>
+<div class="column_100">
+<div class="border_top_1px column_35">光谱分布 <br> Spectral distribution
+</div>
+<div class="border_top_1px column_65">VIS：6% (380 – 780 nm)<br> IR-A：46% (780 – 1400 nm) <br>IR-B：44% (1400 – 3000 nm)
+</div>
+</div>
+<div class="column_100">
+<div class="border_top_1px column_35">功率 <br> Install load
+</div>
+<div class="border_top_1px column_65">approx. 75 kVA (顶灯Top lamp)<br> approx. 47 kVA (侧灯Side lamp)
+
+</div>
+</div>
+</div>
+`
 ];
+
+// 整车
+export const coupling = [
+`
+<p class="indent_2 p_white">24通道轴耦合道路模拟试验机，是应用MTS RPC再现技术，主要是在24通道模拟机上重现试验场车辆轴头六分力传感器测量的Fx、Fy、Fz、Mx、My、Mz的载荷，来评价整车结构耐久性。 </p>
+<p class="p_white p_margin">适用标准规范： </p>
+<p class="indent_2 p_white"> Q/JLY J7210625A-2016   整车24通道轴耦合道路模拟试验规范          
+</p>
+<p class="indent_2 p_white"> Q/JLY J7210635A-2016   悬架多轴系统道路模拟试验规范 
+</p>
+`,
+`
+<div class="equipments_table height_99">
+    <div class="column_100">
+        <div class="border_top_1px column_35">名称 name</div>
+        <div class="border_top_1px column_65">基本参数 specifications</div>
+    </div>
+    <div class="column_100">
+        <div class="border_top_1px column_35">整车质量full vehicle quality
+        </div>
+        <div class="border_top_1px column_65">≤3000kg 
+        </div>
+    </div>
+    <div class="column_100">
+        <div class="border_top_1px column_35">轴距axle distance
+        </div>
+        <div class="border_top_1px column_65">1920mm～3420mm 
+        </div>
+    </div>
+    <div class="column_100">
+    <div class="border_top_1px column_35">轮距wheel distance
+    </div>
+    <div class="border_top_1px column_65">1200mm～1800mm 
+    </div>
+</div>
+<div class="column_100">
+<div class="border_top_1px column_35">轴头速度<br>Spindle Velocity
+</div>
+<div class="border_top_1px column_65">
+    <div class ="height_50 column_100">
+      <div class="column_17 border_top_1px">
+        Long
+      </div>
+      <div class="column_17 border_top_1px">
+      Lat
+      </div>
+      <div class="column_17 border_top_1px">
+      Vert
+      </div>
+      <div class="column_17 border_top_1px">
+      Camber
+      </div>
+      <div class="column_17 border_top_1px">
+      Brake
+      </div>
+      <div class="column_17 border_top_1px">
+      Steer
+      </div>
+    </div>
+    <div class ="height_50 column_100">
+    <div class="column_17 border_top_1px">
+    2.2m/s
+    </div>
+    <div class="column_17 border_top_1px">
+    2.4m/s
+    </div>
+    <div class="column_17 border_top_1px">
+    7.0m/s
+    </div>
+    <div class="column_17 border_top_1px">
+    400°/s
+    </div>
+    <div class="column_17 border_top_1px">
+    700°/s
+    </div>
+    <div class="column_17 border_top_1px">
+    700°/s
+    </div>
+    </div>
+</div>
+</div>
+<div class="column_100">
+<div class="border_top_1px column_35">轴头位移 <br>Spindle Displacement
+</div>
+<div class="border_top_1px column_65">
+<div class ="height_100 column_100">
+<div class="column_17 border_top_1px">
+392mm
+</div>
+<div class="column_17 border_top_1px">
+258mm
+</div>
+<div class="column_17 border_top_1px">
+380mm
+</div>
+<div class="column_17 border_top_1px">
+32°
+</div>
+<div class="column_17 border_top_1px">
+32°
+</div>
+<div class="column_17 border_top_1px">
+32°
+</div>
+</div>
+</div>
+</div>
+<div class="column_100">
+<div class="border_top_1px column_35">轴头力 Spindle Force
+</div>
+<div class="border_top_1px column_65">
+<div class ="height_100 column_100">
+<div class="column_17 border_top_1px">
+22 kN
+</div>
+<div class="column_17 border_top_1px">
+20 kN
+</div>
+<div class="column_17 border_top_1px">
+63 kN
+</div>
+<div class="column_17 border_top_1px">
+9.6 kNm
+</div>
+<div class="column_17 border_top_1px">
+4.0 kNm
+</div>
+<div class="column_17 border_top_1px">
+6.9 kNm
+</div>
+</div> 
+</div>
+</div>
+</div>
+`
+]
 
 
   //六自由度设备介绍
 export const shock_htmlStr = [
-  '',''
-//   `
-//   1.使用标准\规范<br>
-//   &emsp;Q/JLY J7111070B-2018<br>
-//   &emsp;悬置系统六自由度道路模拟试验规范<br>
-//   &emsp;Q/JLY J7210623A-2016<br>
-//   &emsp;六自由度振动台道路模拟试验规范 <br>
-//   `,
-//   `
-//   <div class="equipments_table height_99">
-//   <div class="column_31 border_1px">
-//     <div class="border_top_1px height_10">名称 name</div>
-//     <div class="border_top_1px height_29">速度 
-//     Velocities</div>
-//     <div class="border_top_1px height_30">频率
-//     Frequency
-//     </div>
-//     <div class="border_top_1px height_30">位移Displacement </div>
-//   </div>
-//   <div class="column_69 border_1px">
-//     <div  class="border_top_1px height_10">基本参数  Specifications
-//     </div>
-//     <div class="border_top_1px height_29">垂向1.2m/s、横向0.9m/s、纵向1.0m/s
-//     Vertica1.2m/s、Lateral0.9m/s、Longitudinal1.0m/s
-//     </div>
-//     <div class="border_top_1px height_30">0-80Hz
-//     </div>
-//     <div class="border_top_1px height_30">垂向±140mm、横向   110mm、纵向  125mm
-//     Vertical ±140mm、Lateral  110mm、Longitudinal  125mm
-//     </div>
-//   </div>
-// </div>
-// `,`
-// <div class="equipments_table height_99">
-// <div class="column_31 border_1px">
-//   <div class="border_top_1px height_10">名称 name</div>
-//   <div class="border_top_1px height_44">旋转角
-//   Rotations</div>
-//   <div class="border_top_1px height_26">台面尺寸 
-//   Table Size 
-//   </div>
-//   <div class="border_top_1px height_20">承载范围Payload
-//   </div>
-// </div>
-// <div class="column_69 border_1px">
-//   <div  class="border_top_1px height_10">基本参数  Specifications
-//   </div>
-//   <div class="border_top_1px height_44">滚动 – 绕X轴 8.0 deg、俯仰 – 绕Y轴 7.0 deg、偏航 – 绕Z轴 5.5 deg
-//   Roll - (X) axis 8.0 deg、Pitch - (Y) axis 7.0 deg、Yaw- (Z) axis 5.5 deg
-//   </div>
-//   <div class="border_top_1px height_26">约为2.2 米 x 2.2米 方台面
-//   approximately 2.2 m x 2.2m square
-//   </div>
-//   <div class="border_top_1px height_20">最大负载    1000千克
-//   Max Payload   1000kg
-//   </div>
-// </div>
-// </div>
-// `
+  `
+<p class="indent_2 p_white">六自由度振动台主要验证发动机悬置系统的耐久性能，以及其它车辆子系统耐久性能验证如：前端冷却模块、座椅系统、天窗系统等 </p>
+<p class="p_white p_margin">适用标准规范： </p>
+<p class="indent_2 p_white"> Q/JLY J7111070B-2018 悬置系统六自由度道路模拟试验规范          
+</p>
+<p class="indent_2 p_white">  Q/JLY J7210623A-2016 六自由度振动台道路模拟试验规范
+</p>
+`,`
+<div class="equipments_table height_99">
+<div class="column_100">
+<div class="border_top_1px column_35">名称 name</div>
+<div class="border_top_1px column_65">基本参数 specifications</div>
+</div>
+<div class="column_100">
+<div class="border_top_1px column_35">速度 <br>Velocities</div>
+<div class="border_top_1px column_65">垂向1.2m/s、横向0.9m/s、纵向1.0m/s<br>
+Vertica1.2m/s、Lateral0.9m/s、Longitudinal1.0m/s
+</div>
+</div>
+<div class="column_100">
+<div class="border_top_1px column_35">频率<br>Frequency</div>
+<div class="border_top_1px column_65">0-80Hz</div>
+</div>
+<div class="column_100">
+<div class="border_top_1px column_35">位移<br>Displacement</div>
+<div class="border_top_1px column_65">垂向±140mm、横向   110mm、纵向  125mm<br>Vertical ±140mm、Lateral  110mm、Longitudinal  125mm</div>
+</div>
+</div>
+</div>
+`,
+`
+<div class="equipments_table height_99">
+<div class="column_100">
+<div class="border_top_1px column_35">名称 name</div>
+<div class="border_top_1px column_65">基本参数 specifications</div>
+</div>
+<div class="column_100">
+<div class="border_top_1px column_35">旋转角<br>Rotations</div>
+<div class="border_top_1px column_65">滚动 – 绕X轴 8.0 deg、俯仰 – 绕Y轴 7.0 deg、偏航 – 绕Z轴 5.5 deg<br>Roll - (X) axis 8.0 deg、Pitch - (Y) axis 7.0 deg、Yaw- (Z) axis 5.5 deg</div>
+</div>
+<div class="column_100">
+<div class="border_top_1px column_35">台面尺寸 <br>Table Size </div>
+<div class="border_top_1px column_65">约为2.2 米 x 2.2米 方台面<br>approximately 2.2 m x 2.2m square</div>
+</div>
+<div class="column_100">
+<div class="border_top_1px column_35">承载范围<br>Payload</div>
+<div class="border_top_1px column_65">最大负载    1000千克<br>Max Payload   1000kg</div>
+</div>
+</div>
+`
 ]
 
-//echarts表格生成后调用
-export const resize=(id)=>{
-  // let el_one = document.getElementById(id);
-  // let el = document.getElementById(id).getElementsByTagName('div')[0];
-  // el.style.width = el_one.clientWidth+'px';
-  // el.style.height = el_one.clientHeight+'px';
-  // for(let i = 0;i<el.getElementsByTagName('canvas').length;i++){
-  //   el.getElementsByTagName('canvas')[i].style.width = el_one.clientWidth+'px';
-  //   el.getElementsByTagName('canvas')[i].style.height = el_one.clientHeight+'px';
-  // }
-}
+export const oil_htmlStr = [
+`
+<p class="indent_2 p_white">MTS液压泵站，共有5个独立的HPU油泵组，每组HPU由6个油泵组成。为试验室24通道台架、四立柱等台架设备提供液压油输入输出。</p>
+<p class="indent_2 p_white">MTS Echo为每个液压油泵配置了多种高精度传感器和监测算法，可实时对液压泵站中液压油的流量，压强，温度、油水饱和度、清洁度等参数进行监测，并能接收警报和趋势信息，实现智能化油源监控</p>
+`,
+`
+<div class="equipments_table height_99">
+<div class="column_100">
+<div class="border_top_1px column_35">液压油和循环水温度监测模块</div>
+<div class="border_top_1px column_65">监测油源的液压油压力油和回油、进出循环水的温度，提早发现超温报警或故障威胁，避免意外停机及最小化忽然停机造成的损失。
+</div>
+</div>
+
+<div class="column_100">
+<div class="border_top_1px column_35">热交换器水饱和度监测模块
+</div>
+<div class="border_top_1px column_65">监测热交换器的油水饱和度，避免热交换器可能出现的热交换器的破损。
+</div>
+</div>
+
+<div class="column_100">
+<div class="border_top_1px column_35">液压油清洁度监测模块
+</div>
+<div class="border_top_1px column_65">监测液压油清洁度等级，避免大的颗粒对液压油源及伺服阀造成损害，另外这些大的颗粒还会刮擦一些柔软金属的表面，进一步加剧油的污染，加速零部件的损害。这些危险因素可能导致马达掉壳、压力不稳及伺服阀不稳。
+</div>
+</div>
+
+
+
+</div>
+`,
+`
+<div class="equipments_table height_99">
+<div class="column_100">
+<div class="border_top_1px column_35">电源监测模块
+</div>
+<div class="border_top_1px column_65">监测三相电压、电流和能量消耗，了解油源的工作效率，预警马达的失效。提高对能源的管理。
+</div>
+</div>
+
+<div class="column_100">
+<div class="border_top_1px column_35">蓄能器预充和过滤监测模块
+</div>
+<div class="border_top_1px column_65">监测管道上的蓄能器预冲，了解哪些蓄能器需要补充氮气，过滤器监测提前识别影响作动缸性能及让零部件失效的潜在风险。
+</div>
+</div>
+
+<div class="column_100">
+<div class="border_top_1px column_35">泄漏监测模块
+</div>
+<div class="border_top_1px column_65">通过监测软管破裂、阀块或接头泄露等，保护试验室环境的安全，避免液压油灾难性的损失。
+</div>
+</div>
+
+</div>
+`
+]
+

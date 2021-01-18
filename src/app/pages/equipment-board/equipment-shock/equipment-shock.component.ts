@@ -3,6 +3,7 @@ import { ActivatedRoute } from '@angular/router';
 import { LayoutService } from '../../../@core/utils/layout.service';
 import { HttpserviceService } from '../../../services/http/httpservice.service';
 import { colors, rgb_del_red,shock_htmlStr, create_img_16_9, dateformat, painting_time } from '../equipment-board';
+import { EquipmentBoardService } from '../serivice/equipment-board.service';
 
 
 @Component({
@@ -210,9 +211,10 @@ export class EquipmentShockComponent implements OnInit {
 
    //设备介绍                                                    
   equipIntroduceList = [
-    {htmlstr:shock_htmlStr[0],title:'',type:'span_class'},
-    {htmlstr:shock_htmlStr[1],title:'设备构成及参数',type:'table_class'},
-    {htmlstr:shock_htmlStr[2],title:'设备构成及参数',type:'table_class'}
+    {htmlstr:shock_htmlStr[0],title:''},
+    {htmlstr:shock_htmlStr[1],title:''},
+    {htmlstr:shock_htmlStr[2],title:''},
+    // {htmlstr:shock_htmlStr[2],title:''}
   ];
   //当前的页数
   eqIntShow = 0;
@@ -222,8 +224,8 @@ export class EquipmentShockComponent implements OnInit {
 
   subscribeList:any = {};
 
-  constructor(private layoutService: LayoutService,private activateInfo:ActivatedRoute,
-    private http:HttpserviceService) { }
+  constructor(private activateInfo:ActivatedRoute,
+    private http:HttpserviceService,private boardservice:EquipmentBoardService) { }
 
   ngOnInit(): void {
     //获取当前语言
@@ -276,7 +278,9 @@ export class EquipmentShockComponent implements OnInit {
     },1000)
   }
 
-
+  ngAfterViewInit(){
+      this.boardservice.sendLoad({close:false})
+  }
  
 
   
@@ -300,7 +304,7 @@ export class EquipmentShockComponent implements OnInit {
     let res;
     this.subscribeList.equip = this.http.callRPC('get_mts_lock','device_monitor.get_mts_lock',{"deviceid":this.deviceid}).subscribe((f:any)=>{
       if(f.result.error || f.result.message[0].code == 0)return;
-      res = f.result.message[0].message[0];
+      res = f.result.message[0].message[0] || {};
       //实验名
       this.switchStatus.data[0][0] = res.stationname;
       //开关

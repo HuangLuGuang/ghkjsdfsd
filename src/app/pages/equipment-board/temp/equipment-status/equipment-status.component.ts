@@ -313,6 +313,7 @@ export class EquipmentStatusComponent implements OnInit {
   initDeviceStatus(data,month){
     // let xData = ['1月','2月','3月','4月','5月','6月','7月','8月','9月','10月','11月','12月'];
     // if(this.language)xData = ['Jan','Feb','Mar','May','Jun','Jul','Aug','Sept','Oct','Nov','Dec'];
+    if(!document.getElementById('device_status'+this.TempNum))return;
     let data_1 = {
       d_arr:[[],[],[],[],[]],
       title_arr:["运行","等待" ,"占位", "维护","运行比例"],

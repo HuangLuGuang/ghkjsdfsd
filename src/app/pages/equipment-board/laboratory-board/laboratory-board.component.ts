@@ -2,6 +2,10 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 let rtm3a = require('../../../../assets/eimdoard/rtm3/js/rtm3a');
 declare var $:any;
 
+
+/**
+ * TODO 布局demo
+ **/
 @Component({
   selector: 'ngx-laboratory-board',
   templateUrl: './laboratory-board.component.html',

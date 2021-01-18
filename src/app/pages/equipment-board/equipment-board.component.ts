@@ -5,6 +5,7 @@ import * as screenfull from 'screenfull';
 import { Screenfull } from 'screenfull';
 import { LayoutService } from '../../@core/utils';
 import { create_img_16_9 } from './equipment-board';
+import { EquipmentBoardService } from './serivice/equipment-board.service';
 
 declare var $:any;
 @Component({
@@ -14,6 +15,8 @@ declare var $:any;
 })
 export class EquipmentBoardComponent implements OnInit {
   is_not_fullscreen = true; // 是否处于全屏
+
+  loading = false;
 
   title = '智慧实验室(G-iLAB)';//标题
   isFirstLevel;
@@ -27,7 +30,11 @@ export class EquipmentBoardComponent implements OnInit {
   };//时间
   dateInterval:any;//定时器
 
-  constructor(private router:Router,private activateInfo:ActivatedRoute,private layoutService:LayoutService) { }
+  subscribeList:any = {};
+  
+
+  constructor(private router:Router,private activateInfo:ActivatedRoute,private layoutService:LayoutService,
+    private boradservice:EquipmentBoardService) { }
 
   ngOnInit(): void {
     this.creatDateInterval();
@@ -49,6 +56,11 @@ export class EquipmentBoardComponent implements OnInit {
             
     //   }
     // })
+    this.subscribeList.load = this.boradservice.get_Load_Observable().subscribe(f=>{
+      setTimeout(() => {
+        this.loading = f.close;
+      }, 100);
+    })
   }
   
   ngAfterViewInit(){
@@ -85,7 +97,7 @@ export class EquipmentBoardComponent implements OnInit {
 
   //点击返回按钮
   return_btn_click(){
-    // this.router.
+    this.loading = true;
     console.log('返回上一级')
     window.history.back();
   }
@@ -129,6 +141,9 @@ export class EquipmentBoardComponent implements OnInit {
     clearInterval(this.dateInterval);
     window.removeEventListener('resize',this.resize);
     this.isFirstLevel.unsubscribe();
+    for(let key in this.subscribeList){
+      this.subscribeList[key].unsubscribe();
+    }
   }
 
    // 全屏切换

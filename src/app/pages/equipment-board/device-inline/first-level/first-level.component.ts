@@ -9,6 +9,7 @@ let first_level = require('../../../../../assets/pages/device-inline/js/first-le
 import * as screenfull from 'screenfull';
 import { Screenfull } from 'screenfull';
 import { LayoutService } from '../../../../@core/utils';
+import { EquipmentBoardService } from '../../serivice/equipment-board.service';
 
 @Component({
   selector: 'ngx-first-level',
@@ -21,7 +22,7 @@ export class FirstLevelComponent implements OnInit {
   // 定时器
   currenttime_timer;
 
-  constructor( private router: Router, private layoutService: LayoutService) { }
+  constructor( private router: Router, private layoutService: LayoutService,private boardservice:EquipmentBoardService) { }
 
   ngOnInit(): void {
 
@@ -39,6 +40,8 @@ export class FirstLevelComponent implements OnInit {
   }
   
   ngAfterViewInit(){
+    this.boardservice.sendLoad({close:false});
+
     first_level.chian_map(this.eclick);
     setTimeout(() => {
       this.resize();

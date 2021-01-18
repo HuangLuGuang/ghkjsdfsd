@@ -174,12 +174,33 @@
     }
     /* 看板设备介绍 */
     
+    .borad_introduction {}
+    
+    .borad_introduction>.p_white {
+        color: #dcdcdc !important;
+    }
+    
+    .borad_introduction>.p_margin {
+        margin-bottom: 0;
+    }
+    
     .equipments_table {
         display: flex;
+        flex-wrap: wrap;
         text-align: center;
         font-size: 0.4vh;
         position: absolute;
         width: 99%;
+        border-right: 1px solid #4472c4;
+        border-bottom: 1px solid #4472c4;
+    }
+    
+    .column_16 {
+        width: 16%;
+    }
+    
+    .column_17 {
+        width: 17%;
     }
     
     .column_20 {
@@ -210,20 +231,35 @@
         width: 69%;
     }
     
+    .column_100 {
+        width: 100%;
+        display: flex;
+    }
+    
     .border_1px {
         border: 1px solid #4472c4;
     }
     
     .border_top_1px {
+        height: 100%;
         border-top: 1px solid #4472c4;
+        border-left: 1px solid #4472c4;
         display: flex;
+        flex-wrap: wrap;
         align-items: center;
         justify-content: center;
     }
     
     .equipments_table_title {
-        padding-right: 10px;
+        text-align: center;
+        line-height: 26px;
     }
+    /* 开头缩进两格 */
+    
+    .indent_2 {
+        text-indent: 2em;
+    }
+    /* p颜色 取消自带下外边距 */
     
     .flip {
         transform: rotateY(0deg);

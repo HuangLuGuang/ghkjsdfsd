@@ -4,6 +4,7 @@ import { Observable } from 'rxjs';
 import { LayoutService } from '../../../@core/utils';
 import { HttpserviceService } from '../../../services/http/httpservice.service';
 import { colors, create_img_16_9, rTime } from '../equipment-board';
+import { EquipmentBoardService } from '../serivice/equipment-board.service';
 
 let equipment_four_road = require('../../../../assets/eimdoard/equipment/js/equipment-four-road');
 let oilsrouce = require('../../../../assets/eimdoard/equipment/js/oilsrouce');
@@ -227,7 +228,8 @@ export class EquipmentMotorSixSevenComponent implements OnInit {
   ct_deviceid = '';
   th_deviceid = '';
 
-  constructor(private activateInfo:ActivatedRoute,private http:HttpserviceService,private layoutService:LayoutService) { }
+  constructor(private activateInfo:ActivatedRoute,private http:HttpserviceService,private layoutService:LayoutService,
+    private boardservice:EquipmentBoardService) { }
 
   ngOnInit(): void {
      //获取当前语言
@@ -263,6 +265,10 @@ export class EquipmentMotorSixSevenComponent implements OnInit {
       create_img_16_9();
     }, 1000);
     window.addEventListener('resize',this.resize)
+  }
+
+  ngAfterViewInit(){
+    this.boardservice.sendLoad({close:false})
   }
 
   obser = new Observable(f=>{

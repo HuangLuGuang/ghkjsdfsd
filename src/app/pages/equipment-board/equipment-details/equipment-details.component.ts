@@ -1,9 +1,11 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { LayoutService } from '../../../@core/utils/layout.service';
-import { colors, rgb_del_red,list_jion,list_copy, create_img_16_9 } from '../equipment-board';
+import { colors, rgb_del_red, create_img_16_9 } from '../equipment-board';
 
-
+/**
+ * TODO demo
+ **/
 @Component({
   selector: 'ngx-equipment-details',
   templateUrl: './equipment-details.component.html',
@@ -121,9 +123,9 @@ export class EquipmentDetailsComponent implements OnInit {
     this.click_list = [this.list_1[0],this.list_2[0],this.list_3[0]]
 
     //赋值
-    list_copy(this.list_1,`attrs_1`,this);
-    list_copy(this.list_2,`attrs_2`,this);
-    list_copy(this.list_3,`attrs_3`,this);
+    this.list_copy(this.list_1,`attrs_1`);
+    this.list_copy(this.list_2,`attrs_2`);
+    this.list_copy(this.list_3,`attrs_3`);
     this.getData();
     setTimeout(() => {
       this.initChart();
@@ -144,9 +146,9 @@ export class EquipmentDetailsComponent implements OnInit {
       this.xData.push(g);
       if(this.xData.length>10)this.xData.splice(0,1);
       g++;
-      list_jion(this.list_1,'attrs_1',this);
-      list_jion(this.list_2,'attrs_2',this);
-      list_jion(this.list_3,'attrs_3',this);
+      this.list_jion(this.list_1,'attrs_1');
+      this.list_jion(this.list_2,'attrs_2');
+      this.list_jion(this.list_3,'attrs_3');
       let array = ['chart_1','chart_2','chart_3'].forEach((f,i)=>{
         this[`chart_${i+1}`].painting({attrs:this[`attrs_${i+1}`][this.click_list[i]],xData:this.xData,index:g});
       })
@@ -165,6 +167,21 @@ export class EquipmentDetailsComponent implements OnInit {
 
     
 
+  }
+
+  list_jion (list,name,){
+    list.forEach((f,i)=>{
+      this[name][f].forEach(element => {
+        element.value.push(parseInt((Math.random()*100).toString()))
+        if(element.value.length > 10)element.value.splice(0,1)
+      });
+    })
+  }
+
+  list_copy(list,name){
+    list.forEach((f,i)=>{
+      this[name][f] = JSON.parse(JSON.stringify(this.attrs));
+    })
   }
 
 

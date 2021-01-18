@@ -1,6 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { HttpserviceService } from '../../../../../../services/http/httpservice.service';
+import { EquipmentBoardService } from '../../../../serivice/equipment-board.service';
 import { s_role } from '../../../../temp/equipment-status/equipment-status.component';
 import { ThirdLevelService } from '../third-level.service';
 
@@ -94,16 +95,17 @@ export class EnergyLaboratoryComponent implements OnInit {
     'device_boyang_02':this.list[0],//电机7
   }
   timer;
-  constructor(private router:Router,private http:HttpserviceService,private thrid:ThirdLevelService) { }
+  constructor(private router:Router,private http:HttpserviceService,private thrid:ThirdLevelService,
+    private boardservice:EquipmentBoardService) { }
 
   ngOnInit(): void {
     if(document.getElementById('head_title'))
         document.getElementById('head_title').innerText = '验证中心-电机试验室';
-
-   
   }
 
   ngAfterViewInit(){
+    this.boardservice.sendLoad({close:false})
+
     let param = Object.keys(this.param);
     let now;
     this.timer = setInterval(f=>{
@@ -137,7 +139,10 @@ export class EnergyLaboratoryComponent implements OnInit {
 
   goto_borad(map){
     console.log(map.router)
-    if(map.router)this.router.navigate([map.router]);
+    if(map.router){
+      this.router.navigate([map.router]);
+      this.boardservice.sendLoad({close:true})
+    }
   }
 
   get_center_data(){

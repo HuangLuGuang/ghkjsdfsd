@@ -2,7 +2,8 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { LayoutService } from '../../../@core/utils';
 import { HttpserviceService } from '../../../services/http/httpservice.service';
-import { colors, rgb_del_red, create_img_16_9, painting_time, dateformat } from '../equipment-board';
+import { colors, rgb_del_red, create_img_16_9, painting_time, dateformat, coupling } from '../equipment-board';
+import { EquipmentBoardService } from '../serivice/equipment-board.service';
 
 
 @Component({
@@ -260,9 +261,14 @@ export class EquipmentCouplingPathComponent implements OnInit {
 
   subscribeList:any = {};
 
+  equipIntroduceList = [
+    {htmlstr:coupling[0],title:''},
+    {htmlstr:coupling[1],title:''}
+  ]
 
-  constructor(private layoutService: LayoutService,private activateInfo:ActivatedRoute,
-    private http:HttpserviceService) { }
+
+  constructor(private activateInfo:ActivatedRoute,
+    private http:HttpserviceService,private boardservice:EquipmentBoardService) { }
 
   ngOnInit(): void {
     //获取当前语言
@@ -312,6 +318,10 @@ export class EquipmentCouplingPathComponent implements OnInit {
     }, 1000);
 
 
+  }
+
+  ngAfterViewInit(){
+    this.boardservice.sendLoad({close:false})
   }
 
 

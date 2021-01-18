@@ -1,6 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { HttpserviceService } from '../../../../../../services/http/httpservice.service';
+import { EquipmentBoardService } from '../../../../serivice/equipment-board.service';
 import { s_role } from '../../../../temp/equipment-status/equipment-status.component';
 import { ThirdLevelService } from '../third-level.service';
 
@@ -111,7 +112,8 @@ export class StructuralLaboratoryComponent implements OnInit {
     // 'device_hpu_05':4,//油源5
   }
   timer:any;
-  constructor(private router:Router,private http:HttpserviceService,private thrid:ThirdLevelService) { }
+  constructor(private router:Router,private http:HttpserviceService,private thrid:ThirdLevelService,
+    private boardservice:EquipmentBoardService) { }
 
   ngOnInit(): void {
     if(document.getElementById('head_title'))
@@ -121,6 +123,8 @@ export class StructuralLaboratoryComponent implements OnInit {
   }
 
   ngAfterViewInit(){
+    this.boardservice.sendLoad({close:false})
+
     let param = Object.keys(this.param);
     let now;
     this.thrid.get_andon_status_year(param,this.left);
@@ -149,7 +153,10 @@ export class StructuralLaboratoryComponent implements OnInit {
 
   goto_borad(map){
     console.log(map.router)
-    if(map.router)this.router.navigate([map.router]);
+    if(map.router){
+      this.router.navigate([map.router]);
+      this.boardservice.sendLoad({close:true})
+    }
   }
 
 

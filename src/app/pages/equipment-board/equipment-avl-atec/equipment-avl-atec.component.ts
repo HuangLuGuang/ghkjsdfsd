@@ -4,6 +4,7 @@ import { Observable } from 'rxjs';
 import { LayoutService } from '../../../@core/utils/layout.service';
 import { HttpserviceService } from '../../../services/http/httpservice.service';
 import { colors,  create_img_16_9, rTime } from '../equipment-board';
+import { EquipmentBoardService } from '../serivice/equipment-board.service';
 
 let equipment_four_road = require('../../../../assets/eimdoard/equipment/js/equipment-four-road');
 
@@ -137,7 +138,7 @@ export class EquipmentAvlAtecComponent implements OnInit {
   subscribeList:any = {};
 
   constructor(private layoutService: LayoutService,private activateInfo:ActivatedRoute,
-    private http:HttpserviceService) { }
+    private http:HttpserviceService,private boardservice:EquipmentBoardService) { }
 
   ngOnInit(): void {
     //获取当前语言
@@ -170,6 +171,10 @@ export class EquipmentAvlAtecComponent implements OnInit {
     }, 1000);
     window.addEventListener('resize',this.resize)
 
+  }
+
+  ngAfterViewInit(){
+    this.boardservice.sendLoad({close:false})
   }
 
   obser = new Observable(f=>{
@@ -211,7 +216,7 @@ export class EquipmentAvlAtecComponent implements OnInit {
     {"device":this.light_deviceid,
     arr:avl_igem_param.join(',')}).subscribe((g:any)=>{
       if(g.result.error || g.result.message[0].code == 0)return;
-        res = g.result.message[0].message;
+        res = g.result.message[0].message || []; 
         res.forEach(el => {
           for(let key in el){
             data[key] = el[key][0][0];

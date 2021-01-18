@@ -3,6 +3,7 @@ import { ActivatedRoute } from '@angular/router';
 import { LayoutService } from '../../../@core/utils/layout.service';
 import { HttpserviceService } from '../../../services/http/httpservice.service';
 import { colors, dateformat, rgb_del_red,painting_time,hydraulic_htmlstr, create_img_16_9 } from '../equipment-board';
+import { EquipmentBoardService } from '../serivice/equipment-board.service';
 
 
 @Component({
@@ -135,8 +136,9 @@ xData:[]
   list_2 = ['equipment.hydraulic.Passageway1','equipment.hydraulic.Passageway2','equipment.hydraulic.Passageway3',];
   list_1 = ['equipment.hydraulic.Passageway4','equipment.hydraulic.Passageway5','equipment.hydraulic.Passageway6',];
   equipIntroduceList = [
-    {htmlstr:hydraulic_htmlstr[0],title:'',type:'table_class'},
-    {htmlstr:hydraulic_htmlstr[1],title:'',type:'table_class'},
+    {htmlstr:hydraulic_htmlstr[0],title:''},
+    {htmlstr:hydraulic_htmlstr[1],title:''},
+    {htmlstr:hydraulic_htmlstr[2],title:''},
   ]
 
 
@@ -148,7 +150,8 @@ xData:[]
   language = '';//语言 空为zh-CN中文
 
   subscribeList:any = {};
-  constructor(private layoutService: LayoutService,private activateInfo:ActivatedRoute,private http:HttpserviceService) { }
+  constructor(private layoutService: LayoutService,private activateInfo:ActivatedRoute,private http:HttpserviceService,
+    private boardservice:EquipmentBoardService) { }
 
   ngOnInit(): void {
     //获取当前语言
@@ -171,6 +174,10 @@ xData:[]
       create_img_16_9();
     }, 1000);
 
+  }
+
+  ngAfterViewInit(){
+    this.boardservice.sendLoad({close:false})
   }
 
 

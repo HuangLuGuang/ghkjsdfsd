@@ -1,7 +1,6 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { config, Observable } from 'rxjs';
 import { LayoutService } from '../../../@core/utils/layout.service';
-import {resize} from '../../../pages/equipment-board/equipment-board';
 
 let equipment_four_road = require('../../../../assets/eimdoard/equipment/js/equipment-four-road')
 // 引入jquery

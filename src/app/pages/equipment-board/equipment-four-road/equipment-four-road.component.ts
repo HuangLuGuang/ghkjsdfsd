@@ -4,6 +4,7 @@ import {  TranslateService } from '@ngx-translate/core';
 import { LayoutService } from '../../../@core/utils/layout.service';
 import { HttpserviceService } from '../../../services/http/httpservice.service';
 import { colors, dateformat, rgb_del_red,painting_time,four_road_htmlstr, create_img_16_9 } from '../equipment-board';
+import { EquipmentBoardService } from '../serivice/equipment-board.service';
 
 
 @Component({
@@ -201,8 +202,10 @@ export class EquipmentFourRoadComponent implements OnInit {
 
   //设备介绍
   equipIntroduceList = [
-    {htmlstr:four_road_htmlstr[0],title:'',type:'span_class'},
-    {htmlstr:four_road_htmlstr[1],title:'四立柱参数',type:'table_class'},
+    {htmlstr:four_road_htmlstr[0],title:''},
+    {htmlstr:four_road_htmlstr[1],title:'四立柱参数'},
+    {htmlstr:four_road_htmlstr[2],title:'环境仓及光照参数'},
+    {htmlstr:four_road_htmlstr[3],title:'环境仓及光照参数'},
   ];
   //当前的页数
   eqIntShow = 0;
@@ -210,30 +213,15 @@ export class EquipmentFourRoadComponent implements OnInit {
 
   subscribeList:any = {};
 
-  constructor(private layoutService: LayoutService,private activateInfo:ActivatedRoute
-    ,private http:HttpserviceService,private translate:TranslateService) { }
+  constructor(private activateInfo:ActivatedRoute
+    ,private http:HttpserviceService,private boardservice:EquipmentBoardService) { }
 
   ngOnInit(): void {
-    // let mqservice = new EmqClientService();
-    // let mqBean :any= {
-    //   hostname: mq_config.hostname,
-    //   port: mq_config.port,
-    //   clientId: guid2(),
-    //   mqttConnectFail:function(data){
-    //     console.log(data)
-    //   },
-    //   topic:'#'
-    // }
-    // mqservice.getmqtt(mqBean);
     //记录初始化默认选中tag
     this.click_list = [this.list_1[0],this.list_2[0],this.list_3[0]];
     //获取当前语言
     let language = localStorage.getItem('currentLanguage');
     if(language!='zh-CN')this.language = language;
-    //订阅左上角点击后宽度变化
-    // this.subscribeList.layout = this.layoutService.onInitLayoutSize().subscribe(f=>{
-    //   this.initChart();
-    // })
 
     //路由订阅
     this.subscribeList.router = this.activateInfo.params.subscribe(f =>{
@@ -250,6 +238,10 @@ export class EquipmentFourRoadComponent implements OnInit {
     setTimeout(f=>{
       create_img_16_9();
     },1000)
+  }
+
+  ngAfterViewInit(){
+    this.boardservice.sendLoad({close:false})
   }
 
   getData(){

@@ -1,6 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { HttpserviceService } from '../../../../../../services/http/httpservice.service';
+import { EquipmentBoardService } from '../../../../serivice/equipment-board.service';
 import { s_role } from '../../../../temp/equipment-status/equipment-status.component';
 import { ThirdLevelService } from '../third-level.service';
 
@@ -114,7 +115,8 @@ export class EnvironmentLaboratoryComponent implements OnInit {
     'device_atec_05':this.list[7].other,//整车高低温试验舱
   }
   timer;
-  constructor(private router:Router,private thrid:ThirdLevelService,private http:HttpserviceService) { }
+  constructor(private router:Router,private thrid:ThirdLevelService,private http:HttpserviceService,
+    private boardservice:EquipmentBoardService) { }
 
   ngOnInit(): void {
     if(document.getElementById('head_title'))
@@ -124,6 +126,8 @@ export class EnvironmentLaboratoryComponent implements OnInit {
   }
 
   ngAfterViewInit(){
+    this.boardservice.sendLoad({close:false})
+
     let param = Object.keys(this.param)
     this.thrid.get_andon_status_year(param,this.left);
     this.thrid.get_andon_status_last_year(param,this.left);
@@ -165,7 +169,10 @@ export class EnvironmentLaboratoryComponent implements OnInit {
 
   goto_borad(map){
     console.log(map.router)
-    if(map.router)this.router.navigate([map.router]);
+    if(map.router){
+      this.router.navigate([map.router]);
+      this.boardservice.sendLoad({close:true})
+    }
   }
 
   ngOnDestroy(){

@@ -3,7 +3,8 @@ import { ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs';
 import { LayoutService } from '../../../@core/utils';
 import { HttpserviceService } from '../../../services/http/httpservice.service';
-import { colors, copy, create_img_16_9 } from '../equipment-board';
+import { colors, copy, create_img_16_9, oil_htmlStr } from '../equipment-board';
+import { EquipmentBoardService } from '../serivice/equipment-board.service';
 
 let oilsrouce = require('../../../../assets/eimdoard/equipment/js/oilsrouce');
 let equipment_four_road = require('../../../../assets/eimdoard/equipment/js/equipment-four-road');
@@ -20,7 +21,9 @@ declare var $
 })
 export class OilSourceMonitoringComponent implements OnInit {
   equipIntroduceList = [
-    {htmlstr:'',title:'',type:'span_class'},
+    {htmlstr:oil_htmlStr[0],title:''},
+    {htmlstr:oil_htmlStr[1],title:''},
+    {htmlstr:oil_htmlStr[2],title:''},
   ]
 
   img = {
@@ -338,7 +341,7 @@ export class OilSourceMonitoringComponent implements OnInit {
   language = '';//语言 空为zh-CN中文
   deviceid:any;//设备id
   constructor(private activateInfo:ActivatedRoute,private layoutService:LayoutService,
-    private http:HttpserviceService) { }
+    private http:HttpserviceService,private boardservice:EquipmentBoardService) { }
 
   ngOnInit(): void {
     //选中第一个
@@ -392,7 +395,7 @@ export class OilSourceMonitoringComponent implements OnInit {
   }
 
   ngAfterViewInit(){
-    // this.create_scrollbar();
+    this.boardservice.sendLoad({close:false})
   }
 
   obser = new Observable(f=>{

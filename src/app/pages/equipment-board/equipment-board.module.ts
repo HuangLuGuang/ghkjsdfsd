@@ -4,7 +4,7 @@ import { EimboardEimboardRoutingModule } from './equipment-board-routing.module'
 import { ShareModule } from '../../share/share.module';
 import { NzProgressModule } from 'ng-zorro-antd';
 import { TranslateModule } from '@ngx-translate/core';
-import { NbCardModule, NbIconModule } from '@nebular/theme';
+import { NbCardModule, NbIconModule, NbSpinnerModule } from '@nebular/theme';
 import { NzCarouselModule } from 'ng-zorro-antd/carousel';
 
 
@@ -14,6 +14,7 @@ import { EquipmentBoardComponent } from './equipment-board.component';
 import { FirstLevelComponent } from './device-inline/first-level/first-level.component';
 import { SecondLevelComponent } from './device-inline/second-level/second-level.component';
 import { BoardTempModule } from './temp/board-temp.module';
+import { EquipmentBoardService } from './serivice/equipment-board.service';
 
 // 组件
 const COMPONENT = [
@@ -28,11 +29,12 @@ const COMPONENT = [
   declarations: COMPONENT,
   imports: [
     CommonModule,ShareModule,EimboardEimboardRoutingModule,NzProgressModule,TranslateModule,
-    NbIconModule,NbCardModule,NzCarouselModule,BoardTempModule
+    NbIconModule,NbCardModule,NzCarouselModule,BoardTempModule,NbSpinnerModule
 
     // ---device inline 
   ],
-  entryComponents:COMPONENT
+  entryComponents:COMPONENT,
+  providers:[EquipmentBoardService]
 })
 export class EquipmentBoardModule { 
   constructor(){
