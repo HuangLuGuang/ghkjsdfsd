@@ -20,6 +20,9 @@ const router = [
   imports: [
     CommonModule,RouterModule.forChild(router),BoardTempModule,ShareModule,TranslateModule
   ],
-  exports:[RouterModule]
+  exports:[RouterModule],
+  entryComponents:[
+    CabinCentralizedMonitoringComponent
+  ]
 })
 export class CabinCentralizedMonitoringModule { }

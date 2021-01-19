@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, NgZone, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 import { take } from 'rxjs/operators';
 import * as screenfull from 'screenfull';
@@ -43,7 +43,8 @@ export class LogWarmComponent implements OnInit {
   subscribeList:any = {};
   
   
-  constructor(private http:HttpserviceService,private layoutService:LayoutService) { }
+  constructor(private http:HttpserviceService,private layoutService:LayoutService,
+    private ngZone:NgZone) { }
 
   ngOnInit(): void {
     //获取当前语言
@@ -55,7 +56,7 @@ export class LogWarmComponent implements OnInit {
         // this.create_scrollbar();
     })
     let date;
-    this.timer = setInterval(f=>{
+    this.timer = self.setInterval(f=>{
       if(this.device)this.get_device_mts_log();
       date = new Date();
       if(date.getDay() == 1)this.get_device_mts_log_his();
@@ -79,17 +80,11 @@ export class LogWarmComponent implements OnInit {
     window.addEventListener('resize',this.chartResize)
   }
 
-  obser = new Observable(f=>{
-    if(document.getElementById('warning'))echarts.init(document.getElementById('warning')).resize();
-    // this.create_scrollbar();
-    f.next('log-warm刷新')
-  }).pipe(take(1));
   
   chartResize=()=>{
-    // if(document.getElementById('warning'))echarts.init(document.getElementById('warning')).resize();
-    this.obser.subscribe(f=>{
-      console.log(f)
-    })
+    setTimeout(() => {
+      if(document.getElementById('warning'))echarts.init(document.getElementById('warning')).resize();
+    }, 500);
     
   }
 
@@ -109,15 +104,18 @@ export class LogWarmComponent implements OnInit {
     //     getMessage(g,this.log_warm.data);
     // })
     //SELECT get_log('{"deviceid":"device_mts_01"}')
-    this.subscribeList.device_mts_log = this.http.callRPC('get_log','device_monitor.get_log',{"deviceid":"device_mts_01"}).subscribe((g:any) =>{
+    this.subscribeList.device_mts_log = this.http.callRPC('get_log','device_monitor.get_log',{"deviceid":this.device}).subscribe((g:any) =>{
       // console.log(g)
       if(g.result.error || g.result.message[0].code == 0)return;
+      
       this.log_warm.data = this.getMessage(g);
       var showContent = $(".overflow_height_75");
       if(showContent[0])showContent[0].scrollTop = showContent[0].scrollHeight;
       // this.create_scrollbar();
+      this.subscribeList.device_mts_log.unsubscribe();
     })
   }
+
 
 
   /**
@@ -137,6 +135,8 @@ export class LogWarmComponent implements OnInit {
           if(arr[i].level == 2)LV2Warn[j == 0?6:j-1] = arr[i].numbers;
       }
       this.initLogChart(LV1Warn,LV2Warn);
+      this.subscribeList.his_log.unsubscribe();
+
     })
     // this.subscribeList.device_mts_log_his = this.http.callRPC('get_device_log_daily_count','device_monitor.get_device_log_daily_count',{"device":this.device,"monday":this.getFirstDayOfWeek()}).subscribe((g:any) =>{
     //     console.log(g)
@@ -225,6 +225,8 @@ export class LogWarmComponent implements OnInit {
   }
 
 
+
+
   //组件销毁  
   ngOnDestroy(){
     clearInterval(this.timer);
@@ -235,7 +237,8 @@ export class LogWarmComponent implements OnInit {
     }
     window.removeEventListener('resize',this.chartResize)
     // document.getElementById('warning').removeEventListener('resize',this.chartResize)
-
+    let dom = document.getElementById('warning');
+    if(dom)echarts.init(dom).dispose();
   }
 
 

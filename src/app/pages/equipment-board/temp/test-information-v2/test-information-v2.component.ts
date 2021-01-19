@@ -34,7 +34,7 @@ export class TestInformationV2Component implements OnInit {
     this.http.callRPC('get_device_taskinfo','get_device_taskinfo',{"deviceid":"device_weiss_02"}).subscribe(f=>{
       // console.log(f)
     })
-    this.timer60s = setInterval(f =>{
+    this.timer60s = self.setInterval(f =>{
       if(this.device)this.get_device_mst_progress();
     },60000)
     if(this.device)this.get_device_mst_progress();

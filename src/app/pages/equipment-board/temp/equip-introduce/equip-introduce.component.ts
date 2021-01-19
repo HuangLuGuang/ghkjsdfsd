@@ -21,7 +21,7 @@ export class EquipIntroduceComponent implements OnInit {
   constructor(private http:HttpserviceService) { }
 
   ngOnInit(): void {
-    this.timer_1 = setInterval(f =>{
+    this.timer_1 = self.setInterval(f =>{
       this.eqIntShow = this.eqIntShow >=this.equipIntroduceList.length-1 ?0:this.eqIntShow+1;
     },this.translateTime)
   }
@@ -37,5 +37,6 @@ export class EquipIntroduceComponent implements OnInit {
     clearInterval(this.timer_1)
     
   }
+
 
 }

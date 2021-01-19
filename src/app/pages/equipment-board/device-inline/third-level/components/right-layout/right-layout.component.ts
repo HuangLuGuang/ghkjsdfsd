@@ -33,8 +33,10 @@ export class RightLayoutComponent implements OnInit {
   }
 
   resize = ()=>{
-    if(document.getElementById('right_chart_1'))
-      echarts.init(document.getElementById('right_chart_1')).resize();
+    setTimeout(() => {
+      if(document.getElementById('right_chart_1'))
+        echarts.init(document.getElementById('right_chart_1')).resize();
+    }, 500);
   }
 
   initChart(){
@@ -140,6 +142,8 @@ export class RightLayoutComponent implements OnInit {
 
   ngOnDestroy(){
     window.removeEventListener('resize',this.resize)
+    let chart = document.getElementById('right_chart_1');
+    if(chart)echarts.init(chart).dispose();
   }
 
 }

@@ -36,7 +36,7 @@ export class TestInformationComponent implements OnInit {
   constructor(private http:HttpserviceService) { }
 
   ngOnInit(): void {
-    this.timer60s = setInterval(f =>{
+    this.timer60s = self.setInterval(f =>{
       if(this.device)this.get_device_mst_progress();
     },60000)
     if(this.device)this.get_device_mst_progress();
@@ -61,6 +61,9 @@ export class TestInformationComponent implements OnInit {
       });
       this.experiment.data = data;
       this.experiment.data_next = data_next;
+
+      this.subscribeList.mts_p.unsubscribe();
+
       // this.experiment.data = f.result.message[0].message.map(m =>
       //       ([m.taskchildnum,dateformat(new Date(m.taskstart),'yy/MM/dd'),dateformat(new Date(m.taskend),'yy/MM/dd'),m.numberstime+'h',parseInt((m.rate).toString())])
       // );

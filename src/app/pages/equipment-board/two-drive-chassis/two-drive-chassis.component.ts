@@ -141,36 +141,27 @@ export class TwoDriveChassisComponent implements OnInit {
     this.boardservice.sendLoad({close:false})
   }
 
-  obser = new Observable(f=>{
-    
-    let chart;
-   
-    this.gauge.forEach((f,i)=>{
-      chart = document.getElementById(f.id);
-      if(chart)
-        echarts.init(chart).resize();
-    });
-    ['discharge_chart','avl_param_chart_1','avl_param_chart_2',
-    't_real_temperature_5','t_real_temperature_4','two_discharge_chart_1'].forEach(f => {
-      chart = document.getElementById(f);
-      if(chart)
-        echarts.init(chart).resize();
-    });
-    f.next('chart刷新');
-  })
-
   resize = () =>{
     setTimeout(() => {
-      if(this.subscribeList.resize)this.subscribeList.resize.unsubscribe();
-      this.subscribeList.resize = this.obser.subscribe(f=>{
-          console.log(f)
-      })
+      let chart;
+   
+      this.gauge.forEach((f,i)=>{
+        chart = document.getElementById(f.id);
+        if(chart)
+          echarts.init(chart).resize();
+      });
+      ['discharge_chart','avl_param_chart_1','avl_param_chart_2',
+      't_real_temperature_5','t_real_temperature_4','two_discharge_chart_1'].forEach(f => {
+        chart = document.getElementById(f);
+        if(chart)
+          echarts.init(chart).resize();
+      });
     }, 500);
   }
 
   getData(){
     let now:Date;
-    this.timer = setInterval(() =>{
+    this.timer = self.setInterval(() =>{
 
       this.get_real_time();
       this.get_device_Temp_hum();
@@ -364,7 +355,17 @@ export class TwoDriveChassisComponent implements OnInit {
     for(let key in this.subscribeList){
       this.subscribeList[key].unsubscribe();
     }
-    window.removeEventListener('resize',this.resize)
+    window.removeEventListener('resize',this.resize);
+    let chart;
+    this.gauge.forEach((f,i)=>{
+      chart = document.getElementById(f.id);
+      if(chart)echarts.init(chart).dispose();
+    });
+    ['discharge_chart','avl_param_chart_1','avl_param_chart_2',
+    't_real_temperature_5','t_real_temperature_4','two_discharge_chart_1'].forEach(f => {
+      chart = document.getElementById(f);
+      if(chart)echarts.init(chart).dispose();
+    });
   }
 
 }

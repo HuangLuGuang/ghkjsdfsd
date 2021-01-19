@@ -108,7 +108,7 @@ export class EnergyLaboratoryComponent implements OnInit {
 
     let param = Object.keys(this.param);
     let now;
-    this.timer = setInterval(f=>{
+    this.timer = self.setInterval(f=>{
       this.get_center_data();
       this.thrid.get_device_taskinfo_list(param,this.right).subscribe((f:any)=>{
         // f.forEach(el => {

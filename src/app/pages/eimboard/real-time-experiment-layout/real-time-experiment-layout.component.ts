@@ -88,16 +88,18 @@ export class RealTimeExperimentLayoutComponent implements OnInit {
   }
 
   resize =()=>{
-    let id = [
-      'percentage_1','percentage_2','percentage_3',
-      'third_first_one','third_first_two','third_first_three',
-      'line_chart_1'
-    ];
-    id.forEach(f=>{
-      console.log(f)
-      if(document.getElementById(f))
-        echarts.init(document.getElementById(f)).resize();;
-    })
+    setTimeout(()=>{
+      let id = [
+        'percentage_1','percentage_2','percentage_3',
+        'third_first_one','third_first_two','third_first_three',
+        'line_chart_1'
+      ];
+      id.forEach(f=>{
+        console.log(f)
+        if(document.getElementById(f))
+          echarts.init(document.getElementById(f)).resize();;
+      })
+    },500)
   }
 
   getData(){

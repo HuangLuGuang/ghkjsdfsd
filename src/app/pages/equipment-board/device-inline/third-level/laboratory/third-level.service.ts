@@ -51,7 +51,7 @@ export class ThirdLevelService {
     let now =  new Date();
     this.http.callRPC('get_device_andon_status_year_list','get_device_andon_status_year_list',{deviceid:param,"newyearsday":now.getFullYear()+"-01-01"}).subscribe((f:any)=>{
       if(f.result.error || f.result.message[0].code == 0)return;
-      console.log(f)
+      // console.log(f)
       if(now.getMonth() != 0){
         month  = this.calculation_andon_year(f.result.message[0].message,chart_data);
         view.initDeviceCircula(month[now.getMonth() ],'left_chart_2','上个月','安灯状态');
@@ -73,7 +73,7 @@ export class ThirdLevelService {
     let now =  new Date();
     this.http.callRPC('get_device_andon_status_year_list','get_device_andon_status_year_list',{deviceid:param,"newyearsday":(now.getFullYear()-1)+"-01-01"}).subscribe((f:any)=>{
       if(f.result.error || f.result.message[0].code == 0)return;
-      console.log(f)
+      // console.log(f)
       f.result.message[0].message.forEach(el => {
         if(el.length == 0)return;
         recordtime = el[0].recordtime.split('-');
@@ -125,7 +125,9 @@ export class ThirdLevelService {
     this.http.callRPC('get_log_list','device_monitor.get_log_list',{deviceid:param}).subscribe((f:any)=>{
       if(f.result.error || f.result.message[0].code == 0)return;
       
-      view.tableBody = f.result.message[0].message.filter(g=> g[0] && g[0].level == 3).map(m=>(
+      view.tableBody = f.result.message[0].message.filter(g=> g[0] 
+        // && g[0].level == 3
+        ).map(m=>(
         aee = m[0].message.split("\""),
         {
           device:this.deviceid_to_name[m[0].deviceid],

@@ -84,12 +84,13 @@ export class ChartCurveV3Component implements OnInit {
   }
 
   chartResize_v3=()=>{
-    //   setTimeout(() => {
-        this.obs.subscribe(f=>{
-            console.log(f)
-        })
+      setTimeout(() => {
+        let isthis = this;
+        if(isthis.myChart)isthis.myChart.resize();
+        let dom = document.getElementById(this.dashboardName);
+        if(dom)echarts.init(dom).resize();
         
-    //   }, 500);
+      }, 500);
 
   }
 
@@ -549,6 +550,9 @@ export class ChartCurveV3Component implements OnInit {
   ngOnDestroy(){
     window.removeEventListener('resize',this.chartResize_v3);
     this.dashboard_select= null; 
+    if(this.myChart)this.myChart.dispose();
+    let dom = document.getElementById(this.dashboardName);
+    if(dom)echarts.init(dom).dispose();
   }
 
 }

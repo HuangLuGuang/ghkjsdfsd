@@ -193,41 +193,31 @@ export class CentralFourJinhuaComponent implements OnInit {
     this.boardservice.sendLoad({close:false})
   }
 
-  obser = new Observable(f=>{
-    this.EnvironBin.forEach(f=>{
-      if(document.getElementById(f.id))
-        echarts.init(document.getElementById(f.id)).resize();
-    })
-    this.gauge.forEach(f=>{
-      if(document.getElementById(f.id))
-        echarts.init(document.getElementById(f.id)).resize();
-    })
-    if(document.getElementById('avl_discharge_chart'))
-        echarts.init(document.getElementById('avl_discharge_chart')).resize();
-    if(document.getElementById('avl_param_chart_1'))
-        echarts.init(document.getElementById('avl_param_chart_1')).resize();
-    if(document.getElementById('avl_param_chart_2'))
-        echarts.init(document.getElementById('avl_param_chart_2')).resize();
-    // ['sensor_t_h_01','sensor_t_h_02','sensor_t_h_03'].forEach(f=>{
-    //   if(document.getElementById(f))
-    //       echarts.init(document.getElementById(f)).resize();
-    // })
-    f.next('chart刷新');
-  })
 
   resize = () =>{
     setTimeout(() => {
-      if(this.subscribeList.resize)this.subscribeList.resize.unsubscribe();
-      this.subscribeList.resize = this.obser.subscribe(f=>{
-          console.log(f)
+      this.EnvironBin.forEach(f=>{
+        if(document.getElementById(f.id))
+          echarts.init(document.getElementById(f.id)).resize();
       })
+      this.gauge.forEach(f=>{
+        if(document.getElementById(f.id))
+          echarts.init(document.getElementById(f.id)).resize();
+      })
+      if(document.getElementById('avl_discharge_chart'))
+          echarts.init(document.getElementById('avl_discharge_chart')).resize();
+      if(document.getElementById('avl_param_chart_1'))
+          echarts.init(document.getElementById('avl_param_chart_1')).resize();
+      if(document.getElementById('avl_param_chart_2'))
+          echarts.init(document.getElementById('avl_param_chart_2')).resize();
+      console.log('表刷新')
     }, 500);
   }
   
 
   getData(){
     
-    this.timer = setInterval(() =>{
+    this.timer = self.setInterval(() =>{
       this.get_four();
       this.get_jinhua();
     },1000)
@@ -340,7 +330,10 @@ export class CentralFourJinhuaComponent implements OnInit {
         xData:this.gauge_xData,
         title:'轮边力曲线'
         },echarts.init(document.getElementById('avl_param_chart_2')));
-  
+      
+
+      //取消订阅
+      this.subscribeList.four.unsubscribe();
       // console.log(data)
       // console.log(res)
     })
@@ -405,7 +398,11 @@ export class CentralFourJinhuaComponent implements OnInit {
 
 
       this.jinhua = data;
+
+      //取消订阅
+      this.subscribeList.jinhua.unsubscribe();
     })
+
   }
 
   getleft(item){
@@ -424,8 +421,25 @@ export class CentralFourJinhuaComponent implements OnInit {
     for(let key in this.subscribeList){
       this.subscribeList[key].unsubscribe();
     }
-    window.removeEventListener('resize',this.resize)
+    window.removeEventListener('resize',this.resize);
+
+    let chart;
+    this.EnvironBin.forEach(f=>{
+      chart = document.getElementById(f.id);
+      if(chart)echarts.init(chart).dispose();
+    })
+    this.gauge.forEach(f=>{
+      chart = document.getElementById(f.id);
+      if(chart)echarts.init(chart).dispose();
+    })
+    chart = document.getElementById('avl_discharge_chart');
+    if(chart)echarts.init(chart).dispose();
+    chart = document.getElementById('avl_param_chart_1');
+    if(chart) echarts.init(chart).dispose();
+    chart = document.getElementById('avl_param_chart_2');
+    if(chart)echarts.init(chart).dispose();
   }
+
 }
 export const four_param = [
   // 'recordtime',//记录时间

@@ -192,16 +192,20 @@ export class EquipmentAvlAtecComponent implements OnInit {
 
   resize = () =>{
     setTimeout(() => {
-      if(this.subscribeList.resize)this.subscribeList.resize.unsubscribe();
-      this.subscribeList.resize = this.obser.subscribe(f=>{
-          console.log(f)
-      })
+      this.gauge.forEach(el => {
+        if(document.getElementById(el.id))
+          echarts.init(document.getElementById(el.id)).resize();
+      });
+      if(document.getElementById('avl_param_chart_2'))
+          echarts.init(document.getElementById('avl_param_chart_2')).resize();
+      if(document.getElementById('avl_discharge_chart_1'))
+          echarts.init(document.getElementById('avl_discharge_chart_1')).resize();
     }, 500);
   }
 
 
   getData(){
-    this.timer = setInterval(() =>{
+    this.timer = self.setInterval(() =>{
       this.get_avl_igem();
       this.get_light();
       this.get_avl_d();
@@ -358,7 +362,17 @@ export class EquipmentAvlAtecComponent implements OnInit {
     for(let key in this.subscribeList){
       this.subscribeList[key].unsubscribe();
     }
-    window.addEventListener('resize',this.resize)
+    window.removeEventListener('resize',this.resize);
+
+    let chart;
+    this.gauge.forEach(el => {
+      chart = document.getElementById(el.id)
+      if(chart)echarts.init(chart).dispose();
+    });
+    chart = document.getElementById('avl_param_chart_2');
+    if(chart)echarts.init(chart).dispose(chart);
+    chart = document.getElementById('avl_discharge_chart_1');
+    if(chart)echarts.init(chart).dispose();
   }
 
 }

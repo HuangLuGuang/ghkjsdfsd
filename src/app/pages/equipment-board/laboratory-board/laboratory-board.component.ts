@@ -2,7 +2,6 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 let rtm3a = require('../../../../assets/eimdoard/rtm3/js/rtm3a');
 declare var $:any;
 
-
 /**
  * TODO 布局demo
  **/
@@ -81,7 +80,7 @@ export class LaboratoryBoardComponent implements OnInit {
     if(document.getElementById('head_title'))
         document.getElementById('head_title').innerText = '实验室布局';
     setTimeout(() => {
-      // this.initChart();
+      this.initChart();
     }, 1000);
     this.timer = setInterval(f =>{
       this.initChart();
@@ -89,6 +88,13 @@ export class LaboratoryBoardComponent implements OnInit {
   }
 
   ngAfterViewInit(){
+    // 初始化富文本框
+      tinymce.init({
+        selector: '#tinydemo',
+        language:'zh_CN',
+        skin_url: '/assets/skins/lightgray',
+    });
+
   }
 
   initChart(){

@@ -10,20 +10,24 @@ import { TranslateModule } from '@ngx-translate/core';
 import { DigitCompletionPipe } from '../pipe/digit-completion.pipe';
 import { NzProgressModule } from 'ng-zorro-antd';
 
+const COMPONTENS = [
+  EquipIntroduceComponent,LogWarmComponent,TestInformationComponent,
+  ExperimentParamsComponent,TestInformationV2Component,
+  EquipmentStatusComponent,DigitCompletionPipe
+]
 
 @NgModule({
   declarations: [
-    EquipIntroduceComponent,LogWarmComponent,TestInformationComponent,
-    ExperimentParamsComponent,TestInformationV2Component,
-    EquipmentStatusComponent,DigitCompletionPipe
+    COMPONTENS
   ],
   imports: [
     CommonModule,TranslateModule,NzProgressModule
   ],
   exports:[
-    EquipIntroduceComponent,LogWarmComponent,TestInformationComponent,
-    ExperimentParamsComponent,TestInformationV2Component,
-    EquipmentStatusComponent,DigitCompletionPipe
+    COMPONTENS
+  ],
+  entryComponents:[
+    COMPONTENS
   ]
 })
 export class BoardTempModule { }

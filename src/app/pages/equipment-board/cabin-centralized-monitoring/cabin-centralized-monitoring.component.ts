@@ -199,46 +199,47 @@ export class CabinCentralizedMonitoringComponent implements OnInit {
     this.boardservice.sendLoad({close:false})
   }
 
-  obser = new Observable(f=>{
-    this.jinhua_en.forEach(f=>{
-      if(document.getElementById(f.id))
-        echarts.init(document.getElementById(f.id)).resize();
-    })
-    this.gauge.forEach(f=>{
-      if(document.getElementById(f.id))
-        echarts.init(document.getElementById(f.id)).resize();
-    })
-    if(document.getElementById('cabin_discharge_chart_2'))
-        echarts.init(document.getElementById('cabin_discharge_chart_2')).resize();
-    if(document.getElementById('cabin_discharge_chart_1'))
-        echarts.init(document.getElementById('cabin_discharge_chart_1')).resize();
-    ['sensor_t_h_01','sensor_t_h_02','sensor_t_h_03'].forEach(f=>{
-      if(document.getElementById(f))
-          echarts.init(document.getElementById(f)).resize();
-    })
-    f.next('chart刷新');
-  })
-
   resize = () =>{
     setTimeout(() => {
-      if(this.subscribeList.resize)this.subscribeList.resize.unsubscribe();
-      this.subscribeList.resize = this.obser.subscribe(f=>{
-          console.log(f)
+      this.jinhua_en.forEach(f=>{
+        if(document.getElementById(f.id))
+          echarts.init(document.getElementById(f.id)).resize();
       })
+      this.gauge.forEach(f=>{
+        if(document.getElementById(f.id))
+          echarts.init(document.getElementById(f.id)).resize();
+      })
+      if(document.getElementById('cabin_discharge_chart_2'))
+          echarts.init(document.getElementById('cabin_discharge_chart_2')).resize();
+      if(document.getElementById('cabin_discharge_chart_1'))
+          echarts.init(document.getElementById('cabin_discharge_chart_1')).resize();
+      ['sensor_t_h_01','sensor_t_h_02','sensor_t_h_03'].forEach(f=>{
+        if(document.getElementById(f))
+            echarts.init(document.getElementById(f)).resize();
+      })
+      console.log('图表刷新')
     }, 500);
   }
 
 
 
   getData(){
-    this.timer = setInterval(() =>{
+    this.timer = self.setInterval(() =>{
       setTimeout(() => {
         this.get_environmental_warehouse_jinhua();
+      },10);
+      setTimeout(() => {
         this.get_ATEC();
+      },20)
+      setTimeout(() => {
         this.get_TempHumidity('sensor_t_h_01',[this.TempHumidity[0],this.TempHumidity[3]]);
+      },25)
+      setTimeout(() => {
         this.get_TempHumidity('sensor_t_h_02',[this.TempHumidity[1],this.TempHumidity[4]]);
+      },30)
+      setTimeout(() => {
         this.get_TempHumidity('sensor_t_h_03',[this.TempHumidity[2],this.TempHumidity[5]]);
-      });
+      }, 35);
       
       // this.TempHumidity.forEach(f=>{
       //   if(document.getElementById(f.id))
@@ -309,7 +310,8 @@ export class CabinCentralizedMonitoringComponent implements OnInit {
       },echarts.init(document.getElementById('cabin_discharge_chart_2')));
 
 
-     
+      //取消订阅
+      this.subscribeList.jinhua.unsubscribe();
     })
   }
 
@@ -369,7 +371,8 @@ export class CabinCentralizedMonitoringComponent implements OnInit {
         },myChart_9);
       }
 
-
+      //取消订阅
+      this.subscribeList.atec.unsubscribe();
     })
   }
 
@@ -385,6 +388,9 @@ export class CabinCentralizedMonitoringComponent implements OnInit {
         if(document.getElementById(el.id))
           equipment_four_road.create_gauge_jinhua(el.dataLine,echarts.init(document.getElementById(el.id)));
       });
+
+      //取消订阅
+      this.subscribeList[device].unsubscribe();
     })
     
   }
@@ -398,7 +404,25 @@ export class CabinCentralizedMonitoringComponent implements OnInit {
       this.subscribeList[key].unsubscribe();
     }
     window.removeEventListener('resize',this.resize);
+
+    let chart;
+    this.jinhua_en.forEach(f=>{
+      chart = document.getElementById(f.id);
+      if(chart)echarts.init(chart).dispose();
+    });
+    this.gauge.forEach(f=>{
+      chart = document.getElementById(f.id);
+      if(chart)echarts.init(chart).dispose();
+    });
+
+
+    ['sensor_t_h_01','sensor_t_h_02','sensor_t_h_03','cabin_discharge_chart_2','cabin_discharge_chart_1'].forEach(f=>{
+      chart = document.getElementById(f);
+      if(chart)echarts.init(chart).dispose();
+    });
+
   }
+
 }
 
 
