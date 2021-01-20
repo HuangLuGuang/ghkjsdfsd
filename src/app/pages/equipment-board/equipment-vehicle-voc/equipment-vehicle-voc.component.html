@@ -27,7 +27,7 @@
                         <div class="round" [ngStyle]="{background:cang_1.status?'#66FF66':'black' }"></div>
                         <div id="cabin_pie_1"></div>
                         <div id="cabin_pie_2"></div>
-                        <div class="cabin_1_set">
+                        <div class="cabin_1_set height_100">
                             <div>温度设定值：<span>{{ cang_1.tempSet}}℃</span></div>
                             <div>湿度设定值：<span>{{ cang_1.rhSet }}%RH</span></div>
                         </div>
@@ -41,8 +41,10 @@
                 <div class="part_title">整车舱加热</div>
                 <div class="cabin_layout height_100">
                     <div class="round" [ngStyle]="{background:cang_1.status?'#66FF66':'black' }"></div>
-                    <div *ngFor="let item of cang_hot.list" class="cabin_layout hieght_100">
-                        <div>{{ item.name}}：<span>{{ item.value}} {{item.unit}}</span></div>
+                    <div class="cabin_layout height_90 " style="width: 80%;">
+                        <div *ngFor="let item of cang_hot.list" class="height_30 cabin_1_set" style="width: 45%;">
+                            <div *ngIf="item.name">{{ item.name}}：<span>{{ item.value}} {{item.unit}}</span></div>
+                        </div>
                     </div>
                 </div>
             </div>

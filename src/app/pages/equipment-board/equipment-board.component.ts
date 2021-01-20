@@ -3,7 +3,7 @@ import { ActivatedRoute, NavigationEnd, Router,Event } from '@angular/router';
 import * as screenfull from 'screenfull';
 import { Screenfull } from 'screenfull';
 import { LayoutService } from '../../@core/utils';
-import { SYSMENU } from '../../appconfig';
+import {  SYSMENU } from '../../appconfig';
 import { create_img_16_9 } from './equipment-board';
 import { EquipmentBoardService } from './serivice/equipment-board.service';
 
@@ -58,15 +58,14 @@ export class EquipmentBoardComponent implements OnInit {
     if(menu)this.menu = JSON.parse(menu).filter(f =>f.link && f.link.includes('equipment'));
     
     
-    this.subscribeList.load = this.boradservice.get_Load_Observable().subscribe(g=>{
-      this.ngZone.runOutsideAngular(f => this.loading = g.close);
-      // if(f.close){
-      //   this.loading = f.close;
-      // }else{
-      //   setTimeout(() => {
-      //     this.loading = f.close;
-      //   }, 500);
-      // }
+    this.subscribeList.load = this.boradservice.get_Load_Observable().subscribe(f=>{
+      if(f.close){
+        this.loading = f.close;
+      }else{
+        setTimeout(() => {
+          this.loading = f.close;
+        }, 500);
+      }
     })
   }
   
@@ -85,11 +84,11 @@ export class EquipmentBoardComponent implements OnInit {
       if (event instanceof NavigationEnd) {
         url = event.url.split("/").pop();
         console.log(url)
-        if (['first-level','equipment'].includes(url)){
-          this.b_show.back = false;//最上级看板的影藏返回按钮
-        }else{
-          this.b_show.back = true;
-        }
+          if (['first-level','equipment'].includes(url)){
+            this.b_show.back = false;//最上级看板的影藏返回按钮
+          }else{
+            this.b_show.back = true;
+          }
       }
     });
     

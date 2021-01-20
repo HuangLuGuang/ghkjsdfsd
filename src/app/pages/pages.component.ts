@@ -121,6 +121,8 @@ export class PagesComponent implements OnInit {
             // 将菜单信息存储到localStorage
             this.menu.length = 0;
             const menuData = this.dataTranslation(baseData["message"]);
+            
+            localStorage.setItem(SYSMENU, JSON.stringify(baseData["message"]));
             let hidden_menu = [];
             baseData["message"].forEach(item => {
               if (item.hidden === true) {hidden_menu.push(item);}

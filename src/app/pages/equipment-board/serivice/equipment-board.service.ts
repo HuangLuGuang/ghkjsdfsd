@@ -30,7 +30,7 @@ export class EquipmentBoardService {
     if(item && item.parentid)
       item = menus.find(f=> item.parentid === f.id );
     
-    return item.link?item.link:''
+    return item.link?item.link:'/pages/equipment/second-level'
   }
 
 }

@@ -35,10 +35,12 @@ export class EquipmentVehicleVocComponent implements OnInit {
   cang_hot = {
     status:1,
     list:[
+      {name:'红外顶板',value:50,unit:'℃'},
       {name:'',value:'',unit:''},
-      {name:'',value:'',unit:''},
-      {name:'',value:'',unit:''},
-      {name:'',value:'',unit:''},
+      {name:'红外侧板1',value:50,unit:'%RH'},
+      {name:'红外侧板3',value:50,unit:'℃'},
+      {name:'红外侧板1',value:50,unit:'RH'},
+      {name:'红外侧板3',value:50,unit:'℃'},
     ]
   }
   imgsrc = {

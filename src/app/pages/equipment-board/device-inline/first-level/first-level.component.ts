@@ -55,10 +55,10 @@ export class FirstLevelComponent implements OnInit {
 
   
   ngAfterViewInit(){
-    this.boardservice.sendLoad({close:false});
-    this.createEchart();
-    first_level.chian_map(this.myChart,this.eclick);
     setTimeout(() => {
+      this.boardservice.sendLoad({close:false});
+      this.createEchart();
+      first_level.chian_map(this.myChart,this.eclick);
       this.myChart.resize();
     }, 100);
   }
