@@ -15,6 +15,7 @@ import { MyInputComponent } from './my-input/my-input.component';
 import { MyDateRangeComponent } from './my-date-range/my-date-range.component';
 import { DeviceEditComponent } from './device-edit/device-edit.component';
 import { DeviceOrderComponent } from './device-order/device-order.component';
+import { DeviceDetailInfoComponent } from './device-detail-info/device-detail-info.component';
 @NgModule({
   declarations: [
     AgTableComponent,
@@ -22,6 +23,7 @@ import { DeviceOrderComponent } from './device-order/device-order.component';
     MyDateRangeComponent,
     DeviceEditComponent,
     DeviceOrderComponent,
+    DeviceDetailInfoComponent,
   ],
   imports: [
     CommonModule,

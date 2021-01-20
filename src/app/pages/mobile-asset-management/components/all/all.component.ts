@@ -12,6 +12,7 @@ import { DeviceEditComponent } from '../device-edit/device-edit.component';
 import { NB_WINDOW, NbMenuService } from '@nebular/theme';
 import { map, startWith,filter  } from 'rxjs/operators';
 import { DeviceOrderComponent } from '../device-order/device-order.component';
+import { DeviceDetailInfoComponent } from '../device-detail-info/device-detail-info.component';
 
 declare let $;
 
@@ -137,11 +138,12 @@ export class AllComponent implements OnInit {
       this.dialogService.open(DeviceOrderComponent, { closeOnBackdropClick: false, context }, // 无背景、可滚动
       )
     }
-    // if (title === this.moreitems[1].title){
-    //   // this.window.alert("这是-设备详情");
-    //   this.dialogService.open( DeviceOrderComponent, { closeOnBackdropClick: false, }, // 无背景、可滚动
-    //   )
-    // }
+    if (title === this.moreitems[1].title){
+      const context = { text: this.user_deviceInfo }
+      // this.window.alert("这是-设备详情");
+      this.dialogService.open( DeviceDetailInfoComponent, { closeOnBackdropClick: false, context }, // 无背景、可滚动
+      )
+    }
   }
 
   // 设备跟踪
