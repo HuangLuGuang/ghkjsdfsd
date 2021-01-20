@@ -53,12 +53,14 @@ export class LeftLayoutComponent implements OnInit {
   // }
 
   resize=()=>{
-    ['left_chart_1','left_chart_2','left_chart_3'].forEach(f=>{
-      if(document.getElementById(f))
-        echarts.init(document.getElementById(f)).resize();
-    })
-    if(document.getElementById('left_chart_hour_year'))
-      echarts.init(document.getElementById('left_chart_hour_year')).resize();
+    setTimeout(() => {
+      ['left_chart_1','left_chart_2','left_chart_3'].forEach(f=>{
+        if(document.getElementById(f))
+          echarts.init(document.getElementById(f)).resize();
+      })
+      if(document.getElementById('left_chart_hour_year'))
+        echarts.init(document.getElementById('left_chart_hour_year')).resize();
+    }, 500);
     // this.create_scrollbar();
   }
 
@@ -119,7 +121,12 @@ export class LeftLayoutComponent implements OnInit {
   }
 
   ngOnDestroy(){
-    window.removeEventListener('resize',this.resize)
+    window.removeEventListener('resize',this.resize);
+    let chart;
+    ['left_chart_1','left_chart_2','left_chart_3','left_chart_hour_year'].forEach(f=>{ 
+      chart =document.getElementById(f)
+      if(chart)echarts.init(chart).dispose();
+    })
   }
 
 }

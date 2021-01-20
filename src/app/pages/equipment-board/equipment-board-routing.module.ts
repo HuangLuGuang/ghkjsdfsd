@@ -7,6 +7,7 @@ import { EquipmentAvlAtecComponent } from './equipment-avl-atec/equipment-avl-at
 import { EquipmentBoardComponent } from './equipment-board.component';
 import { EquipmentMotorSixSevenComponent } from './equipment-motor-six-seven/equipment-motor-six-seven.component';
 import { EquipmentMotorSystemComponent } from './equipment-motor-system/equipment-motor-system.component';
+import { LaboratoryBoardComponent } from './laboratory-board/laboratory-board.component';
 
 
 //路由
@@ -16,16 +17,18 @@ const ROUTERS: Routes = [{
     children: [
       {
         path: 'first-level',
-        component: FirstLevelComponent
+        component: FirstLevelComponent,
       },
       {
         path: 'second-level',
-        component: SecondLevelComponent
+        component: SecondLevelComponent,
+
       },
       { 
         path: "third-level", 
         loadChildren:()=>import('./device-inline/third-level/third-level.module')
-        .then(m=>m.ThirdLevelModule)
+        .then(m=>m.ThirdLevelModule),
+
       },
       {
         path: '',
@@ -39,25 +42,29 @@ const ROUTERS: Routes = [{
         //四立柱道路模拟试验台-320.5
         path:'road/:title',
         loadChildren:()=>import('./equipment-four-road/equipment-four-road.module')
-        .then(m=>m.EquipmentFourRoadModule)    
+        .then(m=>m.EquipmentFourRoadModule),
+
       },
       {
         //液压伺服系统扩展系统-Testline
         path:'hydraulic/:title',
         loadChildren:()=>import('./equipment-hydraulic-pressure/equipment-hydraulic-pressure.module')
-        .then(m=>m.EquipmentHydraulicPressureModule)    
+        .then(m=>m.EquipmentHydraulicPressureModule),
+
       },
       {
         //六自由度振动台-353.2
         path:'shock',
         loadChildren:()=>import('./equipment-shock/equipment-shock.module')
-        .then(m=>m.EquipmentShockModule)
+        .then(m=>m.EquipmentShockModule),
+
       },
       {
         //整车多轴轴耦合道路模拟试验台-329
         path:'coupling/:title',
         loadChildren:()=>import('./equipment-coupling-path/equipment-coupling-path.module')
-        .then(m=>m.EquipmentCouplingPathModule)
+        .then(m=>m.EquipmentCouplingPathModule),
+
       },
       {
         //电机系统测试台架-1
@@ -93,7 +100,8 @@ const ROUTERS: Routes = [{
         //AVL转毂+久鼎环境舱+排放分析
         path:'avl/:title',
         loadChildren:()=>import('./equipment-avl/equipment-avl.module')
-        .then(m=>m.EquipmentAvlModule)
+        .then(m=>m.EquipmentAvlModule),
+
       },
       {
         //两驱AVL转毂+ATEC环境舱+排放分析
@@ -109,41 +117,46 @@ const ROUTERS: Routes = [{
         //中置式四驱底盘测功机+锦华高低温环境舱
         path:'central-jinhua/:title',
         loadChildren:()=>import('./central-four-jinhua/central-four-jinhua.module')
-        .then(m=>m.CentralFourJinhuaModule)
+        .then(m=>m.CentralFourJinhuaModule),
+
       },
       {
         // 环境舱集中监控
         path:'monitoring/:title',
         loadChildren:()=>import('./cabin-centralized-monitoring/cabin-centralized-monitoring.module')
-        .then(m=>m.CabinCentralizedMonitoringModule)
+        .then(m=>m.CabinCentralizedMonitoringModule),
+
       },
       //两驱底盘测功机
       { 
         path: "twodrive", 
         loadChildren:()=>import('./two-drive-chassis/two-drive-chassis.module')
-        .then(m=>m.TwoDriveChassisModule)
+        .then(m=>m.TwoDriveChassisModule),
+
       },
       { 
         path: "twodrive2", 
         loadChildren:()=>import('./two-drive-chassis/two-drive-chassis.module')
-        .then(m=>m.TwoDriveChassisModule)
+        .then(m=>m.TwoDriveChassisModule),
+
       },
 
       {
         //油源
         path:'oilsrouce/:title',
         loadChildren:()=>import('./oil-source-monitoring/oil-source-monitoring.module')
-        .then(m=>m.OilSourceMonitoringModule)
+        .then(m=>m.OilSourceMonitoringModule),
+        
       },
       
       // {
       //   path:'detailsDemo/:title/:deviceid',
       //   component:EquipmentDetailsComponent
       // },
-      // {
-      //   path:'laboratory',
-      //   component:LaboratoryBoardComponent
-      // },
+      {
+        path:'laboratory',
+        component:LaboratoryBoardComponent
+      },
     ]
 }];
 @NgModule({

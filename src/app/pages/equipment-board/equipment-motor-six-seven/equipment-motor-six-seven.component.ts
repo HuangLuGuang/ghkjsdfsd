@@ -255,7 +255,7 @@ export class EquipmentMotorSixSevenComponent implements OnInit {
           }
      })
 
-    this.timer = setInterval(f=>{
+    this.timer = self.setInterval(f=>{
         // this.initChart();
         this.get_motor_param();
         this.get_left_data();
@@ -271,43 +271,34 @@ export class EquipmentMotorSixSevenComponent implements OnInit {
     this.boardservice.sendLoad({close:false})
   }
 
-  obser = new Observable(f=>{
-    let chart;
-    [1, 1, 1, 1, 1].forEach((f,i)=>{
-      chart = document.getElementById('electric_'+(i+1)+'_67');
-      if(chart)
-        echarts.init(chart).resize();
-    })
-    this.HealthParam_right.forEach(f=>{
-      chart = document.getElementById(f.id);
-      if(chart)
-        echarts.init(chart).resize();
-    })
-    this.threePhase.forEach(f=>{
-      chart = document.getElementById(f.id);
-      if(chart)
-        echarts.init(chart).resize();
-    })
-    if(document.getElementById('dashboard_67'))
-        echarts.init(document.getElementById('dashboard_67')).resize();
-    if(document.getElementById('line_chart_12_67'))
-        echarts.init(document.getElementById('line_chart_12_67')).resize();
-    if(document.getElementById('threePhase_67'))
-        echarts.init(document.getElementById('threePhase_67')).resize();
-    if(document.getElementById('motor_chart_2'))
-        echarts.init(document.getElementById('motor_chart_2')).resize();
-    if(document.getElementById('motor_chart_1'))
-        echarts.init(document.getElementById('motor_chart_1')).resize();
-        
-    f.next('chart刷新');
-  })
-
   resize = () =>{
     setTimeout(() => {
-      if(this.subscribeList.resize)this.subscribeList.resize.unsubscribe();
-      this.subscribeList.resize = this.obser.subscribe(f=>{
-          console.log(f)
+      let chart;
+      [1, 1, 1, 1, 1].forEach((f,i)=>{
+        chart = document.getElementById('electric_'+(i+1)+'_67');
+        if(chart)
+          echarts.init(chart).resize();
       })
+      this.HealthParam_right.forEach(f=>{
+        chart = document.getElementById(f.id);
+        if(chart)
+          echarts.init(chart).resize();
+      })
+      this.threePhase.forEach(f=>{
+        chart = document.getElementById(f.id);
+        if(chart)
+          echarts.init(chart).resize();
+      })
+      if(document.getElementById('dashboard_67'))
+          echarts.init(document.getElementById('dashboard_67')).resize();
+      if(document.getElementById('line_chart_12_67'))
+          echarts.init(document.getElementById('line_chart_12_67')).resize();
+      if(document.getElementById('threePhase_67'))
+          echarts.init(document.getElementById('threePhase_67')).resize();
+      if(document.getElementById('motor_chart_2'))
+          echarts.init(document.getElementById('motor_chart_2')).resize();
+      if(document.getElementById('motor_chart_1'))
+          echarts.init(document.getElementById('motor_chart_1')).resize();
     }, 500);
   }
 
@@ -469,6 +460,24 @@ export class EquipmentMotorSixSevenComponent implements OnInit {
       this.subscribeList[key].unsubscribe();
     }
     window.removeEventListener('resize',this.resize)
+
+    let chart;
+      [1, 1, 1, 1, 1].forEach((f,i)=>{
+        chart = document.getElementById('electric_'+(i+1)+'_67');
+        if(chart)echarts.init(chart).dispose();
+      })
+      this.HealthParam_right.forEach(f=>{
+        chart = document.getElementById(f.id);
+        if(chart)echarts.init(chart).dispose();
+      })
+      this.threePhase.forEach(f=>{
+        chart = document.getElementById(f.id);
+        if(chart)echarts.init(chart).dispose();
+      });
+      ['dashboard_67,line_chart_12_67','threePhase_67','motor_chart_2','motor_chart_2','motor_chart_1'].forEach(el => {
+        chart = document.getElementById(el);
+        if(chart)echarts.init(chart).dispose();
+      });
   }
 
 }

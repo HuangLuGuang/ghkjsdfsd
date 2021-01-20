@@ -184,7 +184,7 @@ xData:[]
   getData(){
      // 定时添加数据
      let table,method = '';
-    this.timer = setInterval(f =>{
+    this.timer = self.setInterval(f =>{
       this.get_device_mts_status();//实时状态表
       this.get_device_mst_oilseparator();//开油器
       let param = this.create_param();

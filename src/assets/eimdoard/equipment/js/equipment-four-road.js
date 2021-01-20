@@ -302,7 +302,8 @@ let equipment_four_road = {
             graphic: {
                 elements: [{
                     type: "image",
-                    z: 3,
+                    // z: 3,
+                    zlevel: 3,
                     style: {
                         image: img,
                         width: 60,
@@ -637,7 +638,7 @@ let equipment_four_road = {
                     silent: true,
                     clockwise: true,
                     startAngle: 90,
-                    z: 0,
+                    // z: 0,
                     zlevel: 0,
                     label: {
                         normal: {
@@ -758,7 +759,8 @@ let equipment_four_road = {
                 center: ["50%", "70%"],
                 startAngle: 180,
                 endAngle: 0,
-                z: 7,
+                // z: 7,
+                zlevel: 7,
                 splitNumber: 5,
                 min: 0,
                 max: max,
@@ -1263,7 +1265,8 @@ let equipment_four_road = {
                 },
                 //过滤
                 data: series.map(m => (m.name)),
-                z: 10,
+                // z: 10,
+                zlevel: 10,
             },
             xAxis: [{
                 type: 'category',
@@ -1293,7 +1296,8 @@ let equipment_four_road = {
                 },
                 axisPointer: { //轴指示器
                     type: 'shadow',
-                    z: 1,
+                    // z: 1,
+                    zlevel: 1,
                     shadowStyle: {
                         color: {
                             type: 'linear',

@@ -373,7 +373,7 @@ export class OilSourceMonitoringComponent implements OnInit {
 
     
     let i = 0;
-    this.timer = setInterval(f=>{
+    this.timer = self.setInterval(f=>{
       this.get_XNQ_HPU();
       this.get_Error_Message();
       this.get_cleanlinss();
@@ -398,38 +398,31 @@ export class OilSourceMonitoringComponent implements OnInit {
     this.boardservice.sendLoad({close:false})
   }
 
-  obser = new Observable(f=>{
-    
-    let chart;
-    this.HPUlist.forEach((f,i)=>{
-      chart = document.getElementById(f.id);
-      if(chart)
-        echarts.init(chart).resize();
-    });
-    this.cleanlinss.forEach(f=>{
-      chart = document.getElementById(f.id);
-      if(chart)
-        echarts.init(chart).resize();
-    });
-    this.HE_Water.data.forEach((f,i)=>{
-      chart = document.getElementById(f.id);
-      if(chart)
-        echarts.init(chart).resize();
-    });
-    ['pumpClick','discharge_chart_1','discharge_chart_2','radar_1','radar_2'].forEach(f => {
-      chart = document.getElementById(f);
-      if(chart)
-        echarts.init(chart).resize();
-    });
-    f.next('chart刷新');
-  })
+ 
 
   resize = () =>{
     setTimeout(() => {
-      if(this.subscribeList.resize)this.subscribeList.resize.unsubscribe();
-      this.subscribeList.resize = this.obser.subscribe(f=>{
-          console.log(f)
-      })
+      let chart;
+      this.HPUlist.forEach((f,i)=>{
+        chart = document.getElementById(f.id);
+        if(chart)
+          echarts.init(chart).resize();
+      });
+      this.cleanlinss.forEach(f=>{
+        chart = document.getElementById(f.id);
+        if(chart)
+          echarts.init(chart).resize();
+      });
+      this.HE_Water.data.forEach((f,i)=>{
+        chart = document.getElementById(f.id);
+        if(chart)
+          echarts.init(chart).resize();
+      });
+      ['pumpClick','discharge_chart_1','discharge_chart_2','radar_1','radar_2'].forEach(f => {
+        chart = document.getElementById(f);
+        if(chart)
+          echarts.init(chart).resize();
+      });
     }, 500);
   }
 
@@ -716,7 +709,25 @@ export class OilSourceMonitoringComponent implements OnInit {
     for(let key in this.subscribeList){
       this.subscribeList[key].unsubscribe();
     }
-    window.removeEventListener('resize',this.resize)
+    window.removeEventListener('resize',this.resize);
+
+    let chart;
+    this.HPUlist.forEach((f,i)=>{
+      chart = document.getElementById(f.id);
+      if(chart)echarts.init(chart).dispose();
+    });
+    this.cleanlinss.forEach(f=>{
+      chart = document.getElementById(f.id);
+      if(chart)echarts.init(chart).dispose();
+    });
+    this.HE_Water.data.forEach((f,i)=>{
+      chart = document.getElementById(f.id);
+      if(chart)echarts.init(chart).dispose();
+    });
+    ['pumpClick','discharge_chart_1','discharge_chart_2','radar_1','radar_2'].forEach(f => {
+      chart = document.getElementById(f);
+      if(chart)echarts.init(chart).dispose();
+    });
   }
 
 }

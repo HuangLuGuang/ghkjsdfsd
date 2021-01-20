@@ -192,7 +192,7 @@ export class EquipmentMotorSystemComponent implements OnInit {
     })
 
 
-    this.timer = setInterval(f=>{
+    this.timer = self.setInterval(f=>{
       this.get_experimentParams();
       this.get_right();
       this.get_device_Temp_hum();
@@ -211,28 +211,21 @@ export class EquipmentMotorSystemComponent implements OnInit {
     this.boardservice.sendLoad({close:false})
   }
 
-  obser = new Observable(f=>{
-    let chart;
-    [1, 1, 1, 1, 1].forEach((f,i)=>{
-      chart = document.getElementById('electric_'+(i+1));
-      if(chart)
-        echarts.init(chart).resize();
-    });
-    ['coolingWater','AxleBoxTemperature1','AxleBoxTemperature2','circularD_chart',
-    'dashboard','line_chart_12','threePhase','temperature','humidity'].forEach(f => {
-      chart = document.getElementById(f);
-      if(chart)
-        echarts.init(chart).resize();
-    });
-    f.next('chart刷新');
-  })
 
   resize = () =>{
     setTimeout(() => {
-      if(this.subscribeList.resize)this.subscribeList.resize.unsubscribe();
-      this.subscribeList.resize = this.obser.subscribe(f=>{
-          console.log(f)
-      })
+      let chart;
+      [1, 1, 1, 1, 1].forEach((f,i)=>{
+        chart = document.getElementById('electric_'+(i+1));
+        if(chart)
+          echarts.init(chart).resize();
+      });
+      ['coolingWater','AxleBoxTemperature1','AxleBoxTemperature2','circularD_chart',
+      'dashboard','line_chart_12','threePhase','temperature','humidity'].forEach(f => {
+        chart = document.getElementById(f);
+        if(chart)
+          echarts.init(chart).resize();
+      });
     }, 500);
   }
   
@@ -394,6 +387,17 @@ torque: 0.151 扭矩
     for(let key in this.subscribeList){
       this.subscribeList[key].unsubscribe();
     }
-    window.removeEventListener('resize',this.resize)
+    window.removeEventListener('resize',this.resize);
+
+    let chart;
+    [1, 1, 1, 1, 1].forEach((f,i)=>{
+      chart = document.getElementById('electric_'+(i+1));
+      if(chart)echarts.init(chart).dispose();
+    });
+    ['coolingWater','AxleBoxTemperature1','AxleBoxTemperature2','circularD_chart',
+    'dashboard','line_chart_12','threePhase','temperature','humidity'].forEach(f => {
+      chart = document.getElementById(f);
+      if(chart)echarts.init(chart).dispose();
+    });
   }
 }

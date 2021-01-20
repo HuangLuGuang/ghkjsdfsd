@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 
 // my-echart
 let first_level = require('../../../../../assets/pages/device-inline/js/first-level');
@@ -22,7 +22,8 @@ export class FirstLevelComponent implements OnInit {
   // 定时器
   currenttime_timer;
 
-  constructor( private router: Router, private layoutService: LayoutService,private boardservice:EquipmentBoardService) { }
+  constructor( private router: Router, private layoutService: LayoutService,
+    private boardservice:EquipmentBoardService,private activateInfo:ActivatedRoute) { }
 
   ngOnInit(): void {
 
@@ -31,9 +32,15 @@ export class FirstLevelComponent implements OnInit {
       if(chian_map) echarts.init(chian_map).resize();
     })
 
+    this.activateInfo.params.subscribe(f =>{
+      // console.log(f);
+      if(document.getElementById('head_title'))
+        document.getElementById('head_title').innerText = '智慧实验室(G-iLAB)';
+    })
+
     // map 地图
 
-    // this.currenttime_timer = setInterval(this.currenttime, 1000);
+    // this.currenttime_timer = self.setInterval(this.currenttime, 1000);
 
     window.addEventListener('resize',this.resize)
     
@@ -54,12 +61,7 @@ export class FirstLevelComponent implements OnInit {
     
   }
 
-  ngOnDestroy(){
-    // clearInterval(this.currenttime_timer); // 销毁组件时，取消定时任务
-    var my_echart = echarts.init(document.querySelector('.chian_map'))
-    my_echart.clear();
-    my_echart.dispose();
-  };
+
 
   // 返回首页
   gohome(){
@@ -99,7 +101,6 @@ export class FirstLevelComponent implements OnInit {
   eclick=(params)=> {
     // console.error("******************",params.data)
     // console.error("******************",params)
-    this.boardservice.sendLoad({close:true});
     if (params.seriesType === 'scatter') {
       // console.log("点击执行： ", params);
       // console.log("点击执行： ", params.seriesType);
@@ -109,6 +110,7 @@ export class FirstLevelComponent implements OnInit {
       var lng = params.data[0];
       var lat = params.data[1];
       if (lng === 121.25158 && lat ===  30.342533){
+        this.boardservice.sendLoad({close:true});
         this.router.navigate(['/pages/equipment/second-level']);
       }else{}
     }

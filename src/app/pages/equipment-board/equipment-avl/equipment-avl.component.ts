@@ -188,40 +188,33 @@ export class EquipmentAvlComponent implements OnInit {
     this.boardservice.sendLoad({close:false})
   }
 
-  obser = new Observable(f=>{
-    this.outRenturnWind.forEach((f:any,i:number) => {
-      if(!document.getElementById('electric_chart_'+i))return;
-      echarts.init(document.getElementById('electric_chart_'+i)).resize();
-    })
-    this.avl_speed.forEach(el=>{
-      if(document.getElementById(el.id))
-        echarts.init(document.getElementById(el.id)).resize();    
-    })
-    if(document.getElementById('discharge_chart'))
-        echarts.init(document.getElementById('discharge_chart')).resize();
-    if(document.getElementById('temp_humidity_pressure'))
-        echarts.init(document.getElementById('temp_humidity_pressure')).resize();
-    if(document.getElementById('discharge_chart_1'))
-        echarts.init(document.getElementById('discharge_chart_1')).resize();
-    if(document.getElementById('avl_speed_chart_1'))
-        echarts.init(document.getElementById('avl_speed_chart_1')).resize();
-        
-    f.next('chart刷新');
-  })
 
   resize = () =>{
     setTimeout(() => {
-      if(this.subscribeList.resize)this.subscribeList.resize.unsubscribe();
-      this.subscribeList.resize = this.obser.subscribe(f=>{
-          console.log(f)
+      this.outRenturnWind.forEach((f:any,i:number) => {
+        if(!document.getElementById('electric_chart_'+i))return;
+        echarts.init(document.getElementById('electric_chart_'+i)).resize();
       })
+      this.avl_speed.forEach(el=>{
+        if(document.getElementById(el.id))
+          echarts.init(document.getElementById(el.id)).resize();    
+      })
+      if(document.getElementById('discharge_chart'))
+          echarts.init(document.getElementById('discharge_chart')).resize();
+      if(document.getElementById('temp_humidity_pressure'))
+          echarts.init(document.getElementById('temp_humidity_pressure')).resize();
+      if(document.getElementById('discharge_chart_1'))
+          echarts.init(document.getElementById('discharge_chart_1')).resize();
+      if(document.getElementById('avl_speed_chart_1'))
+          echarts.init(document.getElementById('avl_speed_chart_1')).resize();
+      console.log('表刷新')
     }, 500);
   }
   
 
   getData(){
     
-    this.timer = setInterval(() =>{
+    this.timer = self.setInterval(() =>{
       this.get_avl_discharge();
       this.get_avl_environmental_warehouse();
       this.get_avl_speed();
@@ -435,7 +428,21 @@ export class EquipmentAvlComponent implements OnInit {
     for(let key in this.subscribeList){
       this.subscribeList[key].unsubscribe();
     }
-    window.addEventListener('resize',this.resize)
+    window.removeEventListener('resize',this.resize)
+
+    let chart;
+    this.outRenturnWind.forEach((f:any,i:number) => {
+      chart = document.getElementById('electric_chart_'+i);
+      if(chart)echarts.init(chart).dispose();
+    });
+    this.avl_speed.forEach(el=>{
+      chart = document.getElementById(el.id);
+      if(chart)echarts.init(chart).dispose();    
+    });
+    ['discharge_chart','temp_humidity_pressure','discharge_chart_1','avl_speed_chart_1'].forEach(f=>{
+      chart = document.getElementById(f);
+      if(chart)echarts.init(chart).dispose();  
+    });
   }
 
 }

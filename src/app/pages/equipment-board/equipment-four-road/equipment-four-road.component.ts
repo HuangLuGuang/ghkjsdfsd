@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, NgZone, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import {  TranslateService } from '@ngx-translate/core';
 import { LayoutService } from '../../../@core/utils/layout.service';
@@ -214,7 +214,8 @@ export class EquipmentFourRoadComponent implements OnInit {
   subscribeList:any = {};
 
   constructor(private activateInfo:ActivatedRoute
-    ,private http:HttpserviceService,private boardservice:EquipmentBoardService) { }
+    ,private http:HttpserviceService,private boardservice:EquipmentBoardService,
+    ) { }
 
   ngOnInit(): void {
     //记录初始化默认选中tag
@@ -244,10 +245,13 @@ export class EquipmentFourRoadComponent implements OnInit {
     this.boardservice.sendLoad({close:false})
   }
 
+
+ 
+
   getData(){
     // 定时添加数据
     let table,method = '';
-    this.timer = setInterval(f =>{
+    this.timer = self.setInterval(f =>{
       let param = this.create_param([
         {value:this.click_list[0],index:1},{value:this.click_list[1],index:2}
         ]);
@@ -412,7 +416,6 @@ export class EquipmentFourRoadComponent implements OnInit {
   //组件销毁  
   ngOnDestroy(){
     clearInterval(this.timer)
-    clearInterval(this.timer60s);
     
     // clearInterval(this.timer1)
     // clearInterval(this.timer2)

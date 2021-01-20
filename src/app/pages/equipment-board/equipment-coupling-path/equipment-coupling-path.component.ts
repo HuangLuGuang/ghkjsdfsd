@@ -298,7 +298,7 @@ export class EquipmentCouplingPathComponent implements OnInit {
     //   this[`attrs_3`][f] = JSON.parse(JSON.stringify(this.attrs));
     // })
     let table,method;
-    this.timer = setInterval(f =>{
+    this.timer = self.setInterval(f =>{
       this.get_device_status();
       this.get_device_mst_oilseparator();
       let param = this.create_param();

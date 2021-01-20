@@ -37,7 +37,7 @@ export class ExperimentParamsComponent implements OnInit {
         this.get_device_his_Temp_hum();
     // }, 1000);
     let i = 0;
-    this.timer = setInterval(f =>{
+    this.timer = self.setInterval(f =>{
       if(this.device.includes('weiss'))
         this.get_device_mts_weiss();
         if(i == 5){
@@ -59,9 +59,11 @@ export class ExperimentParamsComponent implements OnInit {
 
 
   chartResize=()=>{
-    if(document.getElementById('third_second')){
-      echarts.init(document.getElementById('third_second')).resize();
-    }
+    setTimeout(() => {
+      if(document.getElementById('third_second')){
+        echarts.init(document.getElementById('third_second')).resize();
+      }
+    }, 500);
     
   }
 
@@ -84,6 +86,9 @@ export class ExperimentParamsComponent implements OnInit {
         equipment_four_road.create_real_temperature_v2(
           {value:obj.humidityactual[0]?obj.humidityactual[0][0]:0,title:'湿度',max:100,setValue:obj.humidityset[0]?obj.humidityset[0][0]:0},
           echarts.init(document.getElementById('real_temperature_2')));
+
+      this.subscribeList.device_mts_weiss.unsubscribe();
+      
     })
   }
 
@@ -108,6 +113,9 @@ export class ExperimentParamsComponent implements OnInit {
         xAxisData:xAxisData,
         title:this.language?'MonthlyChartOfTemperatureAndHumidity':'温湿度月度图线'
       }, 'third_second');
+
+      this.subscribeList.device_mts_timerangedata.unsubscribe();
+
     })
   }
 
@@ -129,6 +137,9 @@ export class ExperimentParamsComponent implements OnInit {
         equipment_four_road.create_real_temperature_v2(
           {value:res.humidity?res.humidity:0,title:'湿度',max:100,setValue:res.humidityset?res.humidityset:0},
           echarts.init(document.getElementById('real_temperature_2')));
+      
+      this.subscribeList.t_h.unsubscribe();
+      
     })
   }
 
@@ -150,6 +161,8 @@ export class ExperimentParamsComponent implements OnInit {
         xAxisData:xAxisData,
         title:this.language?'MonthlyChartOfTemperatureAndHumidity':'温湿度月度图线'
       }, 'third_second');
+
+      this.subscribeList.h_t_h.unsubscribe();
     })
   }
 
@@ -213,6 +226,8 @@ export class ExperimentParamsComponent implements OnInit {
       this.subscribeList[key].unsubscribe();
     }
     window.removeEventListener('resize',this.chartResize);
+    let chart = document.getElementById('third_second');
+    if(chart)echarts.init(chart).dispose();
   }
 
 }

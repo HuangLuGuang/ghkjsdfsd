@@ -129,7 +129,7 @@ export class StructuralLaboratoryComponent implements OnInit {
     let now;
     this.thrid.get_andon_status_year(param,this.left);
     this.thrid.get_andon_status_last_year(param,this.left);
-    this.timer = setInterval(f=>{
+    this.timer = self.setInterval(f=>{
       this.get_oil_status();
       this.get_center_data();
       this.thrid.get_log_list(param,this.left)

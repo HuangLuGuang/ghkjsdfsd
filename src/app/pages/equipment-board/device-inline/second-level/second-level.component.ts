@@ -80,6 +80,10 @@ export class SecondLevelComponent implements OnInit {
   
 
   ngOnDestroy(){
+    let key_index = document.querySelector('.key-index');
+    if(key_index) echarts.init(key_index).dispose();
+    let device_rate = document.querySelector('.device-rate');
+    if(device_rate) echarts.init(device_rate).dispose();
   }
 
   // 跳转到具体的结构，

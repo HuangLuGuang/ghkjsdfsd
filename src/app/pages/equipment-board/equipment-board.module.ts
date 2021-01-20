@@ -11,14 +11,14 @@ import { NzCarouselModule } from 'ng-zorro-antd/carousel';
 
 import { EquipmentBoardComponent } from './equipment-board.component';
 
-import { FirstLevelComponent } from './device-inline/first-level/first-level.component';
-import { SecondLevelComponent } from './device-inline/second-level/second-level.component';
-import { BoardTempModule } from './temp/board-temp.module';
+
 import { EquipmentBoardService } from './serivice/equipment-board.service';
+import { LaboratoryBoardComponent } from './laboratory-board/laboratory-board.component';
 
 // 组件
 const COMPONENT = [
   EquipmentBoardComponent,
+  LaboratoryBoardComponent
 ]
 //设备看板模块
 @NgModule({

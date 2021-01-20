@@ -59,16 +59,19 @@ export class EquipmentBoardComponent implements OnInit {
     
     
     this.subscribeList.load = this.boradservice.get_Load_Observable().subscribe(f=>{
-      if(f.close)this.loading = f.close;
-      setTimeout(() => {
+      if(f.close){
         this.loading = f.close;
-      }, 100);
+      }else{
+        setTimeout(() => {
+          this.loading = f.close;
+        }, 100);
+      }
     })
   }
   
   ngAfterViewInit(){ 
     let url = decodeURIComponent(window.location.pathname);
-    if (url === 'first-level'){
+    if (url.includes('first-level') ){
       this.b_show.back = false;//最上级看板的影藏返回按钮
     }else{
       this.b_show.back = true;
@@ -87,7 +90,6 @@ export class EquipmentBoardComponent implements OnInit {
       }
     });
     
-    window.onpageshow = this.onpageshow;
   }
 
 
@@ -99,12 +101,6 @@ export class EquipmentBoardComponent implements OnInit {
 
   }
 
-  //解决页面后退后不加载
-  onpageshow=(event)=>{
-    if (event.persisted) {
-      window.location.reload();
-    }
-  }
 
 
   //点击返回按钮
@@ -124,7 +120,7 @@ export class EquipmentBoardComponent implements OnInit {
 
   //创建时间 定时
   creatDateInterval(){
-    this.dateInterval = setInterval(f=>{
+    this.dateInterval = self.setInterval(f=>{
       this.date = this.getDate();
     },1000)
   }

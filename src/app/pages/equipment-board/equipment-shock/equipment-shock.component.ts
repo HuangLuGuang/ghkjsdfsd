@@ -180,10 +180,12 @@ export class EquipmentShockComponent implements OnInit {
   switchStatus:any ={
     title:[`stationName`,'OnOff','InternalLock','Programlock'],
     width:['25.5%','16.5%','16.5%','16.5%'],
-    data:[['',
-      {value:0,id:'circle',color:''},
-      {value:0,id:'strip',color:''},
-      {value:0,id:'strip',color:''},]]
+    data:[
+      // ['',
+      // {value:0,id:'circle',color:''},
+      // {value:0,id:'strip',color:''},
+      // {value:0,id:'strip',color:''},]
+    ]
   }
 
 
@@ -250,7 +252,7 @@ export class EquipmentShockComponent implements OnInit {
 
     //获取数据
     let g = 1,table,method;
-    this.timer = setInterval(f =>{
+    this.timer = self.setInterval(f =>{
       this.get_equip_real();
 
       let param = this.create_param();
@@ -305,17 +307,26 @@ export class EquipmentShockComponent implements OnInit {
     this.subscribeList.equip = this.http.callRPC('get_mts_lock','device_monitor.get_mts_lock',{"deviceid":this.deviceid}).subscribe((f:any)=>{
       if(f.result.error || f.result.message[0].code == 0)return;
       res = f.result.message[0].message[0] || {};
-      //实验名
-      this.switchStatus.data[0][0] = res.stationname;
-      //开关
-      this.switchStatus.data[0][1].value = res.stationstatus ;
-      this.switchStatus.data[0][1].color = res.stationstatus ==1?'green':'#C0C0C0' ;
-      // 互锁
-      this.switchStatus.data[0][2].value = res.interlock;
-      this.switchStatus.data[0][2].color = res.interlock == 1?'#7fee1d':'white';
-      // 程序内锁
-      this.switchStatus.data[0][3].value = res.programinterlock;
-      this.switchStatus.data[0][3].color = res.programinterlock== 1?'#7fee1d':'white';
+      // //实验名
+      // this.switchStatus.data[0][0] = res.stationname;
+      // //开关
+      // this.switchStatus.data[0][1].value = res.stationstatus ;
+      // this.switchStatus.data[0][1].color = res.stationstatus ==1?'green':'#C0C0C0' ;
+      // // 互锁
+      // this.switchStatus.data[0][2].value = res.interlock;
+      // this.switchStatus.data[0][2].color = res.interlock == 1?'#7fee1d':'white';
+      // // 程序内锁
+      // this.switchStatus.data[0][3].value = res.programinterlock;
+      // this.switchStatus.data[0][3].color = res.programinterlock== 1?'#7fee1d':'white';
+
+      this.switchStatus.data = f.result.message[0].message.map(m => (
+        [
+          [m.stationname,
+          {value:m.stationstatus,id:'circle',color:m.stationstatus ==1?'green':'#C0C0C0'},
+          {value:m.interlock,id:'strip',color:m.interlock == 1?'#7fee1d':'white'},
+          {value:m.programinterlock,id:'strip',color:m.programinterlock== 1?'#7fee1d':'white'},]
+        ]
+      ))
 
       // MAST分油器
       this.real_list[0].value = res.maston == 1?(res.masthigh==1?'高':'低'):'关';
