@@ -14,6 +14,7 @@ import { SYSMENU, loginurl,ssotoken, MULU } from '../appconfig';
 import { Router } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
 
+// @ts-ignore
 @Component({
   selector: 'ngx-pages',
   styleUrls: ['pages.component.scss'],
@@ -39,24 +40,25 @@ export class PagesComponent implements OnInit {
       localStorage.setItem('currentLanguage', params['lang']);
       localStorage.removeItem(SYSMENU);
       localStorage.removeItem(MULU);
+      localStorage.removeItem('hidden_menu');
       this.loadMenu();
     });
-    
+
   }
 
   ngOnInit() {
     // console.log("pages.component------------->")
     this.loadMenu();
-    
+
   }
-  
+
   ngAfterViewInit(){
     var menu_:any[] = localStorage.getItem(MULU)?JSON.parse(localStorage.getItem(MULU)):[];
     setTimeout(() => {
       this.loadMenu();
       menu_ = localStorage.getItem(MULU)?JSON.parse(localStorage.getItem(MULU)):[];
     }, 1000);
-  
+
 
   }
 
@@ -72,7 +74,7 @@ export class PagesComponent implements OnInit {
       if (parent && parent.children.length) {
         parent.children.forEach(item => {
           if (selectMenu.title === item.title) {
-            
+
           } else {
             item.expanded = false;
 
@@ -83,28 +85,12 @@ export class PagesComponent implements OnInit {
 
     // console.error("=======item=======",item, menu);
     var item_title = item["target"]["innerText"];
-    var item_dict = [
-      {title: "设备在线",url: "/pages/equipment/first-level"},
-      {title: "研究总院",url: "/pages/equipment/second-level"},
-      {title: "结构试验室",url: "/pages/equipment/third-level/structural"},
-      {title: "环模试验室",url: "/pages/equipment/third-level/environment"},
-      {title: "电机试验室",url: "/pages/equipment/third-level/energy"},
-      {title: "理化与环保试验室",url: ""},
-      {title: "噪声与震动试验室",url: ""},
-      
-      // 统计分析
-      {title: "统计分析",url: "/pages/tongji"},
-      // 数据导入
-      {title: "数据导入",url: "/pages/dataimport"},
-    ]
-    var device_menu = menu[1];
-    item_dict.forEach(item=>{
+    var hidden_menu = JSON.parse(localStorage.getItem('hidden_menu'));
+    hidden_menu.forEach(item=>{
       if(item["title"] === item_title){
-        this.router.navigate([item.url])
+        this.router.navigate([item.link])
       }
     })
-    
-   
   }
 
   loadMenu(){
@@ -135,9 +121,14 @@ export class PagesComponent implements OnInit {
             // 将菜单信息存储到localStorage
             this.menu.length = 0;
             const menuData = this.dataTranslation(baseData["message"]);
+            let hidden_menu = [];
+            baseData["message"].forEach(item => {
+              if (item.hidden === true) {hidden_menu.push(item);}
+            });
             localStorage.setItem(MULU, JSON.stringify(menuData));
+            localStorage.setItem('hidden_menu', JSON.stringify(hidden_menu));
             this.menuservice.addItems(menuData, 'menu');
-          } 
+          }
           else {
             // this.router.navigate([loginurl]);
           }
@@ -148,22 +139,6 @@ export class PagesComponent implements OnInit {
       this.menuservice.addItems(menu_, 'menu');
     }
 
-    // get_systemset_menu_all  得到系统设置所有要的菜单！
-    var sysmenu_ = localStorage.getItem(SYSMENU)? JSON.parse(localStorage.getItem(SYSMENU)):[];
-    if (sysmenu_.length < 1){
-      this.httpservice.callRPC("menu_item", "get_systemset_menu_all", colums).subscribe((result)=>{
-        console.log("result menu_item>>>>",result)
-        const baseData = result['result']['message'][0];
-        if (baseData["code"] === 1){
-          // 得到sysmenu ----------------------------------
-          var sysmenu = this.menuTranslation(baseData["message"]);
-          localStorage.setItem(SYSMENU, JSON.stringify(sysmenu));
-          // 得到sysmenu ----------------------------------
-        }else{
-          localStorage.removeItem(SYSMENU)
-        }
-      });
-    }
 
   }
 
@@ -188,52 +163,6 @@ export class PagesComponent implements OnInit {
     });
     return nodeData;
   }
-
-  // 得到sysmenu
-  menuTranslation(baseMenu) {
-    // 生成父子数据结构
-    let nodeData = [];
-    baseMenu.forEach(item => {
-      let map = {};
-      map["id"] = item.id;
-      map["link"] = item.link;
-      map["active"] = item.active;
-      map["orderindex"]=item.orderindex;
-      map["title"] = item.title;
-      map["icon"] = item.icon?item.icon:null;
-      map["type"] = item.type;
-      map["textid"] = item.textid;
-      map["permission"] = item.permission === null ? null: item.permission;
-
-      if (item.parentid === null){
-        map["parentid"] = 0;
-      }else{
-        map["parentid"] = item.parentid;
-      }
-      nodeData.push(map)
-    });
-    return nodeData;
-  }
-
-
-  // 记录登录
-  RecordLogin(){
-
-    if(this.userInfoService.getLoginName()){
-      const source = this.userInfoService.getSourceid();        // 本机IP地址
-      const employeeid = this.userInfoService.getEmployeeID();  // employeeid
-      // result 1
-      // info 登录
-      const createdby = this.userInfoService.getLoginName();     // 登录名
-      this.publicservice.record(source, employeeid, 1, '登录', createdby);
-      // this.publicservice.record('local', source, employeeid, 1, '登录成功！', createdby);
-      // console.log("============= 存入登录日志并得到菜单",source);
-    }
-
-  }
-
-
-
 
 
 
