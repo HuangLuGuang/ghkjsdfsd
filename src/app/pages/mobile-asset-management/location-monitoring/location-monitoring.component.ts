@@ -1,5 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 
+import { NzFormatEmitEvent } from 'ng-zorro-antd/core';
+
 declare let $;
 
 import { Observable, of } from 'rxjs';
@@ -22,6 +24,53 @@ export class LocationMonitoringComponent implements OnInit {
   @ViewChild("inline") inline: any;
   @ViewChild("noinline") noinline: any;
   @ViewChild("map") map: any;
+
+  searchValue = '';
+  nodes = [
+    {
+      title: '0-0',
+      key: '0-0',
+      children: [
+        {
+          title: '0-0-0',
+          key: '0-0-0',
+          children: [
+            { title: '0-0-0-0', key: '0-0-0-0', isLeaf: true },
+            { title: '0-0-0-1', key: '0-0-0-1', isLeaf: true },
+            { title: '0-0-0-2', key: '0-0-0-2', isLeaf: true }
+          ]
+        },
+        {
+          title: '0-0-1',
+          key: '0-0-1',
+          children: [
+            { title: '0-0-1-0', key: '0-0-1-0', isLeaf: true },
+            { title: '0-0-1-1', key: '0-0-1-1', isLeaf: true },
+            { title: '0-0-1-2', key: '0-0-1-2', isLeaf: true }
+          ]
+        },
+        {
+          title: '0-0-2',
+          key: '0-0-2',
+          isLeaf: true
+        }
+      ]
+    },
+    {
+      title: '0-1',
+      key: '0-1',
+      children: [
+        { title: '0-1-0-0', key: '0-1-0-0', isLeaf: true },
+        { title: '0-1-0-1', key: '0-1-0-1', isLeaf: true },
+        { title: '0-1-0-2', key: '0-1-0-2', isLeaf: true }
+      ]
+    },
+    {
+      title: '0-2',
+      key: '0-2',
+      isLeaf: true
+    }
+  ];
 
   groups: Group[] = [
     {
@@ -62,6 +111,11 @@ export class LocationMonitoringComponent implements OnInit {
 
 
   constructor() { }
+
+  nzEvent(event: NzFormatEmitEvent): void {
+    console.log("event===============",event);
+  }
+
 
   ngOnInit(): void {
     // this.groups = 
