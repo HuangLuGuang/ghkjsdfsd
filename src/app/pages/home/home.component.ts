@@ -46,16 +46,19 @@ export class HomeComponent implements OnInit {
   }
 
   ngOnDestroy(){
-    // var my_echart = echarts.init(document.querySelector('.home_chian_map'))
-    this.myChart.clear();
-    this.myChart.dispose();
-    // my_echart.clear();
-    // my_echart.dispose();
+    if (this.myChart.isDisposed()){
+      console.error("home示例已经被释放")
+    }else{
+      this.myChart.clear();
+      this.myChart.dispose();
+    }
+
+
   }
 
   ngAfterViewInit(){
     home.chian_map(this.myChart);
-    this.resize();
+    // this.resize();
   }
 
   resize=()=>{

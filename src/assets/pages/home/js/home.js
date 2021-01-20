@@ -384,6 +384,7 @@ let home = {
         };
         // var myChart = echarts.init(document.querySelector('.home_chian_map'));
         myChart.setOption(option,true);
+        myChart.resize();
 
         // 渲染
         // myChart.setOption(option_chian_map);

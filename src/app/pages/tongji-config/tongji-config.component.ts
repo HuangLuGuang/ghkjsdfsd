@@ -66,51 +66,24 @@ export class TongjiConfigComponent implements OnInit {
 
   // 得到统计分析下的子菜单
   get_children(){
+    var baseData = JSON.parse(localStorage.getItem("mulu"));
     this.publicservice.get_current_pathname().subscribe(res=>{
       if (res["link"] != ""){
-        var link = res["link"]
-        // 得到菜单
-        let roles = [];
-        const userinfoStr = localStorage.getItem('ssouserinfo');
-        const userinfo = userinfoStr ? this.publicservice.uncompileStr(userinfoStr) : null;
-        const roleList = userinfo ? JSON.parse(userinfo)["roles"] : null;
-        if (roleList ? roleList.length : null) {
-          roleList.forEach(val => {
-            roles.push(val["roleid"]);
-          });
-        } else {
-          roles = null;
-        }
-        const colums = {
-          languageid: this.httpservice.getLanguageID(),
-          roles: roles
-        };
-        const table = "menu_item";
-        const method = "get_menu_by_roles";
-        this.httpservice.callRPC(table, method, colums).subscribe(
-          result => {
-            const baseData = result['result']['message'][0];
-            if (baseData["code"]===1) {
-              const menuData = this.dataTranslation(baseData["message"]);
-              // console.log("menuData>>>>",menuData);
-              menuData.forEach(item=>{
-                if (item["link"] === link){
-                  var children = item["children"] 
-                  this.children = children;
-                }
-              })
-            } 
-            else {
-            }
+        var link = res["link"];
+        const menuData = this.dataTranslation(baseData);
+        menuData.forEach(item=>{
+          if (item["link"] === link ){
+            var children = item["children"] 
+            this.children = children.filter((item)=>{if (item["type"]===1){return item}});
           }
-        );
-
+        })
+        
       }
     })
     
   }
 
-  dataTranslation(baseMenu) {
+  dataTranslation(baseMenu:any[]) {
     // 生成父子数据结构
     let map = {};
     baseMenu.forEach(item => {
