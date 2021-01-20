@@ -14,12 +14,14 @@ import { NzPaginationModule } from 'ng-zorro-antd/pagination';
 import { MyInputComponent } from './my-input/my-input.component';
 import { MyDateRangeComponent } from './my-date-range/my-date-range.component';
 import { DeviceEditComponent } from './device-edit/device-edit.component';
+import { DeviceOrderComponent } from './device-order/device-order.component';
 @NgModule({
   declarations: [
     AgTableComponent,
     MyInputComponent,
     MyDateRangeComponent,
     DeviceEditComponent,
+    DeviceOrderComponent,
   ],
   imports: [
     CommonModule,

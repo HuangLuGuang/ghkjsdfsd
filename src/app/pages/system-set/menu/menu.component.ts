@@ -269,6 +269,7 @@ export class MenuComponent implements OnInit {
         // 表示删除成功！
         // alert("删除成功")
         localStorage.removeItem(MULU);
+        localStorage.removeItem('hidden_menu');
         localStorage.removeItem(SYSMENU);
         success(publicservice);
         switch (row["type"]) {
@@ -344,6 +345,7 @@ export class MenuComponent implements OnInit {
         this.updatetable(name); // name 表示刷新目录栏
         // 删除 mulu
         localStorage.removeItem(MULU);
+        localStorage.removeItem('hidden_menu');
         
         
         
@@ -568,6 +570,7 @@ export class MenuComponent implements OnInit {
           // 表示删除成功！
           // alert("删除成功")
           localStorage.removeItem(MULU);
+          localStorage.removeItem('hidden_menu');
           localStorage.removeItem(SYSMENU);
           success(publicservice);
           switch (row["type"]) {
@@ -659,6 +662,7 @@ export class MenuComponent implements OnInit {
               // 提示刷新界面
               if(confirm("请刷新界面，已更新目录")){
                 localStorage.removeItem('mulu')
+                localStorage.removeItem('hidden_menu');
                 location.reload();
               }else{
 

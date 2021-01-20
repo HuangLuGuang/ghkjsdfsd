@@ -273,6 +273,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
         this.router.navigate([loginurl]);
       }
       localStorage.removeItem(MULU);
+      localStorage.removeItem('hidden_menu');
       localStorage.removeItem(SYSMENU);
       localStorage.removeItem(ssotoken);
 

@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { InlineComponent } from './inline.component';
+import { DeviceOrderComponent } from './device-order.component';
 
-describe('InlineComponent', () => {
-  let component: InlineComponent;
-  let fixture: ComponentFixture<InlineComponent>;
+describe('DeviceOrderComponent', () => {
+  let component: DeviceOrderComponent;
+  let fixture: ComponentFixture<DeviceOrderComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ InlineComponent ]
+      declarations: [ DeviceOrderComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(InlineComponent);
+    fixture = TestBed.createComponent(DeviceOrderComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

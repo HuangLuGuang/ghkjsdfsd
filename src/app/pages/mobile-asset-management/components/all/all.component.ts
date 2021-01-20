@@ -8,6 +8,11 @@ import { DeviceTraceComponent } from '../device-trace/device-trace.component';
 import { NbDialogService } from '@nebular/theme';
 import { DeviceEditComponent } from '../device-edit/device-edit.component';
 
+
+import { NB_WINDOW, NbMenuService } from '@nebular/theme';
+import { map, startWith,filter  } from 'rxjs/operators';
+import { DeviceOrderComponent } from '../device-order/device-order.component';
+
 declare let $;
 
 @Component({
@@ -43,7 +48,7 @@ export class AllComponent implements OnInit {
 
 
   constructor(private translate: TranslateService,
-    private dialogService: NbDialogService,
+    private dialogService: NbDialogService,private nbMenuService: NbMenuService,
     ) {
 
     // 当切换语言时执行
@@ -58,11 +63,22 @@ export class AllComponent implements OnInit {
     // 加载时，进行翻译
     this.translate.setDefaultLang(this.currentLangue);
 
+
+    // more item hit
+    this.nbMenuService.onItemClick()
+    .pipe(
+      filter(({ tag }) => tag === 'more-menu'),
+      map(({ item: { title } }) => title),
+    )
+    .subscribe(title => {
+      this.order(title)
+    });
+
    }
 
   ngOnInit(): void {
     console.log("++++++++++++++++++++++++++=datas",this.datas)
-    // this.datas
+    
   }
 
   ngAfterViewInit(){}
@@ -106,11 +122,26 @@ export class AllComponent implements OnInit {
     // this.locastoragservice.set("user_deviceInfo", user_deviceInfo);
     // this.router.navigate(['/pages/gps/path/']);
   }
-  // 编辑-弹出组件
+  // 设备编辑-弹出组件
   edit(user_deviceInfo){
     const context = { text: user_deviceInfo }
-    this.dialogService.open(DeviceEditComponent, { hasBackdrop: false, hasScroll: true, context }, // 无背景、可滚动、参数
+    this.dialogService.open(DeviceEditComponent, { closeOnBackdropClick: false, context }, // 无背景、可滚动、参数
       )
+  };
+
+  // 设备指令
+  order(title){
+    const context = { text: this.user_deviceInfo }
+    if (title === this.moreitems[0].title){
+      // this.window.alert("这是-设备指令");
+      this.dialogService.open(DeviceOrderComponent, { closeOnBackdropClick: false, context }, // 无背景、可滚动
+      )
+    }
+    // if (title === this.moreitems[1].title){
+    //   // this.window.alert("这是-设备详情");
+    //   this.dialogService.open( DeviceOrderComponent, { closeOnBackdropClick: false, }, // 无背景、可滚动
+    //   )
+    // }
   }
 
   // 设备跟踪

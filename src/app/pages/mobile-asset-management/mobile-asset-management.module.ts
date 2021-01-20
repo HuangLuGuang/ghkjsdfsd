@@ -6,8 +6,7 @@ import { MobileAssetManagementComponent } from './mobile-asset-management.compon
 import { LocationMonitoringComponent } from './location-monitoring/location-monitoring.component';
 import { NbTabsetModule, NbAutocompleteModule, NbInputModule, NbFormFieldModule, NbIconModule, NbMenuModule, NbAccordionModule, NbPopoverModule, NbListModule, NbButtonModule, NbCardModule, NbDialogModule, NbContextMenuModule, NbSpinnerModule } from '@nebular/theme';
 import { AllComponent } from './components/all/all.component';
-import { InlineComponent } from './components/inline/inline.component';
-import { NoinlineComponent } from './components/noinline/noinline.component';
+
 // 响应式表单
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
@@ -30,7 +29,7 @@ export function HttpLoaderFactory(http: HttpClient) {
 
 
 @NgModule({
-  declarations: [MobileAssetManagementComponent, LocationMonitoringComponent, AllComponent, InlineComponent, NoinlineComponent, MapComponent,  DeviceTraceComponent,],
+  declarations: [MobileAssetManagementComponent, LocationMonitoringComponent, AllComponent, MapComponent,  DeviceTraceComponent,],
   imports: [
     CommonModule,
     ReactiveFormsModule,
