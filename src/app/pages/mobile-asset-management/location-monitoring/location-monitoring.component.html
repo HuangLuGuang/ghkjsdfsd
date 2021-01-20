@@ -18,7 +18,7 @@
     
             <div class="mysearch" >
                 <!-- 树状搜索 -->
-                <nz-input-group [nzSuffix]="suffixIcon">
+                <!-- <nz-input-group [nzSuffix]="suffixIcon">
                     <input type="text" nz-input placeholder="Search" [(ngModel)]="searchValue" />
                   </nz-input-group>
                   <ng-template #suffixIcon>
@@ -31,11 +31,10 @@
                     (nzExpandChange)="nzEvent($event)"
                     (nzSearchValueChange)="nzEvent($event)"
                   >
-                  </nz-tree>
-
+                  </nz-tree> -->
 
                 <!-- <input nbInput placeholder="这是搜索" fullWidth (keyup)="projectNameChanged($event)"> -->
-                <!-- <div class="row" style="padding: 0px 21px;">
+                <div class="row" style="padding: 0px 21px;">
                     <input 
                     [(formControl)]="inputFormControl"
                     nbInput
@@ -54,20 +53,20 @@
                         </nb-option-group>
                 
                     </nb-autocomplete>
-                </div> -->
+                </div>
                 
             </div>
             
             <div class="tab-conent" *ngIf="selectid == '#all'">
-                <ngx-all #all [datas]="groups" (send_user_deviceInfo)="get_device_for_show_mapinfo($event)"></ngx-all>
+                <ngx-all #all [datas]="datas_new" (send_user_deviceInfo)="get_device_for_show_mapinfo($event)"></ngx-all>
             </div>
             <div class="tab-conent" *ngIf="selectid == '#inline'">
-                <!-- <ngx-all #inline [datas]="datas" (send_user_deviceInfo)="get_device_for_show_mapinfo($event)"></ngx-all> -->
-                <ngx-inline #inline [datas]="groups" (send_user_deviceInfo)="get_device_for_show_mapinfo($event)"></ngx-inline>
+                <ngx-all #inline [datas]="datas_new" (send_user_deviceInfo)="get_device_for_show_mapinfo($event)"></ngx-all>
+                <!-- <ngx-inline #inline [datas]="datas" (send_user_deviceInfo)="get_device_for_show_mapinfo($event)"></ngx-inline> -->
             </div>
             <div class="tab-conent" *ngIf="selectid == '#noinline'">
-                <!-- <ngx-all #noinline [datas]="datas" (send_user_deviceInfo)="get_device_for_show_mapinfo($event)"></ngx-all> -->
-                <ngx-noinline #noinline [datas]="groups"  (send_user_deviceInfo)="get_device_for_show_mapinfo($event)"></ngx-noinline>
+                <ngx-all #noinline [datas]="datas_new" (send_user_deviceInfo)="get_device_for_show_mapinfo($event)"></ngx-all>
+                <!-- <ngx-noinline #noinline [datas]="datas"  (send_user_deviceInfo)="get_device_for_show_mapinfo($event)"></ngx-noinline> -->
             </div>
         </div>
 

@@ -149,22 +149,24 @@ export class PagesComponent implements OnInit {
     }
 
     // get_systemset_menu_all  得到系统设置所有要的菜单！
-    var sysmenu_ = localStorage.getItem(SYSMENU)? JSON.parse(localStorage.getItem(SYSMENU)):[];
-    if (sysmenu_.length < 1){
-      this.httpservice.callRPC("menu_item", "get_systemset_menu_all", colums).subscribe((result)=>{
-        console.log("result menu_item>>>>",result)
-        const baseData = result['result']['message'][0];
-        if (baseData["code"] === 1){
-          // 得到sysmenu ----------------------------------
-          var sysmenu = this.menuTranslation(baseData["message"]);
-          localStorage.setItem(SYSMENU, JSON.stringify(sysmenu));
-          // 得到sysmenu ----------------------------------
-        }else{
-          localStorage.removeItem(SYSMENU)
-        }
-      });
-    }
+    // var sysmenu_ = localStorage.getItem(SYSMENU)? JSON.parse(localStorage.getItem(SYSMENU)):[];
+    // if (sysmenu_.length < 1){
+    //   this.httpservice.callRPC("menu_item", "get_systemset_menu_all", colums).subscribe((result)=>{
+    //     console.log("result menu_item>>>>",result)
+    //     const baseData = result['result']['message'][0];
+    //     if (baseData["code"] === 1){
+    //       // 得到sysmenu ----------------------------------
+    //       var sysmenu = this.menuTranslation(baseData["message"]);
+    //       localStorage.setItem(SYSMENU, JSON.stringify(sysmenu));
+    //       // 得到sysmenu ----------------------------------
+    //     }else{
+    //       localStorage.removeItem(SYSMENU)
+    //     }
+    //   });
+    // }
 
+
+    
   }
 
 

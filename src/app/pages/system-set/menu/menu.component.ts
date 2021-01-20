@@ -318,6 +318,7 @@ export class MenuComponent implements OnInit {
       // 提示选择行数据
       this.dialogService.open(EditDelTooltipComponent, { closeOnBackdropClick: false, context: { title: '提示', content:   `请选择一行数据！`}} ).onClose.subscribe(
         name=>{
+          
         }
       );
     }
@@ -337,11 +338,17 @@ export class MenuComponent implements OnInit {
     this.dialogService.open(NewMenuComponent,{ closeOnBackdropClick: false,context: { rowdata: JSON.stringify(row), title: '编辑目录'  } }).onClose.subscribe(name=>{
       // console.log("-------------name----------------", name);
       if (name){
+        this.editsuccess()
+        
         // 更新table！
         this.updatetable(name); // name 表示刷新目录栏
         // 删除 mulu
         localStorage.removeItem(MULU);
         
+        
+        
+      }else{
+        this.editdanger()
       }
     })
   }
@@ -815,6 +822,14 @@ export class MenuComponent implements OnInit {
   }
   danger(publicservice){
     publicservice.showngxtoastr({position: 'toast-top-right', status: 'danger', conent:"删除失败!"});
+  }
+
+  // 展示状态
+  editsuccess(){
+    this.publicservice.showngxtoastr({position: 'toast-top-right', status: 'success', conent:"编辑成功!"});
+  }
+  editdanger(){
+    this.publicservice.showngxtoastr({position: 'toast-top-right', status: 'danger', conent:"编辑失败!"});
   }
 
   // option_record  
