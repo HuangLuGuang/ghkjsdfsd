@@ -349,7 +349,13 @@ export class NewMenuComponent implements OnInit {
       });
       //监听提交---按钮
       form.on('submit(anniu)', function(data){
-        // console.log("按钮：----", parentid)
+        var edit_parentid;
+        if (data.field["parenttitle"]){
+          edit_parentid = data.field["parenttitle"];
+        }else{
+          edit_parentid = isnot_edit["parentid"]
+        }
+        console.log("edit_parentid----", edit_parentid);
         // layer.alert(JSON.stringify(data.field), {
         //   title: '按钮'
         // })
@@ -370,7 +376,8 @@ export class NewMenuComponent implements OnInit {
             name_en: data.field["title_en"],
             permission: data.field["permission"],
             // parentid: isnot_edit["parentid"]?Number(isnot_edit["parentid"]):null,
-            parentid: data.field["parenttitle"]?Number(data.field["parenttitle"]):parentid,
+            // parentid: data.field["parenttitle"]?Number(data.field["parenttitle"]):parentid,
+            parentid: data.field["parenttitle"]?Number(data.field["parenttitle"]):isnot_edit["parentid"],
             // parentid: isnot_edit["_parent"]["id"],
             orderindex: Number(data.field["orderindex"]),
             type: data.field["type"],
@@ -380,7 +387,7 @@ export class NewMenuComponent implements OnInit {
           };
            
           that.httpservice.callRPC("text_translation", "update_menu_with_textid", colums).subscribe(result=>{
-            // console.log("编辑菜单----new-menu", result, data.field, "colums",colums);
+            console.log("编辑菜单----new-menu", result, data.field, "colums",colums);
             var res = result["result"]["message"][0];
             if (res["code"] === 1){
               that.dialogRef.close(true);

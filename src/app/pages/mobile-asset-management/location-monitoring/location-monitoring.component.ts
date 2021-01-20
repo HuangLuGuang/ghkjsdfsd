@@ -2,6 +2,8 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 
 import { NzFormatEmitEvent } from 'ng-zorro-antd/core';
 
+
+
 declare let $;
 
 import { Observable, of } from 'rxjs';
@@ -28,31 +30,45 @@ export class LocationMonitoringComponent implements OnInit {
   searchValue = '';
   nodes = [
     {
-      title: '0-0',
-      key: '0-0',
+      title: '在线',
+      key: '在线',
       children: [
         {
-          title: '0-0-0',
-          key: '0-0-0',
-          children: [
-            { title: '0-0-0-0', key: '0-0-0-0', isLeaf: true },
-            { title: '0-0-0-1', key: '0-0-0-1', isLeaf: true },
-            { title: '0-0-0-2', key: '0-0-0-2', isLeaf: true }
-          ]
+          title: '在线11',
+          key: '在线11',
+          isLeaf: true,
+
+          lng_lat: [121.3229007700, 30.3322026400], 
+          info: "在线11", 
+          updatatime:"2020-07-11 17:56:46(online)", 
+          positiontiome: "2020-07-06 09:56:46", 
+          positiontype: "卫星定位", 
+          deviceno:"9527"
+
         },
         {
-          title: '0-0-1',
-          key: '0-0-1',
-          children: [
-            { title: '0-0-1-0', key: '0-0-1-0', isLeaf: true },
-            { title: '0-0-1-1', key: '0-0-1-1', isLeaf: true },
-            { title: '0-0-1-2', key: '0-0-1-2', isLeaf: true }
-          ]
+          title: '在线12',
+          key: '在线12',
+          isLeaf: true,
+
+          lng_lat: [121.3226007700, 30.3322026400], 
+          info: "在线12", 
+          updatatime:"2020-08-11 17:56:46", 
+          positiontiome: "2020-08-06 09:02:46", 
+          positiontype: "卫星定位", 
+          deviceno:"9537"
         },
         {
-          title: '0-0-2',
-          key: '0-0-2',
-          isLeaf: true
+          title: '在线13',
+          key: '在线13',
+          isLeaf: true,
+
+          lng_lat: [121.3223007700, 30.3322026400], 
+          info: "在线13", 
+          updatatime:"2020-07-13 19:56:46(online)", 
+          positiontiome: "2020-07-08 15:44:46", 
+          positiontype: "卫星定位", 
+          deviceno:"9547"
         }
       ]
     },
@@ -108,6 +124,9 @@ export class LocationMonitoringComponent implements OnInit {
 
   // 传递给all、inline、noinline中的数据
   datas = [];
+  datas_new = [];
+
+
 
 
   constructor() { }
@@ -115,6 +134,7 @@ export class LocationMonitoringComponent implements OnInit {
   nzEvent(event: NzFormatEmitEvent): void {
     console.log("event===============",event);
   }
+  
 
 
   ngOnInit(): void {
@@ -157,7 +177,7 @@ export class LocationMonitoringComponent implements OnInit {
   selectid = "#all";
   active(id){
     var li = document.querySelectorAll('.tabs li');
-    console.log("--li----", li)
+    // console.log("--li----", li)
     li.forEach(element => {
       element.className = null
     });
@@ -228,7 +248,7 @@ export class LocationMonitoringComponent implements OnInit {
         }];
         break;
     }
-    console.log("groups>>>>>>>>", this.groups);
+    // console.log("groups>>>>>>>>", this.groups);
     this.fengzhuang_filter();
 
   }
@@ -236,7 +256,7 @@ export class LocationMonitoringComponent implements OnInit {
 
   // 点击设备在map上展示设备信息,子组件调用
   get_device_for_show_mapinfo(e){
-    console.log("--点击设备在map上展示设备信息---", e);
+    // console.log("--点击设备在map上展示设备信息---", e);
     this.map.show_info_in_map(e);
   }
 
@@ -254,6 +274,7 @@ export class LocationMonitoringComponent implements OnInit {
   private filter(value: string): Group[] {
     const filterValue = value.toLowerCase();
     this.datas = [];
+    this.datas_new = [];
     return this.groups
     .map(group => {
       var item = {
@@ -262,7 +283,8 @@ export class LocationMonitoringComponent implements OnInit {
         children: this.filterChildren(group.children, filterValue),
       }
       this.datas.push(item);
-      console.log("--------------------datas", this.datas)
+      this.datas_new.push(item);
+      
       return item;
       })
       .filter(group => group.children.length);
@@ -274,10 +296,34 @@ export class LocationMonitoringComponent implements OnInit {
 
 
   onModelChange(value) {
-    this.filteredNgModelOptions$ = of(this.filter(value))
-    console.error("&&&&&&&&&&&&&&  onModelChange  &&&&&&&&&&&&&&&&&&&",value);
-    console.error("this.filteredNgModelOptions$",this.filteredNgModelOptions$);
-    console.error("this.inputFormControl$",this.inputFormControl);
+    this.filteredNgModelOptions$ = of(this.filter(value));
+    // console.error("&&&&&&&&&&&&&&  onModelChange  &&&&&&&&&&&&&&&&&&&",value);
+    // console.error("this.filteredNgModelOptions$",this.filteredNgModelOptions$);
+    // console.error("this.inputFormControl$",this.inputFormControl);
+    // 传递给子组件的值
+    this.filteredNgModelOptions$.subscribe(res=>{
+      this.datas_new = res;
+      // console.error("????????????", res,value);
+      if (value){
+        if (this.selectid === "#inline"){
+          this.inline.get_selectdata(res,'open');
+        }else if (this.selectid === "#noinline"){
+          this.noinline.get_selectdata(res,'open');
+        }else{
+          this.all.get_selectdata(res,'open');
+        }
+      }else{
+        if (this.selectid === "#inline"){
+          this.inline.get_selectdata(res,'close');
+        }else if (this.selectid === "#noinline"){
+          this.noinline.get_selectdata(res,'close');
+        }else{
+          this.all.get_selectdata(res,'close');
+        }
+      }
+    })
+    
+
   }
 
 }

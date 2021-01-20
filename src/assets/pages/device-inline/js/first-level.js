@@ -86,14 +86,13 @@ let first_level = {
     },
 
     // chian_map map 地图  https://www.makeapie.com/editor.html?c=xmOgZZ5lD2
-    chian_map(eclick) {
+    chian_map(myChart, eclick) {
 
-        let data = [
-            {
+        let data = [{
                 name: "黑河",
-                value: [47,127,100]
+                value: [47, 127, 100]
             },
-        
+
         ]
 
         let LableData = [
@@ -113,7 +112,7 @@ let first_level = {
                     [97.192125, 47.956351]
                 ],
                 value: [4, 5]
-        
+
             },
             {
                 name: "吉利研究院",
@@ -149,11 +148,10 @@ let first_level = {
                 ],
                 value: [2, 4]
             },
-        
-        
+
+
         ];
         // 实例化对象
-        var myChart = echarts.init(document.querySelector('.chian_map'));
 
         var option_chian_map = {
             // backgroundColor: '#00294E',
@@ -163,7 +161,7 @@ let first_level = {
                 aspectScale: 0.85,
                 layoutCenter: ["50%", "50%"], //地图位置
                 layoutSize: '100%',
-                zoom:1.4,
+                zoom: 1.4,
                 itemStyle: {
                     normal: {
                         // shadowColor: '#276fce',
@@ -189,8 +187,8 @@ let first_level = {
                                 color: '#031525',
                             }
                         },
-        
-        
+
+
                     },
                     label: {
                         show: false,
@@ -198,17 +196,18 @@ let first_level = {
                         // color: '#FFFFFF',
                         fontSize: 12,
                     },
-        
-        
+
+
                 }],
-        
+
             },
 
             series: [
                 // 常规地图
                 {
                     type: 'map',
-                    z: 10,
+                    // z: 10,
+                    zlevel: 10,
                     mapType: 'china',
                     aspectScale: 0.85,
                     layoutCenter: ["50%", "50%"], //地图位置
@@ -233,20 +232,20 @@ let first_level = {
                             label: {
                                 color: "#fff"
                             }
-        
+
                         }
                     },
-        
-        
+
+
                 },
-                
+
                 // 区域散点图
                 {
                     type: 'effectScatter',
                     coordinateSystem: 'geo',
                     showEffectOn: 'render',
-                    // zlevel: 2,
-                    z:20,
+                    zlevel: 2,
+                    // z:20,
                     symbolSize: 10,
                     rippleEffect: { //坐标点动画
                         period: 3,
@@ -276,14 +275,15 @@ let first_level = {
                             areaColor: '#f00'
                         }
                     },
-        
+
                 },
                 // 线 和 点
                 {
                     type: 'lines',
                     // zlevel: 1, //设置这个才会有轨迹线的小尾巴
                     // zlevel: 0.1, //设置这个才会有轨迹线的小尾巴
-                    z:21,
+                    // z:21,
+                    zlevel: 21,
                     //polyline:true,
                     effect: {
                         show: true,
@@ -294,8 +294,8 @@ let first_level = {
                         symbolSize: 6
                     },
                     lineStyle: {
-                            normal: {
-                                color:'#1DE9B6'
+                        normal: {
+                            color: '#1DE9B6'
                                 /* function (value){ //随机颜色
                                 
                                 ['#f21347','#f3243e','#f33736','#f34131','#f34e2b',
@@ -305,79 +305,80 @@ let first_level = {
                                 '#71d162','#6bcc75','#65c78b','#5fc2a0','#5abead',
                                 '#52b9c7','#4fb6d2','#4ab2e5']
          return "#"+("00000"+((Math.random()*16777215+0.5)>>0).toString(16)).slice(-6);
-         }*/,
-                                width: 1, //线条宽度
-                                opacity: 0.6, //尾迹线条透明度
-                                curveness: .3 //尾迹线条曲直度
-                            }
-                        },
-                    data: [
-                        {
+         }*/
+                                ,
+                            width: 1, //线条宽度
+                            opacity: 0.6, //尾迹线条透明度
+                            curveness: .3 //尾迹线条曲直度
+                        }
+                    },
+                    data: [{
                             fromName: "吉利研究院",
                             toName: "黑河",
                             coords: [
-                                [127.528588,50.247033],
-                                [121.25158,30.342533],
-                                [121.25158,30.342533],
-                            ]
-                            ,lineStyle:{color:'#4fb6d2'}
+                                [127.528588, 50.247033],
+                                [121.25158, 30.342533],
+                                [121.25158, 30.342533],
+                            ],
+                            lineStyle: { color: '#4fb6d2' }
                         },
                         {
                             fromName: "吉利研究院",
                             toName: "吐鲁番",
                             coords: [
-                                [89.192125,42.956351],
-                                [121.25158,30.342533],
-                                [121.25158,30.342533],
-                            ]
-                            ,lineStyle:{color:'#4fb6d2'}
-                            
+                                [89.192125, 42.956351],
+                                [121.25158, 30.342533],
+                                [121.25158, 30.342533],
+                            ],
+                            lineStyle: { color: '#4fb6d2' }
+
                         },
                         {
                             //120.168403,33.355342
                             fromName: "吉利研究院",
                             toName: "盐城试车基地",
                             coords: [
-                                [120.168403,33.355342],
-                                [121.25158,30.342533],
-                                [121.25158,30.342533],
-                            ]
-                            ,lineStyle:{color:'#4fb6d2'}
-                            
+                                [120.168403, 33.355342],
+                                [121.25158, 30.342533],
+                                [121.25158, 30.342533],
+                            ],
+                            lineStyle: { color: '#4fb6d2' }
+
                         },
                         {
-                             //120.168403,33.355342
+                            //120.168403,33.355342
                             fromName: "吉利研究院",
                             toName: "格尔木高原试车基地",
                             coords: [
-                                [94.794758,36.405633],
-                                [121.25158,30.342533],
-                                [121.25158,30.342533],
-                            ]
-                            ,lineStyle:{color:'#4fb6d2'}
-                            
+                                [94.794758, 36.405633],
+                                [121.25158, 30.342533],
+                                [121.25158, 30.342533],
+                            ],
+                            lineStyle: { color: '#4fb6d2' }
+
                         },
-                         //119.417702,30.919115
+                        //119.417702,30.919115
                         {
                             fromName: "吉利研究院",
                             toName: "广德试车基地",
                             coords: [
-                                [119.417702,30.919115],
-                                [121.25158,30.342533],
-                                [121.25158,30.342533],
-                            ]
-                            ,lineStyle:{color:'#4fb6d2'}
-                            
+                                [119.417702, 30.919115],
+                                [121.25158, 30.342533],
+                                [121.25158, 30.342533],
+                            ],
+                            lineStyle: { color: '#4fb6d2' }
+
                         },
                     ],
-        
+
                 },
                 {
-        
+
                     type: 'lines',
                     // zlevel: 3,
                     // zlevel: 0.2,
-                    z:21,
+                    // z:21,
+                    zlevel: 21,
                     symbol: 'circle',
                     symbolSize: [5, 5],
                     color: '#ff8003',
@@ -416,11 +417,11 @@ let first_level = {
                         color: '#fff',
                         width: 0.5,
                         opacity: 1,
-        
+
                     },
                     data: LableData,
-        
-        
+
+
                 },
                 // 气球 、scatter 散点图
                 {
@@ -432,7 +433,7 @@ let first_level = {
                     label: {
                         normal: {
                             show: true,
-                            
+
                             formatter(value) {
                                 return value.data[2]
                             }
@@ -444,12 +445,12 @@ let first_level = {
                         }
                     },
                     data: [
-                        [127.528588, 50.247033, 2],  // 黑河三高专属基地
-                        [89.192125, 42.956351, 4],   // 吐鲁番夏季试车专属基地
+                        [127.528588, 50.247033, 2], // 黑河三高专属基地
+                        [89.192125, 42.956351, 4], // 吐鲁番夏季试车专属基地
                         // [121.25158, 30.342533, 200], // 吉利研究院
-                        [120.168403, 33.355342,2],// 盐城试车基地
-                        [94.794758, 36.405633,2],// 格尔木高原试车基地
-                        [119.417702, 30.919115,2], //广德试车基地
+                        [120.168403, 33.355342, 2], // 盐城试车基地
+                        [94.794758, 36.405633, 2], // 格尔木高原试车基地
+                        [119.417702, 30.919115, 2], //广德试车基地
                     ],
                     showEffectOn: 'render',
                     rippleEffect: {
@@ -457,7 +458,8 @@ let first_level = {
                     },
                     hoverAnimation: true,
                     // zlevel: 1
-                    z:22
+                    zlevel: 22
+                        // z:22
                 },
                 // 气球 、scatter 散点图 === 吉利研究院
                 {
@@ -488,11 +490,12 @@ let first_level = {
                     },
                     hoverAnimation: true,
                     // zlevel: 1
-                    z:22
+                    zlevel: 22
+                        // z:22
                 },
             ]
         };
-        
+
 
         // 渲染
         myChart.setOption(option_chian_map);
@@ -510,14 +513,14 @@ let first_level = {
         // });
 
         // 点击散点图上的点
-        myChart.on('click', function(params){
+        myChart.on('click', function(params) {
             eclick(params)
         });
 
-      
+
 
     },
-    
+
 
     // device-rate 设备xx率
     // 参考 https://gallery.echartsjs.com/editor.html?c=x8UGFy_Nb

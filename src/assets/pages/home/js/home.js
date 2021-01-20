@@ -1,6 +1,6 @@
 let home = {
     // chian_map map 地图  https://www.makeapie.com/editor.html?c=xmOgZZ5lD2
-    chian_map() {
+    chian_map(myChart) {
         let data = [
             {
                 name: "黑河",
@@ -191,14 +191,14 @@ let home = {
                 // 线 和 点
                 {
                     type: 'lines',
-                    // zlevel: 0.0001, //设置这个才会有轨迹线的小尾巴
-                    z:21,
+                    zlevel: 0.0001, //设置这个才会有轨迹线的小尾巴
+                    // z:21,
                     polyline:true,
                     effect: {
                         show: true,
                         period: 4,
                         trailLength: 0.7,
-                        color: 'red', //流动点颜色
+                        color: '#fff', //流动点颜色
                         symbol: 'arrow',
                         symbolSize: 6
                     },
@@ -276,8 +276,8 @@ let home = {
                 {
 
                     type: 'lines',
-                    // zlevel: 0.2,
-                    z: 21,
+                    zlevel: 0.2,
+                    // z: 21,
                     symbol: 'circle',
                     symbolSize: [5, 5],
                     color: '#ff8003',
@@ -382,8 +382,8 @@ let home = {
                 },
             ]
         };
-        var myChart = echarts.init(document.querySelector('.home_chian_map'));
-        myChart.setOption(option);
+        // var myChart = echarts.init(document.querySelector('.home_chian_map'));
+        myChart.setOption(option,true);
 
         // 渲染
         // myChart.setOption(option_chian_map);

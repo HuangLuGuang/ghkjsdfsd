@@ -1,4 +1,4 @@
-import { Component, OnInit, Input,ViewChild,TemplateRef, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Input,ViewChild,ViewChildren, TemplateRef, Output, EventEmitter } from '@angular/core';
 
 // 初始化应用程序的翻译服务
 import { TranslateService, LangChangeEvent } from '@ngx-translate/core';
@@ -17,8 +17,9 @@ declare let $;
 })
 export class AllComponent implements OnInit {
   @Input("datas") datas:any[];
+  @ViewChildren('item') itemlist;
+  // @ViewChild('item') item;
   @Output() private send_user_deviceInfo = new EventEmitter<any>();
-
   @ViewChild('tabs', { read: TemplateRef }) templateTabs: TemplateRef<any>;
 
   component:any = "Hello";
@@ -28,6 +29,8 @@ export class AllComponent implements OnInit {
     it: '',
     listitem: '',
   };
+
+
 
 
   // more
@@ -59,7 +62,23 @@ export class AllComponent implements OnInit {
 
   ngOnInit(): void {
     console.log("++++++++++++++++++++++++++=datas",this.datas)
+    // this.datas
+  }
 
+  ngAfterViewInit(){}
+  
+  // 让父组件调用
+  get_selectdata(selecteddata, open_close){
+    // console.error("----------selecteddata-----------",selecteddata);
+    setTimeout(() => {
+      this.itemlist.forEach(element => {
+        if (open_close === 'open'){
+          element.open()
+        }else{
+          element.close()
+        }
+      });
+    }, 200);
   }
 
 

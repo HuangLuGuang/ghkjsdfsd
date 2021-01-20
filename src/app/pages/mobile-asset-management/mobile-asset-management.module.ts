@@ -18,7 +18,7 @@ import { HttpClient } from '@angular/common/http';
 import { MapComponent } from './components/map/map.component';
 import { DeviceTraceComponent } from './components/device-trace/device-trace.component';
 import { ComponentTModule } from './components/componentT.module';
-import { NzPaginationModule, NzTreeModule } from 'ng-zorro-antd';
+import { NzDropDownModule, NzPaginationModule, NzTreeModule } from 'ng-zorro-antd';
 import { NzInputModule } from 'ng-zorro-antd/input';
 
 import { AgGridModule } from 'ag-grid-angular';
@@ -59,6 +59,7 @@ export function HttpLoaderFactory(http: HttpClient) {
     NzTreeModule,
     NzInputModule,
     FormsModule,
+    NzDropDownModule,
 
 
 

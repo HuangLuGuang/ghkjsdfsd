@@ -1,13 +1,17 @@
 
+
+
+
+
 <nb-accordion>
-    <nb-accordion-item *ngFor="let a of datas">
+    <nb-accordion-item *ngFor="let a of datas" #item>
       <nb-accordion-item-header>
         {{a.name}}
       </nb-accordion-item-header>
       <nb-accordion-item-body>
         <!-- {{a.children}} -->
         <nb-list>
-            <nb-list-item *ngFor="let child of a.children;let index=index">
+            <nb-list-item *ngFor="let child of a.children;let index=index" >
               <button nbButton status="basic" fullWidth
               nbPopoverTrigger="click" 
               nbPopoverPlacement="bottom"
