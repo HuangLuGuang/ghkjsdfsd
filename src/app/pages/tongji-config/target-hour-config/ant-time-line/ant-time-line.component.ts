@@ -14,6 +14,7 @@ export class AntTimeLineComponent implements OnInit {
   @ViewChild('stop') stop:any;
   @ViewChild('goto') goto:any;
   @ViewChild('done') done:any;
+  @ViewChild('cancel') cancel:any;
   constructor() { }
 
   ngOnInit(): void {
@@ -65,6 +66,10 @@ export class AntTimeLineComponent implements OnInit {
         item["statusColor"] = '#3366FF';
         item["title"] = '试验完成';
         break;
+      case "试验取消":
+        item["statusColor"] = '#EDF1F7';
+        item["title"] = '试验取消';
+        break;
     
     }
   }
@@ -82,6 +87,8 @@ export class AntTimeLineComponent implements OnInit {
         return this.goto
       case "试验完成":
         return this.done
+      case "试验取消":
+        return this.cancel
     }
   }
 

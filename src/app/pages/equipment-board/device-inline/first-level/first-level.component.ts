@@ -56,7 +56,9 @@ export class FirstLevelComponent implements OnInit {
 
   ngOnDestroy(){
     // clearInterval(this.currenttime_timer); // 销毁组件时，取消定时任务
-
+    var my_echart = echarts.init(document.querySelector('.chian_map'))
+    my_echart.clear();
+    my_echart.dispose();
   };
 
   // 返回首页

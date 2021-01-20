@@ -9,7 +9,7 @@ import { AllComponent } from './components/all/all.component';
 import { InlineComponent } from './components/inline/inline.component';
 import { NoinlineComponent } from './components/noinline/noinline.component';
 // 响应式表单
-import { ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 // 多语言切换
 import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
@@ -18,7 +18,9 @@ import { HttpClient } from '@angular/common/http';
 import { MapComponent } from './components/map/map.component';
 import { DeviceTraceComponent } from './components/device-trace/device-trace.component';
 import { ComponentTModule } from './components/componentT.module';
-import { NzPaginationModule } from 'ng-zorro-antd';
+import { NzPaginationModule, NzTreeModule } from 'ng-zorro-antd';
+import { NzInputModule } from 'ng-zorro-antd/input';
+
 import { AgGridModule } from 'ag-grid-angular';
 
 // Aot requires an export function for factories
@@ -52,6 +54,11 @@ export function HttpLoaderFactory(http: HttpClient) {
     NzPaginationModule,
     AgGridModule,
     ComponentTModule,
+
+    // nztree
+    NzTreeModule,
+    NzInputModule,
+    FormsModule,
 
 
 

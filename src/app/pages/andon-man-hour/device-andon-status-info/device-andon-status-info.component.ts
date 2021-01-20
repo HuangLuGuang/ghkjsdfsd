@@ -80,7 +80,8 @@ export class DeviceAndonStatusInfoComponent implements OnInit {
               };
             case 'stop':
               return {
-                background: '#3333FF'
+                background: '#3333FF',
+                color: '#f0f8ff',
               };
             case 'warning':
               return {

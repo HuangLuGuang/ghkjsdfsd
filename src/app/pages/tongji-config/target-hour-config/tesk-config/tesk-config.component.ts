@@ -423,9 +423,9 @@ export class TeskConfigComponent implements OnInit {
       { field: 'taskstart', headerName: '实际开始时间', resizable: true, minWidth: 10, sortable: true},
       { field: 'taskstatus', headerName: '试验状态', resizable: true, minWidth: 10, sortable: true},
       { field: 'lastupdateon', headerName: '状态变更时间', resizable: true, minWidth: 10, sortable: true},  // 更新时间
-      { field: 'curr_total', headerName: '当前轮次/总轮次', resizable: true, minWidth: 10, sortable: true}, // ==============计算得来 当前轮次/总轮次   devicetasknownumbers/devicetasknumbers
-      { field: 'timerate', headerName: '时间计算进度/轮次计算进度', resizable: true, minWidth: 10, sortable: true},
-      { field: 'rate', headerName: '进度', resizable: true, minWidth: 10, sortable: true}, // 
+      { field: 'devicetasknownumbers', headerName: '当前轮次/总轮次', resizable: true, minWidth: 10, sortable: true}, // ==============计算得来 当前轮次/总轮次   devicetasknownumbers/devicetasknumbers
+      // { field: 'timerate', headerName: '时间计算进度/轮次计算进度', resizable: true, minWidth: 10, sortable: true},
+      { field: 'rate', headerName: '时间进度', resizable: true, minWidth: 10, sortable: true}, // 
       
     ],
     rowData: [ // data

@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 
 
 import { FormsModule } from '@angular/forms';
-import { NbIconModule, NbInputModule, NbSelectModule } from '@nebular/theme';
+import { NbIconModule, NbInputModule, NbSelectModule,NbCardModule } from '@nebular/theme';
 
 
 import {Ng2SmartTableModule} from '@mykeels/ng2-smart-table';
@@ -13,11 +13,13 @@ import { AgGridModule } from 'ag-grid-angular';
 import { NzPaginationModule } from 'ng-zorro-antd/pagination';
 import { MyInputComponent } from './my-input/my-input.component';
 import { MyDateRangeComponent } from './my-date-range/my-date-range.component';
+import { DeviceEditComponent } from './device-edit/device-edit.component';
 @NgModule({
   declarations: [
     AgTableComponent,
     MyInputComponent,
     MyDateRangeComponent,
+    DeviceEditComponent,
   ],
   imports: [
     CommonModule,
@@ -28,6 +30,7 @@ import { MyDateRangeComponent } from './my-date-range/my-date-range.component';
     Ng2SmartTableModule,
     AgGridModule,
     NzPaginationModule,
+    NbCardModule,
   ],
   exports: [
     AgTableComponent,

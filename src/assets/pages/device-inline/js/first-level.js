@@ -498,21 +498,20 @@ let first_level = {
         myChart.setOption(option_chian_map);
 
         //echarts 设置地图外边框以及多个geo实现缩放拖曳同步
-        myChart.on('georoam', function(params) {
-            var option_chian_map_1 = myChart.getOption(); //获得option对象
-            if (params.zoom !== null && params.zoom !== undefined) { //捕捉到缩放时
-                option_chian_map_1.geo[0].zoom = option_chian_map_1.series[2].zoom; //下层geo的缩放等级跟着上层的geo一起改变
-                option_chian_map_1.geo[0].center = option_chian_map_1.series[2].center; //下层的geo的中心位置随着上层geo一起改变
-            } else { //捕捉到拖曳时
-                option_chian_map_1.geo[0].center = option_chian_map_1.series[2].center; //下层的geo的中心位置随着上层geo一起改变
-            }
-            myChart.setOption(option_chian_map_1); //设置option
-        });
+        // myChart.on('georoam', function(params) {
+        //     var option_chian_map_1 = myChart.getOption(); //获得option对象
+        //     if (params.zoom !== null && params.zoom !== undefined) { //捕捉到缩放时
+        //         option_chian_map_1.geo[0].zoom = option_chian_map_1.series[2].zoom; //下层geo的缩放等级跟着上层的geo一起改变
+        //         option_chian_map_1.geo[0].center = option_chian_map_1.series[2].center; //下层的geo的中心位置随着上层geo一起改变
+        //     } else { //捕捉到拖曳时
+        //         option_chian_map_1.geo[0].center = option_chian_map_1.series[2].center; //下层的geo的中心位置随着上层geo一起改变
+        //     }
+        //     myChart.setOption(option_chian_map_1); //设置option
+        // });
 
         // 点击散点图上的点
         myChart.on('click', function(params){
             eclick(params)
-            
         });
 
       

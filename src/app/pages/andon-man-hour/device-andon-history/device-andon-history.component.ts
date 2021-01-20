@@ -50,7 +50,8 @@ export class DeviceAndonHistoryComponent implements OnInit {
               };
             case 'stop':
               return {
-                background: '#3333FF'
+                background: '#3333FF',
+                
               };
             case 'warning':
               return {

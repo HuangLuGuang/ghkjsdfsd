@@ -1027,10 +1027,6 @@ export class KpiDetailComponent implements OnInit {
     }
   }
   
-  
-
-
-
 
 
   // 初始化 左侧第一个echart设备时间统计
@@ -1163,18 +1159,18 @@ export class KpiDetailComponent implements OnInit {
     }
   }
 
-// option_record  
-RecordOperation(result,transactiontype, infodata){
-  if(this.userinfo.getLoginName()){
-    var employeeid = this.userinfo.getEmployeeID();
-    var result = result; // 1:成功 0 失败
-    var transactiontype = transactiontype; // '新增用户';
-    var info = infodata;
-    var createdby = this.userinfo.getLoginName();
-    this.publicservice.option_record(employeeid, result, transactiontype, info, createdby);
-  }
+  // option_record  
+  RecordOperation(result,transactiontype, infodata){
+    if(this.userinfo.getLoginName()){
+      var employeeid = this.userinfo.getEmployeeID();
+      var result = result; // 1:成功 0 失败
+      var transactiontype = transactiontype; // '新增用户';
+      var info = infodata;
+      var createdby = this.userinfo.getLoginName();
+      this.publicservice.option_record(employeeid, result, transactiontype, info, createdby);
+    }
 
-}
+  }
 
 
 }

@@ -7,14 +7,16 @@
       <nb-accordion-item-body>
         <!-- {{a.children}} -->
         <nb-list>
-            <nb-list-item *ngFor="let child of a.children">
-              <button nbButton status="info" fullWidth
+            <nb-list-item *ngFor="let child of a.children;let index=index">
+              <button nbButton status="basic" fullWidth
               nbPopoverTrigger="click" 
               nbPopoverPlacement="bottom"
               [nbPopover]="component"
-              (click)="changeComponent(child, a)"
+              [id] = 'child + "_" + index'
+              class='button_basic'
+              (click)="changeComponent(child, a, index)"
               >
-              <nb-icon icon="person-outline"></nb-icon>
+              <nb-icon icon="pin"></nb-icon>
               {{ child }}
             </button>
             </nb-list-item>
@@ -29,24 +31,28 @@
 
   <!-- 弹出的模板 -->
 <ng-template #tabs>
-  <nb-card class="margin-bottom-0">
+  <nb-card class="margin-bottom-0"  style="width: 200px; margin-bottom: 0px;">
       <nb-card-header>{{user_deviceInfo.it}}</nb-card-header>
       <nb-card-body>
           <div class="row">
-              <div class="col-md-3">
-                  <div class="row map-info-icon"><nb-icon icon="edit-2-outline"></nb-icon></div>
+            <!-- 编辑 -->
+              <div class="col-md-6">
+                  <div class="row map-info-icon"><nb-icon icon="edit-2-outline" style="width: 100%;"></nb-icon></div>
                   <div class="row"><button nbButton size="tiny" fullWidth status="control" (click)="edit(user_deviceInfo)">{{'POSITIONMONITORING.TABS.EDIT' | translate }}</button></div>
               </div>
-              <div class="col-md-3">
+              <!-- 轨迹 -->
+              <!-- <div class="col-md-3">
                   <div class="row map-info-icon"><nb-icon icon="map-outline"></nb-icon></div>
                   <div class="row"><button nbButton size="tiny" fullWidth status="control" (click)="path(user_deviceInfo)">{{'POSITIONMONITORING.TABS.PATH' | translate }}</button></div>
-              </div>
-              <div class="col-md-3">
+              </div> -->
+              <!-- 跟踪 -->
+              <!-- <div class="col-md-3">
                   <div class="row map-info-icon"><nb-icon icon="pin-outline"></nb-icon></div>
                   <div class="row"><button nbButton size="tiny" fullWidth status="control" (click)="trace(user_deviceInfo)">{{'POSITIONMONITORING.TABS.TRACE' | translate }}</button></div>
-              </div>
-              <div class="col-md-3">
-                  <div class="row map-info-icon"><nb-icon icon="more-horizontal-outline"></nb-icon></div>
+              </div> -->
+              <!-- 更多 -->
+              <div class="col-md-6">
+                  <div class="row map-info-icon"><nb-icon icon="more-horizontal-outline" style="width: 100%;"></nb-icon></div>
                   <div class="row">
                       <button nbButton size="tiny" fullWidth status="control" 
                       nbContextMenuPlacement="right" [nbContextMenu]="moreitems" nbContextMenuTrigger="hover" 

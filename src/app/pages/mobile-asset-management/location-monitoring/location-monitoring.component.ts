@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 
-
+declare let $;
 
 import { Observable, of } from 'rxjs';
 import { map, startWith,filter  } from 'rxjs/operators';
@@ -27,12 +27,11 @@ export class LocationMonitoringComponent implements OnInit {
     {
       name: '在线',
       device_info:[
-        { title: "在线 11", lng_lat: [121.3229007700, 30.3322026400], info: "在线 11", updatatime:"2020-07-11 17:56:46(online)", positiontiome: "2020-07-06 09:56:46", positiontype: "卫星定位", deviceno:"9527"},
-        { title: "在线 12", lng_lat: [121.3226007700, 30.3322026400], info: "在线 12", updatatime:"2020-08-11 17:56:46", positiontiome: "2020-08-06 09:02:46", positiontype: "卫星定位", deviceno:"9537"},
-        { title: "在线 13", lng_lat: [121.3223007700, 30.3322026400], info: "在线 13", updatatime:"2020-07-13 19:56:46(online)", positiontiome: "2020-07-08 15:44:46", positiontype: "卫星定位", deviceno:"9547"},
-        { title: "离线 23", lng_lat: [121.3220007700, 30.3322026400], info: "离线 23", updatatime:"2020-07-01 22:35:46", positiontiome: "2020-06-26 19:32:46", positiontype: "卫星定位", deviceno:"9557"},
+        { title: "在线11", lng_lat: [121.3229007700, 30.3322026400], info: "在线11", updatatime:"2020-07-11 17:56:46(online)", positiontiome: "2020-07-06 09:56:46", positiontype: "卫星定位", deviceno:"9527"},
+        { title: "在线12", lng_lat: [121.3226007700, 30.3322026400], info: "在线12", updatatime:"2020-08-11 17:56:46", positiontiome: "2020-08-06 09:02:46", positiontype: "卫星定位", deviceno:"9537"},
+        { title: "在线13", lng_lat: [121.3223007700, 30.3322026400], info: "在线13", updatatime:"2020-07-13 19:56:46(online)", positiontiome: "2020-07-08 15:44:46", positiontype: "卫星定位", deviceno:"9547"},
       ],
-      children: ['在线 11', '在线 12', '在线 13', '离线 23'],
+      children: ['在线11', '在线12', '在线13'],
     },
     {
       name: '离线',
@@ -41,7 +40,7 @@ export class LocationMonitoringComponent implements OnInit {
         { title: "离线 22", lng_lat: [121.3226007700, 30.3322026400], info: "离线 22", updatatime:"2020-08-11 17:56:46", positiontiome: "2020-08-06 09:02:46", positiontype: "卫星定位", deviceno:"9537"},
         { title: "离线 23", lng_lat: [121.3220007700, 30.3322026400], info: "离线 23", updatatime:"2020-07-01 22:35:46", positiontiome: "2020-06-26 19:32:46", positiontype: "卫星定位", deviceno:"9557"},
       ],
-      children: ['离线 21', '离线 22', '离线 23'],
+      children: ['离线21', '离线22', '离线23'],
     },
     {
       name: '其它',
@@ -49,12 +48,14 @@ export class LocationMonitoringComponent implements OnInit {
         { title: "其它 31", lng_lat: [121.3229007700, 30.3322026400], info: "其它 31", updatatime:"2020-07-11 17:56:46(online)", positiontiome: "2020-07-06 09:56:46", positiontype: "卫星定位", deviceno:"9527"},
         { title: "其它 32", lng_lat: [121.3226007700, 30.3322026400], info: "其它 32", updatatime:"2020-08-11 17:56:46", positiontiome: "2020-08-06 09:02:46", positiontype: "卫星定位", deviceno:"9537"},
         { title: "其它 33", lng_lat: [121.3220007700, 30.3322026400], info: "其它 33", updatatime:"2020-07-01 22:35:46", positiontiome: "2020-06-26 19:32:46", positiontype: "卫星定位", deviceno:"9557"},
-        { title: "离线 23", lng_lat: [121.3220007700, 30.3322026400], info: "离线 23", updatatime:"2020-07-01 22:35:46", positiontiome: "2020-06-26 19:32:46", positiontype: "卫星定位", deviceno:"9557"},
       ],
-      children: ['其它 31', '其它 32', '其它 33', '离线 23'],
+      children: ['其它31', '其它32', '其它33'],
   }];
   filteredGroups$: Observable<Group[]>;
   inputFormControl: FormControl;
+
+  // 得到input 回车的数
+  filteredNgModelOptions$:Observable<Group[]>;
 
   // 传递给all、inline、noinline中的数据
   datas = [];
@@ -66,6 +67,8 @@ export class LocationMonitoringComponent implements OnInit {
     // this.groups = 
     this.fengzhuang_filter();
     
+    // 初始化数量
+    this.getnull_all_line(this.groups)
 
   }
 
@@ -73,12 +76,26 @@ export class LocationMonitoringComponent implements OnInit {
   fengzhuang_filter(){
     this.filteredGroups$ = of(this.groups);
     this.inputFormControl = new FormControl();
-
     this.filteredGroups$ = this.inputFormControl.valueChanges
       .pipe(
         startWith(''),
         map(filterString => this.filter(filterString)),
       );
+  }
+
+  // 全部、 在线、离线数量
+  getnull_all_line(groups?){
+    if (groups){
+      var inline = groups[0]["device_info"].length;
+      var noinline = groups[1]["device_info"].length;
+      var other = groups[2]["device_info"].length;
+
+      var all_nu = inline + noinline + other;
+      $(".all_num").text(all_nu); // 全部的数量！
+      $(".inline").text(inline); // 在线的数量！
+      $(".noinline").text(noinline); // 离线的数量！
+
+    }
   }
   
   // ---------------tabs----
@@ -201,5 +218,12 @@ export class LocationMonitoringComponent implements OnInit {
     return item.name;
   }
 
+
+  onModelChange(value) {
+    this.filteredNgModelOptions$ = of(this.filter(value))
+    console.error("&&&&&&&&&&&&&&  onModelChange  &&&&&&&&&&&&&&&&&&&",value);
+    console.error("this.filteredNgModelOptions$",this.filteredNgModelOptions$);
+    console.error("this.inputFormControl$",this.inputFormControl);
+  }
 
 }

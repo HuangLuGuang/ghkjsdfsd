@@ -242,6 +242,124 @@ let mapjs = {
         }
     },
 
+    // 初始化在线设备！
+    initinline(initinlinedatas){
+        initinlinedatas.device_info.forEach(element => {
+            var pt = element.lng_lat;
+            reverse_analysis_address(pt).then(result => {
+                var sContent =
+                    "<div>" +
+                    "<h4 style='margin: 0 0 5px; padding: 0.2em 0'>" + "设备信息" + "</h4>" +
+                    "<ul style=\"padding: 0;\">" +
+                    "<li class=\"device_info_li\">设备名称： " + element.title + "</li>" +
+                    "<li class=\"device_info_li\">设备序号：" + element.deviceno + " </li>" +
+                    "<li class=\"device_info_li\">定位类型： 卫星定位</li>" +
+                    "<li class=\"device_info_li\">经纬度：" + element.lng_lat[0] + ", " + element.lng_lat[1] + "</li>" +
+                    "<li class=\"device_info_li\">更新时间： " + element.updatatime + "</li>" +
+                    "<li class=\"device_info_li\">定位时间： " + element.positiontiome + " </li>" +
+                    "<li class=\"device_info_li\">详细地址：" + result + "</li>" +
+                    "</ul>" +
+                    "</div>";
+
+                // 在线设备点
+                var noinline_point = new BMap.Point(element.lng_lat[0], element.lng_lat[1]);
+
+                // 在线设备图标
+                var noinline_carIcon = new BMap.Icon('assets/pages/mobile-asset-management/images/car/ico_car_green.png', new BMap.Size(26, 52), {
+                    anchor: new BMap.Size(13, 13),
+                });
+
+                // 在线设备图标
+                var noinline_marker = new BMap.Marker(noinline_point, {
+                    icon: noinline_carIcon,
+                });
+
+
+                // 将 marker 添加到map
+                map.addOverlay(noinline_marker);
+
+
+
+                // 监听点击事件
+                addClickHandler(sContent, noinline_marker);
+
+
+            })
+
+
+
+        });
+
+        function addClickHandler(sContent, marker) {
+            marker.addEventListener("click", function(e) {
+                var p = e.target;
+                var point = new BMap.Point(p.getPosition().lng, p.getPosition().lat);
+                var infoWindow = new BMap.InfoWindow(sContent);
+                map.openInfoWindow(infoWindow, point); //开启信息窗口
+
+            });
+        }
+    },
+
+    // 初始化其它设备！
+    initother(initotherdatas){
+        initotherdatas.device_info.forEach(element => {
+            var pt = element.lng_lat;
+            reverse_analysis_address(pt).then(result => {
+                var sContent =
+                    "<div>" +
+                    "<h4 style='margin: 0 0 5px; padding: 0.2em 0'>" + "设备信息" + "</h4>" +
+                    "<ul style=\"padding: 0;\">" +
+                    "<li class=\"device_info_li\">设备名称： " + element.title + "</li>" +
+                    "<li class=\"device_info_li\">设备序号：" + element.deviceno + " </li>" +
+                    "<li class=\"device_info_li\">定位类型： 卫星定位</li>" +
+                    "<li class=\"device_info_li\">经纬度：" + element.lng_lat[0] + ", " + element.lng_lat[1] + "</li>" +
+                    "<li class=\"device_info_li\">更新时间： " + element.updatatime + "</li>" +
+                    "<li class=\"device_info_li\">定位时间： " + element.positiontiome + " </li>" +
+                    "<li class=\"device_info_li\">详细地址：" + result + "</li>" +
+                    "</ul>" +
+                    "</div>";
+
+                // 其它设备点
+                var noinline_point = new BMap.Point(element.lng_lat[0], element.lng_lat[1]);
+
+                // 其它设备图标
+                var noinline_carIcon = new BMap.Icon('assets/pages/mobile-asset-management/images/car/ico_car_yellow.png', new BMap.Size(26, 52), {
+                    anchor: new BMap.Size(13, 13),
+                });
+
+                // 其它设备图标
+                var noinline_marker = new BMap.Marker(noinline_point, {
+                    icon: noinline_carIcon,
+                });
+
+
+                // 将 marker 添加到map
+                map.addOverlay(noinline_marker);
+
+
+
+                // 监听点击事件
+                addClickHandler(sContent, noinline_marker);
+
+
+            })
+
+
+
+        });
+
+        function addClickHandler(sContent, marker) {
+            marker.addEventListener("click", function(e) {
+                var p = e.target;
+                var point = new BMap.Point(p.getPosition().lng, p.getPosition().lat);
+                var infoWindow = new BMap.InfoWindow(sContent);
+                map.openInfoWindow(infoWindow, point); //开启信息窗口
+
+            });
+        }
+    }
+
 
 
 

@@ -10,7 +10,6 @@ let home = {
         ]
 
         let LableData = [
-
             {
                 name: "黑河三高专属基地",
                 coords: [
@@ -65,18 +64,12 @@ let home = {
         
         
         ];
-        // 实例化对象
-        var myChart = echarts.init(document.querySelector('.home_chian_map'));
-
-        var option_chian_map = {
-            // backgroundColor: '#00294E',
-            // rgb(74,174,182)       rgb(122,194,200)           rgb(175,220,223)
-            // rgb(143,170,220)     rgb(180,199,231)           rgb(218,227,243)
-
-            backgroundColor: 'rgb(214 219 219)',
+        var option = {
+            // backgroundColor: '#000f1e',
+            backgroundColor: '#d6dbdb',
             geo: {
                 map: 'china',
-                z: 10,
+                // z: 10,
                 aspectScale: 0.85,
                 layoutCenter: ["50%", "50%"], //地图位置
                 layoutSize: '100%',
@@ -120,13 +113,6 @@ let home = {
                 }],
         
             },
-            tooltip:{
-                trigger: 'item',
-                formatter:function(params){
-                    return null
-                }
-            },
-
             series: [
                 // 常规地图
                 {
@@ -169,8 +155,8 @@ let home = {
                     type: 'effectScatter',
                     coordinateSystem: 'geo',
                     showEffectOn: 'render',
-                    // zlevel: 2,
-                    z:20,
+                    zlevel: 2,
+                    // z:20,
                     symbolSize: 10,
                     rippleEffect: { //坐标点动画
                         period: 3,
@@ -207,7 +193,7 @@ let home = {
                     type: 'lines',
                     // zlevel: 0.0001, //设置这个才会有轨迹线的小尾巴
                     z:21,
-                    //polyline:true,
+                    polyline:true,
                     effect: {
                         show: true,
                         period: 4,
@@ -219,7 +205,7 @@ let home = {
                     lineStyle: {
                             normal: {
                                 color:'#1DE9B6',
-                         
+                            
                                 width: 1, //线条宽度
                                 opacity: 0.6, //尾迹线条透明度
                                 curveness: .3 //尾迹线条曲直度
@@ -260,7 +246,7 @@ let home = {
                             
                         },
                         {
-                             //120.168403,33.355342
+                                //120.168403,33.355342
                             fromName: "吉利研究院",
                             toName: "格尔木高原试车基地",
                             coords: [
@@ -271,7 +257,7 @@ let home = {
                             ,lineStyle:{color:'#4fb6d2'}
                             
                         },
-                         //119.417702,30.919115
+                            //119.417702,30.919115
                         {
                             fromName: "吉利研究院",
                             toName: "广德试车基地",
@@ -286,8 +272,9 @@ let home = {
                     ],
         
                 },
+            
                 {
-        
+
                     type: 'lines',
                     // zlevel: 0.2,
                     z: 21,
@@ -324,6 +311,7 @@ let home = {
         
         
                 },
+
                 // 气球 、scatter 散点图
                 {
                     zoom: 1,
@@ -331,13 +319,12 @@ let home = {
                     coordinateSystem: 'geo',
                     symbol: 'pin',
                     symbolSize: [50, 50],
-                    label: { // 气球上的文字
+                    label: {
                         normal: {
-                            show: false,
-                            fontSize: 10,
+                            show: true,
+                            
                             formatter(value) {
                                 return value.data[2]
-
                             }
                         }
                     },
@@ -347,24 +334,19 @@ let home = {
                         }
                     },
                     data: [
-                        [127.528588, 50.247033, '黑河三高专属基地'],  // 黑河三高专属基地
-                        [89.192125, 42.956351, '吐鲁番夏季试车专属基地'],   // 吐鲁番夏季试车专属基地
+                        [127.528588, 50.247033, 2],  // 黑河三高专属基地
+                        [89.192125, 42.956351, 4],   // 吐鲁番夏季试车专属基地
                         // [121.25158, 30.342533, 200], // 吉利研究院
-                        [120.168403, 33.355342,'盐城试车基地'],// 盐城试车基地
-                        [94.794758, 36.405633,'格尔木高原试车基地'],// 格尔木高原试车基地
-                        [119.417702, 30.919115,'广德试车基地'], //广德试车基地
+                        [120.168403, 33.355342,2],// 盐城试车基地
+                        [94.794758, 36.405633,2],// 格尔木高原试车基地
+                        [119.417702, 30.919115,2], //广德试车基地
                     ],
-                    tooltip:{
-                        formatter: function (params){
-                            return params.data[2]
-                        }
-                    },
                     showEffectOn: 'render',
                     rippleEffect: {
                         brushType: 'stroke'
                     },
                     hoverAnimation: true,
-                    // zlevel: 1 // 添加上有痕迹
+                    // zlevel: 1
                     z:22
                 },
                 // 气球 、scatter 散点图 === 吉利研究院
@@ -375,9 +357,8 @@ let home = {
                     symbol: 'pin',
                     symbolSize: [50, 50],
                     label: {
-                        normal: { // 气球上的文字
-                            show: false,
-                            fontSize: 10,
+                        normal: {
+                            show: true,
                             formatter(value) {
                                 return value.data[2]
                             }
@@ -389,41 +370,23 @@ let home = {
                         }
                     },
                     data: [
-                        [121.25158, 30.342533, '吉利研究院'], // 吉利研究院
+                        [121.25158, 30.342533, 200], // 吉利研究院
                     ],
-                    tooltip:{
-                        formatter: function (params){
-                            return params.data[2]
-                        }
-                    },
                     showEffectOn: 'render',
                     rippleEffect: {
                         brushType: 'stroke'
                     },
                     hoverAnimation: true,
-                    // zlevel: 1, // 添加上有痕迹
+                    // zlevel: 1
                     z:22
                 },
             ]
         };
-        
+        var myChart = echarts.init(document.querySelector('.home_chian_map'));
+        myChart.setOption(option);
 
         // 渲染
-        myChart.setOption(option_chian_map);
-
-        //echarts 设置地图外边框以及多个geo实现缩放拖曳同步
-        myChart.on('georoam', function(params) {
-            var option_chian_map_1 = myChart.getOption(); //获得option对象
-            if (params.zoom !== null && params.zoom !== undefined) { //捕捉到缩放时
-                option_chian_map_1.geo[0].zoom = option_chian_map_1.series[2].zoom; //下层geo的缩放等级跟着上层的geo一起改变
-                option_chian_map_1.geo[0].center = option_chian_map_1.series[2].center; //下层的geo的中心位置随着上层geo一起改变
-            } else { //捕捉到拖曳时
-                option_chian_map_1.geo[0].center = option_chian_map_1.series[2].center; //下层的geo的中心位置随着上层geo一起改变
-            }
-            myChart.setOption(option_chian_map_1); //设置option
-        });
-
-        // 点击散点图上的点
+        // myChart.setOption(option_chian_map);
         
 
       

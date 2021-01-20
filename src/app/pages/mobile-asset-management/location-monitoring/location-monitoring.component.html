@@ -10,22 +10,39 @@
                             <span class="all_num"></span>
                         </a>
                     </li>
-                  <li id="inline" (click)="active('#inline')"><a>在线 <span class="all_num">23</span></a></li>
-                  <li id="noinline" (click)="active('#noinline')"><a>离线 <span class="all_num">33</span></a></li>
+                  <li id="inline" (click)="active('#inline')"><a>在线 <span class="all_num inline">23</span></a></li>
+                  <li id="noinline" (click)="active('#noinline')"><a>离线 <span class="all_num noinline">33</span></a></li>
                 </ul>
             </div>
     
     
             <div class="mysearch" >
-                <div class="row" style="padding: 0px 21px;">
-                    <!-- <input nbInput placeholder="这是搜索" fullWidth (keyup)="projectNameChanged($event)"> -->
+                <!-- 树状搜索 -->
+                <nz-input-group [nzSuffix]="suffixIcon">
+                    <input type="text" nz-input placeholder="Search" [(ngModel)]="searchValue" />
+                  </nz-input-group>
+                  <ng-template #suffixIcon>
+                    <i nz-icon nzType="search"></i>
+                  </ng-template>
+                  <nz-tree
+                    [nzData]="nodes"
+                    [nzSearchValue]="searchValue"
+                    (nzClick)="nzEvent($event)"
+                    (nzExpandChange)="nzEvent($event)"
+                    (nzSearchValueChange)="nzEvent($event)"
+                  >
+                  </nz-tree>
+
+
+                <!-- <input nbInput placeholder="这是搜索" fullWidth (keyup)="projectNameChanged($event)"> -->
+                <!-- <div class="row" style="padding: 0px 21px;">
                     <input 
                     [(formControl)]="inputFormControl"
                     nbInput
                     fullWidth
                     type="text"
-                    
                     placeholder="请选择设备"
+                    (ngModelChange)="onModelChange($event)"
                     [nbAutocomplete]="auto" />
     
                     <nb-autocomplete #auto>
@@ -37,20 +54,22 @@
                         </nb-option-group>
                 
                     </nb-autocomplete>
-                </div>
+                </div> -->
                 
             </div>
+            
             <div class="tab-conent" *ngIf="selectid == '#all'">
-                <ngx-all #all [datas]="datas" (send_user_deviceInfo)="get_device_for_show_mapinfo($event)"></ngx-all>
+                <ngx-all #all [datas]="groups" (send_user_deviceInfo)="get_device_for_show_mapinfo($event)"></ngx-all>
             </div>
             <div class="tab-conent" *ngIf="selectid == '#inline'">
-                <ngx-inline #inline [datas]="datas" (send_user_deviceInfo)="get_device_for_show_mapinfo($event)"></ngx-inline>
+                <!-- <ngx-all #inline [datas]="datas" (send_user_deviceInfo)="get_device_for_show_mapinfo($event)"></ngx-all> -->
+                <ngx-inline #inline [datas]="groups" (send_user_deviceInfo)="get_device_for_show_mapinfo($event)"></ngx-inline>
             </div>
             <div class="tab-conent" *ngIf="selectid == '#noinline'">
-                <ngx-noinline #noinline [datas]="datas"  (send_user_deviceInfo)="get_device_for_show_mapinfo($event)"></ngx-noinline>
+                <!-- <ngx-all #noinline [datas]="datas" (send_user_deviceInfo)="get_device_for_show_mapinfo($event)"></ngx-all> -->
+                <ngx-noinline #noinline [datas]="groups"  (send_user_deviceInfo)="get_device_for_show_mapinfo($event)"></ngx-noinline>
             </div>
         </div>
-
 
     </div>
     <div class="col-md-10" style=" padding: 0px;">

@@ -30,6 +30,7 @@ export class EditComponent implements OnInit {
     var teststop = ".teststop"; // 试验暂停
     var testcontinue = ".testcontinue"; // 试验继续
     var testcomplete = ".testcomplete"; // 试验完成
+    var cancel = ".cancel"; // 试验取消
 
     var taskstatus = this.rowdata["taskstatus"];
     if (taskstatus === '未启动'){
@@ -42,12 +43,13 @@ export class EditComponent implements OnInit {
     }else{
       switch (taskstatus) {
         case '暂停中': // 暂停中对应试验继续
-          this.taskstatus_value = '试验继续'
+          this.taskstatus_value = '试验暂停'
           this.taskstatus_value_tosave = '试验继续'
           $(testcontinue).attr("class", "testcontinue" + " layui-btn layui-btn-normal layui-btn-radius");
-
+          $(cancel).attr("class", "cancel" + " layui-btn layui-btn-primary layui-btn-radius");
           $(teststop).addClass("layui-btn-disabled");
           $(testrun).addClass("layui-btn-disabled");
+          $(testcomplete).addClass("layui-btn-disabled");
           break;
         case '进行中': //进行中对应试验完成
           this.taskstatus_value = '试验完成'
@@ -58,11 +60,21 @@ export class EditComponent implements OnInit {
           break;
         case '已完成': //已完成对应试验完成
           this.taskstatus_value = '已完成'
-          this.taskstatus_value_tosave = '已完成'
+          this.taskstatus_value_tosave = '试验完成'
           $(testcomplete).attr("class", "testcomplete" + " layui-btn layui-btn-normal layui-btn-radius");
           $(testrun).addClass("layui-btn-disabled");
           $(teststop).addClass("layui-btn-disabled");
           $(testcontinue).addClass("layui-btn-disabled");
+          $(cancel).addClass("layui-btn-disabled");
+          break;
+        case '已取消': //已完成对应试验完成
+          this.taskstatus_value = '已取消'
+          this.taskstatus_value_tosave = '已取消'
+          $(cancel).attr("class", "cancel" + " layui-btn layui-btn-normal layui-btn-radius");
+          $(testrun).addClass("layui-btn-disabled");
+          $(teststop).addClass("layui-btn-disabled");
+          $(testcontinue).addClass("layui-btn-disabled");
+          $(testcomplete).addClass("layui-btn-disabled");
           break;
       }
       this.isShow = true;
@@ -129,6 +141,10 @@ export class EditComponent implements OnInit {
   // 临时试验插入/更改设备/设备维修/更换样件/试验完成/等待支持/其他
   statuscause_seleect(form){
     var data = [
+      {
+        id: "试验取消",
+        title: "试验取消"
+      },
       {
         id: "临时试验插入",
         title: "临时试验插入"
@@ -219,21 +235,29 @@ export class EditComponent implements OnInit {
     var teststop = "teststop"; // 试验暂停
     var testcontinue = "testcontinue"; // 试验继续
     var testcomplete = "testcomplete"; // 试验完成
+    var cancel = "cancel"; // 试验取消
     var buttons_zh = {
       "试验启动": testrun,
       "试验暂停": teststop,
       "试验继续": testcontinue,
       "试验完成": testcomplete,
+      "试验取消": cancel,
     }
-    // console.log("+++++++++++++++++++++++++++++++++++++++++++++",mytitle , "taskstatus_value",this.taskstatus_value);
-    // console.log("+++++++++++++++++++++++++++++++++++++++++++++",buttons_zh[mytitle] , "taskstatus_value",buttons_zh[this.taskstatus_value]);
+    console.log("+++++++++++++++++++++++++++++++++++++++++++++",mytitle , "taskstatus_value",this.taskstatus_value);
+    console.log("+++++++++++++++++++++++++++++++++++++++++++++",buttons_zh[mytitle] , "taskstatus_value",buttons_zh[this.taskstatus_value]);
     if (this.taskstatus_value === "试验完成"){
       if (mytitle === '试验暂停'){
         $('.teststop').attr("class", "teststop" + " layui-btn layui-btn-normal layui-btn-radius");
         $('.testcomplete').attr("class", "testcomplete" + " layui-btn layui-btn-primary layui-btn-radius");
+        $('.cancel').attr("class", 'cancel' + " layui-btn layui-btn-primary layui-btn-radius");
       }else if(mytitle === '试验完成'){
         $('.teststop').attr("class", "teststop" + " layui-btn layui-btn-primary layui-btn-radius");
         $('.testcomplete').attr("class", "testcomplete" + " layui-btn layui-btn-normal layui-btn-radius");
+        $('.cancel').attr("class", 'cancel' + " layui-btn layui-btn-primary layui-btn-radius");
+      }else if (mytitle === '试验取消'){
+        $('.cancel').attr("class", 'cancel' + " layui-btn layui-btn-normal layui-btn-radius");
+        $('.teststop').attr("class", "teststop" + " layui-btn layui-btn-primary layui-btn-radius");
+        $('.testcomplete').attr("class", "testcomplete" + " layui-btn layui-btn-primary layui-btn-radius");
       }
     }else if(this.taskstatus_value === "试验继续"){
       if (mytitle === '试验继续'){
@@ -242,6 +266,14 @@ export class EditComponent implements OnInit {
       }else if(mytitle === '试验完成'){
         $('.testcomplete').attr("class", "testcomplete" + " layui-btn layui-btn-normal layui-btn-radius");
         $('.testcontinue').attr("class", 'testcontinue' + " layui-btn layui-btn-primary layui-btn-radius");
+      }
+    }else if (this.taskstatus_value === "试验暂停"){ // 可取消
+      if (mytitle === '试验继续'){
+        $('.testcontinue').attr("class", "testcontinue" + " layui-btn layui-btn-normal layui-btn-radius");
+        $('.cancel').attr("class", 'cancel' + " layui-btn layui-btn-primary layui-btn-radius");
+      }else if (mytitle === '试验取消'){
+        $('.testcontinue').attr("class", "testcontinue" + " layui-btn layui-btn-primary layui-btn-radius");
+        $('.cancel').attr("class", 'cancel' + " layui-btn layui-btn-normal layui-btn-radius");
       }
     }
 

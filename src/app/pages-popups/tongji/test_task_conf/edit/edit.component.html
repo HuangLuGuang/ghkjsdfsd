@@ -30,6 +30,10 @@
                     <button type="button" class="testcomplete layui-btn layui-btn-primary layui-btn-radius" (click)="teststatus('testcomplete,试验完成')">试验完成</button>
                 </div>
 
+                <div class="example-items-rows button_item">
+                    <button type="button" class="cancel layui-btn layui-btn-primary layui-btn-radius" (click)="teststatus('cancel,试验取消')">试验取消</button>
+                </div>
+
             </div>
         </div>
 
@@ -96,7 +100,7 @@
                     <div class="layui-inline">
                       <div class="layui-input-inline">
                           <button class="layui-btn layui-btn-primary" (click)="cancel()">取消</button>
-                          <button type="submit" class="layui-btn" lay-submit="" lay-filter="confirm" *ngIf="this.rowdata.taskstatus != '已完成'">确定</button>
+                          <button type="submit" class="layui-btn" lay-submit="" lay-filter="confirm" *ngIf="this.rowdata.taskstatus != '已完成'&&this.rowdata.taskstatus != '已取消'">确定</button>
                       </div>
                     </div>
                 </div>

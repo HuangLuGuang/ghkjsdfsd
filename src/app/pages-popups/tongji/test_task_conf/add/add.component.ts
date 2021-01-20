@@ -9,6 +9,8 @@ declare let layui;
 
 import { Tesk_Info } from '../../form_verification';
 
+
+
 @Component({
   selector: 'ngx-add',
   templateUrl: './add.component.html',
@@ -16,6 +18,10 @@ import { Tesk_Info } from '../../form_verification';
 })
 export class AddComponent implements OnInit {
   @ViewChild('groups_devices') groups_devices:any; // 当前主设备信息！
+
+  // 试验编号是否重复！ false: 不重复， true： 重复
+  is_taskchildnum = false;
+
   constructor(private dialogRef: NbDialogRef<AddComponent>, private http: HttpserviceService, private userinfo: UserInfoService,
     private publicmethod: PublicmethodService  
   ) { }
@@ -63,6 +69,8 @@ export class AddComponent implements OnInit {
       var form = layui.form,
       layer = layui.layer;
 
+      
+
       // 验证表单
       form.verify({
         // 试验任务编号
@@ -76,6 +84,7 @@ export class AddComponent implements OnInit {
           if (! new RegExp(tesk_info.tasknum).test(value)){
             return '试验任务编号格式不符：WTxxxx-xxxxxx';
           }
+         
         },
         // 样件编号
         exemplarnumbers: function(value, item){
@@ -101,7 +110,24 @@ export class AddComponent implements OnInit {
         var groups_devices_datas = that.groups_devices.get_form_val()
         // console.log("得到form的值 devicename", groups_devices_datas)
         data.field["devicename"] = groups_devices_datas.devicename
-        data.field["devicenum"] = groups_devices_datas.deviceid
+        data.field["devicenum"] = groups_devices_datas.deviceid;
+        // 根据试验编号去 判断是否唯一约束 info["taskchildnum"] = info.tasknum + "-" + info.taskitemnumbers
+        var info_taskchildnum = data.field.tasknum + "-" + data.field.taskitemnumbers;
+        var table = 'device';
+        var method = 'get_task_checkout';
+        var colums =  {
+          taskchildnum: info_taskchildnum
+        }
+        that.http.callRPC(table, method,colums).subscribe(result=>{
+          var res = result["result"]["message"][0];
+          if (res["code"]===1){
+            that.is_taskchildnum = false;
+          }else{
+            that.is_taskchildnum = true; //重复
+            that.not_null(res["message"] +":"+ info_taskchildnum);
+          }
+        })
+
         that.previewinfo(data.field)
         return false;
       });
@@ -113,9 +139,6 @@ export class AddComponent implements OnInit {
         // })
         // 得到当前主设备信息！
         var groups_devices_datas = that.groups_devices.get_form_val()
-        // console.log("得到form的值 deviceid", groups_devices_datas.deviceid)
-        // console.log("得到form的值 deviceno", groups_devices_datas.deviceno)
-        // console.log("得到form的值 devicename", groups_devices_datas.devicename)
 
         // 得到预览的数据
         var previewinfodata = that.previewinfodata;
@@ -131,39 +154,39 @@ export class AddComponent implements OnInit {
         save_data["taskchildnum"] = previewinfodata.taskchildnum;
         save_data["devicenum"] = previewinfodata.devicenum;
         save_data["executor"] = previewinfodata.executor;
-
         save_data["deviceid"] = groups_devices_datas.deviceno;
         save_data["deviceno"] = groups_devices_datas.deviceid;
-        // save_data["deviceid"] = groups_devices_datas.deviceid;
-        // save_data["deviceno"] = groups_devices_datas.deviceno;
         save_data["devicename"] = groups_devices_datas.devicename;
-        
         // 添加创建人
         save_data["createdby"] = that.userinfo.getLoginName();
-
-
         save_data["taskmessage"] = previewinfodata["taskmessage"].join(',');
-        console.error("要保存的数据！>>>", save_data);
-        if (save_data["tasknum"] !==""){
-          var table = "device";
-          var monthed = 'dev_insert_task';
-          var conlumns = save_data;
-          that.http.callRPC(table, monthed, conlumns).subscribe(result=>{
-            var res = result['result']['message'][0];
-            if (res["code"] === 1){
-              // 保存成功
-              that.dialogRef.close(true);
-              that.RecordOperation("新增", 1, '试验任务配置：' + JSON.stringify(conlumns));
-              that.success();
-            }else{
-              // 保存失败
-              that.dialogRef.close(false);
-              that.RecordOperation("新增", 0, '试验任务配置:' + JSON.stringify(conlumns));
-              that.danger(JSON.stringify(res["message"]))
-            }
-          })
+
+        // console.error("要保存的数据！>>>", save_data);
+        // console.error("要保存的数据！is_taskchildnum>>>", that.is_taskchildnum);
+        if (that.is_taskchildnum){// 重复
+          that.not_null("该试验编号已存在!");
         }else{
-          that.not_null();
+          if (save_data["tasknum"] !==""){
+            var table = "device";
+            var monthed = 'dev_insert_task';
+            var conlumns = save_data;
+            that.http.callRPC(table, monthed, conlumns).subscribe(result=>{
+              var res = result['result']['message'][0];
+              if (res["code"] === 1){
+                // 保存成功
+                that.dialogRef.close(true);
+                that.RecordOperation("新增", 1, '试验任务配置：' + JSON.stringify(conlumns));
+                that.success();
+              }else{
+                // 保存失败
+                that.dialogRef.close(false);
+                that.RecordOperation("新增", 0, '试验任务配置:' + JSON.stringify(conlumns));
+                that.danger(JSON.stringify(res["message"]))
+              }
+            })
+          }else{
+            that.not_null("试验信息必填!");
+          }
         }
         
         
@@ -174,7 +197,7 @@ export class AddComponent implements OnInit {
   }
 
   // 弹出提示，不为空！
-  not_null(){
+  not_null(data){
     layui.use('layer',function() {
       var layer = layui.layer
       layer.open({
@@ -183,7 +206,7 @@ export class AddComponent implements OnInit {
         ,btn: ['关闭']
         ,btnAlign: 'r'
         ,moveType: 1 //拖拽模式，0或者1
-        ,content: "试验信息必填!"
+        ,content: data
         ,yes:function () {
           layer.closeAll();
         }
@@ -196,10 +219,8 @@ export class AddComponent implements OnInit {
   // 预览info
   previewinfo(info){
     // 预览的数据
-    
     console.log("预览info: ", info);
-    
-    this.explarinfo_list.push(info.exemplarnumbers + "-" + info.taskitemnumbers + "-" + info.exemplarchildnumbers + " " + info.exemplarname)
+    this.explarinfo_list.push(info.exemplarnumbers + "-" + info.taskitemnumbers + "-" + info.exemplarchildnumbers + " " + info.exemplarname);
     var previewinfodata: PreviewInfo = {
       tasknum: info.tasknum, //试验任务编号
       exemplarnumbers: info.exemplarnumbers, //样件编号
@@ -213,15 +234,17 @@ export class AddComponent implements OnInit {
       executor: info.executor,
       taskmessage: this.explarinfo_list,
     }
-    this.previewinfodata = previewinfodata,
-    console.log("最终预览的数据：", this.previewinfodata);
     
+    this.previewinfodata = previewinfodata;
+    console.log("最终预览的数据：", this.previewinfodata);
     // 清空 样件三级编号、样件名称！
     $("input[name='exemplarchildnumbers']").val("");
     $("input[name='exemplarname']").val("");
 
+
   }
 
+  
 
   // 删除
   success(){
