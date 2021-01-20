@@ -73,7 +73,7 @@ let home = {
                 aspectScale: 0.85,
                 layoutCenter: ["50%", "50%"], //地图位置
                 layoutSize: '100%',
-                zoom:1.4,
+                zoom:1.2,
                 itemStyle: {
                     normal: {
                         // shadowColor: '#276fce',
@@ -122,7 +122,7 @@ let home = {
                     aspectScale: 0.85,
                     layoutCenter: ["50%", "50%"], //地图位置
                     layoutSize: '100%',
-                    zoom: 1.4, //当前视角的缩放比例
+                    zoom: 1.2, //当前视角的缩放比例
                     // roam: true, //是否开启平游或缩放
                     scaleLimit: { //滚轮缩放的极限控制
                         min: 1,

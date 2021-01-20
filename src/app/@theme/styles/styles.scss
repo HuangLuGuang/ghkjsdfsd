@@ -34,6 +34,20 @@
   @include ag-theme-material();
 }
 
+.ag-row-hover {
+  /* putting in !important so it overrides the theme's styling as it hovers the row also */
+  background-color: rgba(223, 223, 255, 0.55) !important;
+}
+
+.ag-column-hover {
+  background-color: rgba(223, 255, 223, 0.53);
+}
+
+.ag-theme-alpine .ag-ltr .ag-cell {
+  border-color: rgba(69, 144, 132, 0.08);
+}
+
+
 // install the framework and custom global styles
 @include nb-install() {
 

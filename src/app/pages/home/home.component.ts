@@ -28,7 +28,7 @@ export class HomeComponent implements OnInit {
       if (this.myChart.isDisposed()){ // 是否被释放
         this.createEchart();
         home.chian_map(this.myChart);
-        this.resize();
+        this.myChart.resize();
       }else{
         console.error("home示例未被释放")
       }
@@ -48,6 +48,7 @@ export class HomeComponent implements OnInit {
   ngOnDestroy(){
     if (this.myChart.isDisposed()){
       console.error("home示例已经被释放")
+      this.myChart.resize();
     }else{
       this.myChart.clear();
       this.myChart.dispose();
