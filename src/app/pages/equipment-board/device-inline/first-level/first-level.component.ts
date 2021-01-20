@@ -61,7 +61,11 @@ export class FirstLevelComponent implements OnInit {
     
   }
 
-
+  ngOnDestroy(){
+    var my_echart = echarts.init(document.querySelector('.chian_map'))
+    my_echart.clear();
+    my_echart.dispose();
+  };
 
   // 返回首页
   gohome(){
