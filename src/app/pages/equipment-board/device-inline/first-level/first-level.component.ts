@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, NgZone, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 
 // my-echart
@@ -20,16 +20,24 @@ export class FirstLevelComponent implements OnInit {
 
   is_not_fullscreen = true; // 是否处于全屏
   // 定时器
-  currenttime_timer;
+  myChart;
 
   constructor( private router: Router, private layoutService: LayoutService,
-    private boardservice:EquipmentBoardService,private activateInfo:ActivatedRoute) { }
+    private boardservice:EquipmentBoardService,private activateInfo:ActivatedRoute,
+    private ngZone:NgZone) { }
 
   ngOnInit(): void {
 
     this.layoutService.onInitLayoutSize().subscribe(f=>{
-      let chian_map = document.querySelector('.chian_map');
-      if(chian_map) echarts.init(chian_map).resize();
+      this.myChart.clear();
+      this.myChart.dispose();
+      if (this.myChart.isDisposed()){ // 是否被释放
+        this.createEchart();
+        first_level.chian_map(this.myChart,this.eclick);
+        this.myChart.resize();
+      }else{
+        console.error("home示例未被释放")
+      }
     })
 
     this.activateInfo.params.subscribe(f =>{
@@ -40,31 +48,46 @@ export class FirstLevelComponent implements OnInit {
 
     // map 地图
 
-    // this.currenttime_timer = self.setInterval(this.currenttime, 1000);
-
     window.addEventListener('resize',this.resize)
     
   }
+
+
   
   ngAfterViewInit(){
     this.boardservice.sendLoad({close:false});
-
-    first_level.chian_map(this.eclick);
+    this.createEchart();
+    first_level.chian_map(this.myChart,this.eclick);
     setTimeout(() => {
-      this.resize();
+      this.myChart.resize();
     }, 100);
   }
 
+  createEchart() {
+    this.ngZone.runOutsideAngular(() => {this.myChart = echarts.init(document.querySelector('.chian_map'))});
+  }
+
   resize=()=>{
-    let chian_map = document.querySelector('.chian_map');
-    if(chian_map) echarts.init(chian_map).resize();
-    
+    setTimeout(() => {
+      
+      this.myChart.clear();
+      this.myChart.dispose();
+      if (this.myChart.isDisposed()){ // 是否被释放
+        this.createEchart();
+        first_level.chian_map(this.myChart,this.eclick);
+        this.myChart.resize();
+      }else{
+        console.error("home示例未被释放")
+      }
+    }, 100);
   }
 
   ngOnDestroy(){
     var my_echart = echarts.init(document.querySelector('.chian_map'))
     my_echart.clear();
     my_echart.dispose();
+    window.removeEventListener('resize',this.resize)
+
   };
 
   // 返回首页

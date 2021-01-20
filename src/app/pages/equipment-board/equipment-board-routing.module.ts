@@ -148,6 +148,14 @@ const ROUTERS: Routes = [{
         .then(m=>m.OilSourceMonitoringModule),
         
       },
+
+      {
+        //整车voc舱
+        path:'vehicle',
+        loadChildren:()=>import('./equipment-vehicle-voc/equipment-vehicle-voc.module')
+        .then(m=>m.EquipmentVehicleVocModule),
+        
+      },
       
       // {
       //   path:'detailsDemo/:title/:deviceid',

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, NgZone, OnInit } from '@angular/core';
 import { ActivatedRoute, NavigationEnd, Router,Event } from '@angular/router';
 import * as screenfull from 'screenfull';
 import { Screenfull } from 'screenfull';
@@ -41,7 +41,7 @@ export class EquipmentBoardComponent implements OnInit {
   
 
   constructor(private router:Router,private activateInfo:ActivatedRoute,private layoutService:LayoutService,
-    private boradservice:EquipmentBoardService) { }
+    private boradservice:EquipmentBoardService,private ngZone:NgZone) { }
 
   ngOnInit(): void {
     this.creatDateInterval();
@@ -58,24 +58,27 @@ export class EquipmentBoardComponent implements OnInit {
     if(menu)this.menu = JSON.parse(menu).filter(f =>f.link && f.link.includes('equipment'));
     
     
-    this.subscribeList.load = this.boradservice.get_Load_Observable().subscribe(f=>{
-      if(f.close){
-        this.loading = f.close;
-      }else{
-        setTimeout(() => {
-          this.loading = f.close;
-        }, 100);
-      }
+    this.subscribeList.load = this.boradservice.get_Load_Observable().subscribe(g=>{
+      this.ngZone.runOutsideAngular(f => this.loading = g.close);
+      // if(f.close){
+      //   this.loading = f.close;
+      // }else{
+      //   setTimeout(() => {
+      //     this.loading = f.close;
+      //   }, 500);
+      // }
     })
   }
   
   ngAfterViewInit(){ 
     let url = decodeURIComponent(window.location.pathname);
-    if (url.includes('first-level') ){
-      this.b_show.back = false;//最上级看板的影藏返回按钮
-    }else{
-      this.b_show.back = true;
-    }
+    setTimeout(() => {
+      if (url.includes('first-level') ){
+        this.b_show.back = false;//最上级看板的影藏返回按钮
+      }else{
+        this.b_show.back = true;
+      }
+    },100);
 
     // 监听路由
     this.isFirstLevel =  this.router.events.subscribe((event: Event) => {

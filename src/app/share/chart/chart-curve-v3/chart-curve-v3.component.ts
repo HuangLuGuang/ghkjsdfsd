@@ -292,7 +292,8 @@ export class ChartCurveV3Component implements OnInit {
             },
             axisPointer: { //轴指示器
                 type: 'shadow',
-                z: 1,
+                // z: 1,
+                zlevel: 1,
                 shadowStyle: {
                     color: {
                         type: 'linear',

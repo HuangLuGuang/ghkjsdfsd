@@ -73,6 +73,7 @@ export class LaboratoryBoardComponent implements OnInit {
   @ViewChild('message')message:any;
   @ViewChild('category')category:any;
   @ViewChild('Fan')Fan:any;
+  @ViewChild('div')dic;
 
   constructor() { }
 
@@ -88,11 +89,33 @@ export class LaboratoryBoardComponent implements OnInit {
   }
 
   ngAfterViewInit(){
+    console.log(this.dic)
     // 初始化富文本框
       tinymce.init({
         selector: '#tinydemo',
-        language:'zh_CN',
+        // language:'zh_CN',
         skin_url: '/assets/skins/lightgray',
+        branding: false,
+        elementpath: false,
+        schema: 'html5',
+        keep_styles: true,//换行保持样式
+        resize: false,//宽高是否可以改变
+        min_height: 300,
+        menubar: 'file edit insert view format table help export',// 工具栏分类 
+        plugins: "table",
+        toolbar: "table tabledelete | tableprops tablerowprops tablecellprops | tableinsertrowbefore tableinsertrowafter tabledeleterow | tableinsertcolbefore tableinsertcolafter tabledeletecol",
+        menu: {
+          file: { title: 'File', items: 'newdocument undo redo | preview | print ' },
+          edit: { title: 'Edit', items: 'undo redo | cut copy paste | selectall | searchreplace' },
+          view: { title: 'View', items: 'code | visualaid visualchars visualblocks | spellchecker | fullscreen codesample' },
+          insert: { title: 'Insert', items: 'image link media template codesample inserttable | charmap emoticons hr | pagebreak nonbreaking anchor toc | insertdatetime' },
+          format: { title: 'Format', items: 'bold italic underline strikethrough superscript subscript codeformat | formats blockformats fontformats fontsizes align lineheight | forecolor backcolor | removeformat' },
+          tools: { title: 'Tools', items: 'spellcheckerlanguage | code wordcount' },
+          table: { title: 'Table', items: 'inserttable | cell row column | tableprops deletetable' },
+          help: { title: 'Help', items: 'help' },
+          // 自定义菜单
+          export: { title: '导出', items: 'word pdf' }
+          },
     });
 
   }
