@@ -70,7 +70,7 @@ export class DeviceOrderComponent implements OnInit {
       // 监听表单中的select
       form.on('select(deviceorder)', function(data){
         console.log("得到被选中的值", data.value); //得到被选中的值
-        var deviceorder_info = this.device_order_info[data.value];
+        var deviceorder_info = that.device_order_info[data.value];
         $(".deviceorderinfo").text(deviceorder_info);
       });
 
