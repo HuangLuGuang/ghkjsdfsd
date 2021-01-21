@@ -541,7 +541,7 @@ let kpi_detail = {
             
             
         }
-        // console.error("option",JSON.stringify(option))
+        
         mychart.setOption(option);
         mychart.resize();
     },
@@ -599,6 +599,7 @@ let kpi_detail = {
             ],
             series: afterdata.Series,
         }
+        console.error("option",JSON.stringify(option))
         mychart.setOption(option);
         mychart.resize();
     },

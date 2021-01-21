@@ -15,15 +15,23 @@
             <div class="chunk" style="height: 50%;">
                 <div class="part_title">设备活跃度</div>
                 <div class="warning-information ">
-                    <span class="warning-title">预警信息</span>
-                    <div class="table_div">
-                        <ul>
-                            <li class="warning_info" style="color: rgb(220, 207, 96);">指标1</li>
-                            <li class="warning_info2" style="color: rgb(220, 207, 96);">指标2</li>
-                            <li class="warning_info" style="color: rgb(220, 207, 96);">指标3</li>
-                            <li class="warning_info2" style="color: rgb(220, 207, 96);">指标4</li>
-                        </ul>
+                    <div class="deviceactivetitle">
+                        <div class="row" style="margin: 0px;">
+                            <div class="col-lg-4 ">
+                                <div class="title">当前在线数量(个)</div>
+                                <div class="title_value">{{device_active_data[1][0]}}</div>
+                            </div>
+                            <div class="col-lg-4">
+                                <div class="title">今日活跃数量(个)</div>
+                                <div class="title_value">{{device_active_data[1][1]}}</div>
+                            </div>
+                            <div class="col-lg-4">
+                                <div class="title">今日活跃率(%)</div>
+                                <div class="title_value">{{device_active_data[1][2]}}%</div>
+                            </div>
+                        </div>
                     </div>
+                    <div class="device_active" id="device_active"></div>
 
                 </div>
             </div>

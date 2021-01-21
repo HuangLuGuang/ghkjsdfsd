@@ -193,7 +193,7 @@ let home = {
                     type: 'lines',
                     zlevel: 0.0001, //设置这个才会有轨迹线的小尾巴
                     // z:21,
-                    polyline:true,
+                    // polyline:true,
                     effect: {
                         show: true,
                         period: 4,
@@ -346,8 +346,8 @@ let home = {
                         brushType: 'stroke'
                     },
                     hoverAnimation: true,
-                    // zlevel: 1
-                    z:22
+                    zlevel: 1
+                    // z:22
                 },
                 // 气球 、scatter 散点图 === 吉利研究院
                 {
@@ -377,8 +377,8 @@ let home = {
                         brushType: 'stroke'
                     },
                     hoverAnimation: true,
-                    // zlevel: 1
-                    z:22
+                    zlevel: 1
+                    // z:22
                 },
             ]
         };

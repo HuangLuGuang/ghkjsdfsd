@@ -429,7 +429,7 @@ export class KpiDetailComponent implements OnInit {
         }
 
       }else{}
-      console.log("第二行，第一个数据格式：", defaultdata)
+      console.log("第二行，第一个数据格式：", JSON.stringify(defaultdata))
       kpi_detail.two_row_one(eleid, defaultdata);
     })
   }

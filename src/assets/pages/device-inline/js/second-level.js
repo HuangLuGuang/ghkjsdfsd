@@ -207,88 +207,147 @@ let second_level = {
 
     // device-rate 设备xx率
     // 参考 https://gallery.echartsjs.com/editor.html?c=x8UGFy_Nb
-    device_rate(value) {
-        // 实例化对象
-        var myChart = echarts.init(document.querySelector('.device-rate'));
-
-        // 配置
-
-        var datas = {
-            name: '设备开动率',
-            company: "%",
-            ringColor: [{
-                offset: 0,
-                color: '#02d6fc' // 0% 处的颜色
-            }, {
-                offset: 1,
-                color: '#367bec' // 100% 处的颜色
-            }]
-        }
-        var option_device_rate = {
-            // backgroundColor:"#000",
-            title: {
-                text: value + datas.company,
-                x: 'center',
-                y: 'center',
-                textStyle: {
-                    fontWeight: 'normal',
-                    color: '#fff',
-                    fontSize: '60'
+    device_rate(element, afterdata) {
+        var mychart = echarts.init(document.querySelector(element));
+        one_row_one_chart = mychart;
+        var option = {
+            color: ["#5D7FE5", "#26FF26"],
+            tooltip: {
+                trigger: "axis",
+                axisPointer: {
+                    type: "cross",
+                    crossStyle: {
+                        color: "#999"
+                    }
                 }
             },
-
-            color: ['#282c40'],
-            legend: {
-                show: false,
-                data: []
-            },
-
-            series: [{
-                name: 'Line 1',
-                type: 'pie',
-                clockWise: true,
-                radius: ['50%', '60%'],
-                itemStyle: {
-                    normal: {
-                        label: {
-                            show: false
-                        },
-                        labelLine: {
-                            show: false
-                        }
-                    }
+            grid: [{
+                top: "30%",
+                right: 10,
+                left: "3%",
+                bottom: "10%",
+                containLabel: true
+            }, {
+                height: "20%",
+                width: "20%",
+                right: 30,
+                top: "1%"
+            }],
+            xAxis: [
+        
+                {
+                    name: "月份",
+                    nameTextStyle: {
+                        padding: [30, 0, 0, -20]
+                    },
+                    type: "category",
+                    data: ["01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12"],
+                    axisPointer: {
+                        type: "shadow"
+                    },
+                    axisLabel: {
+                        interval: 0,
+                        color: '#fff'
+                    },
+                    gridIndex: 0
                 },
-                hoverAnimation: false,
-                data: [{
-                    value: value,
-                    name: '',
-                    itemStyle: {
-                        normal: {
-                            color: { // 完成的圆环的颜色
-                                colorStops: datas.ringColor
-                            },
-                            label: {
-                                show: false
-                            },
-                            labelLine: {
-                                show: false
-                            }
-                        }
-                    }
-                }, {
-                    name: '',
-                    value: 100 - value
-                }]
-            }]
-        };
-        // 配置给实例化对象
-        myChart.setOption(option_device_rate);
+        
+                {
+                    type: "value",
+                    zlevel: 1,
+                    name: '123条',
+                    nameTextStyle: {
+                        padding: [0, 0, '30%', -100],
+                        fontSize: 18
+                    },
 
-        // 让图标跟随屏幕自适应
-        // window.addEventListener('resize', f => {
-        //     console.log("重置的屏幕大小！")
-        //     myChart.resize();
-        // })
+                    gridIndex: 1,
+                    axisLine: {
+                        show: false
+                    },
+                    axisLabel: {
+                        show: false
+                    },
+                    splitLine: {
+                        show: false
+                    },
+                    axisTick: {
+                        show: false
+                    },
+                    splitArea: {
+                        show: false
+                    },
+                    max: 132, // 横轴的长度
+                }
+        
+        
+            ],
+            yAxis: [{
+                    type: "value",
+                    min: 0,
+                    max: 100,
+                    interval: 0,
+                    gridIndex: 0,
+                    axisLabel: {
+                        formatter: "{value}",
+                        color: "rgba(197, 55, 55, 1)"
+                    },
+                    axisLine: {
+                        show: false
+                    },
+                },
+        
+                {
+                    type: "category",
+                    gridIndex: 1,
+                    max: 1,
+                    axisLine: {
+                        show: false
+                    },
+                    axisTick: {
+                        show: false
+                    },
+                    data: [{
+                        value: "累计完成试验数量",
+                        textStyle: {
+                            color: "#fff",
+                            fontSize: 20
+                        }
+                    }]
+                }
+        
+        
+        
+            ],
+            series: [{
+                    name: "直接访问",
+                    type: "bar",
+                    barWidth: "60%",
+                    data: [10, 52, 200, 334, 390, 330, 220]
+                },
+                {
+                    type: "bar",
+                    xAxisIndex: 1,
+                    yAxisIndex: 1,
+        
+                    showBackground: true,
+                    backgroundStyle: {
+                        borderColor: '#9DC3F1',
+                        borderWidth:4
+                    },
+                    data: [{
+                        value: 132,
+                        itemStyle: {
+                            color: "#5D7FE5"
+                        }
+                    }]
+                }
+        
+            ]
+        }
+        // console.error("option",JSON.stringify(option))
+        mychart.setOption(option);
+        mychart.resize()
     },
 };
 
