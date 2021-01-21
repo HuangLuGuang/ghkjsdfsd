@@ -5,6 +5,7 @@ import { LocalStorageService } from '../../../../services/local-storage/local-st
 // my-echart
 let second_level = require('../../../../../assets/pages/device-inline/js/second-level');
 
+
 // 全屏
 import * as screenfull from 'screenfull';
 import { Screenfull } from 'screenfull';
@@ -45,8 +46,8 @@ export class SecondLevelComponent implements OnInit {
     $("#head_title").text(title)
 
     this.layoutService.onInitLayoutSize().subscribe(f=>{
-      let key_index = document.querySelector('.key-index');
-      if(key_index) echarts.init(key_index).resize();
+      // let key_index = document.querySelector('.key-index');
+      // if(key_index) echarts.init(key_index).resize();
       let device_rate = document.querySelector('.device-rate');
       if(device_rate) echarts.init(device_rate).resize();
       
@@ -55,21 +56,112 @@ export class SecondLevelComponent implements OnInit {
       if(geely_info) echarts.init(geely_info).resize();
     })
 
+    
 
 
     
+  }
+
+  // 测试 3D pie
+  test3d(){
+    var Highcharts = require('highcharts');
+    Highcharts.setOptions({
+      colors: ['#50B432', '#24CBE5', '#DDDF00', '#ED561B', '#64E572', '#FF9655', '#FFF263', '#6AF9C4']
+    });
+    Highcharts.chart('key-index', {
+          chart: {
+              type: 'pie',
+              backgroundColor: 'rgba(0,0,0,0)',
+              options3d: {
+                    enabled: true,
+                    alpha: 50,
+                    beta: 0},
+              style:{
+                    fontsSze:'30px',
+                    fontWeight:'bole'
+              },
+              xAxis:{
+                    minRange:50
+              },
+          },
+          credits:{
+              enabled: false    
+          },
+          exporting: { enabled:false },
+          title: {
+              text: '试验设备总量与分布',
+              style:{color:'white'}
+          },
+          tooltip: {
+              pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
+          },
+          plotOptions: {
+              pie: {
+                    allowPointSelect: true,
+                    cursor: 'pointer',
+                    depth: 35,
+                    dataLabels: {
+                        enabled: true,
+                        format: '{point.name}'
+                    }
+              }
+          },
+          series: [{
+              type: 'pie',
+              name: '设备数量',
+              size: 220,
+              slicedOffset: 20,
+              dataLabels:{
+                    style:{
+                        color:'white',
+                        fontSize:'18px',
+                        fontWeight:'bold',
+                        textOutline:'1px 1px contrast'
+                    },
+              },
+              data: [
+                    {
+                        name: '验证中心',
+                        y: 2500,
+                        sliced: true,
+                        selected: true,
+                        colorchart:3
+                    },
+                    {
+                        name: '工程中心',
+                        y: 1000,
+                        sliced: true,
+                        selected: true
+                    },
+                    {
+                        name: '智能电子软件中心',
+                        y: 500,
+                        sliced: true,
+                        selected: true
+                    },
+                    {
+                        name: '新能源中心',
+                        y: 250,
+                        sliced: true,
+                        selected: true
+                    },
+              ]
+          }]
+    });
+
   }
 
   ngAfterViewInit(){
     
 
     // 关键指标
-    second_level.key_index();
+    this.test3d()
+    // second_level.key_index();
     // 设备开动率、完好lv
     second_level.device_rate(70);
     setTimeout(() => {
-      let key_index = document.querySelector('.key-index');
-      if(key_index) echarts.init(key_index).resize();
+      // let key_index = document.querySelector('.key-index');
+      // if(key_index) echarts.init(key_index).resize();
       let device_rate = document.querySelector('.device-rate');
       if(device_rate) echarts.init(device_rate).resize();
       
@@ -80,8 +172,8 @@ export class SecondLevelComponent implements OnInit {
   
 
   ngOnDestroy(){
-    let key_index = document.querySelector('.key-index');
-    if(key_index) echarts.init(key_index).dispose();
+    // let key_index = document.querySelector('.key-index');
+    // if(key_index) echarts.init(key_index).dispose();
     let device_rate = document.querySelector('.device-rate');
     if(device_rate) echarts.init(device_rate).dispose();
   }
@@ -147,8 +239,8 @@ export class SecondLevelComponent implements OnInit {
   listen_windows_resize(){
     window.onreset = function (){
 
-      let key_index = document.querySelector('.key-index');
-      if(key_index) echarts.init(key_index).resize();
+      // let key_index = document.querySelector('.key-index');
+      // if(key_index) echarts.init(key_index).resize();
       let device_rate = document.querySelector('.device-rate');
       if(device_rate) echarts.init(device_rate).resize();
 

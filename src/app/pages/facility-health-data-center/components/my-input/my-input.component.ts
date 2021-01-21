@@ -11,7 +11,6 @@ export class MyInputComponent implements OnInit {
   @Input('placeholder') myinput_placeholder:string;
   @Output() private inpuvalue = new EventEmitter<string>();
 
-
   constructor() { }
 
   ngOnInit(): void {
