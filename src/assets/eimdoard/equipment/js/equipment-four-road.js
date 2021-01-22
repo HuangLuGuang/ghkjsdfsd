@@ -792,7 +792,7 @@ let equipment_four_road = {
                 },
                 detail: {
                     show: true,
-                    formatter: datas.value ? datas.value : '常' + datas.title[0],
+                    formatter: datas.value,
                     fontSize: 18,
                     // offsetCenter: [0, '0%'],
 
@@ -2338,6 +2338,130 @@ let equipment_four_road = {
         };
         myChart.setOption(option_102973);
         // myChart.resize();
+    },
+    progress(data, myChart) {
+
+        let progress_092312 = {
+            color: ['green'],
+            grid: {
+                height: '100%',
+                //     width: 7,
+                top: 0,
+            },
+            xAxis: {
+                type: 'category',
+                data: [1],
+                // axisLabel: {
+                //     show: false
+                // },
+                axisLine: {
+                    show: false
+                },
+                axisTick: {
+                    show: false
+                }
+            },
+            yAxis: {
+                type: 'value',
+                axisLine: {
+                    show: false
+                },
+                axisLabel: {
+                    show: false,
+                },
+                splitLine: {
+                    show: false
+                },
+                axisTick: {
+                    show: false
+                },
+                splitArea: {
+                    show: false
+                },
+                max: data.plan
+            },
+            series: [{
+                name: '已完成',
+                data: [data.now],
+                type: 'bar',
+                showBackground: true,
+                backgroundStyle: {
+                    color: 'yellow',
+                },
+            }]
+        };
+        console.log(JSON.stringify(progress_092312))
+        myChart.setOption(progress_092312)
+    },
+    //启停时序
+    create_line_start_stop(afterdata, chart) {
+        let option_756930 = {
+            tooltip: {
+                trigger: 'axis'
+            },
+            title: [{
+                    text: '停',
+                    textStyle: {
+                        color: COLOR,
+                        fontSize: 12,
+
+                    },
+                    left: '3%',
+                    top: '55%'
+                },
+
+            ],
+            grid: {
+                // left: '3%',
+                // right: '4%',
+                top: '2%',
+                bottom: '40%',
+                // containLabel: true
+            },
+            xAxis: {
+                type: 'category',
+                data: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24],
+                // data: afterdata.xData,
+                axisLine: {
+                    lineStyle: {
+                        color: COLOR
+                    }
+                }
+
+            },
+            yAxis: {
+                type: 'value',
+                max: 2,
+                axisLine: {
+                    width: 0.08,
+                    lineStyle: {
+                        type: "solid",
+                        color: COLOR
+                    }
+                },
+                axisTick: {
+                    show: false
+                },
+            },
+
+
+            series: [{
+                name: 'Step Start',
+                type: 'line',
+                // step: 'start',
+                data: [1, 0, 1, 0, 1, 0, 1, 1, 1, 0, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 1, 1, 1, 0, 1, 1, 0],
+                // data: afterdata.SeriesData,
+                lineStyle: {
+                    color: 'rgb(138,43,226)',
+                    width: 1,
+                },
+                areaStyle: {
+                    color: 'rgb(138,43,226)'
+
+                },
+            }, ]
+        };
+        chart.setOption(option_756930);
     }
 }
 

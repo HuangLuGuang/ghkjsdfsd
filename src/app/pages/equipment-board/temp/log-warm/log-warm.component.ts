@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, NgZone, OnInit } from '@angular/core';
 import * as screenfull from 'screenfull';
 import { Screenfull } from 'screenfull';
 import { HttpserviceService } from '../../../../services/http/httpservice.service';
@@ -15,7 +15,7 @@ declare var $
 })
 export class LogWarmComponent implements OnInit {
   @Input()device
- 
+
   log_warm = {
     // '时间','日志等级','日志信息'
     title:['time','Loglevel','logInfor'],
@@ -41,7 +41,7 @@ export class LogWarmComponent implements OnInit {
   subscribeList:any = {};
   
   
-  constructor(private http:HttpserviceService,private boardservice:EquipmentBoardService) { }
+  constructor(private http:HttpserviceService,private boardservice:EquipmentBoardService,private ngzone:NgZone) { }
 
   ngOnInit(): void {
     //获取当前语言
@@ -53,7 +53,7 @@ export class LogWarmComponent implements OnInit {
       date = new Date();
       if(date.getDay() == 1)this.get_device_mts_log_his();
     },1000)
-    
+
     this.get_device_mts_log_his();
     $('.scrollbar_l').bind("scroll",f=>{
       $('.scrollbar').scrollLeft($('.scrollbar_l').scrollLeft())
@@ -69,18 +69,21 @@ export class LogWarmComponent implements OnInit {
   ngAfterViewInit(){
   }
 
-  
+
   chartResize=()=>{
-    setTimeout(() => {
-      if(document.getElementById('warning'))echarts.init(document.getElementById('warning')).resize();
-    }, 500);
-    
+    this.ngzone.runOutsideAngular(()=>{
+      setTimeout(() => {
+        if(document.getElementById('warning'))echarts.init(document.getElementById('warning')).resize();
+      }, 500);
+
+    })
+
   }
 
   /**
    * 获取日志数据
-   * @param table 
-   * @param method 
+   * @param table
+   * @param method
    */
   get_device_mts_log(){
     // this.subscribeList.device_mts_log = this.http.callRPC('get_log','get_log',{"device":this.device}).subscribe((g:any) =>{
@@ -96,7 +99,7 @@ export class LogWarmComponent implements OnInit {
     this.subscribeList.device_mts_log = this.http.callRPC('get_log','device_monitor.get_log',{"deviceid":this.device}).subscribe((g:any) =>{
       // console.log(g)
       if(g.result.error || g.result.message[0].code == 0)return;
-      
+
       this.log_warm.data = this.getMessage(g);
       var showContent = $(".overflow_height_75");
       if(showContent[0])showContent[0].scrollTop = showContent[0].scrollHeight;
@@ -123,7 +126,10 @@ export class LogWarmComponent implements OnInit {
           if(arr[i].level == 1)LV1Warn[j == 0?6:j-1] = arr[i].numbers;
           if(arr[i].level == 2)LV2Warn[j == 0?6:j-1] = arr[i].numbers;
       }
+    this.ngzone.runOutsideAngular(()=>{
+    
       this.initLogChart(LV1Warn,LV2Warn);
+    })
       this.subscribeList.his_log.unsubscribe();
 
     })
@@ -178,7 +184,7 @@ export class LogWarmComponent implements OnInit {
 
   //   })
   // }
-  
+
   getWin_H(){
     var sf = <Screenfull>screenfull;
     return sf.isFullscreen?'150px':'120px';
@@ -209,18 +215,18 @@ export class LogWarmComponent implements OnInit {
         ]);
     });
     return arr;
-    
-    
+
+
   }
 
 
 
 
-  //组件销毁  
+  //组件销毁
   ngOnDestroy(){
     clearInterval(this.timer);
     clearInterval(this.time_w);
-    
+
     for(let key in this.subscribeList){
       this.subscribeList[key].unsubscribe();
     }

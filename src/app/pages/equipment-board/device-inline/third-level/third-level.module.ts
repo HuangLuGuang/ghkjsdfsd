@@ -12,10 +12,11 @@ import { NzProgressModule } from 'ng-zorro-antd';
 import { EnvironmentLaboratoryComponent } from './laboratory/environment-laboratory/environment-laboratory.component';
 import { EnergyLaboratoryComponent } from './laboratory/energy-laboratory/energy-laboratory.component';
 import { ThirdLevelService } from './laboratory/third-level.service';
+import { PhysicalLaboratoryComponent } from './laboratory/physical-laboratory/physical-laboratory.component';
 
 
 @NgModule({
-  declarations: [ThirdLevelComponent,StructuralLaboratoryComponent, EnvironmentLaboratoryComponent, EnergyLaboratoryComponent],
+  declarations: [ThirdLevelComponent,StructuralLaboratoryComponent, EnvironmentLaboratoryComponent, EnergyLaboratoryComponent, PhysicalLaboratoryComponent],
   imports: [
     CommonModule,
     ThirdLevelRoutingModule,

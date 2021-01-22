@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import {ChangeDetectionStrategy, Component, Input, OnInit} from '@angular/core';
 import { Observable } from 'rxjs';
 import { LayoutService } from '../../../../@core/utils';
 import { HttpserviceService } from '../../../../services/http/httpservice.service';
@@ -10,7 +10,8 @@ let rtm3a = require('../../../../../assets/eimdoard/rtm3/js/rtm3a');
 @Component({
   selector: 'ngx-experiment-params',
   templateUrl: './experiment-params.component.html',
-  styleUrls: ['./experiment-params.component.scss']
+  styleUrls: ['./experiment-params.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ExperimentParamsComponent implements OnInit {
   @Input()device:string = '';
@@ -24,7 +25,7 @@ export class ExperimentParamsComponent implements OnInit {
   constructor(private http:HttpserviceService,private boardservice:EquipmentBoardService) { }
 
   ngOnInit(): void {
-    
+
     let language = localStorage.getItem('currentLanguage');
     if(language!='zh-CN')this.language = language;
    
@@ -42,7 +43,7 @@ export class ExperimentParamsComponent implements OnInit {
           this.get_device_mts_timerangedata();
           i = 0;
         }
-      else 
+      else
       {
         this.get_device_Temp_hum();
         if(i == 5){
@@ -64,7 +65,7 @@ export class ExperimentParamsComponent implements OnInit {
         echarts.init(document.getElementById('third_second')).resize();
       }
     }, 500);
-    
+
   }
 
 
@@ -88,7 +89,7 @@ export class ExperimentParamsComponent implements OnInit {
           echarts.init(document.getElementById('real_temperature_2')));
 
       this.subscribeList.device_mts_weiss.unsubscribe();
-      
+
     })
   }
 
@@ -137,9 +138,9 @@ export class ExperimentParamsComponent implements OnInit {
         equipment_four_road.create_real_temperature_v2(
           {value:res.humidity?res.humidity:0,title:'湿度',max:100,setValue:res.humidityset?res.humidityset:0},
           echarts.init(document.getElementById('real_temperature_2')));
-      
+
       this.subscribeList.t_h.unsubscribe();
-      
+
     })
   }
 

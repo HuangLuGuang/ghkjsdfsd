@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, NgZone, OnInit, ViewChild } from '@angular/core';
 let rtm3a = require('../../../../assets/eimdoard/rtm3/js/rtm3a');
 declare var $:any;
 
@@ -27,7 +27,7 @@ export class LaboratoryBoardComponent implements OnInit {
     },
     'demo2':{
       id:'demo2',
-      type:'category',
+      type:'message',
       style:{
         height:'200px',
         width:'200px',
@@ -47,7 +47,7 @@ export class LaboratoryBoardComponent implements OnInit {
     },
     'demo4':{
       id:'demo4',
-      type:'category',
+      type:'message',
       style:{
         height:'200px',
         width:'200px',
@@ -57,7 +57,7 @@ export class LaboratoryBoardComponent implements OnInit {
     },
     'demo5':{
       id:'demo5',
-      type:'Fan',
+      type:'message',
       style:{
         height:'200px',
         width:'200px',
@@ -75,7 +75,7 @@ export class LaboratoryBoardComponent implements OnInit {
   @ViewChild('Fan')Fan:any;
   @ViewChild('div')dic;
 
-  constructor() { }
+  constructor(private ngzone:NgZone) { }
 
   ngOnInit(): void {
     if(document.getElementById('head_title'))
@@ -101,23 +101,19 @@ export class LaboratoryBoardComponent implements OnInit {
         keep_styles: true,//换行保持样式
         resize: false,//宽高是否可以改变
         min_height: 300,
-        menubar: 'file edit insert view format table help export',// 工具栏分类 
-        plugins: "table",
-        toolbar: "table tabledelete | tableprops tablerowprops tablecellprops | tableinsertrowbefore tableinsertrowafter tabledeleterow | tableinsertcolbefore tableinsertcolafter tabledeletecol",
-        menu: {
-          file: { title: 'File', items: 'newdocument undo redo | preview | print ' },
-          edit: { title: 'Edit', items: 'undo redo | cut copy paste | selectall | searchreplace' },
-          view: { title: 'View', items: 'code | visualaid visualchars visualblocks | spellchecker | fullscreen codesample' },
-          insert: { title: 'Insert', items: 'image link media template codesample inserttable | charmap emoticons hr | pagebreak nonbreaking anchor toc | insertdatetime' },
-          format: { title: 'Format', items: 'bold italic underline strikethrough superscript subscript codeformat | formats blockformats fontformats fontsizes align lineheight | forecolor backcolor | removeformat' },
-          tools: { title: 'Tools', items: 'spellcheckerlanguage | code wordcount' },
-          table: { title: 'Table', items: 'inserttable | cell row column | tableprops deletetable' },
-          help: { title: 'Help', items: 'help' },
-          // 自定义菜单
-          export: { title: '导出', items: 'word pdf' }
-          },
+        plugins: 'link  table ',
+        toolbar: 'undo redo restoredraft | cut copy paste pastetext | forecolor backcolor bold italic underline striketough link  | alignleft aligncenter alignright alignjustify outdent indent | \
+        styleselect formatselect fontselect fontsizeselect | bullist numlist | blockquote subscript superscript removeformat | \
+        table  |  | lineheight  ',
+        fontsize_formats: '12px 14px 16px 18px 24px 36px 48px 56px 72px',
+        font_formats: '微软雅黑=Microsoft YaHei,Helvetica Neue,PingFang SC,sans-serif;苹果苹方=PingFang SC,Microsoft YaHei,sans-serif;宋体=simsun,serif;仿宋体=FangSong,serif;黑体=SimHei,sans-serif;Arial=arial,helvetica,sans-serif;Arial Black=arial black,avant garde;Book Antiqua=book antiqua,palatino;',
     });
 
+  }
+
+  getContent(){
+    var cnt = tinymce.editors['tinydemo'].getContent();
+    console.log(cnt);
   }
 
   initChart(){
@@ -126,9 +122,21 @@ export class LaboratoryBoardComponent implements OnInit {
     for(let key in l){
       mychart = document.getElementById(l[key].id);
       if(!mychart)continue;
-      mychart = echarts.init(mychart)
-      rtm3a.create_semicircle(parseInt((Math.random()*100).toString()),mychart);
+      this.create_chart(mychart);
+      
     }
+  }
+
+  create_chart(mychart){
+    this.ngzone.runOutsideAngular(()=>{
+      if(echarts.getInstanceByDom(mychart)){
+        mychart = echarts.getInstanceByDom(mychart)
+      }else{
+
+        mychart = echarts.init(mychart)
+      }
+      rtm3a.create_semicircle(parseInt((Math.random()*100).toString()),mychart);
+    })
   }
 
 

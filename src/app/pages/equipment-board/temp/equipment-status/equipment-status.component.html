@@ -19,8 +19,13 @@
         <div id="{{'device_circular_3'+TempNum}}" class="device_circular"></div>
     </div>
     <div class="chart height_65">
-        <div class="height_40" style="box-shadow: 0 0px 1px 3px rgba(50, 84, 129, 1) inset;width: 95%;min-height: 64px;">
+        <!-- <div class="height_40 chart_1" *ngIf="chart_1_type == 'type_1'">
             <div class="height_23"><span style="float: left;padding-left: 17px;">分</span> {{'equipment.StateOfTheDay' | translate}}</div>
+            <div id="{{'operatingRate'+TempNum}}" class="operatingRate">
+            </div>
+        </div> -->
+        <div class="height_40 chart_1">
+            <div class="height_23">设备当日启停状态</div>
             <div id="{{'operatingRate'+TempNum}}" class="operatingRate">
             </div>
         </div>

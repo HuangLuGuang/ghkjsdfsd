@@ -1,7 +1,5 @@
-import { Component, NgZone, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import {  TranslateService } from '@ngx-translate/core';
-import { LayoutService } from '../../../@core/utils/layout.service';
 import { HttpserviceService } from '../../../services/http/httpservice.service';
 import { colors, dateformat, rgb_del_red,painting_time,four_road_htmlstr, create_img_16_9 } from '../equipment-board';
 import { EquipmentBoardService } from '../serivice/equipment-board.service';
@@ -10,7 +8,8 @@ import { EquipmentBoardService } from '../serivice/equipment-board.service';
 @Component({
   selector: 'ngx-equipment-four-road',
   templateUrl: './equipment-four-road.component.html',
-  styleUrls: ['./equipment-four-road.component.scss']
+  styleUrls: ['./equipment-four-road.component.scss'],
+  
 })
 export class EquipmentFourRoadComponent implements OnInit {
 
@@ -202,10 +201,10 @@ export class EquipmentFourRoadComponent implements OnInit {
 
   //设备介绍
   equipIntroduceList = [
-    {htmlstr:four_road_htmlstr[0],title:''},
-    {htmlstr:four_road_htmlstr[1],title:'四立柱参数'},
-    {htmlstr:four_road_htmlstr[2],title:'环境仓及光照参数'},
-    {htmlstr:four_road_htmlstr[3],title:'环境仓及光照参数'},
+    {title:''},
+    {title:'四立柱参数'},
+    {title:'环境仓及光照参数'},
+    {title:'环境仓及光照参数'},
   ];
   //当前的页数
   eqIntShow = 0;

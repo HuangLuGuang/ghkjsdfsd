@@ -1,7 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { Observable } from 'rxjs';
-import { LayoutService } from '../../../@core/utils';
 import { HttpserviceService } from '../../../services/http/httpservice.service';
 import { colors, copy, create_img_16_9, oil_htmlStr } from '../equipment-board';
 import { EquipmentBoardService } from '../serivice/equipment-board.service';
@@ -21,9 +19,9 @@ declare var $
 })
 export class OilSourceMonitoringComponent implements OnInit {
   equipIntroduceList = [
-    {htmlstr:oil_htmlStr[0],title:''},
-    {htmlstr:oil_htmlStr[1],title:''},
-    {htmlstr:oil_htmlStr[2],title:''},
+    {title:''},
+    {title:''},
+    {title:''},
   ]
 
   img = {
@@ -340,7 +338,7 @@ export class OilSourceMonitoringComponent implements OnInit {
   timer:any;//定时器
   language = '';//语言 空为zh-CN中文
   deviceid:any;//设备id
-  constructor(private activateInfo:ActivatedRoute,private layoutService:LayoutService,
+  constructor(private activateInfo:ActivatedRoute,
     private http:HttpserviceService,private boardservice:EquipmentBoardService) { }
 
   ngOnInit(): void {
@@ -353,10 +351,7 @@ export class OilSourceMonitoringComponent implements OnInit {
     let language = localStorage.getItem('currentLanguage');
     if(language!='zh-CN')this.language = language;
     
-    //订阅左上角打开关闭
-    this.subscribeList.layout = this.layoutService.onInitLayoutSize().subscribe(f=>{
-      this.resize();
-    })
+  
     //订阅路由返回的标题
     this.subscribeList.router = this.activateInfo.params.subscribe(f =>{
       // console.log(f);
@@ -384,14 +379,12 @@ export class OilSourceMonitoringComponent implements OnInit {
       }
       i++;
     },1000);
-    window.addEventListener('resize',this.resize);
 
-    // $('.scrollbar_l').bind("scroll",f=>{
-    //   var line = $('.line_1');
-    //   for(let i = 0;i<line.length;i++){
-    //     $('#line_'+i).scrollLeft($('.scrollbar_l').scrollLeft())
-    //   }
-    // })
+
+    this.subscribeList.resize = this.boardservice.chartResize().subscribe(f=>{
+      this.resize();
+    })
+
   }
 
   ngAfterViewInit(){
@@ -709,7 +702,6 @@ export class OilSourceMonitoringComponent implements OnInit {
     for(let key in this.subscribeList){
       this.subscribeList[key].unsubscribe();
     }
-    window.removeEventListener('resize',this.resize);
 
     let chart;
     this.HPUlist.forEach((f,i)=>{

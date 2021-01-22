@@ -1,7 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { Observable } from 'rxjs';
-import { LayoutService } from '../../../@core/utils/layout.service';
 import { HttpserviceService } from '../../../services/http/httpservice.service';
 import { colors, create_img_16_9 } from '../equipment-board';
 import { EquipmentBoardService } from '../serivice/equipment-board.service';
@@ -15,7 +13,8 @@ let oilsrouce = require('../../../../assets/eimdoard/equipment/js/oilsrouce');
 @Component({
   selector: 'ngx-equipment-motor-system',
   templateUrl: './equipment-motor-system.component.html',
-  styleUrls: ['./equipment-motor-system.component.scss']
+  styleUrls: ['./equipment-motor-system.component.scss'],
+  
 })
 export class EquipmentMotorSystemComponent implements OnInit {
 
@@ -172,17 +171,14 @@ export class EquipmentMotorSystemComponent implements OnInit {
   subscribeList:any = {};
 
 
-  constructor(private layoutService: LayoutService,private activateInfo:ActivatedRoute,
+  constructor(private activateInfo:ActivatedRoute,
     private http:HttpserviceService,private boardservice:EquipmentBoardService) { }
 
   ngOnInit(): void {
     //获取当前语言
     let language = localStorage.getItem('currentLanguage');
     if(language!='zh-CN')this.language = language;
-    //订阅左上角点击宽度改变
-    this.subscribeList.layout = this.layoutService.onInitLayoutSize().subscribe(f=>{
-      this.resize();
-    })
+    
     //订阅路由
     this.subscribeList.router = this.activateInfo.params.subscribe(f =>{
       // console.log(f);
@@ -200,9 +196,11 @@ export class EquipmentMotorSystemComponent implements OnInit {
 
     setTimeout(() => {
       create_img_16_9();
-
     }, 1000);
-    window.addEventListener('resize',this.resize)
+
+    this.subscribeList.resize =this.boardservice.chartResize().subscribe(f=>{
+      this.resize();
+    })
     
   }
 
@@ -387,7 +385,6 @@ torque: 0.151 扭矩
     for(let key in this.subscribeList){
       this.subscribeList[key].unsubscribe();
     }
-    window.removeEventListener('resize',this.resize);
 
     let chart;
     [1, 1, 1, 1, 1].forEach((f,i)=>{

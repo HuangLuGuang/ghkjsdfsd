@@ -1,7 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { Observable } from 'rxjs';
-import { LayoutService } from '../../../@core/utils';
 import { HttpserviceService } from '../../../services/http/httpservice.service';
 import { colors, create_img_16_9, rTime } from '../equipment-board';
 import { EquipmentBoardService } from '../serivice/equipment-board.service';
@@ -10,7 +8,8 @@ let equipment_four_road = require('../../../../assets/eimdoard/equipment/js/equi
 @Component({
   selector: 'ngx-cabin-centralized-monitoring',
   templateUrl: './cabin-centralized-monitoring.component.html',
-  styleUrls: ['./cabin-centralized-monitoring.component.scss']
+  styleUrls: ['./cabin-centralized-monitoring.component.scss'],
+  
 })
 export class CabinCentralizedMonitoringComponent implements OnInit {
 
@@ -170,16 +169,13 @@ export class CabinCentralizedMonitoringComponent implements OnInit {
   deviceid_jinhua = 'device_jinhua_cabin02';
   deviceid_ATEC = 'device_atec_05';
   timer;
-  constructor(private layoutService:LayoutService,private activateInfo:ActivatedRoute,
+  constructor(private activateInfo:ActivatedRoute,
     private http:HttpserviceService,private boardservice:EquipmentBoardService) { }
 
   ngOnInit(): void {
     //获取当前语言
     let language = localStorage.getItem('currentLanguage');
     if(language!='zh-CN')this.language = language;
-    this.subscribeList.layout = this.layoutService.onInitLayoutSize().subscribe(f=>{
-      this.resize();
-    })
 
     this.subscribeList.router = this.activateInfo.params.subscribe(f =>{
       // console.log(f);
@@ -191,7 +187,9 @@ export class CabinCentralizedMonitoringComponent implements OnInit {
       create_img_16_9();
     }, 1000);
 
-    window.addEventListener('resize',this.resize)
+    this.subscribeList.resize =this.boardservice.chartResize().subscribe(f=>{
+      this.resize();
+    })
 
   }
 
@@ -403,7 +401,6 @@ export class CabinCentralizedMonitoringComponent implements OnInit {
     for(let key in this.subscribeList){
       this.subscribeList[key].unsubscribe();
     }
-    window.removeEventListener('resize',this.resize);
 
     let chart;
     this.jinhua_en.forEach(f=>{

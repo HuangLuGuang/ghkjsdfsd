@@ -11,12 +11,12 @@
     </div>
 </div> -->
 
-<!-- <div id="appearance">
+<div id="appearance">
     <div *ngFor="let key of objectKeys(list)" [ngStyle]="list[key].style">
         <ng-container [ngTemplateOutlet]="getTemp(list[key].type)" [ngTemplateOutletContext]="{ $implicit: list[key] }">
         </ng-container>
     </div>
-    
+
 </div>
 <ng-template #message let-value>
     <div class="height_100 w_100" id="{{ value.id}}"></div>
@@ -37,11 +37,12 @@
         <div class="three" style="width: 50%;height: 50%;"></div>
         <div class="three" style="width: 50%;height: 50%;"></div>
     </div>
-</ng-template> -->
-<div class="row" style="width: 100%;">
+</ng-template>
+<!-- <div class="row" style="width: 100%;">
     <div class="col-md-4"></div>
     <div class="col-md-4">
-        <textarea id="tinydemo"></textarea>
+        <textarea id="tinydemo" max="20"></textarea>
     </div>
     <div class="col-md-4"></div>
 </div>
+<input type="button" (click)="getContent()" value="获得内容"> -->

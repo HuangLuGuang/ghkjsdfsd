@@ -204,7 +204,7 @@ let oilsrouce = {
                             color: "#109618"
                         }
                     },
-                    z: 2
+                    zlevel: 2
                 },
                 {
                     type: "bar",
@@ -218,7 +218,7 @@ let oilsrouce = {
                             color: "#fff"
                         }
                     },
-                    z: 1
+                    zlevel: 1
                 },
                 {
                     type: "bar",
@@ -238,7 +238,7 @@ let oilsrouce = {
                             fontSize: 12
                         }
                     },
-                    z: 3
+                    zlevel: 3
                 }
             ]
         };

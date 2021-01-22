@@ -90,8 +90,21 @@ let first_level = {
 
         let data = [{
                 name: "黑河",
-                value: [47, 127, 100]
+                value: [47, 127, 100],
+                markPoint: {
+                    animation: false
+                },
+                markLine: {
+                    animation: false
+                },
+                markArea: {
+                    animation: false
+
+                }
             },
+
+
+
 
         ]
 
@@ -103,7 +116,17 @@ let first_level = {
                     [127.528588, 50.247033],
                     [132, 52, 100]
                 ],
-                value: [2, 3]
+                value: [2, 3],
+                markPoint: {
+                    animation: false
+                },
+                markLine: {
+                    animation: false
+                },
+                markArea: {
+                    animation: false
+
+                }
             },
             {
                 name: "吐鲁番夏季试车专属基地",
@@ -111,7 +134,17 @@ let first_level = {
                     [89.192125, 42.956351],
                     [97.192125, 47.956351]
                 ],
-                value: [4, 5]
+                value: [4, 5],
+                markPoint: {
+                    animation: false
+                },
+                markLine: {
+                    animation: false
+                },
+                markArea: {
+                    animation: false
+
+                }
 
             },
             {
@@ -120,7 +153,17 @@ let first_level = {
                     [121.25158, 30.342533],
                     [128, 27, 100]
                 ],
-                value: [38, 50]
+                value: [38, 50],
+                markPoint: {
+                    animation: false
+                },
+                markLine: {
+                    animation: false
+                },
+                markArea: {
+                    animation: false
+
+                }
             },
             {
                 name: "盐城试车基地",
@@ -128,7 +171,17 @@ let first_level = {
                     [120.168403, 33.355342],
                     [132, 37, 100]
                 ],
-                value: [2, 4]
+                value: [2, 4],
+                markPoint: {
+                    animation: false
+                },
+                markLine: {
+                    animation: false
+                },
+                markArea: {
+                    animation: false
+
+                }
             },
             //94.794758,36.405633
             {
@@ -137,7 +190,17 @@ let first_level = {
                     [94.794758, 36.405633],
                     [90, 25, 100]
                 ],
-                value: [2, 4]
+                value: [2, 4],
+                markPoint: {
+                    animation: false
+                },
+                markLine: {
+                    animation: false
+                },
+                markArea: {
+                    animation: false
+
+                }
             },
             //119.417702,30.919115
             {
@@ -146,7 +209,17 @@ let first_level = {
                     [119.417702, 30.919115],
                     [129, 32, 100]
                 ],
-                value: [2, 4]
+                value: [2, 4],
+                markPoint: {
+                    animation: false
+                },
+                markLine: {
+                    animation: false
+                },
+                markArea: {
+                    animation: false
+
+                }
             },
 
 
@@ -156,6 +229,8 @@ let first_level = {
         var option_chian_map = {
             // backgroundColor: '#00294E',
             // backgroundColor: '#1CCCFF',
+            animation: false,
+
             geo: {
                 map: 'china',
                 aspectScale: 0.85,
@@ -236,7 +311,16 @@ let first_level = {
                         }
                     },
 
+                    markPoint: {
+                        animation: false
+                    },
+                    markLine: {
+                        animation: false
+                    },
+                    markArea: {
+                        animation: false
 
+                    }
                 },
 
                 // 区域散点图
@@ -252,7 +336,6 @@ let first_level = {
                         scale: 5,
                         brushType: 'fill'
                     },
-                    hoverAnimation: true,
                     label: {
                         normal: {
                             show: true,
@@ -275,6 +358,16 @@ let first_level = {
                             areaColor: '#f00'
                         }
                     },
+                    markPoint: {
+                        animation: false
+                    },
+                    markLine: {
+                        animation: false
+                    },
+                    markArea: {
+                        animation: false
+
+                    }
 
                 },
                 // 线 和 点
@@ -320,7 +413,17 @@ let first_level = {
                                 [121.25158, 30.342533],
                                 [121.25158, 30.342533],
                             ],
-                            lineStyle: { color: '#4fb6d2' }
+                            lineStyle: { color: '#4fb6d2' },
+                            markPoint: {
+                                animation: false
+                            },
+                            markLine: {
+                                animation: false
+                            },
+                            markArea: {
+                                animation: false
+
+                            }
                         },
                         {
                             fromName: "吉利研究院",
@@ -330,7 +433,17 @@ let first_level = {
                                 [121.25158, 30.342533],
                                 [121.25158, 30.342533],
                             ],
-                            lineStyle: { color: '#4fb6d2' }
+                            lineStyle: { color: '#4fb6d2' },
+                            markPoint: {
+                                animation: false
+                            },
+                            markLine: {
+                                animation: false
+                            },
+                            markArea: {
+                                animation: false
+
+                            }
 
                         },
                         {
@@ -342,7 +455,17 @@ let first_level = {
                                 [121.25158, 30.342533],
                                 [121.25158, 30.342533],
                             ],
-                            lineStyle: { color: '#4fb6d2' }
+                            lineStyle: { color: '#4fb6d2' },
+                            markPoint: {
+                                animation: false
+                            },
+                            markLine: {
+                                animation: false
+                            },
+                            markArea: {
+                                animation: false
+
+                            }
 
                         },
                         {
@@ -354,7 +477,17 @@ let first_level = {
                                 [121.25158, 30.342533],
                                 [121.25158, 30.342533],
                             ],
-                            lineStyle: { color: '#4fb6d2' }
+                            lineStyle: { color: '#4fb6d2' },
+                            markPoint: {
+                                animation: false
+                            },
+                            markLine: {
+                                animation: false
+                            },
+                            markArea: {
+                                animation: false
+
+                            }
 
                         },
                         //119.417702,30.919115
@@ -366,10 +499,30 @@ let first_level = {
                                 [121.25158, 30.342533],
                                 [121.25158, 30.342533],
                             ],
-                            lineStyle: { color: '#4fb6d2' }
+                            lineStyle: { color: '#4fb6d2' },
+                            markPoint: {
+                                animation: false
+                            },
+                            markLine: {
+                                animation: false
+                            },
+                            markArea: {
+                                animation: false
+
+                            }
 
                         },
                     ],
+                    markPoint: {
+                        animation: false
+                    },
+                    markLine: {
+                        animation: false
+                    },
+                    markArea: {
+                        animation: false
+
+                    }
 
                 },
                 {
@@ -420,6 +573,16 @@ let first_level = {
 
                     },
                     data: LableData,
+                    markPoint: {
+                        animation: false
+                    },
+                    markLine: {
+                        animation: false
+                    },
+                    markArea: {
+                        animation: false
+
+                    }
 
 
                 },
@@ -456,10 +619,19 @@ let first_level = {
                     rippleEffect: {
                         brushType: 'stroke'
                     },
-                    hoverAnimation: true,
                     // zlevel: 1
-                    zlevel: 22
-                        // z:22
+                    zlevel: 22,
+                    // z:22
+                    markPoint: {
+                        animation: false
+                    },
+                    markLine: {
+                        animation: false
+                    },
+                    markArea: {
+                        animation: false
+
+                    }
                 },
                 // 气球 、scatter 散点图 === 吉利研究院
                 {
@@ -488,17 +660,26 @@ let first_level = {
                     rippleEffect: {
                         brushType: 'stroke'
                     },
-                    hoverAnimation: true,
                     // zlevel: 1
-                    zlevel: 22
-                        // z:22
+                    zlevel: 22,
+                    // z:22
+                    markPoint: {
+                        animation: false
+                    },
+                    markLine: {
+                        animation: false
+                    },
+                    markArea: {
+                        animation: false
+
+                    }
                 },
             ]
         };
 
 
         // 渲染
-        myChart.setOption(option_chian_map);
+        myChart.setOption(option_chian_map, { silent: true, lazyUpdate: true });
 
         //echarts 设置地图外边框以及多个geo实现缩放拖曳同步
         // myChart.on('georoam', function(params) {
@@ -511,8 +692,8 @@ let first_level = {
         //     }
         //     myChart.setOption(option_chian_map_1); //设置option
         // });
-
-        // 点击散点图上的点
+        console.log(JSON.stringify(option_chian_map))
+            // 点击散点图上的点
         myChart.on('click', function(params) {
             eclick(params)
         });
@@ -575,7 +756,6 @@ let first_level = {
                         }
                     }
                 },
-                hoverAnimation: false,
                 data: [{
                     value: value,
                     name: '',

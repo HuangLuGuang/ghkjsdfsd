@@ -2,7 +2,7 @@
     <div class="row" style="height: 100%;margin: 0;">
         <div class="col-md-4" style="padding: 0px 0px 0px 20px;">
             <div class="backgroud height_33">
-                <ngx-equipment-status [device]='deviceid' style="display: flex;width: 100%;height: 100%;"></ngx-equipment-status>
+                <ngx-equipment-status [device]='deviceid' [chart_1_type]="'type_2'" style="display: flex;width: 100%;height: 100%;"></ngx-equipment-status>
             </div>
             <div class="backgroud  height_26">
                 <div class="part_title">{{'equipment.expInfor'|translate}}</div>
@@ -28,8 +28,8 @@
                         <div id="cabin_pie_1"></div>
                         <div id="cabin_pie_2"></div>
                         <div class="cabin_1_set height_100">
-                            <div>温度设定值：<span>{{ cang_1.tempSet}}℃</span></div>
-                            <div>湿度设定值：<span>{{ cang_1.rhSet }}%RH</span></div>
+                            <div class="set_1">温度设定值：<span class="span_css">{{ cang_1.tempSet}}℃</span></div>
+                            <div class="set_1">湿度设定值：<span class="span_css">{{ cang_1.rhSet }}%RH</span></div>
                         </div>
                     </div>
                     <div id="cabin_line_1" class="height_54 w_100"></div>
@@ -43,16 +43,82 @@
                     <div class="round" [ngStyle]="{background:cang_1.status?'#66FF66':'black' }"></div>
                     <div class="cabin_layout height_90 " style="width: 80%;">
                         <div *ngFor="let item of cang_hot.list" class="height_30 cabin_1_set" style="width: 45%;">
-                            <div *ngIf="item.name">{{ item.name}}：<span>{{ item.value}} {{item.unit}}</span></div>
+                            <div class="set_1" *ngIf="item.name">{{ item.name}}：<span class="span_css">{{ item.value}} {{item.unit}}</span></div>
                         </div>
                     </div>
                 </div>
             </div>
             <div class="backgroud height_35">
                 <div class="part_title">环境舱3</div>
+                <div class="cabin">
+                    <div class="cabin_layout height_40">
+                        <div class="round" [ngStyle]="{background:cang_3.status?'#66FF66':'black' }"></div>
+                        <div id="cabin_pie_5"></div>
+                        <div id="cabin_pie_6"></div>
+                        <div class="cabin_1_set height_100" style="width: 40%;">
+                            <div class="set_3">
+                                <div class="div_row">
+                                    内循环：
+                                    <div class="round_small" [ngStyle]="{background: cang_3.inner?'#66FF66':'black'}"></div>
+                                </div>
+                                <div class="div_row">
+                                    强排气：
+                                    <span class="round_small" [ngStyle]="{background: cang_3.exhaust?'#66FF66':'black'}"></span>
+                                </div>
+                            </div>
+                            <div class="set_3">
+                                <div class="div_row">
+                                    外循环：
+                                    <div class="round_small" [ngStyle]="{background: cang_3.outside?'#66FF66':'black'}"></div>
+                                </div>
+                                <div class="div_row">
+
+                                    尾气排扇：
+                                    <div class="round_small" [ngStyle]="{background: cang_3.fan?'#66FF66':'black'}"></div>
+                                </div>
+                            </div>
+                            <div class="set_3">温度设定值：<span class="span_css">{{ cang_3.tempSet}}℃</span></div>
+                            <div class="set_3">湿度设定值：<span class="span_css">{{ cang_3.rhSet }}%RH</span></div>
+                        </div>
+                    </div>
+                    <div id="cabin_line_3" class="height_54 w_100"></div>
+                </div>
             </div>
             <div class="backgroud height_35">
                 <div class="part_title">环境舱2</div>
+                <div class="cabin">
+                    <div class="cabin_layout height_40">
+                        <div class="round" [ngStyle]="{background:cang_2.status?'#66FF66':'black' }"></div>
+                        <div id="cabin_pie_3"></div>
+                        <div id="cabin_pie_4"></div>
+                        <div class="cabin_1_set height_100" style="width: 40%;">
+                            <div class="set_2">
+                                <div class="div_row">
+                                    内循环：
+                                    <div class="round_small" [ngStyle]="{background: cang_2.inner?'#66FF66':'black'}"></div>
+                                </div>
+                                <div class="div_row">
+                                    强排气：
+                                    <span class="round_small" [ngStyle]="{background: cang_2.exhaust?'#66FF66':'black'}"></span>
+                                </div>
+                            </div>
+                            <div class="set_2">
+                                <div class="div_row">
+                                    外循环：
+                                    <div class="round_small" [ngStyle]="{background: cang_2.outside?'#66FF66':'black'}"></div>
+                                </div>
+                                <div class="div_row">
+
+                                    尾气排扇：
+                                    <div class="round_small" [ngStyle]="{background: cang_2.fan?'#66FF66':'black'}"></div>
+                                </div>
+                            </div>
+                            <div class="set_2">温度设定值：<span class="span_css">{{ cang_2.tempSet}}℃</span></div>
+                            <div class="set_2">湿度设定值：<span class="span_css">{{ cang_2.rhSet }}%RH</span></div>
+                        </div>
+                    </div>
+                    <div id="cabin_line_2" class="height_54 w_100"></div>
+                </div>
             </div>
         </div>
     </div>

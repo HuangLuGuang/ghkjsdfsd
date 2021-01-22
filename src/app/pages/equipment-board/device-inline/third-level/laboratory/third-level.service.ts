@@ -34,6 +34,9 @@ export class ThirdLevelService {
     "device_avlmotor_04":'电机4',//电机4
     'device_boyang_01':'电机6',//电机6
     'device_boyang_02':'电机7',//电机7
+
+    'device_auto_voc01':'整车voc',
+
   }
 
   constructor(private http:HttpserviceService) { }
@@ -114,7 +117,7 @@ export class ThirdLevelService {
           deviceList[f.deviceid].push(f)
         })
         
-        s.next( deviceList );
+        s.next( {'deviceList':deviceList,'tableBody':tableBody });
       })
     })
   }

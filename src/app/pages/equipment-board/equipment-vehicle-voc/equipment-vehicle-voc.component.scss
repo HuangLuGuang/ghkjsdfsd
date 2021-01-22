@@ -26,17 +26,36 @@
         height: 60px;
         border-radius: 40px;
     }
+    .round_small {
+        width: 20px;
+        height: 20px;
+        display: block;
+        border-radius: 20px;
+    }
     .cabin_1_set {
         text-align: left;
         width: 35%;
         // height: 100%;
-        div {
+        .set_1 {
             height: 50%;
             display: flex;
             /* justify-content: center; */
             align-items: center;
         }
-        span {
+        .set_2,
+        .set_3 {
+            height: 25%;
+            display: flex;
+            /* justify-content: center; */
+            align-items: center;
+            .div_row {
+                width: 50%;
+                height: 100%;
+                display: flex;
+                justify-content: space-around;
+            }
+        }
+        .span_css {
             padding: 2px;
             background: rgb(99, 133, 195);
             width: 70px;
@@ -51,6 +70,13 @@
         #cabin_pie_1,
         #cabin_pie_2 {
             width: 25%;
+            height: 100%;
+        }
+        #cabin_pie_3,
+        #cabin_pie_4,
+        #cabin_pie_5,
+        #cabin_pie_6 {
+            width: 23%;
             height: 100%;
         }
     }

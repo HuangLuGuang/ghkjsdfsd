@@ -1,7 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { Observable } from 'rxjs';
-import { LayoutService } from '../../../@core/utils/layout.service';
 import { HttpserviceService } from '../../../services/http/httpservice.service';
 import { colors, create_img_16_9, rTime } from '../equipment-board';
 import { EquipmentBoardService } from '../serivice/equipment-board.service';
@@ -10,7 +8,8 @@ let equipment_four_road = require('../../../../assets/eimdoard/equipment/js/equi
 @Component({
   selector: 'ngx-equipment-avl',
   templateUrl: './equipment-avl.component.html',
-  styleUrls: ['./equipment-avl.component.scss']
+  styleUrls: ['./equipment-avl.component.scss'],
+  
 })
 export class EquipmentAvlComponent implements OnInit {
 
@@ -156,7 +155,7 @@ export class EquipmentAvlComponent implements OnInit {
   language = '';//语言 空为zh-CN中文
   subscribeList:any = {};
 
-  constructor(private layoutService: LayoutService,private activateInfo:ActivatedRoute,
+  constructor(private activateInfo:ActivatedRoute,
     private http:HttpserviceService ,private boardservice:EquipmentBoardService
     ) { }
 
@@ -164,9 +163,6 @@ export class EquipmentAvlComponent implements OnInit {
     //获取当前语言
     let language = localStorage.getItem('currentLanguage');
     if(language!='zh-CN')this.language = language;
-    this.subscribeList.layout = this.layoutService.onInitLayoutSize().subscribe(f=>{
-      this.resize();
-    })
 
     this.subscribeList.router = this.activateInfo.params.subscribe(f =>{
       // console.log(f);
@@ -180,7 +176,10 @@ export class EquipmentAvlComponent implements OnInit {
     setTimeout(() => {
       create_img_16_9();
     }, 1000);
-    window.addEventListener('resize',this.resize);
+
+    this.subscribeList.resize =this.boardservice.chartResize().subscribe(f=>{
+      this.resize();
+    })
     
   }
 
@@ -428,7 +427,6 @@ export class EquipmentAvlComponent implements OnInit {
     for(let key in this.subscribeList){
       this.subscribeList[key].unsubscribe();
     }
-    window.removeEventListener('resize',this.resize)
 
     let chart;
     this.outRenturnWind.forEach((f:any,i:number) => {
