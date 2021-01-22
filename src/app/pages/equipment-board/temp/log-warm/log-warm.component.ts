@@ -1,11 +1,9 @@
-import { Component, Input, NgZone, OnInit } from '@angular/core';
-import { Observable } from 'rxjs';
-import { take } from 'rxjs/operators';
+import { Component, Input, OnInit } from '@angular/core';
 import * as screenfull from 'screenfull';
 import { Screenfull } from 'screenfull';
-import { LayoutService } from '../../../../@core/utils';
 import { HttpserviceService } from '../../../../services/http/httpservice.service';
 import { dateformat } from '../../equipment-board';
+import { EquipmentBoardService } from '../../serivice/equipment-board.service';
 let equipment_four_road = require('../../../../../assets/eimdoard/equipment/js/equipment-four-road');
 
 declare var $
@@ -43,18 +41,12 @@ export class LogWarmComponent implements OnInit {
   subscribeList:any = {};
   
   
-  constructor(private http:HttpserviceService,private layoutService:LayoutService,
-    private ngZone:NgZone) { }
+  constructor(private http:HttpserviceService,private boardservice:EquipmentBoardService) { }
 
   ngOnInit(): void {
     //获取当前语言
     let language = localStorage.getItem('currentLanguage');
     if(language!='zh-CN')this.language = language;
-    this.subscribeList.layout = this.layoutService.onInitLayoutSize().subscribe(f=>{
-      if(document.getElementById('warning'))
-        echarts.init(document.getElementById('warning')).resize();
-        // this.create_scrollbar();
-    })
     let date;
     this.timer = self.setInterval(f=>{
       if(this.device)this.get_device_mts_log();
@@ -67,17 +59,14 @@ export class LogWarmComponent implements OnInit {
       $('.scrollbar').scrollLeft($('.scrollbar_l').scrollLeft())
     })
 
-    // this.get_device_mts_log_daily();
-    // this.create_scrollbar();
+    this.subscribeList.resize =this.boardservice.chartResize().subscribe(f=>{
+      this.chartResize();
+    })
   }
 
-  // create_scrollbar(){
-  //   $('#s').width( $('#table_lr').width())
-  // }
 
 
   ngAfterViewInit(){
-    window.addEventListener('resize',this.chartResize)
   }
 
   
@@ -235,7 +224,6 @@ export class LogWarmComponent implements OnInit {
     for(let key in this.subscribeList){
       this.subscribeList[key].unsubscribe();
     }
-    window.removeEventListener('resize',this.chartResize)
     // document.getElementById('warning').removeEventListener('resize',this.chartResize)
     let dom = document.getElementById('warning');
     if(dom)echarts.init(dom).dispose();

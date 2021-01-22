@@ -1,6 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { LayoutService } from '../../../@core/utils';
 import { HttpserviceService } from '../../../services/http/httpservice.service';
 import { colors, rgb_del_red, create_img_16_9, painting_time, dateformat, coupling } from '../equipment-board';
 import { EquipmentBoardService } from '../serivice/equipment-board.service';
@@ -9,7 +8,8 @@ import { EquipmentBoardService } from '../serivice/equipment-board.service';
 @Component({
   selector: 'ngx-equipment-coupling-path',
   templateUrl: './equipment-coupling-path.component.html',
-  styleUrls: ['./equipment-coupling-path.component.scss']
+  styleUrls: ['./equipment-coupling-path.component.scss'],
+  
 })
 export class EquipmentCouplingPathComponent implements OnInit {
 
@@ -262,8 +262,8 @@ export class EquipmentCouplingPathComponent implements OnInit {
   subscribeList:any = {};
 
   equipIntroduceList = [
-    {htmlstr:coupling[0],title:''},
-    {htmlstr:coupling[1],title:''}
+    {title:''},
+    {title:''}
   ]
 
 
@@ -274,10 +274,7 @@ export class EquipmentCouplingPathComponent implements OnInit {
     //获取当前语言
     let language = localStorage.getItem('currentLanguage');
     if(language !='zh-CN')this.language = language;
-    //左上按钮点击后宽度变化
-    // this.subscribeList.layout = this.layoutService.onInitLayoutSize().subscribe(f=>{
-    //   this.initChart();
-    // })
+    
     //路由订阅
     this.subscribeList.router = this.activateInfo.params.subscribe(f =>{
       // console.log(f);
