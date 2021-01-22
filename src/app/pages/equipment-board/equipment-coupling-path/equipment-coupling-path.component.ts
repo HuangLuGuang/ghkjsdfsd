@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import {ChangeDetectionStrategy, Component, OnInit, ViewChild, ViewEncapsulation} from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { LayoutService } from '../../../@core/utils';
 import { HttpserviceService } from '../../../services/http/httpservice.service';
@@ -9,197 +9,198 @@ import { EquipmentBoardService } from '../serivice/equipment-board.service';
 @Component({
   selector: 'ngx-equipment-coupling-path',
   templateUrl: './equipment-coupling-path.component.html',
-  styleUrls: ['./equipment-coupling-path.component.scss']
+  styleUrls: ['./equipment-coupling-path.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class EquipmentCouplingPathComponent implements OnInit {
 
 
   attrs_1:any = {
-    'equipment.road.LeftRear.Params':[{ 
+    'equipment.road.LeftRear.Params':[{
       name: "左后轴头x向位移",nameEn :'LRspindleDx', unit: "mm",value: [],show:true
       ,color:["", ""]
-    },{ 
+    },{
         name: "左后轴头x向力",nameEn :'LRspindleFx', unit: "kN",value: [],show:true,
         color:["", ""]
-    },{ 
+    },{
         name: "左后轴头y向位移",nameEn :'LRspindleDy', unit: "mm",value: [],show:true,
         color:["", ""]
-    },{ 
+    },{
       name: "左后轴头y向力",nameEn :'LRspindleFy', unit: "kN",value: [],
       color:["", ""]
-  },{ 
+  },{
     name: "左后轴头z向位移",nameEn :'LRspindleDz', unit: "mm",value: [],
     color:["", ""]
-  },{ 
+  },{
     name: "左后轴头z向力",nameEn :'LRspindleFz', unit: "kN",value: [],
     color:["", ""]
-  },{ 
+  },{
     name: "左后轴头x向角度",nameEn :'LRspindlex', unit: "°",value: [],
     color:["", ""]
-  },{ 
+  },{
     name: "左后轴头x向力矩",nameEn :'LRspindleMx', unit: "kN·m",value: [],
     color:["", ""]
-  },{ 
+  },{
     name: "左后轴头y向角度",nameEn :'LRspindley', unit: "°",value: [],
     color:["", ""]
-  },{ 
+  },{
     name: "左后轴头y向力矩",nameEn :'LRspindleMy', unit: "kN-m",value: [],
     color:["", ""]
-  },{ 
+  },{
     name: "左后轴头z向角度",nameEn :'LRspindlez', unit: "°",value: [],
     color:["", ""]
-  },{ 
+  },{
     name: "左后轴头z向力矩",nameEn :'LRspindleMz', unit: "kN-m",value: [],
     color:["", ""]
   }],
-    'equipment.road.RightRear.Params':[{ 
+    'equipment.road.RightRear.Params':[{
       name: "右后轴头x向位移",nameEn :'RRspindleDx', unit: "mm",value: [],show:true
       ,color:["", ""]
-    },{ 
+    },{
         name: "右后轴头x向力",nameEn :'RRspindleFx', unit: "kN",value: [],show:true,
         color:["", ""]
-    },{ 
+    },{
         name: "右后轴头y向位移",nameEn :'RRspindleDy', unit: "mm",value: [],show:true,
         color:["", ""]
-    },{ 
+    },{
       name: "右后轴头y向力",nameEn :'RRspindleFy', unit: "kN",value: [],
       color:["", ""]
-  },{ 
+  },{
     name: "右后轴头z向位移",nameEn :'RRspindleDz', unit: "mm",value: [],
     color:["", ""]
-  },{ 
+  },{
     name: "右后轴头z向力",nameEn :'RRspindleFz', unit: "kN",value: [],
     color:["", ""]
-  },{ 
+  },{
     name: "右后轴头x向角度",nameEn :'RRspindlex', unit: "°",value: [],
     color:["", ""]
-  },{ 
+  },{
     name: "右后轴头x向力矩",nameEn :'RRspindleMx', unit: "kN·m",value: [],
     color:["", ""]
-  },{ 
+  },{
     name: "右后轴头y向角度",nameEn :'RRspindley', unit: "°",value: [],
     color:["", ""]
-  },{ 
+  },{
     name: "右后轴头y向力矩",nameEn :'RRspindleMy', unit: "kN-m",value: [],
     color:["", ""]
-  },{ 
+  },{
     name: "右后轴头z向角度",nameEn :'RRspindlez', unit: "°",value: [],
     color:["", ""]
-  },{ 
+  },{
     name: "右后轴头z向力矩",nameEn :'RRspindleMz', unit: "kN-m",value: [],
     color:["", ""]
   }]
   };
   attrs_2:any = {
-    'equipment.road.LeftFront.Params':[{ 
+    'equipment.road.LeftFront.Params':[{
       name: "左前轴头x向位移",nameEn :'LFspindleDx', unit: "mm",value: [],show:true
       ,color:["", ""]
-    },{ 
+    },{
         name: "左前轴头x向力",nameEn :'LFspindleFx', unit: "kN",value: [],show:true,
         color:["", ""]
-    },{ 
+    },{
         name: "左前轴头y向位移",nameEn :'LFspindleDy', unit: "mm",value: [],show:true,
         color:["", ""]
-    },{ 
+    },{
       name: "左前轴头y向力",nameEn :'LFspindleFy', unit: "kN",value: [],
       color:["", ""]
-  },{ 
+  },{
     name: "左前轴头z向位移",nameEn :'LFspindleDz', unit: "mm",value: [],
     color:["", ""]
-  },{ 
+  },{
     name: "左前轴头z向力",nameEn :'LFspindleFz', unit: "kN",value: [],
     color:["", ""]
-  },{ 
+  },{
     name: "左前轴头x向角度",nameEn :'LFspindlex', unit: "°",value: [],
     color:["", ""]
-  },{ 
+  },{
     name: "左前轴头x向力矩",nameEn :'LFspindleMx', unit: "kN·m",value: [],
     color:["", ""]
-  },{ 
+  },{
     name: "左前轴头y向角度",nameEn :'LFspindley', unit: "°",value: [],
     color:["", ""]
-  },{ 
+  },{
     name: "左前轴头y向力矩",nameEn :'LFspindleMy', unit: "kN-m",value: [],
     color:["", ""]
-  },{ 
+  },{
     name: "左前轴头z向角度",nameEn :'LFspindlez', unit: "°",value: [],
     color:["", ""]
-  },{ 
+  },{
     name: "左前轴头z向力矩",nameEn :'LFspindleMz', unit: "kN-m",value: [],
     color:["", ""]
   }],
-    'equipment.road.RightFront.Params':[{ 
+    'equipment.road.RightFront.Params':[{
       name: "右前轴头x向位移",nameEn :'RFspindleDx', unit: "mm",value: [],show:true
       ,color:["", ""]
-    },{ 
+    },{
         name: "右前轴头x向力",nameEn :'RFspindleFx', unit: "kN",value: [],show:true,
         color:["", ""]
-    },{ 
+    },{
         name: "右前轴头y向位移",nameEn :'RFspindleDy', unit: "mm",value: [],show:true,
         color:["", ""]
-    },{ 
+    },{
       name: "右前轴头y向力",nameEn :'RFspindleFy', unit: "kN",value: [],
       color:["", ""]
-  },{ 
+  },{
     name: "右前轴头z向位移",nameEn :'RFspindleDz', unit: "mm",value: [],
     color:["", ""]
-  },{ 
+  },{
     name: "右前轴头z向力",nameEn :'RFspindleFz', unit: "kN",value: [],
     color:["", ""]
-  },{ 
+  },{
     name: "右前轴头x向角度",nameEn :'RFspindlex', unit: "°",value: [],
     color:["", ""]
-  },{ 
+  },{
     name: "右前轴头x向力矩",nameEn :'RFspindleMx', unit: "kN·m",value: [],
     color:["", ""]
-  },{ 
+  },{
     name: "右前轴头y向角度",nameEn :'RFspindley', unit: "°",value: [],
     color:["", ""]
-  },{ 
+  },{
     name: "右前轴头y向力矩",nameEn :'RFspindleMy', unit: "kN-m",value: [],
     color:["", ""]
-  },{ 
+  },{
     name: "右前轴头z向角度",nameEn :'RFspindlez', unit: "°",value: [],
     color:["", ""]
-  },{ 
+  },{
     name: "右前轴头z向力矩",nameEn :'RFspindleMz', unit: "kN-m",value: [],
     color:["", ""]
   }]
   };
-  attrs_3:any = {"equipment.AdditionalChannels":[{ 
+  attrs_3:any = {"equipment.AdditionalChannels":[{
     name: "左后轮心x向力",nameEn :'LRWftFx', unit: "",value: [],show:true
     ,color:["", ""]
-  },{ 
+  },{
     name: "左后轮心y向力",nameEn :'LRWftFy', unit: "",value: [],show:true
     ,color:["", ""]
-  },{ 
+  },{
     name: "左后轮心z向力",nameEn :'LRWftFz', unit: "",value: [],show:true
     ,color:["", ""]
-  },{ 
+  },{
     name: "左后轮心x向力矩",nameEn :'LRWftMx', unit: "",value: []
     ,color:["", ""]
-  },{ 
+  },{
     name: "左后轮心y向力矩",nameEn :'LRWftMy', unit: "",value: []
     ,color:["", ""]
-  },{ 
+  },{
     name: "左后轮心z向力矩",nameEn :'LRWftMz', unit: "",value: []
     ,color:["", ""]
-  },{ 
+  },{
     name: "右后轮心x向力",nameEn :'RRWftFx', unit: "",value: []
     ,color:["", ""]
-  },{ 
+  },{
     name: "右后轮心y向力",nameEn :'RRWftFy', unit: "",value: []
     ,color:["", ""]
-  },{ 
+  },{
     name: "右后轮心z向力",nameEn :'RRWftFz', unit: "",value: []
     ,color:["", ""]
-  },{ 
+  },{
     name: "右后轮心x向力矩",nameEn :'RRWftMx', unit: "",value: []
     ,color:["", ""]
-  },{ 
+  },{
     name: "右后轮心y向力矩",nameEn :'RRWftMy', unit: "",value: []
     ,color:["", ""]
-  },{ 
+  },{
     name: "右后轮心z向力矩",nameEn :'RRWftMz', unit: "",value: []
     ,color:["", ""]
   }]};
@@ -345,9 +346,9 @@ export class EquipmentCouplingPathComponent implements OnInit {
 
    /**
    * 图表 获取一段时间
-   * param table 
-   * param method 
-   * param param 
+   * param table
+   * param method
+   * param param
    */
   get_device_mts_time(table,method,param){
     // let datestr = dateformat(new Date(new Date().getTime()-10000),'yyyy-MM-dd hh:mm:ss');
@@ -358,15 +359,15 @@ export class EquipmentCouplingPathComponent implements OnInit {
     arr:param[0].join(',')}).subscribe((f:any) =>{
       if(f.result.error || f.result.message[0].code == 0)return;
       painting_time(f,10,this,['chart_1','chart_2','chart_3']);
-      
+
     })
   }
 
   /**
    *  图表  获取一秒
-   * param table 
-   * param method 
-   * param param 
+   * param table
+   * param method
+   * param param
    */
   get_device_mts_realtimedata(table,method,param){
     this.subscribeList.real = this.http.callRPC(table,method,{"device":this.deviceid,
@@ -378,7 +379,7 @@ export class EquipmentCouplingPathComponent implements OnInit {
 
 
   /**
-   *   中间的表的数据 开关这些数据     
+   *   中间的表的数据 开关这些数据
    */
   get_device_status(){
     let res;
@@ -410,7 +411,7 @@ export class EquipmentCouplingPathComponent implements OnInit {
           m.stationname,{value:m.stationstatus,color:m.stationstatus == 1?'green':'#C0C0C0',id:'circle'},
           {value:m.interlock,color:m.interlock== 1?'white':'orange',id:'strip'},
           {value:m.programinterlock,color:m.programinterlock== 1?'white':'orange',id:'strip'}
-        ] 
+        ]
       ))
       // console.log(this.switchStatus.data)
 
@@ -456,7 +457,7 @@ HSM 4 RR High
   }
 
 
-  
+
 
 
   get_td_width(num){

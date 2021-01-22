@@ -17,7 +17,7 @@ declare var $
 })
 export class LogWarmComponent implements OnInit {
   @Input()device
- 
+
   log_warm = {
     // '时间','日志等级','日志信息'
     title:['time','Loglevel','logInfor'],
@@ -41,8 +41,8 @@ export class LogWarmComponent implements OnInit {
   language = '';
   errorC = true;
   subscribeList:any = {};
-  
-  
+
+
   constructor(private http:HttpserviceService,private layoutService:LayoutService,
     private ngZone:NgZone) { }
 
@@ -61,7 +61,7 @@ export class LogWarmComponent implements OnInit {
       date = new Date();
       if(date.getDay() == 1)this.get_device_mts_log_his();
     },1000)
-    
+
     this.get_device_mts_log_his();
     $('.scrollbar_l').bind("scroll",f=>{
       $('.scrollbar').scrollLeft($('.scrollbar_l').scrollLeft())
@@ -80,18 +80,18 @@ export class LogWarmComponent implements OnInit {
     window.addEventListener('resize',this.chartResize)
   }
 
-  
+
   chartResize=()=>{
     setTimeout(() => {
       if(document.getElementById('warning'))echarts.init(document.getElementById('warning')).resize();
     }, 500);
-    
+
   }
 
   /**
    * 获取日志数据
-   * @param table 
-   * @param method 
+   * @param table
+   * @param method
    */
   get_device_mts_log(){
     // this.subscribeList.device_mts_log = this.http.callRPC('get_log','get_log',{"device":this.device}).subscribe((g:any) =>{
@@ -107,7 +107,7 @@ export class LogWarmComponent implements OnInit {
     this.subscribeList.device_mts_log = this.http.callRPC('get_log','device_monitor.get_log',{"deviceid":this.device}).subscribe((g:any) =>{
       // console.log(g)
       if(g.result.error || g.result.message[0].code == 0)return;
-      
+
       this.log_warm.data = this.getMessage(g);
       var showContent = $(".overflow_height_75");
       if(showContent[0])showContent[0].scrollTop = showContent[0].scrollHeight;
@@ -189,7 +189,7 @@ export class LogWarmComponent implements OnInit {
 
   //   })
   // }
-  
+
   getWin_H(){
     var sf = <Screenfull>screenfull;
     return sf.isFullscreen?'150px':'120px';
@@ -220,18 +220,18 @@ export class LogWarmComponent implements OnInit {
         ]);
     });
     return arr;
-    
-    
+
+
   }
 
 
 
 
-  //组件销毁  
+  //组件销毁
   ngOnDestroy(){
     clearInterval(this.timer);
     clearInterval(this.time_w);
-    
+
     for(let key in this.subscribeList){
       this.subscribeList[key].unsubscribe();
     }

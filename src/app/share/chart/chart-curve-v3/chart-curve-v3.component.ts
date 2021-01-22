@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import {ChangeDetectionStrategy, Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import { config, Observable } from 'rxjs';
 import { LayoutService } from '../../../@core/utils/layout.service';
 
@@ -9,7 +9,8 @@ declare var $:any;
 @Component({
   selector: 'ngx-chart-curve-v3',
   templateUrl: './chart-curve-v3.component.html',
-  styleUrls: ['./chart-curve-v3.component.scss']
+  styleUrls: ['./chart-curve-v3.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ChartCurveV3Component implements OnInit {
 
@@ -75,9 +76,9 @@ export class ChartCurveV3Component implements OnInit {
             this.list.forEach(f=>{
                 this.dashboard_tag_name[f] = {};
             })
-        
+
         }
-        
+
   }
   ngAfterViewInit (){
       window.addEventListener('resize',this.chartResize_v3);
@@ -89,7 +90,7 @@ export class ChartCurveV3Component implements OnInit {
         if(isthis.myChart)isthis.myChart.resize();
         let dom = document.getElementById(this.dashboardName);
         if(dom)echarts.init(dom).resize();
-        
+
       }, 500);
 
   }
@@ -104,12 +105,12 @@ export class ChartCurveV3Component implements OnInit {
 
   //选择下拉数据区的数据
   radioChange(){
-    
+
     this.choice_initleftChart();
   }
 
   /**
-   * 
+   *
    * @param item 选中的数据
    * @param i 下标 第几个仪表盘
    * @param j 下标 下拉的第几条数据
@@ -123,7 +124,7 @@ export class ChartCurveV3Component implements OnInit {
             this.dashboard_cl[i] = f[this.languageName]
         }
     });
-    
+
     let dom = document.getElementById(this.dashboardName);
     if(!dom)return;
     let dashboardChart = echarts.init(dom);
@@ -167,14 +168,14 @@ export class ChartCurveV3Component implements OnInit {
     可选，在设置完 option 后是否不立即更新图表，默认为 false，即立即更新。
     silent
     可选，阻止调用 setOption 时抛出事件，默认为 false，即抛出事件。
-   * @param echartConfig 
+   * @param echartConfig
    */
   initleftChart(echartConfig:any){
     let isthis = this;
     var dom = document.getElementById(this.chartName);
     if (!dom) return;
     this.myChart = echarts.init(dom);
-    
+
     let series = [];
     this.attrs.filter(f=> f.show).forEach((f:any,i:number)=>{
       series.push(this.create_series(f[this.languageName],f.value,f.color));
@@ -269,7 +270,7 @@ export class ChartCurveV3Component implements OnInit {
                 //     var str = "";
                 //     if(value &&  value.length>5)
                 //         str += value.substring(5, 10);
-                //     else 
+                //     else
                 //         str = value;
                 //     // str += value.substring(0, 4) + "\n";
                 //     return str;
@@ -398,7 +399,7 @@ export class ChartCurveV3Component implements OnInit {
     };
     data.forEach(f=>{
         f.color.forEach((element,i) => {
-            element = this.colorRgb(element,i == 0?'0.3':0.7) 
+            element = this.colorRgb(element,i == 0?'0.3':0.7)
         });
         data_1.series.push({
             name:f[this.languageName],
@@ -415,7 +416,7 @@ export class ChartCurveV3Component implements OnInit {
 
 
   /**
-   * 
+   *
    * @param name 名字
    * @param lines 具体数据
    * @param colors 颜色数组 长度2
@@ -499,7 +500,7 @@ export class ChartCurveV3Component implements OnInit {
 
 
   /**
-   * 父组件调用 
+   * 父组件调用
    */
   public painting(data) {
     this.attrs = data.attrs;
@@ -516,7 +517,7 @@ export class ChartCurveV3Component implements OnInit {
     //初始化
     // this.xData = data.xData[this.click_str] ?data.xData[this.click_str]:[];
     this.xData = data.xData.slice();
-    if(this.attrs.xData)delete this.attrs.xData; 
+    if(this.attrs.xData)delete this.attrs.xData;
     //更新表的数据
     this.choice_initleftChart();
     //更新仪表盘的数据
@@ -533,14 +534,14 @@ export class ChartCurveV3Component implements OnInit {
         if (sColor.length === 4) {
             var sColorNew = "#";
             for (var i=1; i<4; i+=1) {
-                sColorNew += sColor.slice(i, i+1).concat(sColor.slice(i, i+1));    
+                sColorNew += sColor.slice(i, i+1).concat(sColor.slice(i, i+1));
             }
             sColor = sColorNew;
         }
         //处理六位的颜色值
         var sColorChange = [];
         for (var i=1; i<7; i+=2) {
-            sColorChange.push(parseInt("0x"+sColor.slice(i, i+2)));    
+            sColorChange.push(parseInt("0x"+sColor.slice(i, i+2)));
         }
         sColor = "RGB(" + sColorChange.join(",") + ","+transparency+")";
     }
@@ -550,7 +551,7 @@ export class ChartCurveV3Component implements OnInit {
   //组件销毁
   ngOnDestroy(){
     window.removeEventListener('resize',this.chartResize_v3);
-    this.dashboard_select= null; 
+    this.dashboard_select= null;
     if(this.myChart)this.myChart.dispose();
     let dom = document.getElementById(this.dashboardName);
     if(dom)echarts.init(dom).dispose();
