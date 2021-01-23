@@ -1,4 +1,4 @@
-<nb-card style="width: 800px; height: 680px;">
+<nb-card style="width: 900px; height: 680px;">
     <nb-card-header>
         <div class="row">
           <div class="col-md-4">新增试验任务信息</div>
@@ -22,39 +22,39 @@
         <form class="layui-form" action="" lay-filter="test_task_info">
             <div class="layui-form-item">
                 <div class="layui-inline test_task_info_left">
-                  <label class="layui-form-label mylabel mulu_title">试验任务编号：</label>
-                  <div class="layui-input-block">
-                    <input type="text" name="tasknum"  lay-verify="required|tasknum" placeholder="WT0893-202011" autocomplete="off" class="layui-input">
+                  <label class="layui-form-label mylabel mulu_title" style="width: auto;">试验任务编号：</label>
+                  <div class="layui-input-block" style="margin-left: 120px;">
+                    <input type="text" name="tasknum"  lay-verify="required|tasknum" placeholder="WTxxxx-yyyymm" autocomplete="off" class="layui-input">
                   </div>
                 </div>
                 <div class="layui-inline test_task_info_right">
-                  <label class="layui-form-label mylabel mulu_title">样件编号：</label>
-                  <div class="layui-input-block">
-                    <input type="text" name="exemplarnumbers"  lay-verify="required|exemplarnumbers" placeholder="YP-1888-202011" autocomplete="off" class="layui-input">
+                  <label class="layui-form-label mylabel mulu_title" style="width: auto;">样件编号：</label>
+                  <div class="layui-input-block" style="margin-left: 120px;">
+                    <input type="text" name="exemplarnumbers"  lay-verify="required|exemplarnumbers" placeholder="YPxxxx-yyyymm" autocomplete="off" class="layui-input">
                   </div>
                 </div>
             </div>
 
             <div class="layui-form-item">
                 <div class="layui-inline test_task_info_left">
-                  <label class="layui-form-label mylabel mulu_title">试验条目编号：</label>
-                  <div class="layui-input-block">
-                    <input type="text" name="taskitemnumbers"  lay-verify="required|taskitemnumbers" placeholder="001" autocomplete="off" class="layui-input">
+                  <label class="layui-form-label mylabel mulu_title" style="width: auto;">试验条目编号：</label>
+                  <div class="layui-input-block" style="margin-left: 120px;">
+                    <input type="text" name="taskitemnumbers"  lay-verify="required|taskitemnumbers" placeholder="请输入试验条目编号" autocomplete="off" class="layui-input">
                   </div>
                 </div>
                 <div class="layui-inline test_task_info_right">
-                  <label class="layui-form-label mylabel mulu_title">试验名称：</label>
-                  <div class="layui-input-block">
-                    <input type="text" name="devicetaskname"  lay-verify="required|devicetaskname" placeholder="试验名称" autocomplete="off" class="layui-input">
+                  <label class="layui-form-label mylabel mulu_title" style="width: auto;">试验名称：</label>
+                  <div class="layui-input-block"  style="margin-left: 120px;">
+                    <input type="text" name="devicetaskname"  lay-verify="required|devicetaskname" placeholder="" autocomplete="off" class="layui-input">
                   </div>
                 </div>
             </div>
 
             <div class="layui-form-item">
                 <div class="layui-inline test_task_info_left">
-                  <label class="layui-form-label mylabel mulu_title">试验执行人：</label>
-                  <div class="layui-input-block">
-                    <input type="text" name="executor"  lay-verify="required|executor" placeholder="试验执行人" autocomplete="off" class="layui-input">
+                  <label class="layui-form-label mylabel mulu_title" style="width: auto;">试验执行人：</label>
+                  <div class="layui-input-block"  style="margin-left: 120px;">
+                    <input type="text" name="executor"  lay-verify="required|executor" placeholder="" autocomplete="off" class="layui-input">
                   </div>
                 </div>
             </div>
@@ -75,15 +75,15 @@
 
             <div class="layui-form-item">
                 <div class="layui-inline test_task_info_left">
-                  <label class="layui-form-label mylabel mulu_title">样件三级编号：</label>
-                  <div class="layui-input-block">
-                    <input type="text" name="exemplarchildnumbers"  lay-verify="required|taskitemnumbers" placeholder="样件三级编号" autocomplete="off" class="layui-input">
+                  <label class="layui-form-label mylabel mulu_title" style="width: auto;">样件三级编号：</label>
+                  <div class="layui-input-block" style="margin-left: 120px;">
+                    <input type="text" name="exemplarchildnumbers"  lay-verify="required|exemplarchildnumbers" placeholder="请输入样件三级编号" autocomplete="off" class="layui-input">
                   </div>
                 </div>
                 <div class="layui-inline">
-                  <label class="layui-form-label mylabel mulu_title">样件名称：</label>
-                  <div class="layui-input-block">
-                    <input type="text" name="exemplarname"  lay-verify="required|exemplarname" placeholder="样件名称" autocomplete="off" class="layui-input">
+                  <label class="layui-form-label mylabel mulu_title" style="width: auto;">样件名称：</label>
+                  <div class="layui-input-block"  style="margin-left: 120px;">
+                    <input type="text" name="exemplarname"  lay-verify="required|exemplarname" placeholder="" autocomplete="off" class="layui-input">
                   </div>
                 </div>
 
@@ -135,7 +135,7 @@
                 <label class="layui-form-label mylabel ">样件信息：</label>
                 <div class="exemplar yulan">
                   <!-- <span style="display: block;" *ngFor= "let item of previewinfodata.taskmessage">{{item}}</span> -->
-                  <span style="display: block;" *ngFor= "let item of explarinfo_list">{{item}}</span>
+                  <span style="display: block;font-size: smaller;" *ngFor= "let item of explarinfo_list">{{item}}</span>
                 </div>
             </div>
         </div>

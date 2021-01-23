@@ -146,27 +146,35 @@ export class SecondLevelComponent implements OnInit {
               pie: {
                     // allowPointSelect: true,
                     cursor: 'pointer',
+                    center: ['50%', '50%'],
+                    slicedOffset: 20, // 扇形偏移
                     depth: 35,
                     dataLabels: {
                         enabled: true,
                         format: '{point.name}'
+                        // format: '<b>{point.name}</b>: {point.percentage:.1f} %',
                     }
               }
           },
           series: [{
               type: 'pie',
               name: '设备数量',
-              size: 160,// 饼图大小
-              slicedOffset: 20,
+              size: 240,// 饼图大小
+              // slicedOffset: 20, // 
               dataLabels:{
                     style:{
                         color:'white',
-                        fontSize:'18px',
+                        fontSize:'8px',
                         fontWeight:'bold',
-                        textOutline:'1px 1px contrast'
+                        // textOutline:'1px 1px contrast'
                     },
-                    y: 0,
-                    x: 0
+                    // y: 0,
+                    // x: 0,
+                    formatter: function () {
+                      return this.y > 5 ? this.point.name : null;
+                    },
+                    // distance: -40,         // 距离值为负时显示在在扇区里面
+
               },
               data: [
                     {
@@ -194,7 +202,8 @@ export class SecondLevelComponent implements OnInit {
                         sliced: true,
                         selected: true
                     },
-              ]
+              ],
+              
           }]
     });
 

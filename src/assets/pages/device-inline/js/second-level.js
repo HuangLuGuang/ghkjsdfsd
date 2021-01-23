@@ -257,7 +257,7 @@ let second_level = {
                     zlevel: 1,
                     name: '123条',
                     nameTextStyle: {
-                        padding: [0, 0, '30%', -100],
+                        padding: [0, 0, 30, -100],
                         fontSize: 18
                     },
 

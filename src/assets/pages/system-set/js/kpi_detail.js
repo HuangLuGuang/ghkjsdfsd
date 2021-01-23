@@ -128,6 +128,7 @@ let kpi_detail = {
                     }
                 },
                 data: afterdata.xData,
+                
             }],
             yAxis: [{
                 type: "value",
@@ -483,6 +484,7 @@ let kpi_detail = {
                     gridIndex: 0
                 },
                 {
+                    
                     type: 'value', 
                     gridIndex: 1,
                     axisLine:{
@@ -507,7 +509,9 @@ let kpi_detail = {
                     type: 'value',
                     // name: '水量',
                     min: 0,
-                    max: 100,
+                    max: function (value) {
+                        return value.max + 100;
+                    },
                     interval: 50,
                     gridIndex: 0,
                     axisLabel: {
@@ -518,6 +522,9 @@ let kpi_detail = {
                     type: 'value',
                     // name: '温度',
                     min: 0,
+                    // max: function (value) {
+                    //     return value.max + 100;
+                    // },
                     max: 100,
                     interval: 50,
                     gridIndex: 0,
@@ -599,7 +606,7 @@ let kpi_detail = {
             ],
             series: afterdata.Series,
         }
-        console.error("option",JSON.stringify(option))
+        // console.error("option",JSON.stringify(option))
         mychart.setOption(option);
         mychart.resize();
     },
@@ -673,53 +680,50 @@ let kpi_detail = {
                     data: []
                 },
                 legend: {
-                    bottom:'3%',
-                    right: 'center',
-                    icon: 'horizontal',
-                    itemWidth:9,
-                    itemHeight:9,
+                    bottom: "3%",
+                    right: "center",
+                    icon: "horizontal",
+                    itemWidth: 9,
+                    itemHeight: 9,
                     textStyle: {
-                        color: 'black',
-                        // fontSize: 20,
+                        color: "black"
                     },
                     data: afterdata.legend
                 },
-                tooltip:{
-                    show:true,
-                    trigger: 'axis',
-                    axisPointer: {            // 坐标轴指示器，坐标轴触发有效
-                        type: 'shadow'        // 默认为直线，可选为：'line' | 'shadow'
-                    },
-                   formatter:function(d){
-                      let i = d[0].dataIndex;
-                      return d[0].marker+afterdata.legend[0]+'  '+afterdata.lastYearData[i]+'<br>'+
-                      '<span style="display:inline-block;margin-right:5px;border-radius:10px;width:10px;height:10px;background-color:'+
-                      afterdata.colors[1]+'"></span>'+afterdata.legend[1]+'  '+afterdata.thisYearData[i]
+                tooltip: {
+                    show: true,
+                    trigger: "axis",
+                    axisPointer: {
+                        type: "shadow"
                     }
                 },
                 grid: [{
                     show: false,
-                    left: '5%',
-                    top: '10%',
-                    bottom: '16%',
+                    left: "5%",
+                    top: "15%",
+                    bottom: "14%",
                     containLabel: true,
-                    width: '37%'
+                    width: "37%"
                 }, {
                     show: false,
-                    left: '51%',
-                    top: '10%',
-                    bottom: '16%',
-                    width: '0%'
+                    left: "41%",
+                    top: "15%",
+                    bottom: "16%",
+                    width: "10%"
                 }, {
                     show: false,
-                    right: '2%',
-                    top: '10%',
-                    bottom: '16%',
+                    right: "15%",
+                    top: "15%",
+                    bottom: "14%",
                     containLabel: true,
-                    width: '37%'
+                    width: "42%"
                 }],
                 xAxis: [{
-                    type: 'value',
+                    max: function (value) {
+                        return value.max + 10;
+                    },
+                    offset: 20,
+                    type: "value",
                     inverse: true,
                     axisLine: {
                         show: false
@@ -727,21 +731,27 @@ let kpi_detail = {
                     axisTick: {
                         show: false
                     },
-                    position: 'top',
+                    position: "top",
                     axisLabel: {
                         show: true,
                         color: "black"
                     },
-                    splitLine:{
-                         show: true,
-                        lineStyle:{
-                            color:"rgba(255,255,255,0.2)"
+                    splitLine: {
+                        show: true,
+                        lineStyle: {
+                            color: "rgba(255,255,255,0.2)"
                         }
                     },
+        
                 }, {
                     gridIndex: 1,
-                    show: false
+                    show: false,
+                    
                 }, {
+                    max: function (value) {
+                        return value.max + 10;
+                    },
+                    offset: 20,
                     gridIndex: 2,
                     axisLine: {
                         show: false
@@ -749,44 +759,49 @@ let kpi_detail = {
                     axisTick: {
                         show: false
                     },
-                    position: 'top',
+                    position: "top",
                     axisLabel: {
                         show: true,
                         color: "black"
                     },
-                     splitLine:{
-                         show: true,
-                        lineStyle:{
-                            color:"rgba(255,255,255,0.2)"
+                    splitLine: {
+                        show: true,
+                        lineStyle: {
+                            color: "rgba(255,255,255,0.2)"
                         }
                     },
+        
                 }],
                 yAxis: [{
-                    
-                    type: 'category',
+                    type: "category",
+        
+                    boundaryGap: false,
                     inverse: true,
-                    position: 'right',
+                    position: "right",
                     axisLine: {
-                        show: true,
-                        lineStyle:{
-                            color:"rgba(255,255,255,0.2)"
+                        show: false,
+                        lineStyle: {
+                            color: "rgba(255,255,255,0.2)"
                         }
                     },
-                   
                     axisTick: {
                         show: false
                     },
                     axisLabel: {
-                        show: false
+                        show: false,
+                    
+                        textStyle: {
+                            color: "black",
+                            fontSize: 12
+                        },
                     },
-                    data: afterdata.xData,
-                    
-                    
+                    // data: ["Dec", "Nov", "Oct", "Sep", "Aug", "Jul", "Jun", "May", "Apr", "Mar", "Feb", "Jan"]
+                    data: afterdata.xData
                 }, {
                     gridIndex: 1,
-                    type: 'category',
+                    type: "category",
                     inverse: true,
-                    position: 'left',
+                    position: "left",
                     axisLine: {
                         show: false
                     },
@@ -794,91 +809,162 @@ let kpi_detail = {
                         show: false
                     },
                     axisLabel: {
-                        show: true,
-                        interval:0,
-                        padding:[30,0,0,0],
+                        show: false,
+                        interval: 0,
                         textStyle: {
-                            color: 'black',
+                            color: "black",
                             fontSize: 20
                         },
                         align: "center"
-    
                     },
-                    data: afterdata.xData.map(function(value) {
-                        return {
-                            value: value,
-                            textStyle: {
-                                align: 'center',
-                                fontSize:12 // 月份的字体大小
-                            }
+                    data: [{
+                        value: "Dec",
+                        textStyle: {
+                            align: "center",
+                            fontSize: 12,
+                            width:20000
                         }
-                    }),
-                    
+                    }, {
+                        value: "Nov",
+                        textStyle: {
+                            align: "center",
+                            fontSize: 12
+                        }
+                    }, {
+                        value: "Oct",
+                        textStyle: {
+                            align: "center",
+                            fontSize: 12
+                        }
+                    }, {
+                        value: "Sep",
+                        textStyle: {
+                            align: "center",
+                            fontSize: 12
+                        }
+                    }, {
+                        value: "Aug",
+                        textStyle: {
+                            align: "center",
+                            fontSize: 12
+                        }
+                    }, {
+                        value: "Jul",
+                        textStyle: {
+                            align: "center",
+                            fontSize: 12
+                        }
+                    }, {
+                        value: "Jun",
+                        textStyle: {
+                            align: "center",
+                            fontSize: 12
+                        }
+                    }, {
+                        value: "May",
+                        textStyle: {
+                            align: "center",
+                            fontSize: 12
+                        }
+                    }, {
+                        value: "Apr",
+                        textStyle: {
+                            align: "center",
+                            fontSize: 12
+                        }
+                    }, {
+                        value: "Mar",
+                        textStyle: {
+                            align: "center",
+                            fontSize: 12
+                        }
+                    }, {
+                        value: "Feb",
+                        textStyle: {
+                            align: "center",
+                            fontSize: 12
+                        }
+                    }, {
+                        value: "Jan",
+                        textStyle: {
+                            align: "center",
+                            fontSize: 12
+                        }
+                    }]
                 }, {
                     gridIndex: 2,
-                    type: 'category',
+                    type: "category",
                     inverse: true,
-                    position: 'left',
+                    position: "left",
+                    boundaryGap: false,
                     axisLine: {
-                         show: true,
-                        lineStyle:{
-                            color:"rgba(255,255,255,0.2)"
+                        show: true,
+                        lineStyle: {
+                            color: "rgba(255,255,255,0.2)"
                         }
                     },
                     axisTick: {
-                        show: false
+                        show: true
                     },
                     axisLabel: {
-                        show: false
-    
+                        show: true,
+                        interval: 0,
+                        margin: 14,
+                        textStyle: {
+                            color: "black",
+                            fontSize: 12
+                        },
                     },
-                    data: afterdata.xData,
+                    // data: ["Dec", "Nov", "Oct", "Sep", "Aug", "Jul", "Jun", "May", "Apr", "Mar", "Feb", "Jan"]
+                    data: afterdata.xData
                 }],
                 series: []
-    
             },
-            options: [{
+            "options": [{
                 series: [{
-                    name: "2017",
                     type: "bar",
                     barWidth: 10,
                     stack: "1",
+                    name: afterdata.legend[0],
+                    xAxisIndex: 0,
+                    yAxisIndex: 0,
                     itemStyle: {
                         normal: {
-                            color:afterdata.colors[0],
+                            color: "rgb(119,134,150)"
                         }
                     },
                     label: {
                         normal: {
-                            show: false,
+                            show: false
                         }
                     },
+                    // data: [0, 0, 0, 0, 9, 0, 0, 3, 0, 0, 0, 0],
                     data: afterdata.lastYearData,
                     animationEasing: "elasticOut"
-                },
-                {
-                    name: "2018",
+                }, {
                     type: "bar",
                     stack: "2",
+                    name: afterdata.legend[1],
                     barWidth: 10,
                     xAxisIndex: 2,
                     yAxisIndex: 2,
                     itemStyle: {
                         normal: {
-                            color:afterdata.colors[1],
+                            color: "rgb(60,208,60)"
                         }
                     },
                     label: {
                         normal: {
-                            show: false,
+                            show: false
                         }
                     },
+                    // data: [1, 1, 1, 3, 1, 1, 1, 1, 1, 1, 1, 1],
                     data: afterdata.thisYearData,
                     animationEasing: "elasticOut"
-                },
-            ]
+                }]
             }]
         }
+        // console.error("==================", JSON.stringify(option))
         mychart.setOption(option);
         mychart.resize();
     },

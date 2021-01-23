@@ -1,4 +1,4 @@
-import { Component, NgZone, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, NgZone, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 
 // my-echart
@@ -14,7 +14,7 @@ import { EquipmentBoardService } from '../../serivice/equipment-board.service';
 @Component({
   selector: 'ngx-first-level',
   templateUrl: './first-level.component.html',
-  styleUrls: ['./first-level.component.scss']
+  styleUrls: ['./first-level.component.scss'],
 })
 export class FirstLevelComponent implements OnInit {
 

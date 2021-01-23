@@ -66,10 +66,7 @@ export class AddComponent implements OnInit {
     var tesk_info = Tesk_Info;
     var that = this;
     layui.use('form', function(){
-      var form = layui.form,
-      layer = layui.layer;
-
-      
+      var form = layui.form;
 
       // 验证表单
       form.verify({
@@ -82,11 +79,11 @@ export class AddComponent implements OnInit {
           };
           // 格式是否匹配
           if (! new RegExp(tesk_info.tasknum).test(value)){
-            return '试验任务编号格式不符：WTxxxx-xxxxxx';
+            return '试验任务编号格式不符：WTxxxx-yyyymm';
           }
          
         },
-        // 样件编号
+        // 样件编号 exemplarnumbers
         exemplarnumbers: function(value, item){
           // sql注入
           var verify_sql_str = that.verify_sql_str(value, '样件编号');
@@ -95,12 +92,88 @@ export class AddComponent implements OnInit {
           };
           // 格式是否匹配
           if (! new RegExp(tesk_info.exemplarnumbers).test(value)){
-            return '样件编号格式不符：YP-xxxx-xxxxxx';
+            return '样件编号格式不符：YPxxxx-yyyymm';
           }
+          // 样件编号和试验任务编号的数字是一样的
+          var tasknum = $("input[name='tasknum']").val().split("WT")[1];
+          var exemplarnumbers = value.split("YP")[1];
+          if (tasknum === exemplarnumbers && tasknum){
+          }else{
+            return '样件编号数字部分和试验任务编号数字部分不一致！';
+          }
+
+        },
+
+        // 试验条目编号 taskitemnumbers
+        taskitemnumbers: function(value, item){
+          // sql注入
+          var verify_sql_str = that.verify_sql_str(value, '试验条目编号');
+          if (verify_sql_str != 1){
+            return verify_sql_str
+          };
+          // 格式是否匹配
+          if (! new RegExp(tesk_info.taskitemnumbers).test(value)){
+            return '试验条目编号格式不符：xxx';
+          }
+          // 长度
+          if (value.length !== 3){
+            return '试验条目编号必须是3个数字：xxx';
+          }
+        },
+
+        // 试验名称 devicetaskname
+        devicetaskname(value, item){
+          // sql注入
+          var verify_sql_str = that.verify_sql_str(value, '试验名称');
+          if (verify_sql_str != 1){
+            return verify_sql_str
+          };
+          // 格式是否匹配
+          
+        },
+
+        // 试验执行人 executor 
+        executor(value, item){
+          // sql注入
+          var verify_sql_str = that.verify_sql_str(value, '试验执行人');
+          if (verify_sql_str != 1){
+            return verify_sql_str
+          };
+          // 格式是否匹配
+          if (! new RegExp(tesk_info.executor).test(value)){
+            return '试验执行人格式不符：不包含数字';
+          }
+        },
+
+        // 样件三级编号 exemplarchildnumbers
+        exemplarchildnumbers(value, item){
+          // sql注入
+          var verify_sql_str = that.verify_sql_str(value, '样件三级编号');
+          if (verify_sql_str != 1){
+            return verify_sql_str
+          };
+          // 格式是否匹配
+          if (! new RegExp(tesk_info.exemplarchildnumbers).test(value)){
+            return '样件三级编号格式不符：xxx';
+          };
+          // 长度
+          if (value.length !== 3){
+            return '样件三级编号必须是3个数字：xxx';
+          }
+        },
+
+        // 样件名称 exemplarname
+        exemplarname(value, item){
+          // sql注入
+          var verify_sql_str = that.verify_sql_str(value, '样件名称');
+          if (verify_sql_str != 1){
+            return verify_sql_str
+          };
+          
         }
 
-      });
 
+      });
       //监听提交
       form.on('submit(add)', function(data){
         // layer.alert(JSON.stringify(data.field), {
@@ -112,7 +185,9 @@ export class AddComponent implements OnInit {
         data.field["devicename"] = groups_devices_datas.devicename
         data.field["devicenum"] = groups_devices_datas.deviceid;
         // 根据试验编号去 判断是否唯一约束 info["taskchildnum"] = info.tasknum + "-" + info.taskitemnumbers
-        var info_taskchildnum = data.field.tasknum + "-" + data.field.taskitemnumbers;
+        var exemplarnumbers = data.field.exemplarnumbers.replace("YP", "SY");
+        var info_taskchildnum = exemplarnumbers + "-" + data.field.taskitemnumbers;
+        // var info_taskchildnum = data.field.exemplarnumbers + "-" + data.field.taskitemnumbers;
         var table = 'device';
         var method = 'get_task_checkout';
         var colums =  {
@@ -131,7 +206,6 @@ export class AddComponent implements OnInit {
         that.previewinfo(data.field)
         return false;
       });
-
       // 确定 confirm
       form.on('submit(confirm)', function(data){
         // layer.alert(JSON.stringify(data.field), {
@@ -157,8 +231,9 @@ export class AddComponent implements OnInit {
         save_data["deviceid"] = groups_devices_datas.deviceno;
         save_data["deviceno"] = groups_devices_datas.deviceid;
         save_data["devicename"] = groups_devices_datas.devicename;
-        // 添加创建人
-        save_data["createdby"] = that.userinfo.getLoginName();
+        save_data["devicetaskname"] = previewinfodata.devicetaskname;
+        // 添加创建人getLoginName();
+        save_data["createdby"] = that.userinfo.getName();
         save_data["taskmessage"] = previewinfodata["taskmessage"].join(',');
 
         // console.error("要保存的数据！>>>", save_data);
@@ -188,8 +263,6 @@ export class AddComponent implements OnInit {
             that.not_null("试验信息必填!");
           }
         }
-        
-        
         return false;
       });
 
@@ -219,15 +292,16 @@ export class AddComponent implements OnInit {
   // 预览info
   previewinfo(info){
     // 预览的数据
-    console.log("预览info: ", info);
+    // console.log("预览info: ", info);
     this.explarinfo_list.push(info.exemplarnumbers + "-" + info.taskitemnumbers + "-" + info.exemplarchildnumbers + " " + info.exemplarname);
+    var exemplarnumbers = info.exemplarnumbers.replace("YP", "SY");
     var previewinfodata: PreviewInfo = {
       tasknum: info.tasknum, //试验任务编号
       exemplarnumbers: info.exemplarnumbers, //样件编号
       exemplarchildnumbers: info.exemplarchildnumbers, // 样件三级编号
       exemplarname: info.exemplarname, // 样件名称
       taskitemnumbers: info.taskitemnumbers, // 试验条目编号
-      taskchildnum: info.tasknum + "-" + info.taskitemnumbers,
+      taskchildnum: exemplarnumbers + "-" + info.taskitemnumbers, // 试验编号
       devicenum: info.devicenum, // 设备编号
       devicetaskname: info.devicetaskname,
       devicename: info.devicename, // 从 当前设备信息中得到的
@@ -236,7 +310,7 @@ export class AddComponent implements OnInit {
     }
     
     this.previewinfodata = previewinfodata;
-    console.log("最终预览的数据：", this.previewinfodata);
+    // console.log("最终预览的数据：", this.previewinfodata);
     // 清空 样件三级编号、样件名称！
     $("input[name='exemplarchildnumbers']").val("");
     $("input[name='exemplarname']").val("");

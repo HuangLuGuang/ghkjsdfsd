@@ -375,14 +375,14 @@ export class KpiDetailComponent implements OnInit {
           yAxis:{
             data: [
               {
-                value: _columns["endyear"] + '年-利用率',
+                value: _columns["startyear"] + '年-利用率',
                 textStyle:{
                   // color:'#5D7FE5'
                   color:'rgb(51,51,51)'
                 }
               },
               {
-                value:_columns["startyear"] + '年-利用率',
+                value:_columns["endyear"] + '年-利用率',
                 textStyle:{
                   // color:'#26FF26'
                   color:'rgb(51,51,51)'
@@ -404,9 +404,9 @@ export class KpiDetailComponent implements OnInit {
             var _index = defaultdata.xData.indexOf(element["dates"]);
             defaultdata.xData[_index] = element["dates"];
             defaultdata.Series[1].name = columns.end + '年';
-            defaultdata.Series[1].data = element["ratio"];
+            defaultdata.Series[1].data[_index] = element["ratio"];
             defaultdata.Series[3].name = columns.end + '年利用率';
-            defaultdata.Series[3].data = element["ratio"];
+            defaultdata.Series[3].data[_index] = element["ratio"];
           }
         }
         if(lastmonth){
@@ -414,10 +414,10 @@ export class KpiDetailComponent implements OnInit {
             const element = lastmonth[index];
             var _index = defaultdata.xData.indexOf(element["dates"]);
             defaultdata.xData[_index] = element["dates"];
-            defaultdata.Series[0].name = columns.end + '年';
-            defaultdata.Series[0].data = element["ratio"];
-            defaultdata.Series[2].name = columns.end + '年利用率';
-            defaultdata.Series[2].data = element["ratio"];
+            defaultdata.Series[0].name = columns.start + '年';
+            defaultdata.Series[0].data[_index] = element["ratio"];
+            defaultdata.Series[2].name = columns.start + '年利用率';
+            defaultdata.Series[2].data[_index] = element["ratio"];
           }
         }
         // 年度的
@@ -425,11 +425,11 @@ export class KpiDetailComponent implements OnInit {
           defaultdata.Series[4].data[0]["value"] = year[0].ratio;
         }
         if(year && year[1]){
-          defaultdata.Series[4].data[0]["value"] = year[1].ratio;
+          defaultdata.Series[4].data[1]["value"] = year[1].ratio;
         }
 
       }else{}
-      console.log("第二行，第一个数据格式：", JSON.stringify(defaultdata))
+      // console.log("第二行，第一个数据格式：", JSON.stringify(defaultdata))
       kpi_detail.two_row_one(eleid, defaultdata);
     })
   }
@@ -560,7 +560,8 @@ export class KpiDetailComponent implements OnInit {
     }
 
     var defaultdata = {
-      color:['#DBB70D', '#5D920D', '#7E7EFF'],
+      // color:['#DBB70D', '#5D920D', '#7E7EFF'],
+      color:['#5D920D', '#DBB70D', '#7E7EFF'],
       xData: ['01','02','03','04','05','06','07','08','09','10','11','12',],
       Series: [
         {
@@ -587,17 +588,17 @@ export class KpiDetailComponent implements OnInit {
         var availability = res["availability"]; // 可用率
         var failure = res["failure"]; // 故障率
         var year = res["year"]; // 年 可用率
-        if (availability.length > 1){
+        if (availability.length > 0){
           for (let index = 0; index < 12; index++) {
             const element = availability[index];
             if (element){
               var _index = defaultdata.xData.indexOf(element["dates"]);
-              defaultdata.xData[_index] = element["dates"];
+              // defaultdata.xData[_index] = element["dates"];
               defaultdata.Series[0].data[_index] = element["availability"];
             }
           }
         }
-        if (failure.length > 1){
+        if (failure.length > 0){
           for (let index = 0; index < 12; index++) {
             const element = failure[index];
             if (element){
@@ -638,7 +639,7 @@ export class KpiDetailComponent implements OnInit {
       // 月份-倒序
       // xData: ['Dec', 'Nov', 'Oct', 'Sep', 'Aug', 'Jul', 'Jun','May','Apr','Mar','Feb','Jan'],
       xData: ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec',],
-      lineData: [100, 100, 100, 100, 100, 100, 100],
+      lineData: [100, 100, 100, 100, 100, 100, 100,100,100,100,100,100],
       lastYearData: [0, 0, 0, 0, 0, 0, 0,0,0,0,0,0],
       thisYearData: [0, 0, 0, 0, 0, 0, 0,0,0,0,0,0],
       legend: [columns.start, columns.end],
@@ -665,7 +666,7 @@ export class KpiDetailComponent implements OnInit {
       if (res["code"] ===1){
         var lastyear = res["lastyear"];
         var nowyear = res["nowyear"];
-        if (lastyear.length){
+        if (lastyear.length >0){
           for (let index = 0; index < lastyear.length; index++) {
             const element = lastyear[index];
             if (element){
@@ -675,11 +676,12 @@ export class KpiDetailComponent implements OnInit {
             }
           }
         };
-        if (nowyear.length){
+        if (nowyear.length >0){
           for (let index = 0; index < nowyear.length; index++) {
             const element = nowyear[index];
             if (element){
-              var _index = defaultdata.xData.indexOf(element["dates"]);
+              var _index = defaultdata.xData.indexOf(month_zh_en[element["dates"]]);
+              console.error("******************_index, element", _index,element)
               defaultdata.xData[_index] = month_zh_en[element["dates"]];
               defaultdata.thisYearData[_index] = element["average"];
             }

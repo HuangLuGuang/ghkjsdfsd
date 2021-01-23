@@ -26,8 +26,19 @@
     <!-- 当前设备运行状态 -->
     <div class="col-md-8">
         <nb-card>
-            <nb-card-header style="font-size: small;">
-                当前设备运行状态
+            <nb-card-header>
+                <div class="row">
+                    <div class="col-md-10"  style="font-size: small;">
+                        当前设备运行状态
+                    </div>
+                    <div class="col-md-2" style="display: flex;">
+                        <div style="flex: auto;">
+                        </div>
+                        <button nbButton size="small" (click)="get_current()">
+                            <nb-icon icon="sync-outline"></nb-icon>
+                        </button>
+                    </div>
+                </div>
             </nb-card-header>
             <nb-card-body>
                 <table>
@@ -77,7 +88,7 @@
                 <div class="row" >
                     <div class="col-md-6" style="font-size: small;">设备状态历史(近20条)</div>
                     <div class="col-md-4" style="text-align: end;">
-                        <nb-select placeholder="请选择时间" [(selected)]="selectedItem" 
+                        <nb-select placeholder="请选择时间" [(selected)]="selectedItem"  (selectedChange)="selectedChange($event)"
                             size="small" status="info">
                             <!-- <nb-option value="">Option empty</nb-option> -->
                             <nb-option value="1">最近1天</nb-option>

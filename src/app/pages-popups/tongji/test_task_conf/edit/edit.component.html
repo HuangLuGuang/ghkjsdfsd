@@ -38,19 +38,30 @@
         </div>
 
         <form class="layui-form" action="" lay-filter="test_task_info_edit">
-            <!-- 预计时长(天)、试验轮次 -->
-            <div class="layui-form-item">
+            <div class="layui-form-item" >
+                <!-- 选择试验开始时间 taskstart *ngIf="!isShow"-->
                 <div class="layui-inline test_task_info_left">
-                    <label class="layui-form-label mylabel mulu_title">预计时长(天)：</label>
-                    <div class="layui-input-block">
-                        <input type="number" name="expectedtime"  lay-verify="required|expectedtime" placeholder="2天" autocomplete="off" class="layui-input">
+                    <label class="layui-form-label mylabel mulu_title taskstart_title" style="width: auto;">{{taskstatus_value_tosave}}时间：</label>
+                    <div class="layui-input-block" style="margin-left: 120px;">
+                        <input type="text" name="taskstart"  lay-verify="required|taskstart" id="taskstart" class="layui-input" autocomplete="off">
                     </div>
                 </div>
-    
+            </div>
+            <!-- 预计时长(天)、试验轮次 -->
+            <div class="layui-form-item">
+                <!-- 预计时长 -->
+                <div class="layui-inline test_task_info_left">
+                    <label class="layui-form-label mylabel mulu_title" style="width: auto;">预计时长(天)：</label>
+                    <div class="layui-input-block" style="margin-left: 120px;">
+                        <input type="number" name="expectedtime" min="0" lay-verify="required|expectedtime" placeholder="" autocomplete="off" class="layui-input">
+                    </div>
+                </div>
+
+                <!-- 试验总轮次 -->
                 <div class="layui-inline test_task_info_right">
-                    <label class="layui-form-label mylabel mulu_title">试验轮次：</label>
-                    <div class="layui-input-block">
-                        <input type="number" name="devicetasknumbers"  lay-verify="required|devicetasknumbers" placeholder="6" autocomplete="off" class="layui-input">
+                    <label class="layui-form-label mylabel mulu_title" style="width: auto;">试验总轮次：</label>
+                    <div class="layui-input-block" style="margin-left: 120px;">
+                        <input type="number" name="devicetasknumbers" min="0" lay-verify="required|devicetasknumbers" placeholder="" autocomplete="off" class="layui-input">
                     </div>
                 </div>
     
@@ -59,23 +70,23 @@
             <!-- 只有试验未启动，时不展示数据 -->
             <div class="layui-form-item" *ngIf="isShow">
                 <div class="layui-inline test_task_info_left">
-                    <label class="layui-form-label mylabel mulu_title">当前试验轮次：</label>
-                    <div class="layui-input-block">
-                        <input type="number" name="devicetasknownumbers"  lay-verify="required|devicetasknownumbers" placeholder="当前试验轮次3/6" autocomplete="off" class="layui-input">
+                    <label class="layui-form-label mylabel mulu_title" style="width: auto;">试验当前轮次：</label>
+                    <div class="layui-input-block" style="margin-left: 120px;">
+                        <input type="number" name="devicetasknownumbers"  lay-verify="required|devicetasknownumbers" placeholder="" autocomplete="off" class="layui-input">
                     </div>
                 </div>
 
                 <div class="layui-inline test_task_info_right">
-                    <label class="layui-form-label mylabel ">上次状态修改时间：</label>
-                    <div class="layui-input-block">
+                    <label class="layui-form-label mylabel " style="width: auto;">上次状态修改时间：</label>
+                    <div class="layui-input-block" style="margin-left: 135px;">
                         <input type="text" disabled name="lastupdateon"  lay-verify="required|lastupdateon" placeholder="上次状态修改时间" autocomplete="off" class="layui-input" style="    cursor: no-drop;">
                     </div>
                 </div>
             </div>
             
             <div class="layui-form-item" *ngIf="isShow">
-                <label class="layui-form-label mylabel mulu_title">状态变更原因：</label>
-                <div class="layui-input-block">
+                <label class="layui-form-label mylabel mulu_title" style="width: auto;">状态变更原因：</label>
+                <div class="layui-input-block" style="margin-left: 120px;">
                     <select id="statuscause" name="statuscause" lay-filter="statuscause">
                     </select>
                     <!-- <input type="text" name="statuscause"  lay-verify="required|statuscause" placeholder="临时试验插入/更改设备/设备维修/更换样件/试验完成/等待支持/其他" autocomplete="off" class="layui-input"> -->
@@ -83,8 +94,8 @@
             </div>
             
             <div class="layui-form-item" *ngIf="isShow">
-                <label class="layui-form-label mylabel ">其它备注：</label>
-                <div class="layui-input-block">
+                <label class="layui-form-label mylabel " style="width: auto;">其它备注：</label>
+                <div class="layui-input-block" style="margin-left: 120px;">
                     <textarea placeholder="其它备注" class="layui-textarea" name="causemessage"></textarea>
                 </div>
             </div>

@@ -44,33 +44,8 @@ export class DeviceAndonStatusInputComponent implements OnInit {
   query(){
     var groups_devieces = this.groups_devieces.get_form_val();
     if (groups_devieces["devicename"]){
-      var monthed = "pc_device_status_get";
-      var table = "device";
-      var columns = {
-        devicename: groups_devieces["devicename"]
-      }
-      this.http.callRPC(table,monthed,columns).subscribe(result=>{
-        var res = result["result"]["message"][0];
-        if (res["code"]===1){
-          var message = res["message"][0];
-          // message["loginname"] = this.userinfo.getLoginName();
-          this.RecordOperation('搜索', 1,  "安灯状态:"+ JSON.stringify(columns));
-          this.init_table(message);
-        }else{
-          var message = {
-            deviceid:undefined,
-            devicename:undefined,
-            deviceno:undefined,
-            errmsg:undefined,
-            group:undefined,
-            createdby:undefined,
-            recordtime:undefined,
-            status:undefined,
-          };
-          this.RecordOperation('搜索', 0,  "安灯状态:"+ JSON.stringify(res["message"]));
-          this.init_table(message);
-        }
-      })
+      // 点击搜索时，得到当前设备运行装填
+      this.get_current_status(groups_devieces);
       //  点击搜索时，得到设备状态历史
       this.get_history();
     }else{
@@ -116,7 +91,7 @@ export class DeviceAndonStatusInputComponent implements OnInit {
             $('.'+ item).text('占位');
             break
           default:
-            $('.'+ item).text(null);
+            $('.'+ item).text(status_val);
             $('.'+ item).attr("style", "");
             break
         }
@@ -142,6 +117,49 @@ export class DeviceAndonStatusInputComponent implements OnInit {
         name=>{}
       )
     }
+  }
+
+  // 得到当前设备运行状态  刷新
+  get_current(){
+    var groups_devieces = this.groups_devieces.get_form_val();
+    if (groups_devieces["devicename"]){
+      this.get_current_status(groups_devieces);
+    }else{
+      this.dialogService.open(EditDelTooltipComponent,{ closeOnBackdropClick: false, context: { title: '提示', content:   `请选择设备!`}} ).onClose.subscribe(
+        name=>{}
+      )
+    }
+  }
+
+  // 得到当前设备运行状态
+  get_current_status(groups_devieces){
+    var monthed = "pc_device_status_get";
+    var table = "device";
+    var columns = {
+      devicename: groups_devieces["devicename"]
+    }
+    this.http.callRPC(table,monthed,columns).subscribe(result=>{
+      var res = result["result"]["message"][0];
+      if (res["code"]===1){
+        var message = res["message"][0];
+        // message["loginname"] = this.userinfo.getLoginName();
+        this.RecordOperation('搜索', 1,  "安灯状态:"+ JSON.stringify(columns));
+        this.init_table(message);
+      }else{
+        var message = {
+          deviceid:undefined,
+          devicename:undefined,
+          deviceno:undefined,
+          errmsg:undefined,
+          group:undefined,
+          createdby:undefined,
+          recordtime:undefined,
+          status:undefined,
+        };
+        this.RecordOperation('搜索', 0,  "安灯状态:"+ JSON.stringify(res["message"]));
+        this.init_table(message);
+      }
+    })
   }
 
   // 得到设备状态历史
@@ -179,6 +197,12 @@ export class DeviceAndonStatusInputComponent implements OnInit {
       )
     }
 
+  }
+
+  // 时间下拉框值改变的
+  selectedChange(value){
+    //  点击搜索时，得到设备状态历史
+    this.get_history();
   }
 
   // ---- 选择设备触发搜索功能！

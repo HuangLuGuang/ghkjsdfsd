@@ -54,13 +54,17 @@ export const Device =  {
 export const Tesk_Info = {
     special_sql: special_sql, // sql 注入
     tasknum: "^WT[0-9]{4}-[0-9]{6}", // 试验任务编号
-    exemplarnumbers: '^YP-[0-9]{4}-[0-9]{6}', // 样件编号
+    exemplarnumbers: '^YP[0-9]{4}-[0-9]{6}', // 样件编号
     taskitemnumbers: '^[0-9]{3}', // 试验条目编号
     devicetaskname: "[^0-9]+", // 试验名称
     executor:"[^0-9]+", // 试验执行人
 
-    exemplarchildnumbers: "", // 样件三级编号
+    exemplarchildnumbers: '^[0-9]{3}', // 样件三级编号
     exemplarname: "", // 样件名称
 }
 
-// 
+// 编辑试验任务信息
+export const Tesk_edit = {
+    special_sql: special_sql, // sql 注入
+    // devicetasknownumbers: 
+}

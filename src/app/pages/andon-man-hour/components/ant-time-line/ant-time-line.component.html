@@ -10,7 +10,7 @@
             </div>
             <div>
                 <!-- {{item.status}} -->
-                <span style="font-weight: 300;">{{item.title}}</span>
+                <span class="status" [ngStyle]="{ color: item.statusColor}">{{item.title}}</span>
             </div>
         </nz-timeline-item>
     </nz-timeline>
