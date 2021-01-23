@@ -8,36 +8,33 @@ let first_level = require('../../../../../assets/pages/device-inline/js/first-le
 // 全屏
 import * as screenfull from 'screenfull';
 import { Screenfull } from 'screenfull';
-import { LayoutService } from '../../../../@core/utils';
 import { EquipmentBoardService } from '../../serivice/equipment-board.service';
 
 @Component({
   selector: 'ngx-first-level',
   templateUrl: './first-level.component.html',
   styleUrls: ['./first-level.component.scss'],
+<<<<<<< HEAD
+=======
+  
+>>>>>>> 9e8f19db16f69eaa01cabe875e47ad6da6aa0dbc
 })
 export class FirstLevelComponent implements OnInit {
 
   is_not_fullscreen = true; // 是否处于全屏
   // 定时器
   myChart;
+  subscribeList:any = {};
 
-  constructor( private router: Router, private layoutService: LayoutService,
+  constructor( private router: Router,
     private boardservice:EquipmentBoardService,private activateInfo:ActivatedRoute,
     private ngZone:NgZone) { }
 
   ngOnInit(): void {
 
-    this.layoutService.onInitLayoutSize().subscribe(f=>{
-      this.myChart.clear();
-      this.myChart.dispose();
-      if (this.myChart.isDisposed()){ // 是否被释放
-        this.createEchart();
-        first_level.chian_map(this.myChart,this.eclick);
-        this.myChart.resize();
-      }else{
-        console.error("home示例未被释放")
-      }
+    this.subscribeList.resize = this.boardservice.chartResize().subscribe(f=>{
+      this.resize();
+      
     })
 
     this.activateInfo.params.subscribe(f =>{
@@ -48,23 +45,24 @@ export class FirstLevelComponent implements OnInit {
 
     // map 地图
 
-    window.addEventListener('resize',this.resize)
+   
     
   }
-
-
   
   ngAfterViewInit(){
     setTimeout(() => {
       this.boardservice.sendLoad({close:false});
       this.createEchart();
-      first_level.chian_map(this.myChart,this.eclick);
+      
       this.myChart.resize();
     }, 100);
   }
 
   createEchart() {
-    this.ngZone.runOutsideAngular(() => {this.myChart = echarts.init(document.querySelector('.chian_map'))});
+    this.ngZone.runOutsideAngular(() => {
+      this.myChart = echarts.init(document.querySelector('.chian_map'))
+    first_level.chian_map(this.myChart,this.eclick);
+  });
   }
 
   resize=()=>{
@@ -74,8 +72,8 @@ export class FirstLevelComponent implements OnInit {
       this.myChart.dispose();
       if (this.myChart.isDisposed()){ // 是否被释放
         this.createEchart();
-        first_level.chian_map(this.myChart,this.eclick);
-        this.myChart.resize();
+        // first_level.chian_map(this.myChart,this.eclick);
+        // this.myChart.resize();
       }else{
         console.error("home示例未被释放")
       }
@@ -86,8 +84,9 @@ export class FirstLevelComponent implements OnInit {
     var my_echart = echarts.init(document.querySelector('.chian_map'))
     my_echart.clear();
     my_echart.dispose();
-    window.removeEventListener('resize',this.resize)
-
+    for(let key in this.subscribeList){
+      this.subscribeList[key].unsubscribe();
+    }
   };
 
   // 返回首页

@@ -9,7 +9,8 @@ import { colors, rgb_del_red, create_img_16_9 } from '../equipment-board';
 @Component({
   selector: 'ngx-equipment-details',
   templateUrl: './equipment-details.component.html',
-  styleUrls: ['./equipment-details.component.scss']
+  styleUrls: ['./equipment-details.component.scss'],
+  
 })
 export class EquipmentDetailsComponent implements OnInit {
 

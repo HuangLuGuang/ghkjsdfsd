@@ -1,6 +1,7 @@
 // 引入jquery
 declare var $:any;
 
+
 //生成rgb 减少红色
 export const rgb_del_red = ()=> {//rgb颜色随机
     var r = Math.floor(Math.random()*255);
@@ -14,8 +15,10 @@ export const rgb_del_red = ()=> {//rgb颜色随机
  * 生成16比9的尺寸 写不出来
  */
 export const create_img_16_9=()=>{
+  let dom = document.getElementById('img');
+  if(!dom)return;
+  dom = null;
   let center_img = $('.center_img');
-  if(!center_img.length)return;
   let img = $('#img');
 
   let height;
@@ -33,7 +36,6 @@ export const create_img_16_9=()=>{
 
 //颜色
 export const colors = [
-    'rgba(5,116,232,1)',
     'rgba(0,252,248,0.8)',
     'rgba(248,0,248,0.8)',
     'rgba(200,204,20,0.8)',
@@ -56,6 +58,8 @@ export const colors = [
     'rgba( 248,252,0,0.8)',
     'rgba( 40,100,40,0.8)',
     'rgba( 64,204,200,0.8)',
+    'rgba(5,116,232,1)',
+
 
 ]
 
@@ -233,15 +237,15 @@ export const guid2=()=> {
     return (S4() + S4() + "-" + S4() + "-" + S4() + "-" + S4() + "-" + S4() + S4() + S4());
 }
 
-export const hydraulic_htmlstr = ['','','','']
-export const  four_road_htmlstr = ['','','','']
-export const coupling = ['','','','']
-export const shock_htmlStr = ['','','','']
-export const oil_htmlStr = ['','','','']
+// export const hydraulic_htmlstr = ['','','','']
+// export const  four_road_htmlstr = ['','','','']
+// export const coupling = ['','','','']
+// export const shock_htmlStr = ['','','','']
+// export const oil_htmlStr = ['','','','']
 
 
 
-//液压伺服设备介绍
+// //液压伺服设备介绍
 // export const hydraulic_htmlstr = [
 // `
 // <p class="indent_2 p_white">主要用于底盘结构件台架试验如：副车架、摆臂、稳定杆、后桥等</p>
@@ -343,7 +347,7 @@ export const oil_htmlStr = ['','','','']
 // `
 // ]
 
-  //四立柱设备介绍
+//   //四立柱设备介绍
 // export const  four_road_htmlstr = [
 //   `
 // <p class="indent_2 p_white">四立柱轮耦合道路模拟试验主要在试验场采集车辆轮心加速度和螺旋弹簧应变（螺旋弹簧位移或者悬架位移）作为目标信号，在试验室台架上应用MTS RPC技术，来模拟4个车轮的垂向激励或者载荷，可以很精确地再现车辆在试验场道路的垂向工况，加快汽车产品耐久性的开发进度。同时，在试验室配备环境仓和红外灯的情况，可以对汽车内外饰的疲劳寿命和异响进行精确的考核。 </p>
@@ -462,7 +466,7 @@ export const oil_htmlStr = ['','','','']
 // `
 // ];
 
-// 整车 设备介绍
+// // 整车 设备介绍
 // export const coupling = [
 // `
 // <p class="indent_2 p_white">24通道轴耦合道路模拟试验机，是应用MTS RPC再现技术，主要是在24通道模拟机上重现试验场车辆轴头六分力传感器测量的Fx、Fy、Fz、Mx、My、Mz的载荷，来评价整车结构耐久性。 </p>
@@ -489,11 +493,11 @@ export const oil_htmlStr = ['','','','']
 //         </div>
 //         <div class="border_top_1px column_65">1920mm～3420mm 
 //         </div>
-//     </div>.
-//     <div class="column_100">
-//     <div class="border_top_1px column_35">轮距wheel distance
 //     </div>
-//     <div class="border_top_1px column_65">1200mm～1800mm 
+//     <div class="column_100">
+//       <div class="border_top_1px column_35">轮距wheel distance
+//       </div>
+//       <div class="border_top_1px column_65">1200mm～1800mm 
 //     </div>
 // </div>
 // <div class="column_100">
@@ -599,7 +603,7 @@ export const oil_htmlStr = ['','','','']
 // ]
 
 
-  //六自由度设备介绍
+//   //六自由度设备介绍
 // export const shock_htmlStr = [
 //   `
 // <p class="indent_2 p_white">六自由度振动台主要验证发动机悬置系统的耐久性能，以及其它车辆子系统耐久性能验证如：前端冷却模块、座椅系统、天窗系统等 </p>
@@ -653,7 +657,7 @@ export const oil_htmlStr = ['','','','']
 // `
 // ]
 
-// 油源设备介绍
+// // 油源设备介绍
 // export const oil_htmlStr = [
 // `
 // <p class="indent_2 p_white">MTS液压泵站，共有5个独立的HPU油泵组，每组HPU由6个油泵组成。为试验室24通道台架、四立柱等台架设备提供液压油输入输出。</p>

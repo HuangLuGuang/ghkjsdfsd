@@ -1,7 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { Observable } from 'rxjs';
-import { LayoutService } from '../../../@core/utils/layout.service';
 import { HttpserviceService } from '../../../services/http/httpservice.service';
 import { colors, create_img_16_9,rTime } from '../equipment-board';
 import { EquipmentBoardService } from '../serivice/equipment-board.service';
@@ -110,17 +108,13 @@ export class TwoDriveChassisComponent implements OnInit {
   language = '';//语言 空为zh-CN中文
   subscribeList:any = {};
 
-  constructor(private layoutService: LayoutService,private activateInfo:ActivatedRoute,
+  constructor(private activateInfo:ActivatedRoute,
     private http:HttpserviceService,private boardservice:EquipmentBoardService) { }
 
   ngOnInit(): void {
     //获取当前语言
     let language = localStorage.getItem('currentLanguage');
     if(language!='zh-CN')this.language = language;
-    //订阅左上角打开关闭
-    this.subscribeList.layout = this.layoutService.onInitLayoutSize().subscribe(f=>{
-      this.resize();
-    })
     this.subscribeList.router = this.activateInfo.params.subscribe(f =>{
       // console.log(f);
       if(document.getElementById('head_title'))
@@ -133,7 +127,11 @@ export class TwoDriveChassisComponent implements OnInit {
     setTimeout(() => {
       create_img_16_9();
     }, 1000);
-    window.addEventListener('resize',this.resize);
+
+
+    this.subscribeList.resize =this.boardservice.chartResize().subscribe(f=>{
+      this.resize();
+    })
   }
 
 
@@ -144,7 +142,6 @@ export class TwoDriveChassisComponent implements OnInit {
   resize = () =>{
     setTimeout(() => {
       let chart;
-   
       this.gauge.forEach((f,i)=>{
         chart = document.getElementById(f.id);
         if(chart)
@@ -355,7 +352,6 @@ export class TwoDriveChassisComponent implements OnInit {
     for(let key in this.subscribeList){
       this.subscribeList[key].unsubscribe();
     }
-    window.removeEventListener('resize',this.resize);
     let chart;
     this.gauge.forEach((f,i)=>{
       chart = document.getElementById(f.id);

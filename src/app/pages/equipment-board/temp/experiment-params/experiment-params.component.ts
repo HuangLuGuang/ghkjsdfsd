@@ -3,6 +3,7 @@ import { Observable } from 'rxjs';
 import { LayoutService } from '../../../../@core/utils';
 import { HttpserviceService } from '../../../../services/http/httpservice.service';
 import { dateformat, rTime } from '../../equipment-board';
+import { EquipmentBoardService } from '../../serivice/equipment-board.service';
 let equipment_four_road = require('../../../../../assets/eimdoard/equipment/js/equipment-four-road');
 let rtm3a = require('../../../../../assets/eimdoard/rtm3/js/rtm3a');
 
@@ -21,30 +22,28 @@ export class ExperimentParamsComponent implements OnInit {
   //   if(document.getElementById('third_second'))echarts.init(document.getElementById('third_second')).resize();
   //   f.next('experiment-params刷新')
   // })
-  constructor(private http:HttpserviceService,private layoutService:LayoutService) { }
+  constructor(private http:HttpserviceService,private boardservice:EquipmentBoardService) { }
 
   ngOnInit(): void {
 
     let language = localStorage.getItem('currentLanguage');
     if(language!='zh-CN')this.language = language;
-    //订阅左上角点击后宽度变化
-    this.subscribeList.layout = this.layoutService.onInitLayoutSize().subscribe(f=>{
-      if(document.getElementById('third_second'))echarts.init(document.getElementById('third_second')).resize();
-    })
+   
     // setTimeout(() => {
-      if(this.device.includes('weiss'))
-        this.get_device_mts_timerangedata();
-      else
-        this.get_device_his_Temp_hum();
+    if(this.device.includes('weiss'))
+      this.get_device_mts_timerangedata();
+    else
+      this.get_device_his_Temp_hum();
     // }, 1000);
     let i = 0;
     this.timer = self.setInterval(f =>{
-      if(this.device.includes('weiss'))
+      if(this.device.includes('weiss')){
         this.get_device_mts_weiss();
         if(i == 5){
           this.get_device_mts_timerangedata();
           i = 0;
         }
+      }
       else
       {
         this.get_device_Temp_hum();
@@ -55,15 +54,23 @@ export class ExperimentParamsComponent implements OnInit {
       }
       i++;
     },1000)
-    window.addEventListener('resize',this.chartResize);
+    this.subscribeList.resize =this.boardservice.chartResize().subscribe(f=>{
+      this.chartResize();
+    })
   }
 
 
   chartResize=()=>{
+    let chart;
     setTimeout(() => {
       if(document.getElementById('third_second')){
         echarts.init(document.getElementById('third_second')).resize();
       }
+      chart = document.getElementById('real_temperature_1');
+      if(chart)echarts.init(chart).resize();
+
+      chart = document.getElementById('real_temperature_2');
+      if(chart)echarts.init(chart).resize();
     }, 500);
 
   }
@@ -95,9 +102,9 @@ export class ExperimentParamsComponent implements OnInit {
 
   //环境历史信息
   get_device_mts_timerangedata(){
-   let startStr = this.getPreMonth(dateformat(new Date(),'yyyy-MM-dd'))
+   let startStr = (dateformat(new Date(new Date().getTime()-3600000),'yyyy-MM-dd hh:mm:ss'))
     this.subscribeList.device_mts_timerangedata = this.http.callRPC('get_device_mts_timerangedata','device_monitor.get_device_mts_timerangedata'
-    ,{start:startStr+' 00:00:00',end:dateformat(new Date(),'yyyy-MM-dd hh:mm:ss'),device:this.device,arr:"temperatureactual,humidityactual"}).subscribe((g:any) =>{
+    ,{start:startStr,end:dateformat(new Date(),'yyyy-MM-dd hh:mm:ss'),device:this.device,arr:"temperatureactual,humidityactual"}).subscribe((g:any) =>{
       if(g.result.error || g.result.message[0].code == 0)return;
       // console.log(this.temp_humi_change(g.result.message[0].message));
       let arrj = this.temp_humi_change(g.result.message[0].message)
@@ -112,7 +119,7 @@ export class ExperimentParamsComponent implements OnInit {
         differenceData:differenceData,
         visibityData:visibityData,
         xAxisData:xAxisData,
-        title:this.language?'MonthlyChartOfTemperatureAndHumidity':'温湿度月度图线'
+        title:''
       }, 'third_second');
 
       this.subscribeList.device_mts_timerangedata.unsubscribe();
@@ -160,7 +167,7 @@ export class ExperimentParamsComponent implements OnInit {
         differenceData:differenceData,
         visibityData:visibityData,
         xAxisData:xAxisData,
-        title:this.language?'MonthlyChartOfTemperatureAndHumidity':'温湿度月度图线'
+        title:''
       }, 'third_second');
 
       this.subscribeList.h_t_h.unsubscribe();
@@ -229,6 +236,13 @@ export class ExperimentParamsComponent implements OnInit {
     window.removeEventListener('resize',this.chartResize);
     let chart = document.getElementById('third_second');
     if(chart)echarts.init(chart).dispose();
+
+    chart = document.getElementById('real_temperature_1');
+    if(chart)echarts.init(chart).dispose();
+
+    chart = document.getElementById('real_temperature_2');
+    if(chart)echarts.init(chart).dispose();
+
   }
 
 }

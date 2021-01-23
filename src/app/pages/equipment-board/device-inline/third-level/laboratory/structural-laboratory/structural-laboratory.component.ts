@@ -56,11 +56,11 @@ export class StructuralLaboratoryComponent implements OnInit {
     },
     {
       name:'天窗开闭',
-      src:'',//实验图片路径
+      src:'assets/eimdoard/equipment/images/slz.png',//实验图片路径
       andon:0,
       speed:[],
       speed_name:[''],//实验名称
-      router:''
+      router:'pages/equipment/skylight/开窗闭件试验台'
     },
     {
       name:'玻璃升降系统',
@@ -105,11 +105,7 @@ export class StructuralLaboratoryComponent implements OnInit {
     'device_mts_01':this.list[1],//四立柱道路模拟试验台
     'device_mts_03':this.list[2],//六自由度振动台
     "device_mts_04":this.list[3],//液压伺服
-    // 'device_hpu_01':0,//油源1
-    // 'device_hpu_02':1,//油源2
-    // 'device_hpu_03':2,//油源3
-    // 'device_hpu_04':3,//油源4
-    // 'device_hpu_05':4,//油源5
+    // 'device_auto_voc01':this.list[3],//整车voc环境仓
   }
   timer:any;
   constructor(private router:Router,private http:HttpserviceService,private thrid:ThirdLevelService,

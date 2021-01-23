@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { LayoutService } from '../../../../../../@core/utils';
+import { EquipmentBoardService } from '../../../../serivice/equipment-board.service';
 
 @Component({
   selector: 'ngx-right-layout',
   templateUrl: './right-layout.component.html',
-  styleUrls: ['./right-layout.component.scss']
+  styleUrls: ['./right-layout.component.scss'],
 })
 export class RightLayoutComponent implements OnInit {
   obejct = Object;
@@ -22,14 +22,13 @@ export class RightLayoutComponent implements OnInit {
     // {device:'四立柱',experiment:'WT0001-202011',speed:20},
     // {device:'四立柱',experiment:'WT0001-202011',speed:20},
   ]
-  constructor(private layoutService:LayoutService) { }
+  subscribeList:any = {};
+  constructor(private boardservice:EquipmentBoardService) { }
 
   ngOnInit(): void {
-    // this.initChart();
-    this.layoutService.onInitLayoutSize().subscribe(f=>{
+    this.subscribeList.resize =this.boardservice.chartResize().subscribe(f=>{
       this.resize();
     })
-    window.addEventListener('resize',this.resize);
   }
 
   resize = ()=>{
@@ -140,10 +139,16 @@ export class RightLayoutComponent implements OnInit {
     chart.resize();
   }
 
+  setTableBody(tableBody){
+    this.tableBody = tableBody;
+  }
+
   ngOnDestroy(){
-    window.removeEventListener('resize',this.resize)
     let chart = document.getElementById('right_chart_1');
     if(chart)echarts.init(chart).dispose();
+    for(let key in this.subscribeList){
+      this.subscribeList[key].unsubscribe();
+    }
   }
 
 }

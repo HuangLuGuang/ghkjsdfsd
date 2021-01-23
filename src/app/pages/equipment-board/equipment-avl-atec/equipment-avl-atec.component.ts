@@ -1,7 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { Observable } from 'rxjs';
-import { LayoutService } from '../../../@core/utils/layout.service';
 import { HttpserviceService } from '../../../services/http/httpservice.service';
 import { colors,  create_img_16_9, rTime } from '../equipment-board';
 import { EquipmentBoardService } from '../serivice/equipment-board.service';
@@ -11,7 +9,8 @@ let equipment_four_road = require('../../../../assets/eimdoard/equipment/js/equi
 @Component({
   selector: 'ngx-equipment-avl-atec',
   templateUrl: './equipment-avl-atec.component.html',
-  styleUrls: ['./equipment-avl-atec.component.scss']
+  styleUrls: ['./equipment-avl-atec.component.scss'],
+  
 })
 export class EquipmentAvlAtecComponent implements OnInit {
   avl_chart = [
@@ -137,7 +136,7 @@ export class EquipmentAvlAtecComponent implements OnInit {
   language = '';//语言 空为zh-CN中文
   subscribeList:any = {};
 
-  constructor(private layoutService: LayoutService,private activateInfo:ActivatedRoute,
+  constructor(private activateInfo:ActivatedRoute,
     private http:HttpserviceService,private boardservice:EquipmentBoardService) { }
 
   ngOnInit(): void {
@@ -161,15 +160,17 @@ export class EquipmentAvlAtecComponent implements OnInit {
         
     })
 
-    this.subscribeList.layout = this.layoutService.onInitLayoutSize().subscribe(f=>{
-      this.resize();
-    })
+
 
     this.getData();
     setTimeout(() => {
       create_img_16_9();
     }, 1000);
-    window.addEventListener('resize',this.resize)
+
+
+    this.subscribeList.resize =this.boardservice.chartResize().subscribe(f=>{
+      this.resize();
+    })
 
   }
 
@@ -177,18 +178,6 @@ export class EquipmentAvlAtecComponent implements OnInit {
     this.boardservice.sendLoad({close:false})
   }
 
-  obser = new Observable(f=>{
-    this.gauge.forEach(el => {
-      if(document.getElementById(el.id))
-        echarts.init(document.getElementById(el.id)).resize();
-    });
-    if(document.getElementById('avl_param_chart_2'))
-        echarts.init(document.getElementById('avl_param_chart_2')).resize();
-    if(document.getElementById('avl_discharge_chart_1'))
-        echarts.init(document.getElementById('avl_discharge_chart_1')).resize();
-        
-    f.next('chart刷新');
-  })
 
   resize = () =>{
     setTimeout(() => {
@@ -362,7 +351,6 @@ export class EquipmentAvlAtecComponent implements OnInit {
     for(let key in this.subscribeList){
       this.subscribeList[key].unsubscribe();
     }
-    window.removeEventListener('resize',this.resize);
 
     let chart;
     this.gauge.forEach(el => {

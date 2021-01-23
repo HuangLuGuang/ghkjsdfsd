@@ -1,6 +1,5 @@
-import {ChangeDetectionStrategy, Component, OnInit, ViewChild, ViewEncapsulation} from '@angular/core';
+import {ChangeDetectionStrategy, Component, NgZone, OnInit, ViewChild, ViewEncapsulation} from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { LayoutService } from '../../../@core/utils';
 import { HttpserviceService } from '../../../services/http/httpservice.service';
 import { colors, rgb_del_red, create_img_16_9, painting_time, dateformat, coupling } from '../equipment-board';
 import { EquipmentBoardService } from '../serivice/equipment-board.service';
@@ -10,7 +9,6 @@ import { EquipmentBoardService } from '../serivice/equipment-board.service';
   selector: 'ngx-equipment-coupling-path',
   templateUrl: './equipment-coupling-path.component.html',
   styleUrls: ['./equipment-coupling-path.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class EquipmentCouplingPathComponent implements OnInit {
 
@@ -263,22 +261,19 @@ export class EquipmentCouplingPathComponent implements OnInit {
   subscribeList:any = {};
 
   equipIntroduceList = [
-    {htmlstr:coupling[0],title:''},
-    {htmlstr:coupling[1],title:''}
+    {title:''},
+    {title:''}
   ]
 
 
   constructor(private activateInfo:ActivatedRoute,
-    private http:HttpserviceService,private boardservice:EquipmentBoardService) { }
+    private http:HttpserviceService,private boardservice:EquipmentBoardService,private ngzone:NgZone) { }
 
   ngOnInit(): void {
     //获取当前语言
     let language = localStorage.getItem('currentLanguage');
     if(language !='zh-CN')this.language = language;
-    //左上按钮点击后宽度变化
-    // this.subscribeList.layout = this.layoutService.onInitLayoutSize().subscribe(f=>{
-    //   this.initChart();
-    // })
+    
     //路由订阅
     this.subscribeList.router = this.activateInfo.params.subscribe(f =>{
       // console.log(f);
@@ -299,6 +294,7 @@ export class EquipmentCouplingPathComponent implements OnInit {
     //   this[`attrs_3`][f] = JSON.parse(JSON.stringify(this.attrs));
     // })
     let table,method;
+
     this.timer = self.setInterval(f =>{
       this.get_device_status();
       this.get_device_mst_oilseparator();
@@ -437,22 +433,22 @@ HSM 4 RR High
     {'device':this.deviceid,arr:"hsm1lfon,hsm1lfhigh,hsm2rfon,hsm2rfhigh,hsm3lron,hsm3lrhigh,hsm4rron,hsm4rrhigh"}
     ).subscribe((f:any)=>{
       if(f.result.error || f.result.message[0].code == 0)return;
-      res = f.result.message[0];
-      res.message.forEach(el => {
+      res = f.result.message[0].message || [];
+      res.forEach(el => {
         for(let key in el) data[key] = el[key][0][0];
       });
       // console.log(f)
-      this.real_list[0].value = data.hsm1lfon == 0?'关':(data.hsm1lfhigh == 1?'高':'低');
-      this.real_list[0].color = data.hsm1lfon == 0?'red':(data.hsm1lfhigh == 0?'white':'yellow');
+      this.real_list[0].value = !data.hsm1lfon || data.hsm1lfon == 0?'关':(data.hsm1lfhigh == 1?'高':'低');
+      this.real_list[0].color = !data.hsm1lfon || data.hsm1lfon == 0?'red':(data.hsm1lfhigh == 1?'yellow':'white');
 
-      this.real_list[1].value = data.hsm2rfon == 0?'关':(data.hsm2rfhigh == 1?'高':'低');
-      this.real_list[1].color = data.hsm2rfon == 0?'red':(data.hsm2rfhigh == 0?'white':'yellow');
+      this.real_list[1].value = !data.hsm2rfon || data.hsm2rfon == 0?'关':(data.hsm2rfhigh == 1?'高':'低');
+      this.real_list[1].color = !data.hsm2rfon || data.hsm2rfon == 0?'red':(data.hsm2rfhigh == 1?'yellow':'white');
 
-      this.real_list[2].value = data.hsm3lron == 0?'关':(data.hsm3lrhigh == 1?'高':'低');
-      this.real_list[2].color = data.hsm3lron == 0?'red':(data.hsm3lrhigh == 0?'white':'yellow');
+      this.real_list[2].value = !data.hsm3lron || data.hsm3lron == 0?'关':(data.hsm3lrhigh == 1?'高':'低');
+      this.real_list[2].color = !data.hsm3lron || data.hsm3lron == 0?'red':(data.hsm3lrhigh == 1?'yellow':'white');
 
-      this.real_list[3].value = data.hsm4rron == 0?'关':(data.hsm4rrhigh == 1?'高':'低');
-      this.real_list[3].color = data.hsm4rron == 0?'red':(data.hsm4rrhigh == 0?'white':'yellow');
+      this.real_list[3].value = !data.hsm4rron || data.hsm4rron == 0?'关':(data.hsm4rrhigh == 1?'高':'低');
+      this.real_list[3].color = !data.hsm4rron || data.hsm4rron == 0?'red':(data.hsm4rrhigh == 1?'yellow':'white');
     })
   }
 

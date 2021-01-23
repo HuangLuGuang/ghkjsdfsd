@@ -5,6 +5,7 @@ let oilsrouce = {
     create_radar(data, myChart) {
         let option_radar = {
             // backgroundColor: '#003D74',
+            //animation: false,
             tooltip: {
                 show: true,
                 trigger: "item",
@@ -62,26 +63,46 @@ let oilsrouce = {
             },
 
             series: [{
-                name: "蓄能器压力",
-                type: "radar",
-                symbol: "none",
-                symbolSize: 8,
-                areaStyle: {
-                    normal: {
-                        color: '#00cc66',
-                    }
+                    name: "蓄能器压力",
+                    type: "radar",
+                    symbol: "none",
+                    symbolSize: 8,
+                    areaStyle: {
+                        normal: {
+                            color: '#00cc66',
+                        }
+                    },
+                    itemStyle: {
+                        color: '#80B2FF',
+                    },
+                    lineStyle: {
+                        normal: {
+                            color: splitLine_color,
+                            width: 2
+                        }
+                    },
+                    data: [data.value]
                 },
-                itemStyle: {
-                    color: '#80B2FF',
-                },
-                lineStyle: {
-                    normal: {
-                        color: splitLine_color,
-                        width: 2
-                    }
-                },
-                data: [data.value]
-            }]
+                {
+                    name: "最外层边框",
+                    type: "radar",
+                    symbol: "none",
+                    symbolSize: 6,
+                    itemStyle: {
+                        color: '#0263FF',
+                    },
+                    tooltip: {
+                        show: false
+                    },
+                    lineStyle: {
+                        normal: {
+                            color: "#0263FF",
+                            width: 2
+                        }
+                    },
+                    data: [data.indicator.map(m => (m.max))]
+                }
+            ]
         };
         myChart.setOption(option_radar);
         // myChart.resize();
@@ -143,6 +164,7 @@ let oilsrouce = {
         })
 
         let option_gauge_3 = {
+            //animation: false,
             // backgroundColor: '#003366',
             series: servies,
         };
@@ -152,6 +174,7 @@ let oilsrouce = {
     //不知道叫啥东西 n一列要显示几个
     create_bar_j(dataLine, myChart, title_left) {
         let option_bar_j = {
+            //animation: false,
             // backgroundColor: '#003260',
             grid: {
                 bottom: '80%',
@@ -204,7 +227,7 @@ let oilsrouce = {
                             color: "#109618"
                         }
                     },
-                    z: 2
+                    zlevel: 2
                 },
                 {
                     type: "bar",
@@ -218,7 +241,7 @@ let oilsrouce = {
                             color: "#fff"
                         }
                     },
-                    z: 1
+                    zlevel: 1
                 },
                 {
                     type: "bar",
@@ -238,7 +261,7 @@ let oilsrouce = {
                             fontSize: 12
                         }
                     },
-                    z: 3
+                    zlevel: 3
                 }
             ]
         };

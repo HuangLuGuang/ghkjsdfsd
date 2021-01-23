@@ -3,6 +3,7 @@ let rtm3 = {
     create_first_second(gauge_data) {
         var myChart = echarts.init(document.querySelector('.first_second'));
         let option_f_s = {
+            //animation: false,
             grid: {
                 left: '5%',
                 right: '5%',
@@ -74,6 +75,7 @@ let rtm3 = {
         app.title = '极坐标系下的堆叠柱状图';
 
         let option_b_f = {
+            //animation: false,
             textStyle: { //图例文字的样式
                 color: '#dbdbdb',
                 fontSize: 10
@@ -82,7 +84,8 @@ let rtm3 = {
             radiusAxis: {
                 type: 'category',
                 data: gauge_data.radiusAxisData,
-                z: 10
+                // z: 10,
+                zlevel: 10
             },
             polar: {},
             series: gauge_data.seriesData,
@@ -105,6 +108,7 @@ let rtm3 = {
     create_box3_right(gauge_data, myChart) {
 
         let option_b_r = {
+            //animation: false,
             tooltip: {
                 trigger: 'axis',
                 axisPointer: {
@@ -160,6 +164,7 @@ let rtm3 = {
         let plan_chart_1 = echarts.init(document.getElementById('line_chart_1'));
         let plan_chart_2 = echarts.init(document.getElementById('line_chart_2'));
         let plan_option = {
+            //animation: false,
             xAxis: {
                 data: plan_xAxis,
                 axisLabel: {
@@ -266,6 +271,7 @@ let rtm3 = {
         if (!document.getElementById(id)) return;
         var myChart = echarts.init(document.getElementById(id));
         let option_t_f = {
+            //animation: false,
             title: {
                 text: `${gauge_data.title}\n\n${gauge_data.number}`,
                 x: 'center',
@@ -280,7 +286,7 @@ let rtm3 = {
                     startAngle: 270,
                     center: ['50%', '50%'],
                     radius: ['70%', '80%'],
-                    hoverAnimation: false,
+                    //animation: false,
                     data: [{
                             name: '',
                             value: 100,
@@ -345,7 +351,7 @@ let rtm3 = {
                     startAngle: 200,
                     center: ['50%', '50%'],
                     radius: ['70%', '60%'],
-                    hoverAnimation: false,
+                    //animation: false,
                     data: [{
                             name: '',
                             value: 15,
@@ -421,6 +427,7 @@ let rtm3 = {
             return;
         }
         let option_r_b = {
+            //animation: false,
             tooltip: {
                 trigger: 'axis'
             },

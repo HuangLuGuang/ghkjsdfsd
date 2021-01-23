@@ -5,7 +5,8 @@ import {dateformat, rTime} from '../../equipment-board';
 @Component({
   selector: 'ngx-test-information',
   templateUrl: './test-information.component.html',
-  styleUrls: ['./test-information.component.scss']
+  styleUrls: ['./test-information.component.scss'],
+  
 })
 export class TestInformationComponent implements OnInit {
   @Input()device;

@@ -1,6 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { LayoutService } from '../../../@core/utils/layout.service';
 import { HttpserviceService } from '../../../services/http/httpservice.service';
 import { colors, rgb_del_red,shock_htmlStr, create_img_16_9, dateformat, painting_time } from '../equipment-board';
 import { EquipmentBoardService } from '../serivice/equipment-board.service';
@@ -9,7 +8,8 @@ import { EquipmentBoardService } from '../serivice/equipment-board.service';
 @Component({
   selector: 'ngx-equipment-shock',
   templateUrl: './equipment-shock.component.html',
-  styleUrls: ['./equipment-shock.component.scss']
+  styleUrls: ['./equipment-shock.component.scss'],
+  
 })
 export class EquipmentShockComponent implements OnInit {
 
@@ -213,9 +213,9 @@ export class EquipmentShockComponent implements OnInit {
 
    //设备介绍                                                    
   equipIntroduceList = [
-    {htmlstr:shock_htmlStr[0],title:''},
-    {htmlstr:shock_htmlStr[1],title:''},
-    {htmlstr:shock_htmlStr[2],title:''},
+    {title:''},
+    {title:''},
+    {title:''},
     // {htmlstr:shock_htmlStr[2],title:''}
   ];
   //当前的页数
@@ -233,10 +233,6 @@ export class EquipmentShockComponent implements OnInit {
     //获取当前语言
     let language = localStorage.getItem('currentLanguage');
     if(language!='zh-CN')this.language = language;
-    //订阅左上角打开关闭
-    // this.subscribeList.layout = this.layoutService.onInitLayoutSize().subscribe(f=>{
-    //   this.initChart();
-    // })
     //订阅路由返回的标题
     this.subscribeList.router = this.activateInfo.params.subscribe(f =>{
       console.log(f);
@@ -251,7 +247,7 @@ export class EquipmentShockComponent implements OnInit {
     this.color();
 
     //获取数据
-    let g = 1,table,method;
+    let table,method;
     this.timer = self.setInterval(f =>{
       this.get_equip_real();
 
@@ -320,12 +316,12 @@ export class EquipmentShockComponent implements OnInit {
       // this.switchStatus.data[0][3].color = res.programinterlock== 1?'#7fee1d':'white';
 
       this.switchStatus.data = f.result.message[0].message.map(m => (
-        [
+        
           [m.stationname,
           {value:m.stationstatus,id:'circle',color:m.stationstatus ==1?'green':'#C0C0C0'},
           {value:m.interlock,id:'strip',color:m.interlock == 1?'#7fee1d':'white'},
           {value:m.programinterlock,id:'strip',color:m.programinterlock== 1?'#7fee1d':'white'},]
-        ]
+        
       ))
 
       // MAST分油器

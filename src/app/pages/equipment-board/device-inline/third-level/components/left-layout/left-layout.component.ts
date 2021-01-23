@@ -1,12 +1,12 @@
 import { Component, OnInit } from '@angular/core';
-import { LayoutService } from '../../../../../../@core/utils';
+import { EquipmentBoardService } from '../../../../serivice/equipment-board.service';
 let equipment_four_road = require('../../../../../../../assets/eimdoard/equipment/js/equipment-four-road');
 
 declare var $;
 @Component({
   selector: 'ngx-left-layout',
   templateUrl: './left-layout.component.html',
-  styleUrls: ['./left-layout.component.scss']
+  styleUrls: ['./left-layout.component.scss'],
 })
 export class LeftLayoutComponent implements OnInit {
 
@@ -30,21 +30,14 @@ export class LeftLayoutComponent implements OnInit {
   ]
 
   fixed = ['log'];
+  subscribeList:any = {};
 
-  constructor(private layoutService:LayoutService) { }
+  constructor(private boardservice:EquipmentBoardService) { }
 
   ngOnInit(): void {
-    this.layoutService.onInitLayoutSize().subscribe(f=>{
+    this.subscribeList.resize =this.boardservice.chartResize().subscribe(f=>{
       this.resize();
-      // this.create_scrollbar();
     })
-    window.addEventListener('resize',this.resize);
-
-    // $('.scrollbar_l').bind("scroll",f=>{
-    //   $('.table_body_th_2').scrollLeft($('.scrollbar_l').scrollLeft())
-    // })
-
-    // this.create_scrollbar();
   }
 
   
@@ -121,12 +114,15 @@ export class LeftLayoutComponent implements OnInit {
   }
 
   ngOnDestroy(){
-    window.removeEventListener('resize',this.resize);
     let chart;
     ['left_chart_1','left_chart_2','left_chart_3','left_chart_hour_year'].forEach(f=>{ 
       chart =document.getElementById(f)
       if(chart)echarts.init(chart).dispose();
     })
+
+    for(let key in this.subscribeList){
+      this.subscribeList[key].unsubscribe();
+    }
   }
 
 }

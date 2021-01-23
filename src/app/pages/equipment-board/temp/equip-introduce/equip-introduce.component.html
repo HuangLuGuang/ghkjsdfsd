@@ -1,6 +1,7 @@
 <ng-container *ngFor="let item of equipIntroduceList;let i = index">
     <div *ngIf="eqIntShow == i" class="height_10 equipments_table_title flip">{{item.title }}</div>
-    <div *ngIf="eqIntShow == i" class="introduce  borad_introduction flip" [innerHTML]="item.htmlstr">
+    <div [ngStyle]="{display: eqIntShow != i?'none':'inherit'}" class="introduce  borad_introduction flip">
+        <img src="assets/eimdoard/equipment/images/sbjs/{{name}}/{{item.src}}/{{i+1}}.png" alt="" />
     </div>
 </ng-container>
 

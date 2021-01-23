@@ -156,6 +156,13 @@ const ROUTERS: Routes = [{
         .then(m=>m.EquipmentVehicleVocModule),
         
       },
+      {
+        //开窗闭件试验台
+        path:'skylight',
+        loadChildren:()=>import('./equipment-skylight-open-close/equipment-skylight-open-close.module')
+        .then(m=>m.EquipmentSkylightOpenCloseModule),
+        
+      },
       
       // {
       //   path:'detailsDemo/:title/:deviceid',

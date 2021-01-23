@@ -1,7 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { Observable } from 'rxjs';
-import { LayoutService } from '../../../@core/utils';
 import { HttpserviceService } from '../../../services/http/httpservice.service';
 import { colors, create_img_16_9, rTime } from '../equipment-board';
 import { EquipmentBoardService } from '../serivice/equipment-board.service';
@@ -12,7 +10,8 @@ let oilsrouce = require('../../../../assets/eimdoard/equipment/js/oilsrouce');
 @Component({
   selector: 'ngx-equipment-motor-six-seven',
   templateUrl: './equipment-motor-six-seven.component.html',
-  styleUrls: ['./equipment-motor-six-seven.component.scss']
+  styleUrls: ['./equipment-motor-six-seven.component.scss'],
+  
 })
 export class EquipmentMotorSixSevenComponent implements OnInit {
 
@@ -85,14 +84,14 @@ export class EquipmentMotorSixSevenComponent implements OnInit {
         [1, '#0d1758']],unit:'℃',un:'常温'
       }
     },
-    {
-      id:'motor_chart_g_4',
-      dataLine:{
-        value:12,name:'实时湿度',max:100,color:[
-          [0, '#203add'],
-          [1, '#0d1758']],unit:'%PH'
-      }
-    }
+    // {
+    //   id:'motor_chart_g_4',
+    //   dataLine:{
+    //     value:12,name:'实时湿度',max:100,color:[
+    //       [0, '#203add'],
+    //       [1, '#0d1758']],unit:'%PH'
+    //   }
+    // }
   ];
   HealthParam_right_chart = [
     { 
@@ -228,17 +227,14 @@ export class EquipmentMotorSixSevenComponent implements OnInit {
   ct_deviceid = '';
   th_deviceid = '';
 
-  constructor(private activateInfo:ActivatedRoute,private http:HttpserviceService,private layoutService:LayoutService,
+  constructor(private activateInfo:ActivatedRoute,private http:HttpserviceService,
     private boardservice:EquipmentBoardService) { }
 
   ngOnInit(): void {
      //获取当前语言
      let language = localStorage.getItem('currentLanguage');
      if(language!='zh-CN')this.language = language;
-     //订阅左上角点击宽度改变
-     this.subscribeList.layout = this.layoutService.onInitLayoutSize().subscribe(f=>{
-      this.resize();
-    })
+
      //订阅路由
      this.subscribeList.router = this.activateInfo.params.subscribe(f =>{
       //  console.log(f);
@@ -264,7 +260,10 @@ export class EquipmentMotorSixSevenComponent implements OnInit {
     setTimeout(() => {
       create_img_16_9();
     }, 1000);
-    window.addEventListener('resize',this.resize)
+
+    this.subscribeList.resize =this.boardservice.chartResize().subscribe(f=>{
+      this.resize();
+    })
   }
 
   ngAfterViewInit(){
@@ -459,7 +458,6 @@ export class EquipmentMotorSixSevenComponent implements OnInit {
     for(let key in this.subscribeList){
       this.subscribeList[key].unsubscribe();
     }
-    window.removeEventListener('resize',this.resize)
 
     let chart;
       [1, 1, 1, 1, 1].forEach((f,i)=>{
@@ -470,11 +468,15 @@ export class EquipmentMotorSixSevenComponent implements OnInit {
         chart = document.getElementById(f.id);
         if(chart)echarts.init(chart).dispose();
       })
+      this.HealthParam_left.forEach(f=>{
+        chart = document.getElementById(f.id);
+        if(chart)echarts.init(chart).dispose();
+      })
       this.threePhase.forEach(f=>{
         chart = document.getElementById(f.id);
         if(chart)echarts.init(chart).dispose();
       });
-      ['dashboard_67,line_chart_12_67','threePhase_67','motor_chart_2','motor_chart_2','motor_chart_1'].forEach(el => {
+      ['dashboard_67','line_chart_12_67','threePhase_67','motor_chart_2','motor_chart_1'].forEach(el => {
         chart = document.getElementById(el);
         if(chart)echarts.init(chart).dispose();
       });

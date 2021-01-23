@@ -4,7 +4,8 @@ import { HttpserviceService } from '../../../../services/http/httpservice.servic
 @Component({
   selector: 'ngx-equip-introduce',
   templateUrl: './equip-introduce.component.html',
-  styleUrls: ['./equip-introduce.component.scss']
+  styleUrls: ['./equip-introduce.component.scss'],
+  
 })
 export class EquipIntroduceComponent implements OnInit {
 
@@ -13,12 +14,12 @@ export class EquipIntroduceComponent implements OnInit {
   //当前的页数
   @Input()  eqIntShow = 0;
   @Input()  title = '';
-  @Input() deviceid = '';
+  @Input() name = '';
   @Input() translateTime = 9000;
   @Input() boardName = '';
 
   timer_1:any;
-  constructor(private http:HttpserviceService) { }
+  constructor() { }
 
   ngOnInit(): void {
     this.timer_1 = self.setInterval(f =>{
@@ -26,11 +27,6 @@ export class EquipIntroduceComponent implements OnInit {
     },this.translateTime)
   }
 
-  getData(){
-    this.http.callRPC('','',{boardname:this.boardName}).subscribe(f=>{
-
-    })
-  }
 
   //组件销毁
   ngOnDestroy(){

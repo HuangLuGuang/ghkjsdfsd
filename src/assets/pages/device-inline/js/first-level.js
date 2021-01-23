@@ -90,8 +90,12 @@ let first_level = {
 
         let data = [{
                 name: "黑河",
-                value: [47, 127, 100]
+                value: [47, 127, 100],
+
             },
+
+
+
 
         ]
 
@@ -103,7 +107,8 @@ let first_level = {
                     [127.528588, 50.247033],
                     [132, 52, 100]
                 ],
-                value: [2, 3]
+                value: [2, 3],
+
             },
             {
                 name: "吐鲁番夏季试车专属基地",
@@ -111,7 +116,8 @@ let first_level = {
                     [89.192125, 42.956351],
                     [97.192125, 47.956351]
                 ],
-                value: [4, 5]
+                value: [4, 5],
+
 
             },
             {
@@ -120,7 +126,8 @@ let first_level = {
                     [121.25158, 30.342533],
                     [128, 27, 100]
                 ],
-                value: [38, 50]
+                value: [38, 50],
+
             },
             {
                 name: "盐城试车基地",
@@ -128,7 +135,8 @@ let first_level = {
                     [120.168403, 33.355342],
                     [132, 37, 100]
                 ],
-                value: [2, 4]
+                value: [2, 4],
+
             },
             //94.794758,36.405633
             {
@@ -137,7 +145,8 @@ let first_level = {
                     [94.794758, 36.405633],
                     [90, 25, 100]
                 ],
-                value: [2, 4]
+                value: [2, 4],
+
             },
             //119.417702,30.919115
             {
@@ -146,7 +155,7 @@ let first_level = {
                     [119.417702, 30.919115],
                     [129, 32, 100]
                 ],
-                value: [2, 4]
+                value: [2, 4],
             },
 
 
@@ -156,6 +165,7 @@ let first_level = {
         var option_chian_map = {
             // backgroundColor: '#00294E',
             // backgroundColor: '#1CCCFF',
+            animation: false,
             geo: {
                 map: 'china',
                 aspectScale: 0.85,
@@ -206,8 +216,8 @@ let first_level = {
                 // 常规地图
                 {
                     type: 'map',
-                    // z: 10,
                     zlevel: 10,
+                    // z: 10,
                     mapType: 'china',
                     aspectScale: 0.85,
                     layoutCenter: ["50%", "50%"], //地图位置
@@ -244,8 +254,9 @@ let first_level = {
                     type: 'effectScatter',
                     coordinateSystem: 'geo',
                     showEffectOn: 'render',
-                    zlevel: 2,
-                    // z:20,
+                    // zlevel: 2,
+                    zlevel: 20,
+                    // z: 20,
                     symbolSize: 10,
                     rippleEffect: { //坐标点动画
                         period: 3,
@@ -281,14 +292,13 @@ let first_level = {
                 {
                     type: 'lines',
                     // zlevel: 1, //设置这个才会有轨迹线的小尾巴
-                    // zlevel: 0.1, //设置这个才会有轨迹线的小尾巴
-                    // z:21,
+                    // z: 21,
                     zlevel: 21,
                     //polyline:true,
                     effect: {
                         show: true,
                         period: 4,
-                        trailLength: 0.7,
+                        trailLength: 0,
                         color: '#fff', //流动点颜色
                         symbol: 'arrow',
                         symbolSize: 6
@@ -377,7 +387,7 @@ let first_level = {
                     type: 'lines',
                     // zlevel: 3,
                     // zlevel: 0.2,
-                    // z:21,
+                    // z: 21,
                     zlevel: 21,
                     symbol: 'circle',
                     symbolSize: [5, 5],
@@ -456,10 +466,10 @@ let first_level = {
                     rippleEffect: {
                         brushType: 'stroke'
                     },
-                    hoverAnimation: true,
+                    hoverAnimation: false,
                     // zlevel: 1
-                    zlevel: 22
-                        // z:22
+                    // z: 22,
+                    zlevel: 22,
                 },
                 // 气球 、scatter 散点图 === 吉利研究院
                 {
@@ -490,15 +500,13 @@ let first_level = {
                     },
                     hoverAnimation: true,
                     // zlevel: 1
+                    // z: 22,
                     zlevel: 22
-                        // z:22
                 },
             ]
         };
-
-
         // 渲染
-        myChart.setOption(option_chian_map);
+        myChart.setOption(option_chian_map, { silent: true, lazyUpdate: true });
 
         //echarts 设置地图外边框以及多个geo实现缩放拖曳同步
         // myChart.on('georoam', function(params) {
@@ -511,7 +519,7 @@ let first_level = {
         //     }
         //     myChart.setOption(option_chian_map_1); //设置option
         // });
-
+        // console.log(JSON.stringify(option_chian_map))
         // 点击散点图上的点
         myChart.on('click', function(params) {
             eclick(params)
@@ -575,7 +583,6 @@ let first_level = {
                         }
                     }
                 },
-                hoverAnimation: false,
                 data: [{
                     value: value,
                     name: '',

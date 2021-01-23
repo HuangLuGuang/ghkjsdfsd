@@ -1,8 +1,7 @@
-import { Component, NgZone, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, NavigationEnd, Router,Event } from '@angular/router';
 import * as screenfull from 'screenfull';
 import { Screenfull } from 'screenfull';
-import { LayoutService } from '../../@core/utils';
 import {  SYSMENU } from '../../appconfig';
 import { create_img_16_9 } from './equipment-board';
 import { EquipmentBoardService } from './serivice/equipment-board.service';
@@ -40,17 +39,16 @@ export class EquipmentBoardComponent implements OnInit {
   subscribeList:any = {};
   
 
-  constructor(private router:Router,private activateInfo:ActivatedRoute,private layoutService:LayoutService,
-    private boradservice:EquipmentBoardService,private ngZone:NgZone) { }
+  constructor(private router:Router,private activateInfo:ActivatedRoute,
+    private boradservice:EquipmentBoardService,) { }
 
   ngOnInit(): void {
     this.creatDateInterval();
     this.activateInfo.queryParams.subscribe(f =>{
       console.log(f);
     })
-    window.addEventListener('resize',this.resize)
-    this.layoutService.onInitLayoutSize().subscribe(f=>{
-      create_img_16_9();
+    this.subscribeList.resize = this.boradservice.chartResize().subscribe(f=>{
+      this.resize();
     })
     
     //获取看板路由下所有菜单配置
@@ -150,7 +148,6 @@ export class EquipmentBoardComponent implements OnInit {
   //组件销毁
   ngOnDestroy(){
     clearInterval(this.dateInterval);
-    window.removeEventListener('resize',this.resize);
     this.isFirstLevel.unsubscribe();
     for(let key in this.subscribeList){
       this.subscribeList[key].unsubscribe();
@@ -159,7 +156,6 @@ export class EquipmentBoardComponent implements OnInit {
 
    // 全屏切换
    showAllTemplate(){
-    // var board = document.getElementById('equipment')
     var board = document.getElementsByTagName('ngx-equipment-board')[0];
     var sf = <Screenfull>screenfull;
     if (sf.isEnabled){ // sf.isEnabled 布尔值，判断是否允许进入全屏！

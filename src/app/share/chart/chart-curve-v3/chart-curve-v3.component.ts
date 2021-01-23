@@ -1,4 +1,4 @@
-import {ChangeDetectionStrategy, Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
+import {ChangeDetectionStrategy, Component, EventEmitter, Input, NgZone, OnInit, Output} from '@angular/core';
 import { config, Observable } from 'rxjs';
 import { LayoutService } from '../../../@core/utils/layout.service';
 
@@ -10,7 +10,6 @@ declare var $:any;
   selector: 'ngx-chart-curve-v3',
   templateUrl: './chart-curve-v3.component.html',
   styleUrls: ['./chart-curve-v3.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ChartCurveV3Component implements OnInit {
 
@@ -45,16 +44,9 @@ export class ChartCurveV3Component implements OnInit {
 //下拉显示的字段
   languageName = 'name';//默认为中文
 
-  obs = new Observable(f=>{
-    let isthis = this;
-    if(isthis.myChart)isthis.myChart.resize();
-    let dom = document.getElementById(this.dashboardName);
-    if(dom)echarts.init(dom).resize();
-    f.next('chart-v-3刷新');
-  })
 
 
-  constructor(private layoutService:LayoutService ) { }
+  constructor(private layoutService:LayoutService,private ngzone:NgZone ) { }
 
   ngOnInit(): void {
       //获取当前显示的语言
@@ -85,13 +77,15 @@ export class ChartCurveV3Component implements OnInit {
   }
 
   chartResize_v3=()=>{
-      setTimeout(() => {
-        let isthis = this;
-        if(isthis.myChart)isthis.myChart.resize();
-        let dom = document.getElementById(this.dashboardName);
-        if(dom)echarts.init(dom).resize();
-
-      }, 500);
+    this.ngzone.runOutsideAngular(()=>{
+        setTimeout(() => {
+          let isthis = this;
+          if(isthis.myChart)isthis.myChart.resize();
+          let dom = document.getElementById(this.dashboardName);
+          if(dom)echarts.init(dom).resize();
+  
+        }, 500);
+    })
 
   }
 
@@ -184,6 +178,7 @@ export class ChartCurveV3Component implements OnInit {
     // console.log(this.myChart.getOption());
     var option:any = {
         background:'rgb(10,65,121)',
+        animation: false,
         tooltip: {
             trigger: 'axis',
             backgroundColor: 'none',
@@ -516,12 +511,15 @@ export class ChartCurveV3Component implements OnInit {
 
     //初始化
     // this.xData = data.xData[this.click_str] ?data.xData[this.click_str]:[];
+    
     this.xData = data.xData.slice();
     if(this.attrs.xData)delete this.attrs.xData;
-    //更新表的数据
-    this.choice_initleftChart();
-    //更新仪表盘的数据
-    this.initDashboard();
+    this.ngzone.runOutsideAngular(()=>{
+        //更新表的数据
+        this.choice_initleftChart();
+        //更新仪表盘的数据
+        this.initDashboard();
+    })
   }
 
   //rgb转换16进制

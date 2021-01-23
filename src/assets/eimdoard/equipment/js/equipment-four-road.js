@@ -71,6 +71,8 @@ let equipment_four_road = {
     getoption(xData, n_name, legend, borderHeight, normalColor, seriesData) {
         return {
             // backgroundColor: "#000",
+            //animation: false,
+
             grid: {
                 left: "3%",
                 top: "16%",
@@ -269,7 +271,7 @@ let equipment_four_road = {
             type: 'pie',
             clockWise: false,
             radius: [30, 40],
-            hoverAnimation: false,
+            //animation: false,
             itemStyle: {
                 normal: {
                     label: {
@@ -287,6 +289,8 @@ let equipment_four_road = {
         }];
         let option_p = {
             // backgroundColor: '#0A2E5D',
+            //animation: false,
+
             color: color,
             title: {
                 text: gauge_data.title + '\n' + gauge_data.message,
@@ -335,6 +339,8 @@ let equipment_four_road = {
     create_warning_chart(data, myChart) {
         let option_o = {
             // backgroundColor: '#001120',
+            //animation: false,
+
             tooltip: {
                 trigger: 'axis',
                 axisPointer: { // 坐标轴指示器，坐标轴触发有效
@@ -427,7 +433,7 @@ let equipment_four_road = {
                     stack: data.title[1],
                     itemStyle: {
                         barBorderRadius: 20,
-                        color: 'rgb(230,90,0)',
+                        color: '#FFCC33',
                     },
                     data: data.secondData
                 }
@@ -445,6 +451,8 @@ let equipment_four_road = {
         let unit = gauge_data.unit ? gauge_data.unit : '%';
         let optionInterval = {
             // backgroundColor:"#061740",
+            //animation: false,
+
             title: {
                 text: value ? '{a|' + value + '}{c|' + unit + '}' : unit != 'RH' ? '常温' : '常湿',
                 x: 'center',
@@ -749,6 +757,8 @@ let equipment_four_road = {
             [1, "#20B2AA"]
         ]
         let optionInterval_v2 = {
+            //animation: false,
+
             tooltip: {
                 show: false
             },
@@ -792,7 +802,7 @@ let equipment_four_road = {
                 },
                 detail: {
                     show: true,
-                    formatter: datas.value ? datas.value : '常' + datas.title[0],
+                    formatter: datas.value,
                     fontSize: 18,
                     // offsetCenter: [0, '0%'],
 
@@ -820,6 +830,8 @@ let equipment_four_road = {
             }]
         }
         var option_i = {
+            //animation: false,
+
             // backgroundColor: "#000",
             title: [{
                 text: datas.value,
@@ -852,7 +864,7 @@ let equipment_four_road = {
                         }
                     }
                 },
-                hoverAnimation: false,
+                //animation: false,
                 data: [{
                     value: datas.value,
                     name: '',
@@ -882,6 +894,8 @@ let equipment_four_road = {
     //仪表盘
     create_real_dashboard(data, Chart) {
         let option_u = {
+            //animation: false,
+
             // backgroundColor: 'rgb(10,69,128)',
             series: [{
                     type: 'gauge',
@@ -1095,6 +1109,8 @@ let equipment_four_road = {
     create_real_single_dashboard(data, chart) {
         let option_y = {
             // backgroundColor: '#1b1b1b',
+            //animation: false,
+
             tooltip: {
                 formatter: '{a} {c}'
             },
@@ -1197,6 +1213,8 @@ let equipment_four_road = {
 
         var option_t = {
             background: 'rgb(10,65,121)',
+            //animation: false,
+
             tooltip: {
                 trigger: 'axis',
                 backgroundColor: 'none',
@@ -1416,6 +1434,8 @@ let equipment_four_road = {
 
         let option_rg = {
             // backgroundColor: '#fff',
+            //animation: false,
+
             title: [{
                 text: data.text,
                 left: '50%',
@@ -1432,7 +1452,7 @@ let equipment_four_road = {
             //第一个图表
             series: [{
                     type: 'pie',
-                    hoverAnimation: false, //鼠标经过的特效
+                    //animation: false, //鼠标经过的特效
                     radius: ['80%', '90%'],
                     center: ['50%', '50%'],
                     startAngle: 0,
@@ -1463,7 +1483,7 @@ let equipment_four_road = {
                 //上层环形配置
                 {
                     type: 'pie',
-                    hoverAnimation: false, //鼠标经过的特效
+                    //animation: false, //鼠标经过的特效
                     radius: ['80%', '90%'],
                     center: ['50%', '50%'],
                     startAngle: 90,
@@ -1543,6 +1563,8 @@ let equipment_four_road = {
         })
         if (series.length == 0) series.push({ type: 'line', name: '', data: [] });
         let option_e = {
+            //animation: false,
+
             tooltip: {
                 trigger: 'axis',
             },
@@ -1855,6 +1877,7 @@ let equipment_four_road = {
             })
         });
         let option_motor_chart = {
+            //animation: false,
             title: {
 
                 show: true,
@@ -1929,6 +1952,7 @@ let equipment_four_road = {
 
         let option_t_h_p_g = {
             // backgroundColor: '#040042',
+            //animation: false,
             series: [{
                     name: '实时温度',
                     type: 'gauge',
@@ -2181,6 +2205,7 @@ let equipment_four_road = {
 
 
         let option_t_31892740 = {
+            //animation: false,
             series: [{
                 name: '实时湿度',
                 type: 'gauge',
@@ -2266,6 +2291,7 @@ let equipment_four_road = {
     },
     create_gauge_jinhua(data, myChart) {
         let option_102973 = {
+            //animation: false,
             title: [{
                 text: data.value + data.unit,
                 x: '50%',
@@ -2338,6 +2364,132 @@ let equipment_four_road = {
         };
         myChart.setOption(option_102973);
         // myChart.resize();
+    },
+    progress(data, myChart) {
+
+        let progress_092312 = {
+            //animation: false,
+            color: ['green'],
+            grid: {
+                height: '100%',
+                //     width: 7,
+                top: 0,
+            },
+            xAxis: {
+                type: 'category',
+                data: [1],
+                // axisLabel: {
+                //     show: false
+                // },
+                axisLine: {
+                    show: false
+                },
+                axisTick: {
+                    show: false
+                }
+            },
+            yAxis: {
+                type: 'value',
+                axisLine: {
+                    show: false
+                },
+                axisLabel: {
+                    show: false,
+                },
+                splitLine: {
+                    show: false
+                },
+                axisTick: {
+                    show: false
+                },
+                splitArea: {
+                    show: false
+                },
+                max: data.plan
+            },
+            series: [{
+                name: '已完成',
+                data: [data.now],
+                type: 'bar',
+                showBackground: true,
+                backgroundStyle: {
+                    color: 'yellow',
+                },
+            }]
+        };
+        console.log(JSON.stringify(progress_092312))
+        myChart.setOption(progress_092312)
+    },
+    //启停时序
+    create_line_start_stop(afterdata, chart) {
+        let option_756930 = {
+            //animation: false,
+            tooltip: {
+                trigger: 'axis'
+            },
+            title: [{
+                    text: '停',
+                    textStyle: {
+                        color: COLOR,
+                        fontSize: 12,
+
+                    },
+                    left: '3%',
+                    top: '55%'
+                },
+
+            ],
+            grid: {
+                // left: '3%',
+                // right: '4%',
+                top: '2%',
+                bottom: '40%',
+                // containLabel: true
+            },
+            xAxis: {
+                type: 'category',
+                // data: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24],
+                data: afterdata.xData,
+                axisLine: {
+                    lineStyle: {
+                        color: COLOR
+                    }
+                }
+
+            },
+            yAxis: {
+                type: 'value',
+                max: 2,
+                axisLine: {
+                    width: 0.08,
+                    lineStyle: {
+                        type: "solid",
+                        color: COLOR
+                    }
+                },
+                axisTick: {
+                    show: false
+                },
+            },
+
+
+            series: [{
+                name: 'Step Start',
+                type: 'line',
+                // step: 'start',
+                // data: [1, 0, 1, 0, 1, 0, 1, 1, 1, 0, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 1, 1, 1, 0, 1, 1, 0],
+                data: afterdata.SeriesData,
+                lineStyle: {
+                    color: 'rgb(138,43,226)',
+                    width: 1,
+                },
+                areaStyle: {
+                    color: 'rgb(138,43,226)'
+
+                },
+            }, ]
+        };
+        chart.setOption(option_756930);
     }
 }
 
