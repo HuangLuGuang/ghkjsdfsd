@@ -411,9 +411,13 @@ export class CabinCentralizedMonitoringComponent implements OnInit {
       chart = document.getElementById(f.id);
       if(chart)echarts.init(chart).dispose();
     });
+    this.TempHumidity.forEach(f=>{
+      chart = document.getElementById(f.id);
+      if(chart)echarts.init(chart).dispose();
+    });
 
 
-    ['sensor_t_h_01','sensor_t_h_02','sensor_t_h_03','cabin_discharge_chart_2','cabin_discharge_chart_1'].forEach(f=>{
+    ['cabin_discharge_chart_2','cabin_discharge_chart_1'].forEach(f=>{
       chart = document.getElementById(f);
       if(chart)echarts.init(chart).dispose();
     });

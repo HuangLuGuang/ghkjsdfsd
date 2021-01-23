@@ -434,7 +434,7 @@ export class CentralFourJinhuaComponent implements OnInit {
     chart = document.getElementById('avl_discharge_chart');
     if(chart)echarts.init(chart).dispose();
     chart = document.getElementById('avl_param_chart_1');
-    if(chart) echarts.init(chart).dispose();
+    if(chart)echarts.init(chart).dispose();
     chart = document.getElementById('avl_param_chart_2');
     if(chart)echarts.init(chart).dispose();
   }

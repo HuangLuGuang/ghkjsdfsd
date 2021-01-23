@@ -117,7 +117,7 @@ export class ThirdLevelService {
           deviceList[f.deviceid].push(f)
         })
         
-        s.next( {'deviceList':deviceList,'tableBody':tableBody });
+        s.next( deviceList);
       })
     })
   }

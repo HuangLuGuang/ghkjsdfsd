@@ -391,6 +391,10 @@ torque: 0.151 扭矩
       chart = document.getElementById('electric_'+(i+1));
       if(chart)echarts.init(chart).dispose();
     });
+    this.threePhase.forEach(f=>{
+      chart = document.getElementById(f.id);
+      if(chart)echarts.init(chart).dispose();
+    });
     ['coolingWater','AxleBoxTemperature1','AxleBoxTemperature2','circularD_chart',
     'dashboard','line_chart_12','threePhase','temperature','humidity'].forEach(f => {
       chart = document.getElementById(f);

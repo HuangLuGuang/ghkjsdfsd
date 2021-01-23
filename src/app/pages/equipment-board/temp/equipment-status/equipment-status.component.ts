@@ -132,23 +132,9 @@ export class EquipmentStatusComponent implements OnInit {
   //获取该天安灯数据
   get_andon_data(){
     // //当表样子改变
-    // if(this.chart_1_type == 'type_2'){
-    //   this.initOperatingRate({
-    //     // 月份-倒序
-    //     xData: [0],
-    //     SeriesData: [0]
-    //   });
-    //   return;
-    // }
-    // let arr = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0];
     let arr = [];
-    let unit = '时';
-    if(this.language )unit = "H";
-    // let xAxisData = ['00时','01时','02时','03时','04时',
-    // '05时','06时','07时','08时','09时','10时','11时',
-    // '12时','13时','14时','15时','16时','17时','18时','19时','20时','21时','23时'];
     let xAxisData = [];
-    let nowStr = dateformat(new Date(),'yyyy-MM-dd');
+    // let nowStr = dateformat(new Date(),'yyyy-MM-dd');
     this.subscribeList.andon_data = this.http.callRPC('dev_get_device_andon_status_daily'
         ,'dev_get_device_status_kpi',{"deviceid":this.device}).subscribe((f:any)=>{
           if(f.result.error || f.result.message[0].code == 0)return;

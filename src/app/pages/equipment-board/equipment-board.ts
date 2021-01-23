@@ -1,6 +1,7 @@
 // 引入jquery
 declare var $:any;
 
+
 //生成rgb 减少红色
 export const rgb_del_red = ()=> {//rgb颜色随机
     var r = Math.floor(Math.random()*255);
@@ -35,7 +36,6 @@ export const create_img_16_9=()=>{
 
 //颜色
 export const colors = [
-    'rgba(5,116,232,1)',
     'rgba(0,252,248,0.8)',
     'rgba(248,0,248,0.8)',
     'rgba(200,204,20,0.8)',
@@ -58,6 +58,8 @@ export const colors = [
     'rgba( 248,252,0,0.8)',
     'rgba( 40,100,40,0.8)',
     'rgba( 64,204,200,0.8)',
+    'rgba(5,116,232,1)',
+
 
 ]
 

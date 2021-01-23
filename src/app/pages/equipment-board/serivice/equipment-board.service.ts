@@ -1,8 +1,7 @@
 import { Injectable, NgZone, OnInit, } from '@angular/core';
 import { Observable, Subject } from 'rxjs';
 import { LayoutService } from '../../../@core/utils';
-import * as screenfull from 'screenfull';
-import { Screenfull } from 'screenfull';
+
 
 @Injectable({
   providedIn: 'root'
@@ -19,11 +18,10 @@ export class EquipmentBoardService {
 
     this.layoutService.onInitLayoutSize().subscribe(f=>{
       this.chart_subject.next('resize');
-  })
+    })
+
     
   }
-
-
 
   
 
@@ -59,6 +57,7 @@ export class EquipmentBoardService {
   timeout;
   resize=()=>{
     // if(this.timeout)clearTimeout(this.timeout);
+    console.log(111111111111111111111111)
     this.timeout = setTimeout(() => {
       this.chart_subject.next('resize');
     },10);

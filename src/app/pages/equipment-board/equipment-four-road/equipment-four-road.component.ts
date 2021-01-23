@@ -22,22 +22,22 @@ export class EquipmentFourRoadComponent implements OnInit {
       name: "左后输出",nameEn :'LeftRearOutput', unit: "V",value: [],show:true
       ,color:["", ""]
     },{ 
-        name: "左后位移",nameEn :'LeftRearDisplacement', unit: "V",value: [],show:true,
+        name: "左后位移",nameEn :'LeftRearDisplacement', unit: "mm",value: [],show:true,
         color:["", ""]
     },{ 
-      name: "左后活动Fdbk",nameEn :'LeftRearActiveFdbk', unit: "V",value: [],show:true,
+      name: "左后活动Fdbk",nameEn :'LeftRearActiveFdbk', unit: "mm",value: [],show:true,
       color:["", ""]
     },{ 
-      name: "左后指令频率",nameEn :'LeftRearCommandFrequency', unit: "V",value: [],
+      name: "左后指令频率",nameEn :'LeftRearCommandFrequency', unit: "Hz",value: [],
       color:["", ""]
   },{ 
-    name: "左后位移绝对误差",nameEn :'LeftRearDisplacementAbs.Error', unit: "V",value: [],
+    name: "左后位移绝对误差",nameEn :'LeftRearDisplacementAbs.Error', unit: "mm",value: [],
     color:["", ""]
   },{ 
-    name: "左后位移误差",nameEn :'LeftRearDisplacementError', unit: "V",value: [],
+    name: "左后位移误差",nameEn :'LeftRearDisplacementError', unit: "mm",value: [],
     color:["", ""]
   },{ 
-    name: "左后DeltaP",nameEn :'LeftRearDeltaP', unit: "V",value: [],
+    name: "左后DeltaP",nameEn :'LeftRearDeltaP', unit: "psi",value: [],
     color:["", ""]
   }],
       'equipment.road.RightRear.Params':[{ 
@@ -47,19 +47,19 @@ export class EquipmentFourRoadComponent implements OnInit {
           name: "右后位移",nameEn :'RightRearDisplacement', unit: "V",value: [],show:true,
           color:["", ""]
       },{ 
-        name: "右后活动Fdbk",nameEn :'RightRearActiveFdbk', unit: "V",value: [],show:true,
+        name: "右后活动Fdbk",nameEn :'RightRearActiveFdbk', unit: "mm",value: [],show:true,
         color:["", ""]
       },{ 
-        name: "右后指令频率",nameEn :'RightRearCommandFrequency', unit: "V",value: [],
+        name: "右后指令频率",nameEn :'RightRearCommandFrequency', unit: "Hz",value: [],
         color:["", ""]
     },{ 
-      name: "右后位移绝对误差",nameEn :'RightRearDisplacementAbs.Error', unit: "V",value: [],
+      name: "右后位移绝对误差",nameEn :'RightRearDisplacementAbs.Error', unit: "mm",value: [],
       color:["", ""]
     },{ 
-      name: "右后位移误差",nameEn :'RightRearDisplacementError', unit: "V",value: [],
+      name: "右后位移误差",nameEn :'RightRearDisplacementError', unit: "mm",value: [],
       color:["", ""]
     },{ 
-      name: "右后DeltaP",nameEn :'RightRearDeltaP', unit: "V",value: [],
+      name: "右后DeltaP",nameEn :'RightRearDeltaP', unit: "psi",value: [],
       color:["", ""]
   }],
   xData:[]
@@ -69,78 +69,78 @@ export class EquipmentFourRoadComponent implements OnInit {
         name: "左前输出",nameEn :'LeftFrontOutput', unit: "V",value: [],show:true
         ,color:["", ""]
       },{ 
-          name: "左前位移",nameEn :'LeftFrontDisplacement', unit: "V",value: [],show:true,
+          name: "左前位移",nameEn :'LeftFrontDisplacement', unit: "mm",value: [],show:true,
           color:["", ""]
       },{ 
-        name: "左前活动Fdbk",nameEn :'LeftFrontActiveFdbk', unit: "V",value: [],show:true,
+        name: "左前活动Fdbk",nameEn :'LeftFrontActiveFdbk', unit: "mm",value: [],show:true,
         color:["", ""]
       },{ 
-        name: "左前指令频率",nameEn :'LeftFrontCommandFrequency', unit: "V",value: [],
+        name: "左前指令频率",nameEn :'LeftFrontCommandFrequency', unit: "Hz",value: [],
         color:["", ""]
     },{ 
-      name: "左前位移绝对误差",nameEn :'LeftFrontDisplacementAbs.Error', unit: "V",value: [],
+      name: "左前位移绝对误差",nameEn :'LeftFrontDisplacementAbs.Error', unit: "mm",value: [],
       color:["", ""]
     },{ 
-      name: "左前位移误差",nameEn :'LeftFrontDisplacementError', unit: "V",value: [],
+      name: "左前位移误差",nameEn :'LeftFrontDisplacementError', unit: "mm",value: [],
       color:["", ""]
     },{ 
-      name: "左前DeltaP",nameEn :'LeftFrontDeltaP', unit: "V",value: [],
+      name: "左前DeltaP",nameEn :'LeftFrontDeltaP', unit: "psi",value: [],
       color:["", ""]
   }],
       'equipment.road.RightFront.Params':[{ 
         name: "右前输出",nameEn :'RightFrontOutput', unit: "V",value: [],show:true
         ,color:["", ""]
       },{ 
-          name: "右前位移",nameEn :'RightFrontDisplacement', unit: "V",value: [],show:true,
+          name: "右前位移",nameEn :'RightFrontDisplacement', unit: "mm",value: [],show:true,
           color:["", ""]
       },{ 
-        name: "右前活动Fdbk",nameEn :'RightFrontActiveFdbk', unit: "V",value: [],show:true,
+        name: "右前活动Fdbk",nameEn :'RightFrontActiveFdbk', unit: "mm",value: [],show:true,
         color:["", ""]
       },{ 
-        name: "右前指令频率",nameEn :'RightFrontCommandFrequency', unit: "V",value: [],
+        name: "右前指令频率",nameEn :'RightFrontCommandFrequency', unit: "Hz",value: [],
         color:["", ""]
     },{ 
-      name: "右前位移绝对误差",nameEn :'RightFrontDisplacementAbs.Error', unit: "V",value: [],
+      name: "右前位移绝对误差",nameEn :'RightFrontDisplacementAbs.Error', unit: "mm",value: [],
       color:["", ""]
     },{ 
-      name: "右前位移误差",nameEn :'RightFrontDisplacementError', unit: "V",value: [],
+      name: "右前位移误差",nameEn :'RightFrontDisplacementError', unit: "mm",value: [],
       color:["", ""]
     },{ 
-      name: "右前DeltaP",nameEn :'RightFrontDeltaP', unit: "V",value: [],
+      name: "右前DeltaP",nameEn :'RightFrontDeltaP', unit: "psi",value: [],
       color:["", ""]
   }],
   xData:[]
     };
   attrs_3:any = {"equipment.road.centerbottom.SampleSurfaceTemp":[{ 
-      name: "前方顶部温度",nameEn :'IrrFrametopFrontActual', unit: "",value: [],show:true
+      name: "前方顶部温度",nameEn :'IrrFrametopFrontActual', unit: "℃",value: [],show:true
       ,color:["", ""]
     },
     { 
-      name: "顶部温度",nameEn :'IrrFrametoProofActual', unit: "",value: [],show:true
+      name: "顶部温度",nameEn :'IrrFrametoProofActual', unit: "℃",value: [],show:true
       ,color:["", ""]
     },
     { 
-      name: "顶部后方温度",nameEn :'IrrFrametoPrearActual', unit: "",value: [],show:true
+      name: "顶部后方温度",nameEn :'IrrFrametoPrearActual', unit: "℃",value: [],show:true
       ,color:["", ""]
     },
     { 
-      name: "前方温度",nameEn :'IrrFrameFrontActual', unit: "",value: [],show:false
+      name: "前方温度",nameEn :'IrrFrameFrontActual', unit: "℃",value: [],show:false
       ,color:["", ""]
     },
     { 
-      name: "后方温度",nameEn :'IrrFrameRearActual', unit: "",value: [],show:false
+      name: "后方温度",nameEn :'IrrFrameRearActual', unit: "℃",value: [],show:false
       ,color:["", ""]
     },
     { 
-      name: "左1部位温度",nameEn :'IrrFrame1LeftActual', unit: "",value: [],show:false
+      name: "左1部位温度",nameEn :'IrrFrame1LeftActual', unit: "℃",value: [],show:false
       ,color:["", ""]
     },
     { 
-      name: "左2部位温度",nameEn :'IrrFrame2LeftActual', unit: "",value: [],show:false
+      name: "左2部位温度",nameEn :'IrrFrame2LeftActual', unit: "℃",value: [],show:false
       ,color:["", ""]
     },
     { 
-      name: "左3部位温度",nameEn :'IrrFrame3LeftActual', unit: "",value: [],show:false
+      name: "左3部位温度",nameEn :'IrrFrame3LeftActual', unit: "℃",value: [],show:false
       ,color:["", ""]
     },
     { 

@@ -37,12 +37,13 @@ export class ExperimentParamsComponent implements OnInit {
     // }, 1000);
     let i = 0;
     this.timer = self.setInterval(f =>{
-      if(this.device.includes('weiss'))
+      if(this.device.includes('weiss')){
         this.get_device_mts_weiss();
         if(i == 5){
           this.get_device_mts_timerangedata();
           i = 0;
         }
+      }
       else
       {
         this.get_device_Temp_hum();
@@ -60,10 +61,16 @@ export class ExperimentParamsComponent implements OnInit {
 
 
   chartResize=()=>{
+    let chart;
     setTimeout(() => {
       if(document.getElementById('third_second')){
         echarts.init(document.getElementById('third_second')).resize();
       }
+      chart = document.getElementById('real_temperature_1');
+      if(chart)echarts.init(chart).resize();
+
+      chart = document.getElementById('real_temperature_2');
+      if(chart)echarts.init(chart).resize();
     }, 500);
 
   }
@@ -229,6 +236,13 @@ export class ExperimentParamsComponent implements OnInit {
     window.removeEventListener('resize',this.chartResize);
     let chart = document.getElementById('third_second');
     if(chart)echarts.init(chart).dispose();
+
+    chart = document.getElementById('real_temperature_1');
+    if(chart)echarts.init(chart).dispose();
+
+    chart = document.getElementById('real_temperature_2');
+    if(chart)echarts.init(chart).dispose();
+
   }
 
 }

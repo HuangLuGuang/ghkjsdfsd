@@ -109,7 +109,7 @@ let rtm3a = {
                             name: '达成率',
                             value: 79,
                             itemStyle: { color: 'rgba(0,153,255,0.8)' },
-                            hoverAnimation: false,
+                            //animation: false,
                             label: {
                                 show: false,
                                 position: 'center',
@@ -128,7 +128,7 @@ let rtm3a = {
                             name: '79%',
                             value: 21,
                             itemStyle: { color: 'rgba(0,153,255,0.1)' },
-                            hoverAnimation: false,
+                            //animation: false,
                             label: {
                                 show: false,
                                 position: 'center',
@@ -150,7 +150,7 @@ let rtm3a = {
                     center: ['50%', '50%'],
                     radius: [42, 47],
                     x: '0%',
-                    hoverAnimation: false,
+                    //animation: false,
                     data: [{
                         value: 100,
                         itemStyle: { color: 'rgba(0,153,255,0.3)' },
@@ -163,7 +163,7 @@ let rtm3a = {
                     center: ['50%', '50%'],
                     radius: [16, 17],
                     x: '0%',
-                    hoverAnimation: false,
+                    //animation: false,
                     data: [{
                         value: 100,
                         itemStyle: { color: 'rgba(0,153,255,0.3)' },
@@ -301,6 +301,7 @@ let rtm3a = {
 
         let option_s = {
             // backgroundColor: '#0E1327',
+            //animation: false,
             title: {
                 show: true,
                 text: data + '%',
@@ -348,16 +349,18 @@ let rtm3a = {
                 coordinateSystem: 'polar',
                 roundCap: true,
                 cursor: 'auto',
-                z: 2
+                // z: 2
+                zlevel: 2
             }, ]
         };
 
-        window.onresize = function() {
-            this.console.log("重置的屏幕大小！")
-            myChart.resize();
-        }
-        myChart.setOption(option_s);
-        myChart.resize();
+        // window.onresize = function() {
+        //     this.console.log("重置的屏幕大小！")
+        //     myChart.resize();
+        // }
+        // myChart.setOption(option_s);
+        // myChart.resize();
+        return option_s;
     }
 }
 

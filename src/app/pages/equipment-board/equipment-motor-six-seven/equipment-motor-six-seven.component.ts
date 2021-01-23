@@ -84,14 +84,14 @@ export class EquipmentMotorSixSevenComponent implements OnInit {
         [1, '#0d1758']],unit:'℃',un:'常温'
       }
     },
-    {
-      id:'motor_chart_g_4',
-      dataLine:{
-        value:12,name:'实时湿度',max:100,color:[
-          [0, '#203add'],
-          [1, '#0d1758']],unit:'%PH'
-      }
-    }
+    // {
+    //   id:'motor_chart_g_4',
+    //   dataLine:{
+    //     value:12,name:'实时湿度',max:100,color:[
+    //       [0, '#203add'],
+    //       [1, '#0d1758']],unit:'%PH'
+    //   }
+    // }
   ];
   HealthParam_right_chart = [
     { 
@@ -468,11 +468,15 @@ export class EquipmentMotorSixSevenComponent implements OnInit {
         chart = document.getElementById(f.id);
         if(chart)echarts.init(chart).dispose();
       })
+      this.HealthParam_left.forEach(f=>{
+        chart = document.getElementById(f.id);
+        if(chart)echarts.init(chart).dispose();
+      })
       this.threePhase.forEach(f=>{
         chart = document.getElementById(f.id);
         if(chart)echarts.init(chart).dispose();
       });
-      ['dashboard_67,line_chart_12_67','threePhase_67','motor_chart_2','motor_chart_2','motor_chart_1'].forEach(el => {
+      ['dashboard_67','line_chart_12_67','threePhase_67','motor_chart_2','motor_chart_1'].forEach(el => {
         chart = document.getElementById(el);
         if(chart)echarts.init(chart).dispose();
       });

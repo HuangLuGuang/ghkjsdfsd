@@ -50,15 +50,16 @@ export class FirstLevelComponent implements OnInit {
     setTimeout(() => {
       this.boardservice.sendLoad({close:false});
       this.createEchart();
-      first_level.chian_map(this.myChart,this.eclick);
+      
       this.myChart.resize();
     }, 100);
   }
 
   createEchart() {
-    this.ngZone.runOutsideAngular(() => {this.myChart = echarts.init(document.querySelector('.chian_map'),null
-    // ,{ renderer: 'svg' }
-    )});
+    this.ngZone.runOutsideAngular(() => {
+      this.myChart = echarts.init(document.querySelector('.chian_map'))
+    first_level.chian_map(this.myChart,this.eclick);
+  });
   }
 
   resize=()=>{
@@ -68,8 +69,8 @@ export class FirstLevelComponent implements OnInit {
       this.myChart.dispose();
       if (this.myChart.isDisposed()){ // 是否被释放
         this.createEchart();
-        first_level.chian_map(this.myChart,this.eclick);
-        this.myChart.resize();
+        // first_level.chian_map(this.myChart,this.eclick);
+        // this.myChart.resize();
       }else{
         console.error("home示例未被释放")
       }

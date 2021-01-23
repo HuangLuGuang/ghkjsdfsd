@@ -44,13 +44,6 @@ export class ChartCurveV3Component implements OnInit {
 //下拉显示的字段
   languageName = 'name';//默认为中文
 
-  obs = new Observable(f=>{
-    let isthis = this;
-    if(isthis.myChart)isthis.myChart.resize();
-    let dom = document.getElementById(this.dashboardName);
-    if(dom)echarts.init(dom).resize();
-    f.next('chart-v-3刷新');
-  })
 
 
   constructor(private layoutService:LayoutService,private ngzone:NgZone ) { }
@@ -185,6 +178,7 @@ export class ChartCurveV3Component implements OnInit {
     // console.log(this.myChart.getOption());
     var option:any = {
         background:'rgb(10,65,121)',
+        animation: false,
         tooltip: {
             trigger: 'axis',
             backgroundColor: 'none',

@@ -1,4 +1,5 @@
 import { Component, NgZone, OnInit, ViewChild } from '@angular/core';
+import { EquipmentBoardService } from '../serivice/equipment-board.service';
 let rtm3a = require('../../../../assets/eimdoard/rtm3/js/rtm3a');
 declare var $:any;
 
@@ -67,29 +68,29 @@ export class LaboratoryBoardComponent implements OnInit {
     },
   }
 
+  
 
   type = ['message','category'];
 
   @ViewChild('message')message:any;
   @ViewChild('category')category:any;
   @ViewChild('Fan')Fan:any;
-  @ViewChild('div')dic;
 
-  constructor(private ngzone:NgZone) { }
+  constructor(private ngzone:NgZone,private b:EquipmentBoardService) { }
 
   ngOnInit(): void {
     if(document.getElementById('head_title'))
         document.getElementById('head_title').innerText = '实验室布局';
-    setTimeout(() => {
-      this.initChart();
-    }, 1000);
-    this.timer = setInterval(f =>{
-      this.initChart();
-    },1000)
+    // setTimeout(() => {
+    //   this.initChart();
+    // }, 1000);
+    // this.timer = setInterval(f =>{
+    //   this.initChart();
+    // },1000)
+    
   }
 
   ngAfterViewInit(){
-    console.log(this.dic)
     // 初始化富文本框
       tinymce.init({
         selector: '#tinydemo',
@@ -108,7 +109,7 @@ export class LaboratoryBoardComponent implements OnInit {
         fontsize_formats: '12px 14px 16px 18px 24px 36px 48px 56px 72px',
         font_formats: '微软雅黑=Microsoft YaHei,Helvetica Neue,PingFang SC,sans-serif;苹果苹方=PingFang SC,Microsoft YaHei,sans-serif;宋体=simsun,serif;仿宋体=FangSong,serif;黑体=SimHei,sans-serif;Arial=arial,helvetica,sans-serif;Arial Black=arial black,avant garde;Book Antiqua=book antiqua,palatino;',
     });
-
+;
   }
 
   getContent(){
@@ -129,14 +130,15 @@ export class LaboratoryBoardComponent implements OnInit {
 
   create_chart(mychart){
     this.ngzone.runOutsideAngular(()=>{
-      if(echarts.getInstanceByDom(mychart)){
-        mychart = echarts.getInstanceByDom(mychart)
+      if(echarts.init(mychart)){
+        mychart = echarts.init(mychart)
       }else{
-
+  
         mychart = echarts.init(mychart)
       }
-      rtm3a.create_semicircle(parseInt((Math.random()*100).toString()),mychart);
     })
+    mychart = echarts.init(mychart)
+    rtm3a.create_semicircle(parseInt((Math.random()*100).toString()),mychart);
   }
 
 
