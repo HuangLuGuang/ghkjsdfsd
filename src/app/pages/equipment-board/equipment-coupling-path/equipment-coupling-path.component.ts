@@ -1,7 +1,7 @@
 import {ChangeDetectionStrategy, Component, NgZone, OnInit, ViewChild, ViewEncapsulation} from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { HttpserviceService } from '../../../services/http/httpservice.service';
-import { colors, rgb_del_red, create_img_16_9, painting_time, dateformat, coupling } from '../equipment-board';
+import { colors, rgb_del_red, create_img_16_9, painting_time, dateformat } from '../equipment-board';
 import { EquipmentBoardService } from '../serivice/equipment-board.service';
 
 

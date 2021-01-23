@@ -14,10 +14,6 @@ import { EquipmentBoardService } from '../../serivice/equipment-board.service';
   selector: 'ngx-first-level',
   templateUrl: './first-level.component.html',
   styleUrls: ['./first-level.component.scss'],
-<<<<<<< HEAD
-=======
-  
->>>>>>> 9e8f19db16f69eaa01cabe875e47ad6da6aa0dbc
 })
 export class FirstLevelComponent implements OnInit {
 

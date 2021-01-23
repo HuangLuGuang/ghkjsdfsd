@@ -1,7 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { HttpserviceService } from '../../../services/http/httpservice.service';
-import { colors, rgb_del_red,shock_htmlStr, create_img_16_9, dateformat, painting_time } from '../equipment-board';
+import { colors, rgb_del_red, create_img_16_9, dateformat, painting_time } from '../equipment-board';
 import { EquipmentBoardService } from '../serivice/equipment-board.service';
 
 

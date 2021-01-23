@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { HttpserviceService } from '../../../services/http/httpservice.service';
-import { colors, copy, create_img_16_9, oil_htmlStr } from '../equipment-board';
+import { colors, copy, create_img_16_9 } from '../equipment-board';
 import { EquipmentBoardService } from '../serivice/equipment-board.service';
 
 let oilsrouce = require('../../../../assets/eimdoard/equipment/js/oilsrouce');
