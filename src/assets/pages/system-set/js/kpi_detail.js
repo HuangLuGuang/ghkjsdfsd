@@ -314,27 +314,27 @@ let kpi_detail = {
                 },
                 indicator: [{
                     name: "占位",
-                    max: 366*24,
+                    max: afterdata.max,
                     axisLabel: {
                         show: true,
                         
                     }
                 }, {
                     name: "空闲",
-                    max: 366*24,
+                    max: afterdata.max,
                     axisLabel: {
                         show: true,
                         rotate: -45
                     }
                 }, {
                     name: "维修",
-                    max: 366*24,
+                    max: afterdata.max,
                     axisLabel: {
                         show: false
                     }
                 }, {
                     name: "运行",
-                    max: 366*24,
+                    max: afterdata.max,
                     axisLabel: {
                         show: false
                     }
@@ -382,7 +382,6 @@ let kpi_detail = {
                 itemStyle: {
                     normal: {
                         color: 'rgba(19, 173, 255, 1)',
-                        
                         borderWidth: 10
                     }
                 },
@@ -408,6 +407,7 @@ let kpi_detail = {
                 }]
             }]
         };
+        // console.error("------------------>", JSON.stringify(option))
         mychart.setOption(option);
         mychart.resize();
     },

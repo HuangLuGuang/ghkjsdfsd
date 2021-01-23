@@ -58,7 +58,7 @@ export class MenuComponent implements OnInit {
       this.button = result;
       localStorage.setItem("buttons_list", JSON.stringify(result));
 
-      
+
       var button_lists = result;
       var button_list = {}
       if(button_lists["edit"]){
@@ -400,12 +400,6 @@ export class MenuComponent implements OnInit {
             field: 'ck',
             checkbox: true,
             width: '10',
-            // formatter: function(value, row, index){
-            //   if (row.ck == true){
-
-            //   }
-            //   return { checked: true }
-            // }
           },
           
           {
@@ -427,13 +421,6 @@ export class MenuComponent implements OnInit {
             width: '100',
             formatter: typeFormatter
           },
-          // {
-          //   field: 'permission',
-          //   title: '权限标识',
-          //   align: 'center',
-          //   width: '50',
-          //   formatter: permissionFormatter
-          // },
           {
             field: 'active',
             title: '是否启用',
@@ -492,14 +479,15 @@ export class MenuComponent implements OnInit {
         onResetView: function() {
             $table.treegrid({
                 treeColumn: 1,
-                onChange: function() {
-                }
+                // onChange: function() {
+                // }
             })
             //只展开树形的第一级节点
-            if($table.treegrid('getRootNodes').length != 0){
-              // $table.treegrid('getRootNodes').treegrid('expand'); // 只展开树形的第一级节点
-              $table.treegrid('getRootNodes').treegrid('collapseAll'); // 不展开
-            }
+            // if($table.treegrid('getRootNodes').length != 0){
+            //   // $table.treegrid('getRootNodes').treegrid('expand'); // 只展开树形的第一级节点
+            //   $table.treegrid('getRootNodes').treegrid('collapseAll'); // 不展开
+            // }
+            $table.treegrid('getRootNodes').treegrid('collapseAll'); // 不展开
 
             
         },

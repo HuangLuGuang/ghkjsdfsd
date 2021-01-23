@@ -257,12 +257,13 @@ export class KpiDetailComponent implements OnInit {
         linecolor:['rgba(255,191,159, 1)','rgba(19, 173, 255, 1)'],
         data1: { // 去年
           name: columns.start + "年",
-          value: [0,0,0,0]
+          value: [0,0,0,0],
         },
         data2: { // 今年
           name: columns.end + "年",
-          value: [0,0,0,0]
-        }
+          value: [0,0,0,0],
+        },
+        max: 366*24
       }
       // 占位、空闲、维修、运行
       if (res["code"] === 1){
@@ -288,6 +289,13 @@ export class KpiDetailComponent implements OnInit {
             
           }
           
+        };
+        var data1_max = Math.max(...defaultdata.data1.value) + 100;
+        var data2_max = Math.max(...defaultdata.data2.value) + 100;
+        if (data1_max>data2_max){
+          defaultdata.max = data1_max;
+        }else{
+          defaultdata.max = data2_max;
         }
       }
       // console.log("第三个数据：", defaultdata)
