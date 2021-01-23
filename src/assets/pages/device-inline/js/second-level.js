@@ -209,7 +209,6 @@ let second_level = {
     // 参考 https://gallery.echartsjs.com/editor.html?c=x8UGFy_Nb
     device_rate(element, afterdata) {
         var mychart = echarts.init(document.querySelector(element));
-        one_row_one_chart = mychart;
         var option = {
             color: ["#5D7FE5", "#26FF26"],
             tooltip: {

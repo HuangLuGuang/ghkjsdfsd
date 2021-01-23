@@ -6,7 +6,6 @@ let kpi_detail = {
     // row_one 第一行第一个
     one_row_one(element, afterdata){
         var mychart = echarts.init(document.getElementById(element));
-        one_row_one_chart = mychart;
         var option = {
             color:afterdata.color,
           
@@ -80,7 +79,6 @@ let kpi_detail = {
     // row_two 第一行第二个
     one_row_two(element, afterdata){
         var mychart = echarts.init(document.getElementById(element));
-        one_row_one_chart = mychart;
         var option  = {
             backgroundColor: "#ffffff",
             tooltip: {
@@ -258,7 +256,6 @@ let kpi_detail = {
     // row_three 第一行第三个
     one_row_three(element, afterdata){
         var mychart = echarts.init(document.getElementById(element));
-        one_row_one_chart = mychart;
         var option = {
             // backgroundColor: '#0A2E5D',
         
@@ -295,13 +292,7 @@ let kpi_detail = {
                         color: ["transparent"]
                     }
                 },
-                axisLabel: {
-                    show: true,
-                    fontSize: 8,
-                    // color: "red",
-                    fontStyle: "normal",
-                    fontWeight: "normal"
-                },
+                
                 axisLine: {
                     show: false,
                     lineStyle: {
@@ -424,7 +415,6 @@ let kpi_detail = {
     // 第二行第一个 
     two_row_one(element, afterdata){
         var mychart = echarts.init(document.getElementById(element));
-        one_row_one_chart = mychart;
         var option = {
             // color:["#5D7FE5", "#26FF26"],
             color:afterdata.color,
@@ -556,10 +546,8 @@ let kpi_detail = {
     // 第二行第二个
     two_row_two(element, afterdata){
         var mychart = echarts.init(document.getElementById(element));
-        one_row_one_chart = mychart;
         var option = {
             color:afterdata.color,
-            tooltip:{},
             title:{
                 subtext: afterdata.Total.name + "%",
                 right: '1%',
@@ -614,10 +602,8 @@ let kpi_detail = {
     // 第二行第三个
     two_row_three(element, afterdata){
         var mychart = echarts.init(document.getElementById(element));
-        one_row_one_chart = mychart;
         var option = {
             color:afterdata.color,
-            tooltip:{},
             title:{
                 subtext: afterdata.Total.name + "%",
                 right: '1%',
@@ -671,7 +657,6 @@ let kpi_detail = {
     // 第三行，第一个
     three_row_one(element, afterdata){
         var mychart = echarts.init(document.getElementById(element));
-        one_row_one_chart = mychart;
         var option = {
             baseOption: {
                 timeline: {
@@ -971,7 +956,6 @@ let kpi_detail = {
     // 第三行第二个
     three_row_two(element, afterdata){
         var mychart = echarts.init(document.getElementById(element));
-        one_row_one_chart = mychart;
         var labelOption = {
             show: true,
             rotate: 90,
@@ -1063,7 +1047,6 @@ let kpi_detail = {
     // 第三行，第三个
     three_row_three(element, afterdata){
         var mychart = echarts.init(document.getElementById(element));
-        one_row_one_chart = mychart;
         var option = {
 
             tooltip: {
@@ -1118,7 +1101,6 @@ let kpi_detail = {
 
     // one_row_two(element, afterdata){
     //     var mychart = echarts.init(document.getElementById(element));
-    //     one_row_one_chart = mychart;
     //     var option = {
 
     //     }

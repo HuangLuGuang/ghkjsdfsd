@@ -53,19 +53,35 @@ export class MenuComponent implements OnInit {
     private translate: TranslateService) { 
     // 会话过期
     localStorage.removeItem("alert401flag");
-
     var roleid = this.userinfo.getEmployeeRoleID();
     this.publicservice.get_buttons_bypath(roleid).subscribe(result=>{
       this.button = result;
       localStorage.setItem("buttons_list", JSON.stringify(result));
+
+      
+      var button_lists = result;
+      var button_list = {}
+      if(button_lists["edit"]){
+        button_list["edit"] = button_lists["edit"]["active"] === 1?  true: false;
+      }else{
+        button_list["edit"] = false;
+      }
+      if(button_lists["del"]){
+        button_list["del"] = button_lists["del"]["active"] === 1?  true: false;
+      }else{
+        button_list["del"] = false;
+      }
+      this.isactions = button_list;
+      console.log(">>>>>>>>this.isactions_new<<<<<<",this.isactions);
+      this.loadMenu(this.isactions);
+
     })
   }
 
   ngOnInit(): void {
     // 初始化table
-    // this.getbuttons();
     // 得到权限button
-    this.get_buttons_and_mulutable();
+    // this.get_buttons_and_mulutable();
   }
 
   // 得到button，且加载目录到table
@@ -86,7 +102,7 @@ export class MenuComponent implements OnInit {
         button_list["del"] = false;
       }
       this.isactions = button_list;
-      // console.log(">>>>>>>>this.isactions_new<<<<<<",this.isactions);
+      console.log(">>>>>>>>this.isactions_new<<<<<<",this.isactions);
       this.loadMenu(this.isactions);
     });
   }
