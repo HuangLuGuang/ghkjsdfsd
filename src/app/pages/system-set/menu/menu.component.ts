@@ -35,7 +35,7 @@ import { TranslateService } from '@ngx-translate/core';
 export class MenuComponent implements OnInit {
   get_jili_app_token;
   headers
-  
+
 
 
   // 前端要展示的button
@@ -44,13 +44,14 @@ export class MenuComponent implements OnInit {
   refresh = false;
   buttons;
   isactions;
+  isloading = true;
 
-  
+
 
   constructor(private http: HttpserviceService, private localstorageservice: LocalStorageService,
     private publicservice: PublicmethodService, private dialogService: NbDialogService,
     private toastrService: NbToastrService, private router: Router, private userinfo: UserInfoService,
-    private translate: TranslateService) { 
+    private translate: TranslateService) {
     // 会话过期
     localStorage.removeItem("alert401flag");
     var roleid = this.userinfo.getEmployeeRoleID();
@@ -106,7 +107,7 @@ export class MenuComponent implements OnInit {
       this.loadMenu(this.isactions);
     });
   }
-  
+
   ngAfterViewInit(){
   }
 
@@ -140,7 +141,7 @@ export class MenuComponent implements OnInit {
             case "edit":
               isactions["edit"] = true
               break;
-            
+
           }
         })
 
@@ -206,7 +207,7 @@ export class MenuComponent implements OnInit {
 
   }
 
- 
+
   // 新增菜单函数
   addmenu(){
     var that = this
@@ -215,7 +216,7 @@ export class MenuComponent implements OnInit {
     // console.log("根据id得到行数据  ",$table.bootstrapTable('getData'));
     var method = 'add';
     open(method);
-    
+
     // 弹出函数
     function open(method) {
       // dialogService.open(dialog, { context: 'this is some additional data passed to dialog' });
@@ -245,7 +246,7 @@ export class MenuComponent implements OnInit {
       var row = rowmenu[0];
       var http = this.http;
       // console.log("要删除的行数据！", rowmenu);
-      
+
       this.dialogService.open(EditDelTooltipComponent, { closeOnBackdropClick: false,context: { title: '提示', content:   `确定要删除${row.title}吗？`,rowData: JSON.stringify(row)}} ).onClose.subscribe(
         name=>{
           // console.log("----name-----", name);
@@ -253,7 +254,7 @@ export class MenuComponent implements OnInit {
             this.updatetable(name)
             // 调用删除功能
             deleteitem(row, http, publicservice, success, danger,that);
-            
+
           }
         }
       );
@@ -264,7 +265,7 @@ export class MenuComponent implements OnInit {
       this.dialogService.open(EditDelTooltipComponent, { closeOnBackdropClick: false,context: { title: '提示', content:   `请选择一行数据！`}} ).onClose.subscribe(
         name=>{
           // console.log("----name-----", name);
-          
+
         }
       );
     }
@@ -295,12 +296,12 @@ export class MenuComponent implements OnInit {
           case 1:
             that.RecordOperation(1,'删除', '菜单管理, 菜单');
             break;
-        
+
           default:
             that.RecordOperation(1,'删除', '菜单管理, 按钮');
             break;
         }
-        
+
         // setTimeout(() => {
           //   location.reload();
           // }, 1000);
@@ -312,7 +313,7 @@ export class MenuComponent implements OnInit {
             case 1:
               that.RecordOperation(0,'删除', '菜单管理, 菜单');
               break;
-          
+
             default:
               that.RecordOperation(0,'删除', '菜单管理, 按钮');
               break;
@@ -335,17 +336,19 @@ export class MenuComponent implements OnInit {
       // 提示选择行数据
       this.dialogService.open(EditDelTooltipComponent, { closeOnBackdropClick: false, context: { title: '提示', content:   `请选择一行数据！`}} ).onClose.subscribe(
         name=>{
-          
+
         }
       );
     }
   }
 
   refresh_table(){
+    this.isloading = true;
     $("#employeenumber").val('')
     this.refresh = true;
     this.updatetable();
     this.refresh = false;
+    this.isloading = false;
   }
 
 
@@ -356,27 +359,27 @@ export class MenuComponent implements OnInit {
       // console.log("-------------name----------------", name);
       if (name){
         this.editsuccess()
-        
+
         // 更新table！
         this.updatetable(name); // name 表示刷新目录栏
         // 删除 mulu
         localStorage.removeItem(MULU);
         localStorage.removeItem('hidden_menu');
-        
-        
-        
+
+
+
       }else{
         this.editdanger()
       }
     })
   }
-  
+
   // var $table = $('#menuTable');
-  
+
   RanderTable(data, ){
     var dialogService = this.dialogService;
     var $table = $('#menuTable');
-    var that = this; 
+    var that = this;
     var http = this.http
     var publicservice = this.publicservice
     var success = this.success
@@ -389,11 +392,11 @@ export class MenuComponent implements OnInit {
     // if (isactions === undefined){
     //   location.reload();
     // }
-    
+
     $table.bootstrapTable({
         idField: 'id',
         data:data,
-        dataTpye: 'jsonp',
+        dataTpye: 'json',
         showColumns: false,
         columns: [
           {
@@ -401,7 +404,7 @@ export class MenuComponent implements OnInit {
             checkbox: true,
             width: '10',
           },
-          
+
           {
             field: 'title',
             title: '目录名称',
@@ -440,7 +443,7 @@ export class MenuComponent implements OnInit {
             align: 'center',
             width: '100',
           },
-          
+
           {
               field: 'action',
               title: '操作',
@@ -449,7 +452,7 @@ export class MenuComponent implements OnInit {
               events: {
                 'click .edit': function (e, value, row, index) {
                     open(row);
-                    
+
                 },
                 'click .remove': function (e, value, row, index) {
                     // console.log("删除的row数据：", row);
@@ -475,25 +478,23 @@ export class MenuComponent implements OnInit {
         treeShowField: 'title',
         // 指定父id列
         parentIdField: 'parentid',
-        
-        onResetView: function() {
-            $table.treegrid({
-                treeColumn: 1,
-                // onChange: function() {
-                // }
-            })
-            //只展开树形的第一级节点
-            // if($table.treegrid('getRootNodes').length != 0){
-            //   // $table.treegrid('getRootNodes').treegrid('expand'); // 只展开树形的第一级节点
-            //   $table.treegrid('getRootNodes').treegrid('collapseAll'); // 不展开
-            // }
-            $table.treegrid('getRootNodes').treegrid('collapseAll'); // 不展开
 
-            
+        onResetView: function() {
+          console.time('onResetView');
+            $table.treegrid({
+                initialState: 'collapsed',// 所有节点都折叠
+                treeColumn: 1,
+
+            });
+            //只展开树形的第一级节点
+
+        console.timeEnd('onResetView');
+
         },
         // classes: "table table-bordered  table-hover table-primary:hover",
     });
-    
+    this.isloading = false;
+
     function typeFormatter(value, row, index) {
       if (value === 1) {
           return '菜单'
@@ -531,10 +532,10 @@ export class MenuComponent implements OnInit {
       var edit_class = "buedit edit-edit edit";
       var del_class = "buremove edit-edit remove ";
       // disable_edit
-      
+
       if (isactions["edit"]){}else{
         edit_class = "disable_edit edit-edit";
-        
+
       }
       if(isactions["del"]){}else{
         del_class = "disable_remove remove-remove";
@@ -546,7 +547,7 @@ export class MenuComponent implements OnInit {
         '<i class="nb-edit" style="font-size: 32px; "></i>',
         '</a>  ',
         '</button>',
-        
+
         `<button class="${del_class}">`,
         '<a class="btn " href="javascript:void(0)" title="删除"   style="color:#464545">',
         '<i class="nb-trash"  style="font-size: 32px; "></i>',
@@ -584,7 +585,7 @@ export class MenuComponent implements OnInit {
             case 1:
               that.RecordOperation(1,'删除', '菜单管理, 菜单');
               break;
-          
+
             default:
               that.RecordOperation(1,'删除', '菜单管理, 按钮');
               break;
@@ -603,7 +604,7 @@ export class MenuComponent implements OnInit {
             case 1:
               that.RecordOperation(0,'删除', '菜单管理, 菜单');
               break;
-          
+
             default:
               that.RecordOperation(0,'删除', '菜单管理, 按钮');
               break;
@@ -614,7 +615,7 @@ export class MenuComponent implements OnInit {
     }
 
 
-    
+
 
 
 
@@ -674,7 +675,7 @@ export class MenuComponent implements OnInit {
               this.RecordOperation(1,'更新菜单管理', JSON.stringify(colums));
               // location.reload();
             }
-            
+
           }else{
             this.RecordOperation(0,'更新菜单管理', JSON.stringify(colums));
           }
@@ -683,7 +684,7 @@ export class MenuComponent implements OnInit {
 
     });
   }
-  
+
 
   ngOnDestory(){
     // 销毁table
@@ -723,9 +724,9 @@ export class MenuComponent implements OnInit {
           })
         }
       });
-      
+
     }
-    
+
   }
 
   dataTranslation(baseMenu) {
@@ -743,7 +744,7 @@ export class MenuComponent implements OnInit {
       map["type"] = item.type;
       map["textid"] = item.textid;
       map["permission"] = item.permission === null ? null: item.permission;
-      
+
       if (item.parentid === null){
         map["parentid"] = 0;
       }else{
@@ -751,12 +752,12 @@ export class MenuComponent implements OnInit {
       }
       nodeData.push(map)
     });
-    
-    
-    
+
+
+
     return nodeData;
   }
-  
+
 
   // 更新button_list，在修改、新增、删除后！
   updatabutton_list(){
@@ -764,7 +765,7 @@ export class MenuComponent implements OnInit {
       this.publicservice.getMenu().subscribe((data)=>{
         // console.log("更新button_list，在修改、新增、删除后！", data);
         if (data){
-          // 
+          //
           const colums = {
             languageid: this.http.getLanguageID(),
             roles: data
@@ -815,14 +816,14 @@ export class MenuComponent implements OnInit {
           // else
           observe.next(false)
         }
-  
-  
+
+
       });
 
     })
-    
+
   }
-  
+
 
   // 展示状态
   success(publicservice){
@@ -840,7 +841,7 @@ export class MenuComponent implements OnInit {
     this.publicservice.showngxtoastr({position: 'toast-top-right', status: 'danger', conent:"编辑失败!"});
   }
 
-  // option_record  
+  // option_record
   RecordOperation(result,transactiontype, infodata){
     if(this.userinfo.getLoginName()){
       var employeeid = this.userinfo.getEmployeeID();
@@ -853,9 +854,9 @@ export class MenuComponent implements OnInit {
 
   }
 
-  
-  
 
 
-  
+
+
+
 }

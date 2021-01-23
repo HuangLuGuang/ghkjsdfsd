@@ -6,6 +6,7 @@ import { SystemSetComponent } from './system-set.component';
 import { RoleComponent } from './role/role.component';
 import { NbButtonModule, NbCardModule, NbTreeGridModule, NbIconModule, NbDialogModule, NbPopoverModule, NbInputModule, NbSpinnerModule, NbSelectModule, NbActionsModule   } from '@nebular/theme';
 import { MenuComponent } from './menu/menu.component';
+import { NzSpinModule } from 'ng-zorro-antd';
 
 // import { Ng2SmartTableModule } from 'ng2-smart-table';
 
@@ -44,6 +45,7 @@ import { MyInputComponent } from './components/my-input/my-input.component';
     NbPopoverModule,
     NbInputModule,
     NbSpinnerModule,
+    NzSpinModule,
     FormsModule,
     NbSelectModule,
 
