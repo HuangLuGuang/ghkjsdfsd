@@ -326,7 +326,7 @@ export class TeskConfigComponent implements OnInit {
               }else{
                 var data = JSON.stringify(res["message"])
                 this.deldanger(data);
-                this.RecordOperation('搜索', 0,  "taskchildnum:"+JSON.stringify(taskchildnum))
+                this.RecordOperation('删除', 0,  "taskchildnum:"+JSON.stringify(taskchildnum))
               }
             })
 

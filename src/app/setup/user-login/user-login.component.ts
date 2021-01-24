@@ -54,7 +54,20 @@ export class UserLoginComponent implements OnInit {
     private userInfoService: UserInfoService,
   ) {
     localStorage.removeItem("alert401flag");
+
+    // 得到本地ip
+    this.publicmethodService.get_current_url().subscribe((res:string)=>{
+      // console.error("******************, ",res ); http://127.0.0.1:4200/setup/login
+      alert(2)
+      this.redirectUrl = res;
+      this.redirectUrlIp = res.split('/')[2]
+    })
+
    }
+
+  redirectUrl = "http://10.190.69.78/setup/login"; // 默认是78
+  redirectUrlIp = '10.190.69.78'; //默认是78
+
 
   ngOnInit(): void {
     console.log("统一认证");
@@ -166,17 +179,14 @@ export class UserLoginComponent implements OnInit {
     // 得到url中的ticket
     var currenturl = this.publicmethodService.get_current_search();
     var appKey = "6d38d93e-ed9d-406f-a728-86b1a3f0fb47";
-    var redirectUrl = "http://10.190.69.78/setup/login"
-    // var token = localStorage.getItem(ssotoken)? localStorage.getItem(ssotoken): false;
+    // var redirectUrl = "http://10.190.69.78/setup/login"
+    var redirectUrl = this.redirectUrl;
+    var redirectUrlIp = this.redirectUrlIp;
     var token = localStorage.getItem(ssotoken);
     if (token){ // 表示token不存在！
       // console.log("非单点登录（因为jili_app_token存在）：", nossotoken)
       this.router.navigate([afterloginurl]);
     }else{
-      // console.log("SSO的token", ssotoken)
-      // var appKey = "6d38d93e-ed9d-406f-a728-86b1a3f0fb47";
-      // // var redirectUrl = "/setup/login";
-      // var redirectUrl = "10.190.69.78/setup/login"
       // var url = `http://passport-test.test.geely.com/appKey=${appKey}&redirectUrl=${redirectUrl}`;
       // console.log("SSO登录的url：", url);
       if (currenturl === ""){
@@ -193,9 +203,9 @@ export class UserLoginComponent implements OnInit {
         var ticket = this.getTicket(ticket_2, '=');
         // console.log("得到当前的ticket： ", ticket);
         // 将ticket、appKey 存入 cookies中
-        
         var url_userInfo = `http://geely-uc-sso-protocol-restful.app.dev01.geely.ocp/session-info-new/${ticket}?appKey=${appKey}`;
-        var geelyurl = `http://10.190.69.78/geely-info/${ticket}?appKey=${appKey}`
+        // var geelyurl = `http://10.190.69.78/geely-info/${ticket}?appKey=${appKey}`;
+        var geelyurl = `http://${redirectUrlIp}/geely-info/${ticket}?appKey=${appKey}`;
         // 调用get请求的到用户信息
         this.http.get(geelyurl).subscribe((response: any)=>{
           // console.log("得到统一认证平台的用户信息response：", response);
