@@ -307,26 +307,32 @@ export class TeskConfigComponent implements OnInit {
         istrue=>{}
       )
     }else{
-      
-      var monthed = "dev_delete_task";
-      var columns = rowdata;
-      var taskchildnum = [];
-      columns.forEach(element => {
-        taskchildnum.push(element["taskchildnum"]);
-      });
-      this.http.callRPC('device', monthed, columns).subscribe(result=>{
-        var res = result["result"]["message"][0];
-        if (res["code"] === 1){
-          // 刷新tabel
-          this.refresh_table();
-          this.delsuccess();
-          this.RecordOperation('删除', 1,  "taskchildnum:"+JSON.stringify(taskchildnum))
-        }else{
-          var data = JSON.stringify(res["message"])
-          this.deldanger(data);
-          this.RecordOperation('搜索', 0,  "taskchildnum:"+JSON.stringify(taskchildnum))
+      this.dialogService.open(EditDelTooltipComponent, { closeOnBackdropClick: false, autoFocus: true,context: { title: '提示', content:   `是否确认删除？`}} ).onClose.subscribe(
+        istrue=>{
+          if(istrue){
+            var monthed = "dev_delete_task";
+            var columns = rowdata;
+            var taskchildnum = [];
+            columns.forEach(element => {
+              taskchildnum.push(element["taskchildnum"]);
+            });
+            this.http.callRPC('device', monthed, columns).subscribe(result=>{
+              var res = result["result"]["message"][0];
+              if (res["code"] === 1){
+                // 刷新tabel
+                this.refresh_table();
+                this.delsuccess();
+                this.RecordOperation('删除', 1,  "taskchildnum:"+JSON.stringify(taskchildnum))
+              }else{
+                var data = JSON.stringify(res["message"])
+                this.deldanger(data);
+                this.RecordOperation('搜索', 0,  "taskchildnum:"+JSON.stringify(taskchildnum))
+              }
+            })
+
+          }
         }
-      })
+      )
       
     }
   }
