@@ -117,7 +117,7 @@ export class PagesComponent implements OnInit {
         result => {
           const baseData = result['result']['message'][0];
           if (baseData["code"]===1) {
-            console.log("result mulu>>>>",result)
+            // console.log("result mulu>>>>",result)
             // 将菜单信息存储到localStorage
             this.menu.length = 0;
             const menuData = this.dataTranslation(baseData["message"]);
@@ -147,7 +147,7 @@ export class PagesComponent implements OnInit {
 
 
   dataTranslation(baseMenu) {
-    console.log("得到sysmenu", baseMenu)
+    // console.log("得到sysmenu", baseMenu)
     // 生成父子数据结构
     let map = {};
     baseMenu.forEach(item => {

@@ -265,7 +265,7 @@ export class PublicmethodService {
      let roles = [];
      const userinfoStr = localStorage.getItem('ssouserinfo');
      const userinfo = userinfoStr ? this.uncompileStr(userinfoStr) : null;
-     console.warn("userinfo>>", userinfo);
+    //  console.warn("userinfo>>", userinfo);
      const roleList = userinfo ? JSON.parse(userinfo)["roles"] : null;
      if (roleList ? roleList.length : null) {
        roleList.forEach(val => {

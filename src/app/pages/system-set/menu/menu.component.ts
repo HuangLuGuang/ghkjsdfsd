@@ -73,7 +73,7 @@ export class MenuComponent implements OnInit {
         button_list["del"] = false;
       }
       this.isactions = button_list;
-      console.log(">>>>>>>>this.isactions_new<<<<<<",this.isactions);
+      // console.log(">>>>>>>>this.isactions_new<<<<<<",this.isactions);
       this.loadMenu(this.isactions);
 
     })
@@ -479,18 +479,31 @@ export class MenuComponent implements OnInit {
         // 指定父id列
         parentIdField: 'parentid',
 
-        onResetView: function() {
-          console.time('onResetView');
+        onPostBody: function() {
+          console.time('onPostBody');
+          var columns = $table.bootstrapTable('getOptions').columns
+          if (columns && columns[0][1].visible) {
             $table.treegrid({
-                initialState: 'collapsed',// 所有节点都折叠
-                treeColumn: 1,
+              treeColumn: 1,
+              initialState: 'collapsed',// 所有节点都折叠
+            })
+          }
+          console.timeEnd('onPostBody');
+        }
 
-            });
-            //只展开树形的第一级节点
 
-        console.timeEnd('onResetView');
+        // onResetView: function() {
+        //   console.time('onResetView');
+        //     $table.treegrid({
+        //         initialState: 'collapsed',// 所有节点都折叠
+        //         treeColumn: 1,
 
-        },
+        //     });
+        //     //只展开树形的第一级节点
+
+        // console.timeEnd('onResetView');
+
+        // },
         // classes: "table table-bordered  table-hover table-primary:hover",
     });
     this.isloading = false;
