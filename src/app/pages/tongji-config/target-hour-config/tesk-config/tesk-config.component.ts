@@ -307,7 +307,7 @@ export class TeskConfigComponent implements OnInit {
         istrue=>{}
       )
     }else{
-      this.dialogService.open(EditDelTooltipComponent, { closeOnBackdropClick: false, autoFocus: true,context: { title: '提示', content:   `是否确认删除？`}} ).onClose.subscribe(
+      this.dialogService.open(EditDelTooltipComponent, { closeOnBackdropClick: false, autoFocus: true,context: { title: '提示', content:   `是否确认删除？`, rowData:JSON.stringify(rowdata)}} ).onClose.subscribe(
         istrue=>{
           if(istrue){
             var monthed = "dev_delete_task";
