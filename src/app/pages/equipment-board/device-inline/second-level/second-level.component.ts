@@ -332,28 +332,12 @@ export class SecondLevelComponent implements OnInit {
   // 试验条目状态
   teststatus = {
     color:["#5D7FE5","#26FF26"],
-    xData:["01","02","03","04","05","06","07","08","09","10","11","12"],
+    xData:["mts 329","mts 320","mts mast","mts testline","开闭件台架","玻璃升降台架","天窗开闭台架","环境仓","环境仓09","环境仓10","环境仓11","环境仓12"],
     Series:[
       {name:"2020年",type:"bar",data:[0,0,0,0,0,0,0,0,0,0,0,0]},
       {name:"2021年",type:"bar","data":0.07},
-      {name:"2020年利用率",type:"line",data:[0,0,0,0,0,0,0,0,0,0,0,0]},
-      {name:"2021年利用率",type:"line",data:0.07},
-      {
-        type:"bar",xAxisIndex:1,yAxisIndex:2,showBackground:true,"backgroundStyle":{},
-        data:[
-          {value:0.83,itemStyle:{"color":"#5D7FE5"}},
-          {value:0,itemStyle:{"color":"#26FF26"}}
-        ]
-      }
     ],
-    Total:{
-      yAxis:{
-        data:[
-          {value:"2021年-利用率",textStyle:{color:"rgb(51,51,51)"}},
-          {value:"2020年-利用率",textStyle:{color:"rgb(51,51,51)"}}
-        ]
-      }
-    }
+    
   }
 
  

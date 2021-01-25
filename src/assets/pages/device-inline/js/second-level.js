@@ -212,7 +212,7 @@ let second_level = {
         var option = {
             color: ["#5D7FE5", "#26FF26"],
             tooltip: {
-                trigger: "axis",
+                trigger: "item",//axis
                 axisPointer: {
                     type: "cross",
                     crossStyle: {
@@ -242,13 +242,15 @@ let second_level = {
                         padding: [30, 0, 0, -20]
                     },
                     type: "category",
-                    data: ["01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12"],
+                    // data: ["01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12"],
+                    data: afterdata.xData,
                     axisPointer: {
                         type: "shadow"
                     },
                     axisLabel: {
                         interval: 0,
-                        color: '#fff'
+                        color: '#fff',
+                        rotate: -45
                     },
                     gridIndex: 0
                 },
@@ -256,7 +258,11 @@ let second_level = {
                 {
                     type: "value",
                     zlevel: 1,
-                    name: '123条',
+                    axisPointer: {
+                        show:false,
+                        type: "none"
+                    },
+                    // name: '123条',
                     nameTextStyle: {
                         // padding: [0, 0, 30, -100],
                         fontSize: 18
@@ -347,12 +353,25 @@ let second_level = {
                             offset:[1,4],
                             fontSize:16
                         },
+                        tooltip: {
+                            formatter: ''
+                        }
                     }]
                 }
         
+            ],
+            dataZoom:[
+                {
+                    type: 'slider',
+                    textStyle:{
+                        color:'#fff',
+                    },
+                    start: 30,
+                    end: 70,
+                }
             ]
         }
-        // console.error("option",JSON.stringify(option))
+        console.error("option",JSON.stringify(option))
         mychart.setOption(option);
         mychart.resize()
     },
