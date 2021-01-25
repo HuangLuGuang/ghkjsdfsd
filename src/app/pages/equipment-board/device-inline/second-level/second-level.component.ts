@@ -333,10 +333,11 @@ export class SecondLevelComponent implements OnInit {
   teststatus = {
     color:["#5D7FE5","#26FF26"],
     xData:["mts 329","mts 320","mts mast","mts testline","开闭件台架","玻璃升降台架","天窗开闭台架","环境仓","环境仓09","环境仓10","环境仓11","环境仓12"],
-    Series:[
-      {name:"2020年",type:"bar",data:[0,0,0,0,0,0,0,0,0,0,0,0]},
-      {name:"2021年",type:"bar","data":0.07},
-    ],
+    Series:{
+      name:"累计完成试验数量",
+      totaldata:132, 
+      data:[10, 52, 20, 34, 39, 33, 22,0,0,0,0,0]
+    },
     
   }
 

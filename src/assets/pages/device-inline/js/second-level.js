@@ -292,7 +292,7 @@ let second_level = {
             yAxis: [{
                     type: "value",
                     min: 0,
-                    max: 100,
+                    // max: 100,
                     interval: 0,
                     gridIndex: 0,
                     axisLabel: {
@@ -315,7 +315,8 @@ let second_level = {
                         show: false
                     },
                     data: [{
-                        value: "累计完成试验数量",
+                        // value: "累计完成试验数量",
+                        value: afterdata.Series.name,
                         textStyle: {
                             color: "#fff",
                             fontSize: 20
@@ -329,7 +330,8 @@ let second_level = {
             series: [{
                     type: "bar",
                     barWidth: "60%",
-                    data: [10, 52, 20, 34, 39, 33, 22]
+                    // data: [10, 52, 20, 34, 39, 33, 22]
+                    data: afterdata.Series.data
                 },
                 {
                     type: "bar",
@@ -342,7 +344,8 @@ let second_level = {
                         borderWidth:4
                     },
                     data: [{
-                        value: 132,
+                        // value: 132,
+                        value: afterdata.Series.totaldata,
                         itemStyle: {
                             color: "#5D7FE5"
                         },
