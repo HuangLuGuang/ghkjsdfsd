@@ -55,12 +55,14 @@ export class UserLoginComponent implements OnInit {
   ) {
     localStorage.removeItem("alert401flag");
 
+    // localStorage.clear();
+
     // 得到本地ip
     this.publicmethodService.get_current_url().subscribe((res:string)=>{
       // console.error("******************, ",res ); http://127.0.0.1:4200/setup/login
-      alert(2)
       this.redirectUrl = res;
-      this.redirectUrlIp = res.split('/')[2]
+      this.redirectUrlIp = res.split('/')[2];
+      localStorage.setItem("redirectUrlIp", this.redirectUrlIp)
     })
 
    }

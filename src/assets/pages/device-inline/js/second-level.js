@@ -205,7 +205,7 @@ let second_level = {
 
     },
 
-    // device-rate 设备xx率
+    // device-rate 设备xx率  试验条目状态
     // 参考 https://gallery.echartsjs.com/editor.html?c=x8UGFy_Nb
     device_rate(element, afterdata) {
         var mychart = echarts.init(document.querySelector(element));
@@ -221,17 +221,19 @@ let second_level = {
                 }
             },
             grid: [{
-                top: "30%",
-                right: 10,
-                left: "3%",
-                bottom: "10%",
-                containLabel: true
-            }, {
-                height: "20%",
-                width: "20%",
-                right: 30,
-                top: "1%"
-            }],
+                    top: "30%",
+                    right: 10,
+                    left: "3%",
+                    bottom: "10%",
+                    containLabel: true
+                }, {
+                    height: "20%",
+                    width: "20%",
+                    right: 30,
+                    top: "1%"
+                },
+                
+            ],
             xAxis: [
         
                 {
@@ -256,7 +258,7 @@ let second_level = {
                     zlevel: 1,
                     name: '123条',
                     nameTextStyle: {
-                        padding: [0, 0, 30, -100],
+                        // padding: [0, 0, 30, -100],
                         fontSize: 18
                     },
 
@@ -319,10 +321,9 @@ let second_level = {
         
             ],
             series: [{
-                    name: "直接访问",
                     type: "bar",
                     barWidth: "60%",
-                    data: [10, 52, 200, 334, 390, 330, 220]
+                    data: [10, 52, 20, 34, 39, 33, 22]
                 },
                 {
                     type: "bar",
@@ -338,7 +339,14 @@ let second_level = {
                         value: 132,
                         itemStyle: {
                             color: "#5D7FE5"
-                        }
+                        },
+                        label: {
+                            show: true,
+                            position: 'inside',
+                            formatter: '{c}条',
+                            offset:[1,4],
+                            fontSize:16
+                        },
                     }]
                 }
         

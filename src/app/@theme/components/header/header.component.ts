@@ -245,13 +245,16 @@ export class HeaderComponent implements OnInit, OnDestroy {
       if (ticket){
         var _ticket = ticket.ticket;
         if (_ticket !== undefined){
-          var geely_cancel_token = `http://10.190.69.78/geely-cancel-token/${_ticket}`
+          var redirectUrlIp = localStorage.getItem("redirectUrlIp");
+          // var geely_cancel_token = `http://10.190.69.78/geely-cancel-token/${_ticket}`;
+          var geely_cancel_token = `http://${redirectUrlIp}/geely-cancel-token/${_ticket}`;
           this.http.delete(geely_cancel_token).subscribe((res)=>{
             console.log("这里是SSO登录需要调用 接口注销 token> res: ", res);
             if(res["code"] === "success"){
               localStorage.removeItem(ssotoken);
               localStorage.removeItem(SSOUSERINFO);
               localStorage.removeItem(SYSROLEMENU);
+              localStorage.removeItem("redirectUrlIp");
               localStorage.removeItem("SSO"); // auth
               console.log("这是注销==url")
               this.router.navigate([loginurl]);

@@ -118,9 +118,9 @@ export class SecondLevelComponent implements OnInit {
                     alpha: 50,
                     beta: 0,
                     viewDistance: 40,
-                    
+			              
 
-                  },
+              },
               style:{
                     fontsSze:'30px',
                     fontWeight:'bole'
@@ -150,10 +150,11 @@ export class SecondLevelComponent implements OnInit {
                     slicedOffset: 20, // 扇形偏移
                     depth: 35,
                     dataLabels: {
-                        enabled: true,
+                        inside: true,
+                        distance: -30,
                         format: '{point.name}'
                         // format: '<b>{point.name}</b>: {point.percentage:.1f} %',
-                    }
+                    },
               }
           },
           series: [{
@@ -161,21 +162,7 @@ export class SecondLevelComponent implements OnInit {
               name: '设备数量',
               size: 240,// 饼图大小
               // slicedOffset: 20, // 
-              dataLabels:{
-                    style:{
-                        color:'white',
-                        fontSize:'8px',
-                        fontWeight:'bold',
-                        // textOutline:'1px 1px contrast'
-                    },
-                    // y: 0,
-                    // x: 0,
-                    formatter: function () {
-                      return this.y > 5 ? this.point.name : null;
-                    },
-                    // distance: -40,         // 距离值为负时显示在在扇区里面
-
-              },
+              
               data: [
                     {
                         name: key_index_data[0].name,
@@ -183,28 +170,76 @@ export class SecondLevelComponent implements OnInit {
                         sliced: true,
                         selected: true,
                         colorchart:3,
+                        dataLabels:{
+                          x: -30,
+					                y: -10,
+                          style:{
+                              color:'white',
+                              fontSize:'12px',
+                              fontWeight:'bold',
+                          },
+                          formatter: function () {
+                            return this.y > 5 ? this.point.name : null;
+                          },
+                        },
                     },
                     {
                         name: key_index_data[1].name,
                         y: key_index_data[1].value,
                         sliced: true,
-                        selected: true
+                        selected: true,
+                        dataLabels:{
+                          x: 20,
+					                y: 0,
+                          style:{
+                              color:'white',
+                              fontSize:'12px',
+                              fontWeight:'bold',
+                          },
+                          formatter: function () {
+                            return this.y > 5 ? this.point.name : null;
+                          },
+                        },
                     },
                     {
                         name: key_index_data[2].name,
                         y: key_index_data[2].value,
                         sliced: true,
-                        selected: true
+                        selected: true,
+                        dataLabels:{
+                          x: 40,
+					                y: 0,
+                          style:{
+                              color:'white',
+                              fontSize:'12px',
+                              fontWeight:'bold',
+                          },
+                          formatter: function () {
+                            return this.y > 5 ? this.point.name : null;
+                          },
+                        },
                     },
                     {
                         name: key_index_data[3].name,
                         y: key_index_data[3].value,
                         sliced: true,
-                        selected: true
+                        selected: true,
+                        dataLabels:{
+                          x: 60,
+					                y: -10,
+                          style:{
+                              color:'white',
+                              fontSize:'12px',
+                              fontWeight:'bold',
+                          },
+                          formatter: function () {
+                            return this.y > 5 ? this.point.name : null;
+                          },
+                        },
                     },
               ],
-              
-          }]
+          },
+        ]
     });
 
   }
@@ -241,7 +276,12 @@ export class SecondLevelComponent implements OnInit {
       
       xAxis: {
           categories: device_active_data[0].xdata,
-          crosshair: true
+          crosshair: true,
+          labels: {
+            style: {
+              color: '#fff'
+            }
+          }
       },
       yAxis: {
           // min: 0,
@@ -254,7 +294,7 @@ export class SecondLevelComponent implements OnInit {
           // head + 每个 point + footer 拼接成完整的 table
           headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
           pointFormat: '<tr><td style="color:{series.color};padding:0">{series.name}: </td>' +
-          '<td style="padding:0"><b>{point.y:.1f} mm</b></td></tr>',
+          '<td style="padding:0"><b>{point.y:.1f} %</b></td></tr>',
           footerFormat: '</table>',
           shared: true,
           useHTML: true
