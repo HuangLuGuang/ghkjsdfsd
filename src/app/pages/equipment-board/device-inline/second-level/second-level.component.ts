@@ -80,23 +80,15 @@ export class SecondLevelComponent implements OnInit {
 
 
   ngOnInit(): void {
-    // 试验设备总量与分布
-    this.testdevice(this.key_index_data)
-    // 设备活跃的
-    this.deviceactive(this.device_active_data)
+
 
 
     var title = "吉利汽车研究院"
     $("#head_title").text(title)
 
-    this.layoutService.onInitLayoutSize().subscribe(f=>{
-      this.device_active.reflow();
-      // let device_rate = document.querySelector('.device-rate');
-      // if(device_rate) echarts.init(device_rate).resize();
-      this.myChart.resize();
-    })
+    
 
-    this.listen_windows_resize();
+    // this.listen_windows_resize();
   }
 
   // 试验设备总数与分布
@@ -339,11 +331,15 @@ export class SecondLevelComponent implements OnInit {
     
   }
 
- 
-
   ngAfterViewInit(){
+
+    
+    // 试验设备总量与分布
+    this.testdevice(this.key_index_data)
+    // 设备活跃的
+    this.deviceactive(this.device_active_data)
+
     // 设备开动率、完好lv
-    // second_level.device_rate('.device-rate', this.teststatus);
     setTimeout(() => {
       this.boardservice.sendLoad({close:false})
       this.createEchart();
@@ -351,23 +347,30 @@ export class SecondLevelComponent implements OnInit {
     }, 100);
 
     this.equipmentservice.chartResize().subscribe(result=>{
+      this.device_active.reflow();
+      this.key_index.reflow();
+      this.myChart.resize();
+    });
+
+    this.layoutService.onInitLayoutSize().subscribe(f=>{
+      this.key_index.reflow();
+      this.device_active.reflow();
       this.myChart.resize();
     })
   }
   createEchart() {
     this.ngZone.runOutsideAngular(() => {
       this.myChart = echarts.init(document.querySelector('.device-rate'))
-      // second_level.device_rate('.device-rate', this.teststatus);
       second_level.device_rate(this.myChart, this.teststatus);
+      
     });
   }
   
 
   ngOnDestroy(){
-    this.device_active.destroy();
+    // this.device_active.destroy();
+    // this.key_index.destroy();
     this.myChart.dispose();
-    // let device_rate = document.querySelector('.device-rate');
-    // if(device_rate) echarts.init(device_rate).dispose();
   }
 
   // 跳转到具体的结构，
@@ -404,29 +407,16 @@ export class SecondLevelComponent implements OnInit {
       this.is_not_fullscreen = sf.isFullscreen;
       sf.toggle(board);
     }
-    setTimeout(() => {
-      this.device_active.reflow();
-      this.myChart.dispose();
-      // let device_rate = document.querySelector('.device-rate');
-      // if(device_rate) echarts.init(device_rate).resize();
-    }, 500);
-    
-   
-
-
   };
 
   // 返回首页
   gohome(){}
 
-
-
   // 监听窗口变化来，重置echat的大小！
   listen_windows_resize(){
     window.onreset = function (){
-      this.device_active.reflow();
-      // let device_rate = document.querySelector('.device-rate');
-      // if(device_rate) echarts.init(device_rate).resize();
+      // this.device_active.reflow();
+      // this.key_index.reflow();
       this.myChart.resize();
     }
   }
