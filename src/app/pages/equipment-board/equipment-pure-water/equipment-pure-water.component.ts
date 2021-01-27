@@ -13,8 +13,10 @@ import { EquipmentBoardService } from '../serivice/equipment-board.service';
   styleUrls: ['./equipment-pure-water.component.scss']
 })
 export class EquipmentPureWaterComponent implements OnInit {
-  list = [
-    { 
+  object = Object;
+  list = {
+    //原水开关
+    ysjs:{ 
       //原水进水
       type:'round',//圆
       sytle:{//定位
@@ -24,7 +26,8 @@ export class EquipmentPureWaterComponent implements OnInit {
       bcolor:'black',//颜色
       value:'',
     },
-    {
+    //原水高位
+    ysh:{
       type:'pull',//方
       sytle:{//定位
         top:'27%',
@@ -34,16 +37,18 @@ export class EquipmentPureWaterComponent implements OnInit {
       value:'高',
 
     },
-    {
+    //原水高位
+    ysl:{
       type:'pull',//方
       sytle:{//定位
         top:'34.6%',
         left:'8%',
       },
       bcolor:'black',//颜色
-      value:'高',
+      value:'低',
     },
-    {
+    //原水泵
+    ysb:{
       type:'round',//圆
       sytle:{//定位
         top:'34.6%',
@@ -52,7 +57,8 @@ export class EquipmentPureWaterComponent implements OnInit {
       bcolor:'black',//颜色
       value:'',
     },
-    {
+    //机械过滤器
+    jxglq:{
       type:'pull',//方
       sytle:{//定位
         top:'15.6%',
@@ -61,7 +67,8 @@ export class EquipmentPureWaterComponent implements OnInit {
       bcolor:'black',//颜色
       value:'冲洗',
     },
-    {
+    //活性炭过滤器
+    hxtglq:{
       type:'pull',//方
       sytle:{//定位
         top:'15.6%',
@@ -70,7 +77,8 @@ export class EquipmentPureWaterComponent implements OnInit {
       bcolor:'black',//颜色
       value:'冲洗',
     },
-    {
+    // 1#软化过滤器
+    rhglq_1:{
       type:'pull',//方
       sytle:{//定位
         top:'3.6%',
@@ -79,7 +87,8 @@ export class EquipmentPureWaterComponent implements OnInit {
       bcolor:'black',//颜色
       value:'冲洗',
     },
-    {
+    // 2#软化过滤器
+    rhglq_2:{
       type:'pull',//方
       sytle:{//定位
         top:'25.5%',
@@ -88,7 +97,8 @@ export class EquipmentPureWaterComponent implements OnInit {
       bcolor:'black',//颜色
       value:'冲洗',
     },
-    {
+    // 1级高压泵
+    gyb_1:{
       type:'round',//圆
       sytle:{//定位
         top:'27%',
@@ -97,7 +107,8 @@ export class EquipmentPureWaterComponent implements OnInit {
       bcolor:'black',//颜色
       value:'',
     },
-    {
+    //ro冲洗阀
+    rocxf:{
       type:'round',//圆
       sytle:{//定位
         top:'46%',
@@ -106,7 +117,8 @@ export class EquipmentPureWaterComponent implements OnInit {
       bcolor:'black',//颜色
       value:'',
     },
-    {
+    // ph加药低
+    ph_l:{
       type:'pull',//方
       sytle:{//定位
         top:'35%',
@@ -115,7 +127,8 @@ export class EquipmentPureWaterComponent implements OnInit {
       bcolor:'black',//颜色
       value:'低',
     },
-    {
+    // ph加药泵
+    phjyb:{
       type:'round',//圆
       sytle:{//定位
         top:'44%',
@@ -124,7 +137,8 @@ export class EquipmentPureWaterComponent implements OnInit {
       bcolor:'black',//颜色
       value:'',
     },
-    {
+    // 二级高压泵 左
+    gyb_2_left:{
       type:'round',//圆
       sytle:{//定位
         top:'29%',
@@ -133,7 +147,8 @@ export class EquipmentPureWaterComponent implements OnInit {
       bcolor:'black',//颜色
       value:'',
     },
-    {
+    // 二级高压泵右
+    gyb_2_right:{
       type:'round',//圆
       sytle:{//定位
         top:'32%',
@@ -142,16 +157,18 @@ export class EquipmentPureWaterComponent implements OnInit {
       bcolor:'black',//颜色
       value:'',
     },
-    {
+    // ro二级水箱高
+    ro_2_h:{
       type:'pull',//方
       sytle:{//定位
         top:'78%',
         left:'9.7%',
       },
       bcolor:'black',//颜色
-      value:'低',
+      value:'高',
     },
-    {
+    // ro二级水箱低
+    ro_2_l:{
       type:'pull',//方
       sytle:{//定位
         top:'89%',
@@ -160,7 +177,8 @@ export class EquipmentPureWaterComponent implements OnInit {
       bcolor:'black',//颜色
       value:'低',
     },
-    {
+    // edi增压泵
+    edizyb:{
       type:'round',//圆
       sytle:{//定位
         top:'88.6%',
@@ -169,7 +187,8 @@ export class EquipmentPureWaterComponent implements OnInit {
       bcolor:'black',//颜色
       value:'',
     },
-    {
+    // edi产水流量
+    edicsll:{
       type:'round',//圆
       sytle:{//定位
         top:'61.6%',
@@ -178,7 +197,8 @@ export class EquipmentPureWaterComponent implements OnInit {
       bcolor:'black',//颜色
       value:'',
     },
-    {
+    // edi浓水流量
+    edinsll:{
       type:'round',//圆
       sytle:{//定位
         top:'72.6%',
@@ -187,7 +207,8 @@ export class EquipmentPureWaterComponent implements OnInit {
       bcolor:'black',//颜色
       value:'',
     },
-    {
+    // edi电信号
+    edidxh:{
       type:'round',//圆
       sytle:{//定位
         top:'86.6%',
@@ -196,16 +217,18 @@ export class EquipmentPureWaterComponent implements OnInit {
       bcolor:'black',//颜色
       value:'',
     },
-    {
+    // 超纯水箱高
+    ccsx_h:{
       type:'pull',//方
       sytle:{//定位
         top:'81%',
         left:'59.6%',
       },
       bcolor:'black',//颜色
-      value:'低',
+      value:'高',
     },
-    {
+    // 超纯水箱高
+    ccsx_l:{
       type:'pull',//方
       sytle:{//定位
         top:'90%',
@@ -214,7 +237,8 @@ export class EquipmentPureWaterComponent implements OnInit {
       bcolor:'black',//颜色
       value:'低',
     },
-    {
+    //输送泵 
+    ssb:{
       type:'round',//圆
       sytle:{//定位
         top:'81%',
@@ -222,12 +246,13 @@ export class EquipmentPureWaterComponent implements OnInit {
       },
       bcolor:'black',//颜色
       value:'',
-    },
-  ]
+    }
+  };
+    
 
   @ViewChild('round')round:TemplateRef<any>;
   @ViewChild('pull')pull:TemplateRef<any>;
-  status = ' 自动运行';
+  status = '无';
 
   device = 'device_purewater_01';
   viewstatus = false;
@@ -241,15 +266,9 @@ export class EquipmentPureWaterComponent implements OnInit {
     private http:HttpserviceService) { }
 
   ngOnInit(): void {
-    let color = [
-      'red','green','yellow','black'
-    ]
+    this.getdata();
     this.timer = setInterval(f=>{
-      this.ngzone.runOutsideAngular(()=>{
-        this.list.forEach(f=>{
-          f.bcolor = color[parseInt((Math.random()*4).toString())];
-        })
-      })
+      
     },1000)
     this.sublist.roule = this.activate.params.subscribe(f=>{
       if(document.getElementById('head_title'))
@@ -262,9 +281,6 @@ export class EquipmentPureWaterComponent implements OnInit {
     setTimeout(() => {
       this.viewstatus = true;
     }, 100);
-    this.timer = setInterval(()=>{
-      // this.getdata();
-    },1000)
   }
 
   getdata(){
@@ -279,9 +295,79 @@ export class EquipmentPureWaterComponent implements OnInit {
             data[key] = el[key][0][0];
           }
         });
-      
+        
+      switch(1){
+        case data.emergency_stop:
+          this.status = '急停';
+          this.list.ysjs.bcolor = 'black';
+          break;
+        case data.manual:
+          this.status = '手动运行';
+          this.list.ysjs.bcolor = 'green';
+          break;
+        case data.auto:
+          this.status = '自动运行';
+          this.list.ysjs.bcolor = 'green';
+          break;
+        default:
+          this.status = '无';
+          this.list.ysjs.bcolor = 'black';
+      };
+      //原水箱高液位
+      this.list.ysh.bcolor = data.raw_water_tank_h?'green':'black';
+      //原水箱低液位
+      this.list.ysl.bcolor = data.raw_water_tank_l?'green':'black';
+      //原水泵
+      this.list.ysb.bcolor = data.raw_water_pump_running?'green':'black';
+      // 机械过滤器冲洗信号
+      this.list.jxglq.bcolor = data.mech_filter_flush_signal?'green':'black';
+      // 活性炭过滤器冲洗信号
+      this.list.hxtglq.bcolor = data.c_filter_flush_signal?'green':'black';
+      // 软化1
+      this.list.rhglq_1.bcolor = data.n1_softening_filter_flush_signal?'green':'black';
+      // 软化2
+      this.list.rhglq_2.bcolor = data.n2_softening_filter_flush_signal?'green':'black';
 
-      this.list[0].bcolor = ''
+      //一级高压泵运行指示
+      this.list.gyb_1.bcolor = data.mech_filter_flush_signal?'green':'black';
+      // TODO ro冲洗阀
+      this.list.rocxf.bcolor = 'yellow';
+      //ph加药
+      this.list.ph_l.bcolor = data.ph_potion_tank_l?'green':'black';
+      // TODO ph加药泵
+      this.list.phjyb.bcolor = 'yellow';
+
+      //二级高压泵负载
+      this.list.gyb_2_left.bcolor = data.l2_h_pump_overload?'red':'black';
+      //二级高压泵运行
+      this.list.gyb_2_right.bcolor = data.l2_h_pump_running?'green':'black';
+
+      //二级RO水箱高液位  
+      this.list.ro_2_h.bcolor = data.l2_ro_water_tank_h?'green':'black';
+      //二级RO水箱低液位  
+      this.list.ro_2_l.bcolor = data.l2_ro_water_tank_l?'green':'black';
+
+      //edi增压泵
+      this.list.edizyb.bcolor = data.edi_booster_pump_overload?'green':'black';
+
+      //edi产水
+      this.list.edicsll.bcolor = data.edi_product_water_flow_alarm_signal?'green':'black';
+      //edi浓水
+      this.list.edinsll.bcolor = data.edi_concentrate_flow_alarm_signal?'green':'black';
+      //edi电信号
+      this.list.edidxh.bcolor = data.edi_concentrate_flow_alarm_signal?'green':'black';
+      // 超纯水箱高
+      this.list.ccsx_h.bcolor = data.ultra_pure_water_tank_h?'green':'black';
+      // 超纯水箱低
+      this.list.ccsx_l.bcolor = data.ultra_pure_water_tank_l?'green':'black';
+      // TODO 输送泵 
+      this.list.ssb.bcolor = 'yellow';
+
+
+
+
+      
+      // this.status = data.emergency_stop == 1?'':'';
     });
   }
 

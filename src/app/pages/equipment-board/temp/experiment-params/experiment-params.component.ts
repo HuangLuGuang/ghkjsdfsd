@@ -2,7 +2,7 @@ import {ChangeDetectionStrategy, Component, Input, OnInit} from '@angular/core';
 import { Observable } from 'rxjs';
 import { LayoutService } from '../../../../@core/utils';
 import { HttpserviceService } from '../../../../services/http/httpservice.service';
-import { dateformat, library, rTime } from '../../equipment-board';
+import { dateformat, library, rTime, t_h_deviceid } from '../../equipment-board';
 import { EquipmentBoardService } from '../../serivice/equipment-board.service';
 let equipment_four_road = require('../../../../../assets/eimdoard/equipment/js/equipment-four-road');
 let rtm3a = require('../../../../../assets/eimdoard/rtm3/js/rtm3a');
@@ -154,7 +154,7 @@ export class ExperimentParamsComponent implements OnInit {
   get_device_his_Temp_hum(){
     let yearPlanData = [],yearOrderData= [],differenceData=[],visibityData=[],xAxisData=[];
     this.subscribeList.h_t_h = this.http.callRPC('get_temperature',library+'get_temperature_numbers'
-    ,{deviceid:this.device}).subscribe((g:any) =>{
+    ,{deviceid:t_h_deviceid || this.device}).subscribe((g:any) =>{
       if(g.result.error || g.result.message[0].code == 0)return;
       g.result.message[0].message.forEach(el => {
         yearPlanData.push(el.temperature);//温度

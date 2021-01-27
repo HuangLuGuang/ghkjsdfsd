@@ -950,7 +950,7 @@ let equipment_four_road = {
                         fontSize: 12,
                         color: '#fff',
                         formatter: function(value) {
-                            return '{a|' + data[1].value + data[1].unit + '}';
+                            return '{a|' + data[1].value + '\n' + data[1].unit + '}';
                         },
                         rich: {
                             a: {
@@ -1020,7 +1020,7 @@ let equipment_four_road = {
                         fontSize: 12,
                         color: '#fff',
                         formatter: function(value) {
-                            return '{a|' + data[0].value + data[0].unit + '}';
+                            return '{a|' + data[0].value + '\n' + data[0].unit + '}';
                         },
                         rich: {
                             a: {
@@ -1090,8 +1090,9 @@ let equipment_four_road = {
                     detail: {
                         fontSize: 12,
                         color: '#fff',
+                        offsetCenter: [0, '70%'],
                         formatter: function(value) {
-                            return '{a|' + data[2].value + data[2].unit + '}';
+                            return '{a|' + data[2].value + '\n' + data[2].unit + '}';
                         },
                         rich: {
                             a: {
@@ -1388,20 +1389,20 @@ let equipment_four_road = {
             series: series
         };
 
-        if (option_t.series[0].data.length > 10)
-            option_t.dataZoom = [{
-                    show: false,
-                    realtime: true,
-                    start: 100 - ((10 / (series[0].data.length)) * 100),
-                    end: 100
-                },
-                {
-                    type: 'inside',
-                    realtime: true,
-                    start: 100 - ((10 / (series[0].data.length)) * 100),
-                    end: 100
-                }
-            ];
+        // if (option_t.series[0].data.length > 10)
+        //     option_t.dataZoom = [{
+        //             show: false,
+        //             realtime: true,
+        //             start: 100 - ((10 / (series[0].data.length)) * 100),
+        //             end: 100
+        //         },
+        //         {
+        //             type: 'inside',
+        //             realtime: true,
+        //             start: 100 - ((10 / (series[0].data.length)) * 100),
+        //             end: 100
+        //         }
+        //     ];
         // console.log(JSON.stringify(option_t))
         myChart.setOption(option_t);
         // myChart.resize();
@@ -1773,7 +1774,7 @@ let equipment_four_road = {
             },
             smooth: true,
             symbol: "circle",
-            symbolSize: 8,
+            symbolSize: 3,
         }
     },
     create_device_status_fun(data, seriesData, legend, borderData, borderHeight) {
@@ -1889,7 +1890,7 @@ let equipment_four_road = {
                         name: '最小值'
                     }]
                 },
-                data: f.data,
+                data: f.data.map(m => (Math.abs(m))),
             })
         });
         let option_motor_chart = {
@@ -1917,7 +1918,17 @@ let equipment_four_road = {
                     textStyle: {
                         color: "#fff"
                     }
-
+                },
+                formatter: function(data_dd) {
+                    console.log(data_dd)
+                    return `<span 
+                    style="display:inline-block;margin-right:5px;border-radius:10px;width:10px;height:10px;background-color:${data_dd[0].color};"></span> 
+                    ${ gauge_data.xData[data_dd[0].dataIndex] } ${ gauge_data.data[0].name } ${ gauge_data.data[0].data[data_dd[0].dataIndex]||0 }
+                    <br>
+                    <span 
+                    style="display:inline-block;margin-right:5px;border-radius:10px;width:10px;height:10px;background-color:${data_dd[1].color};"></span> 
+                    ${ gauge_data.xData[data_dd[1].dataIndex] } ${ gauge_data.data[1].name } ${ gauge_data.data[1].data[data_dd[1].dataIndex]||0 }
+                    `;
                 },
             },
             grid: {
@@ -2465,7 +2476,7 @@ let equipment_four_road = {
             grid: {
                 // left: '3%',
                 // right: '4%',
-                top: '2%',
+                top: 10,
                 bottom: '40%',
                 // containLabel: true
             },
@@ -2484,7 +2495,8 @@ let equipment_four_road = {
             },
             yAxis: {
                 type: 'value',
-                max: 2,
+                max: 1,
+                splitNumber: 1,
                 axisLine: {
                     // show: false,
                     width: 0.08,
@@ -2510,11 +2522,11 @@ let equipment_four_road = {
                 // data: [1, 0, 1, 0, 1, 0, 1, 1, 1, 0, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 1, 1, 1, 0, 1, 1, 0],
                 data: afterdata.SeriesData,
                 lineStyle: {
-                    color: 'rgb(138,43,226)',
+                    color: '#99FF66',
                     width: 1,
                 },
                 areaStyle: {
-                    color: 'rgb(138,43,226)'
+                    color: '#99FF66'
 
                 },
             }, ]

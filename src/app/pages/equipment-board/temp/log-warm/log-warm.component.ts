@@ -208,7 +208,7 @@ export class LogWarmComponent implements OnInit {
       i = aee.findIndex(f => f && f !=' ');
       arr.push([
           m.recordtime,
-          m.level==3?'Error':m.level == 1?'Informatio':'nWarning',
+          m.level==3?'Error':m.level == 1?'Informatio':'Warning',
           m.message,
           // aee[aee.length-1].length > aee[aee.length-2].length?aee[aee.length-1]:aee[aee.length-2],
           m.level,

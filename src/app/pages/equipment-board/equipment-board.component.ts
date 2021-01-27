@@ -50,7 +50,8 @@ export class EquipmentBoardComponent implements OnInit {
     this.subscribeList.resize = this.boradservice.chartResize().subscribe(f=>{
       this.resize();
     })
-    
+    var menu = localStorage.getItem(SYSMENU);
+    if(menu)this.menu = JSON.parse(menu).filter(f =>f.link && f.link.includes('equipment'));
     
     
     
@@ -106,8 +107,7 @@ export class EquipmentBoardComponent implements OnInit {
   //点击返回按钮
   return_btn_click(){
     //获取看板路由下所有菜单配置
-    var menu = localStorage.getItem(SYSMENU);
-    if(menu)this.menu = JSON.parse(menu).filter(f =>f.link && f.link.includes('equipment'));
+    
     this.loading = true;
     console.log('返回上一级')
     let router_str = this.boradservice.back_router_str(this.menu)

@@ -5,6 +5,9 @@ declare var $:any;
 //库
 export let library = 'eim_plv8.';
 
+//温湿度deviceid 目前没有数据统一传 到时候有数据了改成null
+export const t_h_deviceid = 'device_temperature';
+
 
 //生成rgb 减少红色
 export const rgb_del_red = ()=> {//rgb颜色随机
