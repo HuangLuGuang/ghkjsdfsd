@@ -1,7 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { HttpserviceService } from '../../../services/http/httpservice.service';
-import { colors, dateformat, rgb_del_red,painting_time, create_img_16_9 } from '../equipment-board';
+import { colors, dateformat, rgb_del_red,painting_time, create_img_16_9, library } from '../equipment-board';
 import { EquipmentBoardService } from '../serivice/equipment-board.service';
 
 
@@ -189,11 +189,11 @@ xData:[]
       this.get_device_mst_oilseparator();//开油器
       let param = this.create_param();
       if(param[1].length > 0){
-        table = 'get_device_mts_realtimedata',method = 'device_monitor.get_device_mts_realtimedata';
+        table = 'get_device_mts_realtimedata',method = library+'get_device_mts_realtimedata';
         this.get_device_mts_realtimedata(table,method,param);
       }
       if(param[0].length > 0){
-        table = 'get_device_mts_timerangedata',method = 'device_monitor.get_device_mts_timerangedata';
+        table = 'get_device_mts_timerangedata',method = library+'get_device_mts_timerangedata';
         this.get_device_mts_time(table,method,param);
       }
 
@@ -258,7 +258,7 @@ xData:[]
             "hsmt9j28ahigh"="分油器高"
    */
   get_device_mts_status(){
-    this.subscribeList.status = this.http.callRPC('get_device_mts_status','device_monitor.get_device_mts_status',{device:this.deviceid}).subscribe((g:any) =>{
+    this.subscribeList.status = this.http.callRPC('get_device_mts_status',library+'get_device_mts_status',{device:this.deviceid}).subscribe((g:any) =>{
       if(g.result.error || g.result.message[0].code == 0)return;
       // this.switchStatus.data.forEach((f,i) => {
       //   if(i>=g.result.message[0].length)return;
@@ -276,7 +276,7 @@ xData:[]
 
       this.switchStatus.data = g.result.message[0].map(m =>(
         [
-          m.stationname,{value:m.runstop,color:m.runstop == 1?'green':'#C0C0C0',id:'circle'},
+          m.stationname,{value:m.runstop,color:m.runstop == 1?'green':'#3b3838',id:'circle'},
           {value:m.interlock,color:m.interlock== 1?'white':'orange',id:'strip'},
           {value:m.programinterlock,color:m.programinterlock== 1?'white':'orange',id:'strip'}
         ] 
@@ -311,7 +311,7 @@ xData:[]
    * 分油器
    */
   get_device_mst_oilseparator(){
-    this.subscribeList.oil = this.http.callRPC('get_device_mts_realtimedata','device_monitor.get_device_mts_realtimedata',
+    this.subscribeList.oil = this.http.callRPC('get_device_mts_realtimedata',library+'get_device_mts_realtimedata',
     {'device':this.deviceid,arr:"hsmt9j28aon,hsmt9j28ahigh,hsmt9j28bon,hsmt9j28bhigh,hsmt8j28aon,hsmt8j28ahigh,hsmt8j28bon,hsmt8j28bhigh,hsmt7j28aon,hsmt7j28ahigh,hsmt7j28bon,hsmt7j28bhigh"}
     ).subscribe((f:any)=>{
       // console.log(f);

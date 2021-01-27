@@ -2,7 +2,7 @@ import { Component, Input, NgZone, OnInit } from '@angular/core';
 import * as screenfull from 'screenfull';
 import { Screenfull } from 'screenfull';
 import { HttpserviceService } from '../../../../services/http/httpservice.service';
-import { dateformat } from '../../equipment-board';
+import { dateformat, library } from '../../equipment-board';
 import { EquipmentBoardService } from '../../serivice/equipment-board.service';
 let equipment_four_road = require('../../../../../assets/eimdoard/equipment/js/equipment-four-road');
 
@@ -90,13 +90,13 @@ export class LogWarmComponent implements OnInit {
     //   console.log(g)
     // })
     // device_mts_01
-    // this.subscribeList.device_mts_log = this.http.callRPC('get_device_mts_log','device_monitor.get_device_mts_log',{"device":this.device}).subscribe((g:any) =>{
+    // this.subscribeList.device_mts_log = this.http.callRPC('get_device_mts_log',library+'get_device_mts_log',{"device":this.device}).subscribe((g:any) =>{
     //   console.log(g)
     //     if(g.result.error || g.result.message[0].code == 0)return;
     //     getMessage(g,this.log_warm.data);
     // })
     //SELECT get_log('{"deviceid":"device_mts_01"}')
-    this.subscribeList.device_mts_log = this.http.callRPC('get_log','device_monitor.get_log',{"deviceid":this.device}).subscribe((g:any) =>{
+    this.subscribeList.device_mts_log = this.http.callRPC('get_log',library+'get_log',{"deviceid":this.device}).subscribe((g:any) =>{
       // console.log(g)
       if(g.result.error || g.result.message[0].code == 0)return;
 
@@ -115,7 +115,7 @@ export class LogWarmComponent implements OnInit {
    */
   get_device_mts_log_his(){
     //SELECT get_log_warning('{"deviceid":"device_mts_01","recordtime":"2020-11-3"}')
-    this.subscribeList.his_log = this.http.callRPC('get_log_warning','device_monitor.get_log_warning',{"deviceid":this.device,"recordtime":this.getFirstDayOfWeek()}).subscribe((g:any) =>{
+    this.subscribeList.his_log = this.http.callRPC('get_log_warning',library+'get_log_warning',{"deviceid":this.device,"recordtime":this.getFirstDayOfWeek()}).subscribe((g:any) =>{
       // console.log(g)
       if(g.result.error || g.result.message[0].code == 0)return;
       let arr = g.result.message[0].message;
@@ -133,7 +133,7 @@ export class LogWarmComponent implements OnInit {
       this.subscribeList.his_log.unsubscribe();
 
     })
-    // this.subscribeList.device_mts_log_his = this.http.callRPC('get_device_log_daily_count','device_monitor.get_device_log_daily_count',{"device":this.device,"monday":this.getFirstDayOfWeek()}).subscribe((g:any) =>{
+    // this.subscribeList.device_mts_log_his = this.http.callRPC('get_device_log_daily_count',library+'get_device_log_daily_count',{"device":this.device,"monday":this.getFirstDayOfWeek()}).subscribe((g:any) =>{
     //     console.log(g)
     //     if(g.result.error || g.result.message[0].code == 0)return;
     //     let arr = g.result.message[0].message;
@@ -175,7 +175,7 @@ export class LogWarmComponent implements OnInit {
    */
   // get_device_mts_log_daily(){
 
-  //   this.http.callRPC('get_device_log_daily_error_status','device_monitor.get_device_log_daily_error_status',
+  //   this.http.callRPC('get_device_log_daily_error_status',library+'get_device_log_daily_error_status',
   //   {"device":this.device,"today":dateformat(new Date(),'yyyy-MM-dd'),"thishour":"hour"+new Date().getHours(),"level":1}).subscribe((g:any) =>{
   //     // console.log(g)
   //     if(g.result.error || g.result.message[0].code == 0)return;

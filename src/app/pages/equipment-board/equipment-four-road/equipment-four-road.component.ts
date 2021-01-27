@@ -1,7 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { HttpserviceService } from '../../../services/http/httpservice.service';
-import { colors, dateformat, rgb_del_red,painting_time, create_img_16_9 } from '../equipment-board';
+import { colors, dateformat, rgb_del_red,painting_time, create_img_16_9, library } from '../equipment-board';
 import { EquipmentBoardService } from '../serivice/equipment-board.service';
 
 
@@ -256,21 +256,21 @@ export class EquipmentFourRoadComponent implements OnInit {
         ]);
       this.get_device_mts_status();
       if(param[0].length > 0){
-        table = 'get_device_mts_time',method = 'device_monitor.get_device_mts_timerangedata';
+        table = 'get_device_mts_time',method = library+'get_device_mts_timerangedata';
         this.get_device_mts_time(table,method,param,this.deviceid,['chart_1','chart_2']);
       }
       if(param[1].length > 0){
-        table = 'get_device_mts_realtimedata',method = 'device_monitor.get_device_mts_realtimedata';
+        table = 'get_device_mts_realtimedata',method = library+'get_device_mts_realtimedata';
         this.get_device_mts_realtimedata(table,method,param,this.deviceid,['chart_1','chart_2']);
       }
 
       param = this.create_param([{value:[this.click_list[2]],index:3}]);
       if(param[0].length > 0){
-        table = 'get_device_mts_time',method = 'device_monitor.get_device_mts_timerangedata';
+        table = 'get_device_mts_time',method = library+'get_device_mts_timerangedata';
         this.get_device_mts_time(table,method,param,'device_weiss_01',['chart_3']);
       }
       if(param[1].length > 0){
-        table = 'get_device_mts_realtimedata',method = 'device_monitor.get_device_mts_realtimedata';
+        table = 'get_device_mts_realtimedata',method = library+'get_device_mts_realtimedata';
         this.get_device_mts_realtimedata(table,method,param,'device_weiss_01',['chart_3']);
       }
     },1000)
@@ -328,7 +328,7 @@ export class EquipmentFourRoadComponent implements OnInit {
    *   中间的表的数据 开关这些数据     
    */
   get_device_mts_status(){
-      this.subscribeList.status = this.http.callRPC('get_device_mts_status','device_monitor.get_device_mts_status',{device:this.deviceid}).subscribe((f:any) =>{
+      this.subscribeList.status = this.http.callRPC('get_device_mts_status',library+'get_device_mts_status',{device:this.deviceid}).subscribe((f:any) =>{
         if(f.result.error || f.result.message[0].code == 0)return;
         // this.switchStatus.data[0][0] =  f.result.message[0][1].stationname;
         // //起停状态
@@ -350,9 +350,9 @@ export class EquipmentFourRoadComponent implements OnInit {
         this.switchStatus.data = f.result.message[0].map(m =>(
           [
             m.stationname,
-            {value:m.runstop,color:m.runstop == 1?'green':'#C0C0C0',id:'circle'},
-            {value:m.hsmt9j28aon,color:m.hsmt9j28aon == 1?'green':'#C0C0C0',id:'circle'},
-            {value:m.hsmt9j28ahigh,color:m.hsmt9j28ahigh == 1?'green':'#C0C0C0',id:'circle'},
+            {value:m.runstop,color:m.runstop == 1?'green':'#3b3838',id:'circle'},
+            {value:m.hsmt9j28aon,color:m.hsmt9j28aon == 1?'green':'#3b3838',id:'circle'},
+            {value:m.hsmt9j28ahigh,color:m.hsmt9j28ahigh == 1?'green':'#3b3838',id:'circle'},
             {value:m.interlock,color:m.interlock== 1?'white':'orange',id:'strip'},
             {value:m.programinterlock,color:m.programinterlock== 1?'white':'orange',id:'strip'}
           ] 

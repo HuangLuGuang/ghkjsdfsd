@@ -1,0 +1,29 @@
+<div id="prue">
+    <div class="status">
+        <div class="border-prue" style="width: 10%;">
+            控制模式：
+        </div>
+        <div class="border-prue" style="width: 10%;">
+            {{ status }}
+        </div>
+        <div class="border-prue" style="width: 60%;">
+            报警列表：EDI浓水流量报警、EDI产水流量报警、二级高压泵过载、漏水报警
+        </div>
+    </div>
+    <div class="all">
+
+        <ng-container *ngFor="let item of list" [ngTemplateOutlet]="setTemp(item.type)" [ngTemplateOutletContext]="{ $implicit: item }">
+        </ng-container>
+    </div>
+</div>
+
+<!-- 圆 -->
+<ng-template #round let-item>
+    <div class="round piece" [ngStyle]="item.sytle">
+        <p class="{{item.bcolor}}"></p>
+    </div>
+</ng-template>
+<!-- 长方形 -->
+<ng-template #pull let-item>
+    <div class="pull piece {{item.bcolor}}" [ngStyle]="item.sytle">{{item.value}}</div>
+</ng-template>

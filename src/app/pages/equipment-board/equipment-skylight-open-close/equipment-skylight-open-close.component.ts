@@ -12,7 +12,7 @@ var equipment_four_road = require('../../../../assets/eimdoard/equipment/js/equi
   // 
 })
 export class EquipmentSkylightOpenCloseComponent implements OnInit {
-  deviceid = 'device_mts_04';
+  deviceid = 'device_skylight_01';//开窗闭件试验台
 
   //ATEC-舱
   cang_1 = {

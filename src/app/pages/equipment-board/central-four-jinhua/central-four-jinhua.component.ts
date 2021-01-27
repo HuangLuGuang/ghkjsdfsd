@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { HttpserviceService } from '../../../services/http/httpservice.service';
-import { colors, create_img_16_9, rTime } from '../equipment-board';
+import { colors, create_img_16_9, library, rTime } from '../equipment-board';
 import { EquipmentBoardService } from '../serivice/equipment-board.service';
 
 let equipment_four_road = require('../../../../assets/eimdoard/equipment/js/equipment-four-road');
@@ -232,7 +232,7 @@ export class CentralFourJinhuaComponent implements OnInit {
    */
   get_four(){
     let res,data:any = {};
-    this.subscribeList.four = this.http.callRPC('device_monitor.get_device_mts_realtimedata','device_monitor.get_device_mts_realtimedata',{"device":this.deviceid_four,
+    this.subscribeList.four = this.http.callRPC('get_device_mts_realtimedata',library+'get_device_mts_realtimedata',{"device":this.deviceid_four,
     arr:four_param.join(',')}).subscribe((g:any)=>{
       if(g.result.error || g.result.message[0].code == 0)return;
       res = g.result.message[0].message || [];
@@ -260,7 +260,7 @@ export class CentralFourJinhuaComponent implements OnInit {
       // this.discharge_chart[4].value.push(data.n0);
       // this.discharge_chart[5].value.push(data.n1);
       // this.discharge_chart[6].value.push(data.n2);
-      this.discharge_xdata.push(rTime(res && res[0]?res[0].v[0][1]:''));//x轴时间
+      this.discharge_xdata.push(rTime(res && res[0]?res[0].v[0][1]:'0'));//x轴时间
       if(this.discharge_xdata.length>10){
         this.discharge_xdata.splice(0,1);
         this.discharge_chart.forEach(g=>{
@@ -310,7 +310,7 @@ export class CentralFourJinhuaComponent implements OnInit {
       this.gauge_chart[0].value.push(data.v||0);
       this.gauge_chart[1].value.push(data.a||0);
       // this.gauge_chart[0].value.push(data.p);
-      this.gauge_xData.push(rTime(res && res[0]?res[0].v[0][1]:''));
+      this.gauge_xData.push(rTime(res && res[0]?res[0].v[0][1]:'0'));
       if(this.gauge_xData.length>10){
         this.gauge_xData.splice(0,1);
         this.gauge_chart.forEach(g=>{
@@ -324,7 +324,10 @@ export class CentralFourJinhuaComponent implements OnInit {
         title:'速度/加速度曲线'
         },echarts.init(document.getElementById('avl_param_chart_1')));
 
-      this.gauge_chart_1[0].value.push(data.f);
+      this.gauge_chart_1[0].value.push(data.f||0);
+      if(this.gauge_chart_1.length>10){
+        this.gauge_chart_1.splice(0,1);
+      }
       if(document.getElementById('avl_param_chart_2'))equipment_four_road.create_broken_line({
         series:this.gauge_chart_1,
         xData:this.gauge_xData,
@@ -341,7 +344,7 @@ export class CentralFourJinhuaComponent implements OnInit {
 
   get_jinhua(){
     let res,data:any = {};
-    this.subscribeList.jinhua = this.http.callRPC('device_monitor.get_device_mts_realtimedata','device_monitor.get_device_mts_realtimedata',{"device":this.deviceid_jinhua,
+    this.subscribeList.jinhua = this.http.callRPC('get_device_mts_realtimedata',library+'get_device_mts_realtimedata',{"device":this.deviceid_jinhua,
     arr:jinhua_param.join(',')}).subscribe((g:any)=>{
       if(g.result.error || g.result.message[0].code == 0)return;
       res = g.result.message[0].message || [];

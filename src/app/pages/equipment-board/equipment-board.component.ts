@@ -51,9 +51,7 @@ export class EquipmentBoardComponent implements OnInit {
       this.resize();
     })
     
-    //获取看板路由下所有菜单配置
-    var menu = localStorage.getItem(SYSMENU);
-    if(menu)this.menu = JSON.parse(menu).filter(f =>f.link && f.link.includes('equipment'));
+    
     
     
     this.subscribeList.load = this.boradservice.get_Load_Observable().subscribe(f=>{
@@ -75,6 +73,8 @@ export class EquipmentBoardComponent implements OnInit {
       }else{
         this.b_show.back = true;
       }
+      $('ngx-equipment-board').height('100%');
+      // $('ngx-equipment-board').width('99%');
     },100);
 
     // 监听路由
@@ -105,6 +105,9 @@ export class EquipmentBoardComponent implements OnInit {
 
   //点击返回按钮
   return_btn_click(){
+    //获取看板路由下所有菜单配置
+    var menu = localStorage.getItem(SYSMENU);
+    if(menu)this.menu = JSON.parse(menu).filter(f =>f.link && f.link.includes('equipment'));
     this.loading = true;
     console.log('返回上一级')
     let router_str = this.boradservice.back_router_str(this.menu)

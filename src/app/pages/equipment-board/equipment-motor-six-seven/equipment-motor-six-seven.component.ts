@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { HttpserviceService } from '../../../services/http/httpservice.service';
-import { colors, create_img_16_9, rTime } from '../equipment-board';
+import { colors, create_img_16_9, library, rTime } from '../equipment-board';
 import { EquipmentBoardService } from '../serivice/equipment-board.service';
 
 let equipment_four_road = require('../../../../assets/eimdoard/equipment/js/equipment-four-road');
@@ -210,9 +210,9 @@ export class EquipmentMotorSixSevenComponent implements OnInit {
   ]
 
   speedTorque_attrs = [
-    {name:'扭矩',data:[],color:'blue'},
+    {name:'扭矩',data:[],color:'green'},
     {name:'转速',data:[],color:'#FF66CC'},
-    {name:'功率',data:[],color:'green'},
+    // {name:'功率',data:[],color:'green'},
   ];
   speedTorque_xData = [];
 
@@ -253,9 +253,10 @@ export class EquipmentMotorSixSevenComponent implements OnInit {
 
     this.timer = self.setInterval(f=>{
         // this.initChart();
-        this.get_motor_param();
-        this.get_left_data();
-        this.get_Temp_Hum();
+
+          this.get_motor_param();
+          this.get_left_data();
+          this.get_Temp_Hum();
     },1000)
     setTimeout(() => {
       create_img_16_9();
@@ -272,32 +273,33 @@ export class EquipmentMotorSixSevenComponent implements OnInit {
 
   resize = () =>{
     setTimeout(() => {
-      let chart;
-      [1, 1, 1, 1, 1].forEach((f,i)=>{
-        chart = document.getElementById('electric_'+(i+1)+'_67');
-        if(chart)
-          echarts.init(chart).resize();
-      })
-      this.HealthParam_right.forEach(f=>{
-        chart = document.getElementById(f.id);
-        if(chart)
-          echarts.init(chart).resize();
-      })
-      this.threePhase.forEach(f=>{
-        chart = document.getElementById(f.id);
-        if(chart)
-          echarts.init(chart).resize();
-      })
-      if(document.getElementById('dashboard_67'))
-          echarts.init(document.getElementById('dashboard_67')).resize();
-      if(document.getElementById('line_chart_12_67'))
-          echarts.init(document.getElementById('line_chart_12_67')).resize();
-      if(document.getElementById('threePhase_67'))
-          echarts.init(document.getElementById('threePhase_67')).resize();
-      if(document.getElementById('motor_chart_2'))
-          echarts.init(document.getElementById('motor_chart_2')).resize();
-      if(document.getElementById('motor_chart_1'))
-          echarts.init(document.getElementById('motor_chart_1')).resize();
+
+        let chart;
+        [1, 1, 1, 1, 1].forEach((f,i)=>{
+          chart = document.getElementById('electric_'+(i+1)+'_67');
+          if(chart)
+            echarts.init(chart).resize();
+        })
+        this.HealthParam_right.forEach(f=>{
+          chart = document.getElementById(f.id);
+          if(chart)
+            echarts.init(chart).resize();
+        })
+        this.threePhase.forEach(f=>{
+          chart = document.getElementById(f.id);
+          if(chart)
+            echarts.init(chart).resize();
+        })
+        if(document.getElementById('dashboard_67'))
+            echarts.init(document.getElementById('dashboard_67')).resize();
+        if(document.getElementById('line_chart_12_67'))
+            echarts.init(document.getElementById('line_chart_12_67')).resize();
+        if(document.getElementById('threePhase_67'))
+            echarts.init(document.getElementById('threePhase_67')).resize();
+        if(document.getElementById('motor_chart_2'))
+            echarts.init(document.getElementById('motor_chart_2')).resize();
+        if(document.getElementById('motor_chart_1'))
+            echarts.init(document.getElementById('motor_chart_1')).resize();
     }, 500);
   }
 
@@ -308,7 +310,7 @@ export class EquipmentMotorSixSevenComponent implements OnInit {
 
     let j = ['urmsa','irmsa','urms1','irms1','urms2','irms2','urms3','irms3']
     let res,data:any = {},chart;
-    this.subscribeList.motor = this.http.callRPC('get_device_mts_realtimedata','device_monitor.get_device_mts_realtimedata',
+    this.subscribeList.motor = this.http.callRPC('get_device_mts_realtimedata',library+'get_device_mts_realtimedata',
     {"device":this.boyang_deviceid,
     arr:boyang_param.join(',')}).subscribe((g:any)=>{
       if(g.result.error || g.result.message[0].code == 0)return;
@@ -327,7 +329,7 @@ export class EquipmentMotorSixSevenComponent implements OnInit {
       let arr = [data.eff_sys, data.eff_con, data.eff_mot, data.prmsa, data.prms4].forEach((f,i)=>{
         chart = document.getElementById('electric_'+(i+1)+'_67');
         if(chart)
-          equipment_four_road.create_real_electric({text:f||0,title:''},echarts.init(chart));
+          equipment_four_road.create_real_electric({text:f||0,title:'',unit:'%'},echarts.init(chart));
       })
 
       chart = document.getElementById('dashboard_67');
@@ -335,7 +337,7 @@ export class EquipmentMotorSixSevenComponent implements OnInit {
         equipment_four_road.create_real_dashboard([{
           name: '扭矩',unit: 'N/m',value:data.torque||0
         },{
-          name: '转速',unit: 'km/h',value:data.speed||0
+          name: '转速',unit: 'rpm/m',value:data.speed||0
         },{
           name: '功率',unit: 'W',value:data.p||0
         }],echarts.init(chart));
@@ -343,13 +345,13 @@ export class EquipmentMotorSixSevenComponent implements OnInit {
       chart = document.getElementById('line_chart_12_67');
       this.speedTorque_attrs[0].data.push(data.torque||0);
       this.speedTorque_attrs[1].data.push(data.speed||0);
-      this.speedTorque_attrs[2].data.push(data.p||0);
+      // this.speedTorque_attrs[2].data.push(data.p||0);
       
       this.speedTorque_xData.push(rTime(res?res[0].urms1[0][1]:''));
       if(this.speedTorque_xData.length>10){
         this.speedTorque_attrs[0].data.splice(0,1);
         this.speedTorque_attrs[1].data.splice(0,1);
-        this.speedTorque_attrs[2].data.splice(0,1);
+        // this.speedTorque_attrs[2].data.splice(0,1);
         this.speedTorque_xData.splice(0,1);
       }
 
@@ -381,7 +383,7 @@ export class EquipmentMotorSixSevenComponent implements OnInit {
   //温湿度
   get_Temp_Hum(){
     let res,data:any = {};
-    this.subscribeList.temp_hum = this.http.callRPC('get_device_mts_realtimedata','device_monitor.get_device_mts_realtimedata'
+    this.subscribeList.temp_hum = this.http.callRPC('get_device_mts_realtimedata',library+'get_device_mts_realtimedata'
     ,{device:this.th_deviceid,arr:th_param.join(',')}).subscribe((g:any) =>{
       if(g.result.error || g.result.message[0].code == 0)return;
       res = g.result.message[0].message;
@@ -416,7 +418,7 @@ export class EquipmentMotorSixSevenComponent implements OnInit {
 
   get_left_data(){
     let res,data:any = {};
-    this.subscribeList.left = this.http.callRPC('get_device_mts_realtimedata','device_monitor.get_device_mts_realtimedata',
+    this.subscribeList.left = this.http.callRPC('get_device_mts_realtimedata',library+'get_device_mts_realtimedata',
     {"device":this.ct_deviceid,
     arr:ct_param.join(',')}).subscribe((g:any)=>{
       if(g.result.error || g.result.message[0].code == 0)return;

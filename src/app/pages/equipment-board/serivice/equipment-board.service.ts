@@ -45,11 +45,11 @@ export class EquipmentBoardService {
     // console.log(window.location.pathname);//当前路由
     // console.log(menu);
     let path = decodeURIComponent(window.location.pathname);
-    item = menus.find(f => f.link === path);
+    item = menus.find(f => f.link == path);
     if(item && item.parentid)
-      item = menus.find(f=> item.parentid === f.id );
+      item = menus.find(f=> item.parentid == f.id );
     
-    return item && item.link?item.link:'/pages/equipment/first-level'
+    return item && item.link?item.link:'/pages/equipment/first-level';
   }
 
   // i = 0;

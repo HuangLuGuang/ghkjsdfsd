@@ -1,7 +1,7 @@
 import {ChangeDetectionStrategy, Component, NgZone, OnInit, ViewChild, ViewEncapsulation} from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { HttpserviceService } from '../../../services/http/httpservice.service';
-import { colors, rgb_del_red, create_img_16_9, painting_time, dateformat } from '../equipment-board';
+import { colors, rgb_del_red, create_img_16_9, painting_time, dateformat, library } from '../equipment-board';
 import { EquipmentBoardService } from '../serivice/equipment-board.service';
 
 
@@ -300,11 +300,11 @@ export class EquipmentCouplingPathComponent implements OnInit {
       this.get_device_mst_oilseparator();
       let param = this.create_param();
       if(param[0].length > 0){
-        table = 'get_device_mts_time',method = 'device_monitor.get_device_mts_timerangedata';
+        table = 'get_device_mts_time',method = library+'get_device_mts_timerangedata';
         this.get_device_mts_time(table,method,param);
       }
       if(param[1].length > 0){
-        table = 'get_device_mts_realtimedata',method = 'device_monitor.get_device_mts_realtimedata';
+        table = 'get_device_mts_realtimedata',method = library+'get_device_mts_realtimedata';
         this.get_device_mts_realtimedata(table,method,param);
       }
     },1000)
@@ -379,7 +379,7 @@ export class EquipmentCouplingPathComponent implements OnInit {
    */
   get_device_status(){
     let res;
-    this.subscribeList.stauts = this.http.callRPC('get_device_mts_status','device_monitor.get_device_mts_status',{device:this.deviceid}).subscribe((f:any) =>{
+    this.subscribeList.stauts = this.http.callRPC('get_device_mts_status',library+'get_device_mts_status',{device:this.deviceid}).subscribe((f:any) =>{
       if(f.result.error || f.result.message[0].code == 0)return;
       res = f.result.message[0];
       // console.log(f)
@@ -404,7 +404,7 @@ export class EquipmentCouplingPathComponent implements OnInit {
 //       });
       this.switchStatus.data = res.map(m =>(
         [
-          m.stationname,{value:m.stationstatus,color:m.stationstatus == 1?'green':'#C0C0C0',id:'circle'},
+          m.stationname,{value:m.stationstatus,color:m.stationstatus == 1?'green':'#3b3838',id:'circle'},
           {value:m.interlock,color:m.interlock== 1?'white':'orange',id:'strip'},
           {value:m.programinterlock,color:m.programinterlock== 1?'white':'orange',id:'strip'}
         ]
@@ -429,7 +429,7 @@ HSM 4 RR High
    */
   get_device_mst_oilseparator(){
     let res,data:any={};
-    this.subscribeList.oil = this.http.callRPC('get_device_mts_realtimedata','device_monitor.get_device_mts_realtimedata',
+    this.subscribeList.oil = this.http.callRPC('get_device_mts_realtimedata',library+'get_device_mts_realtimedata',
     {'device':this.deviceid,arr:"hsm1lfon,hsm1lfhigh,hsm2rfon,hsm2rfhigh,hsm3lron,hsm3lrhigh,hsm4rron,hsm4rrhigh"}
     ).subscribe((f:any)=>{
       if(f.result.error || f.result.message[0].code == 0)return;

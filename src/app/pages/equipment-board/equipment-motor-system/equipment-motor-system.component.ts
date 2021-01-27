@@ -1,12 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { HttpserviceService } from '../../../services/http/httpservice.service';
-import { colors, create_img_16_9 } from '../equipment-board';
+import { colors, create_img_16_9, dateformat, library, rTime } from '../equipment-board';
 import { EquipmentBoardService } from '../serivice/equipment-board.service';
 
 let equipment_four_road = require('../../../../assets/eimdoard/equipment/js/equipment-four-road')
 
 let oilsrouce = require('../../../../assets/eimdoard/equipment/js/oilsrouce');
+let rtm3a = require('../../../../assets/eimdoard/rtm3/js/rtm3a');
 
 
 
@@ -35,9 +36,9 @@ export class EquipmentMotorSystemComponent implements OnInit {
   experiment_xData = [];
 
   speedTorque_attrs = [
-    {name:'扭矩',data:[],color:'blue'},
+    {name:'扭矩',data:[],color:'green'},
     {name:'转速',data:[],color:'#FF66CC'},
-    {name:'功率',data:[],color:'green'},
+    // {name:'功率',data:[],color:'green'},
   ];
   speedTorque_xData = [];
 
@@ -187,12 +188,15 @@ export class EquipmentMotorSystemComponent implements OnInit {
       this.deviceid = f.deviceid;
     })
 
-
+    let i = 0;
     this.timer = self.setInterval(f=>{
       this.get_experimentParams();
       this.get_right();
       this.get_device_Temp_hum();
+      if(i%5==0)this.get_device_mts_timerangedata();
+      i++;
     },1000)
+    this.get_device_mts_timerangedata();
 
     setTimeout(() => {
       create_img_16_9();
@@ -219,7 +223,7 @@ export class EquipmentMotorSystemComponent implements OnInit {
           echarts.init(chart).resize();
       });
       ['coolingWater','AxleBoxTemperature1','AxleBoxTemperature2','circularD_chart',
-      'dashboard','line_chart_12','threePhase','temperature','humidity'].forEach(f => {
+      'dashboard','line_chart_12','threePhase','temperature','humidity','motor_chart'].forEach(f => {
         chart = document.getElementById(f);
         if(chart)
           echarts.init(chart).resize();
@@ -239,7 +243,7 @@ export class EquipmentMotorSystemComponent implements OnInit {
   get_experimentParams(){
     // SELECT get_avl_temperature('{"deviceid":"device_avlmotor_01"}')
     let res;
-    this.subscribeList.exp = this.http.callRPC('get_avl_temperature','device_monitor.get_avl_temperature',
+    this.subscribeList.exp = this.http.callRPC('get_avl_temperature',library+'get_avl_temperature',
     {"deviceid":this.deviceid}).subscribe((f:any)=>{
       if(f.result.error || f.result.message[0].code == 0)return;
       res = f.result.message[0].message[0] || {};
@@ -297,36 +301,36 @@ torque: 0.151 扭矩
     // get_avl_parameter('{"deviceid":"device_avlmotor_01"}'
     let j = ['pa_urmsa','pa_irmsa','pa_urms2','pa_irms2','pa_urms3','pa_irms3','pa_urms4','pa_irms4']
     let res,chart;;
-    this.subscribeList.right = this.http.callRPC('get_avl_parameter','device_monitor.get_avl_parameter',{"deviceid":this.deviceid}).subscribe((f:any)=>{
+    this.subscribeList.right = this.http.callRPC('get_avl_parameter',library+'get_avl_parameter',{"deviceid":this.deviceid}).subscribe((f:any)=>{
       if(f.result.error || f.result.message[0].code == 0)return;
       res = f.result.message[0].message[0] || {};
       this.motor = res;
       //系统效率 控制器效率  电机效率 控制器输出功率
-      let arr = [res.cal_eff_sys, res.cal_eff_inv, res.cal_eff_mot, res.pa_pa, res.pa_p1].forEach((c,i)=>{
-        chart = document.getElementById('electric_'+(i+1));
-        if(chart)
-          equipment_four_road.create_real_electric({text:c|| 0,title:''},echarts.init(chart));
-      })
+      // let arr = [res.cal_eff_sys, res.cal_eff_inv, res.cal_eff_mot, res.pa_pa, res.pa_p1].forEach((c,i)=>{
+      //   chart = document.getElementById('electric_'+(i+1));
+      //   if(chart)
+      //     equipment_four_road.create_real_electric({text:c|| 0,title:'',unit:'%'},echarts.init(chart));
+      // })
 
       chart = document.getElementById('dashboard');
       if(chart)
         equipment_four_road.create_real_dashboard([{
           name: '扭矩',unit: 'N/m',value:res.torque||0
         },{
-          name: '转速',unit: 'km/h',value:res.speed||0
+          name: '转速',unit: 'rpm',value:res.speed||0
         },{
-          name: '功率',unit: 'W',value:res.p||0
+          name: '功率',unit: 'kw',value:res.p||0
         }],echarts.init(chart));
 
       chart = document.getElementById('line_chart_12');
       this.speedTorque_attrs[0].data.push(res.torque||0);
       this.speedTorque_attrs[1].data.push(res.speed||0);
-      this.speedTorque_attrs[2].data.push(res.p||0);
+      // this.speedTorque_attrs[2].data.push(res.p||0);
       this.speedTorque_xData.push(res.recordtime||0);
       if(this.speedTorque_xData.length>10){
         this.speedTorque_attrs[0].data.splice(0,1);
         this.speedTorque_attrs[1].data.splice(0,1);
-        this.speedTorque_attrs[2].data.splice(0,1);
+        // this.speedTorque_attrs[2].data.splice(0,1);
         this.speedTorque_xData.splice(0,1);
       }
 
@@ -336,7 +340,7 @@ torque: 0.151 扭矩
               echarts.init(chart));
 
       this.threePhase.forEach((f,i)=>{
-        this.threePhase_attrs[i].value.push(res[j[i]]);//表格插入线条的值插入
+        this.threePhase_attrs[i].value.push(res[j[i]]||0);//表格插入线条的值插入
         if(document.getElementById(f.id)){
           f.dataLine.value = res[j[i]]||0;
           oilsrouce.create_bar_j(f.dataLine||0,echarts.init(document.getElementById(f.id)),'30%');
@@ -359,7 +363,7 @@ torque: 0.151 扭矩
   get_device_Temp_hum(){
       let chart;
       let res;
-    this.subscribeList.temp_hum = this.http.callRPC('get_temperature','device_monitor.get_temperature'
+    this.subscribeList.temp_hum = this.http.callRPC('get_temperature',library+'get_temperature'
     ,{deviceid:this.deviceid}).subscribe((g:any) =>{
       if(g.result.error || g.result.message[0].code == 0)return;
       res = g.result.message[0].message[0]?g.result.message[0].message[0]:{};
@@ -375,6 +379,33 @@ torque: 0.151 扭矩
   }
 
 
+  //环境历史信息
+  get_device_mts_timerangedata(){
+    let yearPlanData = [],yearOrderData= [],differenceData=[],visibityData=[],xAxisData=[];
+    this.subscribeList.h_t_h = this.http.callRPC('get_temperature',library+'get_temperature_numbers'
+    ,{deviceid:this.deviceid}).subscribe((g:any) =>{
+      if(g.result.error || g.result.message[0].code == 0)return;
+      g.result.message[0].message.forEach(el => {
+        yearPlanData.push(el.temperature);//温度
+        yearOrderData.push(el.humidity);//湿度
+        xAxisData.push(rTime(el.recordtime));
+      });
+
+      rtm3a.create_third_chart_line({
+        yearPlanData:yearPlanData.length > 0?yearPlanData:[0],
+        yearOrderData:yearOrderData.length>0?yearOrderData:[0],
+        differenceData:differenceData.length>0?differenceData:[0],
+        visibityData:visibityData.length>0?visibityData:[0],
+        xAxisData:xAxisData.length>0?xAxisData:[0],
+        title:''
+      }, 'motor_chart');
+
+      this.subscribeList.h_t_h.unsubscribe();
+    })
+   }
+
+ 
+
   get_td_width(num){
     return 66/num+'%'
   }
@@ -387,16 +418,16 @@ torque: 0.151 扭矩
     }
 
     let chart;
-    [1, 1, 1, 1, 1].forEach((f,i)=>{
-      chart = document.getElementById('electric_'+(i+1));
-      if(chart)echarts.init(chart).dispose();
-    });
+    // [1, 1, 1, 1, 1].forEach((f,i)=>{
+    //   chart = document.getElementById('electric_'+(i+1));
+    //   if(chart)echarts.init(chart).dispose();
+    // });
     this.threePhase.forEach(f=>{
       chart = document.getElementById(f.id);
       if(chart)echarts.init(chart).dispose();
     });
     ['coolingWater','AxleBoxTemperature1','AxleBoxTemperature2','circularD_chart',
-    'dashboard','line_chart_12','threePhase','temperature','humidity'].forEach(f => {
+    'dashboard','line_chart_12','threePhase','temperature','humidity','motor_chart'].forEach(f => {
       chart = document.getElementById(f);
       if(chart)echarts.init(chart).dispose();
     });

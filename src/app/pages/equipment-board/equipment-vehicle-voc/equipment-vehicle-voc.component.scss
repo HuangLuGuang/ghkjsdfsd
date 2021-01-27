@@ -1,6 +1,6 @@
 #voc {
     height: 100%;
-    min-height: 900px;
+    // min-height: 900px;
     padding-bottom: 20px;
     width: 100%;
     .backgroud {
@@ -67,15 +67,15 @@
         .w_100 {
             width: 100%;
         }
-        #cabin_pie_1,
-        #cabin_pie_2 {
+        #cabin_pie_5,
+        #cabin_pie_6 {
             width: 25%;
             height: 100%;
         }
+        #cabin_pie_1,
+        #cabin_pie_2,
         #cabin_pie_3,
-        #cabin_pie_4,
-        #cabin_pie_5,
-        #cabin_pie_6 {
+        #cabin_pie_4 {
             width: 23%;
             height: 100%;
         }

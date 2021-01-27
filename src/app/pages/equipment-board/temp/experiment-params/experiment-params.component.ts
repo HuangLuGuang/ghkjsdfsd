@@ -2,7 +2,7 @@ import {ChangeDetectionStrategy, Component, Input, OnInit} from '@angular/core';
 import { Observable } from 'rxjs';
 import { LayoutService } from '../../../../@core/utils';
 import { HttpserviceService } from '../../../../services/http/httpservice.service';
-import { dateformat, rTime } from '../../equipment-board';
+import { dateformat, library, rTime } from '../../equipment-board';
 import { EquipmentBoardService } from '../../serivice/equipment-board.service';
 let equipment_four_road = require('../../../../../assets/eimdoard/equipment/js/equipment-four-road');
 let rtm3a = require('../../../../../assets/eimdoard/rtm3/js/rtm3a');
@@ -80,7 +80,7 @@ export class ExperimentParamsComponent implements OnInit {
   get_device_mts_weiss(){
     // temp温度
     //  humi湿度
-   this.subscribeList.device_mts_weiss = this.http.callRPC('get_device_mts_realtimedata','device_monitor.get_device_mts_realtimedata'
+   this.subscribeList.device_mts_weiss = this.http.callRPC('get_device_mts_realtimedata',library+'get_device_mts_realtimedata'
     ,{device:this.device,arr:"temperatureactual,temperatureset,humidityactual,humidityset"}).subscribe((g:any) =>{
       if(g.result.error || g.result.message[0].code == 0)return;
       let obj = this.temp_humi_change(g.result.message[0].message);
@@ -103,7 +103,7 @@ export class ExperimentParamsComponent implements OnInit {
   //环境历史信息
   get_device_mts_timerangedata(){
    let startStr = (dateformat(new Date(new Date().getTime()-3600000),'yyyy-MM-dd hh:mm:ss'))
-    this.subscribeList.device_mts_timerangedata = this.http.callRPC('get_device_mts_timerangedata','device_monitor.get_device_mts_timerangedata'
+    this.subscribeList.device_mts_timerangedata = this.http.callRPC('get_device_mts_timerangedata',library+'get_device_mts_timerangedata'
     ,{start:startStr,end:dateformat(new Date(),'yyyy-MM-dd hh:mm:ss'),device:this.device,arr:"temperatureactual,humidityactual"}).subscribe((g:any) =>{
       if(g.result.error || g.result.message[0].code == 0)return;
       // console.log(this.temp_humi_change(g.result.message[0].message));
@@ -130,7 +130,7 @@ export class ExperimentParamsComponent implements OnInit {
   //获取实时温湿度
   get_device_Temp_hum(){
     let res;
-    this.subscribeList.t_h = this.http.callRPC('get_temperature','device_monitor.get_temperature'
+    this.subscribeList.t_h = this.http.callRPC('get_temperature',library+'get_temperature'
     ,{deviceid:this.device}).subscribe((g:any) =>{
       if(g.result.error || g.result.message[0].code == 0)return;
       res = g.result.message[0].message[0]?g.result.message[0].message[0]:{};
@@ -153,7 +153,7 @@ export class ExperimentParamsComponent implements OnInit {
 
   get_device_his_Temp_hum(){
     let yearPlanData = [],yearOrderData= [],differenceData=[],visibityData=[],xAxisData=[];
-    this.subscribeList.h_t_h = this.http.callRPC('get_temperature','device_monitor.get_temperature_numbers'
+    this.subscribeList.h_t_h = this.http.callRPC('get_temperature',library+'get_temperature_numbers'
     ,{deviceid:this.device}).subscribe((g:any) =>{
       if(g.result.error || g.result.message[0].code == 0)return;
       g.result.message[0].message.forEach(el => {
@@ -162,11 +162,11 @@ export class ExperimentParamsComponent implements OnInit {
         xAxisData.push(rTime(el.recordtime));
       });
       rtm3a.create_third_chart_line({
-        yearPlanData:yearPlanData,
-        yearOrderData:yearOrderData,
-        differenceData:differenceData,
-        visibityData:visibityData,
-        xAxisData:xAxisData,
+        yearPlanData:yearPlanData.length > 0?yearPlanData:[0],
+        yearOrderData:yearOrderData.length>0?yearOrderData:[0],
+        differenceData:differenceData.length>0?differenceData:[0],
+        visibityData:visibityData.length>0?visibityData:[0],
+        xAxisData:xAxisData.length>0?xAxisData:[0],
         title:''
       }, 'third_second');
 

@@ -1,0 +1,69 @@
+#prue {
+    width: 100%;
+    height: 100%;
+    // min-height: 900px;
+    .status {
+        height: 10%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        div {
+            margin-left: 5%;
+        }
+        .border-prue {
+            height: 100%;
+            border-radius: 13px;
+            box-shadow: -4px -4px 0px #489dcf, 4px 4px 0px #62d5ff;
+            border: 1px solid #62d5ff;
+            font-size: 2vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+    }
+    .piece {
+        position: absolute;
+    }
+    .round {
+        width: 3%;
+        p {
+            width: 20px;
+            height: 20px;
+            border-radius: 20px;
+        }
+    }
+    .round::after {
+        width: 20px;
+        height: 20px;
+        border-radius: 20px;
+    }
+    .pull {
+        width: 3%;
+        height: 20px;
+        line-height: 20px;
+    }
+    .all {
+        height: 81%;
+        margin: 2%;
+        width: 96%;
+        background: url('/assets/eimdoard/equipment/images/pure_water.png') no-repeat;
+        background-size: 100% 100%;
+        position: relative;
+        img {
+            height: 100%;
+            width: 100%;
+        }
+    }
+    .red {
+        background-color: #FF3333;
+    }
+    .green {
+        background-color: #99FF99;
+    }
+    .yellow {
+        background-color: #FFFF00;
+    }
+    .black {
+        background-color: black;
+    }
+}

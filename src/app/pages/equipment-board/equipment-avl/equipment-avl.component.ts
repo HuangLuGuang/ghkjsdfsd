@@ -1,7 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { HttpserviceService } from '../../../services/http/httpservice.service';
-import { colors, create_img_16_9, rTime } from '../equipment-board';
+import { colors, create_img_16_9, library, rTime } from '../equipment-board';
 import { EquipmentBoardService } from '../serivice/equipment-board.service';
 
 let equipment_four_road = require('../../../../assets/eimdoard/equipment/js/equipment-four-road');
@@ -229,7 +229,7 @@ export class EquipmentAvlComponent implements OnInit {
    */
   get_avl_discharge(){
     let res,data:any = {};
-    this.subscribeList.discharge = this.http.callRPC('get_device_mts_realtimedata','device_monitor.get_device_mts_realtimedata',
+    this.subscribeList.discharge = this.http.callRPC('get_device_mts_realtimedata',library+'get_device_mts_realtimedata',
     {"device":this.deviceid_discharge,
     arr:discharge_param.join(',')}).subscribe((g:any)=>{
       if(g.result.error || g.result.message[0].code == 0)return;
@@ -271,7 +271,7 @@ export class EquipmentAvlComponent implements OnInit {
    */
   get_avl_environmental_warehouse(){
     let res,data:any = {};
-    this.subscribeList.warehouse = this.http.callRPC('get_device_mts_realtimedata','device_monitor.get_device_mts_realtimedata',
+    this.subscribeList.warehouse = this.http.callRPC('get_device_mts_realtimedata',library+'get_device_mts_realtimedata',
     {"device":this.deviceid_environmental,
     arr:environmental_param.join(',')}).subscribe((g:any)=>{
       if(g.result.error || g.result.message[0].code == 0)return;
@@ -368,7 +368,7 @@ export class EquipmentAvlComponent implements OnInit {
    */
   get_avl_speed(){
     let res,data:any = {};
-    this.subscribeList.speed = this.http.callRPC('get_device_mts_realtimedata','device_monitor.get_device_mts_realtimedata',
+    this.subscribeList.speed = this.http.callRPC('get_device_mts_realtimedata',library+'get_device_mts_realtimedata',
     {"device":this.deviceid_avl_speed,
     arr:avl_speed_param.join(',')}).subscribe((g:any)=>{
       if(g.result.error || g.result.message[0].code == 0)return;

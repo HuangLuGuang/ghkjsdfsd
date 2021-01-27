@@ -214,6 +214,14 @@ let rtm3a = {
                     fontSize: 12
                 }
             },
+            legend: {
+                show: true,
+                right: 'center',
+                bottom: '0%',
+                textStyle: {
+                    color: 'rgba(55,255,249,1)'
+                }
+            },
             toolbox: { show: false },
             xAxis: {
                 data: xAxisData,
@@ -254,8 +262,8 @@ let rtm3a = {
                 }
             },
             grid: {
-                top: 30,
-                bottom: 20,
+                top: 20,
+                bottom: 40,
                 // left: 100,
                 width: '90%',
             },

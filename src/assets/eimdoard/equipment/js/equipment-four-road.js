@@ -447,14 +447,14 @@ let equipment_four_road = {
     //实时温湿度
     create_real_temperature(gauge_data, myChart) {
         let angle = 0; //角度，用来做简单的动画效果的
-        let value = gauge_data.value;
+        let value = gauge_data.value ? gauge_data.value : 0;
         let unit = gauge_data.unit ? gauge_data.unit : '%';
         let optionInterval = {
             // backgroundColor:"#061740",
             //animation: false,
 
             title: {
-                text: value ? '{a|' + value + '}{c|' + unit + '}' : unit != 'RH' ? '常温' : '常湿',
+                text: '{a|' + value + '}{c|' + unit + '}',
                 x: 'center',
                 y: 'center',
                 textStyle: {
@@ -820,6 +820,7 @@ let equipment_four_road = {
     create_real_electric(data, myChart) {
         var datas = {
             value: data.text,
+            unit: data.unit ? data.unit : '',
             company: "",
             ringColor: [{
                 offset: 0,
@@ -834,7 +835,7 @@ let equipment_four_road = {
 
             // backgroundColor: "#000",
             title: [{
-                text: datas.value,
+                text: datas.value + datas.unit,
                 x: 'center',
                 y: 'center',
                 textStyle: {
@@ -901,7 +902,7 @@ let equipment_four_road = {
                     type: 'gauge',
                     // z: 3,
                     min: 0,
-                    max: 100,
+                    max: 18000,
                     startAngle: 200,
                     endAngle: -20,
                     radius: '90%',
@@ -949,23 +950,27 @@ let equipment_four_road = {
                         fontSize: 12,
                         color: '#fff',
                         formatter: function(value) {
-                            return '{a|' + value + '}' + data[1].unit;
+                            return '{a|' + data[1].value + data[1].unit + '}';
                         },
                         rich: {
                             a: {
-                                fontSize: 12,
+                                fontSize: 14,
                                 color: 'white'
                             }
                         }
                     },
-                    data: [data[1]]
+                    data: [{
+                        name: data[1].name,
+                        unit: data[1].unit,
+                        value: Math.abs(data[1].value)
+                    }]
                 },
                 {
                     type: 'gauge',
                     center: ['18%', '58%'], // 默认全局居中
                     radius: '80%',
                     min: 0,
-                    max: 100,
+                    max: 350,
                     startAngle: 200,
                     endAngle: 50,
                     splitNumber: 8,
@@ -1015,16 +1020,20 @@ let equipment_four_road = {
                         fontSize: 12,
                         color: '#fff',
                         formatter: function(value) {
-                            return '{a|' + value + '}' + data[0].unit;
+                            return '{a|' + data[0].value + data[0].unit + '}';
                         },
                         rich: {
                             a: {
-                                fontSize: 12,
+                                fontSize: 14,
                                 color: 'white'
                             }
                         }
                     },
-                    data: [data[0]]
+                    data: [{
+                        name: data[0].name,
+                        unit: data[0].unit,
+                        value: Math.abs(data[0].value)
+                    }]
                 },
                 {
                     type: 'gauge',
@@ -1082,16 +1091,20 @@ let equipment_four_road = {
                         fontSize: 12,
                         color: '#fff',
                         formatter: function(value) {
-                            return '{a|' + value + '}' + data[2].unit;
+                            return '{a|' + data[2].value + data[2].unit + '}';
                         },
                         rich: {
                             a: {
-                                fontSize: 12,
+                                fontSize: 14,
                                 color: 'white'
                             }
                         }
                     },
-                    data: [data[2]]
+                    data: [{
+                        name: data[2].name,
+                        unit: data[2].unit,
+                        value: Math.abs(data[2].value)
+                    }]
                 },
 
             ]
@@ -1420,7 +1433,7 @@ let equipment_four_road = {
 
         var dataStyle = {
             normal: {
-                formatter: data.value ? '{c}' + data.unit : '常' + data.text[data.text.length - 2],
+                formatter: data.value + data.unit,
                 position: 'center',
                 show: true,
                 textStyle: {
@@ -1558,7 +1571,10 @@ let equipment_four_road = {
                 lineStyle: {
                     width: 2
                 },
-                data: f.value
+                data: f.value,
+                smooth: true,
+                symbol: "circle",
+                symbolSize: 6,
             });
         })
         if (series.length == 0) series.push({ type: 'line', name: '', data: [] });
@@ -1746,8 +1762,6 @@ let equipment_four_road = {
                     //     shadowOffsetY: 3
                     // }
             },
-            symbol: 'emptyCircle',
-            showSymbol: false,
             itemStyle: {
                 normal: {
                     color: colors[1],
@@ -1757,7 +1771,9 @@ let equipment_four_road = {
                     borderColor: "#F8F8FF"
                 }
             },
-            smooth: true
+            smooth: true,
+            symbol: "circle",
+            symbolSize: 8,
         }
     },
     create_device_status_fun(data, seriesData, legend, borderData, borderHeight) {
@@ -1883,6 +1899,13 @@ let equipment_four_road = {
                 show: true,
                 text: gauge_data.title,
                 left: 'center',
+                textStyle: {
+                    color: COLOR
+                }
+            },
+            legend: {
+                show: true,
+                right: '3%',
                 textStyle: {
                     color: COLOR
                 }
@@ -2276,7 +2299,7 @@ let equipment_four_road = {
                     rich: {},
                     offsetCenter: [0, '65%'],
                     formatter: function(value) {
-                        return data.value || !data.un ? (value + data.unit) : data.un;
+                        return data.value ? data.value : 0;
                     }
                 },
                 data: [{
@@ -2454,22 +2477,29 @@ let equipment_four_road = {
                     lineStyle: {
                         color: COLOR
                     }
+                },
+                splitLine: {
+                    show: false
                 }
-
             },
             yAxis: {
                 type: 'value',
                 max: 2,
                 axisLine: {
+                    // show: false,
                     width: 0.08,
                     lineStyle: {
                         type: "solid",
                         color: COLOR
                     }
                 },
+
                 axisTick: {
                     show: false
                 },
+                splitLine: {
+                    show: false
+                }
             },
 
 

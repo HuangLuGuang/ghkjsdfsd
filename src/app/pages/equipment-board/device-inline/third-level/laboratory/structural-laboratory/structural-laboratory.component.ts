@@ -1,6 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { HttpserviceService } from '../../../../../../services/http/httpservice.service';
+import { library } from '../../../../equipment-board';
 import { EquipmentBoardService } from '../../../../serivice/equipment-board.service';
 import { s_role } from '../../../../temp/equipment-status/equipment-status.component';
 import { ThirdLevelService } from '../third-level.service';
@@ -60,7 +61,7 @@ export class StructuralLaboratoryComponent implements OnInit {
       andon:0,
       speed:[],
       speed_name:[''],//实验名称
-      router:'pages/equipment/skylight/开窗闭件试验台'
+      router:'pages/equipment/skylight/天窗闭件试验台'
     },
     {
       name:'玻璃升降系统',
@@ -105,7 +106,7 @@ export class StructuralLaboratoryComponent implements OnInit {
     'device_mts_01':this.list[1],//四立柱道路模拟试验台
     'device_mts_03':this.list[2],//六自由度振动台
     "device_mts_04":this.list[3],//液压伺服
-    // 'device_auto_voc01':this.list[3],//整车voc环境仓
+    'device_skylight_01':this.list[5],//天窗开闭
   }
   timer:any;
   constructor(private router:Router,private http:HttpserviceService,private thrid:ThirdLevelService,
@@ -172,7 +173,7 @@ export class StructuralLaboratoryComponent implements OnInit {
 
   get_oil_status(){
     let res;
-    this.http.callRPC('get_hpu','device_monitor.get_hpu',{"deviceid":""}).subscribe((f:any)=>{
+    this.http.callRPC('get_hpu',library+'get_hpu',{"deviceid":""}).subscribe((f:any)=>{
       if(f.result.error || f.result.message[0].code == 0)return;
       res = f.result.message[0].message;
       res.forEach((el,i) => {

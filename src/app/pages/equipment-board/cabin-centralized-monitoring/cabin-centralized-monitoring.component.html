@@ -8,7 +8,7 @@
                 <div class="part_title">ATEC{{'equipment.expInfor'|translate}}</div>
                 <ngx-test-information [device]='deviceid_ATEC' style="width: 100%;"></ngx-test-information>
             </div>
-            <div class="thrid height_31" style="margin-top: 20px;">
+            <div class="thrid height_33" style="margin-top: 20px;">
                 <div class="part_title">ATEC{{'equipment.EnvironmentRoom'|translate}}</div>
                 <div class=" dis_f_w" style="justify-content: flex-end;">
                     {{'equipment.warehouseStatus'|translate}}：
@@ -23,11 +23,11 @@
                     <div class="width_25">
                         {{ 'equipment.CxHy'|translate}}<br>
                         <div style="border: 2px solid #4472c4;width: 100%;height: 28px;">
-                            {{atec.hc}}ppm
+                            {{atec?.hc}}ppm
                         </div>
                         {{ 'equipment.CO'|translate}}<br>
                         <div style="border: 2px solid #4472c4;width: 100%;height: 28px;">
-                            {{atec.co}}ppm
+                            {{atec?.co}}ppm
                         </div>
                     </div>
                 </div>
@@ -48,7 +48,7 @@
                     <img id="img" [src]="img.url" [alt]="img.name">
                 </div>
             </div>
-            <div class="dis_f_w first_third lattice_layout height_31">
+            <div class="dis_f_w first_third lattice_layout height_33">
                 <ngx-log-warm class="dis_f_w" [device]='deviceid_ATEC' style="width: 100%;"></ngx-log-warm>
             </div>
         </div>
@@ -56,7 +56,7 @@
             <div class="first_first height_33">
                 <ngx-equipment-status andon_status_font='JINHUAsafetyLampStatus' TempNum="2" [device]='deviceid_jinhua' style="display: flex;width: 100%;"></ngx-equipment-status>
             </div>
-            <div class="thrid height_30" style="margin-top: 20px;">
+            <div class="thrid height_32" style="margin-top: 20px;">
                 <div class="part_title">锦华{{'equipment.EnvironmentRoom'|translate}}</div>
 
                 <div class="height_50" style="display: flex;justify-content: center;align-items: center;">

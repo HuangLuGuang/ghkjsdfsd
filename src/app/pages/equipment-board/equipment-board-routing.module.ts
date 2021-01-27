@@ -157,12 +157,27 @@ const ROUTERS: Routes = [{
         
       },
       {
-        //开窗闭件试验台
+        //开窗闭件
         path:'skylight',
         loadChildren:()=>import('./equipment-skylight-open-close/equipment-skylight-open-close.module')
         .then(m=>m.EquipmentSkylightOpenCloseModule),
         
       },
+      {
+        //氙灯老化设备集中监控
+        path:'xenon',
+        loadChildren:()=>import('./equipment-xenon-lamp/equipment-xenon-lamp.module')
+        .then(m=>m.EquipmentXenonLampModule),
+        
+      },
+      {
+        //纯水
+        path:'pure',
+        loadChildren:()=>import('./equipment-pure-water/equipment-pure-water.module')
+        .then(m=>m.EquipmentPureWaterModule),
+        
+      },
+      
       
       // {
       //   path:'detailsDemo/:title/:deviceid',

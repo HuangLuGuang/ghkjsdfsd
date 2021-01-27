@@ -391,6 +391,10 @@ export class SecondLevelComponent implements OnInit {
           this.router.navigate(['pages/equipment/third-level/structural']);
           this.boardservice.sendLoad({close:true})
           break;
+        case 'physicochemical':
+          this.router.navigate(['/pages/equipment/third-level/physical']);
+          this.boardservice.sendLoad({close:true});
+          break;
       }
     }, 100);
     

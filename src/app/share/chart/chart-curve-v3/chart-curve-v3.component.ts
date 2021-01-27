@@ -1,5 +1,4 @@
-import {ChangeDetectionStrategy, Component, EventEmitter, Input, NgZone, OnInit, Output} from '@angular/core';
-import { config, Observable } from 'rxjs';
+import { Component, EventEmitter, Input, NgZone, OnInit, Output} from '@angular/core';
 import { LayoutService } from '../../../@core/utils/layout.service';
 
 let equipment_four_road = require('../../../../assets/eimdoard/equipment/js/equipment-four-road')
@@ -178,7 +177,7 @@ export class ChartCurveV3Component implements OnInit {
     // console.log(this.myChart.getOption());
     var option:any = {
         background:'rgb(10,65,121)',
-        animation: false,
+        // animation: false,
         tooltip: {
             trigger: 'axis',
             backgroundColor: 'none',
@@ -446,8 +445,8 @@ export class ChartCurveV3Component implements OnInit {
             //     shadowOffsetY: 3
             // }
         },
-        symbol: 'emptyCircle',
-        showSymbol: false,
+        // smooth: false,
+        
         itemStyle: {
             normal: {
                 color: colors[1],
@@ -457,7 +456,9 @@ export class ChartCurveV3Component implements OnInit {
                 borderColor: "#F8F8FF"
             }
         },
-        smooth: true
+        smooth: true,
+        symbol: "circle",
+        symbolSize: 6,
     }
   }
 

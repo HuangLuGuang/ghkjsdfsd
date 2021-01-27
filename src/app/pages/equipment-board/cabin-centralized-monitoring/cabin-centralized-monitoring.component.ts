@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { HttpserviceService } from '../../../services/http/httpservice.service';
-import { colors, create_img_16_9, rTime } from '../equipment-board';
+import { colors, create_img_16_9, library, rTime } from '../equipment-board';
 import { EquipmentBoardService } from '../serivice/equipment-board.service';
 let equipment_four_road = require('../../../../assets/eimdoard/equipment/js/equipment-four-road');
 
@@ -255,7 +255,7 @@ export class CabinCentralizedMonitoringComponent implements OnInit {
    */
   get_environmental_warehouse_jinhua(){
     let res,data:any = {};
-    this.subscribeList.jinhua = this.http.callRPC('device_monitor.get_device_mts_realtimedata','device_monitor.get_device_mts_realtimedata',{"device":this.deviceid_jinhua,
+    this.subscribeList.jinhua = this.http.callRPC('get_device_mts_realtimedata',library+'get_device_mts_realtimedata',{"device":this.deviceid_jinhua,
     arr:param_jinhua.join(',')}).subscribe((g:any)=>{
       if(g.result.error || g.result.message[0].code == 0)return;
       res = g.result.message[0].message;
@@ -289,10 +289,10 @@ export class CabinCentralizedMonitoringComponent implements OnInit {
       //设备运行状态
       this.jinhua.cang = data.mwsmart_main_soaking_s_v00;
 
-      this.jinhua_en_charts[0].value.push(this.jinhua_en[0].dataLine.value);
-      this.jinhua_en_charts[1].value.push(this.jinhua_en[1].dataLine.value);
-      this.jinhua_en_charts[2].value.push( this.gauge[3].dataLine.value);
-      this.jinhua_en_xData.push(rTime(res?res[0].mwsmart_main_soaking_s_vw206[0][1]:''))
+      this.jinhua_en_charts[0].value.push(this.jinhua_en[0].dataLine.value||0);
+      this.jinhua_en_charts[1].value.push(this.jinhua_en[1].dataLine.value||0);
+      this.jinhua_en_charts[2].value.push( this.gauge[3].dataLine.value||0);
+      this.jinhua_en_xData.push(rTime(res?res[0].mwsmart_main_soaking_s_vw206[0][1]:'0'))
 
       if(this.jinhua_en_xData.length>10){
         this.jinhua_en_xData.splice(0,1);
@@ -318,7 +318,7 @@ export class CabinCentralizedMonitoringComponent implements OnInit {
    */
   get_ATEC(){
     let res,data:any = {};
-    this.subscribeList.atec = this.http.callRPC('device_monitor.get_device_mts_realtimedata','device_monitor.get_device_mts_realtimedata',{"device":this.deviceid_ATEC,
+    this.subscribeList.atec = this.http.callRPC('get_device_mts_realtimedata',library+'get_device_mts_realtimedata',{"device":this.deviceid_ATEC,
     arr:param_ATEC.join(',')}).subscribe((g:any)=>{
       if(g.result.error || g.result.message[0].code == 0)return;
       res = g.result.message[0].message;
@@ -351,9 +351,9 @@ export class CabinCentralizedMonitoringComponent implements OnInit {
           ,echarts.init(document.getElementById(this.gauge[f].id)));
       })
 
-      this.atec_chart[0].value.push(data.realtime_temp);
-      this.atec_chart[1].value.push(data.realtime_humidity);
-      this.atec_xdata.push(rTime(res?res[0].realtime_temp[0][1]:''));
+      this.atec_chart[0].value.push(data.realtime_temp||0);
+      this.atec_chart[1].value.push(data.realtime_humidity||0);
+      this.atec_xdata.push(rTime(res?res[0].realtime_temp[0][1]:'0'));
       if(this.atec_xdata.length>10){
         this.atec_xdata.splice(0,1);
         this.atec_chart.forEach(f=>{
@@ -376,7 +376,7 @@ export class CabinCentralizedMonitoringComponent implements OnInit {
 
   get_TempHumidity(device,arr){
     let res;
-    this.subscribeList[device] = this.http.callRPC('get_temperature','device_monitor.get_temperature'
+    this.subscribeList[device] = this.http.callRPC('get_temperature',library+'get_temperature'
     ,{device:device}).subscribe((g:any) =>{
       if(g.result.error || g.result.message[0].code == 0)return;
       res = g.result.message[0].message[0]?g.result.message[0].message[0]:{};

@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { HttpserviceService } from '../../../../../services/http/httpservice.service';
-import { dateformat, rTime } from '../../../equipment-board';
+import { dateformat, library, rTime } from '../../../equipment-board';
 
 @Injectable({
   providedIn: 'root'
@@ -35,7 +35,9 @@ export class ThirdLevelService {
     'device_boyang_01':'电机6',//电机6
     'device_boyang_02':'电机7',//电机7
 
-    'device_auto_voc01':'整车voc',
+    'device_auto_voc01':'整车voc',//整车voc环境仓
+    'device_atlas_4000':'氙灯Ci4000',//氙灯集中监控Ci4000
+    'device_atlas_4400':'氙灯Ci4400',//氙灯集中监控Ci4400
 
   }
 
@@ -125,7 +127,7 @@ export class ThirdLevelService {
   //获取日志
   get_log_list(param,view){
     let aee;
-    this.http.callRPC('get_log_list','device_monitor.get_log_list',{deviceid:param}).subscribe((f:any)=>{
+    this.http.callRPC('get_log_list',library+'get_log_list',{deviceid:param}).subscribe((f:any)=>{
       if(f.result.error || f.result.message[0].code == 0)return;
       
       view.tableBody = f.result.message[0].message.filter(g=> g[0] 

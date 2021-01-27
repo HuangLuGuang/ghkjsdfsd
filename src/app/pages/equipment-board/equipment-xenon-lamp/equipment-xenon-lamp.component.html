@@ -1,0 +1,90 @@
+<div id="xenon">
+    <div class="row height_100" style="margin: 0;">
+        <div class="col-md-4 height_98" style="padding: 0px 0px 0px 20px;">
+            <div class="backgroud height_100" style="padding: 30px 10px 0 0px;margin: 0;">
+                <div class="part_title">Ci4400、Ci400试验信息</div>
+                <div class="backgroud height_33">
+                    <ngx-equipment-status [device]='deviceid_4400' style="display: flex;width: 100%;height: 100%;"></ngx-equipment-status>
+                </div>
+                <div class="backgroud  height_26">
+                    <div class="part_title">{{'equipment.expInfor'|translate}}</div>
+                    <ngx-test-information [device]='deviceid_4400' style="width: 100%;"></ngx-test-information>
+                </div>
+                <div class="backgroud height_35">
+                    <ngx-log-warm [device]='deviceid_4400'></ngx-log-warm>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4 height_98" style="padding: 0px 0 0 20px;">
+            <div class="backgroud height_100" style="padding: 30px 10px 0 0px;margin: 0;">
+
+                <div class="part_title">Ci4400试验参数</div>
+                <div class="backgroud height_24">
+                    <div style="display: flex;justify-content: space-around;">纯水温度
+                        <span>
+                            设定值：<span class="span_css">{{line_chart_1.tempset}}</span>
+                        </span>
+                        <span>
+                            导电率：<span class="span_css">{{line_chart_1.conductivity}}</span>
+                        </span>
+                    </div>
+                    <div id="line_chart_1"></div>
+                </div>
+                <div class="backgroud height_35">
+                    <div class="part_title">照度曲线</div>
+                    <div class="height_50" style="display: flex;">
+                        <div id="pie_chart_1"></div>
+                        <div id="pie_chart_2"></div>
+                        <div id="pie_chart_3"></div>
+                    </div>
+                    <div id="line_chart_2"></div>
+                </div>
+                <div class="backgroud height_35">
+                    <div class="part_title">温湿度</div>
+                    <div class="cabin">
+                        <div class="cabin_layout height_40">
+                            <div id="cabin_pie_1"></div>
+                            <div id="cabin_pie_2"></div>
+                            <div class="cabin_1_set height_100">
+                                <div class="set_1">温度设定值：<span class="span_css">{{ tempHumid.tempSet}}℃</span></div>
+                                <div class="set_1">湿度设定值：<span class="span_css">{{ tempHumid.rhSet }}%RH</span></div>
+                            </div>
+                        </div>
+                        <div id="cabin_line_3" class="height_54 w_100"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4 height_98" style="padding: 0px 20px 0px  20px;">
+            <div class="backgroud height_100" style="padding: 30px 10px 0 0px;margin: 0;">
+                <div class="part_title">Ci4000实验参数</div>
+                <div class="backgroud height_33">
+                    <ngx-equipment-status [device]='deviceid_4000' TempNum="2" style="display: flex;width: 100%;height: 100%;"></ngx-equipment-status>
+                </div>
+                <div class="backgroud height_30">
+                    <div class="part_title">照度曲线</div>
+                    <div class="height_50" style="display: flex;">
+                        <div id="pie_chart_4"></div>
+                        <div id="pie_chart_5"></div>
+                        <div id="pie_chart_6"></div>
+                    </div>
+                    <div id="line_chart_3"></div>
+                </div>
+                <div class="backgroud height_31">
+                    <div class="part_title">温湿度</div>
+                    <div class="cabin">
+                        <div class="cabin_layout height_40">
+                            <div id="cabin_pie_4"></div>
+                            <div id="cabin_pie_5"></div>
+                            <div class="cabin_1_set height_100">
+                                <div class="set_1">温度设定值：<span class="span_css">{{ tempHumid_4000.tempSet}}℃</span></div>
+                                <div class="set_1">湿度设定值：<span class="span_css">{{ tempHumid_4000.rhSet }}%RH</span></div>
+                            </div>
+                        </div>
+                        <div id="cabin_line_4" class="height_54 w_100"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

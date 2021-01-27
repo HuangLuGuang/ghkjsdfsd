@@ -4,7 +4,7 @@
             <div class="first_first" style="height: 33%;">
                 <ngx-equipment-status [device]='deviceid_avl_speed' style="display: flex;width: 100%;"></ngx-equipment-status>
             </div>
-            <div class="first_second lattice_layout" style="height: 26%;">
+            <div class="first_second lattice_layout" style="height: 28%;">
                 <div class="part_title">{{'equipment.expInfor'|translate}}</div>
                 <ngx-test-information [device]='deviceid_avl_speed' style="width: 100%;"></ngx-test-information>
 
@@ -28,7 +28,7 @@
                     <img id="img" [src]="img.url" [alt]="img.name">
                 </div>
             </div>
-            <div class="sceond_third height_33" style="position: relative;flex-wrap: wrap;padding-top: 0%; margin-top: 20px;">
+            <div class="sceond_third height_35" style="position: relative;flex-wrap: wrap;padding-top: 0%; margin-top: 20px;">
                 <div class="part_title">{{ 'equipment.EmissionAnalyzer'|translate }}</div>
                 <div class="display_wrap height_29" style="width: 100%;margin-top: 17px;">
                     <ng-container *ngFor="let item of discharge">
@@ -85,7 +85,7 @@
                     </div>
                 </div>
             </div>
-            <div class="height_33 bo" style="margin-top: 20px;position: relative;padding-top: 20px;padding-bottom: 5px;">
+            <div class="height_35 bo" style="margin-top: 20px;position: relative;padding-top: 20px;padding-bottom: 5px;">
                 <div class="part_title">{{'equipment.AVLSpeed'|translate}}</div>
                 <div class="height_50" style="display: flex;">
                     <div *ngFor="let item of avl_speed" id="{{ item.id}}" class="height_100 width_25"></div>

@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { HttpserviceService } from '../../../services/http/httpservice.service';
-import { colors,  create_img_16_9, rTime } from '../equipment-board';
+import { colors,  create_img_16_9, library, rTime } from '../equipment-board';
 import { EquipmentBoardService } from '../serivice/equipment-board.service';
 
 let equipment_four_road = require('../../../../assets/eimdoard/equipment/js/equipment-four-road');
@@ -205,7 +205,7 @@ export class EquipmentAvlAtecComponent implements OnInit {
   //排放分析仪
   get_avl_igem(){
     let res,data:any = {};
-    this.subscribeList.igem = this.http.callRPC('get_device_mts_realtimedata','device_monitor.get_device_mts_realtimedata',
+    this.subscribeList.igem = this.http.callRPC('get_device_mts_realtimedata',library+'get_device_mts_realtimedata',
     {"device":this.light_deviceid,
     arr:avl_igem_param.join(',')}).subscribe((g:any)=>{
       if(g.result.error || g.result.message[0].code == 0)return;
@@ -231,7 +231,7 @@ export class EquipmentAvlAtecComponent implements OnInit {
   //环境仓参数
   get_light(){
     let res,data:any = {};
-    this.subscribeList.light = this.http.callRPC('get_device_mts_realtimedata','device_monitor.get_device_mts_realtimedata',
+    this.subscribeList.light = this.http.callRPC('get_device_mts_realtimedata',library+'get_device_mts_realtimedata',
     {"device":this.aetc_deviceid,
     arr:light_param.join(',')}).subscribe((g:any)=>{
       if(g.result.error || g.result.message[0].code == 0)return;
@@ -280,7 +280,7 @@ export class EquipmentAvlAtecComponent implements OnInit {
   //avl转速
   get_avl_d(){
     let res,data:any = {};
-    this.subscribeList.avl_d = this.http.callRPC('get_device_mts_realtimedata','device_monitor.get_device_mts_realtimedata',
+    this.subscribeList.avl_d = this.http.callRPC('get_device_mts_realtimedata',library+'get_device_mts_realtimedata',
     {"device":this.avl_deviceid,
     arr:avl_param.join(',')}).subscribe((g:any)=>{
       if(g.result.error || g.result.message[0].code == 0)return;

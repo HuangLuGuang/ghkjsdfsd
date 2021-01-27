@@ -2,6 +2,10 @@
 declare var $:any;
 
 
+//库
+export let library = 'eim_plv8.';
+
+
 //生成rgb 减少红色
 export const rgb_del_red = ()=> {//rgb颜色随机
     var r = Math.floor(Math.random()*255);

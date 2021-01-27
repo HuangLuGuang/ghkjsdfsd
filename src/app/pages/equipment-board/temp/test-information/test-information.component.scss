@@ -43,7 +43,8 @@
             }
             .progres_2 {
                 position: absolute;
-                top: 25%;
+                display: flex;
+                justify-content: center;
             }
         }
     }

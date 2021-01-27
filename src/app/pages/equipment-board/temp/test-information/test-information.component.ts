@@ -73,7 +73,7 @@ export class TestInformationComponent implements OnInit {
       //   ([m.taskchildnum,dateformat(new Date(m.taskstart),'yy/MM/dd'),dateformat(new Date(m.taskend),'yy/MM/dd'),m.numberstime+'h',parseInt((m.rate).toString())])
       // );
     })
-    // this.http.callRPC('get_device_mts_progress','device_monitor.get_device_mts_progress',{
+    // this.http.callRPC('get_device_mts_progress',library+'get_device_mts_progress',{
     //   "device":this.device,"arr":"status"
     // }).subscribe((f:any) =>{
     // console.log(f);

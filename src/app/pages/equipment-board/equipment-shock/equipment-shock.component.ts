@@ -1,7 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { HttpserviceService } from '../../../services/http/httpservice.service';
-import { colors, rgb_del_red, create_img_16_9, dateformat, painting_time } from '../equipment-board';
+import { colors, rgb_del_red, create_img_16_9, dateformat, painting_time, library } from '../equipment-board';
 import { EquipmentBoardService } from '../serivice/equipment-board.service';
 
 
@@ -253,11 +253,11 @@ export class EquipmentShockComponent implements OnInit {
 
       let param = this.create_param();
       if(param[0].length > 0){
-        table = 'get_device_mts_time',method = 'device_monitor.get_device_mts_timerangedata';
+        table = 'get_device_mts_time',method = library+'get_device_mts_timerangedata';
         this.get_device_mts_time(table,method,param);
       }
       if(param[1].length > 0){
-        table = 'get_device_mts_realtimedata',method = 'device_monitor.get_device_mts_realtimedata';
+        table = 'get_device_mts_realtimedata',method = library+'get_device_mts_realtimedata';
         this.get_device_mts_realtimedata(table,method,param);
       }
       // this.xData.push(g);
@@ -300,7 +300,7 @@ export class EquipmentShockComponent implements OnInit {
   get_equip_real(){
     // SELECT get_mts_lock('{"deviceid":"device_mts_03"}')
     let res;
-    this.subscribeList.equip = this.http.callRPC('get_mts_lock','device_monitor.get_mts_lock',{"deviceid":this.deviceid}).subscribe((f:any)=>{
+    this.subscribeList.equip = this.http.callRPC('get_mts_lock',library+'get_mts_lock',{"deviceid":this.deviceid}).subscribe((f:any)=>{
       if(f.result.error || f.result.message[0].code == 0)return;
       res = f.result.message[0].message[0] || {};
       // //实验名
@@ -318,7 +318,7 @@ export class EquipmentShockComponent implements OnInit {
       this.switchStatus.data = f.result.message[0].message.map(m => (
         
           [m.stationname,
-          {value:m.stationstatus,id:'circle',color:m.stationstatus ==1?'green':'#C0C0C0'},
+          {value:m.stationstatus,id:'circle',color:m.stationstatus ==1?'green':'#3b3838'},
           {value:m.interlock,id:'strip',color:m.interlock == 1?'#7fee1d':'white'},
           {value:m.programinterlock,id:'strip',color:m.programinterlock== 1?'#7fee1d':'white'},]
         

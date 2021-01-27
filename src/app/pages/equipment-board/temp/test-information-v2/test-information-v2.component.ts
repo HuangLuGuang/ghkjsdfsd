@@ -1,6 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { HttpserviceService } from '../../../../services/http/httpservice.service';
-import {dateformat} from '../../equipment-board';
+import {dateformat, library} from '../../equipment-board';
 
 @Component({
   selector: 'ngx-test-information-v2',
@@ -44,7 +44,7 @@ export class TestInformationV2Component implements OnInit {
    * 获取进度
    */
   get_device_mst_progress(){
-    this.http.callRPC('get_device_mts_progress','device_monitor.get_device_mts_progress',{
+    this.http.callRPC('get_device_mts_progress',library+'get_device_mts_progress',{
       "device":this.device,"arr":"status"
     }).subscribe((f:any) =>{
     // console.log(f);

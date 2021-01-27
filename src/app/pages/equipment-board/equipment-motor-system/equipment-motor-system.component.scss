@@ -2,7 +2,7 @@
     width: 100%;
     height: 100%;
     // height: 900px;
-    min-height: 900px;
+    // min-height: 900px;
     padding-bottom: 20px;
     .first_first,
     .first_second,
@@ -48,7 +48,7 @@
         }
     }
     .thrid {
-        height: 19%;
+        height: 31%;
         width: 100%;
         // box-shadow: 0 0px 1px 3px rgba(50, 84, 129, 1) inset;
         padding: 2%;
@@ -63,7 +63,7 @@
         #temperature,
         #humidity {
             width: 30%;
-            height: 100%;
+            height: 50%;
         }
     }
     .part_title {
@@ -121,6 +121,30 @@
     .table_bo {
         border: 1px solid #4472c4;
     }
+    .blue_b {
+        background: #4472c4;
+        padding: 2px 11px;
+    }
+    .temphum {
+        width: 40%;
+        height: 50%;
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        align-items: center;
+    }
+    #motor_chart {
+        width: 100%;
+        height: 50%;
+    }
+    #line_chart_12 {
+        width: 100%;
+    }
+    .font_big {
+        font-size: 18px;
+        font-weight: bolder;
+        color: white;
+    }
     .center_img {
         // height: 100;
         background: url('/assets/eimdoard/equipment/images/blue_beijing.png') center center;
@@ -151,6 +175,9 @@
     .bord {
         border: 2px solid rgb(68, 114, 196);
         border-radius: 4px;
+        font-size: 18px;
+        font-weight: bolder;
+        color: white;
     }
     .display_f {
         display: flex;
@@ -221,6 +248,12 @@
     .dis_f_w {
         display: flex;
         flex-wrap: wrap;
+    }
+    .c_c {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        align-items: center;
     }
     .h_46_w_70 {
         height: 46%;

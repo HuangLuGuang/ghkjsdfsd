@@ -112,7 +112,6 @@ export class EquipmentStatusComponent implements OnInit {
         equipment_four_road.create_device_status(undefined,echarts.init(dom),undefined,'安灯年度表');
       }
     })
-    // equipment_four_road.create_device_status(undefined,myChart,undefined,this.language?"AnnualReportOfSafetyLamp":'安灯年度表');
 
 
   }
@@ -149,7 +148,7 @@ export class EquipmentStatusComponent implements OnInit {
           //         seriesData:arr,
           // })
           f.result.message[0].message.forEach((el,i) => {
-            xAxisData.push(el.dates);
+            xAxisData.push(el.dates||0);
             arr.push(el.status);
           });
 
@@ -176,7 +175,8 @@ export class EquipmentStatusComponent implements OnInit {
     let month = ['1月','2月','3月','4月','5月','6月','7月','8月','9月','10月','11月','12月'];
     let recordtime;
     //  running运行 placeon占位 stop等待 warning维护
-    this.subscribeList.andon_data_year = this.http.callRPC('device_andon_status_year','get_device_andon_status_year',{"deviceid":this.device,"newyearsday":new Date().getFullYear()+"-01-01"}).subscribe((f:any)=>{
+    this.subscribeList.andon_data_year = this.http.callRPC('device_andon_status_year','get_device_andon_status_year',
+    {"deviceid":this.device,"start":new Date().getFullYear()+"-01-01",end:new Date().getFullYear()+"-12-31"}).subscribe((f:any)=>{
       if(f.result.error || f.result.message[0].code == 0)return;
       f.result.message[0].message.forEach((el,i) => {
         recordtime = el.recordtime.split('-');
@@ -227,7 +227,7 @@ export class EquipmentStatusComponent implements OnInit {
 
 
 
-    // this.subscribeList.andon_data_year = this.http.callRPC('get_device_andon_anual_status','device_monitor.get_device_andon_anual_status',{"device":this.device,"newyearsday":new Date().getFullYear()+"-01-01"}).subscribe((f:any)=>{
+    // this.subscribeList.andon_data_year = this.http.callRPC('get_device_andon_anual_status',library+'get_device_andon_anual_status',{"device":this.device,"newyearsday":new Date().getFullYear()+"-01-01"}).subscribe((f:any)=>{
     //   console.log(f)
     //   if(f.result.error || f.result.message[0].code == 0)return;
     //   f.result.message[0].message.forEach(ele => {
@@ -270,7 +270,8 @@ export class EquipmentStatusComponent implements OnInit {
         value: 0
     }];
     let ret;
-    this.subscribeList.andon_data_last_year = this.http.callRPC('device_andon_status_year','get_device_andon_status_year',{"deviceid":this.device,"newyearsday":new Date().getFullYear()-1+"-01-01"}).subscribe((f:any)=>{
+    this.subscribeList.andon_data_last_year = this.http.callRPC('device_andon_status_year','get_device_andon_status_year',{
+      "deviceid":this.device,"start":new Date().getFullYear()-1+"-01-01",end:new Date().getFullYear()-1+"-12-31"}).subscribe((f:any)=>{
       if(f.result.error || f.result.message[0].code == 0)return;
       // console.log(f.result.message[0].message)
       f.result.message[0].message.forEach(el => {

@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { HttpserviceService } from '../../../services/http/httpservice.service';
-import { colors, create_img_16_9,rTime } from '../equipment-board';
+import { colors, create_img_16_9,library,rTime } from '../equipment-board';
 import { EquipmentBoardService } from '../serivice/equipment-board.service';
 
 let equipment_four_road = require('../../../../assets/eimdoard/equipment/js/equipment-four-road');
@@ -175,7 +175,7 @@ export class TwoDriveChassisComponent implements OnInit {
 
   get_real_time(){
     let res,data:any = {};
-    this.subscribeList.real = this.http.callRPC('get_device_mts_realtimedata','device_monitor.get_device_mts_realtimedata',{"device":this.deviceid,
+    this.subscribeList.real = this.http.callRPC('get_device_mts_realtimedata',library+'get_device_mts_realtimedata',{"device":this.deviceid,
     arr:param.join(',')}).subscribe((f:any)=>{
       if(f.result.error || f.result.message[0].code == 0)return;
       res = f.result.message[0].message
@@ -195,7 +195,7 @@ export class TwoDriveChassisComponent implements OnInit {
       this.discharge[4].value = data.n0;
       this.discharge[5].value = data.n1;
       this.discharge[6].value = data.n2;
-      this.discharge_chart[0].value.push(data.p);
+      this.discharge_chart[0].value.push(data.p||0);
 
       // this.discharge_chart[0].value.push(data.distance1);
       // this.discharge_chart[1].value.push(data.distance2);
@@ -204,7 +204,7 @@ export class TwoDriveChassisComponent implements OnInit {
       // this.discharge_chart[4].value.push(data.n0);
       // this.discharge_chart[5].value.push(data.n1);
       // this.discharge_chart[6].value.push(data.n2);
-      this.discharge_xdata.push(rTime(res?res[0].v[0][1]:''));//x轴时间
+      this.discharge_xdata.push(rTime(res?res[0].v[0][1]:'0'));//x轴时间
       if(this.discharge_xdata.length>10){
         this.discharge_xdata.splice(0,1);
         this.discharge_chart.forEach(g=>{
@@ -251,10 +251,10 @@ export class TwoDriveChassisComponent implements OnInit {
       });
 
       // this.gauge_chart[0].value.push(data.f);
-      this.gauge_chart[0].value.push(data.v);
-      this.gauge_chart[1].value.push(data.a);
+      this.gauge_chart[0].value.push(data.v||0);
+      this.gauge_chart[1].value.push(data.a||0);
       // this.gauge_chart[0].value.push(data.p);
-      this.gauge_xData.push(rTime(res?res[0].v[0][1]:''));
+      this.gauge_xData.push(rTime(res?res[0].v[0][1]:'0'));
       if(this.gauge_xData.length>10){
         this.gauge_xData.splice(0,1);
         this.gauge_chart.forEach(g=>{
@@ -268,7 +268,7 @@ export class TwoDriveChassisComponent implements OnInit {
         title:'速度/加速度曲线'
         },echarts.init(document.getElementById('avl_param_chart_1')));
 
-      this.gauge_chart_1[0].value.push(data.f);
+      this.gauge_chart_1[0].value.push(data.f||0);
       if(document.getElementById('avl_param_chart_2'))equipment_four_road.create_broken_line({
         series:this.gauge_chart_1,
         xData:this.gauge_xData,
@@ -284,7 +284,7 @@ export class TwoDriveChassisComponent implements OnInit {
   //获取实时温湿度
   get_device_Temp_hum(){
     let res;
-    this.subscribeList.temp_hum = this.http.callRPC('get_temperature','device_monitor.get_temperature'
+    this.subscribeList.temp_hum = this.http.callRPC('get_temperature',library+'get_temperature'
     ,{deviceid:this.deviceid}).subscribe((g:any) =>{
       if(g.result.error || g.result.message[0].code == 0)return;
       res = g.result.message[0].message[0]?g.result.message[0].message[0]:{
@@ -318,7 +318,7 @@ export class TwoDriveChassisComponent implements OnInit {
 
   get_his_temp_hum(){
     let res;
-    this.subscribeList.his_temp_hum = this.http.callRPC('get_temperature','device_monitor.get_temperature_numbers'
+    this.subscribeList.his_temp_hum = this.http.callRPC('get_temperature',library+'get_temperature_numbers'
     ,{deviceid:this.deviceid}).subscribe((g:any) =>{
       if(g.result.error || g.result.message[0].code == 0)return;
       res = g.result.message[0].message;
