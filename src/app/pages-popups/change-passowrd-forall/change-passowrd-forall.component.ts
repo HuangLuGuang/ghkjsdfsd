@@ -116,6 +116,7 @@ export class ChangePassowrdForallComponent implements OnInit {
       // })
 
       // 提交表单
+      
       form.on("submit(password)", function (data) {
         var formdata = Object.assign({}, data.field);
         // layer.alert(JSON.stringify(data.field), {
@@ -139,6 +140,7 @@ export class ChangePassowrdForallComponent implements OnInit {
     var table = this.TABLE;
     var method = this.METHOD;
     var columns = formdata;
+    $(".submit_password").attr('disabled','disabled');
     this.http.callRPC(table, method,columns).subscribe(result=>{
       // console.log("调用plv8 修改密码  :",result);
       var code = result["result"]["message"][0]["code"];
@@ -152,6 +154,7 @@ export class ChangePassowrdForallComponent implements OnInit {
         this.danger(data);
         this.RecordOperation(0,"修改密码",data);
       }
+      $(".submit_password").removeAttr('disabled');
     })
   }
 

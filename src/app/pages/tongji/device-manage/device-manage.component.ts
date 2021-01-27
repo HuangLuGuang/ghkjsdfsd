@@ -984,7 +984,7 @@ export class DeviceManageComponent implements OnInit {
     columnDefs:[ // 列字段 多选：headerCheckboxSelection checkboxSelection , flex: 1 自动填充宽度  pinned: 'left' 固定在左侧！
       { field: 'deviceno', headerName: '设备编号', headerCheckboxSelection: true, checkboxSelection: true, autoHeight: true, fullWidth: true, minWidth: 50,resizable: true, sortable: true},
       // { field: 'devicename', headerName: '设备名称', fullWidth: true, minWidth: 50,resizable: true,},
-      { field: 'devicename', headerName: '设备名称', fullWidth: true, minWidth: 50,resizable: true,cellRendererFramework: TableDevicenameComponent, sortable: true},
+      { field: 'devicename', headerName: '设备名称', fullWidth: true, width: 130,resizable: true,cellRendererFramework: TableDevicenameComponent, sortable: true},
       { field: 'type', headerName: '设备类型', fullWidth: true, width: 130,resizable: true, sortable: true},
       { field: 'deviceid', headerName: '设备ID', resizable: true, width: 200, sortable: true}, // 自定义设备编号！
       { field: 'active', headerName: '是否启用', resizable: true, cellRendererFramework: TranActiveComponent,width: 150, sortable: true},

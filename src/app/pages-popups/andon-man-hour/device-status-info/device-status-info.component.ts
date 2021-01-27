@@ -54,6 +54,9 @@ export class DeviceStatusInfoComponent implements OnInit {
       form.on('submit(tooltip)', function(data){
         var save_data = that.save_data(rowData);
 
+        // 防止重复点击
+        $(".submit_tooltip").attr('disabled','disabled');
+        
         if (save_data){
           if (save_data["status"]===rowData["status"]){
             that.alert_status();
@@ -72,6 +75,7 @@ export class DeviceStatusInfoComponent implements OnInit {
                 dialogRef.close(false);
                 that.RecordOperation('修改', 0,  "安灯状态:"+ JSON.stringify(data));
               }
+              $(".submit_tooltip").removeAttr('disabled');
             })
           }
         }

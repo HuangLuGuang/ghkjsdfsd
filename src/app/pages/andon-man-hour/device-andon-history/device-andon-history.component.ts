@@ -35,12 +35,12 @@ export class DeviceAndonHistoryComponent implements OnInit {
     isno_refresh_page_size: false, // 是否重新将 每页多少条数据，赋值为默认值
     columnDefs:[ // 列字段 多选：headerCheckboxSelection checkboxSelection , flex: 1 自动填充宽度 pinned: 'left' 固定左侧
       // { field: 'devicename', headerName: '设备名称', width: 160,resizable: true, cellRendererFramework:TableDevicenameComponent, sortable: true},
-      { field: 'group', headerName: '科室功能组', cellRendererFramework:TableGroupComponent,fullWidth: true,headerCheckboxSelection: true,checkboxSelection: true,width: 400, resizable: true, sortable: true},
+      { field: 'group', headerName: '科室功能组', cellRendererFramework:TableGroupComponent,fullWidth: true,headerCheckboxSelection: true,checkboxSelection: true,width: 350, resizable: true, sortable: true},
       { field: 'devicename', headerName: '设备名称',cellRendererFramework: TableDevicenameComponent, width: 200, resizable: true, sortable: true},
       { field: 'deviceno', headerName: '设备编号', width: 130, resizable: true, sortable: true},
       { field: 'deviceid', headerName: '设备ID', width: 150, resizable: true, sortable: true},
       { field: 'recordtime', headerName: '状态变更时间', width: 200, resizable: true, sortable: true},
-      { field: 'status', headerName: '设备状态', cellRendererFramework: StatusComponent, width: 150, resizable: true, sortable: true, 
+      { field: 'status', headerName: '设备状态', cellRendererFramework: StatusComponent, width: 130, resizable: true, sortable: true, 
         cellStyle: function(params){
           var value = params.value;
           switch (value) {
@@ -65,8 +65,8 @@ export class DeviceAndonHistoryComponent implements OnInit {
           }
         }
       },
-      { field: 'createdby', headerName: '执行人', width: 150, resizable: true, sortable: true},
-      { field: 'errmsg', headerName: '故障描述', cellRendererFramework: ErrmsgComponent, width: 170, resizable: true, sortable: true, flex:1},
+      { field: 'createdby', headerName: '执行人', windth: 100, resizable: true, sortable: true},
+      { field: 'errmsg', headerName: '故障描述', cellRendererFramework: ErrmsgComponent, minWidth: 10, resizable: true, sortable: true,flex: 1},
       // { field: 'group', headerName: '科室/功能组',  resizable: true, width: 330,cellRendererFramework: TableGroupComponent, sortable: true},
       
       

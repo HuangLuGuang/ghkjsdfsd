@@ -132,6 +132,7 @@ export class UserEmployeeGroupComponent implements OnInit {
         // console.log("v======获取表单区域所有值",data.field) //当前容器的全部表单字段，名值对形式：{name: value}
         var send_data = data.field;
         send_data["active"] = send_data["active"] === "on"? 1: 0;
+        $(".submit_submit").attr('disabled','disabled');
         // 是否编辑
         if (isnot_edit != 'add'){
           send_data["groupid"] = rowdata["groupid"];
@@ -152,6 +153,7 @@ export class UserEmployeeGroupComponent implements OnInit {
               var infodata = "科室/功能组:" + send_data["group"] + "," + "科室/功能组(en):" + send_data["group_name"];
               that.RecordOperation( 0, option, infodata);
             }
+            $(".submit_submit").removeAttr('disabled');
           })
         }else{
           // 新增
@@ -172,7 +174,8 @@ export class UserEmployeeGroupComponent implements OnInit {
               that.RecordOperation(0, option, infodata);
               var data = res
               that.danger(data)
-            }
+            };
+            $(".submit_submit").removeAttr('disabled');
           })
         }
 

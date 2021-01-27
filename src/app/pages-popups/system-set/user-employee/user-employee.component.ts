@@ -255,6 +255,7 @@ export class UserEmployeeComponent implements OnInit {
 
       form.on("submit(employee)", function(data){
         // 编辑用户！
+        $(".submit_employee").attr('disabled','disabled');
         if (isnot_edit != 'add'){
           var send_data = {};
           var send_data_list = [];
@@ -318,23 +319,27 @@ export class UserEmployeeComponent implements OnInit {
                   case 401:
                     that.editdanger("会话结束")
                     that.RecordOperation( 0, "编辑用户",'会话结束')
-                    that.dialogRef.close(false)
+                    that.dialogRef.close(false);
+                    
                     break;
                   case 1:
                     that.editsuccess();
                     var operationdata = "姓名:" + send_data_list[0]["name"] + "," + "域账号:" + send_data_list[0]["loginname"];
                     that.RecordOperation( 1, "编辑用户",operationdata)
-                    that.dialogRef.close(true)
+                    that.dialogRef.close(true);
+                    $(".submit_employee").removeAttr('disabled');
                     break;
                   case 0:
                     that.editdanger(res_["message"])
                     that.dialogRef.close(false)
-                    that.RecordOperation( 0, "编辑用户",String(res_["message"]))
+                    that.RecordOperation( 0, "编辑用户",String(res_["message"]));
+                    $(".submit_employee").removeAttr('disabled');
                     break;
       
                 }
-
+                
               }
+              $(".submit_employee").removeAttr('disabled');
             })
           })
           return false;
@@ -394,7 +399,8 @@ export class UserEmployeeComponent implements OnInit {
           if (send_data_list.length <= 1){
             // publicservice.toastr(SavWarning);
             that.warning();
-            that.RecordOperation(0, '新增用户', '警告:没有选择角色')
+            that.RecordOperation(0, '新增用户', '警告:没有选择角色');
+            $(".submit_employee").removeAttr('disabled');
           }
           else{
             that.http.callRPC("employee", "insert_employee",send_data_list).subscribe(result=>{
@@ -407,6 +413,7 @@ export class UserEmployeeComponent implements OnInit {
                       var option = '新增用户'; 
                       that.RecordOperation(0, option, operationdata)
                       dialogRef.close(false);
+                      $(".submit_employee").removeAttr('disabled');
                       break;
                     case 1:
                       // 成功
@@ -414,17 +421,20 @@ export class UserEmployeeComponent implements OnInit {
                       that.success();
                       var operationdata = "姓名:" + send_data_list[0]["name"] + "," + "域账号:" + send_data_list[0]["loginname"];
                       var option = '新增用户'; 
-                      that.RecordOperation(1, option, operationdata)
+                      that.RecordOperation(1, option, operationdata);
+                      $(".submit_employee").removeAttr('disabled');
                       break;
                     case 0:
                       that.danger(result['result']["message"][0]["message"]);
                       var option = '新增用户';
                       var operationdata = String(result['result']["message"][0]["message"])
-                      that.RecordOperation(0, option, operationdata)
+                      that.RecordOperation(0, option, operationdata);
+                      $(".submit_employee").removeAttr('disabled');
                       break;
                   }
                   
                 }
+                $(".submit_employee").removeAttr('disabled');
               })
             })
             // that.getsecurity("employee", "insert_employee", send_data_list).subscribe((result)=>{

@@ -245,6 +245,7 @@ export class AddComponent implements OnInit {
             var table = "device";
             var monthed = 'dev_insert_task';
             var conlumns = save_data;
+            $(".submit_confirm").attr('disabled','disabled');
             that.http.callRPC(table, monthed, conlumns).subscribe(result=>{
               var res = result['result']['message'][0];
               if (res["code"] === 1){
@@ -257,7 +258,8 @@ export class AddComponent implements OnInit {
                 that.dialogRef.close(false);
                 that.RecordOperation("新增", 0, '试验任务配置:' + JSON.stringify(conlumns));
                 that.danger(JSON.stringify(res["message"]))
-              }
+              };
+              $(".submit_confirm").removeAttr('disabled');
             })
           }else{
             that.not_null("试验信息必填!");

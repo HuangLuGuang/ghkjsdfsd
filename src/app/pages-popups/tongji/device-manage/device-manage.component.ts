@@ -426,6 +426,7 @@ export class DeviceManageComponent implements OnInit {
         colums['year'] = that.get_year();
 
         const table = "device";
+        $(".submit_device").attr('disabled','disabled');
         http.callRPC(table, method, colums).subscribe((result)=>{
           // console.log("更新设备数据：", result)
           const status = result['result']['message'][0]["code"];
@@ -445,7 +446,8 @@ export class DeviceManageComponent implements OnInit {
             }
             dialogRef.close(false);
             danger(publicservice);
-          }
+          };
+          $(".submit_device").removeAttr('disabled');
         })
         return false;
       });

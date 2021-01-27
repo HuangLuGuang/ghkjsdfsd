@@ -243,6 +243,7 @@ export class EditComponent implements OnInit {
   // 更新编辑的试验任务信息
   updatetaskinfo(data){
     // console.log("***************更新编辑的试验任务信息 data************",data);
+    $(".submit_confirm").attr('disabled','disabled');
     if (data["statuscause"] !== ""){
       var monthed = "dev_update_task";
       var columns = data;
@@ -259,6 +260,7 @@ export class EditComponent implements OnInit {
           this.RecordOperation('编辑', 0, '试验任务配置：' + JSON.stringify(columns))
         }
       })
+      $(".submit_confirm").removeAttr('disabled');
     }else{
       this.not_null()
     }

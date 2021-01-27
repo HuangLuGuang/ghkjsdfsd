@@ -430,7 +430,7 @@ export class TeskConfigComponent implements OnInit {
       task_progress: "TaskProgressForAggridComponent",
     }, // 这是单元格要渲染的 组件！
     columnDefs:[ // 列字段 多选：headerCheckboxSelection checkboxSelection , flex: 1 自动填充宽度, pinned: 'left'
-      { field: 'taskchildnum', headerName: '试验编号', resizable: true, minWidth: 10, sortable: true, headerCheckboxSelection: true, checkboxSelection: true, autoHeight: true,},
+      { field: 'taskchildnum', headerName: '试验编号', resizable: true, width: 210, sortable: true, headerCheckboxSelection: true, checkboxSelection: true, autoHeight: true,},
       { field: 'tasknum', headerName: '试验任务编号', width: 160,resizable: true, sortable: true},
       { field: 'devicetaskname', headerName: '试验名称', resizable: true, width: 170, sortable: true}, // 试验名称
       { field: 'exemplarname', headerName: '样件名称',  resizable: true, width: 100, sortable: true},

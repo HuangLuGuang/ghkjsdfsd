@@ -206,13 +206,14 @@ export class NewMenuComponent implements OnInit {
       $("[name='icon]").attr("lay-verify", "required");
       // =============================监听 输入button 确定
       
-      //监听提交 --- 目录
+      //监听提交 --- 目录 submit_mulu
       form.on('submit(mulu)', function(data){
         // layer.alert(JSON.stringify(data.field), {
         //   title: '目录'
         // });
         data.field["type"] = 0;
         data.field["visible"] = data.field["visible"]==="on"? 1:0;
+        $(".submit_mulu").attr('disabled','disabled');
         if (isnot_edit != 'add'){
           const colums: EditAddColums = {
             id:  isnot_edit["id"],  // 相对于add 多的
@@ -239,7 +240,8 @@ export class NewMenuComponent implements OnInit {
             }else{
               that.dialogRef.close(false);
               that.RecordOperation(0,'编辑菜单管理, 目录', JSON.stringify(colums));
-            }
+            };
+            $(".submit_mulu").removeAttr('disabled');
             return false;
           })
         }else{
@@ -269,7 +271,8 @@ export class NewMenuComponent implements OnInit {
             }else{
               that.dialogRef.close(false);
               that.RecordOperation(0,'新增菜单管理, 目录', JSON.stringify(colums));
-            }
+            };
+            $(".submit_mulu").removeAttr('disabled');
             return false;
           })
         }
@@ -277,7 +280,7 @@ export class NewMenuComponent implements OnInit {
         
         return false;
       });
-      //监听提交--菜单
+      //监听提交--菜单 submit_caidan
       form.on('submit(caidan)', function(data){
         // layer.alert(JSON.stringify(data.field), {
         //   title: '菜单'
@@ -286,6 +289,7 @@ export class NewMenuComponent implements OnInit {
         // data.field["textid"] = textid;
         data.field["username"] = username;
         data.field["visible"] = data.field["visible"]==="on"? 1:0;
+        $(".submit_caidan").attr('disabled','disabled');
         if (isnot_edit != 'add'){
           const colums: EditAddColums = {
             id:  isnot_edit["id"],  // 相对于add 多的
@@ -312,7 +316,8 @@ export class NewMenuComponent implements OnInit {
             }else{
               that.dialogRef.close(false);
               that.RecordOperation(0,'编辑菜单管理, 菜单', JSON.stringify(colums));
-            }
+            };
+            $(".submit_caidan").removeAttr('disabled');
             return false;
           })
         }else{
@@ -339,7 +344,8 @@ export class NewMenuComponent implements OnInit {
             }else{
               that.dialogRef.close(false);
               that.RecordOperation(0,'新增菜单管理, 菜单', JSON.stringify(colums));
-            }
+            };
+            $(".submit_caidan").removeAttr('disabled');
             return false;
           })
         }
@@ -347,8 +353,9 @@ export class NewMenuComponent implements OnInit {
         
         return false;
       });
-      //监听提交---按钮
+      //监听提交---按钮 submit_anniu
       form.on('submit(anniu)', function(data){
+        
         var edit_parentid;
         if (data.field["parenttitle"]){
           edit_parentid = data.field["parenttitle"];
@@ -367,6 +374,7 @@ export class NewMenuComponent implements OnInit {
         data.field["permission"] = "menu:" + data.field["permission"]
         // data.field["visible"] = data.field["visible"] == 1? 'on': 'off';
         data.field["visible"] = data.field["visible"]==="on"? 1:0;
+        $(".submit_anniu").attr('disabled','disabled');
         if (isnot_edit != 'add'){
           const colums: EditAddColums = {
             id:  isnot_edit["id"],  // 相对于add 多的
@@ -396,6 +404,7 @@ export class NewMenuComponent implements OnInit {
               that.dialogRef.close(false);
               that.RecordOperation(0,'编辑菜单管理, 按钮', JSON.stringify(colums));
             }
+            $(".submit_anniu").removeAttr('disabled');
             return false;
           })
         }else{
@@ -447,6 +456,7 @@ export class NewMenuComponent implements OnInit {
               that.dialogRef.close(false);
               that.RecordOperation(0,'新增菜单管理, 按钮', JSON.stringify(colums));
             }
+            $(".submit_anniu").removeAttr('disabled');
             return false;
           })
         }

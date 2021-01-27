@@ -140,7 +140,6 @@ export class TargetHourConfigComponent implements OnInit {
     // 隐藏input--日期
     $("#target_startdate").hide();
     $("#target_startdate_before").hide();
-    this.init_form();
   }
 
   ngOnDestroy(){
@@ -196,10 +195,11 @@ export class TargetHourConfigComponent implements OnInit {
         item["year"] = this.data["year"];
         item["selectedtime"] = this.selectedDates.join(',');
       })
-      console.log("---要修改的数据：", devicelist);
+      // console.log("---要修改的数据：", devicelist);
       // 修改数据！
       var table = this.TABLE;
       var method = this.METHOD;
+      $(".submit_tooltip").attr('disabled','disabled');
       this.http.callRPC(table, method, devicelist).subscribe(result=>{
         var tabledata = result["result"]["message"][0];
         if (tabledata["code"] === 1){
@@ -210,7 +210,8 @@ export class TargetHourConfigComponent implements OnInit {
           this.RecordOperation('修改', 0,  "目标工时");
           var info = tabledata["message"];
           this.danger(info)
-        }
+        };
+        $(".submit_tooltip").removeAttr('disabled');
       })
     }else{// 必填
       console.log("null");
@@ -242,22 +243,6 @@ export class TargetHourConfigComponent implements OnInit {
   }
 
 
-  // 初始化表单
-  init_form(){
-    var that = this;
-    // this.get_stand_date();
-    // layui.use(['form', 'laydate'], function(){
-    //   var laydate = layui.laydate
-    //   ,form = layui.form
-    //   // 开始时间，得到时间为：that.data["year"] + that.data["month"] 是否范围是：
-    //   laydate.render({
-    //     elem:"#target_startdate"
-    //     ,trigger: 'click' //采用click弹出
-    //   })
-    // })
-
-    
-  }
 
   // 得到参考时间
   get_stand_date(){

@@ -51,7 +51,7 @@ export class HourConfigComponent implements OnInit {
     isno_refresh_page_size: false, // 是否重新将 每页多少条数据，赋值为默认值
     columnDefs:[ // 列字段 多选：headerCheckboxSelection checkboxSelection , flex: 1 自动填充宽度 pinned: 'left' 固定左侧
       { field: 'month', headerName: '月份',  fullWidth: true,resizable: true,width: 150,headerCheckboxSelection: true,checkboxSelection: true, sortable: true},
-      { field: 'devicename', headerName: '设备名称', width: 160,resizable: true, cellRendererFramework:TableDevicenameComponent, sortable: true},
+      { field: 'devicename', headerName: '设备名称', width: 200,resizable: true, cellRendererFramework:TableDevicenameComponent, sortable: true},
       { field: 'deviceno', headerName: '设备编号', width: 150, resizable: true, sortable: true},
       { field: 'group', headerName: '科室/功能组',  resizable: true, width: 330,cellRendererFramework: TableGroupComponent, sortable: true},
       { field: 'targettime', headerName: '每日目标时长(h)', resizable: true, width: 140, sortable: true},

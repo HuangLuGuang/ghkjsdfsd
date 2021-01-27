@@ -118,6 +118,7 @@ export class RoleComponent implements OnInit {
       form.on('submit(role)', function(data){
         
         // 编辑
+        $(".submit_role").attr('disabled','disabled');
         if (isnot_edit != 'add'){
           var colums = {
             role: data.field["role"],
@@ -151,7 +152,8 @@ export class RoleComponent implements OnInit {
               var option = '编辑角色';
               that.RecordOperation(option, 0,String(status["message"]));
               dialogRef.close(false)
-            }
+            };
+            $(".submit_role").removeAttr('disabled');
           })
           return false;
         }else{
@@ -193,7 +195,8 @@ export class RoleComponent implements OnInit {
               dialogRef.close(false);
               danger(publicservice);
 
-            }
+            };
+            $(".submit_role").removeAttr('disabled');
           })
           return false;
 
