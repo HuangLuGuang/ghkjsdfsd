@@ -57,8 +57,8 @@ export class FirstLevelComponent implements OnInit {
   createEchart() {
     this.ngZone.runOutsideAngular(() => {
       this.myChart = echarts.init(document.querySelector('.chian_map'))
-    first_level.chian_map(this.myChart,this.eclick);
-  });
+      first_level.chian_map(this.myChart,this.eclick);
+    });
   }
 
   resize=()=>{

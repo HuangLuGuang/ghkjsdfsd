@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit,NgZone } from '@angular/core';
 
 import { LocalStorageService } from '../../../../services/local-storage/local-storage.service';
 
@@ -62,13 +62,16 @@ export class SecondLevelComponent implements OnInit {
       ]
     },
     [1288,1200,93]
-  ]
+  ];
+
+  myChart;
 
   constructor(
     private localstorage:LocalStorageService,
     private layoutService: LayoutService,
     private router:Router,
-    private boardservice:EquipmentBoardService
+    private boardservice:EquipmentBoardService,private ngZone:NgZone,
+    private equipmentservice: EquipmentBoardService,
   ) {
     // 得到从first-leve级传递的数据
     this.first_level = this.localstorage.get("first_level");
@@ -87,18 +90,13 @@ export class SecondLevelComponent implements OnInit {
     $("#head_title").text(title)
 
     this.layoutService.onInitLayoutSize().subscribe(f=>{
-
-      this.key_index.reflow();
       this.device_active.reflow();
-      // let key_index = document.querySelector('.key-index');
-      // if(key_index) echarts.init(key_index).resize();
-      let device_rate = document.querySelector('.device-rate');
-      if(device_rate) echarts.init(device_rate).resize();
-      
-
-      let geely_info = document.querySelector('.geely-info');
-      if(geely_info) echarts.init(geely_info).resize();
+      // let device_rate = document.querySelector('.device-rate');
+      // if(device_rate) echarts.init(device_rate).resize();
+      this.myChart.resize();
     })
+
+    this.listen_windows_resize();
   }
 
   // 试验设备总数与分布
@@ -344,31 +342,32 @@ export class SecondLevelComponent implements OnInit {
  
 
   ngAfterViewInit(){
-    
-
-    
-    // second_level.key_index();
     // 设备开动率、完好lv
-    second_level.device_rate('.device-rate', this.teststatus);
+    // second_level.device_rate('.device-rate', this.teststatus);
     setTimeout(() => {
-      // let key_index = document.querySelector('.key-index');
-      // if(key_index) echarts.init(key_index).resize();
-      let device_rate = document.querySelector('.device-rate');
-      if(device_rate) echarts.init(device_rate).resize();
-      
+      this.boardservice.sendLoad({close:false})
+      this.createEchart();
+      this.myChart.resize();
     }, 100);
-    this.boardservice.sendLoad({close:false})
-  }
 
+    this.equipmentservice.chartResize().subscribe(result=>{
+      this.myChart.resize();
+    })
+  }
+  createEchart() {
+    this.ngZone.runOutsideAngular(() => {
+      this.myChart = echarts.init(document.querySelector('.device-rate'))
+      // second_level.device_rate('.device-rate', this.teststatus);
+      second_level.device_rate(this.myChart, this.teststatus);
+    });
+  }
   
 
   ngOnDestroy(){
-    this.key_index.destroy();
     this.device_active.destroy();
-    // let key_index = document.querySelector('.key-index');
-    // if(key_index) echarts.init(key_index).dispose();
-    let device_rate = document.querySelector('.device-rate');
-    if(device_rate) echarts.init(device_rate).dispose();
+    this.myChart.dispose();
+    // let device_rate = document.querySelector('.device-rate');
+    // if(device_rate) echarts.init(device_rate).dispose();
   }
 
   // 跳转到具体的结构，
@@ -401,24 +400,15 @@ export class SecondLevelComponent implements OnInit {
     const board = document.getElementById("rtmv2");
     const sf = <Screenfull>screenfull;
     if (sf.isEnabled){ // sf.isEnabled 布尔值，判断是否允许进入全屏！
+      
       this.is_not_fullscreen = sf.isFullscreen;
       sf.toggle(board);
-      
     }
-
     setTimeout(() => {
-      this.key_index.reflow();
       this.device_active.reflow();
-
-      // let key_index = document.querySelector('.key-index');
-      // if(key_index) echarts.init(key_index).resize();
-      let device_rate = document.querySelector('.device-rate');
-      if(device_rate) echarts.init(device_rate).resize();
-      
-  
-      let geely_info = document.querySelector('.geely-info');
-      if(geely_info) echarts.init(geely_info).resize();
-      
+      this.myChart.dispose();
+      // let device_rate = document.querySelector('.device-rate');
+      // if(device_rate) echarts.init(device_rate).resize();
     }, 500);
     
    
@@ -434,18 +424,10 @@ export class SecondLevelComponent implements OnInit {
   // 监听窗口变化来，重置echat的大小！
   listen_windows_resize(){
     window.onreset = function (){
-
-      this.key_index.reflow();
       this.device_active.reflow();
-
-      // let key_index = document.querySelector('.key-index');
-      // if(key_index) echarts.init(key_index).resize();
-      let device_rate = document.querySelector('.device-rate');
-      if(device_rate) echarts.init(device_rate).resize();
-
-
-      let geely_info = document.querySelector('.geely-info');
-      if(geely_info) echarts.init(geely_info).resize();
+      // let device_rate = document.querySelector('.device-rate');
+      // if(device_rate) echarts.init(device_rate).resize();
+      this.myChart.resize();
     }
   }
 
