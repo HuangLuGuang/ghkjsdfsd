@@ -46,7 +46,7 @@ export class MySelectTreeComponent implements OnInit {
   }
 
   // 初始化表单
-  layuiform(){
+  layuiform(isrender?){
     var that = this;
     layui.use('form',function(){
       var form = layui.form;
@@ -59,11 +59,18 @@ export class MySelectTreeComponent implements OnInit {
       form.on('select(test_task_conf_add_group)', function(data){
         if (data.value !== ""){
           that.groups_id = data.value;
-
           that.init_devicename_deviceno(data.value,form)
         }
       }); 
       
+      // 重置
+      if(isrender){
+        $("#test_task_conf_add_devicename").html("");
+        console.error("+++++++++++++++++++", $("#test_task_conf_add_devicename").html());
+        that.devicename = ""
+        form.render();
+      }else{}
+
       // 监听选择的设备名称
       form.on('select(test_task_conf_add_devicename)', function(data){
         // console.log("监听选择 设备名称：",data); //得到被选中的值,即为 group 的id
@@ -139,7 +146,6 @@ export class MySelectTreeComponent implements OnInit {
 
   // 得到 form值！
   get_form_val(){
-   
     return {
       groups_id: this.groups_id,
       deviceid: this.deviceid,
@@ -147,6 +153,12 @@ export class MySelectTreeComponent implements OnInit {
       devicename: this.devicename===""?$("#test_task_conf_add_devicename").find("option:selected").text():this.devicename,
     }
   }
+
+  // 删除选择的
+  delselect(){
+    this.layuiform(true);
+  }
+
 
   // 调用父组件---搜索
 

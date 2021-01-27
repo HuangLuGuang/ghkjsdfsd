@@ -203,6 +203,8 @@ export class DeviceAndonStatusInfoComponent implements OnInit {
     this.gridData = [];
     // 是否 每页多少也，设置为默认值
     this.tableDatas.isno_refresh_page_size = true;
+
+    this.groups_devieces.delselect()
     this.inttable();
     this.loading = false;
     this.refresh = false;
@@ -212,8 +214,6 @@ export class DeviceAndonStatusInfoComponent implements OnInit {
     // this.department.dropselect();
     // this.device_tpye.dropselect();
   }
-
-  // table
 
   // 初始化table
   inttable(event?){
