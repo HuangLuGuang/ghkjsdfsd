@@ -224,7 +224,7 @@ let second_level = {
                     top: "30%",
                     right: 10,
                     left: "3%",
-                    bottom: "10%",
+                    bottom: "5%",
                     containLabel: true
                 }, {
                     height: "20%",
@@ -327,7 +327,8 @@ let second_level = {
         
         
             ],
-            series: [{
+            series: [
+                {
                     type: "bar",
                     barWidth: "60%",
                     // data: [10, 52, 20, 34, 39, 33, 22]
@@ -343,7 +344,8 @@ let second_level = {
                         borderColor: '#9DC3F1',
                         borderWidth:4
                     },
-                    data: [{
+                    data: [
+                        {
                         // value: 132,
                         value: afterdata.Series.totaldata,
                         itemStyle: {
@@ -365,6 +367,7 @@ let second_level = {
             ],
             dataZoom:[
                 {
+                    show:false,
                     type: 'slider',
                     textStyle:{
                         color:'#fff',
@@ -374,9 +377,19 @@ let second_level = {
                 }
             ]
         }
-        console.error("option",JSON.stringify(option))
-        mychart.setOption(option);
-        mychart.resize()
+        console.error("++++++++++++++",JSON.stringify(option))
+        setInterval(function (){
+            option.dataZoom[0].start++;
+            option.dataZoom[0].end++;
+            if (option.dataZoom[0].end === 100){
+                option.dataZoom[0].start = 1
+                option.dataZoom[0].end = 35
+            }
+            mychart.setOption(option);
+        }, 100);
+
+        // mychart.setOption(option);
+        // mychart.resize()
     },
 };
 
