@@ -16,9 +16,15 @@ export class YearComponent implements OnInit {
   kpi_xialaicon = "arrow-ios-downward-outline"
   placeholder_title;
 
+  min_year;
+
   // el5
   kpi_single_el5s;
-  constructor() { }
+  constructor() {
+    var kpi_for_detail = JSON.parse(localStorage.getItem("device_hour_report_kpi_for_detail"));
+    this.min_year = kpi_for_detail["starttime"].split('-')[0];
+
+   }
 
   ngOnInit(): void {
   }
@@ -89,13 +95,31 @@ export class YearComponent implements OnInit {
   }
   // 得到本年、和本年的上一年
   get_curr_and_before_year(){
+    
+    var min_year = Number(this.min_year);
     var curr_year = new Date().getFullYear();
-    var before_year = curr_year - 1;
-    return [
-      {id: curr_year, label: curr_year + '年'},
-      {id: before_year, label: before_year + '年'},
-    ]
-  }
+    if (min_year >= curr_year){
+      var before_year = curr_year - 1;
+      return [
+        {id: curr_year, label: curr_year + '年'},
+        {id: before_year, label: before_year + '年'},
+      ];
+    }else{
+      // 选择的年份 < 当前的年份
+      var year_list = [];
+      for (let index = 0; index < curr_year - min_year + 1; index++) {
+        var year_item = {
+          id: curr_year - index, 
+          label: (curr_year - index) + '年'
+        }
+        year_list.push(year_item)
+      };
+      console.error("year_list",year_list);
+      return year_list
+    }
+  };
+
+  
   
   getselect(){
     return $("[name='kpi_single_title']").val();

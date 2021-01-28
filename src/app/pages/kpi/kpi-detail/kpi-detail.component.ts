@@ -8,7 +8,6 @@ import { ActivatedRoute } from '@angular/router';
 import { DatePipe } from '@angular/common';
 import { UserInfoService } from '../../../services/user-info/user-info.service';
 import { PublicmethodService } from '../../../services/publicmethod/publicmethod.service';
-import { color } from 'd3-color';
 
 let kpi_detail = require("../../../../assets/pages/system-set/js/kpi_detail");
 
@@ -19,7 +18,7 @@ let kpi_detail = require("../../../../assets/pages/system-set/js/kpi_detail");
   styleUrls: ['./kpi-detail.component.scss']
 })
 export class KpiDetailComponent implements OnInit {
-  @ViewChild("myYear") myYear:any; // 月
+  @ViewChild("myYear") myYear:any; // 年
   
 
   type; // 判断是那个组件的kpi： device 设备数据汇总、group 功能组数据汇总、department 部门数据汇总
@@ -869,6 +868,8 @@ export class KpiDetailComponent implements OnInit {
   // 返回button name
   button_name;
 
+
+
   // plv8请求
   querst(table: string, method: string, colmun: Object){
     return new Observable ((observe)=>{
@@ -897,6 +898,7 @@ export class KpiDetailComponent implements OnInit {
   }
 
   ngOnInit(): void {
+
     if (this.type === 'device'){
       this.table_url = this.mothed_table_url.device.url;
       this.button_title = this.kpi_for_detail["devicename"];

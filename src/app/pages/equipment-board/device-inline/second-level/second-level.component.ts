@@ -61,8 +61,20 @@ export class SecondLevelComponent implements OnInit {
         [42.4, 33.2, 36.5, 39.7, 52.6, 74.5, 57.4, 60.4, 47.6, 39.1, 46.8, 34.1]
       ]
     },
-    [1288,1200,93]
+    [1288,1200,93], // 当前在线数量、今日活跃数量、今日活跃率
   ];
+
+  // 试验条目状态
+  teststatus = {
+    color:["#5D7FE5","#26FF26"],
+    xData:["mts 329","mts 320","mts mast","mts testline","开闭件台架","玻璃升降台架","天窗开闭台架","环境仓","环境仓09","环境仓10","环境仓11","环境仓12"],
+    Series:{
+      name:"累计完成试验数量",
+      totaldata:132, 
+      data:[10, 52, 20, 34, 39, 33, 22,0,0,0,0,0]
+    },
+    
+  }
 
   myChart;
 
@@ -319,17 +331,7 @@ export class SecondLevelComponent implements OnInit {
     });
   };
 
-  // 试验条目状态
-  teststatus = {
-    color:["#5D7FE5","#26FF26"],
-    xData:["mts 329","mts 320","mts mast","mts testline","开闭件台架","玻璃升降台架","天窗开闭台架","环境仓","环境仓09","环境仓10","环境仓11","环境仓12"],
-    Series:{
-      name:"累计完成试验数量",
-      totaldata:132, 
-      data:[10, 52, 20, 34, 39, 33, 22,0,0,0,0,0]
-    },
-    
-  }
+  
 
   ngAfterViewInit(){
 

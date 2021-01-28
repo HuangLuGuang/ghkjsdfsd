@@ -253,6 +253,16 @@ nb-icon {
             height: 40%;
             // border: 1px pink solid;
             margin-bottom: 10px;
+
+            .part_title_image{
+                width: 100%;
+                height: 100%;
+                padding: 5% 0px;
+                img{
+                    width: 90%;
+                    height: 100%;
+                }
+            }
         }
         // map地图
         .nibo_map {
