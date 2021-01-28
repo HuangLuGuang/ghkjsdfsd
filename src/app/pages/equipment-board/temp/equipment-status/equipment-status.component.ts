@@ -158,7 +158,7 @@ export class EquipmentStatusComponent implements OnInit {
             let operatingRate = echarts.init(dom);
             equipment_four_road.create_line_start_stop( { 
               xData: xAxisData,
-              SeriesData: arr},operatingRate);
+              SeriesData: arr,title:'设备当日启停状态'},operatingRate);
           })
 
           this.subscribeList.andon_data.unsubscribe();
@@ -334,7 +334,7 @@ export class EquipmentStatusComponent implements OnInit {
     }else{
       equipment_four_road.create_line_start_stop({ 
         xData: [0],
-        SeriesData: [0]} ,operatingRate);
+        SeriesData: [0],title:'设备当日启停状态'} ,operatingRate);
     }
   }
   //渲染年表格

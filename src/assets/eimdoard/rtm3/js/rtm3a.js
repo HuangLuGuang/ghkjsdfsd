@@ -1,3 +1,4 @@
+const COLOR = 'rgba(55,255,249,1)';
 let rtm3a = {
     create_second_chart(data) {
         var dom = document.getElementById("second_chart");
@@ -193,7 +194,7 @@ let rtm3a = {
                 show: data.title ? true : false,
                 text: data.title ? data.title : '',
                 textStyle: {
-                    color: 'white',
+                    color: COLOR,
                     fontSize: '12px',
                 },
                 subtextStyle: {
@@ -227,18 +228,18 @@ let rtm3a = {
                 data: xAxisData,
                 axisLabel: {
                     textStyle: {
-                        color: '#B7E1FF',
+                        color: COLOR,
                         fontSize: 12
                     }
                 },
                 axisLine: {
                     lineStyle: {
-                        color: '#09F'
+                        color: COLOR
                     }
                 },
                 axisTick: {
                     lineStyle: {
-                        color: '#09F'
+                        color: COLOR
                     }
                 }
             },
@@ -249,11 +250,11 @@ let rtm3a = {
                 axisTick: { show: false },
                 axisLabel: {
                     textStyle: {
-                        color: '#B7E1FF',
+                        color: COLOR,
                         fontSize: 12,
                         fontFamily: 'Arial',
                     },
-                    color: 'white',
+                    color: COLOR,
                 },
                 splitLine: {
                     lineStyle: {

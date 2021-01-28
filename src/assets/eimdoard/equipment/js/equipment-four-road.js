@@ -245,25 +245,6 @@ let equipment_four_road = {
                         // shadowColor: color[i]
                     }
                 }
-            }, {
-                value: 2,
-                name: '',
-                tooltip: {
-                    show: false
-                },
-                itemStyle: {
-                    normal: {
-                        label: {
-                            show: false
-                        },
-                        labelLine: {
-                            show: false
-                        },
-                        color: 'rgba(0, 0, 0, 0)',
-                        borderColor: 'rgba(0, 0, 0, 0)',
-                        borderWidth: 0
-                    }
-                }
             });
         }
         var seriesOption = [{
@@ -277,12 +258,12 @@ let equipment_four_road = {
                     label: {
                         show: false,
                     },
-                    labelLine: {
-                        length: 30,
-                        length2: 100,
-                        show: false,
-                        color: '#00ffff'
-                    }
+                    // labelLine: {
+                    //     length: 30,
+                    //     length2: 100,
+                    //     show: false,
+                    //     color: '#00ffff'
+                    // }
                 }
             },
             data: data
@@ -310,8 +291,8 @@ let equipment_four_road = {
                     zlevel: 3,
                     style: {
                         image: img,
-                        width: 60,
-                        height: 60
+                        width: 50,
+                        height: 50
                     },
                     left: 'center',
                     top: 'center',
@@ -331,6 +312,10 @@ let equipment_four_road = {
             },
             series: seriesOption
         };
+        console.log(
+            JSON.stringify(option_p)
+
+        )
         if (!gauge_data.value) option_p.tooltip.show = false;
         // console.log(JSON.stringify(option_p))
         myChart.setOption(option_p);
@@ -1318,7 +1303,7 @@ let equipment_four_road = {
                 left: 'center',
                 top: '5%',
                 textStyle: {
-                    color: '#dcdcdc',
+                    color: COLOR,
                     fontSize: 12
                 }
             },
@@ -1640,15 +1625,22 @@ let equipment_four_road = {
                 trigger: 'axis',
             },
             grid: {
-                buttom: '5%',
-                top: '5%',
+                // buttom: '5%',
+                top: '20%',
                 width: '90%',
-                height: '70%'
+                height: '40%'
+            },
+            legend: {
+                show: true,
+                bottom: '1%',
+                textStyle: {
+                    color: COLOR
+                },
             },
             title: {
                 text: data.title,
                 left: 'center',
-                top: '5%',
+                top: '0%',
                 textStyle: {
                     color: COLOR,
                     fontSize: 12
@@ -2522,15 +2514,25 @@ let equipment_four_road = {
                         fontSize: 12,
 
                     },
-                    left: '3%',
-                    top: '55%'
+                    left: '1%',
+                    top: '50%'
                 },
+                {
+                    text: afterdata.title || '',
+                    textStyle: {
+                        color: COLOR,
+                        fontSize: 12,
+
+                    },
+                    left: 'center',
+                    top: '5%'
+                }
 
             ],
             grid: {
                 // left: '3%',
                 // right: '4%',
-                top: 10,
+                top: '35%',
                 bottom: '40%',
                 // containLabel: true
             },

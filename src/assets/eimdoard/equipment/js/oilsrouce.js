@@ -177,14 +177,16 @@ let oilsrouce = {
             //animation: false,
             // backgroundColor: '#003260',
             grid: {
-                bottom: '80%',
-                // top: '100%',
+                // bottom: '80%',
+                height: '60%',
+                top: '50%'
             },
             xAxis: [{
+                type: 'value',
                 max: dataLine.max,
                 show: false
             }],
-            title: {
+            title: [{
                 show: true,
                 text: dataLine.yname,
                 textStyle: {
@@ -192,78 +194,36 @@ let oilsrouce = {
                     fontSize: 12
                 },
                 left: 'center',
-                // top: '0%'
-            },
+                top: '3%'
+            }, {
+                text: dataLine.value + '  ' + dataLine.unit,
+                textStyle: {
+                    color: "black",
+                    fontSize: 12,
+                    fontWeight: 'normal'
+                },
+                left: "center",
+                top: '55%',
+            }],
             yAxis: [{
-                    show: false,
-                    axisLabel: {
-                        textStyle: {
-                            color: "#fff",
-                            fontSize: 10,
-                            padding: [0, -20, -35, 0]
-                        }
-                    },
-                    data: [0]
-                },
-                {
-                    show: false,
-                    axisLabel: {
-                        textStyle: {
-                            color: "#fff",
-                            fontSize: 10,
-                            padding: [0, 0, -35, -20]
-                        }
-                    },
-                    data: [dataLine.max]
-                },
-            ],
+                show: false,
+                type: 'category',
+            }, ],
             series: [{
-                    type: "bar",
-                    yAxisIndex: 0,
-                    data: [dataLine.value],
-                    barWidth: 15,
-                    itemStyle: {
-                        normal: {
-                            color: "#109618"
-                        }
-                    },
-                    zlevel: 2
+                type: "bar",
+                yAxisIndex: 0,
+                data: [dataLine.value],
+                showBackground: true,
+                backgroundStyle: {
+                    color: 'white'
                 },
-                {
-                    type: "bar",
-                    yAxisIndex: 1,
-                    barGap: "-100%",
-                    data: [dataLine.max],
-                    barWidth: 17,
-                    radius: 100,
-                    itemStyle: {
-                        normal: {
-                            color: "#fff"
-                        }
-                    },
-                    zlevel: 1
-                },
-                {
-                    type: "bar",
-                    yAxisIndex: 1,
-                    barGap: "-100%",
-                    data: [dataLine.max],
-                    barWidth: 17,
-                    radius: 100,
-                    itemStyle: {
-                        color: "rgb(0,0,0,0)"
-                    },
-                    label: {
-                        show: true,
-                        formatter: dataLine.value + '  ' + dataLine.unit,
-                        textStyle: {
-                            color: "black",
-                            fontSize: 12
-                        }
-                    },
-                    zlevel: 3
+
+                itemStyle: {
+                    normal: {
+                        color: "#109618"
+                    }
                 }
-            ]
+            }]
         };
         myChart.setOption(option_bar_j);
         // myChart.resize();

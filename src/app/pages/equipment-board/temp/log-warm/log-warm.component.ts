@@ -215,8 +215,6 @@ export class LogWarmComponent implements OnInit {
         ]);
     });
     return arr;
-
-
   }
 
 

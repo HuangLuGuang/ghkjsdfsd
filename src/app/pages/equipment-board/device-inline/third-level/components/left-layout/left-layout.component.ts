@@ -31,7 +31,8 @@ export class LeftLayoutComponent implements OnInit {
 
   fixed = ['log'];
   subscribeList:any = {};
-
+  timer;
+  top;//用来判断是否达到底部
   constructor(private boardservice:EquipmentBoardService) { }
 
   ngOnInit(): void {
@@ -40,6 +41,17 @@ export class LeftLayoutComponent implements OnInit {
     })
   }
 
+  ngAfterViewInit(){
+    this.timer = setInterval(this.scroll,100);
+  }
+
+  scroll=()=>{
+    let top = $('#left_table').scrollTop();
+    if(this.top > top)top = 0;
+    top++;
+    $('#left_table').scrollTop(top);
+    this.top = top;
+  }
   
   // create_scrollbar(){
   //   $('#s').width( $('#table_body_2').width())
@@ -114,6 +126,7 @@ export class LeftLayoutComponent implements OnInit {
   }
 
   ngOnDestroy(){
+    clearInterval(this.timer);
     let chart;
     ['left_chart_1','left_chart_2','left_chart_3','left_chart_hour_year'].forEach(f=>{ 
       chart =document.getElementById(f)

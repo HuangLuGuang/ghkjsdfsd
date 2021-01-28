@@ -53,10 +53,10 @@
                 <div id="temperature"></div>
                 <div id="humidity"></div>
                 <div class="temphum">
-                    <div style="width: 50%;">温度平均值</div>
-                    <div class="blue_b"></div>
-                    <div style="width: 50%;">湿度平均值</div>
-                    <div class="blue_b"></div>
+                    <div style="width: 50%;">温度</div>
+                    <div class="blue_b">{{temp}}℃</div>
+                    <div style="width: 50%;">湿度</div>
+                    <div class="blue_b">{{hum}}RH</div>
                 </div>
                 <div id="motor_chart"></div>
             </div>
@@ -156,7 +156,7 @@
                 </div>
                 <div class="height_40 width_100" style="display: flex;padding-left:3%">
                     <div id="threePhase" class="height_100 width_70"></div>
-                    <div class="width_30" style="display: flex;flex-wrap: wrap;justify-content: center;align-items: center;">
+                    <div class="width_30 center" style="padding-bottom: 10px;">
                         <div id="threePhase_1" class="height_20 width_50"></div>
                         <div id="threePhase_2" class="height_20 width_50"></div>
                         <div id="threePhase_3" class="height_20 width_50"></div>

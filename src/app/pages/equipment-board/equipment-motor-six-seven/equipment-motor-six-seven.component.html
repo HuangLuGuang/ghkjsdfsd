@@ -31,61 +31,61 @@
                     <img id="img" [src]="img.url" [alt]="img.name">
                 </div>
             </div>
-            <div class="height_35 bo" style="margin-top: 20px;position: relative;">
+            <div class="height_35 bo" style="margin-top: 20px;position: relative;padding-top: 20px;">
                 <div class="part_title">{{ 'equipment.real'|translate }}{{ 'equipment.motor.MotorParam'|translate }}
                 </div>
-                <div class="height_26" style="margin-top: 20px;">
-                    <div class="height_50" style="display: flex;flex-wrap: wrap;">
+                <div class="height_26 ">
+                    <div class="height_50 dis_f_w center_center">
                         <div class="height_100 dis_f center_center" style="width: 30%;">
                             <div class=" dis_f_w center_center">
                                 {{'equipment.motor.LinearVoltage'|translate}}
                             </div>
-                            <div class="height_100 width_70 bord dis_f_w center_center">{{ motor.urms4 }}</div>
+                            <div class="height_100  bord dis_f_w center_center big_font">{{ motor.urms4 }}</div>
                         </div>
-                        <div style="width: 3%;"></div>
-                        <div class="height_100 center_center dis_f" style="width: 30%;">
+                        <div style="width: 1%;"></div>
+                        <div class="height_100 center_center dis_f " style="width: 30%;">
                             <div class="center_center dis_f_w">
                                 {{'equipment.motor.LineaCurrent'|translate}}
                             </div>
-                            <div class="height_100 width_70 bord center_center dis_f_w">{{ motor.irms4 }}</div>
+                            <div class="height_100  bord center_center dis_f_w big_font">{{ motor.irms4 }}</div>
                         </div>
-                        <div style="width: 3%;"></div>
+                        <div style="width: 1%;"></div>
 
                         <div class="height_100 center_center dis_f" style="width: 30%;">
                             <div class="center_center dis_f_w">
                                 {{'equipment.motor.DCpower'|translate}}
                             </div>
-                            <div class="height_100 width_70 bord center_center dis_f_w">{{ motor.prms4 }}</div>
+                            <div class="height_100  bord center_center dis_f_w big_font">{{ motor.prms4 }}</div>
                         </div>
                     </div>
-                    <div class="height_50" style="display: flex;flex-wrap: wrap;">
-                        <div class="center_center dis_f" style="width: 30%;">
+                    <div class="height_50 dis_f_w center_center">
+                        <div class="height_100 center_center dis_f" style="width: 30%;">
                             <div class="center_center dis_f_w">
                                 {{'equipment.motor.AveVoltage'|translate}}
                             </div>
-                            <div class="height_100 width_70 bord center_center dis_f_w">{{ motor.urmsa }}</div>
+                            <div class="height_100  bord center_center dis_f_w big_font">{{ motor.urmsa }}</div>
                         </div>
-                        <div style="width: 3%;"></div>
+                        <div style="width: 1%;"></div>
 
                         <div class="height_100 center_center dis_f" style="width: 30%;">
                             <div class="center_center dis_f_w">
                                 {{'equipment.motor.AveCurrent'|translate}}
                             </div>
-                            <div class="height_100 width_70 bord center_center dis_f_w">{{ motor.irmsa }}</div>
+                            <div class="height_100  bord center_center dis_f_w big_font">{{ motor.irmsa }}</div>
                         </div>
-                        <div style="width: 3%;"></div>
+                        <div style="width: 1%;"></div>
 
                         <div class="height_100 center_center dis_f" style="width: 30%;">
                             <div class="center_center dis_f_w">
                                 {{'equipment.motor.OutputPower'|translate}}
                             </div>
-                            <div class="height_100 width_70 bord center_center dis_f_w">{{motor.prmsa}}</div>
+                            <div class="height_100  bord center_center dis_f_w big_font">{{motor.prmsa}}</div>
                         </div>
                     </div>
                 </div>
                 <div class="height_70" style="display: flex;padding-left:2%">
                     <div id="threePhase_67" class="height_100 width_50"></div>
-                    <div class="width_50" style="display: flex;flex-wrap: wrap;">
+                    <div class="width_50" style="display: flex;flex-wrap: wrap;padding-bottom: 10px;">
                         <div id="threePhase_1_67" class="height_25 width_50"></div>
                         <div id="threePhase_2_67" class="height_25 width_50"></div>
                         <div id="threePhase_3_67" class="height_25 width_50"></div>

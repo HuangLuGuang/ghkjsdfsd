@@ -23,7 +23,7 @@ export class EquipmentMotorSystemComponent implements OnInit {
   //实验参数 冷却水 轴箱温度1 轴箱温度2
   experiment_attrs = [
     { 
-      name: "冷却水",nameEn: "冷却水", unit: "℃",value: [],show:true
+      name: "样件注入水温",nameEn: "样件注入水温", unit: "℃",value: [],show:true
       ,color:[colors[0], colors[0]]
     },{ 
         name: "轴箱温度1",nameEn: "轴箱温度1", unit: "℃",value: [],
@@ -94,7 +94,8 @@ export class EquipmentMotorSystemComponent implements OnInit {
     name:'',
     electric_url:'assets/eimdoard/equipment/images/electric.png',//电机图片
   }
-
+  temp = 0;
+  hum = 0;
 
   motor:any = {};
 
@@ -202,7 +203,7 @@ export class EquipmentMotorSystemComponent implements OnInit {
     this.timer = self.setInterval(f=>{
       this.get_experimentParams();
       this.get_right();
-      this.get_device_Temp_hum();
+      // this.get_device_Temp_hum();
       if(i%60==0){
         this.get_line_coolingWater();
       }
@@ -243,6 +244,12 @@ export class EquipmentMotorSystemComponent implements OnInit {
         chart = document.getElementById('electric_'+(i+1));
         if(chart)
           echarts.init(chart).resize();
+      });
+      this.threePhase.forEach((f,i)=>{
+        chart = document.getElementById(f.id);
+        if(chart){
+          echarts.init(chart).resize();
+        }
       });
       ['coolingWater','AxleBoxTemperature1','AxleBoxTemperature2','circularD_chart',
       'dashboard','line_chart_12','threePhase','temperature','humidity','motor_chart'].forEach(f => {
@@ -417,34 +424,35 @@ torque: 0.151 扭矩
 
       chart = document.getElementById('circularD_chart');
       if(chart)
-          equipment_four_road.create_real_discharge({attrs:this.experiment_attrs,xData:this.experiment_xData,title:'冷却水、轴箱温度'},echarts.init(chart));
+          equipment_four_road.create_real_discharge({attrs:this.experiment_attrs,xData:this.experiment_xData,title:'样件注入水温、轴箱温度'},echarts.init(chart));
 
     });
   }
 
 
-  //获取实时温湿度
-  get_device_Temp_hum(){
-      let chart;
-      let res;
-    this.subscribeList.temp_hum = this.http.callRPC('get_temperature',library+'get_temperature'
-    ,{deviceid:this.deviceid}).subscribe((g:any) =>{
-      if(g.result.error || g.result.message[0].code == 0)return;
-      res = g.result.message[0].message[0]?g.result.message[0].message[0]:{};
-      // console.log(res)
+  //获取实时温湿度 弃用
+  // get_device_Temp_hum(){
+  //     let chart;
+  //     let res;
+  //   this.subscribeList.temp_hum = this.http.callRPC('get_temperature',library+'get_temperature'
+  //   ,{deviceid:this.deviceid}).subscribe((g:any) =>{
+  //     if(g.result.error || g.result.message[0].code == 0)return;
+  //     res = g.result.message[0].message[0]?g.result.message[0].message[0]:{};
+  //     // console.log(res)
         
-      chart = document.getElementById('temperature');
-      if(chart)
-        equipment_four_road.create_motor_temperature( {value:res.temperature,unit:'℃',title:'温度'},echarts.init(chart));
-      chart = document.getElementById('humidity');
-      if(chart)
-        equipment_four_road.create_motor_temperature( {value:res.humidity,unit:'RH' ,title:'湿度'},echarts.init(chart));
-    })
-  }
+  //     chart = document.getElementById('temperature');
+  //     if(chart)
+  //       equipment_four_road.create_motor_temperature( {value:res.temperature,unit:'℃',title:'温度'},echarts.init(chart));
+  //     chart = document.getElementById('humidity');
+  //     if(chart)
+  //       equipment_four_road.create_motor_temperature( {value:res.humidity,unit:'RH' ,title:'湿度'},echarts.init(chart));
+  //   })
+  // }
 
 
   //环境历史信息
   get_device_mts_timerangedata(){
+    let chart;
     let yearPlanData = [],yearOrderData= [],differenceData=[],visibityData=[],xAxisData=[];
     this.subscribeList.h_t_h = this.http.callRPC('get_temperature',library+'get_temperature_numbers'
     ,{deviceid:t_h_deviceid || this.deviceid}).subscribe((g:any) =>{
@@ -463,6 +471,14 @@ torque: 0.151 扭矩
         xAxisData:xAxisData.length>0?xAxisData:[0],
         title:''
       }, 'motor_chart');
+      this.temp = yearPlanData.length>0?yearPlanData[yearPlanData.length-1]:0;
+      this.hum = yearOrderData.length>0?yearOrderData[yearOrderData.length-1]:0;
+      chart = document.getElementById('temperature');
+      if(chart)
+        equipment_four_road.create_motor_temperature( {value:this.temp,unit:'℃',title:'温度'},echarts.init(chart));
+      chart = document.getElementById('humidity');
+      if(chart)
+        equipment_four_road.create_motor_temperature( {value:this.hum,unit:'RH' ,title:'湿度'},echarts.init(chart));
 
       this.subscribeList.h_t_h.unsubscribe();
     })

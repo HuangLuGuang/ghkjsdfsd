@@ -90,6 +90,9 @@ export class StructuralLaboratoryComponent implements OnInit {
     {},
     {},
     {},
+    {},
+    {},
+    {},
   ]
   //安灯状态
   andon = [

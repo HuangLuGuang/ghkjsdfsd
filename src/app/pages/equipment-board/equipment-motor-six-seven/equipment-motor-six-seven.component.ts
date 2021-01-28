@@ -318,10 +318,10 @@ export class EquipmentMotorSixSevenComponent implements OnInit {
       if(res)
         res.forEach(el => {
           for(let key in el){
-            data[key] = el[key][0][0];
+            data[key] = el[key][0][0] ||0;
           }
         });
-      else data = 
+      else data = {};
       this.motor = data;
 
 

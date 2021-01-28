@@ -21,6 +21,8 @@
     .bord {
         border: 2px solid rgb(68, 114, 196);
         border-radius: 4px;
+        width: 50%;
+        height: 80%;
     }
     .part_title {
         position: absolute;
@@ -38,6 +40,11 @@
     }
     .dis_f {
         display: flex;
+    }
+    .big_font {
+        font-size: 18px;
+        font-weight: bolder;
+        color: white;
     }
     .center_center {
         justify-content: center;
