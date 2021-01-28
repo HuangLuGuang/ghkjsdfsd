@@ -41,7 +41,7 @@ export class MySelectTreeComponent implements OnInit {
   
   ngAfterViewInit(){
     this.placeholder_title = this.placeholder;
-    $("[name='title']").attr("placeholder", this.placeholder_title);
+    $("[name='tongji_title']").attr("placeholder", this.placeholder_title);
     // $(".tree_isShow").hide();
   }
   ngOnDestroy(){
@@ -66,7 +66,7 @@ export class MySelectTreeComponent implements OnInit {
     var el5s;
     layui.use(['eleTree',],function(){
       var eleTree = layui.eleTree;
-      $("[name='title']").on("click",function (e) {
+      $("[name='tongji_title']").on("click",function (e) {
         
 
         
@@ -115,7 +115,7 @@ export class MySelectTreeComponent implements OnInit {
           }
           // console.log("select_label_list>>",that.select_label_list)
         }
-        $("[name='title']").val(that.select_label_list.join(';'));
+        $("[name='tongji_title']").val(that.select_label_list.join(';'));
         // console.log(d.node);    // 点击的dom节点
         // console.log(this);      // input对应的dom
     })
@@ -127,11 +127,11 @@ export class MySelectTreeComponent implements OnInit {
   }
   
   getselect(){
-    return $("[name='title']").val();
+    return $("[name='tongji_title']").val();
   }
   // 删除选择的
   delselect(){
-    $("[name='title']").val("");
+    $("[name='tongji_title']").val("");
     this.select_type = [];
     this.defaultCheckedKeys = [];
     this.select_label_list = [];

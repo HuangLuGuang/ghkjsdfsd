@@ -40,7 +40,6 @@ export class DeviceDataSumComponent implements OnInit {
   // 用户id
   employeeid = this.userinfo.getEmployeeID();
 
-
   tableDatas = {
     action: false,
     totalPageNumbers: 0, // 总页数
@@ -56,6 +55,7 @@ export class DeviceDataSumComponent implements OnInit {
       { field: 'devicetype', headerName: '设备统计归类', resizable: true, fullWidth: true,width: 130, sortable: true}, //设备类型
       { field: 'month', headerName: '月份', resizable: true, fullWidth: true,width: 100, sortable: true},
       { field: 'totaltime', headerName: '总目标时长(h)', resizable: true, fullWidth: true,width: 130, sortable: true},
+      { field: 'runtime', headerName: '实际运行时长(h)', resizable: true, fullWidth: true,width: 130, sortable: true},
       { field: 'running', headerName: '运行时长(h)', resizable: true, fullWidth: true,width: 130, sortable: true},
       { field: 'stop', headerName: '空闲时长(h)', resizable: true, fullWidth: true,width: 130, sortable: true},
       { field: 'warning', headerName: '维修时长(h)', resizable: true, fullWidth: true,width: 130, sortable: true},
@@ -87,8 +87,6 @@ export class DeviceDataSumComponent implements OnInit {
 
   ngOnInit(): void {
     
-
-
     // 得到pathname --在得到button
     var roleid = this.userinfo.getEmployeeRoleID();
     this.publicservice.get_buttons_bypath(roleid).subscribe(result=>{
@@ -96,6 +94,8 @@ export class DeviceDataSumComponent implements OnInit {
       // console.log("得到pathname --在得到button\t\t", result)
       localStorage.setItem("buttons_list", JSON.stringify(result));
     })
+
+
 
   }
 

@@ -56,6 +56,11 @@ export class DeviceAndonStatusInfoComponent implements OnInit {
     this.inttable();
   }
 
+  ngOnDestroy(){
+    this.groups_devieces.delselect();
+  }
+
+
   loading = false;  // 加载
   refresh = false; // 刷新tabel
   button; // 权限button

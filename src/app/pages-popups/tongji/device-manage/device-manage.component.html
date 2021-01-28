@@ -84,7 +84,7 @@
                 <label class="layui-form-label mylabel mulu_title">科室/功能组</label>
                 <div class="layui-input-block">
                     <!-- 单选！ --> 
-                    <select id="groups" name="groups" lay-verify="" class="caidantype">
+                    <select id="groups" name="groups" lay-filter="groups" lay-verify="" class="caidantype">
                         <option *ngFor="let item of groups" [value]=item.id>{{item.group}}</option>
                     </select> 
                 </div>

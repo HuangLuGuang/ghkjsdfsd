@@ -132,9 +132,9 @@ export class DeviceAndonHistoryComponent implements OnInit {
       // case 'edit':
       //   this.change_target_hour();
       //   break;
-      // case 'query':
-      //   this.query();
-      //   break;
+      case 'query':
+        this.query();
+        break;
       // case 'import':
       //   this.importfile();
       //   break;
@@ -162,7 +162,7 @@ export class DeviceAndonHistoryComponent implements OnInit {
       starttime: inttable_before.starttime,
       endtime: inttable_before.endtime,
       offset: offset, 
-      limit: limit,
+      limit: inttable_before.limit,
     }
     console.error("搜索：", colums);
 

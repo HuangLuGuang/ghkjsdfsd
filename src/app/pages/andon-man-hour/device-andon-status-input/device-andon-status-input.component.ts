@@ -42,7 +42,6 @@ export class DeviceAndonStatusInputComponent implements OnInit {
 
   // 搜索
   query(){
-    console.error("-------------------", "搜索")
     var groups_devieces = this.groups_devieces.get_form_val();
     if (groups_devieces["devicename"]){
       // 点击搜索时，得到当前设备运行装填

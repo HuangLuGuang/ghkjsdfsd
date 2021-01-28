@@ -37,7 +37,7 @@ export class MySelectTreeComponent implements OnInit {
   }
   
   ngAfterViewInit(){
-    this.layuiform()
+    this.layuiform();
 
   }
 
@@ -139,19 +139,11 @@ export class MySelectTreeComponent implements OnInit {
     $("#test_task_conf_add_deviceno").val(this.deviceid)
     // console.error("更改设备编号 deveceno",this.get_form_val());
     setTimeout(() => {
-      this.parent_query.emit(this.get_form_val_for_query());
+      this.parent_query.emit(this.get_form_val());
     }, 100);
   }
 
-  // 得到 form值！
-  get_form_val_for_query(){
-    return {
-      groups_id: this.groups_id,
-      deviceid: this.deviceid,
-      deviceno: this.deviceno,
-      devicename: this.devicename===""?$("#test_task_conf_add_devicename").find("option:selected").text():this.devicename,
-    }
-  }
+ 
   // 得到 form值！
   get_form_val(){
     return {

@@ -333,10 +333,17 @@ export class DeviceManageComponent implements OnInit {
         var formdatar = JSON.parse(rowData)[0];
         
         // 科室/功能组的赋值，名称对应的id！
-        formdatar["groups"] = formdatar["groupsid"]
+        formdatar["groups"] = formdatar["groupsid"];
+        // formdatar["groups"] = formdatar["group"]
         // 初始化表单
-
         form.val("device", formdatar); 
+
+        // 修改选择项
+        setTimeout(() => {
+          $('select[name="groups"]').val(formdatar["groupsid"]);
+        }, 100);
+        
+        form.render('select');
         // 初始化createdon（创建时间）、purchaseon (购置日期)
 
         var createdon = formdatar["createdon"];
