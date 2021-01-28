@@ -158,11 +158,13 @@ export class TwoDriveChassisComponent implements OnInit {
 
   getData(){
     let now:Date;
+    let i = 0;
     this.timer = self.setInterval(() =>{
 
       this.get_real_time();
       this.get_device_Temp_hum();
-      this.get_his_temp_hum();
+      if(i%5)this.get_his_temp_hum();
+      i++;
       // now = new Date();
       // if(now.getDay() == 15)this.get_his_temp_hum();
     },1000)
