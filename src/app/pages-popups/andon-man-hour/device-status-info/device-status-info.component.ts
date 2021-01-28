@@ -60,6 +60,7 @@ export class DeviceStatusInfoComponent implements OnInit {
         if (save_data){
           if (save_data["status"]===rowData["status"]){
             that.alert_status();
+            $(".submit_tooltip").removeAttr('disabled');
           }else{
             var monthed = "pc_device_status_insert";
             var table = "andon";

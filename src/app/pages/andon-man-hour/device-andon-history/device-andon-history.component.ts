@@ -100,7 +100,7 @@ export class DeviceAndonHistoryComponent implements OnInit {
     this.init_date_range();
 
     this.device_andon_history_status = JSON.parse(localStorage.getItem("device_andon_history_status"));
-    console.error("设备安灯历史状态传递的数据", this.device_andon_history_status);
+    // console.error("设备安灯历史状态传递的数据", this.device_andon_history_status);
 
     
     this.button = JSON.parse(localStorage.getItem('buttons_list'))
@@ -150,21 +150,30 @@ export class DeviceAndonHistoryComponent implements OnInit {
     this.agGrid.download('设备安灯历史状态');
   }
   // 搜索
-  query(){
+  query(event?){
     var inttable_before = this.inttable_before();
     var offset;
     var limit;
     var PageSize;
     var table = 'andon';
     var method = 'pc_device_status_historylog';
+    if (event != undefined){
+      offset = event.offset;
+      limit = event.limit;
+      PageSize = event.PageSize? Number(event.PageSize):10;
+    }else{
+      offset = 0;
+      limit = inttable_before.limit;
+      PageSize = inttable_before.limit;
+    }
+
     var colums = {
       deviceid: inttable_before.deviceid,
       starttime: inttable_before.starttime,
       endtime: inttable_before.endtime,
       offset: offset, 
-      limit: inttable_before.limit,
+      limit: limit,
     }
-    console.error("搜索：", colums);
 
     this.http.callRPC(table, method, colums).subscribe(result=>{
       var res = result["result"]["message"][0];

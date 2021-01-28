@@ -58,7 +58,7 @@ export class HourConfigComponent implements OnInit {
       { field: 'numberdaily', headerName: '计数天数(d)', resizable: true, width: 130, sortable: true},
       { field: 'totaltime', headerName: '总目标时长(h)', resizable: true, width: 130, sortable: true}, 
       { field: 'lastupdateon', headerName: '更新时间', resizable: true, width: 180, sortable: true},
-      { field: 'lastupdatedby', headerName: '更新人', resizable: true, minWidth: 10,fullWidth: true, flex: 1, sortable: true},
+      { field: 'lastupdatedby', headerName: '更新人', resizable: true, minWidth: 10,fullWidth: true, sortable: true},
       
 
 

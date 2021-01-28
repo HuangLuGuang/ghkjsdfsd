@@ -263,6 +263,7 @@ export class AddComponent implements OnInit {
             })
           }else{
             that.not_null("试验信息必填!");
+            $(".submit_confirm").removeAttr('disabled');
           }
         }
         return false;
