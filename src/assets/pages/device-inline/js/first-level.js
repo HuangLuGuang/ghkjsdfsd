@@ -472,7 +472,7 @@ let first_level = {
                     //     [120.734156, 49.301992], //牙克石冬季试验基地
                     //     [112.115597, 32.003774], //襄阳试车场
                     // ],
-                    data: myChartData.Other,
+                    data: myChartData.QiQiu.Other,
                     showEffectOn: 'render',
                     rippleEffect: {
                         brushType: 'stroke'
@@ -505,7 +505,7 @@ let first_level = {
                     // data: [
                     //     [121.25158, 30.342533, 200], // 吉利研究院
                     // ],
-                    data: myChartData.jili,
+                    data: myChartData.QiQiu.jili,
                     showEffectOn: 'render',
                     rippleEffect: {
                         brushType: 'stroke'
