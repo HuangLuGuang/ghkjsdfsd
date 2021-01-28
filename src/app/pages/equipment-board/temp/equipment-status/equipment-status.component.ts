@@ -48,28 +48,28 @@ export class EquipmentStatusComponent implements OnInit {
     if(language!='zh-CN')this.language = language;
 
 
-
+    let i = 0;
     let now ;//当前时间
     this.interval= self.setInterval(f=>{
       this.get_andon_status();
 
       now = new Date();
-      //一小时更新一次
-      if( now.getMinutes() == 2 && now.getSeconds() == 0){
-        // console.log('--------------------开始请求当天设备运行情况---------------------')
-          this.get_andon_data();
+      //十分钟调用一次
+      if(i%600 == 0){
+        this.get_andon_data();
+
       }
       //一天更新一次
       if(now.getHours()== 0 && now.getMinutes() == 0 && now.getSeconds() == 0){
         // console.log('--------------------开始请求年度设备运行情况---------------------')
         this.get_andon_data_year();
       }
+      i++;
     },1000)
 
 
     setTimeout(() => {
       this.initChart();
-      this.get_andon_data();
       this.get_andon_data_year();
     }, 1000);
 

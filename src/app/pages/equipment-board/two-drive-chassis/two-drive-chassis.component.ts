@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { HttpserviceService } from '../../../services/http/httpservice.service';
-import { colors, create_img_16_9,library,rTime } from '../equipment-board';
+import { colors, create_img_16_9,library,rTime, t_h_deviceid } from '../equipment-board';
 import { EquipmentBoardService } from '../serivice/equipment-board.service';
 
 let equipment_four_road = require('../../../../assets/eimdoard/equipment/js/equipment-four-road');
@@ -162,6 +162,7 @@ export class TwoDriveChassisComponent implements OnInit {
 
       this.get_real_time();
       this.get_device_Temp_hum();
+      this.get_his_temp_hum();
       // now = new Date();
       // if(now.getDay() == 15)this.get_his_temp_hum();
     },1000)
@@ -299,27 +300,27 @@ export class TwoDriveChassisComponent implements OnInit {
       if(document.getElementById('t_real_temperature_4'))
         equipment_four_road.create_real_disk({value:res.humidity,text:this.language?'RealRH':'实时湿度',unit:'℃'},
         echarts.init(document.getElementById('t_real_temperature_4')));
-      this.temp_hum_attrs[0].value.push(res.temperature);//温度
-      this.temp_hum_attrs[1].value.push(res.humidity);//温度 
-      this.temp_hum_xData.push(rTime(res.recordtime?res.recordtime:' ')); 
-      if(this.temp_hum_xData.length>10){
-        this.temp_hum_xData.splice(0,1);
-        this.temp_hum_attrs.forEach(f=>{
-          f.value.splice(0,1);
-        })
-      }
+      // this.temp_hum_attrs[0].value.push(res.temperature);//温度
+      // this.temp_hum_attrs[1].value.push(res.humidity);//温度 
+      // this.temp_hum_xData.push(rTime(res.recordtime?res.recordtime:' ')); 
+      // if(this.temp_hum_xData.length>10){
+      //   this.temp_hum_xData.splice(0,1);
+      //   this.temp_hum_attrs.forEach(f=>{
+      //     f.value.splice(0,1);
+      //   })
+      // }
 
-      if(document.getElementById('two_discharge_chart_1')){
-        let myChart_9 = echarts.init(document.getElementById('two_discharge_chart_1'));;
-        equipment_four_road.create_real_discharge({attrs:this.temp_hum_attrs,xData:this.temp_hum_xData},myChart_9);
-      }
+      // if(document.getElementById('two_discharge_chart_1')){
+      //   let myChart_9 = echarts.init(document.getElementById('two_discharge_chart_1'));;
+      //   equipment_four_road.create_real_discharge({attrs:this.temp_hum_attrs,xData:this.temp_hum_xData},myChart_9);
+      // }
     })
   }
 
   get_his_temp_hum(){
     let res;
     this.subscribeList.his_temp_hum = this.http.callRPC('get_temperature',library+'get_temperature_numbers'
-    ,{deviceid:this.deviceid}).subscribe((g:any) =>{
+    ,{deviceid:t_h_deviceid||this.deviceid}).subscribe((g:any) =>{
       if(g.result.error || g.result.message[0].code == 0)return;
       res = g.result.message[0].message;
       this.temp_hum_attrs[0].value = res.map(f => f.temperature);

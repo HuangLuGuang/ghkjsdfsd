@@ -220,14 +220,14 @@ export class EquipmentXenonLampComponent implements OnInit {
           this.illuminance.power = data.tr_lamp_power|| 0;
           this.illuminance.radioactivity1 = data.tr_irradiance1|| 0;
           this.illuminance.radioactivity2 = data.tr_irradiance2|| 0;
-          // this.illuminance.attrs[0].value.push(this.illuminance.radioactivity1);
-          // this.illuminance.attrs[1].value.push(this.illuminance.radioactivity2);
-          // this.illuminance.xdata.push(time);
-          // if(this.illuminance.xdata.length>10){
-          //   this.illuminance.attrs[0].value.splice(0,1);
-          //   this.illuminance.attrs[1].value.splice(0,1);
-          //   this.illuminance.xdata.splice(0,1);
-          // }
+          this.illuminance.attrs[0].value.push(this.illuminance.radioactivity1);
+          this.illuminance.attrs[1].value.push(this.illuminance.radioactivity2);
+          this.illuminance.xdata.push(time);
+          if(this.illuminance.xdata.length>10){
+            this.illuminance.attrs[0].value.splice(0,1);
+            this.illuminance.attrs[1].value.splice(0,1);
+            this.illuminance.xdata.splice(0,1);
+          }
           if(document.getElementById('pie_chart_1'))
               equipment_four_road.create_real_disk({value:this.illuminance.power,text:'功率',unit:'P'},
               echarts.init(document.getElementById('pie_chart_1')));
@@ -240,10 +240,10 @@ export class EquipmentXenonLampComponent implements OnInit {
               equipment_four_road.create_real_disk({value:this.illuminance.radioactivity2,text:'辐照度2',unit:'MJ/㎡'},
               echarts.init(document.getElementById('pie_chart_3')));
 
-          // if(document.getElementById('line_chart_2')){
-          //   let myChart_9 = echarts.init(document.getElementById('line_chart_2'));;
-          //   equipment_four_road.create_real_discharge({attrs:this.illuminance.attrs,xData:this.illuminance.xdata},myChart_9);
-          // }
+          if(document.getElementById('line_chart_2')){
+            let myChart_9 = echarts.init(document.getElementById('line_chart_2'));;
+            equipment_four_road.create_real_discharge({attrs:this.illuminance.attrs,xData:this.illuminance.xdata},myChart_9);
+          }
   
         });
       },10)

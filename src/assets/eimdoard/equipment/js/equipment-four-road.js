@@ -241,8 +241,8 @@ let equipment_four_road = {
                     normal: {
                         borderWidth: 5,
                         shadowBlur: 20,
-                        borderColor: color[i],
-                        shadowColor: color[i]
+                        // borderColor: color[i],
+                        // shadowColor: color[i]
                     }
                 }
             }, {
@@ -743,6 +743,60 @@ let equipment_four_road = {
         myChart.setOption(optionInterval);
         // myChart.resize()
     },
+    //电机1-4实时温湿度仪表盘  新
+    create_motor_temperature(data, myChart) {
+        if (!data.max) data.max = 120;
+        let color_dsada = [
+            [1, '#08B0F9']
+        ];
+        if (data.value) {
+            color_dsada.unshift([data.value / data.max, '#99FF66'], );
+        }
+        let option_m_t_fhahsah = option = {
+            grid: {
+                top: '15%'
+            },
+            series: [{
+                max: data.max,
+                type: 'gauge',
+                splitNumber: 6,
+                center: ["50%", "60%"],
+                detail: {
+                    formatter: '{value}' + data.unit + '\n' + (data.title || ''),
+                    fontSize: 12,
+                    color: COLOR
+                },
+                data: [{
+                    value: data.value || 0,
+                }],
+                itemStyle: {
+                    color: '#FFAB91'
+                },
+                axisLabel: {
+                    distance: -30,
+                    color: '#999',
+                    fontSize: 12,
+
+                },
+                splitLine: {
+                    length: 10
+                },
+                axisLine: {
+                    lineStyle: {
+                        color: color_dsada,
+                        width: 10,
+                    }
+                },
+                pointer: {
+                    width: 4,
+                },
+                axisTick: {
+                    length: 3
+                }
+            }]
+        };
+        myChart.setOption(option_m_t_fhahsah);
+    },
     //实时温湿度 仪表盘 设定+当前
     create_real_temperature_v2(gauge_data, myChart) {
         var datas = {
@@ -1090,7 +1144,7 @@ let equipment_four_road = {
                     detail: {
                         fontSize: 12,
                         color: '#fff',
-                        offsetCenter: [0, '70%'],
+                        offsetCenter: [0, '50%'],
                         formatter: function(value) {
                             return '{a|' + data[2].value + '\n' + data[2].unit + '}';
                         },
@@ -1772,9 +1826,9 @@ let equipment_four_road = {
                     borderColor: "#F8F8FF"
                 }
             },
-            smooth: true,
+            smooth: false,
             symbol: "circle",
-            symbolSize: 3,
+            symbolSize: 0,
         }
     },
     create_device_status_fun(data, seriesData, legend, borderData, borderHeight) {
@@ -1944,7 +1998,7 @@ let equipment_four_road = {
                 type: "category",
                 axisLine: {
                     lineStyle: {
-                        color: "rgba(204,187,225,0.5)",
+                        color: COLOR,
                     }
                 },
                 splitLine: {
@@ -1967,7 +2021,7 @@ let equipment_four_road = {
                 },
                 axisLine: {
                     lineStyle: {
-                        color: "rgba(204,187,225,0.5)",
+                        color: COLOR,
                     }
                 },
 

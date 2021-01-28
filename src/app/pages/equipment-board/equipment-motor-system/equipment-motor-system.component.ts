@@ -203,11 +203,19 @@ export class EquipmentMotorSystemComponent implements OnInit {
       this.get_experimentParams();
       this.get_right();
       this.get_device_Temp_hum();
-      if(i%5==0){
-        this.get_device_mts_timerangedata();
-        this.get_line_busbar();
-        this.get_line_speed_torque();
+      if(i%60==0){
         this.get_line_coolingWater();
+      }
+      if(i%600==0){
+        this.get_device_mts_timerangedata();
+      }
+      if(i%10==0){
+        this.get_line_speed_torque();
+      }
+      if(i%20 == 0){
+        setTimeout(() => {
+          this.get_line_busbar();
+        }, 100);
       }
       i++;
     },1000)
@@ -264,13 +272,13 @@ export class EquipmentMotorSystemComponent implements OnInit {
 
       let chart = document.getElementById('coolingWater');
       if(chart)
-        equipment_four_road.create_real_temperature( {value:res.cc_t_act,unit:'℃'},echarts.init(chart));
+        equipment_four_road.create_motor_temperature( {value:res.cc_t_act,unit:'℃'},echarts.init(chart));
       chart = document.getElementById('AxleBoxTemperature1');
       if(chart)
-        equipment_four_road.create_real_temperature( {value:res.imb_t_1,unit:'℃'},echarts.init(chart));
+        equipment_four_road.create_motor_temperature( {value:res.imb_t_1,unit:'℃'},echarts.init(chart));
       chart = document.getElementById('AxleBoxTemperature2');
       if(chart)
-        equipment_four_road.create_real_temperature( {value:res.imb_t_2,unit:'℃'},echarts.init(chart));
+        equipment_four_road.create_motor_temperature( {value:res.imb_t_2,unit:'℃'},echarts.init(chart));
 
           })
   }
@@ -345,8 +353,8 @@ torque: 0.151 扭矩
       if(f.result.error || f.result.message[0].code == 0)return;
       let res = f.result.message[0].message;
       chart = document.getElementById('line_chart_12');
-      this.speedTorque_attrs[0].data = res[0].speed.map(m => (m[0]));
-      this.speedTorque_attrs[1].data = res[1].torque.map(m => (m[0]));
+      this.speedTorque_attrs[0].data = res[1].torque.map(m => (m[0]));
+      this.speedTorque_attrs[1].data = res[0].speed.map(m => (m[0]));
       let i= 0,c = 'speed';
       if(res[0].speed.length < res[1].torque.length){
         i= 1,c = 'torque';
@@ -427,10 +435,10 @@ torque: 0.151 扭矩
         
       chart = document.getElementById('temperature');
       if(chart)
-        equipment_four_road.create_real_temperature( {value:res.temperature,unit:'℃'},echarts.init(chart));
+        equipment_four_road.create_motor_temperature( {value:res.temperature,unit:'℃',title:'温度'},echarts.init(chart));
       chart = document.getElementById('humidity');
       if(chart)
-        equipment_four_road.create_real_temperature( {value:res.humidity,unit:'RH' },echarts.init(chart));
+        equipment_four_road.create_motor_temperature( {value:res.humidity,unit:'RH' ,title:'湿度'},echarts.init(chart));
     })
   }
 

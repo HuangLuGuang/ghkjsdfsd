@@ -62,7 +62,7 @@
             </div>
 
             <div class="bo dis_f_w" style="padding: 20px 0 0 0;margin-top: 20px;position: relative;height: 67.2%;">
-                <div class="part_title">{{ 'equipment.real'|translate }}{{ 'equipment.motor.MotorParam'|translate }}
+                <div class="part_title">{{ 'equipment.motor.MotorParam'|translate }}
                 </div>
                 <!-- <div class="height_20 display_f">
                     <img [src]="img.electric_url" style="width: 22%; margin: 4% 10px 10px 10%;">
@@ -107,65 +107,64 @@
                 </div>
                 <div class="height_17 width_100 ">
                     <div class="height_50" style="display: flex;flex-wrap: wrap;">
-                        <div class="height_100 center" style="width: 30%;">
+                        <div class="height_100 center_1" style="width: 30%;    padding-bottom: 2%;">
                             <div class="center">
                                 {{'equipment.motor.BusVoltage'|translate}}
                             </div>
-                            <div class="height_100 width_70 bord center">{{ motor?.pa_udc1 }}</div>
+                            <div class="height_100 width_50 bord center">{{ motor?.pa_udc1 }}</div>
                         </div>
                         <div style="width: 3%;"></div>
-                        <div class="height_100 center" style="width: 30%;">
+                        <div class="height_100 center_1" style="width: 30%;    padding-bottom: 2%;">
                             <div class="center">
                                 {{'equipment.motor.BusCurrent'|translate}}
                             </div>
-                            <div class="height_100 width_70 bord center">{{ motor?.pa_idc1 }}</div>
+                            <div class="height_100 width_50 bord center">{{ motor?.pa_idc1 }}</div>
                         </div>
                         <div style="width: 3%;"></div>
 
-                        <div class="height_100 center" style="width: 30%;">
+                        <div class="height_100 center_1" style="width: 30%;    padding-bottom: 2%;">
                             <div class="center">
                                 {{'equipment.motor.DCpower'|translate}}
                             </div>
-                            <div class="height_100 width_70 bord center">{{ motor?.pa_p1 }}</div>
+                            <div class="height_100 width_50 bord center">{{ motor?.pa_p1 }}</div>
                         </div>
                     </div>
                     <div class="height_50" style="display: flex;flex-wrap: wrap;">
-                        <div class="center" style="width: 30%;">
+                        <div class="center_1" style="width: 30%;    padding-bottom: 2%;">
                             <div class="center">
                                 {{'equipment.motor.AveVoltage'|translate}}
                             </div>
-                            <div class="height_100 width_70 bord center">{{ motor?.pa_urmsa }}</div>
+                            <div class="height_100 width_50 bord center">{{ motor?.pa_urmsa }}</div>
                         </div>
                         <div style="width: 3%;"></div>
 
-                        <div class="height_100 center" style="width: 30%;">
+                        <div class="height_100 center_1" style="width: 30%;    padding-bottom: 2%;">
                             <div class="center">
                                 {{'equipment.motor.AveCurrent'|translate}}
                             </div>
-                            <div class="height_100 width_70 bord center">{{ motor?.pa_irmsa }}</div>
+                            <div class="height_100 width_50 bord center">{{ motor?.pa_irmsa }}</div>
                         </div>
                         <div style="width: 3%;"></div>
 
-                        <div class="height_100 center" style="width: 30%;">
+                        <div class="height_100 center_1" style="width: 30%;    padding-bottom: 2%;">
                             <div class="center">
                                 {{'equipment.motor.AveOutputPowerOfController'|translate}}
-
                             </div>
-                            <div class="height_100 width_70 bord center">{{motor?.pa_pa}}</div>
+                            <div class="height_100 width_50 bord center">{{motor?.pa_pa}}</div>
                         </div>
                     </div>
                 </div>
                 <div class="height_40 width_100" style="display: flex;padding-left:3%">
-                    <div id="threePhase" class="height_100 width_50"></div>
-                    <div class="width_50" style="display: flex;flex-wrap: wrap;">
-                        <div id="threePhase_1" class="height_25 width_50"></div>
-                        <div id="threePhase_2" class="height_25 width_50"></div>
-                        <div id="threePhase_3" class="height_25 width_50"></div>
-                        <div id="threePhase_4" class="height_25 width_50"></div>
-                        <div id="threePhase_5" class="height_25 width_50"></div>
-                        <div id="threePhase_6" class="height_25 width_50"></div>
-                        <div id="threePhase_7" class="height_25 width_50"></div>
-                        <div id="threePhase_8" class="height_25 width_50"></div>
+                    <div id="threePhase" class="height_100 width_70"></div>
+                    <div class="width_30" style="display: flex;flex-wrap: wrap;justify-content: center;align-items: center;">
+                        <div id="threePhase_1" class="height_20 width_50"></div>
+                        <div id="threePhase_2" class="height_20 width_50"></div>
+                        <div id="threePhase_3" class="height_20 width_50"></div>
+                        <div id="threePhase_4" class="height_20 width_50"></div>
+                        <div id="threePhase_5" class="height_20 width_50"></div>
+                        <div id="threePhase_6" class="height_20 width_50"></div>
+                        <div id="threePhase_7" class="height_20 width_50"></div>
+                        <div id="threePhase_8" class="height_20 width_50"></div>
                     </div>
                 </div>
             </div>

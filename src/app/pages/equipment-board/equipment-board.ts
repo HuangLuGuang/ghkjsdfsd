@@ -43,6 +43,9 @@ export const create_img_16_9=()=>{
 
 //颜色
 export const colors = [
+  '#FFFF00',//黄
+  'green',//绿
+  '#FF66CC',//粉
     'rgba(0,252,248,0.8)',
     'rgba(248,0,248,0.8)',
     'rgba(200,204,20,0.8)',

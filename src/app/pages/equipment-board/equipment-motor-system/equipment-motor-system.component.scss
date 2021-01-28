@@ -192,6 +192,11 @@
         align-items: center;
         justify-content: center;
     }
+    .center_1 {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+    }
     #third_second {
         width: 100%;
     }
@@ -284,8 +289,14 @@
     .width_33 {
         width: 33%;
     }
+    .width_40 {
+        width: 40%;
+    }
     .width_50 {
         width: 50%;
+    }
+    .width_60 {
+        width: 60%;
     }
     .width_70 {
         width: 70%;
