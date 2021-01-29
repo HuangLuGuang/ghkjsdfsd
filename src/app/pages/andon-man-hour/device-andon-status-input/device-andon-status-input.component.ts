@@ -145,7 +145,7 @@ export class DeviceAndonStatusInputComponent implements OnInit {
         // message["loginname"] = this.userinfo.getLoginName();
         this.RecordOperation('搜索', 1,  "安灯状态:"+ JSON.stringify(columns));
         this.init_table(message);
-        var data = "当前设备运行状态"
+        var data = "查看当前设备运行状态"
         this.success(data)
       }else{
         var message = {
