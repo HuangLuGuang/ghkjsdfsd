@@ -19,15 +19,18 @@ let equipment_four_road = {
         // console.log(seriesData);
         let option_s = this.getoption(xData, 'fun', legend, borderHeight, normalColor, seriesData);
         option_s.grid = {
-            left: "3%",
-            top: "30%",
-            right: "3%",
-            bottom: 0,
-            containLabel: true
-        }
-        option_s.yAxis[0].name = '小时';
-        option_s.yAxis[1].name = '%';
-        option_s.title = {
+                left: "10%",
+                top: "30%",
+                bottom: 0,
+                width: '80%',
+                height: '45%'
+            }
+            // option_s.yAxis[0].name = '小时';
+            // option_s.yAxis[0].nameLocation = 'end';
+            // option_s.yAxis[1].name = '%';
+            // option_s.yAxis[1].nameLocation = 'end';
+
+        option_s.title = [{
             show: true,
             text: title,
             left: 'center',
@@ -35,7 +38,21 @@ let equipment_four_road = {
                 color: COLOR,
                 fontSize: 12,
             }
-        }
+        }, {
+            text: '小时',
+            left: 'left',
+            textStyle: {
+                color: COLOR,
+                fontSize: 12,
+            }
+        }, {
+            text: '%',
+            left: 'right',
+            textStyle: {
+                color: COLOR,
+                fontSize: 12,
+            }
+        }]
         myChart.setOption(option_s, config ? config : {});
         // if (!config) myChart.resize();
     },
@@ -102,7 +119,7 @@ let equipment_four_road = {
                                 params[i].name +
                                 ":" +
                                 params[i].seriesName +
-                                params[i].value +
+                                parseFloat(params[i].value).toFixed(2) +
                                 (params.length - 1 == i && n_name == 'fun' ? '%' : '') +
                                 "<br/>";
                         }
@@ -275,9 +292,9 @@ let equipment_four_road = {
             color: color,
             title: {
                 text: gauge_data.title + '\n' + gauge_data.message,
-                top: '43%',
+                top: '40%',
                 textAlign: "center",
-                left: "48.5%",
+                left: "46.5%",
                 textStyle: {
                     color: '#fff',
                     fontSize: 12,
@@ -312,16 +329,43 @@ let equipment_four_road = {
             },
             series: seriesOption
         };
-        console.log(
-            JSON.stringify(option_p)
-
-        )
         if (!gauge_data.value) option_p.tooltip.show = false;
         // console.log(JSON.stringify(option_p))
         myChart.setOption(option_p);
     },
     //日志 警告
     create_warning_chart(data, myChart) {
+        let servicedata_123213 = []; //避免重名造成对象污染
+        let color_dpl = [{
+            one: 'rgb(44,197,255)',
+            two: '#FFCC33',
+        }, {
+            one: '#CCCCFF',
+            two: '#99CC99',
+        }]
+        let i = 0;
+        for (let key in data.service) {
+            let mame = data.num != 1 ? data.service[key].name : '';
+            servicedata_123213.push({
+                name: mame + '一级报警',
+                type: 'bar',
+                stack: data.service[key].name,
+                itemStyle: {
+                    color: color_dpl[i].one
+                },
+                data: data.service[key].LV1Warn
+            });
+            servicedata_123213.push({
+                name: mame + '二级报警',
+                type: 'bar',
+                itemStyle: {
+                    color: color_dpl[i].two
+                },
+                stack: data.service[key].name,
+                data: data.service[key].LV2Warn
+            });
+            i++;
+        };
         let option_o = {
             // backgroundColor: '#001120',
             //animation: false,
@@ -331,46 +375,35 @@ let equipment_four_road = {
                 axisPointer: { // 坐标轴指示器，坐标轴触发有效
                     type: 'shadow' // 默认为直线，可选为：'line' | 'shadow'
                 },
-                formatter: function(value) {
-                    let str = '',
-                        i = 0;
-                    if (value.length == 2) {
-                        i = value.findIndex(f => f.seriesIndex != '1');
-                        str += value[i].axisValue + '<br />' + value[i].marker + ' ' + value[i].seriesName + ' ' + value[i].value
-                    } else if (value.length >= 3)
-                        str += value[0].axisValue + '<br />' + value[0].marker + ' ' + value[0].seriesName + ' ' + value[0].value +
-                        '<br />' + value[2].marker + ' ' + value[2].seriesName + ' ' + value[2].value;
-                    return str
-                }
             },
             legend: {
-                // data:['一级警告','二级警告'],
                 show: true,
-                data: data.title,
+                type: 'scroll',
+                left: 'center',
                 textStyle: {
                     color: COLOR
                 },
-                top: "0%",
+                top: '0%',
+                pageIconColor: 'rgba(217, 244, 45, 1)',
+                pageTextStyle: {
+                    color: COLOR
+                },
             },
             grid: {
-                // left: '3%',
-                // right: '4%',
                 bottom: '19%',
-                // containLabel: true,
                 height: '60%',
-                // width: '70%'
             },
             xAxis: [{
                 type: data.xAxis ? 'category' : 'value',
                 data: data.xAxis,
-                // data : ['周一','周二','周三','周四','周五','周六','周日'],
                 splitLine: {
                     show: false
                 },
                 axisLine: {
                     lineStyle: {
                         color: COLOR,
-                    }
+                    },
+
                 },
                 axisLabel: {
                     color: COLOR
@@ -384,48 +417,50 @@ let equipment_four_road = {
                 },
                 axisLine: {
                     lineStyle: {
-                        color: COLOR
-                    }
+                        color: COLOR,
+                    },
                 },
-                lineHeight: 100,
+                axisLabel: {
+                    // fontSize: 6,
+                },
                 inverse: !!data.yAxis, //x y轴颠倒
             }],
-            series: [{
-                    name: data.title[0],
-                    type: 'bar',
-                    barWidth: data.yAxis ? 5 : 10,
-                    itemStyle: {
-                        barBorderRadius: 20,
-                        color: 'rgb(44,197,255)'
-                    },
-                    data: data.firstData
-                },
-                { // 替代柱状图 默认不显示颜色，是最下方柱图（邮件营销）的value值 - 20 
-                    type: 'bar',
-                    barWidth: data.yAxis ? 5 : 10,
-                    barGap: '-100%',
-                    stack: data.title[1],
-                    itemStyle: {
-                        color: 'rgb(1,1,1,0)',
-                    },
-                    data: data.firstData
-                },
-                {
-                    name: data.title[1],
-                    type: 'bar',
-                    barWidth: data.yAxis ? 5 : 10,
-                    barGap: '-100%',
-                    stack: data.title[1],
-                    itemStyle: {
-                        barBorderRadius: 20,
-                        color: '#FFCC33',
-                    },
-                    data: data.secondData
-                }
+            series: servicedata_123213,
+            // [{
+            //         name: data.title[0],
+            //         type: 'bar',
+            //         barWidth: data.yAxis ? 5 : 10,
+            //         itemStyle: {
+            //             barBorderRadius: 20,
+            //             color: 'rgb(44,197,255)'
+            //         },
+            //         data: data.firstData
+            //     },
+            //     { // 替代柱状图 默认不显示颜色，是最下方柱图（邮件营销）的value值 - 20 
+            //         type: 'bar',
+            //         barWidth: data.yAxis ? 5 : 10,
+            //         barGap: '-100%',
+            //         stack: data.title[1],
+            //         itemStyle: {
+            //             color: 'rgb(1,1,1,0)',
+            //         },
+            //         data: data.firstData
+            //     },
+            //     {
+            //         name: data.title[1],
+            //         type: 'bar',
+            //         barWidth: data.yAxis ? 5 : 10,
+            //         barGap: '-100%',
+            //         stack: data.title[1],
+            //         itemStyle: {
+            //             barBorderRadius: 20,
+            //             color: '#FFCC33',
+            //         },
+            //         data: data.secondData
+            //     }
 
-            ]
+            // ]
         };
-
         myChart.setOption(option_o);
         // myChart.resize();
     },
@@ -1883,7 +1918,7 @@ let equipment_four_road = {
                     yAxisIndex: 1,
                     smooth: false,
                     symbol: "circle",
-                    symbolSize: 10,
+                    symbolSize: 6,
                     lineStyle: {
                         normal: {
                             width: 2
@@ -1913,7 +1948,7 @@ let equipment_four_road = {
             service_m.push({
                 name: f.name,
                 type: "line",
-                symbolSize: 10,
+                symbolSize: 6,
                 symbol: 'circle',
                 itemStyle: {
                     color: f.color,
@@ -2507,16 +2542,17 @@ let equipment_four_road = {
             tooltip: {
                 trigger: 'axis'
             },
-            title: [{
-                    text: '停',
-                    textStyle: {
-                        color: COLOR,
-                        fontSize: 12,
+            title: [
+                // {
+                //     text: '停',
+                //     textStyle: {
+                //         color: COLOR,
+                //         fontSize: 12,
 
-                    },
-                    left: '1%',
-                    top: '50%'
-                },
+                //     },
+                //     left: '1%',
+                //     top: '50%'
+                // },
                 {
                     text: afterdata.title || '',
                     textStyle: {
@@ -2533,7 +2569,7 @@ let equipment_four_road = {
                 // left: '3%',
                 // right: '4%',
                 top: '35%',
-                bottom: '40%',
+                bottom: '30%',
                 // containLabel: true
             },
             xAxis: {
@@ -2547,6 +2583,11 @@ let equipment_four_road = {
                 },
                 splitLine: {
                     show: false
+                },
+                axisLabel: {
+                    formatter: function(params) {
+                        return params.slice(3, 5) == '00' ? params.slice(0, 2) : '';
+                    }
                 }
             },
             yAxis: {
@@ -2567,6 +2608,11 @@ let equipment_four_road = {
                 },
                 splitLine: {
                     show: false
+                },
+                axisLabel: {
+                    formatter: function(params) {
+                        return params == 0 ? '停' : '起';
+                    }
                 }
             },
 

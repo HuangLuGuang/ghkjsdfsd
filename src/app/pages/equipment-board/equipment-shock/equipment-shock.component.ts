@@ -319,8 +319,8 @@ export class EquipmentShockComponent implements OnInit {
         
           [m.stationname,
           {value:m.stationstatus,id:'circle',color:m.stationstatus ==1?'green':'#3b3838'},
-          {value:m.interlock,id:'strip',color:m.interlock == 1?'#7fee1d':'white'},
-          {value:m.programinterlock,id:'strip',color:m.programinterlock== 1?'#7fee1d':'white'},]
+          {value:m.interlock,id:'strip',color:m.interlock == 1?'green':'#3b3838'},
+          {value:m.programinterlock,id:'strip',color:m.programinterlock== 1?'green':'#3b3838'},]
         
       ))
 

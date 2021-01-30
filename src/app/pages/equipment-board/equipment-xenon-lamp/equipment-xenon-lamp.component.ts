@@ -444,6 +444,10 @@ export class EquipmentXenonLampComponent implements OnInit {
   }
 
 
+  getdevices(){
+    return this.deviceid_4400+','+this.deviceid_4000;
+  }
+
   ngOnDestroy(){
     clearInterval(this.timer);
     for(let key in this.subscribeList){

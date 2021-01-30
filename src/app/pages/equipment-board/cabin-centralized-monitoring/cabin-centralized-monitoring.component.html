@@ -1,14 +1,14 @@
 <div id="monitoring">
     <div class="row height_100" style="margin: 0;">
         <div class="col-md-4" style="padding: 0px 0px 0px 20px;">
-            <div class="first_first height_33">
+            <div class="first_first height_41">
                 <ngx-equipment-status andon_status_font='ATECSafetyLampStatus' [device]='deviceid_ATEC' style="display: flex;width: 100%;"></ngx-equipment-status>
             </div>
-            <div class="first_second lattice_layout" style="height: 30%;">
+            <div class="first_second lattice_layout" style="height: 20%;">
                 <div class="part_title">ATEC{{'equipment.expInfor'|translate}}</div>
                 <ngx-test-information [device]='deviceid_ATEC' style="width: 100%;"></ngx-test-information>
             </div>
-            <div class="thrid height_33" style="margin-top: 20px;">
+            <div class="thrid height_35" style="margin-top: 20px;">
                 <div class="part_title">ATEC{{'equipment.EnvironmentRoom'|translate}}</div>
                 <div class=" dis_f_w" style="justify-content: flex-end;">
                     {{'equipment.warehouseStatus'|translate}}：
@@ -53,10 +53,10 @@
             </div>
         </div>
         <div class="col-md-4" style="padding: 0px 20px 0px 0px;height: 100%;">
-            <div class="first_first height_33">
+            <div class="first_first height_41">
                 <ngx-equipment-status andon_status_font='JINHUAsafetyLampStatus' TempNum="2" [device]='deviceid_jinhua' style="display: flex;width: 100%;"></ngx-equipment-status>
             </div>
-            <div class="thrid height_32" style="margin-top: 20px;">
+            <div class="thrid height_28" style="margin-top: 20px;">
                 <div class="part_title">锦华{{'equipment.EnvironmentRoom'|translate}}</div>
 
                 <div class="height_50" style="display: flex;justify-content: center;align-items: center;">
@@ -71,11 +71,11 @@
                         <div style="border-radius: 60px;width: 20px;height: 20px;" [ngStyle]="{'background':this.jinhua.newF == 1?'#07ef07':'#202223'}"></div>
                     </div>
                 </div>
-                <div class="height_45">
+                <div class="height_49">
                     <div id="cabin_discharge_chart_2" style="height: 100%;"></div>
                 </div>
             </div>
-            <div class="dis_f_w first_third lattice_layout height_31 center_center" style="padding-top: 4%;">
+            <div class="dis_f_w first_third lattice_layout height_27 center_center" style="padding-top: 4%;">
                 <div class="part_title">{{'equipment.CarSoakingAreaTempHumidity'|translate}}车区温湿度</div>
                 <div *ngFor="let item of TempHumidity" id="{{ item.id }}" style="width: 30%;height: 50%;">
                 </div>

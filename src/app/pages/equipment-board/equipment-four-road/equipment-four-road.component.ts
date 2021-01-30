@@ -328,7 +328,7 @@ export class EquipmentFourRoadComponent implements OnInit {
    *   中间的表的数据 开关这些数据     
    */
   get_device_mts_status(){
-      this.subscribeList.status = this.http.callRPC('get_device_mts_status',library+'get_device_mts_status',{device:this.deviceid}).subscribe((f:any) =>{
+      this.subscribeList.status = this.http.callRPC('get_device_mts_status',library+'get_device_mts_status_01',{device:this.deviceid}).subscribe((f:any) =>{
         if(f.result.error || f.result.message[0].code == 0)return;
         // this.switchStatus.data[0][0] =  f.result.message[0][1].stationname;
         // //起停状态
@@ -350,11 +350,11 @@ export class EquipmentFourRoadComponent implements OnInit {
         this.switchStatus.data = f.result.message[0].map(m =>(
           [
             m.stationname,
-            {value:m.runstop,color:m.runstop == 1?'green':'#3b3838',id:'circle'},
+            {value:m.stationstatus,color:m.stationstatus == 1?'green':'#3b3838',id:'circle'},
             {value:m.hsmt9j28aon,color:m.hsmt9j28aon == 1?'green':'#3b3838',id:'circle'},
             {value:m.hsmt9j28ahigh,color:m.hsmt9j28ahigh == 1?'green':'#3b3838',id:'circle'},
-            {value:m.interlock,color:m.interlock== 1?'white':'orange',id:'strip'},
-            {value:m.programinterlock,color:m.programinterlock== 1?'white':'orange',id:'strip'}
+            {value:m.interlock,color:m.interlock== 1?'green':'#3b3838',id:'strip'},
+            {value:m.programinterlock,color:m.programinterlock== 1?'green':'#3b3838',id:'strip'}
           ] 
         ))
         this.subscribeList.status.unsubscribe();

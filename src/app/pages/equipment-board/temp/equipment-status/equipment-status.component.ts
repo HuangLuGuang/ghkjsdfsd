@@ -185,7 +185,8 @@ export class EquipmentStatusComponent implements OnInit {
         arr[2][j]=el.stop;
         arr[1][j]=el.placeon;
         arr[3][j]=el.warning;
-        percentage[j] = ((el.running/(el.running+el.placeon+el.stop+el.warning))*100).toFixed(2);
+        let sum = el.running+el.placeon+el.stop+el.warning;
+        percentage[j] = el.running && sum?((el.running/(el.running+el.placeon+el.stop+el.warning))*100).toFixed(2):0;
 
         // month.push(recordtime[recordtime.length-1]+'月')
       });
@@ -202,7 +203,7 @@ export class EquipmentStatusComponent implements OnInit {
       });
       this.ngzone.runOutsideAngular(()=>{
 
-        this.initDeviceCircula({title:'安灯状态',message:'本月',value:[]},'device_circular_2',nowMonthData);
+        this.initDeviceCircula({title:'安灯状态',message:'本月',value:{}},'device_circular_2',nowMonthData);
       })
       // this.initDeviceCircula({title:this.language?'SafetyLampStatus':'安灯状态',message:this.language?'ThisMonth':'本月',value:[]},'device_circular_2',nowMonthData);
 

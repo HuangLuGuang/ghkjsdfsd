@@ -276,9 +276,9 @@ xData:[]
 
       this.switchStatus.data = g.result.message[0].map(m =>(
         [
-          m.stationname,{value:m.runstop,color:m.runstop == 1?'green':'#3b3838',id:'circle'},
-          {value:m.interlock,color:m.interlock== 1?'white':'orange',id:'strip'},
-          {value:m.programinterlock,color:m.programinterlock== 1?'white':'orange',id:'strip'}
+          m.stationname,{value:m.stationstatus,color:m.stationstatus == 1?'green':'#3b3838',id:'circle'},
+          {value:m.interlock,color:m.interlock== 1?'green':'#3b3838',id:'strip'},
+          {value:m.programinterlock,color:m.programinterlock== 1?'green':'#3b3838',id:'strip'}
         ] 
       ))
       // console.log(this.switchStatus.data)

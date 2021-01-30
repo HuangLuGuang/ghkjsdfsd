@@ -422,31 +422,7 @@ export class ChartCurveV3Component implements OnInit {
         data: lines,
         lineStyle: {
             color:colors[0]
-            // normal: {
-            //     width: 2,
-            //     // color: '#3374EB',
-            //     color: {
-            //         type: 'linear',
-            //         x: 0,
-            //         y: 0,
-            //         x2: 1,
-            //         y2: 0,
-            //         colorStops: [{
-            //             offset: 0,
-            //             color: colors[0] // 0% 处的颜色
-            //         }, {
-            //             offset: 1,
-            //             color: colors[1] // 100% 处的颜色
-            //         }],
-            //         global: false // 缺省为 false
-            //     },
-            //     shadowColor: colors[1],
-            //     shadowBlur: 4,
-            //     shadowOffsetY: 3
-            // }
         },
-        // smooth: false,
-        
         itemStyle: {
             normal: {
                 color: colors[1],
@@ -456,7 +432,6 @@ export class ChartCurveV3Component implements OnInit {
                 borderColor: "#F8F8FF"
             }
         },
-        smooth: true,
         symbol: "circle",
         symbolSize: 6,
     }

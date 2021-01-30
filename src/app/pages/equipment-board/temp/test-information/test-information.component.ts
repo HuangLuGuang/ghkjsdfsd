@@ -1,6 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { HttpserviceService } from '../../../../services/http/httpservice.service';
-import {dateformat, rTime} from '../../equipment-board';
+import {dateformat, DEVICEID_TO_NAME, rTime} from '../../equipment-board';
 
 @Component({
   selector: 'ngx-test-information',
@@ -20,8 +20,8 @@ export class TestInformationComponent implements OnInit {
     // '实验编号','开始时间','结束时间','已进行时长','进度'
     title:['ExperimentNum','StartTime','endTime','CarriedOutTime','schedule'],
     data:[
-      // [1,'2020-10-11','2020-10-11',1,1],
-      // [1,'2020-10-11','2020-10-11',1,1],
+      // ['12321312','2020-10-11','2020-10-11',1,1,'13'],
+      // [1,'2020-10-11','2020-10-11',1,1,'13'],
       // [1,'2020-10-11','2020-10-11',1,1],
       // [1,'2020-10-11','2020-10-11',1,1],
       // [1,'2020-10-11','2020-10-11',1,1],
@@ -33,6 +33,7 @@ export class TestInformationComponent implements OnInit {
   }
   timer60s;
   subscribeList:any = {};
+  ROULE = DEVICEID_TO_NAME;
 
   constructor(private http:HttpserviceService) { }
 
@@ -52,40 +53,27 @@ export class TestInformationComponent implements OnInit {
     let data = [];
     let data_next = [];
     this.subscribeList.mts_p = this.http.callRPC('get_device_taskinfo','get_device_taskinfo',{"deviceid":this.device}).subscribe((f:any)=>{
-      // console.log(f)
       if(f.result.error || f.result.message[0].code == 0)return;
       f.result.message[0].message.forEach(el => {
-        if(new Date(rTime(el.taskstart)).getTime() < now.getTime())
           data.push(this.return_data(el));
-        else
-          data_next.push(this.return_data(el));
       });
+
       this.experiment.data = data;
       this.experiment.data_next = data_next;
 
       this.subscribeList.mts_p.unsubscribe();
 
-      // this.experiment.data = f.result.message[0].message.map(m =>
-      //       ([m.taskchildnum,dateformat(new Date(m.taskstart),'yy/MM/dd'),dateformat(new Date(m.taskend),'yy/MM/dd'),m.numberstime+'h',parseInt((m.rate).toString())])
-      // );
-      // f.result.message[0].message
-      // this.experiment.data_next = f.result.message[0].message.map(m =>
-      //   ([m.taskchildnum,dateformat(new Date(m.taskstart),'yy/MM/dd'),dateformat(new Date(m.taskend),'yy/MM/dd'),m.numberstime+'h',parseInt((m.rate).toString())])
-      // );
     })
-    // this.http.callRPC('get_device_mts_progress',library+'get_device_mts_progress',{
-    //   "device":this.device,"arr":"status"
-    // }).subscribe((f:any) =>{
-    // console.log(f);
-    // if(f.result.error || f.result.message[0].code == 0)return;
-    //   this.experiment.data = f.result.message[0].message.map(m =>
-    //     ([m[1],'——',dateformat(new Date(m[0]),'yy/mm/dd'),'——',parseInt((m[2]*100).toString())])
-    //     );
-    // })
   }
 
   return_data(m){
-    return [m.taskchildnum,dateformat(new Date(m.taskstart),'yy/MM/dd'),dateformat(new Date(m.taskend),'yy/MM/dd'),m.numberstime+'h',parseInt((m.rate).toString())]
+    return [
+      m.taskchildnum,dateformat(new Date(m.taskstart),'yy/MM/dd'),//实验编号
+      dateformat(new Date(m.taskend),'yy/MM/dd'),
+      m.numberstime+'h',
+      parseInt((m.rate).toString()),
+      this.ROULE[m.deviceid]
+    ]
   }
 
   get_height(){

@@ -2,7 +2,7 @@ import { Component, Input, NgZone, OnInit } from '@angular/core';
 import * as screenfull from 'screenfull';
 import { Screenfull } from 'screenfull';
 import { HttpserviceService } from '../../../../services/http/httpservice.service';
-import { dateformat, library } from '../../equipment-board';
+import { dateformat, DEVICEID_TO_NAME, library } from '../../equipment-board';
 import { EquipmentBoardService } from '../../serivice/equipment-board.service';
 let equipment_four_road = require('../../../../../assets/eimdoard/equipment/js/equipment-four-road');
 
@@ -37,8 +37,10 @@ export class LogWarmComponent implements OnInit {
   timer;
   time_w;
   language = '';
-  errorC = true;
+  errorC = false;//是否报警
   subscribeList:any = {};
+  RULE = DEVICEID_TO_NAME;
+  str = '';//报警源字符
   
   
   constructor(private http:HttpserviceService,private boardservice:EquipmentBoardService,private ngzone:NgZone) { }
@@ -96,11 +98,27 @@ export class LogWarmComponent implements OnInit {
     //     getMessage(g,this.log_warm.data);
     // })
     //SELECT get_log('{"deviceid":"device_mts_01"}')
-    this.subscribeList.device_mts_log = this.http.callRPC('get_log',library+'get_log',{"deviceid":this.device}).subscribe((g:any) =>{
+    let status=false,res,arr=[],logs,str = '';
+    this.subscribeList.device_mts_log = this.http.callRPC('get_log',library+'get_logs',{"deviceid":this.device}).subscribe((g:any) =>{
       // console.log(g)
       if(g.result.error || g.result.message[0].code == 0)return;
-
-      this.log_warm.data = this.getMessage(g);
+      res = g.result.message[0].message;
+      res.forEach((c:any) => {
+        logs = Object.values(c);
+        if(logs.length>0 && logs[logs.length-1].level == 3){
+          status = true;
+          if(this.device.includes(',')){
+            if(str) str += ',';
+            str += this.RULE[logs[0].deviceid];
+          }
+        };
+        c.forEach(el => {
+          arr.push(el);
+        });
+      });
+      this.errorC = status;//当前是都有设备三级报警
+      this.str = str;//多个deviceid时需要区分是哪个进行了三级报警
+      this.log_warm.data = this.getMessage(arr);
       var showContent = $(".overflow_height_75");
       if(showContent[0])showContent[0].scrollTop = showContent[0].scrollHeight;
       // this.create_scrollbar();
@@ -115,48 +133,54 @@ export class LogWarmComponent implements OnInit {
    */
   get_device_mts_log_his(){
     //SELECT get_log_warning('{"deviceid":"device_mts_01","recordtime":"2020-11-3"}')
-    this.subscribeList.his_log = this.http.callRPC('get_log_warning',library+'get_log_warning',{"deviceid":this.device,"recordtime":this.getFirstDayOfWeek()}).subscribe((g:any) =>{
-      // console.log(g)
+    let data:any = {};
+    this.device.split(',').forEach(el => {
+      data[el] = {};
+      data[el].LV1Warn = [0,0,0,0,0,0,0];
+      data[el].LV2Warn = [0,0,0,0,0,0,0];
+    });
+    this.subscribeList.his_log = this.http.callRPC('get_log_warning',library+'get_log_warnings',{"deviceid":this.device,"recordtime":this.getFirstDayOfWeek()}).subscribe((g:any) =>{
       if(g.result.error || g.result.message[0].code == 0)return;
-      let arr = g.result.message[0].message;
-      var LV1Warn = [0,0,0,0,0,0,0];
-      var LV2Warn = [0,0,0,0,0,0,0];
+      let arr = g.result.message[0].message[0];
       for(let i = 0;i<arr.length;i++){
-          let j = new Date(arr[i].recordtime).getDay();
-          if(arr[i].level == 1)LV1Warn[j == 0?6:j-1] = arr[i].numbers;
-          if(arr[i].level == 2)LV2Warn[j == 0?6:j-1] = arr[i].numbers;
+        let j = new Date(arr[i].recordtime).getDay();
+        if(arr[i].level == 1)data[arr[i].deviceid].LV1Warn[j == 0?6:j-1] += arr[i].numbers;
+        if(arr[i].level == 2)data[arr[i].deviceid].LV2Warn[j == 0?6:j-1] += arr[i].numbers;
       }
     this.ngzone.runOutsideAngular(()=>{
-    
-      this.initLogChart(LV1Warn,LV2Warn);
+      this.initLogChart(data);
     })
       this.subscribeList.his_log.unsubscribe();
 
-    })
-    // this.subscribeList.device_mts_log_his = this.http.callRPC('get_device_log_daily_count',library+'get_device_log_daily_count',{"device":this.device,"monday":this.getFirstDayOfWeek()}).subscribe((g:any) =>{
-    //     console.log(g)
-    //     if(g.result.error || g.result.message[0].code == 0)return;
-    //     let arr = g.result.message[0].message;
-    //     var LV1Warn = [];
-    //     var LV2Warn = [];
-    //     for(let i = 0;i<arr.length;i++){
-    //       if(arr[i].level == 1)LV1Warn.push(arr[i].sumresult);
-    //       if(arr[i].level == 2)LV2Warn.push(arr[i].sumresult);
-    //     }
-    //     this.initLogChart(LV1Warn,LV2Warn);
-    // })
+    });
   }
+
+
   //日志历史记录图表
-  initLogChart(firstData,secondData){
-    let data = {
-      title:['一级警告','二级警告'],
-      yAxis:['周一','周二','周三','周四','周五','周六','周日'],
-      firstData:firstData,
-      secondData:secondData
+  initLogChart(data_1){
+    for(let key in data_1){
+      data_1[key].name = this.RULE[key];
     }
+    let xory = ''
+    let data = {
+      // title:['一级警告','二级警告'],
+      num:0,//多deviceid 总共有几个deviceid
+      yAxis:['周一','周二','周三','周四','周五','周六','周日'],
+      xAxis:['周一','周二','周三','周四','周五','周六','周日'],
+      service:data_1
+    }
+    if(this.device.includes(',')){
+      xory = 'xAxis';
+      data.num = this.device.includes(',').length;
+      data.yAxis = null;
+    }else{
+      data.xAxis = null;
+      data.num = 1;
+    }
+    
     if(this.language){
-      data.title = ['LV1Warn','LV2Warn'];
-      data.yAxis = ['Mon','Tue','Wed','Thu','Fri','Sat','Sun'];
+      // data.title = ['LV1Warn','LV2Warn'];
+      data['xory'] = ['Mon','Tue','Wed','Thu','Fri','Sat','Sun'];
     }
     if(document.getElementById('warning')){
       let myChart_3 = echarts.init(document.getElementById('warning'));
@@ -190,9 +214,6 @@ export class LogWarmComponent implements OnInit {
     return sf.isFullscreen?'150px':'120px';
   }
 
-  getwarm(){
-    return this.log_warm.data.length > 0 ?this.log_warm.data[this.log_warm.data.length-1][3]:'';
-  }
 
   getwarmStr(){
     return this.log_warm.data.length > 0 ?"equipment.LV"+this.log_warm.data[this.log_warm.data.length-1][3]+"Warm" :'';
@@ -203,7 +224,7 @@ export class LogWarmComponent implements OnInit {
     let arr:any = [];
     var aee = [];
     var i = 0;
-    f.result.message[0].message.forEach(m => {
+    f.forEach(m => {
       aee = m.message.split("\"");
       i = aee.findIndex(f => f && f !=' ');
       arr.push([
@@ -212,6 +233,7 @@ export class LogWarmComponent implements OnInit {
           m.message,
           // aee[aee.length-1].length > aee[aee.length-2].length?aee[aee.length-1]:aee[aee.length-2],
           m.level,
+          this.device.includes(',')?this.RULE[m.deviceid]:'',
         ]);
     });
     return arr;

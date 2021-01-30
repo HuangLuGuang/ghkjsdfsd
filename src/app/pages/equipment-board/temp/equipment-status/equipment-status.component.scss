@@ -1,37 +1,39 @@
 .andon_status {
     width: 14%;
+    padding-top: 15%;
     .andon_color {
         border: 3px solid rgb(157, 195, 230);
-        border-radius: 21px;
-        height: 74%;
-        .last {
-            border-bottom-left-radius: 17px;
-            border-bottom-right-radius: 17px;
-        }
-        .first {
-            border-top-left-radius: 17px;
-            border-top-right-radius: 17px;
-        }
+        border-radius: 7px;
+        width: 65%;
+        height: 79%;
+        margin-left: 12%;
+        // .last {
+        // border-bottom-left-radius: 17px;
+        // border-bottom-right-radius: 17px;
+        // }
+        // .first {
+        // border-top-left-radius: 17px;
+        // border-top-right-radius: 17px;
+        // }
     }
     .andon_status_font {
-        margin-top: 17px;
-        // padding: 3px;
+        // margin-top: 17px;
         font-size: 12px;
     }
     .andon_img {
-        background: url('/assets/eimdoard/equipment/images/triangle.png');
-        height: 11%;
+        background: url(/assets/eimdoard/equipment/images/triangle.png) no-repeat;
+        height: 8%;
         background-size: cover;
-        -webkit-background-size: cover;
+        -webkit-background-size: 100%;
         -o-background-size: cover;
         background-position: center center;
-        margin-left: 10px;
+        margin-left: 12%;
     }
 }
 
 .chart_1 {
     box-shadow: 0 0px 1px 3px rgba(50, 84, 129, 1) inset;
-    width: 95%;
+    width: 100%;
     min-height: 64px;
 }
 
@@ -43,7 +45,7 @@
     position: relative;
     .chart {
         // height: 100%;
-        padding-left: 21px;
+        // padding-left: 21px;
         width: 100%;
         display: flex;
         flex-wrap: wrap;
@@ -56,7 +58,7 @@
         }
         .device_status {
             // height: 45%;
-            width: 95%;
+            width: 100%;
             box-shadow: 0 0px 1px 3px rgba(50, 84, 129, 1) inset;
             // min-height: 50%;
         }

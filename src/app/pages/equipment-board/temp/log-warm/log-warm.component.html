@@ -1,12 +1,13 @@
 <div style="height: 100%;width: 100%;display: flex;flex-wrap: wrap;">
     <div class="part_title">{{'equipment.LogWarm' | translate}}</div>
     <div class="h_46_w_30">
+        <div style="width: 100%;" *ngIf="str">{{str}}</div>
         <div style="width: 100%;">{{'equipment.LV3Warm'|translate}}</div>
         <!-- <div style="width: 100%;">{{getwarm() | translate}}</div> -->
         <!-- <div id="circular" [ngStyle]="{'color':getwarmStr() == 3?'red':getwarmStr()==2?'':'yellow'}"></div> -->
-        <div id="circular" [ngStyle]="{'color':getwarm() == 3?'red':''}"></div>
+        <div id="circular" [ngStyle]="{'background':errorC ?'red':''}"></div>
     </div>
-    <div class="h_40_w_70" id="warning"></div>
+    <div class="h_43_w_70" id="warning"></div>
     <div class="_table height_57">
         <div class="table_bo ">
             <table>
@@ -17,14 +18,14 @@
                 </tr>
             </table>
         </div>
-        <div class="scrollbar_l">
+        <!-- <div class="scrollbar_l">
             <div id="s"></div>
-        </div>
+        </div> -->
         <div class="table_bo overflow_height_75" style="position: relative;">
             <table style="position: absolute;width: 100%;">
                 <tr *ngFor="let items of log_warm.data;let j = index" class="body" [ngStyle]="{'color':items[3] == 3?'#f595ca':(items[3]==2?'yellow':'')}">
                     <td style="padding: 0%;" [ngStyle]="{width: i==2?'59%':'20%'}" *ngFor="let item of items;let i = index">
-                        <div class="font_w_too_long" *ngIf="i == 0">{{item | date:'yyyy-MM-dd'}}</div>
+                        <div class="font_w_too_long" *ngIf="i == 0">{{item | date:'yyyy-MM-dd'}}<br>{{items[4]}}</div>
                         <div class="font_w_too_long" title="{{item}}" *ngIf="[1,2].includes(i)">{{item}}</div>
                     </td>
                 </tr>
