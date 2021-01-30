@@ -16,3 +16,20 @@
     }
   }
 }
+  ::ng-deep {
+    .nb-theme-default nb-layout.window-mode .layout nb-layout-header nav {
+      height: 5.5vh;
+    }
+    .nb-theme-default nb-layout .layout .layout-container .content .columns nb-layout-column {
+        padding: 0.1rem 0.75rem 0.75rem;
+    }
+
+    .nb-theme-default nb-layout-header.fixed ~ .layout-container {
+      padding-top: 3.4rem;
+    }
+    .nb-theme-default nb-layout .layout .layout-container nb-sidebar.fixed, .nb-theme-default nb-layout .layout .layout-container nb-sidebar .main-container-fixed {
+      top: 2.75rem;
+    }
+
+
+  }
