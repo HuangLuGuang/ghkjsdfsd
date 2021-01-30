@@ -250,8 +250,14 @@ export class GroupDataSumComponent implements OnInit {
         break;
     }
   }
+
+  // year、month
+  inpuvalue(inpuvalue) {
+    this.query(inpuvalue);
+  }
+
   // 搜索
-  query() {
+  query(inpuvalue?) {
     this.gridData = [];
     this.inttable();
   }

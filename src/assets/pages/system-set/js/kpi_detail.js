@@ -436,7 +436,7 @@ let kpi_detail = {
       // color:["#5D7FE5", "#26FF26"],
       color: afterdata.color,
       tooltip: {
-        trigger: "axis",
+        trigger: "axis", // item axis
         axisPointer: {
           type: "cross",
           crossStyle: {
@@ -509,6 +509,9 @@ let kpi_detail = {
           splitArea: {
             show: false,
           },
+          axisPointer: {
+            show: false,
+          },
         },
       ],
       yAxis: [
@@ -548,6 +551,7 @@ let kpi_detail = {
           axisTick: {
             show: false,
           },
+
           data: afterdata.Total.yAxis.data,
         },
       ],
@@ -960,7 +964,8 @@ let kpi_detail = {
               yAxisIndex: 0,
               itemStyle: {
                 normal: {
-                  color: "rgb(119,134,150)",
+                  // color: "rgb(119,134,150)",
+                  color: afterdata.colors[0],
                 },
               },
               label: {
@@ -981,7 +986,8 @@ let kpi_detail = {
               yAxisIndex: 2,
               itemStyle: {
                 normal: {
-                  color: "rgb(60,208,60)",
+                  // color: "rgb(60,208,60)",
+                  color: afterdata.colors[1],
                 },
               },
               label: {

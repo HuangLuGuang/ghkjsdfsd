@@ -4,13 +4,13 @@
         <!-- 年下拉 -->
         <div class="example-items-rows button_item">
             <div class="year">
-                <ngx-year-select #myYear></ngx-year-select>
+                <ngx-year-select #myYear (inpuvalue)="inpuvalue($event)"></ngx-year-select>
             </div>
         </div>
         <!-- 月下拉框 -->
         <div class="example-items-rows button_item">
             <div class="month">
-                <ngx-month-select #myMonth [placeholder]="month_placeholder"></ngx-month-select>
+                <ngx-month-select #myMonth [placeholder]="month_placeholder" (inpuvalue)="inpuvalue($event)"></ngx-month-select>
                 <!-- <ngx-my-select-tree-single #myMonth [placeholder]="month_placeholder"></ngx-my-select-tree-single> -->
 
             </div>
