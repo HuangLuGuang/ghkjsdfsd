@@ -1698,9 +1698,10 @@ let equipment_four_road = {
                 },
             },
             yAxis: {
-                min: 0,
+                // min: 0,
                 axisLabel: {
                     color: COLOR,
+
                     formatter: function(str) {
                         return str > 10000 ? str / 10000 + 'W' : str;
                     }
@@ -1709,7 +1710,8 @@ let equipment_four_road = {
                     show: yxLine ? false : true,
                     lineStyle: {
                         color: COLOR,
-                    }
+                    },
+                    interval: 'auto',
                 },
                 axisTick: {
                     show: yxLine ? false : true, //不显示刻度
@@ -2532,7 +2534,6 @@ let equipment_four_road = {
                 },
             }]
         };
-        console.log(JSON.stringify(progress_092312))
         myChart.setOption(progress_092312)
     },
     //启停时序

@@ -24,12 +24,12 @@
                 <div class="part_title">ATEC-环境舱</div>
                 <div class="cabin">
                     <div class="cabin_layout height_40">
-                        <div class="round" [ngStyle]="{background:cang_1.status?'#66FF66':'black' }"></div>
+                        <div class="round" [ngStyle]="{background:atec.status?'#66FF66':'black' }"></div>
                         <div id="cabin_pie_1"></div>
                         <div id="cabin_pie_2"></div>
                         <div class="cabin_1_set height_100">
-                            <div class="set_1">温度设定值：<span class="span_css">{{ cang_1.tempSet}}℃</span></div>
-                            <div class="set_1">湿度设定值：<span class="span_css">{{ cang_1.rhSet }}%RH</span></div>
+                            <div class="set_1">温度设定值：<span class="span_css">{{ atec.tempSet}}℃</span></div>
+                            <div class="set_1">湿度设定值：<span class="span_css">{{ atec.rhSet }}%RH</span></div>
                         </div>
                     </div>
                     <div id="cabin_line_1" class="height_54 w_100"></div>
@@ -38,65 +38,69 @@
         </div>
         <div class="col-md-4" style="padding: 0px 20px 0px  0px;">
             <div class="backgroud height_24">
-                <div class="part_title">电流曲线</div>
-                <div id="current"></div>
+                <div class="part_title">电机温度</div>
+                <div class="electric">
+                    <div>电机1温度：<span>{{ electric_temp.realdata_1 }}℃</span></div>
+                    <div>电机2温度：<span>{{ electric_temp.realdata_1 }}℃</span></div>
+                </div>
+                <div id="electric_temp"></div>
             </div>
-            <div class="backgroud height_24">
-                <div class="part_title">电压曲线</div>
-                <div id="voltage"></div>
-            </div>
-            <div class="backgroud height_48" style="margin: 0;">
+            <div class="backgroud height_30" style="margin: 0;">
                 <div class="part_title">实验参数</div>
                 <div class="equipment_params">
                     <div class="row_1 left">
                         <div class=" cabin_4_set">
-                            <div class="set_1">测试次数 <span class="span_css">3600次</span></div>
-                            <div class="set_1">测试次数 <span class="span_css">3600次</span></div>
-                            <div class="set_1">测试次数 <span class="span_css">3600次</span></div>
-                            <div class="set_1">测试次数 <span class="span_css">3600次</span></div>
+                            <div class="set_1 font_big">工位1:</div>
+                            <div class="set_1">进度 <span class="span_css">{{sky_rate.one.rate}}%</span></div>
+                            <div class="set_1">已侧次数 <span class="span_css">{{sky_rate.one.station1_tested_count}}次</span></div>
+                            <div class="set_1">已测时间 <span class="span_css">{{sky_rate.one.station1_test_count_total}}h</span></div>
+                            <div class="set_1">测试次数 <span class="span_css">{{sky_rate.one.station1_tested_count}}次</span></div>
+                            <div class="set_1">测试时间 <span class="span_css">{{sky_rate.one.station1_test_time_total}}h</span></div>
                             <div id="progress_1" class="progress"></div>
-                        </div>
-                        <div class=" cabin_4_set">
-                            <div class="set_1">测试次数 <span class="span_css">3600次</span></div>
-                            <div class="set_1">测试次数 <span class="span_css">3600次</span></div>
-                            <div class="set_1">测试次数 <span class="span_css">3600次</span></div>
-                            <div class="set_1">测试次数 <span class="span_css">3600次</span></div>
-                            <div id="progress_2" class="progress"></div>
-                        </div>
-                        <div class=" cabin_4_set">
-                            <div class="set_1">测试次数 <span class="span_css">3600次</span></div>
-                            <div class="set_1">测试次数 <span class="span_css">3600次</span></div>
-                            <div class="set_1">测试次数 <span class="span_css">3600次</span></div>
-                            <div class="set_1">测试次数 <span class="span_css">3600次</span></div>
-                            <div id="progress_3" class="progress"></div>
                         </div>
                     </div>
                     <div class="row_1 right ">
                         <div class=" cabin_4_set">
-                            <div class="set_1">测试次数 <span class="span_css">3600次</span></div>
-                            <div class="set_1">测试次数 <span class="span_css">3600次</span></div>
-                            <div class="set_1">测试次数 <span class="span_css">3600次</span></div>
-                            <div class="set_1">测试次数 <span class="span_css">3600次</span></div>
+                            <div class="set_1 font_big">工位2:</div>
+                            <div class="set_1">进度 <span class="span_css">{{sky_rate.two.rate}}%</span></div>
+                            <div class="set_1">已侧次数 <span class="span_css">{{sky_rate.two.station2_tested_count}}次</span></div>
+                            <div class="set_1">已测时间 <span class="span_css">{{sky_rate.two.station2_test_count_total}}h</span></div>
+                            <div class="set_1">测试次数 <span class="span_css">{{sky_rate.two.station2_tested_count}}次</span></div>
+                            <div class="set_1">测试时间 <span class="span_css">{{sky_rate.two.station2_test_time_total}}h</span></div>
                             <div id="progress_4" class="progress"></div>
                         </div>
-                        <div class=" cabin_4_set">
-                            <div class="set_1">测试次数 <span class="span_css">3600次</span></div>
-                            <div class="set_1">测试次数 <span class="span_css">3600次</span></div>
-                            <div class="set_1">测试次数 <span class="span_css">3600次</span></div>
-                            <div class="set_1">测试次数 <span class="span_css">3600次</span></div>
-                            <div id="progress_5" class="progress"></div>
+                    </div>
+                    <img style="width: 90px;height: 115px;position: absolute;top: 27%;left: 42%;transform: rotate(-90deg);" [src]="imgsrc.car" />
+                </div>
+            </div>
+            <div class="backgroud height_42" style="margin-top: 20px;margin-bottom: 0;">
+                <div class="log">
+                    <!-- <div class="name">工位1：</div> -->
+                    <div class="_table">
+                        <div class="head">
+                            <div *ngFor="let item of tablelist">{{item}}</div>
                         </div>
-                        <div class=" cabin_4_set">
-                            <div class="set_1">测试次数 <span class="span_css">3600次</span></div>
-                            <div class="set_1">测试次数 <span class="span_css">3600次</span></div>
-                            <div class="set_1">测试次数 <span class="span_css">3600次</span></div>
-                            <div class="set_1">测试次数 <span class="span_css">3600次</span></div>
-                            <div id="progress_6" class="progress"></div>
+                        <div class="body">
+                            <div class="table_row {{items[1]}}" *ngFor="let items of table_1">
+                                <div *ngFor="let item of items">{{item}}</div>
+                            </div>
                         </div>
                     </div>
-                    <img style="width: 80px;height: 160px;position: absolute;top: 16%;left: 42%;" [src]="imgsrc.car" />
-                    <img style="width: 66px;height: 115px;position: absolute;top: 70%;left: 45%;transform: rotate(-90deg);" [src]="imgsrc.car" />
                 </div>
+                <!-- <div class="height_2"></div>
+                <div class="log">
+                    <div class="name">工位2：</div>
+                    <div class="_table">
+                        <div class="head">
+                            <div *ngFor="let item of tablelist">{{item}}</div>
+                        </div>
+                        <div class="body">
+                            <div class="table_row" *ngFor="let items of table_2">
+                                <div *ngFor="let item of items">{{item}}</div>
+                            </div>
+                        </div>
+                    </div>
+                </div> -->
             </div>
         </div>
     </div>

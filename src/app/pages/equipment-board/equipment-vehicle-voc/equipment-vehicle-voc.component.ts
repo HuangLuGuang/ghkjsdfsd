@@ -50,8 +50,8 @@ export class EquipmentVehicleVocComponent implements OnInit {
     status:1,
     tempSet:0,
     rhSet:0,
-    tempReal:50,
-    rhReal:50,
+    tempReal:0,
+    rhReal:0,
     inner:0,//内循环
     exhaust:0,//强排气
     outside:0,//外循环

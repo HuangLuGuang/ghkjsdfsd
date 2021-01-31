@@ -266,8 +266,8 @@ export class EquipmentPureWaterComponent implements OnInit {
     private http:HttpserviceService) { }
 
   ngOnInit(): void {
-    this.getdata();
     this.timer = setInterval(f=>{
+      this.getdata();
       
     },1000)
     this.sublist.roule = this.activate.params.subscribe(f=>{
@@ -284,7 +284,7 @@ export class EquipmentPureWaterComponent implements OnInit {
   }
 
   getdata(){
-    let res,time,data:any = {};
+    let res,data:any = {},error_str;
     this.sublist._4400 = this.http.callRPC('get_device_mts_realtimedata',library+'get_device_mts_realtimedata',
     {"device":this.device,arr:wather.join(',')}).subscribe((g:any)=>{
       if(g.result.error || g.result.message[0].code == 0)return;
@@ -318,7 +318,7 @@ export class EquipmentPureWaterComponent implements OnInit {
       //原水箱低液位
       this.list.ysl.bcolor = data.raw_water_tank_l?'green':'black';
       //原水泵
-      this.list.ysb.bcolor = data.raw_water_pump_running?'green':'black';
+      this.list.ysb.bcolor = data.raw_water_pump?'green':'black';
       // 机械过滤器冲洗信号
       this.list.jxglq.bcolor = data.mech_filter_flush_signal?'green':'black';
       // 活性炭过滤器冲洗信号
@@ -328,19 +328,19 @@ export class EquipmentPureWaterComponent implements OnInit {
       // 软化2
       this.list.rhglq_2.bcolor = data.n2_softening_filter_flush_signal?'green':'black';
 
-      //一级高压泵运行指示
-      this.list.gyb_1.bcolor = data.mech_filter_flush_signal?'green':'black';
-      // TODO ro冲洗阀
-      this.list.rocxf.bcolor = 'yellow';
+      //一级高压泵
+      this.list.gyb_1.bcolor = data.l1_high_pressure_pump?'green':'black';
+      // ro冲洗阀
+      this.list.rocxf.bcolor = data.ro_flush?'green':'black';
       //ph加药
       this.list.ph_l.bcolor = data.ph_potion_tank_l?'green':'black';
       // TODO ph加药泵
-      this.list.phjyb.bcolor = 'yellow';
+      this.list.phjyb.bcolor = data.ph_dosing_pump?'green':'black';
 
       //二级高压泵负载
       this.list.gyb_2_left.bcolor = data.l2_h_pump_overload?'red':'black';
-      //二级高压泵运行
-      this.list.gyb_2_right.bcolor = data.l2_h_pump_running?'green':'black';
+      //二级高压泵
+      this.list.gyb_2_right.bcolor = data.l2_high_pressure_pump?'green':'black';
 
       //二级RO水箱高液位  
       this.list.ro_2_h.bcolor = data.l2_ro_water_tank_h?'green':'black';
@@ -348,24 +348,33 @@ export class EquipmentPureWaterComponent implements OnInit {
       this.list.ro_2_l.bcolor = data.l2_ro_water_tank_l?'green':'black';
 
       //edi增压泵
-      this.list.edizyb.bcolor = data.edi_booster_pump_overload?'green':'black';
+      this.list.edizyb.bcolor = data.edi_booster_pump?'green':'black';
 
       //edi产水
-      this.list.edicsll.bcolor = data.edi_product_water_flow_alarm_signal?'green':'black';
+      this.list.edicsll.bcolor = data.edi_product_water_flow_alarm_signal?'red':'black';
       //edi浓水
-      this.list.edinsll.bcolor = data.edi_concentrate_flow_alarm_signal?'green':'black';
+      this.list.edinsll.bcolor = data.edi_concentrate_flow_alarm_signal?'red':'black';
       //edi电信号
-      this.list.edidxh.bcolor = data.edi_concentrate_flow_alarm_signal?'green':'black';
+      this.list.edidxh.bcolor = data.edi_power_on_signal?'green':'black';
       // 超纯水箱高
       this.list.ccsx_h.bcolor = data.ultra_pure_water_tank_h?'green':'black';
       // 超纯水箱低
       this.list.ccsx_l.bcolor = data.ultra_pure_water_tank_l?'green':'black';
+
       // TODO 输送泵 
       this.list.ssb.bcolor = 'yellow';
 
+      // error_str
 
-
-
+    //   'water_leak_alarm',//漏水报警
+    // 'raw_water_overload',//原水泵过载
+    // 'freq_converter_error',//变频器故障
+    // 'l1_h_pump_overload',//一级高压泵过载
+    // 'l2_h_pump_overload',//二级高压泵过载
+    // 'edi_concentrate_flow_alarm_signal',//EDI浓水流量报警信号
+    // 'edi_product_water_flow_alarm_signal',//EDI产水流量报警信号
+    // 'freq_converter_error_reset',//变频器故障复位
+    // 'error_alarm',//故障报警
       
       // this.status = data.emergency_stop == 1?'':'';
     });
@@ -407,17 +416,28 @@ export let wather = [
   'l1_l_voltage_switch',//一级低压开关
   'l2_l_voltage_switch',//二级低压开关
   'edi_h_voltage_switch',//EDI高压开关
-  'freq_converter_error',//变频器故障
-  'raw_water_overload',//原水泵过载
-  'l1_h_pump_overload',//一级高压泵过载
-  'l2_h_pump_overload',//二级高压泵过载
+
   'edi_booster_pump_overload',//EDI增压泵过载
   'edi_power_on_signal',//EDI上电信号
-  'edi_concentrate_flow_alarm_signal',//EDI浓水流量报警信号
-  'edi_product_water_flow_alarm_signal',//EDI产水流量报警信号
+ 
   'leak_detection',//漏水检测
   'raw_water_pump_running',//原水泵运行指示
   'l1_h_pump_running',//一级高压泵运行指示
   'l2_h_pump_running',//二级高压泵运行指示
   'edi_booster_pump_running',//EDI增压泵运行指示
+  'ph_dosing_pump',//ph加药泵
+  'ro_flush',//冲洗阀
+
+  'l1_high_pressure_pump',//一级高压泵
+  'l2_high_pressure_pump',//二级高压泵
+
+  'water_leak_alarm',//漏水报警
+  'raw_water_overload',//原水泵过载
+  'freq_converter_error',//变频器故障
+  'l1_h_pump_overload',//一级高压泵过载
+  'l2_h_pump_overload',//二级高压泵过载
+  'edi_concentrate_flow_alarm_signal',//EDI浓水流量报警信号
+  'edi_product_water_flow_alarm_signal',//EDI产水流量报警信号
+  'freq_converter_error_reset',//变频器故障复位
+  'error_alarm',//故障报警
 ];

@@ -61,7 +61,7 @@ export class StructuralLaboratoryComponent implements OnInit {
       andon:0,
       speed:[],
       speed_name:[''],//实验名称
-      router:'pages/equipment/skylight/天窗闭件试验台'
+      router:'pages/equipment/skylight/天窗开闭件试验台'
     },
     {
       name:'玻璃升降系统',
