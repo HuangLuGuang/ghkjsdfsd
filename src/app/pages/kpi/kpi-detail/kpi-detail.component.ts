@@ -57,7 +57,8 @@ export class KpiDetailComponent implements OnInit {
             name: "未完成",
             type: "bar",
             // barWidth: '20%',
-            barMaxWidth: 20,
+            // barMaxWidth: 10,
+            barWidth: 10,
             stack: "试验各状态每月变化趋势", // 堆叠
             data: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
           },
@@ -65,7 +66,8 @@ export class KpiDetailComponent implements OnInit {
             name: "已完成",
             type: "bar",
             // barWidth: '20%',
-            barMaxWidth: 20,
+            // barMaxWidth: 10,
+            barWidth: 10,
             stack: "试验各状态每月变化趋势", // 堆叠
             data: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
           },
@@ -402,12 +404,14 @@ export class KpiDetailComponent implements OnInit {
           {
             name: _columns["startyear"] + "年",
             type: "bar",
+            barWidth: 10,
             data: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
           },
           // 今年bar
           {
             name: _columns["endyear"] + "年",
             type: "bar",
+            barWidth: 10,
             data: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
           },
           // 去年line
@@ -433,17 +437,34 @@ export class KpiDetailComponent implements OnInit {
             backgroundStyle: {
               // borderColor:"red"
             },
+
             data: [
               {
                 value: 0,
                 itemStyle: {
                   color: "#5D920D",
                 },
+                label: {
+                  show: true,
+                  // position: "insideTop",
+                  fontSize: 20,
+                  formatter: function (p) {
+                    return p.value > 0 ? p.value : "";
+                  },
+                },
               },
               {
                 value: 0,
                 itemStyle: {
                   color: "#3333FF",
+                },
+                label: {
+                  show: true,
+                  // position: "insideTop",
+                  fontSize: 20,
+                  formatter: function (p) {
+                    return p.value > 0 ? p.value : "";
+                  },
                 },
               },
             ],
@@ -551,7 +572,8 @@ export class KpiDetailComponent implements OnInit {
         {
           name: "占位",
           type: "bar",
-          barMaxWidth: 20,
+          // barMaxWidth: 20,
+          barWidth: 10,
           // barWidth: '20%',
           stack: "设备占位运行及开动率年度变化趋势",
           data: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
@@ -577,7 +599,8 @@ export class KpiDetailComponent implements OnInit {
         {
           name: "运行",
           type: "bar",
-          barMaxWidth: 20,
+          // barMaxWidth: 20,
+          barWidth: 10,
           // barWidth: '20%',
           stack: "设备占位运行及开动率年度变化趋势",
           data: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],

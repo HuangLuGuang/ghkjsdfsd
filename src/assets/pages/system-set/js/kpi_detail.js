@@ -70,6 +70,7 @@ let kpi_detail = {
       series: afterdata.Series,
     };
     // @ts-ignore
+
     mychart.setOption(option);
     mychart.resize();
   },
@@ -158,7 +159,8 @@ let kpi_detail = {
           name: afterdata.title[0],
           type: "bar",
           stack: "总量",
-          barMaxWidth: 20,
+          // barMaxWidth: 10,
+          barWidth: 10,
           // barWidth: '20%',
           barGap: "10%",
           z: 4,
@@ -167,9 +169,9 @@ let kpi_detail = {
               color: afterdata.color[0], //运行
               label: {
                 show: true,
-                textStyle: {
-                  color: "#fff",
-                },
+                // textStyle: {
+                //   color: afterdata.color[0],
+                // },
                 position: "insideTop",
                 formatter: function (p) {
                   return p.value > 0 ? p.value : "";
@@ -186,7 +188,8 @@ let kpi_detail = {
           name: afterdata.title[1],
           type: "bar",
           stack: "总量",
-          barMaxWidth: 20,
+          // barMaxWidth: 10,
+          barWidth: 10,
           // barWidth: '20%',
           z: 3,
           itemStyle: {
@@ -211,6 +214,7 @@ let kpi_detail = {
           type: "bar",
           stack: "总量",
           // barWidth: '20%',
+          barWidth: 10,
           z: 2,
           itemStyle: {
             normal: {
@@ -233,6 +237,7 @@ let kpi_detail = {
           type: "bar",
           stack: "总量",
           // barWidth: '20%',
+          barWidth: 10,
           z: 1,
           itemStyle: {
             normal: {
@@ -461,15 +466,14 @@ let kpi_detail = {
       grid: [
         {
           top: "30%",
-          right: 10,
-          left: "3%",
-          bottom: "10%",
-          containLabel: true,
+          right: "10%",
+          left: "13%",
+          bottom: "15%",
+          // containLabel: true,
         },
         {
           height: "20%",
           width: "20%",
-          // left:'10%',
           right: 30,
           top: "1%",
         },
@@ -516,11 +520,11 @@ let kpi_detail = {
       ],
       yAxis: [
         {
-          type: "value",
+          type: "value", // value
           // name: '水量',
           min: 0,
           max: function (value) {
-            return value.max + 100;
+            return Number((value.max + 100).toFixed(2));
           },
           interval: 50,
           gridIndex: 0,
@@ -560,6 +564,7 @@ let kpi_detail = {
 
     // @ts-ignore
     mychart.setOption(option);
+
     mychart.resize();
   },
 
@@ -572,6 +577,7 @@ let kpi_detail = {
       title: {
         subtext: afterdata.Total.name + "%",
         right: "1%",
+        top: "2%",
         subtextStyle: {
           fontSize: 16,
           color: "rgb(153,153,153)",
@@ -958,6 +964,7 @@ let kpi_detail = {
             {
               type: "bar",
               barWidth: 10,
+              showBackground: true,
               stack: "1",
               name: afterdata.legend[0],
               xAxisIndex: 0,
@@ -970,7 +977,10 @@ let kpi_detail = {
               },
               label: {
                 normal: {
-                  show: false,
+                  show: true,
+                  formatter: function (p) {
+                    return p.value > 0 ? p.value : "";
+                  },
                 },
               },
               // data: [0, 0, 0, 0, 9, 0, 0, 3, 0, 0, 0, 0],
@@ -982,6 +992,7 @@ let kpi_detail = {
               stack: "2",
               name: afterdata.legend[1],
               barWidth: 10,
+              showBackground: true,
               xAxisIndex: 2,
               yAxisIndex: 2,
               itemStyle: {
@@ -992,7 +1003,10 @@ let kpi_detail = {
               },
               label: {
                 normal: {
-                  show: false,
+                  show: true,
+                  formatter: function (p) {
+                    return p.value > 0 ? p.value : "";
+                  },
                 },
               },
               // data: [1, 1, 1, 3, 1, 1, 1, 1, 1, 1, 1, 1],
@@ -1006,6 +1020,7 @@ let kpi_detail = {
     // console.error("==================", JSON.stringify(option))
     // @ts-ignore
     mychart.setOption(option);
+    // console.error("=========", JSON.stringify(option));
     mychart.resize();
   },
   // 第三行第二个
@@ -1077,6 +1092,7 @@ let kpi_detail = {
         {
           name: "error",
           type: "bar",
+          barWidth: 10,
           barGap: 0,
           // label: labelOption,
           data: afterdata.error,
@@ -1084,12 +1100,14 @@ let kpi_detail = {
         {
           name: "warning",
           type: "bar",
+          barWidth: 10,
           // label: labelOption,
           data: afterdata.warning,
         },
         {
           name: "info",
           type: "bar",
+          barWidth: 10,
           // label: labelOption,
           data: afterdata.info,
         },
@@ -1107,6 +1125,19 @@ let kpi_detail = {
     var option = {
       tooltip: {
         trigger: "axis",
+        formatter: function (params) {
+          var value = params[0].value;
+          console.log(value);
+          if (value === 0) {
+            return (
+              params[0].name + "<br />" + params[0].seriesName + ":" + "停"
+            );
+          } else if (value === 1) {
+            return (
+              params[0].name + "<br />" + params[0].seriesName + ":" + "起"
+            );
+          }
+        },
       },
       grid: {
         left: "3%",
@@ -1128,6 +1159,17 @@ let kpi_detail = {
         axisTick: {
           show: false,
         },
+        splitNumber: 2, // 粉三段
+        minInterval: 1,
+        axisLabel: {
+          formatter: function (value) {
+            if (value === 0) {
+              return "停";
+            } else if (value === 1) {
+              return "起";
+            }
+          },
+        },
       },
 
       series: [
@@ -1148,6 +1190,7 @@ let kpi_detail = {
       ],
     };
     // @ts-ignore
+    // console.error("option", JSON.stringify(option));
     mychart.setOption(option);
     mychart.resize();
   },
