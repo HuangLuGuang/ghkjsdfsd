@@ -64,7 +64,7 @@
         font-size: xx-large;
         color: white;
         width: 100%;
-        line-height: 46px;
+        line-height: 2.5rem;
     }
     nb-icon {
         background: rgba(22, 67, 127, 1);
@@ -78,6 +78,7 @@
         position: relative;
         display: flex;
         flex-wrap: wrap;
+        font-size: 1.6vh;
         // #left_img {
         #center {
             color: #dcdcdc;

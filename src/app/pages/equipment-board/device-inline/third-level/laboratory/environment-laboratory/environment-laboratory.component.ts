@@ -29,7 +29,7 @@ export class EnvironmentLaboratoryComponent implements OnInit {
       src:'assets/eimdoard/equipment/images/lqdp.png',
       speed:[],
       speed_name:[''],
-      router:'pages/equipment/twodrive/两驱底盘测功机-2/device_avldyno_02'
+      router:'pages/equipment/twodrive2/两驱底盘测功机-2/device_avldyno_02'
     },
     {
       name:'AVL耐久4驱',

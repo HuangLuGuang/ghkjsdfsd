@@ -253,6 +253,7 @@ export class EquipmentPureWaterComponent implements OnInit {
   @ViewChild('round')round:TemplateRef<any>;
   @ViewChild('pull')pull:TemplateRef<any>;
   status = '无';
+  error_str = '';
 
   device = 'device_purewater_01';
   viewstatus = false;
@@ -284,7 +285,7 @@ export class EquipmentPureWaterComponent implements OnInit {
   }
 
   getdata(){
-    let res,data:any = {},error_str;
+    let res,data:any = {},error_str = '';
     this.sublist._4400 = this.http.callRPC('get_device_mts_realtimedata',library+'get_device_mts_realtimedata',
     {"device":this.device,arr:wather.join(',')}).subscribe((g:any)=>{
       if(g.result.error || g.result.message[0].code == 0)return;
@@ -362,10 +363,25 @@ export class EquipmentPureWaterComponent implements OnInit {
       this.list.ccsx_l.bcolor = data.ultra_pure_water_tank_l?'green':'black';
 
       // TODO 输送泵 
-      this.list.ssb.bcolor = 'yellow';
+      this.list.ssb.bcolor = 'black';
 
-      // error_str
+      error_str = '';
 
+    if(data.water_leak_alarm)error_str+='漏水报警,';
+    if(data.raw_water_overload)error_str+='原水泵过载,';
+    if(data.freq_converter_error)error_str+='变频器故障,';
+    if(data.l1_h_pump_overload)error_str+='一级高压泵过载,';
+    if(data.l2_h_pump_overload)error_str+='二级高压泵过载,';
+    if(data.edi_concentrate_flow_alarm_signal)error_str+='EDI浓水流量报警,';
+    if(data.edi_product_water_flow_alarm_signal)error_str+='EDI产水流量报警,';
+    if(data.freq_converter_error_reset)error_str+='变频器故障复位,';
+    if(data.error_alarm)error_str+='故障报警,';
+
+    if(error_str){
+      this.error_str = error_str.slice(0,error_str.length-2)
+    }else{
+      this.error_str = ''
+    }
     //   'water_leak_alarm',//漏水报警
     // 'raw_water_overload',//原水泵过载
     // 'freq_converter_error',//变频器故障

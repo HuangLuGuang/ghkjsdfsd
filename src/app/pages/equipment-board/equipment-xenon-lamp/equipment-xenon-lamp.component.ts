@@ -193,7 +193,7 @@ export class EquipmentXenonLampComponent implements OnInit {
             data[key] = el[key][0][0];
           }
         });
-      time =  res[0]?dateformat(new Date(rTime(res[0].c_cooling_water_temperature[0][1])),'MM-dd hh:mm:ss'):'0';
+      time =  res[0]?dateformat(new Date(rTime(res[0].c_cooling_water_temperature[0][1])),'hh:mm:ss'):'0';
       //纯水温度导电率
       setTimeout(() => {
         this.ngzone.runOutsideAngular(()=>{
@@ -293,7 +293,7 @@ export class EquipmentXenonLampComponent implements OnInit {
             data[key] = el[key][0][0];
           }
         });
-      time = res[0]?dateformat(new Date(rTime(res[0].lamppower[0][1])),'MM-dd hh:mm:ss'):'0';
+      time = res[0]?dateformat(new Date(rTime(res[0].lamppower[0][1])),'hh:mm:ss'):'0';
 
       //辐照
       setTimeout(() => {

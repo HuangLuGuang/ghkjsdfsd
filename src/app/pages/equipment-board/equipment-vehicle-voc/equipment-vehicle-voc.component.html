@@ -62,8 +62,8 @@
             <div class="backgroud height_26">
                 <div class="part_title">整车舱加热</div>
                 <div class="cabin_layout height_100">
-                    <div class="round" [ngStyle]="{background:cang_1.status?'#66FF66':'black' }"></div>
-                    <div class="cabin_layout height_90 " style="width: 80%;">
+                    <div class="round" [ngStyle]="{background:cang_hot.status?'#66FF66':'black' }"></div>
+                    <div class="cabin_layout height_90 " style="width: 80%;flex-wrap: wrap;margin-left: 10%;">
                         <div *ngFor="let item of cang_hot.list" class="height_30 cabin_1_set" style="width: 45%;">
                             <div class="set_1" *ngIf="item.name">{{ item.name}}：<span class="span_css">{{ item.value}} {{item.unit}}</span></div>
                         </div>

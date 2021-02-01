@@ -170,7 +170,7 @@ export class EquipmentVehicleVocComponent implements OnInit {
       this.cang_hot.list[4].value = data.irside3pv||0;
       this.cang_hot.list[5].value = data.irside4pv||0;
 
-      time = res[0]?dateformat(new Date(rTime(res[0].chb1_tempsv[0][1])),'MM-dd hh:mm:ss'):'0';
+      time = res[0]?dateformat(new Date(rTime(res[0].chb1_tempsv[0][1])),'hh:mm:ss'):'0';
       //仓1
       setTimeout(() => {
         this.assignment(1,data,time);
@@ -253,11 +253,15 @@ export class EquipmentVehicleVocComponent implements OnInit {
         this[cang_name].xdata.splice(0,1);
       }
       if(document.getElementById(this[cang_name].tempid))
-        equipment_four_road.create_real_disk({value:this[cang_name].tempReal,text:this.language?'RealTEMP':'实时温度',unit:'%RH'},
+        equipment_four_road.create_motor_temperature( {value:this[cang_name].tempReal,title:'温度',unit:'℃'},
         echarts.init(document.getElementById(this[cang_name].tempid)));
+        // equipment_four_road.create_real_disk({value:this[cang_name].tempReal,text:this.language?'RealTEMP':'实时温度',unit:'%RH'},
+        // echarts.init(document.getElementById(this[cang_name].tempid)));
       if(document.getElementById(this[cang_name].humid))
-        equipment_four_road.create_real_disk({value:this[cang_name].rhReal,text:this.language?'RealRH':'实时湿度',unit:'℃'},
-        echarts.init(document.getElementById(this[cang_name].humid)));
+        equipment_four_road.create_motor_temperature( {value:this[cang_name].rhReal,title:'湿度',unit:'%RH'},
+          echarts.init(document.getElementById(this[cang_name].humid)));
+        // equipment_four_road.create_real_disk({value:this[cang_name].rhReal,text:this.language?'RealRH':'实时湿度',unit:'℃'},
+        // echarts.init(document.getElementById(this[cang_name].humid)));
       if(document.getElementById(this[cang_name].lineid)){
         let myChart_9 = echarts.init(document.getElementById(this[cang_name].lineid));;
         equipment_four_road.create_real_discharge({attrs:this[cang_name].attrs,xData:this[cang_name].xdata},myChart_9);
@@ -267,10 +271,10 @@ export class EquipmentVehicleVocComponent implements OnInit {
 
   initChart(){
     if(document.getElementById('cabin_pie_1'))
-      equipment_four_road.create_real_disk({value:this.cang_1.tempReal,text:this.language?'RealTEMP':'实时温度',unit:'%RH'},
+      equipment_four_road.create_motor_temperature({value:this.cang_1.tempReal,title:this.language?'RealTEMP':'实时温度',unit:'%RH'},
       echarts.init(document.getElementById('cabin_pie_1')));
     if(document.getElementById('cabin_pie_2'))
-      equipment_four_road.create_real_disk({value:this.cang_1.rhReal,text:this.language?'RealRH':'实时湿度',unit:'℃'},
+      equipment_four_road.create_motor_temperature({value:this.cang_1.rhReal,title:this.language?'RealRH':'实时湿度',unit:'℃'},
       echarts.init(document.getElementById('cabin_pie_2')));
     if(document.getElementById('cabin_line_1')){
       let myChart_9 = echarts.init(document.getElementById('cabin_line_1'));;
@@ -278,10 +282,10 @@ export class EquipmentVehicleVocComponent implements OnInit {
     }
 
     if(document.getElementById('cabin_pie_3'))
-      equipment_four_road.create_real_disk({value:this.cang_1.tempReal,text:this.language?'RealTEMP':'实时温度',unit:'%RH'},
+      equipment_four_road.create_motor_temperature({value:this.cang_1.tempReal,title:this.language?'RealTEMP':'实时温度',unit:'%RH'},
       echarts.init(document.getElementById('cabin_pie_3')));
     if(document.getElementById('cabin_pie_4'))
-      equipment_four_road.create_real_disk({value:this.cang_1.rhReal,text:this.language?'RealRH':'实时湿度',unit:'℃'},
+      equipment_four_road.create_motor_temperature({value:this.cang_1.rhReal,title:this.language?'RealRH':'实时湿度',unit:'℃'},
       echarts.init(document.getElementById('cabin_pie_4')));
     if(document.getElementById('cabin_line_2')){
       let myChart_9 = echarts.init(document.getElementById('cabin_line_2'));;
@@ -291,10 +295,10 @@ export class EquipmentVehicleVocComponent implements OnInit {
     
 
     if(document.getElementById('cabin_pie_5'))
-      equipment_four_road.create_real_disk({value:this.cang_3.tempReal,text:this.language?'RealTEMP':'实时温度',unit:'%RH'},
+      equipment_four_road.create_motor_temperature({value:this.cang_3.tempReal,title:this.language?'RealTEMP':'实时温度',unit:'%RH'},
       echarts.init(document.getElementById('cabin_pie_5')));
     if(document.getElementById('cabin_pie_6'))
-      equipment_four_road.create_real_disk({value:this.cang_3.rhReal,text:this.language?'RealRH':'实时湿度',unit:'℃'},
+      equipment_four_road.create_motor_temperature({value:this.cang_3.rhReal,title:this.language?'RealRH':'实时湿度',unit:'℃'},
       echarts.init(document.getElementById('cabin_pie_6')));
     if(document.getElementById('cabin_line_3')){
       let myChart_9 = echarts.init(document.getElementById('cabin_line_3'));;

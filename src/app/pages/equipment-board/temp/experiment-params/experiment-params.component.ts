@@ -111,7 +111,7 @@ export class ExperimentParamsComponent implements OnInit {
       let yearPlanData,yearOrderData,differenceData=[],visibityData=[],xAxisData=[];
       yearPlanData = arrj.temperatureactual.map(m => (m[0]));//温度
       yearOrderData = arrj.humidityactual.map(m => (m[0]));;//湿度度
-      xAxisData = arrj.humidityactual.map(m => (dateformat(new Date(m[1]),'MM-dd hh:mm:ss')))
+      xAxisData = arrj.humidityactual.map(m => (dateformat(new Date(m[1]),'hh:mm:ss')))
       // create_third_chart_line(rtm3a,this);
       rtm3a.create_third_chart_line({
         yearPlanData:yearPlanData,

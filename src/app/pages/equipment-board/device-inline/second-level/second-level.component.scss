@@ -104,6 +104,11 @@
     width: 16%;
 }
 
+.not_click {
+    pointer-events: none;
+    color: rgba(1, 1, 1, 0.3);
+}
+
 // 噪声实验室
 .noise {
     position: absolute;
@@ -217,26 +222,26 @@ nb-icon {
         width: 100%;
     }
     // 设备活跃的
-    .deviceactivetitle{
-        .col-lg-4{
+    .deviceactivetitle {
+        .col-lg-4 {
             margin-top: 40px;
             padding: 0px 5px 0px 5px;
-            .title{
+            .title {
                 color: #ffffff;
                 font-size: medium;
                 text-align: center;
-                font-weight:bold,
-            };
-            .title_value{
+                font-weight: bold,
+            }
+            ;
+            .title_value {
                 margin-top: 5px;
                 color: #ffffff;
                 font-size: smaller;
                 text-align: center;
             }
         }
-
     }
-    .device_active{
+    .device_active {
         min-width: 334px;
         max-width: 398px;
         min-height: 307px;
@@ -244,7 +249,6 @@ nb-icon {
         // height: 70%;
         width: 100%;
     }
-    
     .two_content {
         // min-height: 700px;
         padding: 0 10px;
@@ -253,12 +257,11 @@ nb-icon {
             height: 40%;
             // border: 1px pink solid;
             margin-bottom: 10px;
-
-            .part_title_image{
+            .part_title_image {
                 width: 100%;
                 height: 100%;
                 padding: 5% 0px;
-                img{
+                img {
                     width: 90%;
                     height: 100%;
                 }

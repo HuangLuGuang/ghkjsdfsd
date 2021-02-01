@@ -84,10 +84,9 @@ export class RightLayoutComponent implements OnInit {
           }
       },
       grid: {
-          left: '3%',
+          left: 20,
           right: '4%',
-          bottom: '10%',
-          height:'80%',
+          height:'76%',
           top:'10%'
       },
       xAxis: {
@@ -136,7 +135,6 @@ export class RightLayoutComponent implements OnInit {
       ]
     };
     chart.setOption(option);
-    chart.resize();
   }
 
   setTableBody(tableBody){

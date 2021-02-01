@@ -3,7 +3,7 @@
     <div id="equipment">
         <div id="title_img">
             <div style="position: absolute;">
-                <div class="return_button_1 head" (click)="menu_btn_click()">
+                <div class="return_button_1 head" *ngIf="b_show.home" (click)="menu_btn_click()">
                 </div>
                 <div class="return_button_2 head" *ngIf="b_show.back" (click)="return_btn_click()">
                 </div>

@@ -366,7 +366,7 @@ torque: 0.151 扭矩
       if(res[0].speed.length < res[1].torque.length){
         i= 1,c = 'torque';
       }
-      this.speedTorque_xData = res[i][c].map(m => (dateformat(new Date(rTime(m[1])),'MM-dd hh:mm:ss')));
+      this.speedTorque_xData = res[i][c].map(m => (dateformat(new Date(rTime(m[1])),'hh:mm:ss')));
 
       if(chart)
           equipment_four_road.create_motor_chart({
@@ -394,7 +394,7 @@ torque: 0.151 扭矩
       }else if(res[0].pa_udc1.length < res[2].pa_p1.length){
         i= 2,c = 'pa_p1';
       }
-      this.threePhase_xData = res[i][c].map(m => (dateformat(new Date(rTime(m[1])),'MM-dd hh:mm:ss')));
+      this.threePhase_xData = res[i][c].map(m => (dateformat(new Date(rTime(m[1])),'hh:mm:ss')));
       
 
       if(chart)

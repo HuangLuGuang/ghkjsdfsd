@@ -33,7 +33,8 @@ export class EquipmentBoardComponent implements OnInit {
   menu;
   // 按钮的显影
   b_show = {
-    back:true,//返回按钮
+    back:false,//返回按钮
+    home:false,//主页按钮
   }
 
   subscribeList:any = {};
@@ -50,9 +51,12 @@ export class EquipmentBoardComponent implements OnInit {
     this.subscribeList.resize = this.boradservice.chartResize().subscribe(f=>{
       this.resize();
     })
-    var menu = localStorage.getItem(SYSMENU);
-    if(menu)this.menu = JSON.parse(menu).filter(f =>f.link && f.link.includes('equipment'));
-    
+    var menu:any = localStorage.getItem(SYSMENU);
+    if(menu){
+      menu = JSON.parse(menu);
+      this.menu = menu.filter(f =>f.link && f.link.includes('equipment'));
+      this.b_show.home = menu.find(f => f.link && f.link== '/pages/home')?true:false;//是否有主页权限
+    }
     
     
     this.subscribeList.load = this.boradservice.get_Load_Observable().subscribe(f=>{
@@ -69,7 +73,7 @@ export class EquipmentBoardComponent implements OnInit {
   ngAfterViewInit(){ 
     let url = decodeURIComponent(window.location.pathname);
     setTimeout(() => {
-      if (url.includes('first-level') ){
+      if (url.includes('first-level')){
         this.b_show.back = false;//最上级看板的影藏返回按钮
       }else{
         this.b_show.back = true;

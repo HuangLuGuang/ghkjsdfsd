@@ -47,12 +47,12 @@
             </div>
             <div class="nibo_map" style="position: relative;color: black;">
                 <!-- 新能源电机器试验室 -->
-                <div class="newpower" (click)="goto_test_room('newpower')">
+                <div class="newpower {{authority.energy?'':'not_click'}}" (click)="goto_test_room( 'newpower') ">
                     <span>新能源电机试验室</span>
                 </div>
 
                 <!-- 噪声sys -->
-                <div class="noise" (click)="goto_test_room('noise')">
+                <div class="noise {{authority.noise? '': 'not_click'}} " (click)="goto_test_room('noise')">
                     <span>噪声与振动试验室</span>
                 </div>
 
@@ -62,17 +62,17 @@
                 </div> -->
 
                 <!-- 理化sys -->
-                <div class="physicochemical" (click)="goto_test_room('physicochemical')">
+                <div class="physicochemical {{authority.physical?'':'not_click'}}" (click)="goto_test_room('physicochemical')">
                     <span>理化试验室</span>
                 </div>
 
                 <!-- 结构sys -->
-                <div class="structural" (click)="goto_test_room('structural')">
+                <div class="structural {{authority.structural?'':'not_click'}}" (click)="goto_test_room( 'structural') ">
                     <span>结构试验室</span>
                 </div>
 
                 <!-- 环模sys -->
-                <div class="environment" (click)="goto_test_room('environment')">
+                <div class="environment {{authority.environment? '': 'not_click'}} " (click)="goto_test_room('environment')">
                     <span>环模试验室</span>
                 </div>
 

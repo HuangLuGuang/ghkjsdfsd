@@ -164,6 +164,15 @@ export class SecondLevelComponent implements OnInit {
   };
 
   myChart;
+  items:any;
+  //看板权限
+  authority ={
+    environment:false,//环模试验室
+    noise:false,//噪声与振动试验室
+    physical:false,//理化试验室
+    structural:false,//结构试验室
+    energy:false,//新能源电机试验室
+  }
 
   constructor(
     private localstorage: LocalStorageService,
@@ -176,12 +185,22 @@ export class SecondLevelComponent implements OnInit {
     // 得到从first-leve级传递的数据
     this.first_level = this.localstorage.get("first_level");
     console.log("得到从first-leve级传递的数据: ", this.first_level);
+
+    this.items = localstorage.get('mulu');
   }
 
   ngOnInit(): void {
     var title = "吉利汽车研究院";
     $("#head_title").text(title);
-
+    console.log(this.items)
+    this.items = this.items.find(f => f.link == '/pages/equipment/first-level').children.
+    find(f=>f.link=='/pages/equipment/second-level').children;
+    this.items.forEach(el => {
+      let arr = el.link.split('/');
+      if(arr.length>0){
+       this.authority[arr[arr.length-1]] = true;
+      }
+    });
     // this.listen_windows_resize();
   }
 

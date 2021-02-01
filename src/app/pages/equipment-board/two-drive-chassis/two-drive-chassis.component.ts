@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { HttpserviceService } from '../../../services/http/httpservice.service';
-import { colors, create_img_16_9,library,rTime, t_h_deviceid } from '../equipment-board';
+import { colors, create_img_16_9,dateformat,library,rTime, t_h_deviceid } from '../equipment-board';
 import { EquipmentBoardService } from '../serivice/equipment-board.service';
 
 let equipment_four_road = require('../../../../assets/eimdoard/equipment/js/equipment-four-road');
@@ -157,13 +157,15 @@ export class TwoDriveChassisComponent implements OnInit {
   }
 
   getData(){
-    let now:Date;
     let i = 0;
     this.timer = self.setInterval(() =>{
 
       this.get_real_time();
       this.get_device_Temp_hum();
-      if(i%5)this.get_his_temp_hum();
+      if(i%5==0)this.get_his_temp_hum();
+      if(i%60==0){
+        this.get_real_time_list();
+      }
       i++;
       // now = new Date();
       // if(now.getDay() == 15)this.get_his_temp_hum();
@@ -198,7 +200,6 @@ export class TwoDriveChassisComponent implements OnInit {
       this.discharge[4].value = data.n0;
       this.discharge[5].value = data.n1;
       this.discharge[6].value = data.n2;
-      this.discharge_chart[0].value.push(data.p||0);
 
       // this.discharge_chart[0].value.push(data.distance1);
       // this.discharge_chart[1].value.push(data.distance2);
@@ -207,23 +208,7 @@ export class TwoDriveChassisComponent implements OnInit {
       // this.discharge_chart[4].value.push(data.n0);
       // this.discharge_chart[5].value.push(data.n1);
       // this.discharge_chart[6].value.push(data.n2);
-      this.discharge_xdata.push(rTime(res?res[0].v[0][1]:'0'));//x轴时间
-      if(this.discharge_xdata.length>10){
-        this.discharge_xdata.splice(0,1);
-        this.discharge_chart.forEach(g=>{
-          g.value.splice(0,1);
-        })
-      }
-
-      if(document.getElementById('discharge_chart')){
-        let myChart_8 = echarts.init(document.getElementById('discharge_chart'));;
-        equipment_four_road.create_broken_line(
-          {
-            series:this.discharge_chart,
-            xData:this.discharge_xdata,
-            title:'功率曲线'
-          },myChart_8);
-      }
+      
 
       // 道路模拟阻力系数
       // this.avl_paramlist[0].value = data.f0r;
@@ -252,34 +237,68 @@ export class TwoDriveChassisComponent implements OnInit {
           el.dataLine
           ,echarts.init(document.getElementById(el.id)));
       });
+    })
+  }
 
-      // this.gauge_chart[0].value.push(data.f);
-      this.gauge_chart[0].value.push(data.v||0);
-      this.gauge_chart[1].value.push(data.a||0);
-      // this.gauge_chart[0].value.push(data.p);
-      this.gauge_xData.push(rTime(res?res[0].v[0][1]:'0'));
-      if(this.gauge_xData.length>10){
-        this.gauge_xData.splice(0,1);
-        this.gauge_chart.forEach(g=>{
-          g.value.splice(0,1);
-        })
-      }
-      if(document.getElementById('avl_param_chart_1'))
-        equipment_four_road.create_broken_line({
-        series:this.gauge_chart,
-        xData:this.gauge_xData,
-        title:'速度/加速度曲线'
-        },echarts.init(document.getElementById('avl_param_chart_1')));
+  get_real_time_list(){
+    let res;
+    this.subscribeList.left = this.http.callRPC('device_realtime_list',library+'device_realtime_list',
+    {"deviceid":this.deviceid,
+    arr:'p,v,a,f'}).subscribe((g:any)=>{
+      if(g.result.error || g.result.message[0].code == 0)return;
+      res = g.result.message[0].message;
 
-      this.gauge_chart_1[0].value.push(data.f||0);
+      let value = [],xdata = [];
+      setTimeout(() => {
+        // 功率曲线
+        res[0].p.forEach(el => {
+          value.push(el[0]);
+          xdata.push(dateformat(new Date(rTime(el[1])),'hh:mm:ss'));
+        });
+        this.discharge_chart[0].value = value;
+        this.discharge_xdata = xdata;
+        if(document.getElementById('discharge_chart')){
+          let myChart_8 = echarts.init(document.getElementById('discharge_chart'));;
+          equipment_four_road.create_broken_line(
+            {
+              series:this.discharge_chart,
+              xData:this.discharge_xdata,
+              title:'功率曲线'
+            },myChart_8);
+        }
+      }, 10);
+
+      setTimeout(() => {
+        // this.gauge_chart[0].value.push(data.f);
+        this.gauge_chart[0].value = res[1].v.map(m => (m[0]));
+        this.gauge_chart[1].value = res[2].a.map(m => (m[0]));
+        if(this.gauge_chart[0].value.length>this.gauge_chart[1].value.length){
+          this.gauge_xData = res[1].v.map(m => (dateformat(new Date(rTime(m[1])),'hh:mm:ss')));
+        }else{
+          this.gauge_xData = res[2].a.map(m => (dateformat(new Date(rTime(m[1])),'hh:mm:ss')));
+        }
+        if(document.getElementById('avl_param_chart_1'))
+          equipment_four_road.create_broken_line({
+          series:this.gauge_chart,
+          xData:this.gauge_xData,
+          title:'速度/加速度曲线'
+          },echarts.init(document.getElementById('avl_param_chart_1')));
+
+      },20);
+
+      value = [],xdata = [];
+      res[3].f.forEach(el => {
+        value.push(el[0]);
+        xdata.push(dateformat(new Date(rTime(el[1])),'hh:mm:ss'));
+      });
+
+      this.gauge_chart_1[0].value = value;
       if(document.getElementById('avl_param_chart_2'))equipment_four_road.create_broken_line({
         series:this.gauge_chart_1,
-        xData:this.gauge_xData,
+        xData:xdata,
         title:'轮边力曲线'
         },echarts.init(document.getElementById('avl_param_chart_2')));
-  
-      // console.log(data)
-      // console.log(res)
+
     })
   }
 

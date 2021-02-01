@@ -6,7 +6,8 @@ declare var $:any;
 export let library = 'eim_plv8.';
 
 //温湿度deviceid 目前没有数据统一传 到时候有数据了改成null
-export const t_h_deviceid = 'device_temperature';
+// export const t_h_deviceid = 'device_temperature';
+export const t_h_deviceid = null;
 
 
 //生成rgb 减少红色
@@ -214,8 +215,8 @@ export const painting_time = (f,time,isthis,arr) =>{
       time == 1?(data[key] = [], data[key].push(el[key][0][0])):data[key] = el[key].map(m => (m[0]?m[0]:0));
       let arr = el[key];
       //将x轴数据打包成key string  value数组
-      time == 1?(x[key] = [],x[key].push(dateformat(new Date(rTime(arr[0][1])),'MM-dd hh:mm:ss')))
-      :x[key] =  arr.map(m =>( dateformat(new Date(rTime(m[1])),'MM-dd hh:mm:ss')));
+      time == 1?(x[key] = [],x[key].push(dateformat(new Date(rTime(arr[0][1])),'hh:mm:ss')))
+      :x[key] =  arr.map(m =>( dateformat(new Date(rTime(m[1])),'hh:mm:ss')));
     }
   });
 

@@ -116,11 +116,18 @@ export class EquipmentSkylightOpenCloseComponent implements OnInit {
 
   ngAfterViewInit(){
     // this.get_log();
+    let i = 0;
     this.timer = setInterval(()=>{
       this.get_sky_rate();
       this.get_atec_temp();
-      this.get_sky();
       this.get_log();
+      if(i%60==0){
+        this.get_atec_temp_list();
+        setTimeout(() => {
+          this.get_sky();
+        }, 10);
+      }
+      i++;
     },1000);
     setTimeout(() => {
       this.boardservice.sendLoad({close:false});
@@ -174,56 +181,60 @@ export class EquipmentSkylightOpenCloseComponent implements OnInit {
         })
       }, 10);
       
-      setTimeout(() => {
-        this.ngzone.runOutsideAngular(()=>{
-          //温度
-          this.atec.attrs[0].value.push(data.realtime_temp);
-          //湿度
-          this.atec.attrs[1].value.push(data.realtime_humidity);
-          time = res[0]?dateformat(new Date(rTime(res[0].humidity_setpoint[0][1])),'MM-dd hh:mm:ss'):'0';
-          this.atec.xdata.push(time);
-          if(this.atec.xdata.length>10){
-            this.atec.attrs[0].value.unshift();
-            this.atec.attrs[1].value.unshift();
-            this.atec.xdata.unshift();
-          }
-          if(document.getElementById('cabin_line_1')){
-            let myChart_9 = echarts.init(document.getElementById('cabin_line_1'));;
-            equipment_four_road.create_real_discharge({attrs:this.atec.attrs,xData:this.atec.xdata},myChart_9);
-          }
-        });
-      }, 20);
+      
       
     })
   }
 
-  get_sky(){
-    let res,data:any = {},time;
-    this.http.callRPC('get_device_mts_realtimedata',library+'get_device_mts_realtimedata',
-    {"device":this.deviceid,arr:sky.join(',')}).subscribe((g:any)=>{
-      if(g.result.error || g.result.message[0].code == 0)return;
-      res = g.result.message[0].message;
-      if(res)
-        res.forEach(el => {
-          for(let key in el){
-            data[key] = el[key][0][0];
-          }
-        });
-      time = res[0]?dateformat(new Date(rTime(res[0].station1_motor_temp[0][1])),'MM-dd hh:mm:ss'):'0'; 
+  get_atec_temp_list(){
+    let chart,arr = this.atec;
+    this.subscribeList.get_line_speed_torque = this.http.callRPC('device_realtime_list',library+'device_realtime_list',
+    {"deviceid":this.atec_deviceid,arr:'realtime_temp,realtime_humidity'}).subscribe((f:any)=>{
+      if(f.result.error || f.result.message[0].code == 0)return;
+      let res = f.result.message[0].message;
+      
       setTimeout(() => {
         this.ngzone.runOutsideAngular(()=>{
-          this.electric_temp.realdata_1 = data.station1_motor_temp || 0;
-          this.electric_temp.realdata_2 = data.station2_motor_temp || 0;
-
-          this.electric_temp.xdata.push(time);
-          this.electric_temp.attrs[0].value.push(data.station1_motor_temp || 0);
-          this.electric_temp.attrs[1].value.push(data.station2_motor_temp || 0);
-
-          if(this.electric_temp.xdata.length>10){
-            this.electric_temp.attrs[0].value.unshift();
-            this.electric_temp.attrs[1].value.unshift();
-            this.electric_temp.xdata.unshift();
+          chart = document.getElementById('cabin_line_1');
+          //温度
+          arr.attrs[0].value = res[0].realtime_temp.map(m => (m[0]));
+          //湿度
+          arr.attrs[1].value = res[1].realtime_humidity.map(m => (m[0]));
+          let i = 0,c = 'realtime_temp';
+          if(arr.attrs[0].value.length < arr.attrs[1].value.length){
+            i = 1,c = 'realtime_humidity';
           }
+          arr.xdata = res[i][c].map(m => (dateformat(new Date(rTime(m[1])),'hh:mm:ss')));
+          if(chart){
+            equipment_four_road.create_real_discharge({attrs:arr.attrs,xData:arr.xdata},echarts.init(chart));
+          }
+        });
+      }, 20);
+    });
+  }
+
+  get_sky(){
+    let res,arr;
+    this.http.callRPC('device_realtime_list',library+'device_realtime_list',
+    {"deviceid":this.deviceid,arr:sky.join(',')}).subscribe((g:any)=>{
+      if(g.result.error || g.result.message[0].code == 0)return;
+      res = g.result.message[0].message;
+      setTimeout(() => {
+        this.ngzone.runOutsideAngular(()=>{
+
+          this.electric_temp.attrs[0].value = res[0].station1_motor_temp.map(m => (m[0]));
+          this.electric_temp.attrs[1].value = res[1].station2_motor_temp.map(m => (m[0]));
+
+          arr = res[0].station1_motor_temp;
+          this.electric_temp.realdata_1 = arr.length > 0? arr[arr.length-1][0]: 0;
+          arr = res[1].station2_motor_temp;
+          this.electric_temp.realdata_2 = arr.length > 0? arr[arr.length-1][0]: 0;
+
+          let i = 0,c = 'station1_motor_temp';
+          if(this.electric_temp.attrs[0].value.length < this.electric_temp.attrs[1].value.length){
+            i = 1,c = 'station2_motor_temp';
+          }
+          this.electric_temp.xdata = res[i][c].map(m => (dateformat(new Date(rTime(m[1])),'hh:mm:ss')));
           if(document.getElementById('electric_temp')){
             let myChart_9 = echarts.init(document.getElementById('electric_temp'));;
             equipment_four_road.create_real_discharge({attrs:this.electric_temp.attrs,xData:this.electric_temp.xdata},myChart_9);
@@ -257,7 +268,7 @@ export class EquipmentSkylightOpenCloseComponent implements OnInit {
     this.http.callRPC('get_log',library+'get_logs',{"deviceid":this.deviceid}).subscribe((g:any) =>{
       if(g.result.error || g.result.message[0].code == 0)return;
       res = g.result.message[0].message;
-      this.table_1 = res[0].map( m=> [dateformat(new Date(m.recordtime),'MM-dd hh:mm:ss'),this.log_lv(m.level),m.message ])
+      this.table_1 = res[0].map( m=> [dateformat(new Date(m.recordtime),'hh:mm:ss'),this.log_lv(m.level),m.message ])
     })
   }
 

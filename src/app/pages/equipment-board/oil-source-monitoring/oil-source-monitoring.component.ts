@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { HttpserviceService } from '../../../services/http/httpservice.service';
-import { colors, copy, create_img_16_9, library } from '../equipment-board';
+import { colors, copy, create_img_16_9, dateformat, library, rTime } from '../equipment-board';
 import { EquipmentBoardService } from '../serivice/equipment-board.service';
 
 let oilsrouce = require('../../../../assets/eimdoard/equipment/js/oilsrouce');
@@ -567,6 +567,34 @@ export class OilSourceMonitoringComponent implements OnInit {
         equipment_four_road.create_real_discharge({attrs:this.attrs_cleanliss,xData:this.xdata_cleanliss},myChart_9);
       }
     })
+  }
+
+
+  get_cleanlinss_list(){
+    let i = this.HPUselect.value.match(/\d{1,}/g),chart,arr = this.attrs_cleanliss;
+    this.subscribeList.get_line_speed_torque = this.http.callRPC('device_realtime_list',library+'device_realtime_list',
+    {"deviceid":"device_hpu_0"+i[0],arr:'cs01,cs02,cs03,cs07'}).subscribe((f:any)=>{
+      if(f.result.error || f.result.message[0].code == 0)return;
+      let res = f.result.message[0].message;
+      chart = document.getElementById('discharge_chart_1');
+      arr[0].value = res[0].cs01.map(m => (m[0]));
+      arr[1].value = res[1].cs02.map(m => (m[0]));
+      arr[2].value = res[2].cs03.map(m => (m[0]));
+      arr[3].value = res[3].cs07.map(m => (m[0]));
+      let max_index = 0,max = [];
+      for (let i = 0; i < res.length - 1; i++) {
+        if(max.length < arr[i+1].value.length){
+          max_index = i;
+        }
+      };
+      let xarr:any = Object.values(res[max_index])[0];
+      this.xdata_cleanliss = xarr.map(m => (dateformat(new Date(rTime(m[1])),'hh:mm:ss')));
+
+      
+      if(chart){
+        equipment_four_road.create_real_discharge({attrs:this.attrs_cleanliss,xData:this.xdata_cleanliss},echarts.init(chart));
+      }
+    });
   }
 
   /**
