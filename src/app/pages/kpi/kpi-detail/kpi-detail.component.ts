@@ -295,53 +295,143 @@ export class KpiDetailComponent implements OnInit {
       var res = result["result"]["message"][0];
       var defaultdata = {
         // ["#FFBF9F", "#93C9FF"]
-        color: ["rgba(225,191,159,1)", "rgba(147,201,255,1)"],
-        areacolor: ["rgba(225,191,159,0.9)", "rgba(19, 173, 255, 0.5)"],
-        linecolor: ["rgba(255,191,159, 1)", "rgba(19, 173, 255, 1)"],
-        data1: {
-          // 去年
-          name: columns.start + "年",
-          value: [0, 0, 0, 0],
-        },
-        data2: {
-          // 今年
-          name: columns.end + "年",
-          value: [0, 0, 0, 0],
-        },
-        max: 366 * 24,
+        // color: ["rgba(225,191,159,1)", "rgba(147,201,255,1)"],
+        color: ["#3333FF", "#5D920D"],
+        xData: ["维修", "空闲", "占位", "运行"],
+        Series: [
+          {
+            name: columns.start + "年",
+            type: "bar",
+            barWidth: 10,
+            data: [0, 0, 0, 0],
+            markPoint: {
+              symbolSize: 35,
+              data: [
+                {
+                  value: "0",
+                  xAxis: 0,
+                  yAxis: 0.1,
+                  itemStyle: { color: "#3333FF" },
+                },
+                {
+                  value: "0",
+                  xAxis: 1,
+                  yAxis: 0.1,
+                  itemStyle: { color: "#3333FF" },
+                },
+                {
+                  value: "0",
+                  xAxis: 2,
+                  yAxis: 0.1,
+                  itemStyle: { color: "#3333FF" },
+                },
+                {
+                  value: "0",
+                  xAxis: 3,
+                  yAxis: 0.1,
+                  itemStyle: { color: "#3333FF" },
+                },
+              ],
+            },
+          },
+          {
+            name: columns.end + "年",
+            type: "bar",
+            barWidth: 10,
+            barGap: 2,
+            data: [0, 0, 0, 0],
+            markPoint: {
+              symbolSize: 35,
+              data: [
+                {
+                  value: "0",
+                  xAxis: 0,
+                  yAxis: 0.1,
+                  itemStyle: { color: "#5D920D" },
+                },
+                {
+                  value: "0",
+                  xAxis: 1,
+                  yAxis: 0.1,
+                  itemStyle: { color: "#5D920D" },
+                },
+                {
+                  value: "0",
+                  xAxis: 2,
+                  yAxis: 0.1,
+                  itemStyle: { color: "#5D920D" },
+                },
+                {
+                  value: "0",
+                  xAxis: 3,
+                  yAxis: 0.1,
+                  itemStyle: { color: "#5D920D" },
+                },
+              ],
+            },
+          },
+        ],
       };
+
       // 占位、空闲、维修、运行
       if (res["code"] === 1) {
         var message = res["message"];
         for (let index = 0; index < message.length; index++) {
           if (message[index] && message[index]["dates"]) {
             switch (Number(message[index]["dates"])) {
-              case columns.start:
-                defaultdata.data1.name = message[index]["dates"] + "年";
-                defaultdata.data1.value[0] = message[index]["placeon"];
-                defaultdata.data1.value[1] = message[index]["stop"];
-                defaultdata.data1.value[2] = message[index]["warning"];
-                defaultdata.data1.value[3] = message[index]["running"];
+              case columns.start: // 去年
+                defaultdata.Series[0].data[0] = message[index]["warning"];
+                defaultdata.Series[0].data[1] = message[index]["stop"];
+                defaultdata.Series[0].data[2] = message[index]["placeon"];
+                defaultdata.Series[0].data[3] = message[index]["running"];
+
+                defaultdata.Series[0].markPoint.data[0].value =
+                  message[index]["warning"];
+                defaultdata.Series[0].markPoint.data[0].yAxis =
+                  message[index]["warning"] + 0.1;
+                defaultdata.Series[0].markPoint.data[1].value =
+                  message[index]["stop"];
+                defaultdata.Series[0].markPoint.data[1].yAxis =
+                  message[index]["stop"] + 0.1;
+                defaultdata.Series[0].markPoint.data[2].value =
+                  message[index]["placeon"];
+                defaultdata.Series[0].markPoint.data[2].yAxis =
+                  message[index]["placeon"] + 0.1;
+                defaultdata.Series[0].markPoint.data[3].value =
+                  message[index]["running"];
+                defaultdata.Series[0].markPoint.data[3].yAxis =
+                  message[index]["running"] + 0.1;
+
                 break;
-              case columns.end:
-                defaultdata.data2.name = message[index]["dates"] + "年";
-                defaultdata.data2.value[0] = message[index]["placeon"];
-                defaultdata.data2.value[1] = message[index]["stop"];
-                defaultdata.data2.value[2] = message[index]["warning"];
-                defaultdata.data2.value[3] = message[index]["running"];
+              case columns.end: // 今年
+                defaultdata.Series[1].data[0] = message[index]["warning"];
+                defaultdata.Series[1].data[1] = message[index]["stop"];
+                defaultdata.Series[1].data[2] = message[index]["placeon"];
+                defaultdata.Series[1].data[3] = message[index]["running"];
+
+                defaultdata.Series[1].markPoint.data[0].value =
+                  message[index]["warning"];
+                defaultdata.Series[1].markPoint.data[0].yAxis =
+                  message[index]["warning"] + 0.1;
+                defaultdata.Series[1].markPoint.data[1].value =
+                  message[index]["stop"];
+                defaultdata.Series[1].markPoint.data[1].yAxis =
+                  message[index]["stop"] + 0.1;
+                defaultdata.Series[1].markPoint.data[2].value =
+                  message[index]["placeon"];
+                defaultdata.Series[1].markPoint.data[2].yAxis =
+                  message[index]["placeon"] + 0.1;
+                defaultdata.Series[1].markPoint.data[3].value =
+                  message[index]["running"];
+                defaultdata.Series[1].markPoint.data[3].yAxis =
+                  message[index]["running"] + 0.1;
+
                 break;
             }
           }
         }
-        var data1_max = Math.max(...defaultdata.data1.value) + 100;
-        var data2_max = Math.max(...defaultdata.data2.value) + 100;
-        if (data1_max > data2_max) {
-          defaultdata.max = data1_max;
-        } else {
-          defaultdata.max = data2_max;
-        }
       }
-      // console.log("第三个数据：", defaultdata)
+      console.error("第一行第三个数据(bar)：", defaultdata);
       kpi_detail.one_row_three(eleid, defaultdata);
     });
   };
@@ -380,7 +470,7 @@ export class KpiDetailComponent implements OnInit {
     _columns["startyear"] = columns.start;
     _columns["endyear"] = columns.end;
     this.querst("", monthed, _columns).subscribe((result) => {
-      console.log("得到第二行第一个数据res： ", result);
+      // console.log("得到第二行第一个数据res： ", result);
       var defaultdata = {
         // color: ["#5D7FE5", "#26FF26"],
         // ["运行", "空闲"]
@@ -433,7 +523,7 @@ export class KpiDetailComponent implements OnInit {
             type: "bar",
             xAxisIndex: 1,
             yAxisIndex: 2,
-            showBackground: true,
+            // showBackground: true,
             backgroundStyle: {
               // borderColor:"red"
             },
@@ -442,12 +532,14 @@ export class KpiDetailComponent implements OnInit {
               {
                 value: 0,
                 itemStyle: {
-                  color: "#5D920D",
+                  color: "rgba(255, 255, 255, 0)",
                 },
                 label: {
                   show: true,
                   // position: "insideTop",
                   fontSize: 20,
+                  position: [15, "20%"],
+                  color: "#5D920D",
                   formatter: function (p) {
                     return p.value > 0 ? p.value : "";
                   },
@@ -456,12 +548,14 @@ export class KpiDetailComponent implements OnInit {
               {
                 value: 0,
                 itemStyle: {
-                  color: "#3333FF",
+                  color: "rgba(255, 255, 255, 0)",
                 },
                 label: {
                   show: true,
                   // position: "insideTop",
                   fontSize: 20,
+                  position: [15, "20%"],
+                  color: "#3333FF",
                   formatter: function (p) {
                     return p.value > 0 ? p.value : "";
                   },

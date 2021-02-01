@@ -217,7 +217,7 @@ export class HourConfigComponent implements OnInit {
     //   console.log("传入的值设备名称----->", inpuvalue);
     //   this.query(inpuvalue);
     // }
-    console.log("传入的值设备名称----->", inpuvalue);
+    // console.log("传入的值设备名称----->", inpuvalue);
     this.query(inpuvalue);
   }
 

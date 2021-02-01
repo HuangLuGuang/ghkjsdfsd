@@ -1,18 +1,16 @@
-import { Component, OnInit } from '@angular/core';
-import { LayoutService } from '../../@core/utils';
+import { Component, OnInit } from "@angular/core";
+import { LayoutService } from "../../@core/utils";
 
-import { NgZone } from '@angular/core';
+import { NgZone } from "@angular/core";
 
-let home = require('../../../assets/pages/home/js/home');
+let home = require("../../../assets/pages/home/js/home");
 
 declare let $;
 
-
-
 @Component({
-  selector: 'ngx-home',
-  templateUrl: './home.component.html',
-  styleUrls: ['./home.component.scss']
+  selector: "ngx-home",
+  templateUrl: "./home.component.html",
+  styleUrls: ["./home.component.scss"],
 })
 export class HomeComponent implements OnInit {
   myChart;
@@ -20,234 +18,223 @@ export class HomeComponent implements OnInit {
     // card的数据
     LableData: [
       {
-          name: "黑河冬季试验基地", // card名称
-          coords: [
-              [127.528588, 50.247033], // 坐标点
-              [132, 52, 100]           // card的坐标点
-          ],
-          value: ['*', '*']               // 第一个设备总数，第二个在线数量
+        name: "黑河冬季试验基地", // card名称
+        coords: [
+          [127.528588, 50.247033], // 坐标点
+          [132, 52, 100], // card的坐标点
+        ],
+        value: ["*", "*"], // 第一个设备总数，第二个在线数量
       },
       {
-          name: "吐鲁番夏季试验基地",
-          coords: [
-              [89.192125, 42.956351],
-              [90, 51]
-          ],
-          value: ['*', '*'] 
-
+        name: "吐鲁番夏季试验基地",
+        coords: [
+          [89.192125, 42.956351],
+          [90, 51],
+        ],
+        value: ["*", "*"],
       },
       {
-          name: "吉利研究院",
-          coords: [
-              [121.25158, 30.342533],
-              [132, 27, 100]
-          ],
-          value: [38, 50]
+        name: "吉利研究院",
+        coords: [
+          [121.25158, 30.342533],
+          [132, 27, 100],
+        ],
+        value: [38, 50],
       },
       {
-          name: "盐城试车场",
-          coords: [
-              [120.168403, 33.355342],
-              [132, 37, 100]
-          ],
-          value: ['*', '*'] 
+        name: "盐城试车场",
+        coords: [
+          [120.168403, 33.355342],
+          [132, 37, 100],
+        ],
+        value: ["*", "*"],
       },
       {
-          name: "格尔木高原试验基地",
-          coords: [
-              [94.794758, 36.405633],
-              [90, 20, 100]
-          ],
-          value: ['*', '*'] 
+        name: "格尔木高原试验基地",
+        coords: [
+          [94.794758, 36.405633],
+          [90, 20, 100],
+        ],
+        value: ["*", "*"],
       },
       {
-          name: "广德试车场",
-          coords: [
-              [119.417702, 30.919115],
-              [132, 32, 100]
-          ],
-          value: ['*', '*'] 
+        name: "广德试车场",
+        coords: [
+          [119.417702, 30.919115],
+          [132, 32, 100],
+        ],
+        value: ["*", "*"],
       },
       {
-          name: "山东招远试车场",
-          coords: [
-              [120.410991, 37.389355],
-              [132, 42, 100]
-          ],
-          value: ['*', '*'] 
+        name: "山东招远试车场",
+        coords: [
+          [120.410991, 37.389355],
+          [132, 42, 100],
+        ],
+        value: ["*", "*"],
       },
       {
-          name: "江西上饶试车场",
-          coords: [
-              [117.957799, 28.470025],
-              [115, 20, 100]
-          ],
-          value: ['*', '*'] 
+        name: "江西上饶试车场",
+        coords: [
+          [117.957799, 28.470025],
+          [115, 20, 100],
+        ],
+        value: ["*", "*"],
       },
       {
-          name: "牙克石冬季试验基地",
-          coords: [
-              [120.734156, 49.30199],
-              [108, 53.2, 100]
-          ],
-          value: ['*', '*'] 
+        name: "牙克石冬季试验基地",
+        coords: [
+          [120.734156, 49.30199],
+          [108, 53.2, 100],
+        ],
+        value: ["*", "*"],
       },
       {
-          name: "襄阳试车场",
-          coords: [
-              [112.115597, 32.003774],
-              [100, 51, 100]
-          ],
-          value: ['*', '*'] 
+        name: "襄阳试车场",
+        coords: [
+          [112.115597, 32.003774],
+          [100, 51, 100],
+        ],
+        value: ["*", "*"],
       },
       {
-          name: "海南热带试车场",
-          coords: [
-              [109.848175, 19.506262],
-              [100, 18, 100]
-          ],
-          value: ['*', '*'] 
+        name: "海南热带试车场",
+        coords: [
+          [109.848175, 19.506262],
+          [100, 18, 100],
+        ],
+        value: ["*", "*"],
       },
-
     ],
     // 线和点的数据
-    LinesPointDate:[
+    LinesPointDate: [
       {
-          fromName: "吉利研究院",
-          toName: "黑河冬季试验基地",
-          coords: [
-              [127.528588, 50.247033],  // 开始坐标
-              [121.25158, 30.342533],   // 中间坐标
-              [121.25158, 30.342533],  // 结束坐标
-          ],
-          lineStyle: {
-              color: '#4fb6d2'
-          }
+        fromName: "吉利研究院",
+        toName: "黑河冬季试验基地",
+        coords: [
+          [127.528588, 50.247033], // 开始坐标
+          [121.25158, 30.342533], // 中间坐标
+          [121.25158, 30.342533], // 结束坐标
+        ],
+        lineStyle: {
+          color: "#4fb6d2",
+        },
       },
       {
-          fromName: "吉利研究院",
-          toName: "吐鲁番夏季试验基地",
-          coords: [
-              [89.192125, 42.956351],
-              [121.25158, 30.342533],
-              [121.25158, 30.342533],
-          ],
-          lineStyle: {
-              color: '#4fb6d2'
-          }
-
+        fromName: "吉利研究院",
+        toName: "吐鲁番夏季试验基地",
+        coords: [
+          [89.192125, 42.956351],
+          [121.25158, 30.342533],
+          [121.25158, 30.342533],
+        ],
+        lineStyle: {
+          color: "#4fb6d2",
+        },
       },
       {
-          //120.168403,33.355342
-          fromName: "吉利研究院",
-          toName: "盐城试车场",
-          coords: [
-              [120.168403, 33.355342],
-              [121.25158, 30.342533],
-              [121.25158, 30.342533],
-          ],
-          lineStyle: {
-              color: '#4fb6d2'
-          }
-
+        //120.168403,33.355342
+        fromName: "吉利研究院",
+        toName: "盐城试车场",
+        coords: [
+          [120.168403, 33.355342],
+          [121.25158, 30.342533],
+          [121.25158, 30.342533],
+        ],
+        lineStyle: {
+          color: "#4fb6d2",
+        },
       },
       {
-          //120.168403,33.355342
-          fromName: "吉利研究院",
-          toName: "格尔木高原试验基地",
-          coords: [
-              [94.794758, 36.405633],
-              [121.25158, 30.342533],
-              [121.25158, 30.342533],
-          ],
-          lineStyle: {
-              color: '#4fb6d2'
-          }
-
+        //120.168403,33.355342
+        fromName: "吉利研究院",
+        toName: "格尔木高原试验基地",
+        coords: [
+          [94.794758, 36.405633],
+          [121.25158, 30.342533],
+          [121.25158, 30.342533],
+        ],
+        lineStyle: {
+          color: "#4fb6d2",
+        },
       },
       {
-          fromName: "吉利研究院",
-          toName: "广德试车场",
-          coords: [
-              [119.417702, 30.919115],
-              [121.25158, 30.342533],
-              [121.25158, 30.342533],
-          ],
-          lineStyle: {
-              color: '#4fb6d2'
-          }
-
+        fromName: "吉利研究院",
+        toName: "广德试车场",
+        coords: [
+          [119.417702, 30.919115],
+          [121.25158, 30.342533],
+          [121.25158, 30.342533],
+        ],
+        lineStyle: {
+          color: "#4fb6d2",
+        },
       },
       {
-          fromName: "吉利研究院",
-          toName: "牙克石冬季试验基地",
-          coords: [
-              [120.734156, 49.30199],
-              [121.25158, 30.342533],
-              [121.25158, 30.342533],
-          ],
-          lineStyle: {
-              color: '#4fb6d2'
-          }
-
+        fromName: "吉利研究院",
+        toName: "牙克石冬季试验基地",
+        coords: [
+          [120.734156, 49.30199],
+          [121.25158, 30.342533],
+          [121.25158, 30.342533],
+        ],
+        lineStyle: {
+          color: "#4fb6d2",
+        },
       },
       {
-          fromName: "吉利研究院",
-          toName: "襄阳试车场",
-          coords: [
-              [112.115597, 32.003774],
-              [121.25158, 30.342533],
-              [121.25158, 30.342533],
-          ],
-          lineStyle: {
-              color: '#4fb6d2'
-          }
-
+        fromName: "吉利研究院",
+        toName: "襄阳试车场",
+        coords: [
+          [112.115597, 32.003774],
+          [121.25158, 30.342533],
+          [121.25158, 30.342533],
+        ],
+        lineStyle: {
+          color: "#4fb6d2",
+        },
       },
       {
-          fromName: "吉利研究院",
-          toName: "江西上饶试车场",
-          coords: [
-              [117.957799, 28.470025],
-              [121.25158, 30.342533],
-              [121.25158, 30.342533],
-          ],
-          lineStyle: {
-              color: '#4fb6d2'
-          }
-
+        fromName: "吉利研究院",
+        toName: "江西上饶试车场",
+        coords: [
+          [117.957799, 28.470025],
+          [121.25158, 30.342533],
+          [121.25158, 30.342533],
+        ],
+        lineStyle: {
+          color: "#4fb6d2",
+        },
       },
       {
-          fromName: "吉利研究院",
-          toName: "山东招远试车场",
-          coords: [
-              [120.410991, 37.389355],
-              [121.25158, 30.342533],
-              [121.25158, 30.342533],
-          ],
-          lineStyle: {
-              color: '#4fb6d2'
-          }
-
+        fromName: "吉利研究院",
+        toName: "山东招远试车场",
+        coords: [
+          [120.410991, 37.389355],
+          [121.25158, 30.342533],
+          [121.25158, 30.342533],
+        ],
+        lineStyle: {
+          color: "#4fb6d2",
+        },
       },
       {
-          fromName: "吉利研究院",
-          toName: "海南热带试车场",
-          coords: [
-              [109.848175, 19.506262],
-              [121.25158, 30.342533],
-              [121.25158, 30.342533],
-          ],
-          lineStyle: {
-              color: '#4fb6d2'
-          }
-
+        fromName: "吉利研究院",
+        toName: "海南热带试车场",
+        coords: [
+          [109.848175, 19.506262],
+          [121.25158, 30.342533],
+          [121.25158, 30.342533],
+        ],
+        lineStyle: {
+          color: "#4fb6d2",
+        },
       },
     ],
     // 气球 数据
-    QiQiu:{
+    QiQiu: {
       // 红色突出
-      jili: [
+      main: [
         [121.25158, 30.342533, 200], // 吉利研究院
       ],
       // 黄色其它
@@ -263,59 +250,57 @@ export class HomeComponent implements OnInit {
         [117.957799, 28.470025], //江西上饶试车场
         [120.734156, 49.30199], //牙克石冬季试验基地
         [112.115597, 32.003774], //襄阳试车场
-      ]
-    }
-  }
-  constructor(private layoutService: LayoutService,private ngZone: NgZone) { }
-
+      ],
+    },
+  };
+  constructor(private layoutService: LayoutService, private ngZone: NgZone) {}
 
   ngOnInit(): void {
     this.createEchart();
     // this.myChart = echarts.init(document.querySelector('.home_chian_map'))
-    this.layoutService.onInitLayoutSize().subscribe(f=>{
+    this.layoutService.onInitLayoutSize().subscribe((f) => {
       this.myChart.clear();
       this.myChart.dispose();
-      if (this.myChart.isDisposed()){ // 是否被释放
+      if (this.myChart.isDisposed()) {
+        // 是否被释放
         this.createEchart();
         home.chian_map(this.myChart, this.myChartData);
         this.myChart.resize();
-      }else{
-        console.error("home示例未被释放")
+      } else {
+        console.error("home示例未被释放");
       }
-
 
       // let chian_map = document.querySelector('.home_chian_map');
       // if(chian_map) echarts.init(chian_map).resize();
-    })
-    
-    window.addEventListener('resize',this.resize);
+    });
+
+    window.addEventListener("resize", this.resize);
   }
   createEchart() {
     // return this.ngZone.runOutsideAngular(() => {this.myChart = echarts.init(document.querySelector('.home_chian_map'))});
-    this.ngZone.runOutsideAngular(() => {this.myChart = echarts.init(document.querySelector('.home_chian_map'))});
+    this.ngZone.runOutsideAngular(() => {
+      this.myChart = echarts.init(document.querySelector(".home_chian_map"));
+    });
   }
 
-  ngOnDestroy(){
-    if (this.myChart.isDisposed()){
-      console.error("home示例已经被释放")
+  ngOnDestroy() {
+    if (this.myChart.isDisposed()) {
+      console.error("home示例已经被释放");
       this.myChart.resize();
-    }else{
+    } else {
       this.myChart.clear();
       this.myChart.dispose();
     }
-
-
   }
 
-  ngAfterViewInit(){
+  ngAfterViewInit() {
     home.chian_map(this.myChart, this.myChartData);
     // this.resize();
   }
 
-  resize=()=>{
+  resize = () => {
     this.myChart.resize();
     // let chian_map = document.querySelector('.home_chian_map');
     // if(chian_map) echarts.init(chian_map).resize();
-  }
-
+  };
 }

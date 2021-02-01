@@ -266,170 +266,51 @@ let kpi_detail = {
     // @ts-ignore
     var mychart = echarts.init(document.getElementById(element));
     var option = {
-      // backgroundColor: '#0A2E5D',
-
       color: afterdata.color,
-
       tooltip: {
-        show: true,
-        trigger: "item",
-      },
-
-      legend: {
-        show: true,
-        icon: "rect", // circle
-        left: "35%",
-        bottom: "-1%",
-        itemHeight: 3,
-        itemWidth: 20,
-        orient: "horizontal",
-        textStyle: {
-          // fontSize: 8,
-          // color: "#fff"
-        },
-        // data: ["2019年", "2020年"]
-        data: [afterdata.data1.name, afterdata.data2.name],
-      },
-      radar: {
-        center: ["50%", "50%"],
-        radius: "70%",
-        startAngle: 90,
-        splitNumber: 4,
-        shape: "circle",
-        splitArea: {
-          areaStyle: {
-            color: ["transparent"],
-          },
-        },
-
-        axisLine: {
-          show: false,
-          lineStyle: {
-            color: "#a1a8b3", //white
-          },
-        },
-
-        splitLine: {
-          show: true,
-          lineStyle: {
-            color: "#a1a8b3", //white
-          },
-        },
-        axisLabel: {
-          show: true,
+        trigger: "axis",
+        axisPointer: {
+          type: "shadow",
           textStyle: {
-            color: "#646464", // 坐标轴刻度文字的样式
+            color: "#fff",
           },
         },
-        indicator: [
-          {
-            name: "占位",
-            max: afterdata.max,
-            axisLabel: {
-              show: true,
-            },
-          },
-          {
-            name: "空闲",
-            max: afterdata.max,
-            axisLabel: {
-              show: true,
-              rotate: -45,
-            },
-          },
-          {
-            name: "维修",
-            max: afterdata.max,
-            axisLabel: {
-              show: false,
-            },
-          },
-          {
-            name: "运行",
-            max: afterdata.max,
-            axisLabel: {
-              show: false,
-            },
-          },
-        ],
       },
-      series: [
-        {
-          name: afterdata.data1.name,
-          // name: "2019年",
-          type: "radar",
-          symbol: "circle",
-          symbolSize: 10, // 标记点的大小
-          areaStyle: {
-            normal: {
-              // color: "rgba(255,191,159, 0.9)" // 19
-              color: afterdata.areacolor[0],
-            },
-          },
-          lineStyle: {
-            normal: {
-              // color: "rgba(255,191,159, 1)",
-              color: afterdata.linecolor[0],
-              width: 2,
-              // 面积线类型 dashed 大虚线 dotted 小虚线   solid 实线
-              type: "solid",
-            },
-          },
-          // 标记点的 样式
-          itemStyle: {
-            color: "rgba(245, 166, 35, 1)",
-            // borderColor:'rgba(255,191,159, 0.3)',
-            borderWidth: 10,
-          },
-
-          data: [
-            {
-              value: afterdata.data1.value, // 占位、空闲、维修、运行
-              // value: [80, 50,  48, 43],// 占位、空闲、维修、运行
-            },
-          ],
+      legend: {
+        // data: ["2019年", "2020年"],
+        bottom: "0",
+        itemWidth: 9,
+        itemHeight: 9,
+        textStyle: {
+          color: "#90979c",
         },
+      },
+      toolbox: {
+        show: false,
+        feature: {
+          dataView: { show: true, readOnly: false },
+          magicType: { show: true, type: ["line", "bar"] },
+          restore: { show: true },
+          saveAsImage: { show: true },
+        },
+      },
+      calculable: true,
+      xAxis: [
         {
-          name: afterdata.data2.name,
-          // name: "2020年",
-          type: "radar",
-          symbol: "circle",
-          symbolSize: 10,
-          // 标记点的 样式
-          itemStyle: {
-            normal: {
-              color: "rgba(19, 173, 255, 1)",
-              borderWidth: 10,
-            },
-          },
-
-          areaStyle: {
-            normal: {
-              // color: "rgba(19, 173, 255, 0.5)"
-              color: afterdata.areacolor[1],
-            },
-          },
-          lineStyle: {
-            normal: {
-              // color: "rgba(19, 173, 255, 1)",
-              color: afterdata.linecolor[1],
-              width: 2,
-              // 面积线类型 dashed 大虚线 dotted 小虚线   solid 实线
-              type: "solid",
-            },
-          },
-          data: [
-            {
-              value: afterdata.data2.value,
-              // value: [60, 60, 80, 63]
-            },
-          ],
+          type: "category",
+          data: afterdata.xData,
         },
       ],
+      yAxis: [
+        {
+          type: "value",
+        },
+      ],
+      series: afterdata.Series,
     };
-    // console.error("------------------>", JSON.stringify(option))
     // @ts-ignore
     mychart.setOption(option);
+
     mychart.resize();
   },
 
@@ -564,7 +445,7 @@ let kpi_detail = {
 
     // @ts-ignore
     mychart.setOption(option);
-
+    // console.error("------------------>", JSON.stringify(option));
     mychart.resize();
   },
 
