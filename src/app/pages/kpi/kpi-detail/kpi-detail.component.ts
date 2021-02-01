@@ -74,9 +74,9 @@ export class KpiDetailComponent implements OnInit {
           {
             name: null,
             type: "pie",
-            center: ["75%", "35%"],
+            center: ["75%", "38%"],
             // radius: '28%',
-            radius: ["20%", "28%"],
+            radius: ["15%", "22%"],
             hoverOffset: 5,
             tooltip: {
               trigger: "item",
@@ -102,7 +102,7 @@ export class KpiDetailComponent implements OnInit {
               // formatter: '{b} <br/>{a0}: {c0}<br/>{a1}: {c1}'
             },
             z: 100,
-            y: -60,
+            y: -70,
             x: -60,
             data: [
               {
@@ -135,12 +135,12 @@ export class KpiDetailComponent implements OnInit {
       var pie_success = {
         xdata: [],
         ydata: [],
-        title: "",
+        title: "已完成",
       };
       var pie_nosuccess = {
         xdata: [],
         ydata: [],
-        title: "",
+        title: "未完成",
       };
       if (res["code"] === 1) {
         var bar = res["bar"];
@@ -152,7 +152,7 @@ export class KpiDetailComponent implements OnInit {
             success.xdata.push(element["dates"]);
             success.ydata.push(element["numbers"]);
             success.title = element["taskstatus"];
-          } else {
+          } else if (element["taskstatus"] === "未完成") {
             nosuccess.xdata.push(element["dates"]);
             nosuccess.ydata.push(element["numbers"]);
             nosuccess.title = element["taskstatus"];
@@ -187,7 +187,7 @@ export class KpiDetailComponent implements OnInit {
               pie_success.xdata.push(element["dates"]);
               pie_success.ydata.push(element["numbers"]);
               pie_success.title = element["taskstatus"];
-            } else {
+            } else if (element["taskstatus"] === "未完成") {
               pie_nosuccess.xdata.push(element["dates"]);
               pie_nosuccess.ydata.push(element["numbers"]);
               pie_nosuccess.title = element["taskstatus"];
@@ -431,7 +431,7 @@ export class KpiDetailComponent implements OnInit {
           }
         }
       }
-      console.error("第一行第三个数据(bar)：", defaultdata);
+      // console.error("第一行第三个数据(bar)：", defaultdata);
       kpi_detail.one_row_three(eleid, defaultdata);
     });
   };
@@ -541,7 +541,7 @@ export class KpiDetailComponent implements OnInit {
                   position: [15, "20%"],
                   color: "#5D920D",
                   formatter: function (p) {
-                    return p.value > 0 ? p.value : "";
+                    return p.value > 0 ? p.value : "0";
                   },
                 },
               },
@@ -557,7 +557,7 @@ export class KpiDetailComponent implements OnInit {
                   position: [15, "20%"],
                   color: "#3333FF",
                   formatter: function (p) {
-                    return p.value > 0 ? p.value : "";
+                    return p.value > 0 ? p.value : "0";
                   },
                 },
               },

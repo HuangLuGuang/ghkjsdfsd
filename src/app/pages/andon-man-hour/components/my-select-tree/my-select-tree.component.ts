@@ -58,7 +58,9 @@ export class MySelectTreeComponent implements OnInit {
           that.groups_id = data.value;
           that.init_devicename_deviceno(data.value, form);
           that.isgroups = true;
-          that.parent_query.emit(that.get_form_val("group"));
+          setTimeout(() => {
+            that.parent_query.emit(that.get_form_val("group"));
+          }, 100);
         }
       });
 
@@ -153,6 +155,10 @@ export class MySelectTreeComponent implements OnInit {
         groups_id: this.groups_id,
         deviceid: this.deviceid,
         deviceno: this.deviceno,
+        devicename:
+          this.devicename === ""
+            ? $("#test_task_conf_add_devicename").find("option:selected").text()
+            : this.devicename,
         group: $("#test_task_conf_add_group").find("option:selected").text(),
       };
     }

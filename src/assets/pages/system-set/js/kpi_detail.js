@@ -67,11 +67,15 @@ let kpi_detail = {
           },
         },
       ],
+      labelLine: {
+        minTurnAngle: 45,
+      },
       series: afterdata.Series,
     };
     // @ts-ignore
 
     mychart.setOption(option);
+    // console.error("------------------>", JSON.stringify(option));
     mychart.resize();
   },
 
@@ -105,10 +109,9 @@ let kpi_detail = {
         itemWidth: 9,
         itemHeight: 9,
         // bottom: "4%",
-
-        textStyle: {
-          color: "#90979c",
-        },
+        // textStyle: {
+        //   color: "#90979c",
+        // },
         // data: afterdata.title
       },
 
@@ -145,8 +148,18 @@ let kpi_detail = {
           },
           axisLabel: {
             interval: 0,
-            formatter: "{value} h",
+            formatter: function (value, index) {
+              if (value >= 1000 && value < 1000 * 10) {
+                return value / 1000 + "千h";
+              }
+              if (value >= 1000 * 10) {
+                return value / 10000 + "万h";
+              }
+              return value + "h";
+            },
+            // formatter: "{value} h",
           },
+
           splitArea: {
             show: false,
           },
@@ -172,7 +185,7 @@ let kpi_detail = {
                 // textStyle: {
                 //   color: afterdata.color[0],
                 // },
-                position: "insideTop",
+                position: "top",
                 formatter: function (p) {
                   return p.value > 0 ? p.value : "";
                 },
@@ -198,7 +211,7 @@ let kpi_detail = {
               barBorderRadius: 0,
               label: {
                 show: true,
-                position: "insideTop",
+                position: "top",
                 formatter: function (p) {
                   return p.value > 0 ? p.value : "";
                 },
@@ -222,7 +235,7 @@ let kpi_detail = {
               barBorderRadius: 0,
               label: {
                 show: true,
-                position: "insideTop",
+                position: "top",
                 formatter: function (p) {
                   return p.value > 0 ? p.value : "";
                 },
@@ -245,7 +258,7 @@ let kpi_detail = {
               barBorderRadius: 0,
               label: {
                 show: true,
-                position: "insideTop",
+                position: "top",
                 formatter: function (p) {
                   return p.value > 0 ? p.value : "";
                 },
@@ -281,9 +294,9 @@ let kpi_detail = {
         bottom: "0",
         itemWidth: 9,
         itemHeight: 9,
-        textStyle: {
-          color: "#90979c",
-        },
+        // textStyle: {
+        //   color: "#90979c",
+        // },
       },
       toolbox: {
         show: false,
@@ -304,6 +317,17 @@ let kpi_detail = {
       yAxis: [
         {
           type: "value",
+          axisLabel: {
+            formatter: function (value, index) {
+              if (value >= 1000 && value < 1000 * 10) {
+                return value / 1000 + "千";
+              }
+              if (value >= 1000 * 10) {
+                return value / 10000 + "万";
+              }
+              return value;
+            },
+          },
         },
       ],
       series: afterdata.Series,
@@ -445,7 +469,7 @@ let kpi_detail = {
 
     // @ts-ignore
     mychart.setOption(option);
-    // console.error("------------------>", JSON.stringify(option));
+
     mychart.resize();
   },
 
@@ -582,9 +606,9 @@ let kpi_detail = {
           icon: "horizontal",
           itemWidth: 9,
           itemHeight: 9,
-          textStyle: {
-            color: "black",
-          },
+          // textStyle: {
+          //   color: "black",
+          // },
           data: afterdata.legend,
         },
         tooltip: {
@@ -938,15 +962,15 @@ let kpi_detail = {
         icon: "horizontal",
         itemWidth: 9,
         itemHeight: 9,
-        textStyle: {
-          color: "black",
-        },
+        // textStyle: {
+        //   color: "black",
+        // },
         data: afterdata.legend,
       },
       grid: {
         top: "20%",
         bottom: "20%",
-        left: "5%",
+        // left: "5%",
         // right: '5%'
         right: 30,
       },
@@ -967,6 +991,17 @@ let kpi_detail = {
       yAxis: [
         {
           type: "value",
+          axisLabel: {
+            formatter: function (value, index) {
+              if (value >= 1000 && value < 1000 * 10) {
+                return value / 1000 + "千";
+              }
+              if (value >= 1000 * 10) {
+                return value / 10000 + "万";
+              }
+              return value;
+            },
+          },
         },
       ],
       series: [
