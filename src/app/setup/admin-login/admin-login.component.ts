@@ -11,6 +11,7 @@ import {
   LOGIN_INFO,
   SSOUSERINFO,
   MULU,
+  SYSMENU,
 } from "../../appconfig";
 import { HttpserviceService } from "../../services/http/httpservice.service";
 import { HttpHeaders, HttpClient } from "@angular/common/http";
@@ -63,7 +64,11 @@ export class AdminLoginComponent implements OnInit {
     private http: HttpClient,
     private publicmethodService: PublicmethodService,
     private userInfoService: UserInfoService
-  ) {}
+  ) {
+    localStorage.removeItem(SYSMENU);
+    localStorage.removeItem(MULU);
+    localStorage.removeItem("hidden_menu");
+  }
 
   ngOnInit(): void {
     // 初始化界面时，检查是否记住密码？
