@@ -22,7 +22,9 @@
                         </ng-container>
 
                         <ng-container *ngIf="key != 'speed'">
-                            {{ items[key] }}
+                            <div class="font_long" title="{{ items[key] }}">
+                                {{ items[key] }}
+                            </div>
                         </ng-container>
                     </div>
                 </div>

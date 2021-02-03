@@ -28,9 +28,9 @@
                     <img id="img" [src]="img.url" [alt]="img.name">
                 </div>
             </div>
-            <div class="sceond_third height_33" style="position: relative;flex-wrap: wrap;padding-top: 0%; margin-top: 20px;">
+            <div class="sceond_third height_34" style="position: relative;flex-wrap: wrap;padding-top: 0%; margin-top: 20px;">
                 <div class="part_title">{{ 'equipment.EmissionAnalyzer'|translate }}</div>
-                <div class="display_wrap height_89 center_center width_50" *ngFor="let list of dischargeList;let i = index">
+                <div class="display_wrap height_100 center_center width_50" *ngFor="let list of dischargeList;let i = index">
                     <div class="width_100">L{{ i +1}}</div>
                     <ng-container *ngFor="let item of list">
                         <div class="width_48 discharge">

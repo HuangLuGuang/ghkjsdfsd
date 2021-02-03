@@ -30,12 +30,14 @@
                 <div id="s"></div>
             </div> -->
             <div id="left_table" class="table_body" style="display: flex;flex-wrap: wrap;">
-                <div class="table_body_th_1" *ngFor="let items of tableBody;">
-                    <ng-container *ngFor="let key of obejct.keys(tableHeader);let i = index">
-                        <div class="table_body_tr" [ngStyle]="{width: i ==2?'39%':'30%'}">
-                            {{ items[key] }}
-                        </div>
-                    </ng-container>
+                <div id="scroll">
+                    <div class="table_body_th_1" *ngFor="let items of tableBody;">
+                        <ng-container *ngFor="let key of obejct.keys(tableHeader);let i = index">
+                            <div class="table_body_tr" [ngStyle]="{width: i ==2?'39%':'30%'}">
+                                {{ items[key] }}
+                            </div>
+                        </ng-container>
+                    </div>
                 </div>
 
                 <!-- <div class="table_body_th_2">
