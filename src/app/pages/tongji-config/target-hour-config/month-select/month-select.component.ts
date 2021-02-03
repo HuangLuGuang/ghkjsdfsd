@@ -16,7 +16,28 @@ export class MonthSelectComponent implements OnInit {
   // el5
   single_el5s;
 
-  constructor() {}
+  default_month;
+  constructor() {
+    enum Month {
+      "一月" = 1,
+      "二月",
+      "三月",
+      "四月",
+      "五月",
+      "六月",
+      "七月",
+      "八月",
+      "九月",
+      "十月",
+      "十一月",
+      "十二月",
+    }
+    var curr_month = new Date().getMonth() + 1;
+    this.default_month = Month[curr_month];
+    // console.log("Month[curr_month]  >>", curr_month);
+    // console.log("Month[curr_month]  >>", Month[curr_month]);
+    // console.log("default_month  >>", this.default_month);
+  }
 
   ngOnInit(): void {}
 
@@ -24,7 +45,7 @@ export class MonthSelectComponent implements OnInit {
     this.placeholder_title = this.placeholder;
     $("[name='single_title']").attr("placeholder", this.placeholder_title);
     // $(".tree_isShow").hide();
-    $("[name='single_title']").val("一月");
+    $("[name='single_title']").val(this.default_month);
   }
   ngOnDestroy() {
     this.reset_month();
@@ -83,7 +104,7 @@ export class MonthSelectComponent implements OnInit {
   }
   // 删除选择的
   delselect() {
-    $("[name='single_title']").val("一月");
+    $("[name='single_title']").val(this.default_month);
   }
   // 清空下拉数据
   reset_month() {

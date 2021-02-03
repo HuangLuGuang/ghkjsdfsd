@@ -16,6 +16,8 @@ import { EditDelTooltipComponent } from "../../../../pages-popups/prompt-diallog
 import { ActionComponent } from "./action/action.component";
 import { DatePipe } from "@angular/common";
 import { EditComponent } from "../../../../pages-popups/tongji/test_task_conf/edit/edit.component";
+import { TableDevicenameComponent } from "../../../tongji/components/table-devicename/table-devicename.component";
+import { TimeScheduleComponent } from "./time-schedule/time-schedule.component";
 
 @Component({
   selector: "ngx-tesk-config",
@@ -509,8 +511,24 @@ export class TeskConfigComponent implements OnInit {
         sortable: true,
       },
       {
-        field: "executor",
-        headerName: "执行人",
+        field: "devicename",
+        headerName: "设备名称",
+        resizable: true,
+        width: 200,
+        cellRendererFramework: TableDevicenameComponent,
+        sortable: true,
+      },
+
+      {
+        field: "deviceno",
+        headerName: "设备编号",
+        resizable: true,
+        width: 130,
+        sortable: true,
+      },
+      {
+        field: "taskstatus",
+        headerName: "试验状态",
         resizable: true,
         width: 100,
         sortable: true,
@@ -550,17 +568,12 @@ export class TeskConfigComponent implements OnInit {
         minWidth: 10,
         sortable: true,
       }, // 更新时间
-      {
-        field: "taskstatus",
-        headerName: "试验状态",
-        resizable: true,
-        width: 100,
-        sortable: true,
-      },
+
       {
         field: "rate",
-        headerName: "时间进度",
+        headerName: "试验进度",
         resizable: true,
+        cellRendererFramework: TimeScheduleComponent,
         minWidth: 10,
         sortable: true,
       }, //

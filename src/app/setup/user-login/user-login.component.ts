@@ -288,9 +288,6 @@ export class UserLoginComponent implements OnInit {
                   });
                   ssouserinfo_list.push(ssouserinfo_default);
                   // 将数据存入数据库中！
-                  // localStorage.setItem('ssouserinfo', this.publicmethodService.compileStr(ssouserinfo));
-                  // localStorage.setItem('ssouserinfo', JSON.stringify(ssouserinfo));
-                  // console.log("需要存入数据库中的数据",ssouserinfo_list)
                   // 得到用户名--封装ssotoken
                   // 将统一认证得到的用存入用户表！并返回accessToken和refreshToken
                   this.insert_ssouser_get_tooken(ssouserinfo_list).subscribe(
@@ -313,7 +310,7 @@ export class UserLoginComponent implements OnInit {
           },
           (error) => {
             console.error(
-              "++++++++++++++++++++++++++++",
+              "得到创建的默认角色",
               error,
               error.status,
               error.error
