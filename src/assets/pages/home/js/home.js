@@ -499,7 +499,7 @@ let home = {
       ],
     };
     // var myChart = echarts.init(document.querySelector('.home_chian_map'));
-    console.log("myChartData", myChartData);
+    // console.log("myChartData", myChartData);
     // console.error("-----------------", JSON.stringify(option));
     myChart.setOption(option, true);
     myChart.resize();

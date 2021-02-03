@@ -48,24 +48,31 @@ export class PagesComponent implements OnInit {
       // localStorage.removeItem(SYSMENU);
       // localStorage.removeItem(MULU);
       // localStorage.removeItem("hidden_menu");
-      this.loadMenu();
+      // this.loadMenu();
     });
   }
 
   ngOnInit() {
-    console.log("pages.component------------->");
+    // console.log("pages.component------------->");
     this.loadMenu();
   }
 
   ngAfterViewInit() {
-    var menu_: any[] = localStorage.getItem(MULU)
-      ? JSON.parse(localStorage.getItem(MULU))
-      : [];
+    // var menu_: any[] = localStorage.getItem(MULU)
+    //   ? JSON.parse(localStorage.getItem(MULU))
+    //   : [];
     setTimeout(() => {
-      this.loadMenu();
-      menu_ = localStorage.getItem(MULU)
+      // this.loadMenu();
+      // menu_ = localStorage.getItem(MULU)
+      //   ? JSON.parse(localStorage.getItem(MULU))
+      //   : [];
+
+      var menu_ = localStorage.getItem(MULU)
         ? JSON.parse(localStorage.getItem(MULU))
         : [];
+      if (menu_.length < 1) {
+        this.loadMenu();
+      }
     }, 1000);
   }
 
@@ -136,6 +143,7 @@ export class PagesComponent implements OnInit {
               hidden_menu.push(item);
             }
           });
+          localStorage.removeItem(MULU);
           localStorage.setItem(MULU, JSON.stringify(menuData));
           localStorage.setItem("hidden_menu", JSON.stringify(hidden_menu));
           this.menuservice.addItems(menuData, "menu");
@@ -145,8 +153,11 @@ export class PagesComponent implements OnInit {
       });
     } else {
       this.menu.length = 0;
-      console.error("**************************");
-      this.menuservice.addItems(menu_, "menu");
+      // console.error("**************************", menu_);
+      // this.menuservice.addItems(menu_, "menu");
+      setTimeout(() => {
+        this.menuservice.addItems(menu_, "menu");
+      }, 100);
     }
   }
 
