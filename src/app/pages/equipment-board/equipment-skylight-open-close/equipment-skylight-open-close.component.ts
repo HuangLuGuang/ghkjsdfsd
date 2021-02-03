@@ -197,9 +197,9 @@ export class EquipmentSkylightOpenCloseComponent implements OnInit {
         this.ngzone.runOutsideAngular(()=>{
           chart = document.getElementById('cabin_line_1');
           //温度
-          arr.attrs[0].value = res[0].realtime_temp.map(m => (m[0]));
+          arr.attrs[0].value = res[0].realtime_temp.map(m => (m[0]|| 0));
           //湿度
-          arr.attrs[1].value = res[1].realtime_humidity.map(m => (m[0]));
+          arr.attrs[1].value = res[1].realtime_humidity.map(m => (m[0]|| 0));
           let i = 0,c = 'realtime_temp';
           if(arr.attrs[0].value.length < arr.attrs[1].value.length){
             i = 1,c = 'realtime_humidity';
@@ -222,8 +222,8 @@ export class EquipmentSkylightOpenCloseComponent implements OnInit {
       setTimeout(() => {
         this.ngzone.runOutsideAngular(()=>{
 
-          this.electric_temp.attrs[0].value = res[0].station1_motor_temp.map(m => (m[0]));
-          this.electric_temp.attrs[1].value = res[1].station2_motor_temp.map(m => (m[0]));
+          this.electric_temp.attrs[0].value = res[0].station1_motor_temp.map(m => (m[0]|| 0));
+          this.electric_temp.attrs[1].value = res[1].station2_motor_temp.map(m => (m[0]|| 0));
 
           arr = res[0].station1_motor_temp;
           this.electric_temp.realdata_1 = arr.length > 0? arr[arr.length-1][0]: 0;

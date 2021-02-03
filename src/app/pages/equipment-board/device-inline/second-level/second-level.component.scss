@@ -2,9 +2,9 @@
     // 1920*1080
     // background: url('/assets/pages/device-inline/images/one/bei-jin.jpg') ;
     // background-color: #003E61;
-    min-height: 900px;
+    // min-height: 900px;
     // padding-bottom: 5px;
-    height: 98%;
+    height: 100%;
     // 头部
     .head {
         position: relative;
@@ -212,14 +212,17 @@ nb-icon {
     margin: 0px;
     // 关键指标
     .key-index {
-        min-width: 334px;
-        max-width: 470px;
-        min-height: 389px;
+        // min-width: 334px;
+        // max-width: 470px;
+        // min-height: 389px;
         // border: 1px red solid;
         margin-left: 0%;
         // height: 40%;
         height: 100%;
         width: 100%;
+    }
+    .warning-information {
+        height: 100%;
     }
     // 设备活跃的
     .deviceactivetitle {
@@ -240,13 +243,14 @@ nb-icon {
                 text-align: center;
             }
         }
+        height: 24%;
     }
     .device_active {
-        min-width: 334px;
-        max-width: 398px;
-        min-height: 307px;
-        max-width: 470px;
-        // height: 70%;
+        // min-width: 334px;
+        // max-width: 398px;
+        // min-height: 307px;
+        // max-width: 470px;
+        height: 76%;
         width: 100%;
     }
     .two_content {

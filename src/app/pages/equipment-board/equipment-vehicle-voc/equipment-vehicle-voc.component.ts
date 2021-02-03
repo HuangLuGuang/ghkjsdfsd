@@ -97,7 +97,7 @@ export class EquipmentVehicleVocComponent implements OnInit {
   cang_hot = {
     status:1,
     list:[
-      {name:'红外顶板',value:0,unit:'W/m²'},
+      {name:'红外顶板 ',value:0,unit:'W/m²'},
       {name:'',value:'',unit:''},
       {name:'红外侧板1',value:0,unit:'℃'},
       {name:'红外侧板2',value:0,unit:'℃'},
@@ -136,8 +136,13 @@ export class EquipmentVehicleVocComponent implements OnInit {
     this.subscribeList.resize =this.boardservice.chartResize().subscribe(f=>{
       this.resize();
     })
+    let i = 0;
     this.timer = setInterval(()=>{
       this.getData();
+      if(i%60 == 0){
+        this.get_chart_list();
+      }
+      i++;
     },1000)
   }
 
@@ -151,7 +156,7 @@ export class EquipmentVehicleVocComponent implements OnInit {
 
   //获取数据
   getData(){
-    let res,time,data:any = {};
+    let res,data:any = {};
     this.subscribeList.left = this.http.callRPC('get_device_mts_realtimedata',library+'get_device_mts_realtimedata',
     {"device":this.deviceid,arr:voc.join(',')}).subscribe((g:any)=>{
       if(g.result.error || g.result.message[0].code == 0)return;
@@ -170,10 +175,9 @@ export class EquipmentVehicleVocComponent implements OnInit {
       this.cang_hot.list[4].value = data.irside3pv||0;
       this.cang_hot.list[5].value = data.irside4pv||0;
 
-      time = res[0]?dateformat(new Date(rTime(res[0].chb1_tempsv[0][1])),'hh:mm:ss'):'0';
       //仓1
       setTimeout(() => {
-        this.assignment(1,data,time);
+        this.assignment(1,data);
         this.cang_1.inner = data.plc_innercircleonoff2;//内循环
         this.cang_1.exhaust = data.plc_exhaustonoff2;//强排气
         this.cang_1.outside = data.plc_outercircleonoff2;//外循环
@@ -181,7 +185,7 @@ export class EquipmentVehicleVocComponent implements OnInit {
       }, 10);
       //仓2
       setTimeout(() => {
-        this.assignment(2,data,time);
+        this.assignment(2,data);
         this.cang_2.inner = data.plc_innercircleonoff2;//内循环
         this.cang_2.exhaust = data.plc_exhaustonoff2;//强排气
         this.cang_2.outside = data.plc_outercircleonoff2;//外循环
@@ -189,7 +193,7 @@ export class EquipmentVehicleVocComponent implements OnInit {
       }, 10);
       //仓3
       setTimeout(() => {
-        this.assignment(3,data,time);
+        this.assignment(3,data);
       }, 10);
 
       // this.cang_2.status = data.chb2_run;
@@ -226,6 +230,51 @@ export class EquipmentVehicleVocComponent implements OnInit {
     })
   }
 
+  get_chart_list(){
+    this.subscribeList.get_line_coolingWater = this.http.callRPC('device_realtime_list',library+'device_realtime_list',
+    {deviceid:this.deviceid,arr:'chb1_temppv,chb1_humipv,chb2_temppv,chb2_humipv,chb3_temppv,chb3_humipv'}).subscribe((f:any)=>{
+      if(f.result.error || f.result.message[0].code == 0)return;
+      let res = f.result.message[0].message;
+      //仓1
+      setTimeout(() => {
+        let xdata_1 = [];
+        if(res[0].chb1_temppv.length > res[1].chb1_humipv.length){
+          xdata_1 = res[0].chb1_temppv.map(m =>(dateformat(new Date(rTime(m[1])),'hh:mm:ss')));
+        }else{
+          xdata_1 = res[1].chb1_humipv.map(m =>(dateformat(new Date(rTime(m[1])),'hh:mm:ss')));
+        };
+        this.assignment_line(1,{
+          tempList:res[0].chb1_temppv.map(m =>(m[0]|| 0)),
+          humList:res[1].chb1_humipv.map(m =>(m[0|| 0]))
+        },xdata_1);
+      },10);
+      //仓2
+      setTimeout(() => {
+        let xdata_2 = [];
+        if(res[2].chb2_temppv.length > res[3].chb2_humipv.length){
+          xdata_2 = res[2].chb2_temppv.map(m =>(dateformat(new Date(rTime(m[1])),'hh:mm:ss')));
+        }else{
+          xdata_2 = res[3].chb2_humipv.map(m =>(dateformat(new Date(rTime(m[1])),'hh:mm:ss')));
+        };
+        this.assignment_line(2,{
+          tempList:res[2].chb2_temppv.map(m =>(m[0]|| 0)),
+          humList:res[3].chb2_humipv.map(m =>(m[0]|| 0)),
+        },xdata_2);
+      },20);
+      //仓3
+      let xdata_3 = [];
+        if(res[4].chb3_temppv.length > res[5].chb3_humipv.length){
+          xdata_3 = res[4].chb3_temppv.map(m =>(dateformat(new Date(rTime(m[1])),'hh:mm:ss')));
+        }else{
+          xdata_3 = res[5].chb3_humipv.map(m =>(dateformat(new Date(rTime(m[1])),'hh:mm:ss')));
+        };
+      this.assignment_line(3,{
+        tempList:res[4].chb3_temppv.map(m =>(m[0]|| 0)),
+        humList:res[5].chb3_humipv.map(m =>(m[0]|| 0)),
+      },xdata_3)
+    })
+  }
+
 
   /**
    * 仓1-3赋值
@@ -233,7 +282,7 @@ export class EquipmentVehicleVocComponent implements OnInit {
    * @param data 
    * @param time x轴时间
    */
-  assignment(cang_num,data,time){
+  assignment(cang_num,data){
     this.ngzone.runOutsideAngular(()=>{
 
       let cang_name = 'cang_'+cang_num;
@@ -243,15 +292,6 @@ export class EquipmentVehicleVocComponent implements OnInit {
       this[cang_name].rhReal = data[`chb${cang_num}_humipv`]||0;
       this[cang_name].rhSet = data[`chb${cang_num}_humisv`]||0;
       // this[cang_name].rhSet = Math.random()*100;
-  
-      this[cang_name].attrs[0].value.push(this[cang_name].tempReal);
-      this[cang_name].attrs[1].value.push(this[cang_name].rhReal);
-      this[cang_name].xdata.push(time);
-      if(this[cang_name].xdata.length > 10){
-        this[cang_name].attrs[0].value.splice(0,1);
-        this[cang_name].attrs[1].value.splice(0,1);
-        this[cang_name].xdata.splice(0,1);
-      }
       if(document.getElementById(this[cang_name].tempid))
         equipment_four_road.create_motor_temperature( {value:this[cang_name].tempReal,title:'温度',unit:'℃'},
         echarts.init(document.getElementById(this[cang_name].tempid)));
@@ -262,11 +302,21 @@ export class EquipmentVehicleVocComponent implements OnInit {
           echarts.init(document.getElementById(this[cang_name].humid)));
         // equipment_four_road.create_real_disk({value:this[cang_name].rhReal,text:this.language?'RealRH':'实时湿度',unit:'℃'},
         // echarts.init(document.getElementById(this[cang_name].humid)));
-      if(document.getElementById(this[cang_name].lineid)){
-        let myChart_9 = echarts.init(document.getElementById(this[cang_name].lineid));;
-        equipment_four_road.create_real_discharge({attrs:this[cang_name].attrs,xData:this[cang_name].xdata},myChart_9);
-      }
+      
     });
+  }
+
+  assignment_line(cang_num,data:any,xdata){
+    let cang_name = 'cang_'+cang_num;
+    this[cang_name].attrs[0].value = data.tempList;
+    this[cang_name].attrs[1].value = data.humList;
+    this[cang_name].xdata = xdata;
+    
+    
+    if(document.getElementById(this[cang_name].lineid)){
+      let myChart_9 = echarts.init(document.getElementById(this[cang_name].lineid));;
+      equipment_four_road.create_real_discharge({attrs:this[cang_name].attrs,xData:this[cang_name].xdata},myChart_9);
+    }
   }
 
   initChart(){

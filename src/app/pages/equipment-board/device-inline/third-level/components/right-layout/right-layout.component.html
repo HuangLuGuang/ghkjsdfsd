@@ -16,7 +16,7 @@
 
                         <ng-container *ngIf="key == 'speed'">
                             <nz-progress [nzPercent]="items.speed" [nzStrokeColor]="{ '0%': '#66FF00', '100%': '#66FF00' }" nzSize="small" [nzShowInfo]="false"></nz-progress>
-                            <div style="position: absolute;color: black;top: 26%;">
+                            <div class="_progress">
                                 {{items[key]}}%
                             </div>
                         </ng-container>

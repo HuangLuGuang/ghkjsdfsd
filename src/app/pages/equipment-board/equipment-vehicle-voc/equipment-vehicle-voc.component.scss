@@ -50,10 +50,10 @@
             /* justify-content: center; */
             align-items: center;
             .div_row {
-                width: 50%;
+                width: 46%;
                 height: 100%;
                 display: flex;
-                justify-content: space-around;
+                justify-content: space-between;
             }
         }
         .span_css {
@@ -73,13 +73,16 @@
             width: 25%;
             height: 100%;
         }
-        #cabin_pie_1,
-        #cabin_pie_2,
-        #cabin_pie_3,
-        #cabin_pie_4 {
-            width: 25%;
-            height: 100%;
-        }
+    }
+    #cabin_pie_1,
+    #cabin_pie_2 {
+        width: 25%;
+        height: 80%;
+    }
+    #cabin_pie_3,
+    #cabin_pie_4 {
+        width: 25%;
+        height: 100%;
     }
     .center_img {
         height: 35%;

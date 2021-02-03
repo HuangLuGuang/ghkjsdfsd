@@ -52,8 +52,8 @@
                                 </table>
                             </div>
                         </div>
-                        <div class="width_26 height_38">
-                            <div class="height_30" style="margin-top: 10px;" *ngFor="let item of real_list">
+                        <div class="width_26 height_100">
+                            <div style="margin-top: 10px;" *ngFor="let item of real_list">
                                 {{item.name}}{{'equipment.OilSeparator'|translate}}：
                                 <span [ngStyle]="{'color':item.color}">
                                     {{item?.value}}

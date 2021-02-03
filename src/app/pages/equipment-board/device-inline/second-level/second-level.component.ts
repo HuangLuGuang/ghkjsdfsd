@@ -174,6 +174,8 @@ export class SecondLevelComponent implements OnInit {
     energy:false,//新能源电机试验室
   }
 
+  chartResize;//图表刷新订阅
+
   constructor(
     private localstorage: LocalStorageService,
     private layoutService: LayoutService,
@@ -192,9 +194,10 @@ export class SecondLevelComponent implements OnInit {
   ngOnInit(): void {
     var title = "吉利汽车研究院";
     $("#head_title").text(title);
-    console.log(this.items)
-    this.items = this.items.find(f => f.link == '/pages/equipment/first-level').children.
-    find(f=>f.link=='/pages/equipment/second-level').children;
+    //获取看板的实验室权限
+    this.items = this.items.find(f => 
+      f.link == '/pages/equipment/first-level').children.find(f=>
+        f.link=='/pages/equipment/second-level').children;
     this.items.forEach(el => {
       let arr = el.link.split('/');
       if(arr.length>0){
@@ -461,10 +464,12 @@ export class SecondLevelComponent implements OnInit {
       this.myChart.resize();
     }, 100);
 
-    this.equipmentservice.chartResize().subscribe((result) => {
-      this.device_active.reflow();
-      this.key_index.reflow();
-      this.myChart.resize();
+    this.chartResize = this.equipmentservice.chartResize().subscribe((result) => {
+      setTimeout(() => {
+        this.device_active.reflow();
+        this.key_index.reflow();
+        this.myChart.resize();
+      }, 100);
     });
 
     this.layoutService.onInitLayoutSize().subscribe((f) => {
@@ -484,6 +489,7 @@ export class SecondLevelComponent implements OnInit {
     // this.device_active.destroy();
     // this.key_index.destroy();
     this.myChart.dispose();
+    this.chartResize.unsubscribe();
   }
 
   // 跳转到具体的结构，
@@ -532,7 +538,12 @@ export class SecondLevelComponent implements OnInit {
     window.onreset = function () {
       // this.device_active.reflow();
       // this.key_index.reflow();
-      this.myChart.resize();
+      setTimeout(() => {
+        
+        this.myChart.resize();
+      }, 100);
+      
     };
+
   }
 }

@@ -9,14 +9,14 @@
                 <ngx-test-information [device]='boyang_deviceid' style="width: 100%;"></ngx-test-information>
             </div>
             <div class="sceond_third height_35" style="flex-wrap: wrap;margin-top: 20px;">
-                <div class="part_title">{{ 'equipment.EquipmentHealthParam'|translate}}</div>
+                <!-- <div class="part_title">{{ 'equipment.EquipmentHealthParam'|translate}}</div>
                 <div class="dis_f_w center_center width_100 height_50">
                     <div id="motor_chart_g_1" class="height_100" style="width: 25%;"></div>
                     <div id="motor_chart_g_2" class="height_100" style="width: 25%;"></div>
                     <div id="motor_chart_g_5" class="height_100" style="width: 25%;"></div>
                     <div id="motor_chart_g_6" class="height_100" style="width: 25%;"></div>
                 </div>
-                <div id="motor_chart_1" class="width_100 height_50"></div>
+                <div id="motor_chart_1" class="width_100 height_50"></div> -->
             </div>
         </div>
         <div class="col-md-4" style="padding: 0px 20px;">
@@ -32,9 +32,45 @@
                 </div>
             </div>
             <div class="height_35 bo" style="margin-top: 20px;position: relative;padding-top: 20px;">
+                <div class="part_title">{{ 'equipment.EquipmentHealthParam'|translate}}</div>
+                <div class="dis_f_w center_center width_100 height_50">
+                    <div id="motor_chart_g_1" class="height_100" style="width: 25%;"></div>
+                    <div id="motor_chart_g_2" class="height_100" style="width: 25%;"></div>
+                    <div id="motor_chart_g_5" class="height_100" style="width: 25%;"></div>
+                    <div id="motor_chart_g_6" class="height_100" style="width: 25%;"></div>
+                </div>
+                <div id="motor_chart_1" class="width_100 height_50"></div>
+
+            </div>
+        </div>
+        <div class="col-md-4" style="padding: 0px 20px 0px 0px;height: 100%;">
+            <div class="sceond_third height_31" style="flex-wrap: wrap;">
+                <div class="part_title">{{ 'equipment.EquipmentHealthParam'|translate}}</div>
+                <div class="dis_f_w center_center width_100 height_50">
+                    <div id="motor_chart_g_3" class="height_100" style="width: 100%;"></div>
+                    <!-- <div id="motor_chart_g_4" class="height_100" style="width: 50%;"></div> -->
+                </div>
+                <div id="motor_chart_2" class="width_100 height_50"></div>
+            </div>
+            <div class="height_67 bo" style="margin-top: 20px;position: relative;">
                 <div class="part_title">{{ 'equipment.real'|translate }}{{ 'equipment.motor.MotorParam'|translate }}
                 </div>
-                <div class="height_26 ">
+                <div class="height_17 dis_f" style="margin-top: 20px;">
+                    <div id="dashboard_67" class="height_100" style="margin-left: 10%;width: 60%;">
+                    </div>
+                    <div style="width: 40%;" class="c_c height_100">
+                        <div style="width: 50%;">系统效率</div>
+                        <div class="blue_b">{{motor?.eff_sys || 0}}</div>
+                        <div style="width: 50%;">电机效率</div>
+                        <div class="blue_b">{{motor?.eff_mot || 0}}</div>
+                        <div style="width: 50%;">控制器效率</div>
+                        <div class="blue_b">{{motor?.eff_con || 0}}</div>
+                    </div>
+                </div>
+
+                <div id="line_chart_12_67" class="height_23">
+                </div>
+                <div class="height_17 ">
                     <div class="height_50 dis_f_w center_center">
                         <div class="height_100 dis_f center_center" style="width: 30%;">
                             <div class=" dis_f_w center_center">
@@ -83,9 +119,9 @@
                         </div>
                     </div>
                 </div>
-                <div class="height_70" style="display: flex;padding-left:2%">
-                    <div id="threePhase_67" class="height_100 width_50"></div>
-                    <div class="width_50" style="display: flex;flex-wrap: wrap;padding-bottom: 10px;">
+                <div class="height_40" style="display: flex;padding-left:2%">
+                    <div id="threePhase_67" class="height_100 width_70"></div>
+                    <div style="display: flex;flex-wrap: wrap;padding-bottom: 10px;width: 30%;">
                         <div id="threePhase_1_67" class="height_25 width_50"></div>
                         <div id="threePhase_2_67" class="height_25 width_50"></div>
                         <div id="threePhase_3_67" class="height_25 width_50"></div>
@@ -95,53 +131,6 @@
                         <div id="threePhase_7_67" class="height_25 width_50"></div>
                         <div id="threePhase_8_67" class="height_25 width_50"></div>
                     </div>
-                </div>
-            </div>
-        </div>
-        <div class="col-md-4" style="padding: 0px 20px 0px 0px;height: 100%;">
-            <div class="sceond_third height_35" style="flex-wrap: wrap;">
-                <div class="part_title">{{ 'equipment.EquipmentHealthParam'|translate}}</div>
-                <div class="dis_f_w center_center width_100 height_50">
-                    <div id="motor_chart_g_3" class="height_100" style="width: 100%;"></div>
-                    <!-- <div id="motor_chart_g_4" class="height_100" style="width: 50%;"></div> -->
-                </div>
-                <div id="motor_chart_2" class="width_100 height_50"></div>
-            </div>
-            <div class="height_63 bo" style="margin-top: 20px;position: relative;">
-                <div class="part_title">{{ 'equipment.real'|translate }}{{ 'equipment.motor.MotorParam'|translate }}
-                </div>
-                <div class="height_37 dis_f" style="margin-top: 20px;">
-                    <img [src]="img.electric_url" style="width: 40%;margin: 20px 10px 10px 10px;">
-                    <div style="width: 60%;">
-                        <div class="height_50" style="display: flex;font-size: 12px;">
-                            <div class="lay_electric">
-                                <div>({{'equipment.motor.SystemEfficiency'|translate}})</div>
-                                <div id="electric_1_67" class="height_80"></div>
-                            </div>
-                            <div class="lay_electric">
-                                <div>({{'equipment.motor.ControllerEfficiency'|translate}})</div>
-                                <div id="electric_2_67" class="height_80"></div>
-                            </div>
-                            <div class="lay_electric">
-                                <div>({{'equipment.motor.MotorEfficiency'|translate}})</div>
-                                <div id="electric_3_67" class="height_80"></div>
-                            </div>
-                        </div>
-                        <div class="height_50" style="display: flex;justify-content: center;align-items: center;">
-                            <div class="height_100" style="width: 43%;">
-                                <div>({{ 'equipment.motor.ControllerOutputPower'|translate }})</div>
-                                <div id="electric_4_67" class="height_80"></div>
-                            </div>
-                            <div class="height_100" style="width: 40%;font-size: 12px;">
-                                <div>({{ 'equipment.motor.DCpower'|translate }})</div>
-                                <div id="electric_5_67" class="height_80"></div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div id="dashboard_67" class="height_30" style="margin-left: 10%;width: 80%;">
-                </div>
-                <div id="line_chart_12_67" class="height_30">
                 </div>
             </div>
         </div>

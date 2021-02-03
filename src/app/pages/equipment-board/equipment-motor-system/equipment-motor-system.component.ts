@@ -158,7 +158,7 @@ export class EquipmentMotorSystemComponent implements OnInit {
       id:'threePhase_7',
       dataLine:{
         value: 0 ,
-        yname: 'M相电压',
+        yname: 'W相电压',
         max: 350,
         unit:'V'
       }
@@ -167,7 +167,7 @@ export class EquipmentMotorSystemComponent implements OnInit {
       id:'threePhase_8',
       dataLine:{
         value: 0 ,
-        yname: 'M相电流',
+        yname: 'W相电流',
         max: 350,
         unit:'A'
       }

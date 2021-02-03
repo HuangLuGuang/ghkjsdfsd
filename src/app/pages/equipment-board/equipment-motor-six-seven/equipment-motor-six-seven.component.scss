@@ -41,13 +41,19 @@
     .dis_f {
         display: flex;
     }
+    .c_c {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        align-items: center;
+    }
     .big_font {
         font-size: 18px;
         font-weight: bolder;
         color: white;
     }
     .center_center {
-        justify-content: center;
+        justify-content: space-around;
         align-items: center;
     }
     .lattice_layout {
@@ -81,6 +87,10 @@
         -webkit-background-size: cover;
         -o-background-size: cover;
         padding: 2%;
+    }
+    .blue_b {
+        background: #4472c4;
+        width: 60px
     }
     .lay_electric {
         width: 33%;

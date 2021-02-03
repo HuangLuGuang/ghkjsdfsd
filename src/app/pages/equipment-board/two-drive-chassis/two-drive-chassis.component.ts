@@ -252,7 +252,7 @@ export class TwoDriveChassisComponent implements OnInit {
       setTimeout(() => {
         // 功率曲线
         res[0].p.forEach(el => {
-          value.push(el[0]);
+          value.push(el[0]|| 0);
           xdata.push(dateformat(new Date(rTime(el[1])),'hh:mm:ss'));
         });
         this.discharge_chart[0].value = value;
@@ -270,8 +270,8 @@ export class TwoDriveChassisComponent implements OnInit {
 
       setTimeout(() => {
         // this.gauge_chart[0].value.push(data.f);
-        this.gauge_chart[0].value = res[1].v.map(m => (m[0]));
-        this.gauge_chart[1].value = res[2].a.map(m => (m[0]));
+        this.gauge_chart[0].value = res[1].v.map(m => (m[0]|| 0));
+        this.gauge_chart[1].value = res[2].a.map(m => (m[0]|| 0));
         if(this.gauge_chart[0].value.length>this.gauge_chart[1].value.length){
           this.gauge_xData = res[1].v.map(m => (dateformat(new Date(rTime(m[1])),'hh:mm:ss')));
         }else{
@@ -288,7 +288,7 @@ export class TwoDriveChassisComponent implements OnInit {
 
       value = [],xdata = [];
       res[3].f.forEach(el => {
-        value.push(el[0]);
+        value.push(el[0]|| 0);
         xdata.push(dateformat(new Date(rTime(el[1])),'hh:mm:ss'));
       });
 

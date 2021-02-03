@@ -345,7 +345,7 @@ export class EquipmentStatusComponent implements OnInit {
     if(!document.getElementById('device_status'+this.TempNum))return;
     let data_1 = {
       d_arr:[[],[],[],[],[]],
-      title_arr:["运行","等待" ,"占位", "维护","运行比例"],
+      title_arr:["运行","等待" ,"占位", "维修","运行比例"],
       color_arr:[{
         start: "rgb(74, 181, 107)",
         end: "rgb(74, 181, 107)"

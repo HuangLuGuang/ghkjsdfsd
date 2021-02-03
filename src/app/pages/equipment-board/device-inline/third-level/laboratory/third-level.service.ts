@@ -158,14 +158,14 @@ export class ThirdLevelService {
     let recordtime;
     let mon:any = {};
     arr.forEach((el,i) => {
-      if(el.length == 0)return;
-      recordtime = el[0].recordtime.split('-');
-      mon = parseInt(([recordtime[recordtime.length-1]]).toString());
+      
       // mon.running = el.running?el.running:0;
       // mon.stop = el.stop?el.stop:0;
       // mon.placeon = el.placeon?el.placeon:0;
       // mon.warning = el.warning?el.warning:0;
       el.forEach((g,j) => {
+        recordtime = g.recordtime.split('-');
+        mon = parseInt(([recordtime[recordtime.length-1]]).toString());
         month[mon].running += g.running?g.running:0;
         month[mon].stop += g.stop?g.stop:0;
         month[mon].placeon += g.placeon?g.placeon:0;

@@ -108,30 +108,15 @@ export class EquipmentMotorSixSevenComponent implements OnInit {
   //机电实时数据
   threePhase_attrs = [
     { 
-      name: "平均电压",nameEn :'平均电压', unit: "V",value: []
+      name: "直线电压",nameEn :'直线电压', unit: "V",value: []
       ,color:[colors[0],colors[0]]
     },{ 
-        name: "平均电流",nameEn :'平均电流', unit: "A",value: [],
+        name: "直线电流",nameEn :'直线电流', unit: "A",value: [],
         color:[colors[1],colors[1]]
     },{ 
-        name: "U相电压",nameEn :'U相电压', unit: "V",value: [],
+        name: "直线功率",nameEn :'直线功率', unit: "kw",value: [],
         color:[colors[2],colors[2]]
-    },{ 
-      name: "U相电流",nameEn :'U相电流', unit: "A",value: [],
-      color:[colors[3],colors[3]]
-    },{ 
-      name: "U相电压",nameEn :'U相电压', unit: "V",value: [],
-      color:[colors[4],colors[4]]
-    },{ 
-      name: "U相电流",nameEn :'U相电流', unit: "A",value: [],
-      color:[colors[5],colors[5]]
-    },{ 
-      name: "W相电压",nameEn :'W相电压', unit: "V",value: [],
-      color:[colors[6],colors[6]]
-    },{ 
-      name: "W相电流",nameEn :'W相电流', unit: "A",value: [],
-      color:[colors[7],colors[7]]
-    }
+    },
   ];
   threePhase_xData = [];
   threePhase = [
@@ -193,7 +178,7 @@ export class EquipmentMotorSixSevenComponent implements OnInit {
       id:'threePhase_7_67',
       dataLine:{
         value: 0 ,
-        yname: 'M相电压',
+        yname: 'W相电压',
         max: 350,
         unit:'V'
       }
@@ -202,7 +187,7 @@ export class EquipmentMotorSixSevenComponent implements OnInit {
       id:'threePhase_8_67',
       dataLine:{
         value: 0 ,
-        yname: 'M相电流',
+        yname: 'W相电流',
         max: 350,
         unit:'A'
       }
@@ -287,11 +272,6 @@ export class EquipmentMotorSixSevenComponent implements OnInit {
     setTimeout(() => {
 
         let chart;
-        [1, 1, 1, 1, 1].forEach((f,i)=>{
-          chart = document.getElementById('electric_'+(i+1)+'_67');
-          if(chart)
-            echarts.init(chart).resize();
-        })
         this.HealthParam_right.forEach(f=>{
           chart = document.getElementById(f.id);
           if(chart)
@@ -318,8 +298,6 @@ export class EquipmentMotorSixSevenComponent implements OnInit {
 
 
   get_motor_param(){
-
-
     let j = ['urmsa','irmsa','urms1','irms1','urms2','irms2','urms3','irms3']
     let res,data:any = {},chart;
     this.subscribeList.motor = this.http.callRPC('get_device_mts_realtimedata',library+'get_device_mts_realtimedata',
@@ -338,11 +316,11 @@ export class EquipmentMotorSixSevenComponent implements OnInit {
 
 
       //系统效率 控制器效率  电机效率 控制器输出功率 直流功率
-      let arr = [data.eff_sys, data.eff_con, data.eff_mot, data.prmsa, data.prms4].forEach((f,i)=>{
-        chart = document.getElementById('electric_'+(i+1)+'_67');
-        if(chart)
-          equipment_four_road.create_real_electric({text:f||0,title:'',unit:'%'},echarts.init(chart));
-      })
+      // let arr = [data.eff_sys, data.eff_con, data.eff_mot, data.prmsa, data.prms4].forEach((f,i)=>{
+      //   chart = document.getElementById('electric_'+(i+1)+'_67');
+      //   if(chart)
+      //     equipment_four_road.create_real_electric({text:f||0,title:'',unit:'%'},echarts.init(chart));
+      // })
 
       chart = document.getElementById('dashboard_67');
       if(chart)
@@ -371,29 +349,41 @@ export class EquipmentMotorSixSevenComponent implements OnInit {
       //     equipment_four_road.create_motor_chart({
       //         xData:this.speedTorque_xData,data:this.speedTorque_attrs,title:'转速/扭矩曲线'},
       //         echarts.init(chart));
-
       this.threePhase.forEach((f,i)=>{
-        this.threePhase_attrs[i].value.push(data[j[i]]||0);//表格插入线条的值插入
         if(document.getElementById(f.id)){
           f.dataLine.value = data[j[i]]||0;
           oilsrouce.create_bar_j(f.dataLine,echarts.init(document.getElementById(f.id)),'30%');
         }
       })
-
-      chart = document.getElementById('threePhase_67');
-      this.threePhase_xData.push(rTime(res?res[0].urms1[0][1]:''));
-      if(this.threePhase_xData.length>10){
-        this.threePhase_attrs.forEach(f=>{ f.value.splice(0,1)})
-        this.threePhase_xData.splice(0,1);
-      }
-      if(chart)
-        equipment_four_road.create_real_discharge({attrs:this.threePhase_attrs,xData:this.threePhase_xData,title:'三相电压电流(U/V/W)'},echarts.init(chart));
+      
     })
   }
 
   //中间最下面表
   get_motor_list(){
+    // 直线电压 直线电流 直线功率
+    // urms4,irms4,prms4
+    let res,chart;
+    this.http.callRPC('device_realtime_list',library+'device_realtime_list',
+    {deviceid:this.boyang_deviceid,arr:'urms4,irms4,prms4'}).subscribe((g:any)=>{
+      if(g.result.error || g.result.message[0].code == 0)return;
+      res = g.result.message[0].message;
+      chart = document.getElementById('threePhase_67');
+      this.threePhase_attrs[0].value = res[0].urms4.map(m =>(m[0]));
+      this.threePhase_attrs[1].value = res[1].irms4.map(m =>(m[0]));
+      this.threePhase_attrs[2].value = res[2].prms4.map(m =>(m[0]));
 
+      if(this.threePhase_attrs[0].value.length>this.threePhase_attrs[1].value.length){
+        this.threePhase_xData = res[0].urms4.map(m =>(m[1]));
+      }else if(this.threePhase_attrs[1].value.length>this.threePhase_attrs[2].value.length){
+        this.threePhase_xData = res[1].irms4.map(m =>(m[1]));
+      }else{
+        this.threePhase_xData = res[2].prms4.map(m =>(m[1]));
+      }
+      
+      if(chart)
+        equipment_four_road.create_real_discharge({attrs:this.threePhase_attrs,xData:this.threePhase_xData,title:'三相电压电流(U/V/W)'},echarts.init(chart));
+    })
   }
 
 
@@ -557,10 +547,7 @@ export class EquipmentMotorSixSevenComponent implements OnInit {
     }
 
     let chart;
-      [1, 1, 1, 1, 1].forEach((f,i)=>{
-        chart = document.getElementById('electric_'+(i+1)+'_67');
-        if(chart)echarts.init(chart).dispose();
-      })
+      
       this.HealthParam_right.forEach(f=>{
         chart = document.getElementById(f.id);
         if(chart)echarts.init(chart).dispose();

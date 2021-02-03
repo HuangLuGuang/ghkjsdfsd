@@ -1,4 +1,4 @@
-import { Injectable, NgZone, OnInit, } from '@angular/core';
+import { Injectable, NgZone, OnDestroy, OnInit, } from '@angular/core';
 import { Observable, Subject } from 'rxjs';
 import { LayoutService } from '../../../@core/utils';
 
@@ -6,7 +6,7 @@ import { LayoutService } from '../../../@core/utils';
 @Injectable({
   providedIn: 'root'
 })
-export class EquipmentBoardService {
+export class EquipmentBoardService implements OnDestroy{
   //加载
   load_subject=  new Subject<LoadBean>();
 
@@ -21,6 +21,9 @@ export class EquipmentBoardService {
     })
 
     
+  }
+  ngOnDestroy(): void {
+    window.removeEventListener('resize',this.resize);
   }
 
   
@@ -57,7 +60,7 @@ export class EquipmentBoardService {
   timeout;
   resize=()=>{
     // if(this.timeout)clearTimeout(this.timeout);
-    console.log(111111111111111111111111)
+    // console.log(111111111111111111111111)
     this.timeout = setTimeout(() => {
       this.chart_subject.next('resize');
     },10);

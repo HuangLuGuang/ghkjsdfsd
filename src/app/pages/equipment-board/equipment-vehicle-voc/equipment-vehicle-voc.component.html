@@ -21,15 +21,44 @@
                 <img id="img" [src]="imgsrc.center" />
             </div>
             <div class="backgroud height_35">
-                <div class="part_title">环境舱1</div>
+                <div class="part_title">环境舱3</div>
                 <div class="cabin">
+                    <div class="cabin_layout height_40">
+                        <div class="round" [ngStyle]="{background:cang_3.status?'#66FF66':'black' }"></div>
+                        <div id="cabin_pie_5"></div>
+                        <div id="cabin_pie_6"></div>
+                        <div class="cabin_1_set height_100">
+                            <div class="set_1">温度设定值：<span class="span_css">{{ cang_3.tempSet}}℃</span></div>
+                            <div class="set_1">湿度设定值：<span class="span_css">{{ cang_3.rhSet }}%RH</span></div>
+                        </div>
+                    </div>
+                    <div id="cabin_line_3" class="height_54 w_100"></div>
+                </div>
+
+
+            </div>
+        </div>
+        <div class="col-md-4" style="padding: 0px 20px 0px  0px;">
+            <div class="backgroud height_63">
+                <div class="part_title">环境舱1</div>
+                <div class="cabin_layout height_35">
+                    <div class="height_100" style="display: flex;align-items: center;">加热器状态：</div>
+                    <div class="cabin_layout height_100 " style="width: 80%;flex-wrap: wrap;">
+                        <div *ngFor="let item of cang_hot.list" class=" cabin_1_set" style="width: 45%;">
+                            <div class="set_1" *ngIf="item.name">{{ item.name}}：<span class="span_css">{{ item.value}} {{item.unit}}</span></div>
+                        </div>
+                    </div>
+                </div>
+                <!-- <div>环境舱1</div> -->
+
+                <div class="height_65">
                     <div class="cabin_layout height_41">
                         <div class="round" [ngStyle]="{background:cang_1.status?'#66FF66':'black' }"></div>
                         <div id="cabin_pie_1"></div>
                         <div id="cabin_pie_2"></div>
-                        <div class="cabin_1_set height_100" style="width: 41%;">
+                        <div class="cabin_1_set height_100" style="width: 40%;">
                             <div class="set_3">
-                                <div class="div_row">
+                                <div class="div_row" style="width: 46%;margin-right: 2%;">
                                     内循环：
                                     <div class="round_small" [ngStyle]="{background: cang_1.inner?'#66FF66':'black'}"></div>
                                 </div>
@@ -39,7 +68,7 @@
                                 </div>
                             </div>
                             <div class="set_3">
-                                <div class="div_row">
+                                <div class="div_row" style="width: 46%;margin-right: 2%;">
                                     外循环：
                                     <div class="round_small" [ngStyle]="{background: cang_1.outside?'#66FF66':'black'}"></div>
                                 </div>
@@ -55,35 +84,6 @@
                     </div>
                     <div id="cabin_line_1" class="height_54 w_100"></div>
                 </div>
-
-            </div>
-        </div>
-        <div class="col-md-4" style="padding: 0px 20px 0px  0px;">
-            <div class="backgroud height_26">
-                <div class="part_title">整车舱加热</div>
-                <div class="cabin_layout height_100">
-                    <div class="round" [ngStyle]="{background:cang_hot.status?'#66FF66':'black' }"></div>
-                    <div class="cabin_layout height_90 " style="width: 80%;flex-wrap: wrap;margin-left: 10%;">
-                        <div *ngFor="let item of cang_hot.list" class="height_30 cabin_1_set" style="width: 45%;">
-                            <div class="set_1" *ngIf="item.name">{{ item.name}}：<span class="span_css">{{ item.value}} {{item.unit}}</span></div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="backgroud height_35">
-                <div class="part_title">环境舱3</div>
-                <div class="cabin">
-                    <div class="cabin_layout height_40">
-                        <div class="round" [ngStyle]="{background:cang_3.status?'#66FF66':'black' }"></div>
-                        <div id="cabin_pie_5"></div>
-                        <div id="cabin_pie_6"></div>
-                        <div class="cabin_1_set height_100">
-                            <div class="set_1">温度设定值：<span class="span_css">{{ cang_3.tempSet}}℃</span></div>
-                            <div class="set_1">湿度设定值：<span class="span_css">{{ cang_3.rhSet }}%RH</span></div>
-                        </div>
-                    </div>
-                    <div id="cabin_line_3" class="height_54 w_100"></div>
-                </div>
             </div>
             <div class="backgroud height_35">
                 <div class="part_title">环境舱2</div>
@@ -94,7 +94,7 @@
                         <div id="cabin_pie_4"></div>
                         <div class="cabin_1_set height_100" style="width: 40%;">
                             <div class="set_2">
-                                <div class="div_row">
+                                <div class="div_row" style="width: 46%;margin-right: 2%;">
                                     内循环：
                                     <div class="round_small" [ngStyle]="{background: cang_2.inner?'#66FF66':'black'}"></div>
                                 </div>
@@ -104,7 +104,7 @@
                                 </div>
                             </div>
                             <div class="set_2">
-                                <div class="div_row">
+                                <div class="div_row" style="width: 46%;margin-right: 2%;">
                                     外循环：
                                     <div class="round_small" [ngStyle]="{background: cang_2.outside?'#66FF66':'black'}"></div>
                                 </div>

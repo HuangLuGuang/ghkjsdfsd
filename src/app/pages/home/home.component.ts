@@ -279,7 +279,10 @@ export class HomeComponent implements OnInit {
   createEchart() {
     // return this.ngZone.runOutsideAngular(() => {this.myChart = echarts.init(document.querySelector('.home_chian_map'))});
     this.ngZone.runOutsideAngular(() => {
-      this.myChart = echarts.init(document.querySelector(".home_chian_map"));
+      let dom = document.querySelector(".home_chian_map");
+      if(dom){
+        this.myChart = echarts.init(dom);
+      }
     });
   }
 

@@ -1,5 +1,5 @@
 let second_level = {
-    
+
 
     // device-rate 设备xx率  试验条目状态
     // 参考 https://gallery.echartsjs.com/editor.html?c=x8UGFy_Nb
@@ -9,7 +9,7 @@ let second_level = {
         var option = {
             color: ["#5D7FE5", "#26FF26"],
             tooltip: {
-                trigger: "item",//axis
+                trigger: "item", //axis
                 axisPointer: {
                     type: "cross",
                     crossStyle: {
@@ -29,10 +29,10 @@ let second_level = {
                     right: 30,
                     top: "1%"
                 },
-                
+
             ],
             xAxis: [
-        
+
                 {
                     name: "月份",
                     nameTextStyle: {
@@ -51,12 +51,12 @@ let second_level = {
                     },
                     gridIndex: 0
                 },
-        
+
                 {
                     type: "value",
                     zlevel: 1,
                     axisPointer: {
-                        show:false,
+                        show: false,
                         type: "none"
                     },
                     // name: '123条',
@@ -83,8 +83,8 @@ let second_level = {
                     },
                     max: 132, // 横轴的长度
                 }
-        
-        
+
+
             ],
             yAxis: [{
                     type: "value",
@@ -100,7 +100,7 @@ let second_level = {
                         show: false
                     },
                 },
-        
+
                 {
                     type: "category",
                     gridIndex: 1,
@@ -120,12 +120,11 @@ let second_level = {
                         }
                     }]
                 }
-        
-        
-        
+
+
+
             ],
-            series: [
-                {
+            series: [{
                     type: "bar",
                     barWidth: "60%",
                     // data: [10, 52, 20, 34, 39, 33, 22]
@@ -135,14 +134,13 @@ let second_level = {
                     type: "bar",
                     xAxisIndex: 1,
                     yAxisIndex: 1,
-        
+
                     showBackground: true,
                     backgroundStyle: {
                         borderColor: '#9DC3F1',
-                        borderWidth:4
+                        borderWidth: 4
                     },
-                    data: [
-                        {
+                    data: [{
                         // value: 132,
                         value: afterdata.Series.totaldata,
                         itemStyle: {
@@ -152,33 +150,31 @@ let second_level = {
                             show: true,
                             position: 'inside',
                             formatter: '{c}条',
-                            offset:[1,4],
-                            fontSize:16
+                            offset: [1, 4],
+                            fontSize: 16
                         },
                         tooltip: {
                             formatter: ''
                         }
                     }]
                 }
-        
+
             ],
-            dataZoom:[
-                {
-                    show:false,
-                    type: 'slider',
-                    textStyle:{
-                        color:'#fff',
-                    },
-                    start: 30,
-                    end: 70,
-                }
-            ]
+            dataZoom: [{
+                show: false,
+                type: 'slider',
+                textStyle: {
+                    color: '#fff',
+                },
+                start: 30,
+                end: 70,
+            }]
         }
-        
-        setInterval(function (){
+
+        setInterval(function() {
             option.dataZoom[0].start++;
             option.dataZoom[0].end++;
-            if (option.dataZoom[0].end === 100){
+            if (option.dataZoom[0].end === 100) {
                 option.dataZoom[0].start = 1
                 option.dataZoom[0].end = 35
             }

@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { HttpserviceService } from '../../../services/http/httpservice.service';
-import { colors, create_img_16_9, library, rTime } from '../equipment-board';
+import { colors, create_img_16_9, dateformat, library, rTime } from '../equipment-board';
 import { EquipmentBoardService } from '../serivice/equipment-board.service';
 let equipment_four_road = require('../../../../assets/eimdoard/equipment/js/equipment-four-road');
 
@@ -222,6 +222,7 @@ export class CabinCentralizedMonitoringComponent implements OnInit {
 
 
   getData(){
+    let i = 0;
     this.timer = self.setInterval(() =>{
       setTimeout(() => {
         this.get_environmental_warehouse_jinhua();
@@ -239,6 +240,13 @@ export class CabinCentralizedMonitoringComponent implements OnInit {
         this.get_TempHumidity('sensor_t_h_03',[this.TempHumidity[2],this.TempHumidity[5]]);
       }, 35);
       
+      if(i%60 == 0){
+        setTimeout(() => {
+          this.get_jinhua_list();
+        }, 10);
+        this.get_ATEC_list();
+      }
+      i++;
       // this.TempHumidity.forEach(f=>{
       //   if(document.getElementById(f.id))
       //   equipment_four_road.create_gauge_jinhua(f.dataLine,echarts.init(document.getElementById(f.id)));
@@ -289,28 +297,62 @@ export class CabinCentralizedMonitoringComponent implements OnInit {
       //设备运行状态
       this.jinhua.cang = data.mwsmart_main_soaking_s_v00;
 
-      this.jinhua_en_charts[0].value.push(this.jinhua_en[0].dataLine.value||0);
-      this.jinhua_en_charts[1].value.push(this.jinhua_en[1].dataLine.value||0);
-      this.jinhua_en_charts[2].value.push( this.gauge[3].dataLine.value||0);
-      this.jinhua_en_xData.push(rTime(res?res[0].mwsmart_main_soaking_s_vw206[0][1]:'0'))
+      // TODO
+      // this.jinhua_en_charts[0].value.push(this.jinhua_en[0].dataLine.value||0);
+      // this.jinhua_en_charts[1].value.push(this.jinhua_en[1].dataLine.value||0);
+      // this.jinhua_en_charts[2].value.push( this.gauge[3].dataLine.value||0);
+      // this.jinhua_en_xData.push(rTime(res?res[0].mwsmart_main_soaking_s_vw206[0][1]:'0'))
 
-      if(this.jinhua_en_xData.length>10){
-        this.jinhua_en_xData.splice(0,1);
-        this.jinhua_en_charts.forEach(f=>{
-          f.value.splice(0,1)
-        })
-      }
+      // if(this.jinhua_en_xData.length>10){
+      //   this.jinhua_en_xData.splice(0,1);
+      //   this.jinhua_en_charts.forEach(f=>{
+      //     f.value.splice(0,1)
+      //   })
+      // }
+      // if(document.getElementById('cabin_discharge_chart_2'))
+      // equipment_four_road.create_broken_line({
+      //     series:this.jinhua_en_charts,
+      //     xData: this.jinhua_en_xData,
+      //     title:'温度、冷却水温度曲线'
+      // },echarts.init(document.getElementById('cabin_discharge_chart_2')));
+
+
+      //取消订阅
+      this.subscribeList.jinhua.unsubscribe();
+    })
+  }
+
+  get_jinhua_list(){
+      // 'mwsmart_main_soaking_s_vw206',//冷却水压力
+      // 'mwsmart_main_soaking_s_vw200',//温度
+      // 'mwsmart_main_soaking_s_vw202',//温度设定
+      // 'mwsmart_main_soaking_s_vw208',//冷却水温度
+    let res,arr = this.jinhua_en_charts;
+    this.http.callRPC('device_realtime_list',library+'device_realtime_list',{
+      deviceid:this.deviceid_jinhua,arr:'mwsmart_main_soaking_s_vw208,mwsmart_main_soaking_s_vw206,mwsmart_main_soaking_s_vw200'
+    }).subscribe((g:any)=>{
+      if(g.result.error || g.result.message[0].code == 0)return;
+      res = g.result.message[0].message;
+      arr[0].value = res[0].mwsmart_main_soaking_s_vw208.map(m=>(m[0]));//冷却水温度
+      arr[1].value = res[1].mwsmart_main_soaking_s_vw206.map(m=>(m[0]));//冷却水压力
+      arr[2].value = res[2].mwsmart_main_soaking_s_vw200.map(m=>(m[0]));//温度
+      let max_index = 0,max = [];
+      for (let i = 0; i < res.length - 1; i++) {
+        if(max.length < arr[i+1].value.length){
+          max_index = i;
+          max = arr[i+1].value;
+        }
+      };
+      let xarr:any = Object.values(res[max_index])[0];
+      this.jinhua_en_xData = xarr.map(m => (dateformat(new Date(rTime(m[1])),'hh:mm:ss')));
+
       if(document.getElementById('cabin_discharge_chart_2'))
       equipment_four_road.create_broken_line({
           series:this.jinhua_en_charts,
           xData: this.jinhua_en_xData,
           title:'温度、冷却水温度曲线'
       },echarts.init(document.getElementById('cabin_discharge_chart_2')));
-
-
-      //取消订阅
-      this.subscribeList.jinhua.unsubscribe();
-    })
+    });
   }
 
   /**
@@ -351,15 +393,32 @@ export class CabinCentralizedMonitoringComponent implements OnInit {
           ,echarts.init(document.getElementById(this.gauge[f].id)));
       })
 
-      this.atec_chart[0].value.push(data.realtime_temp||0);
-      this.atec_chart[1].value.push(data.realtime_humidity||0);
-      this.atec_xdata.push(rTime(res?res[0].realtime_temp[0][1]:'0'));
-      if(this.atec_xdata.length>10){
-        this.atec_xdata.splice(0,1);
-        this.atec_chart.forEach(f=>{
-          f.value.splice(0,1)
-        })
+      
+
+      //取消订阅
+      this.subscribeList.atec.unsubscribe();
+    })
+  }
+
+  get_ATEC_list(){
+  //   'realtime_temp',//实时温度
+  // 'realtime_humidity',//实时湿度
+    let res,xdata = [];
+    this.http.callRPC('device_realtime_list',library+'device_realtime_list',{
+      deviceid:this.deviceid_ATEC,arr:'realtime_temp,realtime_humidity'
+    }).subscribe((g:any)=>{
+      if(g.result.error || g.result.message[0].code == 0)return;
+      res = g.result.message[0].message;
+
+      this.atec_chart[0].value = res[0].realtime_temp.map(m => m[0]);
+      this.atec_chart[1].value = res[1].realtime_humidity.map(m => m[0]);
+      if(this.atec_chart[0].value.length > this.atec_chart[0].value.length){
+        xdata = res[0].realtime_temp.map(m =>(dateformat(new Date(rTime(m[1])),'hh:mm:ss')));
+      }else{
+        xdata = res[1].realtime_humidity.map(m =>(dateformat(new Date(rTime(m[1])),'hh:mm:ss')));
       }
+      this.atec_xdata = xdata;
+
       if(document.getElementById('cabin_discharge_chart_1')){
         let myChart_9 = echarts.init(document.getElementById('cabin_discharge_chart_1'));;
         equipment_four_road.create_broken_line({
@@ -368,10 +427,7 @@ export class CabinCentralizedMonitoringComponent implements OnInit {
           xData:this.atec_xdata,
         },myChart_9);
       }
-
-      //取消订阅
-      this.subscribeList.atec.unsubscribe();
-    })
+    });
   }
 
   get_TempHumidity(device,arr){

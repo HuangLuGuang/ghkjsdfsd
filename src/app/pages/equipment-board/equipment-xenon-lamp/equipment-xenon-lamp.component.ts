@@ -150,36 +150,44 @@ export class EquipmentXenonLampComponent implements OnInit {
     setTimeout(() => {
       this.initChart();
     }, 10);
+    let i = 0;
     this.timer = setInterval(()=>{
       this.get_4400();
       this.get_4000();
+      if(i%60 == 0){
+        setTimeout(() => {
+          this.get_4400_list();
+        }, 10);
+        this.get_4000_list();
+      }
+      i++;
     },1000)
     // this.get_4400_illuminance();
   }
 
 
-  get_4400_illuminance(){
-    // SELECT xenon_realtime_list('{"deviceid":device_atlas_4400}')
-    this.http.callRPC('device_realtime_list',library+'device_realtime_list',
-    {deviceid:"device_avlmotor_02",arr:'speed'}).subscribe((f:any)=>{
-      if(f.result.error || f.result.message[0].code == 0)return;
-      let res = f.result.message[0].message;
-      console.log(res)
-      // res.forEach(el => {
-      //     this.illuminance.xdata.push(el.dates);
-      //     this.illuminance.attrs[0].value.push(el.tr_irradiance1);
-      //     this.illuminance.attrs[0].value.push(el.tr_irradiance2);
-      // });
-      res[0].speed.forEach(el => {
-        this.illuminance.xdata.push(el[1]);
-          this.illuminance.attrs[0].value.push(el[0]);
-      });
-      if(document.getElementById('line_chart_2')){
-          let myChart_9 = echarts.init(document.getElementById('line_chart_2'));;
-          equipment_four_road.create_real_discharge({attrs:this.illuminance.attrs,xData:this.illuminance.xdata},myChart_9);
-      }
-    })
-  }
+  // get_4400_illuminance(){
+  //   // SELECT xenon_realtime_list('{"deviceid":device_atlas_4400}')
+  //   this.http.callRPC('device_realtime_list',library+'device_realtime_list',
+  //   {deviceid:"device_avlmotor_02",arr:'speed'}).subscribe((f:any)=>{
+  //     if(f.result.error || f.result.message[0].code == 0)return;
+  //     let res = f.result.message[0].message;
+  //     console.log(res)
+  //     // res.forEach(el => {
+  //     //     this.illuminance.xdata.push(el.dates);
+  //     //     this.illuminance.attrs[0].value.push(el.tr_irradiance1);
+  //     //     this.illuminance.attrs[0].value.push(el.tr_irradiance2);
+  //     // });
+  //     res[0].speed.forEach(el => {
+  //       this.illuminance.xdata.push(el[1]);
+  //         this.illuminance.attrs[0].value.push(el[0]);
+  //     });
+  //     if(document.getElementById('line_chart_2')){
+  //         let myChart_9 = echarts.init(document.getElementById('line_chart_2'));;
+  //         equipment_four_road.create_real_discharge({attrs:this.illuminance.attrs,xData:this.illuminance.xdata},myChart_9);
+  //     }
+  //   })
+  // }
 
   get_4400(){
     let res,time,data:any = {};
@@ -193,23 +201,11 @@ export class EquipmentXenonLampComponent implements OnInit {
             data[key] = el[key][0][0];
           }
         });
-      time =  res[0]?dateformat(new Date(rTime(res[0].c_cooling_water_temperature[0][1])),'hh:mm:ss'):'0';
       //纯水温度导电率
       setTimeout(() => {
         this.ngzone.runOutsideAngular(()=>{
           this.line_chart_1.tempset = data.c_cooling_water_temperature|| 0;
           this.line_chart_1.tempset = data.tr_water_resistivity|| 0;
-          this.line_chart_1.attrs[0].value.push(data.tr_water_temperature||0);
-          this.line_chart_1.xdata.push(time);
-          if(this.line_chart_1.xdata.length>10){
-            this.line_chart_1.attrs[0].value.splice(0,1);
-            this.line_chart_1.xdata.splice(0,1);
-          }
-          if(document.getElementById('line_chart_1')){
-            let myChart_9 = echarts.init(document.getElementById('line_chart_1'));;
-            equipment_four_road.create_real_discharge({attrs:this.line_chart_1.attrs,xData:this.line_chart_1.xdata},myChart_9);
-          }
-  
         });
       }, 10);
 
@@ -220,31 +216,18 @@ export class EquipmentXenonLampComponent implements OnInit {
           this.illuminance.power = data.tr_lamp_power|| 0;
           this.illuminance.radioactivity1 = data.tr_irradiance1|| 0;
           this.illuminance.radioactivity2 = data.tr_irradiance2|| 0;
-          this.illuminance.attrs[0].value.push(this.illuminance.radioactivity1);
-          this.illuminance.attrs[1].value.push(this.illuminance.radioactivity2);
-          this.illuminance.xdata.push(time);
-          if(this.illuminance.xdata.length>10){
-            this.illuminance.attrs[0].value.splice(0,1);
-            this.illuminance.attrs[1].value.splice(0,1);
-            this.illuminance.xdata.splice(0,1);
-          }
+          
           if(document.getElementById('pie_chart_1'))
-              equipment_four_road.create_real_disk({value:this.illuminance.power,text:'功率',unit:'P'},
+              equipment_four_road.create_motor_temperature({value:this.illuminance.power,title:'功率',unit:'P'},
               echarts.init(document.getElementById('pie_chart_1')));
           
           if(document.getElementById('pie_chart_2'))
-              equipment_four_road.create_real_disk({value:this.illuminance.radioactivity1,text:'辐照度1',unit:'MJ/㎡'},
+              equipment_four_road.create_motor_temperature({value:this.illuminance.radioactivity1,title:'辐照度1',unit:'MJ/㎡'},
               echarts.init(document.getElementById('pie_chart_2')));
           
           if(document.getElementById('pie_chart_3'))
-              equipment_four_road.create_real_disk({value:this.illuminance.radioactivity2,text:'辐照度2',unit:'MJ/㎡'},
+              equipment_four_road.create_motor_temperature({value:this.illuminance.radioactivity2,title:'辐照度2',unit:'MJ/㎡'},
               echarts.init(document.getElementById('pie_chart_3')));
-
-          if(document.getElementById('line_chart_2')){
-            let myChart_9 = echarts.init(document.getElementById('line_chart_2'));;
-            equipment_four_road.create_real_discharge({attrs:this.illuminance.attrs,xData:this.illuminance.xdata},myChart_9);
-          }
-  
         });
       },10)
 
@@ -255,29 +238,79 @@ export class EquipmentXenonLampComponent implements OnInit {
           this.tempHumid.temp = data.tr_chamber_temperature || 0;
           this.tempHumid.rhSet = data.trps_relative_humidity_set_point || 0;
           this.tempHumid.hum = data.tr_relative_humidity || 0;
-          
-          this.tempHumid.attrs[0].value.push(this.tempHumid.temp);
-          this.tempHumid.attrs[1].value.push(this.tempHumid.hum);
-          this.tempHumid.xdata.push(time);
-          if(this.tempHumid.xdata.length>10){
-            this.tempHumid.attrs[0].value.splice(0,1);
-            this.tempHumid.attrs[1].value.splice(0,1);
-            this.tempHumid.xdata.splice(0,1);
-          }
 
           if(document.getElementById('cabin_pie_1'))
-              equipment_four_road.create_real_disk({value:this.tempHumid.temp,text:'温度',unit:'℃'},
+              equipment_four_road.create_motor_temperature({value:this.tempHumid.temp,title:'温度',unit:'℃'},
               echarts.init(document.getElementById('cabin_pie_1')));
 
           if(document.getElementById('cabin_pie_2'))
-              equipment_four_road.create_real_disk({value:this.tempHumid.hum,text:'湿度',unit:'RH'},
+              equipment_four_road.create_motor_temperature({value:this.tempHumid.hum,title:'湿度',unit:'RH'},
               echarts.init(document.getElementById('cabin_pie_2')));
-
-          if(document.getElementById('cabin_line_3'))
-              equipment_four_road.create_real_discharge({attrs:this.tempHumid.attrs,xData:this.tempHumid.xdata},
-              echarts.init(document.getElementById('cabin_line_3')));
         });
       }, 10);
+    })
+  }
+
+  get_4400_list(){
+    this.subscribeList.get_line_coolingWater = this.http.callRPC('device_realtime_list',library+'device_realtime_list',
+    {
+      deviceid:this.deviceid_4400,
+      arr:'tr_water_temperature,tr_irradiance1,tr_irradiance2,tr_chamber_temperature,tr_relative_humidity'
+    }).subscribe((f:any)=>{
+      if(f.result.error || f.result.message[0].code == 0)return;
+      let res = f.result.message[0].message;
+      setTimeout(() => {
+        this.ngzone.runOutsideAngular(()=>{
+          let xdata = [];
+          let data = [];
+          res[0].tr_water_temperature.forEach(el => {
+            xdata.push(el[0]|| 0);
+            xdata.push(dateformat(new Date(rTime(el[1])),'hh:mm:ss'));
+          });
+          this.line_chart_1.attrs[0].value = data;
+          this.line_chart_1.xdata = xdata;
+          if(document.getElementById('line_chart_1')){
+            let myChart_9 = echarts.init(document.getElementById('line_chart_1'));;
+            equipment_four_road.create_real_discharge({attrs:this.line_chart_1.attrs,xData:this.line_chart_1.xdata},myChart_9);
+          }
+        });
+      }, 10);
+
+      setTimeout(() => {
+        let xdata_2 = [];
+        this.ngzone.runOutsideAngular(()=>{
+          this.illuminance.attrs[0].value = res[1].tr_irradiance1.map(m =>(m[0]|| 0));
+          this.illuminance.attrs[1].value = res[2].tr_irradiance2.map(m =>(m[0]|| 0));
+          if(this.illuminance.attrs[1].value.length > this.illuminance.attrs[0].value.length){
+            xdata_2 = res[2].tr_irradiance2.map(m =>(dateformat(new Date(rTime(m[1])),'hh:mm:ss')));
+          }else{
+            xdata_2 = res[1].tr_irradiance1.map(m =>(dateformat(new Date(rTime(m[1])),'hh:mm:ss')));
+          }
+          this.illuminance.xdata = xdata_2;
+          if(document.getElementById('line_chart_2')){
+            let myChart_9 = echarts.init(document.getElementById('line_chart_2'));;
+            equipment_four_road.create_real_discharge({attrs:this.illuminance.attrs,xData:this.illuminance.xdata},myChart_9);
+          }
+        });
+      },20);
+
+      setTimeout(() => {
+        this.ngzone.runOutsideAngular(()=>{
+          let xdata_3 = [];
+          this.tempHumid.attrs[0].value = res[3].tr_chamber_temperature.map(m =>(m[0]|| 0));
+          this.tempHumid.attrs[1].value = res[4].tr_relative_humidity.map(m =>(m[0]|| 0));
+          if(this.tempHumid.attrs[0].value.length > this.tempHumid.attrs[1].value.length){
+            xdata_3 = res[3].tr_chamber_temperature.map(m =>(dateformat(new Date(rTime(m[1])),'hh:mm:ss')));
+          }else{
+            xdata_3 = res[4].tr_relative_humidity.map(m =>(dateformat(new Date(rTime(m[1])),'hh:mm:ss')));
+          }
+          this.tempHumid.xdata = xdata_3;
+          if(document.getElementById('cabin_line_3'))
+            equipment_four_road.create_real_discharge({attrs:this.tempHumid.attrs,xData:this.tempHumid.xdata},
+            echarts.init(document.getElementById('cabin_line_3')));
+        })
+      }, 30);
+      
     })
   }
 
@@ -293,7 +326,6 @@ export class EquipmentXenonLampComponent implements OnInit {
             data[key] = el[key][0][0];
           }
         });
-      time = res[0]?dateformat(new Date(rTime(res[0].lamppower[0][1])),'hh:mm:ss'):'0';
 
       //辐照
       setTimeout(() => {
@@ -301,30 +333,18 @@ export class EquipmentXenonLampComponent implements OnInit {
           this.illuminance_4000.power = data.lamppower ||0;
           this.illuminance_4000.radioactivity1 = data.data_340nm ||0;
           this.illuminance_4000.radioactivity2 = data.data_420nm ||0;
-          this.illuminance_4000.attrs[0].value.push(this.illuminance.radioactivity1);
-          this.illuminance_4000.attrs[1].value.push(this.illuminance.radioactivity2);
-          this.illuminance_4000.xdata.push(time);
-          if(this.illuminance_4000.xdata.length>10){
-            this.illuminance_4000.attrs[0].value.splice(0,1);
-            this.illuminance_4000.attrs[1].value.splice(0,1);
-            this.illuminance_4000.xdata.splice(0,1);
-          }
+          
           if(document.getElementById('pie_chart_4'))
-              equipment_four_road.create_real_disk({value:this.illuminance_4000.power,text:'功率',unit:'kw'},
+              equipment_four_road.create_motor_temperature({value:this.illuminance_4000.power,title:'功率',unit:'kw'},
               echarts.init(document.getElementById('pie_chart_4')));
 
           if(document.getElementById('pie_chart_5'))
-              equipment_four_road.create_real_disk({value:this.illuminance_4000.radioactivity1,text:'辐照度1',unit:'MJ/㎡'},
+              equipment_four_road.create_motor_temperature({value:this.illuminance_4000.radioactivity1,title:'辐照度1',unit:'MJ/㎡'},
               echarts.init(document.getElementById('pie_chart_5')));
 
           if(document.getElementById('pie_chart_6'))
-              equipment_four_road.create_real_disk({value:this.illuminance_4000.radioactivity2,text:'辐照度2',unit:'MJ/㎡'},
+              equipment_four_road.create_motor_temperature({value:this.illuminance_4000.radioactivity2,title:'辐照度2',unit:'MJ/㎡'},
               echarts.init(document.getElementById('pie_chart_6')));
-
-          if(document.getElementById('line_chart_3')){
-            let myChart_9 = echarts.init(document.getElementById('line_chart_3'));;
-            equipment_four_road.create_real_discharge({attrs:this.illuminance.attrs,xData:this.illuminance.xdata},myChart_9);
-          }
         })
       }, 10);
 
@@ -336,29 +356,66 @@ export class EquipmentXenonLampComponent implements OnInit {
           this.tempHumid_4000.tempSet = data.bst||0;
           this.tempHumid_4000.rhSet = data.bpt||0;
 
-          this.tempHumid_4000.attrs[0].value.push(this.tempHumid_4000.temp);
-          this.tempHumid_4000.attrs[1].value.push(this.tempHumid_4000.hum);
-          this.tempHumid_4000.xdata.push(time);
-          if(this.tempHumid_4000.xdata.length>10){
-            this.tempHumid_4000.attrs[0].value.splice(0,1);
-            this.tempHumid_4000.attrs[1].value.splice(0,1);
-            this.tempHumid_4000.xdata.splice(0,1);
-          }
+          
 
           if(document.getElementById('cabin_pie_4'))
-              equipment_four_road.create_real_disk({value:this.tempHumid_4000.temp,text:'温度',unit:'℃'},
+              equipment_four_road.create_motor_temperature({value:this.tempHumid_4000.temp,title:'温度',unit:'℃'},
               echarts.init(document.getElementById('cabin_pie_4')));
           
           if(document.getElementById('cabin_pie_5'))
-              equipment_four_road.create_real_disk({value:this.tempHumid_4000.hum,text:'湿度',unit:'RH'},
+              equipment_four_road.create_motor_temperature({value:this.tempHumid_4000.hum,title:'湿度',unit:'RH'},
               echarts.init(document.getElementById('cabin_pie_5')));
           
-          if(document.getElementById('cabin_line_4'))
-              equipment_four_road.create_real_discharge({attrs:this.tempHumid.attrs,xData:this.tempHumid.xdata},
-              echarts.init(document.getElementById('cabin_line_4')));
+          
         })
       }, 10);
       
+    });
+  }
+
+  get_4000_list(){
+    this.subscribeList.get_line_coolingWater = this.http.callRPC('device_realtime_list',library+'device_realtime_list',
+    {
+      deviceid:this.deviceid_4000,
+      arr:'data_340nm,data_420nm,cht,rh'
+    }).subscribe((f:any)=>{
+      if(f.result.error || f.result.message[0].code == 0)return;
+      let res = f.result.message[0].message;
+
+      setTimeout(() => {
+        this.ngzone.runOutsideAngular(()=>{
+          let xdata = [];
+          this.illuminance_4000.attrs[0].value = res[0].data_340nm.map(m =>(m[0]|| 0));
+          this.illuminance_4000.attrs[1].value = res[1].data_420nm.map(m =>(m[0]|| 0));
+          if(this.illuminance_4000.attrs[0].value.length > this.illuminance_4000.attrs[1].value.length){
+            xdata = res[0].data_340nm.map(m =>(dateformat(new Date(rTime(m[1])),'hh:mm:ss')));
+          }else{
+            xdata = res[1].data_420nm.map(m =>(dateformat(new Date(rTime(m[1])),'hh:mm:ss')));
+          }
+          this.illuminance_4000.xdata = xdata;
+          if(document.getElementById('line_chart_3')){
+            let myChart_9 = echarts.init(document.getElementById('line_chart_3'));;
+            equipment_four_road.create_real_discharge({attrs:this.illuminance_4000.attrs,xData:this.illuminance_4000.xdata},myChart_9);
+          }
+        })
+      }, 10);
+
+      setTimeout(() => {
+        this.ngzone.runOutsideAngular(()=>{
+          let xdata = [];
+          this.tempHumid_4000.attrs[0].value = res[2].cht.map(m =>(m[0]|| 0));
+          this.tempHumid_4000.attrs[1].value = res[3].rh.map(m =>(m[0]|| 0));
+          if(this.tempHumid_4000.attrs[0].value.length > this.tempHumid_4000.attrs[1].value.length){
+            xdata = res[2].cht.map(m =>(dateformat(new Date(rTime(m[1])),'hh:mm:ss')));
+          }else{
+            xdata = res[3].rh.map(m =>(dateformat(new Date(rTime(m[1])),'hh:mm:ss')));
+          }
+          this.tempHumid_4000.xdata = xdata;
+          if(document.getElementById('cabin_line_4'))
+              equipment_four_road.create_real_discharge({attrs:this.tempHumid_4000.attrs,xData:this.tempHumid_4000.xdata},
+              echarts.init(document.getElementById('cabin_line_4')));
+        });
+      })
     });
   }
 
@@ -368,63 +425,63 @@ export class EquipmentXenonLampComponent implements OnInit {
       equipment_four_road.create_real_discharge({attrs:this.line_chart_1.attrs,xData:this.line_chart_1.xdata},myChart_9);
     }
     if(document.getElementById('pie_chart_1'))
-        equipment_four_road.create_real_disk({value:this.illuminance.power,text:'功率',unit:'kw'},
+        equipment_four_road.create_motor_temperature({value:this.illuminance.power,title:'功率',unit:'kw'},
         echarts.init(document.getElementById('pie_chart_1')));
     
     if(document.getElementById('pie_chart_2'))
-        equipment_four_road.create_real_disk({value:this.illuminance.radioactivity1,text:'辐照度1',unit:'MJ/㎡'},
+        equipment_four_road.create_motor_temperature({value:this.illuminance.radioactivity1,title:'辐照度1',unit:'MJ/㎡'},
         echarts.init(document.getElementById('pie_chart_2')));
     
     if(document.getElementById('pie_chart_3'))
-        equipment_four_road.create_real_disk({value:this.illuminance.radioactivity2,text:'辐照度2',unit:'MJ/㎡'},
+        equipment_four_road.create_motor_temperature({value:this.illuminance.radioactivity2,title:'辐照度2',unit:'MJ/㎡'},
         echarts.init(document.getElementById('pie_chart_3')));
 
-    if(document.getElementById('line_chart_2')){
-      let myChart_9 = echarts.init(document.getElementById('line_chart_2'));;
-      equipment_four_road.create_real_discharge({attrs:this.illuminance.attrs,xData:this.illuminance.xdata},myChart_9);
-    }
+    // if(document.getElementById('line_chart_2')){
+    //   let myChart_9 = echarts.init(document.getElementById('line_chart_2'));;
+    //   equipment_four_road.create_real_discharge({attrs:this.illuminance.attrs,xData:this.illuminance.xdata},myChart_9);
+    // }
 
     if(document.getElementById('cabin_pie_1'))
-        equipment_four_road.create_real_disk({value:this.tempHumid.temp,text:'温度',unit:'℃'},
+        equipment_four_road.create_motor_temperature({value:this.tempHumid.temp,title:'温度',unit:'℃'},
         echarts.init(document.getElementById('cabin_pie_1')));
 
     if(document.getElementById('cabin_pie_2'))
-        equipment_four_road.create_real_disk({value:this.tempHumid.hum,text:'湿度',unit:'RH'},
+        equipment_four_road.create_motor_temperature({value:this.tempHumid.hum,title:'湿度',unit:'RH'},
         echarts.init(document.getElementById('cabin_pie_2')));
 
-    if(document.getElementById('cabin_line_3'))
-        equipment_four_road.create_real_discharge({attrs:this.tempHumid.attrs,xData:this.tempHumid.xdata},
-        echarts.init(document.getElementById('cabin_line_3')));
+    // if(document.getElementById('cabin_line_3'))
+    //     equipment_four_road.create_real_discharge({attrs:this.tempHumid.attrs,xData:this.tempHumid.xdata},
+    //     echarts.init(document.getElementById('cabin_line_3')));
 
 // ________________4000
     if(document.getElementById('pie_chart_4'))
-        equipment_four_road.create_real_disk({value:this.illuminance_4000.power,text:'功率',unit:'kw'},
+        equipment_four_road.create_motor_temperature({value:this.illuminance_4000.power,title:'功率',unit:'kw'},
         echarts.init(document.getElementById('pie_chart_4')));
 
     if(document.getElementById('pie_chart_5'))
-        equipment_four_road.create_real_disk({value:this.illuminance_4000.radioactivity1,text:'辐照度1',unit:'MJ/㎡'},
+        equipment_four_road.create_motor_temperature({value:this.illuminance_4000.radioactivity1,title:'辐照度1',unit:'MJ/㎡'},
         echarts.init(document.getElementById('pie_chart_5')));
 
     if(document.getElementById('pie_chart_6'))
-        equipment_four_road.create_real_disk({value:this.illuminance_4000.radioactivity2,text:'辐照度2',unit:'MJ/㎡'},
+        equipment_four_road.create_motor_temperature({value:this.illuminance_4000.radioactivity2,title:'辐照度2',unit:'MJ/㎡'},
         echarts.init(document.getElementById('pie_chart_6')));
 
-    if(document.getElementById('line_chart_3')){
-      let myChart_9 = echarts.init(document.getElementById('line_chart_3'));;
-      equipment_four_road.create_real_discharge({attrs:this.illuminance.attrs,xData:this.illuminance.xdata},myChart_9);
-    }
+    // if(document.getElementById('line_chart_3')){
+    //   let myChart_9 = echarts.init(document.getElementById('line_chart_3'));;
+    //   equipment_four_road.create_real_discharge({attrs:this.illuminance.attrs,xData:this.illuminance.xdata},myChart_9);
+    // }
 
     if(document.getElementById('cabin_pie_4'))
-        equipment_four_road.create_real_disk({value:this.tempHumid_4000.temp,text:'温度',unit:'℃'},
+        equipment_four_road.create_motor_temperature({value:this.tempHumid_4000.temp,title:'温度',unit:'℃'},
         echarts.init(document.getElementById('cabin_pie_4')));
     
     if(document.getElementById('cabin_pie_5'))
-        equipment_four_road.create_real_disk({value:this.tempHumid_4000.hum,text:'湿度',unit:'RH'},
+        equipment_four_road.create_motor_temperature({value:this.tempHumid_4000.hum,title:'湿度',unit:'RH'},
         echarts.init(document.getElementById('cabin_pie_5')));
     
-    if(document.getElementById('cabin_line_4'))
-        equipment_four_road.create_real_discharge({attrs:this.tempHumid.attrs,xData:this.tempHumid.xdata},
-        echarts.init(document.getElementById('cabin_line_4')));
+    // if(document.getElementById('cabin_line_4'))
+    //     equipment_four_road.create_real_discharge({attrs:this.tempHumid.attrs,xData:this.tempHumid.xdata},
+    //     echarts.init(document.getElementById('cabin_line_4')));
 
   }
 

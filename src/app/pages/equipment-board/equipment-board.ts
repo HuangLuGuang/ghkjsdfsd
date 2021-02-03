@@ -203,7 +203,7 @@ export const  rTime=(date)=> {
  * http请求中拿到的数据 调用子组件内部方法
  * time 目前是 1 或者 10 
  */
-export const painting_time = (f,time,isthis,arr) =>{
+export let  painting_time =(f,time,isthis,arr)=>{
   let timest = new Date().getTime();
   let data = {};
   let x = {};

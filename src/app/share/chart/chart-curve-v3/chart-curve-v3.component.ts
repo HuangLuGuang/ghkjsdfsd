@@ -259,7 +259,7 @@ export class ChartCurveV3Component implements OnInit {
             axisLabel: {
                 show: true,
                 fontSize: 9,
-                color:'white',//X轴文字颜色
+                color:COLOR,//X轴文字颜色
                 // formatter: function(value) {
                 //     var str = "";
                 //     if(value &&  value.length>5)
@@ -282,7 +282,7 @@ export class ChartCurveV3Component implements OnInit {
                 width: 0.08,
                 lineStyle: {
                     type: "solid",
-                    color: "white"
+                    color: COLOR
                 }
             },
             axisPointer: { //轴指示器
@@ -316,7 +316,7 @@ export class ChartCurveV3Component implements OnInit {
             scale: true, //坐标轴起点不限制0
             axisLabel: {
                 show: true,
-                color:'white',//X轴文字颜色
+                color:COLOR,//X轴文字颜色
                 textStyle: {
                     fontSize: 9,
                     // color: "rgb(116,142,171)" //X轴文字颜色s
@@ -432,6 +432,7 @@ export class ChartCurveV3Component implements OnInit {
                 borderColor: "#F8F8FF"
             }
         },
+        smooth: false,
         symbol: "circle",
         symbolSize: 6,
     }
@@ -532,3 +533,4 @@ export class ChartCurveV3Component implements OnInit {
   }
 
 }
+const COLOR = 'rgba(55,255,249,1)';

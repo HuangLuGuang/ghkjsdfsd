@@ -76,6 +76,7 @@ let equipment_four_road = {
 
         // if (myChart) myChart.resize();
         // })
+        option_q.grid.left = '10%';
         option_q.yAxis[0].axisLine = {
             show: false
         }
@@ -95,7 +96,8 @@ let equipment_four_road = {
                 top: "16%",
                 right: "3%",
                 bottom: 0,
-                containLabel: true
+                height: '60%',
+                // containLabel: true
             },
             legend: {
                 show: false,
@@ -107,6 +109,7 @@ let equipment_four_road = {
                 textStyle: {
                     color: COLOR
                 },
+                type: 'scroll',
                 data: legend
             },
             tooltip: {
@@ -172,17 +175,18 @@ let equipment_four_road = {
             yAxis: [{
                     type: "value",
                     name: "",
-                    nameTextStyle: {
-                        color: normalColor,
-                        fontSize: 12
-                    },
+                    // nameTextStyle: {
+                    //     color: normalColor,
+                    //     fontSize: 12
+                    // },
                     // max: 100,
+                    splitNumber: 3,
                     axisLabel: {
-                        formatter: "{value}",
                         textStyle: {
                             color: normalColor,
                             fontSize: 12
-                        }
+                        },
+                        interval: 'auto'
                     },
                     axisLine: {
                         lineStyle: {
@@ -195,7 +199,6 @@ let equipment_four_road = {
                     splitLine: {
                         show: false,
                         lineStyle: {
-                            type: "dashed",
                             color: splitLine_color
                         }
                     }
@@ -203,14 +206,17 @@ let equipment_four_road = {
                 {
                     type: "value",
                     name: "",
-                    nameTextStyle: {
-                        color: normalColor,
-                        fontSize: 12
-                    },
+                    // nameTextStyle: {
+                    //     color: normalColor,
+                    //     fontSize: 12
+                    // },
+                    splitNumber: 3,
                     axisLine: {
                         lineStyle: {
                             color: normalColor
-                        }
+                        },
+                        interval: 'auto'
+
                     },
                     axisTick: {
                         show: false
@@ -774,7 +780,8 @@ let equipment_four_road = {
         }
         let option_m_t_fhahsah = option = {
             grid: {
-                top: '15%'
+                top: '15%',
+                // containLabel: true,
             },
             series: [{
                 max: data.max,
@@ -1662,12 +1669,19 @@ let equipment_four_road = {
             grid: {
                 // buttom: '5%',
                 top: '20%',
-                width: '90%',
-                height: '40%'
+                width: '85%',
+                left: '10%',
+                right: '5%',
+                height: '42%'
             },
             legend: {
                 show: true,
                 bottom: '1%',
+                type: 'scroll',
+                pageIconColor: 'rgba(217, 244, 45, 1)',
+                pageTextStyle: {
+                    color: 'white'
+                },
                 textStyle: {
                     color: COLOR
                 },
@@ -1703,7 +1717,13 @@ let equipment_four_road = {
                     color: COLOR,
 
                     formatter: function(str) {
-                        return str > 10000 ? str / 10000 + 'W' : str;
+                        switch (true) {
+                            case str > 10000:
+                                return str / 10000 + 'W';
+                            case str > 1000:
+                                return str / 10000 + 'K';
+                        }
+                        return str;
                     }
                 },
                 axisLine: {

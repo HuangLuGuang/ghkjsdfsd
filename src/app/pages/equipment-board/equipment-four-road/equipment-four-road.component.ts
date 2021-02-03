@@ -251,28 +251,31 @@ export class EquipmentFourRoadComponent implements OnInit {
     // 定时添加数据
     let table,method = '';
     this.timer = self.setInterval(f =>{
-      let param = this.create_param([
-        {value:this.click_list[0],index:1},{value:this.click_list[1],index:2}
-        ]);
-      this.get_device_mts_status();
-      if(param[0].length > 0){
-        table = 'get_device_mts_time',method = library+'get_device_mts_timerangedata';
-        this.get_device_mts_time(table,method,param,this.deviceid,['chart_1','chart_2']);
-      }
-      if(param[1].length > 0){
-        table = 'get_device_mts_realtimedata',method = library+'get_device_mts_realtimedata';
-        this.get_device_mts_realtimedata(table,method,param,this.deviceid,['chart_1','chart_2']);
-      }
+      setTimeout(() => {
+        
+        let param = this.create_param([
+          {value:this.click_list[0],index:1},{value:this.click_list[1],index:2}
+          ]);
+        this.get_device_mts_status();
+        if(param[0].length > 0){
+          table = 'get_device_mts_time',method = library+'get_device_mts_timerangedata';
+          this.get_device_mts_time(table,method,param,this.deviceid,['chart_1','chart_2']);
+        }
+        if(param[1].length > 0){
+          table = 'get_device_mts_realtimedata',method = library+'get_device_mts_realtimedata';
+          this.get_device_mts_realtimedata(table,method,param,this.deviceid,['chart_1','chart_2']);
+        }
+      }, 10);
 
-      param = this.create_param([{value:[this.click_list[2]],index:3}]);
-      if(param[0].length > 0){
-        table = 'get_device_mts_time',method = library+'get_device_mts_timerangedata';
-        this.get_device_mts_time(table,method,param,'device_weiss_01',['chart_3']);
-      }
-      if(param[1].length > 0){
-        table = 'get_device_mts_realtimedata',method = library+'get_device_mts_realtimedata';
-        this.get_device_mts_realtimedata(table,method,param,'device_weiss_01',['chart_3']);
-      }
+      setTimeout(() => {
+        let param_1 = this.create_param([{value:[this.click_list[2]],index:3}]);
+        if(param_1[0].length > 0){
+          this.get_device_mts_time_weiss(param_1);
+        }
+        if(param_1[1].length > 0){
+          this.get_device_mts_realtimedata_weiss(param_1);
+        }
+      }, 20);
     },1000)
     
    
@@ -396,10 +399,34 @@ export class EquipmentFourRoadComponent implements OnInit {
     this.subscribeList.real = this.http.callRPC(table,method,{"device":deviceid,
     arr:param[1].join(',')}).subscribe((g:any) =>{
       if(g.result.error || g.result.message[0].code == 0)return;
-      painting_time(g,1,this,arr);
+        painting_time(g,1,this,arr);
       this.subscribeList.real.unsubscribe();
 
     })
+  }
+
+
+  get_device_mts_time_weiss(param){
+    let now = new Date();
+    this.subscribeList.get_device_mts_time_weiss = this.http.callRPC(
+      'get_device_mts_time',library+'get_device_mts_timerangedata',
+      {"start":dateformat(new Date(now.getTime()-10000),'yyyy-MM-dd hh:mm:ss'),"end": dateformat(now,'yyyy-MM-dd hh:mm:ss')
+      ,"device":'device_weiss_01',
+    arr:param[0].join(',')}).subscribe((f:any) =>{
+      if(f.result.error || f.result.message[0].code == 0)return;
+      painting_time(f,10,this,['chart_3']);
+      this.subscribeList.get_device_mts_time_weiss.unsubscribe();
+    });
+  }
+
+  get_device_mts_realtimedata_weiss(param){
+    this.subscribeList.real_weiss = this.http.callRPC('get_device_mts_realtimedata',library+'get_device_mts_realtimedata',
+    {"device":'device_weiss_01',
+    arr:param[1].join(',')}).subscribe((g:any) =>{
+      if(g.result.error || g.result.message[0].code == 0)return;
+      painting_time(g,1,this,['chart_3']);
+      this.subscribeList.real_weiss.unsubscribe();
+    });
   }
 
   

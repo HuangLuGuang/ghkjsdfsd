@@ -58,22 +58,22 @@
         <div class="col-md-4 height_98" style="padding: 0px 20px 0px  20px;">
             <div class="backgroud height_100" style="padding: 30px 10px 0 0px;margin: 0;">
                 <div class="part_title">Ci4000实验参数</div>
-                <div class="backgroud height_39">
+                <div class="backgroud height_33">
                     <ngx-equipment-status [device]='deviceid_4000' TempNum="2" style="display: flex;width: 100%;height: 100%;"></ngx-equipment-status>
                 </div>
-                <div class="backgroud height_28">
+                <div class="backgroud height_30">
                     <div class="part_title">照度曲线</div>
-                    <div class="height_45" style="display: flex;">
+                    <div class="height_45" style="display: flex;justify-content: space-around;">
                         <div id="pie_chart_4"></div>
                         <div id="pie_chart_5"></div>
                         <div id="pie_chart_6"></div>
                     </div>
                     <div id="line_chart_3"></div>
                 </div>
-                <div class="backgroud height_27">
+                <div class="backgroud height_30">
                     <div class="part_title">温湿度</div>
                     <div class="cabin">
-                        <div class="cabin_layout height_40">
+                        <div class="cabin_layout height_50">
                             <div id="cabin_pie_4"></div>
                             <div id="cabin_pie_5"></div>
                             <div class="cabin_1_set height_100">
@@ -81,7 +81,7 @@
                                 <div class="set_1">湿度设定值：<span class="span_css">{{ tempHumid_4000.rhSet }}%RH</span></div>
                             </div>
                         </div>
-                        <div id="cabin_line_4" class="height_60 w_100"></div>
+                        <div id="cabin_line_4" class="height_50 w_100"></div>
                     </div>
                 </div>
             </div>

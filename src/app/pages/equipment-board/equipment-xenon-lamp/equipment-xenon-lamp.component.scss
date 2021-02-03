@@ -56,12 +56,15 @@
     }
     #pie_chart_1,
     #pie_chart_2,
-    #pie_chart_3,
+    #pie_chart_3 {
+        height: 100%;
+        width: 33%;
+    }
     #pie_chart_4,
     #pie_chart_5,
     #pie_chart_6 {
         height: 100%;
-        width: 33%;
+        width: 22%;
     }
     #line_chart_2 {
         height: 50%;
