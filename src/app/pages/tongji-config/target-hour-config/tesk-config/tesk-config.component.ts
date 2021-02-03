@@ -153,7 +153,7 @@ export class TeskConfigComponent implements OnInit {
 
   ngAfterViewInit() {
     this.tableDatas.columnDefs.push(this.active);
-    this.tableDatas.columnDefs[10] = this.taskstatus;
+    this.tableDatas.columnDefs[6] = this.taskstatus;
 
     // 初始化agGrid
     this.inttable();
@@ -534,6 +534,14 @@ export class TeskConfigComponent implements OnInit {
         sortable: true,
       },
       {
+        field: "rate",
+        headerName: "试验进度",
+        resizable: true,
+        cellRendererFramework: TimeScheduleComponent,
+        minWidth: 10,
+        sortable: true,
+      }, //
+      {
         field: "createdon",
         headerName: "试验创建时间",
         resizable: true,
@@ -568,15 +576,6 @@ export class TeskConfigComponent implements OnInit {
         minWidth: 10,
         sortable: true,
       }, // 更新时间
-
-      {
-        field: "rate",
-        headerName: "试验进度",
-        resizable: true,
-        cellRendererFramework: TimeScheduleComponent,
-        minWidth: 10,
-        sortable: true,
-      }, //
     ],
     rowData: [
       // data
