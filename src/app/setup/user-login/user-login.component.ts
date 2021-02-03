@@ -242,10 +242,8 @@ export class UserLoginComponent implements OnInit {
         // 将ticket、appKey 存入 cookies中
         var url_userInfo = `http://geely-uc-sso-protocol-restful.app.dev01.geely.ocp/session-info-new/${ticket}?appKey=${appKey}`;
         // var geelyurl = `http://10.190.69.78/geely-info/${ticket}?appKey=${appKey}`;
-
-        var geelyurl = `/geely-info/${ticket}?appKey=${appKey}`;
-
         // var geelyurl = `http://${redirectUrlIp}/geely-info/${ticket}?appKey=${appKey}`;
+        var geelyurl = `/geely-info/${ticket}?appKey=${appKey}`;
         // 调用get请求的到用户信息
         this.http.get(geelyurl).subscribe(
           (response: any) => {
@@ -296,9 +294,7 @@ export class UserLoginComponent implements OnInit {
                   this.insert_ssouser_get_tooken(ssouserinfo_list).subscribe(
                     (status) => {
                       if (status) {
-                        setTimeout(() => {
-                          this.router.navigate([afterloginurl]);
-                        }, 100);
+                          // this.router.navigate([afterloginurl]);
                         // this.router.navigate([afterloginurl]);
                       } else {
                         // this.publicmethodService.toastr(this.DataDanger);
@@ -403,9 +399,7 @@ export class UserLoginComponent implements OnInit {
                     .subscribe(() => {
                       this.loading = false;
                       this.publicmethodService.toastr(this.DataSuccess);
-                      setTimeout(() => {
                         this.router.navigate([afterloginurl]);
-                      }, 1000);
                     });
 
                   // 说明得到了token
