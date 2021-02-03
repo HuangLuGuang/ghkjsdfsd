@@ -2,6 +2,7 @@ import { Component, Input, OnInit } from '@angular/core';
 import { HttpserviceService } from '../../../../services/http/httpservice.service';
 import {dateformat, DEVICEID_TO_NAME, rTime} from '../../equipment-board';
 
+declare var $;
 @Component({
   selector: 'ngx-test-information',
   templateUrl: './test-information.component.html',
@@ -32,8 +33,10 @@ export class TestInformationComponent implements OnInit {
     data_next:[]
   }
   timer60s;
+  timer;
   subscribeList:any = {};
   ROULE = DEVICEID_TO_NAME;
+  top = 0;
 
   constructor(private http:HttpserviceService) { }
 
@@ -42,6 +45,10 @@ export class TestInformationComponent implements OnInit {
       if(this.device)this.get_device_mst_progress();
     },60000)
     if(this.device)this.get_device_mst_progress();
+  }
+
+  ngAfterViewInit(){
+    this.timer = setInterval(this.scroll,100);
   }
 
     /**
@@ -72,8 +79,20 @@ export class TestInformationComponent implements OnInit {
       dateformat(new Date(m.taskend),'yy/MM/dd'),
       m.numberstime+'h',
       parseInt((m.rate).toString()),
-      this.ROULE[m.deviceid]
+      this.device.includes(',')?this.ROULE[m.deviceid]:''
     ]
+  }
+
+  //表格过长滚动
+  scroll=()=>{
+    if($('#table_body').height() - $('#scroll').height()< $('#tr').height()/4*3){
+      return;
+    }
+    let top = $('#scroll').scrollTop();
+    if(this.top > top)top = 0;
+    top++;
+    $('#scroll').scrollTop(top);
+    this.top = top;
   }
 
   get_height(){
@@ -86,7 +105,8 @@ export class TestInformationComponent implements OnInit {
 
    //组件销毁  
    ngOnDestroy(){
-    clearInterval(this.timer60s)
+    clearInterval(this.timer60s);
+    clearInterval(this.timer);
     for(let key in this.subscribeList){
       this.subscribeList[key].unsubscribe();
     }

@@ -46,6 +46,9 @@ export class LeftLayoutComponent implements OnInit {
   }
 
   scroll=()=>{
+    if($('#scroll').height() - $('#left_table').height()< 50){
+      return;
+    }
     let top = $('#left_table').scrollTop();
     if(this.top > top)top = 0;
     top++;

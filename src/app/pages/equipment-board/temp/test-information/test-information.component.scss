@@ -24,13 +24,15 @@
         .body {
             font-size: 12px;
             border-bottom: 1px solid #4472c4;
+            display: flex;
+            padding: 4px 0;
             .progress_o {
                 border-radius: 3px;
                 width: 100%;
             }
             td {
-                padding: 5px;
-                width: 33%;
+                padding: 3px 0;
+                // width: 33%;
             }
             .progres_1 {
                 position: relative;
@@ -46,14 +48,32 @@
                 position: absolute;
                 display: flex;
                 justify-content: center;
+                color: black;
+            }
+            .tr {
+                width: 20%;
+                height: 100%;
             }
         }
     }
     .font_tolong {
+        width: 100%;
         white-space: nowrap;
         overflow: hidden;
         text-overflow: ellipsis;
     }
+}
+
+#scroll {
+    overflow: auto;
+    position: relative;
+    height: 60%;
+    width: 100%;
+}
+
+#table_body {
+    position: absolute;
+    height: 100%;
 }
 
 .length_too_long {

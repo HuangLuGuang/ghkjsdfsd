@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { HttpserviceService } from '../../../services/http/httpservice.service';
-import { colors,  create_img_16_9, library, rTime } from '../equipment-board';
+import { colors,  create_img_16_9, dateformat, library, rTime } from '../equipment-board';
 import { EquipmentBoardService } from '../serivice/equipment-board.service';
 
 let equipment_four_road = require('../../../../assets/eimdoard/equipment/js/equipment-four-road');
@@ -194,10 +194,15 @@ export class EquipmentAvlAtecComponent implements OnInit {
 
 
   getData(){
+    let i = 0;
     this.timer = self.setInterval(() =>{
       this.get_avl_igem();
       this.get_light();
       this.get_avl_d();
+      if(i%60 == 0){
+        this.get_light_list();
+      }
+      i++;
     },1000)
   }
 
@@ -255,26 +260,39 @@ export class EquipmentAvlAtecComponent implements OnInit {
           el.dataLine
           ,echarts.init(document.getElementById(el.id)));
       });
-      this.light_chart[0].value.push(data.realtime_temp);
-      this.light_chart[1].value.push(data.realtime_humidity);
-      this.light_chart[2].value.push(data.micro_pressure_pv);
-      this.light_xdata.push(rTime(res?res[0].status[0][1]:''));
-      if(this.light_xdata.length > 10){
-        this.light_xdata.splice(0,1);
-        this.light_chart.forEach(f=>{
-          f.value.splice(0,1);
-        })
-      }
+      
+    })
+  }
 
+  //环境仓 曲线
+  get_light_list(){
+    let res,xdata = [],data = this.light_chart;
+    this.http.callRPC('device_realtime_list',library+'device_realtime_list',{
+      deviceid:this.aetc_deviceid,arr:'realtime_temp,realtime_humidity,micro_pressure_pv'
+    }).subscribe((g:any)=>{
+      if(g.result.error || g.result.message[0].code == 0)return;
+      res = g.result.message[0].message;
+      data[0].value = res[0].realtime_temp.map(m =>(m[0]));
+      data[1].value = res[1].realtime_humidity.map(m =>(m[0]));
+      data[2].value = res[2].micro_pressure_pv.map(m =>(m[0]));
+
+      if(data[0].value.length > data[1].value.length){
+        xdata = res[0].realtime_temp.map(m =>(dateformat(new Date(rTime(m[1])),'hh:mm:ss')));
+      }else if(data[1].value.length > data[2].value.length){
+        xdata = res[1].realtime_humidity.map(m =>(dateformat(new Date(rTime(m[1])),'hh:mm:ss')));
+      }else{
+        xdata = res[2].micro_pressure_pv.map(m =>(dateformat(new Date(rTime(m[1])),'hh:mm:ss')));
+      };
+      this.light_xdata = xdata
       if(document.getElementById('avl_discharge_chart_1')){
         let myChart_9 = echarts.init(document.getElementById('avl_discharge_chart_1'));;
         equipment_four_road.create_broken_line({
           title:'温湿度曲线',
-          series:this.light_chart,
+          series:data,
           xData:this.light_xdata,
         },myChart_9);
       }
-    })
+    });
   }
 
   //avl转速

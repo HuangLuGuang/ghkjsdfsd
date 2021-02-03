@@ -1,7 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { HttpserviceService } from '../../../services/http/httpservice.service';
-import { colors, create_img_16_9, library, rTime } from '../equipment-board';
+import { colors, create_img_16_9, dateformat, library, rTime } from '../equipment-board';
 import { EquipmentBoardService } from '../serivice/equipment-board.service';
 
 let equipment_four_road = require('../../../../assets/eimdoard/equipment/js/equipment-four-road');
@@ -212,11 +212,18 @@ export class EquipmentAvlComponent implements OnInit {
   
 
   getData(){
-    
+    let i = 0;
     this.timer = self.setInterval(() =>{
       this.get_avl_discharge();
       this.get_avl_environmental_warehouse();
       this.get_avl_speed();
+      if(i%60 == 0){
+        setTimeout(() => {
+          this.get_avl_env_list();
+        }, 10);
+        this.get_avl_discharge_list();
+      }
+      i++;
     },1000)
     
   }
@@ -246,25 +253,39 @@ export class EquipmentAvlComponent implements OnInit {
       this.discharge[3].value = data.ch4 ||0;
       this.discharge[4].value = data.nox ||0;
       this.discharge[5].value = data.n2o ||0;
+      
+
+    })
+  }
+
+  /**
+   * 排放分析曲线
+   */
+  get_avl_discharge_list(){
+    let res;
+    this.http.callRPC('device_realtime_list',library+'device_realtime_list',{
+      deviceid:this.deviceid_discharge,arr:discharge_param.join(',')
+    }).subscribe((g:any)=>{
+      if(g.result.error || g.result.message[0].code == 0)return;
+      res = g.result.message[0].message;
+      let j = 0,xdata = [];
       this.discharge_charts.forEach((f,i)=>{
-        f.value.push( this.discharge[i].value ||0);
+        let arr:any = Object.values(res[i])[0];
+        if(arr.length > xdata.length){
+          j = i;
+          xdata = arr
+        }
+        f.value = arr.map(m =>(m[0]));
       });
-      this.discharge_xdata.push(rTime(res && res[0]?res[0].co2[0][1]||res[0]:''))
-      if(this.discharge_xdata.length>10){
-        this.discharge_xdata.splice(0,1);
-        this.discharge_charts.forEach(el => {
-          el.value.splice(0,1);
-        });
-      }
+
+      this.discharge_xdata = xdata.map(m => (dateformat(new Date(rTime(m[1])),'hh:mm:ss')))
       //只有一个公共组件
       if(document.getElementById('discharge_chart')){
         let myChart_8 = echarts.init(document.getElementById('discharge_chart'));;
         equipment_four_road.create_real_discharge({attrs:this.discharge_charts,xData:this.discharge_xdata},myChart_8);
       }
-
-    })
+    });
   }
-
 
   /**
    * 环境仓参数
@@ -312,22 +333,7 @@ export class EquipmentAvlComponent implements OnInit {
           }
       },echarts.init(document.getElementById('temp_humidity_pressure')))
 
-      //曲线图
-      this.environmental_chart[0].value.push(data.ct_temp);
-      this.environmental_chart[1].value.push(data.ct_hum);
-      this.environmental_chart[2].value.push(data.ct_pressure_set);
-      this.environmental_xdata.push(rTime(res?res[0].ct_temp[0][1]:''));
-      if(this.environmental_xdata.length >10){
-        this.environmental_xdata.splice(0,1);
-        this.environmental_chart.forEach(f=>{
-          f.value.splice(0,1);
-        })
-      }
-      if(document.getElementById('discharge_chart_1')){
-        let myChart_9 = echarts.init(document.getElementById('discharge_chart_1'));;
-        equipment_four_road.create_real_discharge(
-          {attrs:this.environmental_chart,xData:this.environmental_xdata},myChart_9);
-      }
+     
 
       // 舱状态
       this.environmental_real_data.arr[0].value = data.start;
@@ -361,6 +367,36 @@ export class EquipmentAvlComponent implements OnInit {
       //新风风机频率
       this.environmental.xf_fun_hz_set = data.xf_fun_hz_set;
     })
+  }
+
+  /**
+   * 环境仓表 获取一段时间
+   */
+  get_avl_env_list(){
+    let res,xdata = [],data = this.environmental_chart;
+    this.http.callRPC('device_realtime_list',library+'device_realtime_list',{
+      deviceid:this.deviceid_environmental,arr:'ct_temp,ct_hum,ct_pressure_set'
+    }).subscribe((g:any)=>{
+      if(g.result.error || g.result.message[0].code == 0)return;
+      res = g.result.message[0].message;
+      //曲线图
+      data[0].value = res[0].ct_temp.map(m =>(m[0]));
+      data[1].value = res[1].ct_hum.map(m =>(m[0]));
+      data[2].value = res[2].ct_pressure_set.map(m =>(m[0]));
+      if(data[0].value.length >  data[1].value.length){
+        xdata = res[0].ct_temp.map(m =>(m[0]));
+      }else if(data[1].value.length >  data[2].value.length){
+        xdata = res[1].ct_hum.map(m =>(m[0]));
+      }else{
+        xdata = res[2].ct_pressure_set.map(m =>(dateformat(new Date(rTime(m[1])),'hh:mm:ss')));
+      }
+      this.environmental_xdata = xdata;
+      if(document.getElementById('discharge_chart_1')){
+        let myChart_9 = echarts.init(document.getElementById('discharge_chart_1'));;
+        equipment_four_road.create_real_discharge(
+          {attrs:data,xData:this.environmental_xdata},myChart_9);
+      }
+    });
   }
 
   /**
