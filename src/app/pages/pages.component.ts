@@ -48,13 +48,21 @@ export class PagesComponent implements OnInit {
       // localStorage.removeItem(SYSMENU);
       // localStorage.removeItem(MULU);
       // localStorage.removeItem("hidden_menu");
-      // this.loadMenu();
+      this.loadMenu();
     });
   }
 
   ngOnInit() {
-    // console.log("pages.component------------->");
+    console.log("pages.component------------->");
     this.loadMenu();
+    setTimeout(() => {
+      var menu_ = localStorage.getItem(MULU)
+        ? JSON.parse(localStorage.getItem(MULU))
+        : [];
+      if (menu_.length < 1) {
+        this.loadMenu();
+      }
+    }, 100);
   }
 
   ngAfterViewInit() {
@@ -153,11 +161,11 @@ export class PagesComponent implements OnInit {
       });
     } else {
       this.menu.length = 0;
-      // console.error("**************************", menu_);
+      console.error("**************************", menu_);
       // this.menuservice.addItems(menu_, "menu");
       setTimeout(() => {
         this.menuservice.addItems(menu_, "menu");
-      }, 100);
+      }, 200);
     }
   }
 

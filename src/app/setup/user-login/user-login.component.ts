@@ -234,7 +234,7 @@ export class UserLoginComponent implements OnInit {
         localStorage.setItem("SSO", "true"); // important notice
         window.location.href = url; // 重定向到外部的url
       } else {
-        // console.log("currenturl+++++++++++++", currenturl)
+        // console.log("currenturl+++++++++++++", currenturl);
         var ticket_1 = this.getTicket(currenturl, "?");
         var ticket_2 = ticket_1.split("&")[0];
         var ticket = this.getTicket(ticket_2, "=");
@@ -242,68 +242,84 @@ export class UserLoginComponent implements OnInit {
         // 将ticket、appKey 存入 cookies中
         var url_userInfo = `http://geely-uc-sso-protocol-restful.app.dev01.geely.ocp/session-info-new/${ticket}?appKey=${appKey}`;
         // var geelyurl = `http://10.190.69.78/geely-info/${ticket}?appKey=${appKey}`;
-        var geelyurl = `http://${redirectUrlIp}/geely-info/${ticket}?appKey=${appKey}`;
+
+        var geelyurl = `/geely-info/${ticket}?appKey=${appKey}`;
+
+        // var geelyurl = `http://${redirectUrlIp}/geely-info/${ticket}?appKey=${appKey}`;
         // 调用get请求的到用户信息
-        this.http.get(geelyurl).subscribe((response: any) => {
-          // console.log("得到统一认证平台的用户信息response：", response);
-          if (response && response["code"] === "success") {
-            var ssouserinfo_list = [];
-            var ssouserinfo = {};
-            var ssouserinfo_default = {};
+        this.http.get(geelyurl).subscribe(
+          (response: any) => {
+            // console.log("得到统一认证平台的用户信息response：", response);
+            if (response && response["code"] === "success") {
+              var ssouserinfo_list = [];
+              var ssouserinfo = {};
+              var ssouserinfo_default = {};
 
-            ssouserinfo["token"] = response["data"]["token"];
-            var loginname = response["data"]["domainAccountList"][0].split(
-              "@"
-            )[0];
+              ssouserinfo["token"] = response["data"]["token"];
+              var loginname = response["data"]["domainAccountList"][0].split(
+                "@"
+              )[0];
 
-            ssouserinfo["loginname"] = loginname; // 当前登录的用户名, 可能是 邮箱，sdfsf@sss.xx
-            // ssouserinfo["loginname"] = response["data"]["account"]; // 当前登录的用户名, 可能是 邮箱，sdfsf@sss.xx
+              ssouserinfo["loginname"] = loginname; // 当前登录的用户名, 可能是 邮箱，sdfsf@sss.xx
+              // ssouserinfo["loginname"] = response["data"]["account"]; // 当前登录的用户名, 可能是 邮箱，sdfsf@sss.xx
 
-            ssouserinfo["employeeno"] = response["data"]["empNo"]; //工号
-            ssouserinfo["name"] = response["data"]["nickName"]; // 姓名
-            ssouserinfo["phoneno"] = response["data"]["phone"]; // 手机号
-            ssouserinfo["email"] = response["data"]["domainAccountList"].join(
-              ","
-            ); // 域账号清单 list 转换为str
-            ssouserinfo["userid"] = response["data"]["userId"]; // 用户中心用户ID // 将id改为 userid
-            ssouserinfo["lastupdatedby"] = response["data"]["nickName"]; // 操作人
-            ssouserinfo["active"] = 1;
-            ssouserinfo["employeeid"] = null;
-            ssouserinfo["ticket"] = ticket;
-            ssouserinfo["department"] = "ZXJ"; // 部门
-            ssouserinfo["password"] = Md5.hashStr(ssopassword + salt); // 默认的初始密码
-            // console.log("处理后的SSo用户信息！");
-            ssouserinfo_list.push(ssouserinfo);
+              ssouserinfo["employeeno"] = response["data"]["empNo"]; //工号
+              ssouserinfo["name"] = response["data"]["nickName"]; // 姓名
+              ssouserinfo["phoneno"] = response["data"]["phone"]; // 手机号
+              ssouserinfo["email"] = response["data"]["domainAccountList"].join(
+                ","
+              ); // 域账号清单 list 转换为str
+              ssouserinfo["userid"] = response["data"]["userId"]; // 用户中心用户ID // 将id改为 userid
+              ssouserinfo["lastupdatedby"] = response["data"]["nickName"]; // 操作人
+              ssouserinfo["active"] = 1;
+              ssouserinfo["employeeid"] = null;
+              ssouserinfo["ticket"] = ticket;
+              ssouserinfo["department"] = "ZXJ"; // 部门
+              ssouserinfo["password"] = Md5.hashStr(ssopassword + salt); // 默认的初始密码
+              // console.log("处理后的SSo用户信息！");
+              ssouserinfo_list.push(ssouserinfo);
 
-            // 默认角色
-            this.createDefaultRole(ssouserinfo_list).subscribe(
-              (roleid: any[]) => {
-                console.log("得到创建的默认角色", roleid);
-                roleid.forEach((role_id) => {
-                  ssouserinfo_default["rids"] = role_id["id"]; // roleid = [{id: 12}]
-                });
-                ssouserinfo_list.push(ssouserinfo_default);
-                // 将数据存入数据库中！
-                // localStorage.setItem('ssouserinfo', this.publicmethodService.compileStr(ssouserinfo));
-                // localStorage.setItem('ssouserinfo', JSON.stringify(ssouserinfo));
-                // console.log("需要存入数据库中的数据",ssouserinfo_list)
-                // 得到用户名--封装ssotoken
-                // 将统一认证得到的用存入用户表！并返回accessToken和refreshToken
-                this.insert_ssouser_get_tooken(ssouserinfo_list).subscribe(
-                  (status) => {
-                    if (status) {
-                      this.router.navigate([afterloginurl]);
-                    } else {
-                      // this.publicmethodService.toastr(this.DataDanger);
-                      this.router.navigate([loginurl]);
+              // 默认角色
+              this.createDefaultRole(ssouserinfo_list).subscribe(
+                (roleid: any[]) => {
+                  console.log("得到创建的默认角色", roleid);
+                  roleid.forEach((role_id) => {
+                    ssouserinfo_default["rids"] = role_id["id"]; // roleid = [{id: 12}]
+                  });
+                  ssouserinfo_list.push(ssouserinfo_default);
+                  // 将数据存入数据库中！
+                  // localStorage.setItem('ssouserinfo', this.publicmethodService.compileStr(ssouserinfo));
+                  // localStorage.setItem('ssouserinfo', JSON.stringify(ssouserinfo));
+                  // console.log("需要存入数据库中的数据",ssouserinfo_list)
+                  // 得到用户名--封装ssotoken
+                  // 将统一认证得到的用存入用户表！并返回accessToken和refreshToken
+                  this.insert_ssouser_get_tooken(ssouserinfo_list).subscribe(
+                    (status) => {
+                      if (status) {
+                        setTimeout(() => {
+                          this.router.navigate([afterloginurl]);
+                        }, 100);
+                        // this.router.navigate([afterloginurl]);
+                      } else {
+                        // this.publicmethodService.toastr(this.DataDanger);
+                        this.router.navigate([loginurl]);
+                      }
                     }
-                  }
-                );
-                // this.router.navigate([afterloginurl]);
-              }
+                  );
+                  // this.router.navigate([afterloginurl]);
+                }
+              );
+            }
+          },
+          (error) => {
+            console.error(
+              "++++++++++++++++++++++++++++",
+              error,
+              error.status,
+              error.error
             );
           }
-        });
+        );
       }
       // this.router.navigate([url]);
     }
