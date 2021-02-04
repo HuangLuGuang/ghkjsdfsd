@@ -35,6 +35,9 @@ import { Observable } from "rxjs";
 
 import { SYSMENU, MULU } from "../../appconfig";
 
+// 环境
+import { environment } from "../../../environments/environment";
+
 @Component({
   selector: "ngx-user-login",
   templateUrl: "./user-login.component.html",
@@ -214,7 +217,8 @@ export class UserLoginComponent implements OnInit {
   proofSso() {
     // 得到url中的ticket
     var currenturl = this.publicmethodService.get_current_search();
-    var appKey = "6d38d93e-ed9d-406f-a728-86b1a3f0fb47";
+    var appKey = environment.appKey;
+    // var appKey = "6d38d93e-ed9d-406f-a728-86b1a3f0fb47"; // appKey
     // var redirectUrl = "http://10.190.69.78/setup/login"
     var redirectUrl = this.redirectUrl;
     var redirectUrlIp = this.redirectUrlIp;
@@ -228,7 +232,10 @@ export class UserLoginComponent implements OnInit {
       // console.log("SSO登录的url：", url);
       if (currenturl === "") {
         // 当前url没有传递参数！重定向到统一认证平台！
-        var url = `http://passport-test.test.geely.com/html/?appKey=${appKey}&redirectUrl=${redirectUrl}`;
+        var url = `${environment.url}?appKey=${appKey}&redirectUrl=${redirectUrl}`;
+
+        // var url = `http://passport-test.test.geely.com/html/?appKey=${appKey}&redirectUrl=${redirectUrl}`; // url
+
         // this.router.navigate([url]);
         // window.location.href = "http://www.baidu.com";
         localStorage.setItem("SSO", "true"); // important notice
@@ -241,9 +248,21 @@ export class UserLoginComponent implements OnInit {
         // console.log("得到当前的ticket： ", ticket);
         // 将ticket、appKey 存入 cookies中
         var url_userInfo = `http://geely-uc-sso-protocol-restful.app.dev01.geely.ocp/session-info-new/${ticket}?appKey=${appKey}`;
+
         // var geelyurl = `http://10.190.69.78/geely-info/${ticket}?appKey=${appKey}`;
-        // var geelyurl = `http://${redirectUrlIp}/geely-info/${ticket}?appKey=${appKey}`;
-        var geelyurl = `/geely-info/${ticket}?appKey=${appKey}`;
+        console.error(
+          environment.name,
+          "is_test login>>>>",
+          environment.production
+        );
+
+        var geelyurl = `http://${redirectUrlIp}/geely-info/${ticket}?appKey=${appKey}`;
+        if (environment.production) {
+          // 测试环境和生产环境的
+          geelyurl = `/geely-info/${ticket}?appKey=${appKey}`;
+        }
+        console.error("geelyurl>>>>", geelyurl);
+        // var geelyurl = `/geely-info/${ticket}?appKey=${appKey}`;
         // 调用get请求的到用户信息
         this.http.get(geelyurl).subscribe(
           (response: any) => {
@@ -291,7 +310,7 @@ export class UserLoginComponent implements OnInit {
                   this.insert_ssouser_get_tooken(ssouserinfo_list).subscribe(
                     (status) => {
                       if (status) {
-                          // this.router.navigate([afterloginurl]);
+                        // this.router.navigate([afterloginurl]);
                         // this.router.navigate([afterloginurl]);
                       } else {
                         // this.publicmethodService.toastr(this.DataDanger);
@@ -396,7 +415,7 @@ export class UserLoginComponent implements OnInit {
                     .subscribe(() => {
                       this.loading = false;
                       this.publicmethodService.toastr(this.DataSuccess);
-                        this.router.navigate([afterloginurl]);
+                      this.router.navigate([afterloginurl]);
                     });
 
                   // 说明得到了token
