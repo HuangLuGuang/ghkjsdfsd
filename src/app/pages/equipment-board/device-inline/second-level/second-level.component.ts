@@ -456,6 +456,13 @@ export class SecondLevelComponent implements OnInit {
     this.testdevice(this.key_index_data);
     // 设备活跃的
     this.deviceactive(this.device_active_data);
+    this.chartResize = this.equipmentservice.chartResize().subscribe((result) => {
+      setTimeout(() => {
+        this.device_active.reflow();
+        this.key_index.reflow();
+        this.myChart.resize();
+      }, 100);
+    });
 
     // 设备开动率、完好lv
     setTimeout(() => {
@@ -464,13 +471,7 @@ export class SecondLevelComponent implements OnInit {
       this.myChart.resize();
     }, 100);
 
-    this.chartResize = this.equipmentservice.chartResize().subscribe((result) => {
-      setTimeout(() => {
-        this.device_active.reflow();
-        this.key_index.reflow();
-        this.myChart.resize();
-      }, 100);
-    });
+    
 
     this.layoutService.onInitLayoutSize().subscribe((f) => {
       this.key_index.reflow();

@@ -177,7 +177,13 @@ const ROUTERS: Routes = [{
         .then(m=>m.EquipmentPureWaterModule),
         
       },
-      
+      {
+        //四门两盖01
+        path:'jinhua-4d2c-01/:title/one',
+        loadChildren:()=>import('./equipment-4d2c-jinhua/equipment-4d2c-jinhua.module')
+        .then(m=>m.Equipment4d2cJinhuaModule),
+
+      },
       
       // {
       //   path:'detailsDemo/:title/:deviceid',

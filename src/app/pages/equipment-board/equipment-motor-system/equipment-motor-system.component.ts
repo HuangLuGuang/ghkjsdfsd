@@ -82,11 +82,11 @@ export class EquipmentMotorSystemComponent implements OnInit {
   threePhase_xData = [];
 
 
-
   //设备介绍
-  str = ` 主要测试电机低速及控制系统性能，如：电机标定、转矩-转速特性、<br> 效率、温升、堵转试验、转矩控制精度、转速控制精度、峰值转矩、
-  <br> 峰值功率`;
-
+  introd_name = 'dj_';
+  equipIntroduceList = [
+    {title:''}
+  ]
   
   //图片
   img = {
@@ -178,8 +178,6 @@ export class EquipmentMotorSystemComponent implements OnInit {
   language = '';//语言 空为zh-CN中文
 
   deviceid = '';
-
-
   subscribeList:any = {};
 
 
@@ -197,6 +195,28 @@ export class EquipmentMotorSystemComponent implements OnInit {
       if(document.getElementById('head_title'))
         document.getElementById('head_title').innerText = f.title;
       this.deviceid = f.deviceid;
+      switch(this.deviceid){
+        case 'device_avlmotor_01':
+          this.img.url = 'assets/eimdoard/equipment/images/dj1_1013.jpeg';
+          this.introd_name += '1';
+          break;
+        case 'device_avlmotor_02':
+          this.img.url = 'assets/eimdoard/equipment/images/dj2_1014.jpeg';
+          this.introd_name += '2';
+          break;
+        case 'device_avlmotor_03':
+          this.img.url = 'assets/eimdoard/equipment/images/dj3_1003.jpeg';
+          this.introd_name += '3';
+          break;
+        case 'device_avlmotor_04':
+          this.img.url = 'assets/eimdoard/equipment/images/dj4_1010.jpeg';
+          this.introd_name += '4';
+          break;
+        // case 'device_avlmotor_05':
+        //   this.img.url = 'assets/eimdoard/equipment/images/dj5_1008.jpeg';
+        //   this.introd_name += '5';
+        //   break;
+      }
     })
 
     let i = 0;

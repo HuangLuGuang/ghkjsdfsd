@@ -53,6 +53,8 @@ export const DEVICEID_TO_NAME  ={
   'device_hpu_03':'油源3',//油源3
   'device_hpu_04':'油源4',//油源4
   'device_hpu_05':'油源5',//油源5
+  'device_skylight_01':'天窗开闭',//天窗开闭
+  'device_4d2c_02':'四门两盖01',//四门两盖01
 
   'device_avldyno_01':'AVL耐久2驱-S1060',//AVL耐久2驱-S1060
   'device_avldyno_02':'AVL耐久2驱-S1060`',//AVL耐久2驱-S1060`
@@ -73,6 +75,7 @@ export const DEVICEID_TO_NAME  ={
   'device_auto_voc01':'整车voc',//整车voc环境仓
   'device_atlas_4000':'氙灯Ci4000',//氙灯集中监控Ci4000
   'device_atlas_4400':'氙灯Ci4400',//氙灯集中监控Ci4400
+  'device_purewater_01':'纯水',//纯水
 
 }
 

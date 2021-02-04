@@ -15,7 +15,7 @@
                     <div class="table_body_tr" style="position: relative;" [ngStyle]="{width: '33%'}" *ngFor="let key of obejct.keys(tableHeader)">
 
                         <ng-container *ngIf="key == 'speed'">
-                            <nz-progress [nzPercent]="items.speed" [nzStrokeColor]="{ '0%': '#66FF00', '100%': '#66FF00' }" nzSize="small" [nzShowInfo]="false"></nz-progress>
+                            <nz-progress [nzPercent]="items.speed" nzSize="big" [nzStrokeColor]="{ '0%': '#66FF00', '100%': '#66FF00' }" [nzShowInfo]="false"></nz-progress>
                             <div class="_progress">
                                 {{items[key]}}%
                             </div>

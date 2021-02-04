@@ -74,8 +74,8 @@
             height: 10%;
             width: 100%;
             display: flex;
+            padding: 2px 0;
             .table_body_tr {
-                padding: 2px 0;
                 display: flex;
                 justify-content: center;
                 align-items: center;
@@ -129,14 +129,13 @@
 
 nz-progress {
     width: 100px;
+    height: 100%;
 }
 
 ._progress {
     position: absolute;
     color: black;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    top: 4%;
 }
 
 .table_body::-webkit-scrollbar {
