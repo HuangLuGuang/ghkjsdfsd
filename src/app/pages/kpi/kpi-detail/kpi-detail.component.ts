@@ -11,8 +11,6 @@ import { PublicmethodService } from "../../../services/publicmethod/publicmethod
 
 let kpi_detail = require("../../../../assets/pages/system-set/js/kpi_detail");
 
-import { environment } from "../../../../environments/environment";
-
 @Component({
   selector: "ngx-kpi-detail",
   templateUrl: "./kpi-detail.component.html",
@@ -1321,7 +1319,6 @@ export class KpiDetailComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    console.error("什么环境：", environment.name);
     if (this.type === "device") {
       this.table_url = this.mothed_table_url.device.url;
       this.button_title = this.kpi_for_detail["devicename"];

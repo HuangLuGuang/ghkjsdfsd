@@ -14,6 +14,8 @@ import { SYSMENU, loginurl, ssotoken, MULU } from "../appconfig";
 import { Router } from "@angular/router";
 import { TranslateService } from "@ngx-translate/core";
 
+import { environment } from "../../environments/environment";
+
 // @ts-ignore
 @Component({
   selector: "ngx-pages",
@@ -53,7 +55,8 @@ export class PagesComponent implements OnInit {
   }
 
   ngOnInit() {
-    console.log("pages.component------------->");
+    // console.log("pages.component------------->");
+    console.error("什么环境：", environment.name);
     this.loadMenu();
   }
 
