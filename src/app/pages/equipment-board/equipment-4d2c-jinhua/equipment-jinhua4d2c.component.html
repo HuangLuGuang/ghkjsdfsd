@@ -1,0 +1,72 @@
+<div id="device_4d2c">
+    <div class="row" style="height: 100%;margin: 0;">
+        <div class="col-md-4" style="padding: 0px 0px 0px 20px;">
+            <div class="backgrond height_41">
+                <ngx-equipment-status [device]='device_4d2c' style="display: flex;height: 100%;"></ngx-equipment-status>
+            </div>
+            <div class="backgrond height_20">
+                <div class="part_title">{{'equipment.expInfor'|translate}}</div>
+                <ngx-test-information [device]='device_4d2c' style="width: 100%;"></ngx-test-information>
+
+            </div>
+            <div class="backgrond height_35">
+                <ngx-log-warm [device]='device_4d2c' style="display: flex;height: 100%;flex-wrap: wrap;"></ngx-log-warm>
+            </div>
+        </div>
+        <div class="col-md-4" style="padding:  0px 20px;">
+            <div class="backgrond height_28">
+                <div class="part_title">{{ 'equipment.equipIntroduce'|translate}}</div>
+                <div style="padding: 20px;overflow: auto;">
+                </div>
+            </div>
+            <div class="center_img backgrond ">
+                <div class="part_title">{{'equipment.OnlineVideo'|translate}}</div>
+                <img id="img" [src]="img.url">
+            </div>
+            <div class="backgrond height_33">
+                <div class="part_title">ATEC环境舱</div>
+                <div class="atec">
+                    <div class="atec_layout height_46">
+                        <div class="round" [ngStyle]="{background:atec.status?'#66FF66':'black' }"></div>
+                        <div id="atec_pie_5"></div>
+                        <div id="atec_pie_6"></div>
+                        <div class="atec_1_set height_100">
+                            <div class="set_1">温度设定值：<span class="span_css">{{ atec.tempSet}}℃</span></div>
+                            <div class="set_1">湿度设定值：<span class="span_css">{{ atec.rhSet }}%RH</span></div>
+                        </div>
+                    </div>
+                    <div id="atec_line_3" class="height_54 w_100"></div>
+                </div>
+
+            </div>
+        </div>
+        <div class="col-md-4" style="padding: 0px 0px 0px 20px;">
+            <div class="backgrond height_45 flex">
+                <div class="part_title">门盖状态</div>
+                <div class="four_d_tow_c" *ngFor="let item of list">
+                    <div class="fon" style="justify-content: left;">{{item.position}}:</div>
+                    <div class="fon">
+                        <div class="round {{ item.open_status == 0?'black':'red'}}"></div>
+                        <span>{{item.position}}开故障</span>
+                    </div>
+                    <div class="fon">
+                        <div class="round {{ item.close_status == 0?'black':'red'}}"></div>
+                        <span>{{item.position}}关故障</span>
+                    </div>
+                </div>
+            </div>
+            <div class="backgrond height_53 param">
+                <div class="part_title">试验参数</div>
+                <div *ngFor="let item of list;let i= index" class="param_one">
+                    <div class="title">{{item.position}}:</div>
+                    <div class="set_1">进度 <span class="span_css">{{item.rate}}%</span></div>
+                    <div class="set_1">计划次数 <span class="span_css">{{item.plan}}次</span></div>
+                    <div class="set_1">测试次数 <span class="span_css">{{item.now}}次</span></div>
+                    <div id="progress_{{i+1}}" class="progress_1"></div>
+                </div>
+                <img style="width: 90px;height: 115px;position: absolute;top: 39%;left: 42%;" [src]="img.car" />
+
+            </div>
+        </div>
+    </div>
+</div>

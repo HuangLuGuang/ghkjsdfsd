@@ -221,6 +221,9 @@ export class EquipmentAvlComponent implements OnInit {
         setTimeout(() => {
           this.get_avl_env_list();
         }, 10);
+        setTimeout(() => {
+          this.get_avl_speed_list();
+        }, 20);
         this.get_avl_discharge_list();
       }
       i++;
@@ -426,17 +429,33 @@ export class EquipmentAvlComponent implements OnInit {
           el.dataLine
           ,echarts.init(document.getElementById(el.id)));
       })
-      this.avl_speed_chart[0].value.push(data.f);
-      this.avl_speed_chart[1].value.push(data.v);
-      this.avl_speed_chart[2].value.push(data.a);
-      this.avl_speed_chart[3].value.push(data.p);
-      this.avl_speed_xdata.push(rTime(res?res[0].v[0][1]:''));
-      if(this.avl_speed_xdata.length>10){
-        this.avl_speed_xdata.splice(0,1);
-        this.avl_speed_chart.forEach(el => {
-          el.value.splice(0,1);
-        });
-      }
+      
+    })
+  }
+
+  get_avl_speed_list(){
+    let res,xdata:any = [],arr = this.avl_speed_chart;
+    this.http.callRPC('device_realtime_list',library+'device_realtime_list',{
+      deviceid:this.deviceid_avl_speed,arr:'f,v,a,p'
+    }).subscribe((g:any)=>{
+      if(g.result.error || g.result.message[0].code == 0)return;
+      res = g.result.message[0].message;
+      this.avl_speed_chart[0].value = res[0].f.map(m =>(m[0]));
+      this.avl_speed_chart[1].value = res[1].v.map(m =>(m[0]));
+      this.avl_speed_chart[2].value = res[2].a.map(m =>(m[0]));
+      this.avl_speed_chart[3].value = res[3].p.map(m =>(m[0]));
+
+      let max_index = 0,max = [];
+      for (let i = 0; i < res.length - 1; i++) {
+        if(max.length < arr[i+1].value.length){
+          max_index = i;
+          max = arr[i+1].value;
+        }
+      };
+      xdata = Object.values(res[max_index])[0];
+
+      this.avl_speed_xdata = xdata.map(m => (dateformat(new Date(rTime(m[1])),'hh:mm:ss')));
+      
       if(document.getElementById('avl_speed_chart_1'))
         equipment_four_road.create_real_discharge(
           {attrs:this.avl_speed_chart,xData:this.avl_speed_xdata}
