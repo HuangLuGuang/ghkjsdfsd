@@ -103,7 +103,7 @@ export class KpiDetailComponent implements OnInit {
             },
             z: 100,
             y: -70,
-            x: -60,
+            x: 40, // pie x
             data: [
               {
                 name: "未完成",
@@ -232,7 +232,7 @@ export class KpiDetailComponent implements OnInit {
       console.log("第二行第二个 ", result);
       var res = result["result"]["message"][0];
       var defaultdata = {
-        color: ["#5D920D", "#3333FF", "#FF4E0D", "#DBB70D"],
+        color: ["#5D920D", "#3333FF", "#DBB70D", "#FF4E0D"],
         xData: [
           "01",
           "02",
@@ -247,11 +247,11 @@ export class KpiDetailComponent implements OnInit {
           "11",
           "12",
         ],
-        title: ["运行", "空闲", "维修", "占位"],
+        title: ["运行", "空闲", "占位", "维修"],
         running: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
         stop: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-        warning: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
         placeon: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+        warning: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
       };
       if (res["code"] === 1) {
         // 得到 x 轴！
@@ -265,8 +265,8 @@ export class KpiDetailComponent implements OnInit {
           xData.push(resdata["dates"]);
           running.push(resdata["running"]);
           stop.push(resdata["stop"]);
-          warning.push(resdata["warning"]);
           placeon.push(resdata["placeon"]);
+          warning.push(resdata["warning"]);
         });
 
         // 赋值！
@@ -276,8 +276,8 @@ export class KpiDetailComponent implements OnInit {
             defaultdata.xData[_index] = xData[index];
             defaultdata.running[_index] = running[index];
             defaultdata.stop[_index] = stop[index];
-            defaultdata.warning[_index] = warning[index];
             defaultdata.placeon[_index] = placeon[index];
+            defaultdata.warning[_index] = warning[index];
           }
         }
       }
@@ -523,6 +523,7 @@ export class KpiDetailComponent implements OnInit {
             type: "bar",
             xAxisIndex: 1,
             yAxisIndex: 2,
+            cursor: "auto",
             // showBackground: true,
             backgroundStyle: {
               // borderColor:"red"
@@ -537,11 +538,12 @@ export class KpiDetailComponent implements OnInit {
                 label: {
                   show: true,
                   // position: "insideTop",
-                  fontSize: 20,
-                  position: [15, "20%"],
-                  color: "#5D920D",
+                  fontSize: 14,
+                  position: [-5, 2],
+                  // color: "#5D920D",
+                  color: "#ACACAC",
                   formatter: function (p) {
-                    return p.value > 0 ? p.value : "0";
+                    return p.value > 0 ? p.value + "%" : "0" + "%";
                   },
                 },
               },
@@ -553,11 +555,12 @@ export class KpiDetailComponent implements OnInit {
                 label: {
                   show: true,
                   // position: "insideTop",
-                  fontSize: 20,
-                  position: [15, "20%"],
-                  color: "#3333FF",
+                  fontSize: 14,
+                  position: [-5, 2],
+                  // color: "#3333FF",
+                  color: "#ACACAC",
                   formatter: function (p) {
-                    return p.value > 0 ? p.value : "0";
+                    return p.value > 0 ? p.value + "%" : "0" + "%";
                   },
                 },
               },
@@ -568,17 +571,19 @@ export class KpiDetailComponent implements OnInit {
           yAxis: {
             data: [
               {
-                value: _columns["startyear"] + "年-利用率",
+                value: _columns["startyear"] + "年利用率:",
                 textStyle: {
-                  color: "#5D920D",
-                  // color: "rgb(51,51,51)",
+                  // color: "#5D920D",
+                  color: "#ACACAC",
+                  fontSize: 14,
                 },
               },
               {
-                value: _columns["endyear"] + "年-利用率",
+                value: _columns["endyear"] + "年利用率:",
                 textStyle: {
-                  color: "#3333FF",
-                  // color: "rgb(51,51,51)",
+                  // color: "#3333FF",
+                  fontSize: 14,
+                  color: "#ACACAC",
                 },
               },
             ],
@@ -676,7 +681,7 @@ export class KpiDetailComponent implements OnInit {
             normal: {
               // color: "rgba(255,144,128,1)",
               label: {
-                show: true,
+                show: false,
                 textStyle: {
                   color: "#DBB70D",
                 },
@@ -703,7 +708,7 @@ export class KpiDetailComponent implements OnInit {
             normal: {
               // color: "rgba(255,144,128,1)",
               label: {
-                show: true,
+                show: false,
                 textStyle: {
                   color: "#5D920D",
                 },
@@ -718,10 +723,11 @@ export class KpiDetailComponent implements OnInit {
           },
         },
         {
+          yAxisIndex: 1,
           name: "开动率",
           type: "line",
           barWidth: "20%",
-          stack: "设备占位运行及开动率年度变化趋势",
+          // stack: "设备占位运行及开动率年度变化趋势",
           data: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
         },
       ],
@@ -885,18 +891,18 @@ export class KpiDetailComponent implements OnInit {
       // 月份-倒序
       // xData: ['Dec', 'Nov', 'Oct', 'Sep', 'Aug', 'Jul', 'Jun','May','Apr','Mar','Feb','Jan'],
       xData: [
-        "Jan",
-        "Feb",
-        "Mar",
-        "Apr",
-        "May",
-        "Jun",
-        "Jul",
-        "Aug",
-        "Sep",
-        "Oct",
-        "Nov",
-        "Dec",
+        "一月",
+        "二月",
+        "三月",
+        "四月",
+        "五月",
+        "六月",
+        "七月",
+        "八月",
+        "九月",
+        "十月",
+        "十一月",
+        "十二月",
       ],
       lineData: [100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100],
       lastYearData: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
@@ -906,18 +912,18 @@ export class KpiDetailComponent implements OnInit {
       colors: ["#5D920D", "#3333FF"],
     };
     var month_zh_en = {
-      "01": "Jan",
-      "02": "Feb",
-      "03": "Mar",
-      "04": "Apr",
-      "05": "May",
-      "06": "Jun",
-      "07": "Jul",
-      "08": "Aug",
-      "09": "Sep",
-      "10": "Oct",
-      "11": "Nov",
-      "12": "Dec",
+      "01": "一月",
+      "02": "二月",
+      "03": "三月",
+      "04": "四月",
+      "05": "五月",
+      "06": "六月",
+      "07": "七月",
+      "08": "八月",
+      "09": "九月",
+      "10": "十月",
+      "11": "十一月",
+      "12": "十二月",
     };
 
     this.querst("", monthed, _columns).subscribe((result) => {
@@ -996,7 +1002,7 @@ export class KpiDetailComponent implements OnInit {
       error: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
       warning: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
       info: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-      legend: ["error", "warning", "info"],
+      legend: ["三级", "二级", "一级"],
       colors: ["rgb(255,0,0)", "rgb(255,166,0)", "rgb(60,179,113)"],
     };
 
@@ -1037,8 +1043,8 @@ export class KpiDetailComponent implements OnInit {
     // columns.deviceid = "device_mts_01";
     var defaultdata = {
       // 月份-倒序
-      xData: [0],
-      SeriesData: [0],
+      xData: [],
+      SeriesData: [],
     };
     this.querst("", monthed, columns).subscribe((result) => {
       console.log("得到第三行，第三个： ", result);
@@ -1049,12 +1055,14 @@ export class KpiDetailComponent implements OnInit {
           for (let index = 0; index < message.length; index++) {
             const element = message[index];
             if (element) {
-              var _index = defaultdata.xData.indexOf(element["dates"]);
-              defaultdata.xData[_index] = element["dates"];
-              defaultdata.SeriesData[_index] = element["status"];
+              defaultdata.xData.push(element["dates"]);
+              defaultdata.SeriesData.push(element["status"]);
             }
           }
         }
+      } else {
+        defaultdata.xData = [0];
+        defaultdata.SeriesData = [0];
       }
       console.log("得到第三行，第三个数据格式：", defaultdata);
       kpi_detail.three_row_three(eleid, defaultdata);

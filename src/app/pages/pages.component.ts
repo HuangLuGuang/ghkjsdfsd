@@ -146,7 +146,7 @@ export class PagesComponent implements OnInit {
       });
     } else {
       this.menu.length = 0;
-      console.error("**************************", menu_);
+      // console.error("**************************", menu_);
       // this.menuservice.addItems(menu_, "menu");
       setTimeout(() => {
         this.menuservice.addItems(menu_, "menu");

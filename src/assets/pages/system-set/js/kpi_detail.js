@@ -9,9 +9,9 @@ let kpi_detail = {
       title: {
         text: "试验总数",
         subtext: afterdata.pieTotal,
-        top: "15%",
+        top: "16%",
         textAlign: "center",
-        left: "71%",
+        left: "76%",
         textStyle: {
           color: "#000",
           fontSize: 10,
@@ -19,8 +19,8 @@ let kpi_detail = {
         },
         subtextStyle: {
           color: "#000",
-          fontSize: 20,
-          // fontWeight: '200'
+          fontSize: 10,
+          fontWeight: "600",
         },
       },
       tooltip: {
@@ -181,7 +181,7 @@ let kpi_detail = {
             normal: {
               color: afterdata.color[0], //运行
               label: {
-                show: true,
+                show: false,
                 // textStyle: {
                 //   color: afterdata.color[0],
                 // },
@@ -210,7 +210,7 @@ let kpi_detail = {
               color: afterdata.color[1], // 空闲
               barBorderRadius: 0,
               label: {
-                show: true,
+                show: false,
                 position: "top",
                 formatter: function (p) {
                   return p.value > 0 ? p.value : "";
@@ -220,29 +220,6 @@ let kpi_detail = {
           },
 
           data: afterdata.stop,
-        },
-        {
-          // "name": "placeout",
-          name: afterdata.title[2],
-          type: "bar",
-          stack: "总量",
-          // barWidth: '20%',
-          barWidth: 10,
-          z: 2,
-          itemStyle: {
-            normal: {
-              color: afterdata.color[2], // 占位
-              barBorderRadius: 0,
-              label: {
-                show: true,
-                position: "top",
-                formatter: function (p) {
-                  return p.value > 0 ? p.value : "";
-                },
-              },
-            },
-          },
-          data: afterdata.placeon,
         },
         {
           // "name": "warning",
@@ -257,7 +234,7 @@ let kpi_detail = {
               color: afterdata.color[3], // 维保
               barBorderRadius: 0,
               label: {
-                show: true,
+                show: false,
                 position: "top",
                 formatter: function (p) {
                   return p.value > 0 ? p.value : "";
@@ -266,6 +243,29 @@ let kpi_detail = {
             },
           },
           data: afterdata.warning,
+        },
+        {
+          // "name": "placeout",
+          name: afterdata.title[2],
+          type: "bar",
+          stack: "总量",
+          // barWidth: '20%',
+          barWidth: 10,
+          z: 2,
+          itemStyle: {
+            normal: {
+              color: afterdata.color[2], // 占位
+              barBorderRadius: 0,
+              label: {
+                show: false,
+                position: "top",
+                formatter: function (p) {
+                  return p.value > 0 ? p.value : "";
+                },
+              },
+            },
+          },
+          data: afterdata.placeon,
         },
       ],
     };
@@ -297,6 +297,13 @@ let kpi_detail = {
         // textStyle: {
         //   color: "#90979c",
         // },
+      },
+      grid: {
+        left: "3%",
+        right: 30,
+        bottom: "10%",
+        top: "10%",
+        containLabel: true,
       },
       toolbox: {
         show: false,
@@ -348,7 +355,7 @@ let kpi_detail = {
       tooltip: {
         trigger: "axis", // item axis
         axisPointer: {
-          type: "cross",
+          type: "shadow",
           crossStyle: {
             color: "#999",
           },
@@ -370,17 +377,19 @@ let kpi_detail = {
       },
       grid: [
         {
-          top: "30%",
-          right: "10%",
-          left: "13%",
-          bottom: "15%",
+          top: "15%",
+          // right: "10%",
+          right: 30,
+          left: "10%",
+          bottom: "18%",
           // containLabel: true,
         },
         {
-          height: "20%",
+          height: 40,
           width: "20%",
-          right: 30,
-          top: "1%",
+          right: -30,
+          top: "0%",
+          // containLabel: true,
         },
       ],
       xAxis: [
@@ -426,11 +435,10 @@ let kpi_detail = {
       yAxis: [
         {
           type: "value", // value
-          // name: '水量',
           min: 0,
-          max: function (value) {
-            return Number((value.max + 100).toFixed(2));
-          },
+          // max: function (value) {
+          //   return Number((value.max + 100).toFixed(2));
+          // },
           interval: 50,
           gridIndex: 0,
           axisLabel: {
@@ -439,11 +447,8 @@ let kpi_detail = {
         },
         {
           type: "value",
-          // name: '温度',
           min: 0,
-          // max: function (value) {
-          //     return value.max + 100;
-          // },
+          show: false,
           max: 100,
           interval: 50,
           gridIndex: 0,
@@ -460,7 +465,9 @@ let kpi_detail = {
           axisTick: {
             show: false,
           },
-
+          axisPointer: {
+            show: false,
+          },
           data: afterdata.Total.yAxis.data,
         },
       ],
@@ -484,7 +491,7 @@ let kpi_detail = {
         right: "1%",
         top: "2%",
         subtextStyle: {
-          fontSize: 16,
+          fontSize: 14,
           color: "rgb(153,153,153)",
         },
       },
@@ -502,9 +509,9 @@ let kpi_detail = {
         data: ["占位", "运行"],
       },
       grid: {
-        left: "3%",
+        left: "4%",
         // right: '4%',
-        right: 30,
+        right: 0,
         bottom: "10%",
         top: "15%",
         containLabel: true,
@@ -522,11 +529,23 @@ let kpi_detail = {
       yAxis: [
         {
           type: "value",
+          id: 0,
+        },
+        {
+          type: "value",
+          min: 0,
+          show: true,
+          max: 100,
+          interval: 50,
+          id: 1,
+          axisLabel: {
+            formatter: "{value} %",
+          },
         },
       ],
       series: afterdata.Series,
     };
-    // console.error("option",JSON.stringify(option))
+    // console.error("option", JSON.stringify(option));
     // @ts-ignore
     mychart.setOption(option);
     mychart.resize();
@@ -541,8 +560,9 @@ let kpi_detail = {
       title: {
         subtext: afterdata.Total.name + "%",
         right: "1%",
+        top: "2%",
         subtextStyle: {
-          fontSize: 16,
+          fontSize: 14,
           color: "rgb(153,153,153)",
         },
       },
@@ -580,6 +600,11 @@ let kpi_detail = {
       yAxis: [
         {
           type: "value",
+          axisLabel: {
+            formatter: function (value, index) {
+              return value + "%";
+            },
+          },
         },
       ],
       series: afterdata.Series,
@@ -621,26 +646,26 @@ let kpi_detail = {
         grid: [
           {
             show: false,
-            left: "5%",
+            left: "6%",
             top: "15%",
             bottom: "14%",
             containLabel: true,
-            width: "37%",
+            width: "38%",
           },
           {
             show: false,
-            left: "41%",
+            left: "45%",
             top: "15%",
             bottom: "16%",
-            width: "10%",
+            width: "15%",
           },
           {
             show: false,
-            right: "15%",
+            right: 30,
             top: "15%",
             bottom: "14%",
             containLabel: true,
-            width: "42%",
+            width: "45%",
           },
         ],
         xAxis: [
@@ -657,7 +682,7 @@ let kpi_detail = {
             axisTick: {
               show: false,
             },
-            position: "top",
+            position: "bottom",
             axisLabel: {
               show: true,
               color: "black",
@@ -685,7 +710,7 @@ let kpi_detail = {
             axisTick: {
               show: false,
             },
-            position: "top",
+            position: "bottom",
             axisLabel: {
               show: true,
               color: "black",
@@ -745,6 +770,10 @@ let kpi_detail = {
               },
               align: "center",
             },
+            axisPointer: {
+              show: false,
+            },
+
             data: [
               {
                 value: "Dec",
@@ -834,6 +863,7 @@ let kpi_detail = {
             ],
           },
           {
+            offset: 14,
             gridIndex: 2,
             type: "category",
             inverse: true,
@@ -851,7 +881,7 @@ let kpi_detail = {
             axisLabel: {
               show: true,
               interval: 0,
-              margin: 14,
+              margin: 0,
               textStyle: {
                 color: "black",
                 fontSize: 12,
@@ -928,6 +958,7 @@ let kpi_detail = {
     // console.error("=========", JSON.stringify(option));
     mychart.resize();
   },
+
   // 第三行第二个
   three_row_two(element, afterdata) {
     // @ts-ignore
@@ -968,11 +999,12 @@ let kpi_detail = {
         data: afterdata.legend,
       },
       grid: {
-        top: "20%",
-        bottom: "20%",
-        // left: "5%",
+        top: "15%",
+        bottom: "10%",
+        left: "3.4%",
         // right: '5%'
         right: 30,
+        containLabel: true,
       },
       xAxis: [
         {
@@ -990,7 +1022,14 @@ let kpi_detail = {
       ],
       yAxis: [
         {
+          name: "(次数)",
           type: "value",
+          nameTextStyle: {
+            align: "left",
+            fontSize: 12,
+            verticalAlign: "top",
+          },
+
           axisLabel: {
             formatter: function (value, index) {
               if (value >= 1000 && value < 1000 * 10) {
@@ -1006,7 +1045,7 @@ let kpi_detail = {
       ],
       series: [
         {
-          name: "error",
+          name: afterdata.legend[0], // error
           type: "bar",
           barWidth: 10,
           barGap: 0,
@@ -1014,14 +1053,14 @@ let kpi_detail = {
           data: afterdata.error,
         },
         {
-          name: "warning",
+          name: afterdata.legend[1], // warning
           type: "bar",
           barWidth: 10,
           // label: labelOption,
           data: afterdata.warning,
         },
         {
-          name: "info",
+          name: afterdata.legend[2], // info
           type: "bar",
           barWidth: 10,
           // label: labelOption,
@@ -1043,7 +1082,6 @@ let kpi_detail = {
         trigger: "axis",
         formatter: function (params) {
           var value = params[0].value;
-          console.log(value);
           if (value === 0) {
             return (
               params[0].name + "<br />" + params[0].seriesName + ":" + "停"
@@ -1058,17 +1096,19 @@ let kpi_detail = {
       grid: {
         left: "3%",
         right: "4%",
-        bottom: "3%",
+        bottom: "10%",
+        top: "15%",
         containLabel: true,
       },
       xAxis: {
         type: "category",
+        splitNumber: 48,
         // data: [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24],
         data: afterdata.xData,
       },
       yAxis: {
         type: "value",
-        max: 2,
+        // max: 2,
         axisLine: {
           show: false,
         },
@@ -1097,7 +1137,7 @@ let kpi_detail = {
           data: afterdata.SeriesData,
           lineStyle: {
             color: "rgb(138,43,226)",
-            width: 4,
+            width: 2,
           },
           areaStyle: {
             color: "rgb(138,43,226,0.3)",
