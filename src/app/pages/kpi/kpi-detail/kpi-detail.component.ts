@@ -160,8 +160,8 @@ export class KpiDetailComponent implements OnInit {
         });
         for (let index = 0; index < 12; index++) {
           const xdata = success.xdata[index];
-          const ydata = success.ydata[index];
-          const noydata = nosuccess.ydata[index];
+          const ydata = success.ydata[index] ? success.ydata[index] : 0;
+          const noydata = nosuccess.ydata[index] ? nosuccess.ydata[index] : 0;
           // x
           if (xdata) {
             var _index = defalultdata.Xdata.indexOf(xdata);
@@ -575,14 +575,14 @@ export class KpiDetailComponent implements OnInit {
                 textStyle: {
                   // color: "#5D920D",
                   color: "#ACACAC",
-                  fontSize: 14,
+                  fontSize: 13,
                 },
               },
               {
                 value: _columns["endyear"] + "年利用率:",
                 textStyle: {
                   // color: "#3333FF",
-                  fontSize: 14,
+                  fontSize: 13,
                   color: "#ACACAC",
                 },
               },

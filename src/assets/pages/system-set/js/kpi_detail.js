@@ -42,7 +42,7 @@ let kpi_detail = {
         // right: '4%',
         right: 30,
         bottom: "10%",
-        top: "10%",
+        top: "15%",
         containLabel: true,
       },
       xAxis: [
@@ -61,6 +61,13 @@ let kpi_detail = {
       ],
       yAxis: [
         {
+          name: "(个)",
+          nameTextStyle: {
+            align: "left",
+            fontSize: 12,
+            verticalAlign: "top",
+          },
+
           type: "value",
           max: function (value) {
             return value.max * 1.7;
@@ -100,7 +107,7 @@ let kpi_detail = {
         // right: '4%',
         right: 30,
         bottom: "10%",
-        top: "10%",
+        top: "15%",
         containLabel: true,
       },
 
@@ -134,6 +141,13 @@ let kpi_detail = {
       ],
       yAxis: [
         {
+          name: "(h)",
+          nameTextStyle: {
+            align: "left",
+            fontSize: 12,
+            verticalAlign: "top",
+          },
+
           type: "value",
           splitLine: {
             show: true,
@@ -149,13 +163,13 @@ let kpi_detail = {
           axisLabel: {
             interval: 0,
             formatter: function (value, index) {
-              if (value >= 1000 && value < 1000 * 10) {
-                return value / 1000 + "千h";
-              }
-              if (value >= 1000 * 10) {
-                return value / 10000 + "万h";
-              }
-              return value + "h";
+              // if (value >= 1000 && value < 1000 * 10) {
+              //   return value / 1000 + "千h";
+              // }
+              // if (value >= 1000 * 10) {
+              //   return value / 10000 + "万h";
+              // }
+              return value;
             },
             // formatter: "{value} h",
           },
@@ -302,7 +316,7 @@ let kpi_detail = {
         left: "3%",
         right: 30,
         bottom: "10%",
-        top: "10%",
+        top: "15%",
         containLabel: true,
       },
       toolbox: {
@@ -323,15 +337,22 @@ let kpi_detail = {
       ],
       yAxis: [
         {
+          name: "(h)",
+          nameTextStyle: {
+            align: "left",
+            fontSize: 12,
+            verticalAlign: "top",
+          },
+
           type: "value",
           axisLabel: {
             formatter: function (value, index) {
-              if (value >= 1000 && value < 1000 * 10) {
-                return value / 1000 + "千";
-              }
-              if (value >= 1000 * 10) {
-                return value / 10000 + "万";
-              }
+              // if (value >= 1000 && value < 1000 * 10) {
+              //   return value / 1000 + "千";
+              // }
+              // if (value >= 1000 * 10) {
+              //   return value / 10000 + "万";
+              // }
               return value;
             },
           },
@@ -442,7 +463,7 @@ let kpi_detail = {
           interval: 50,
           gridIndex: 0,
           axisLabel: {
-            formatter: "{value}",
+            formatter: "{value}%",
           },
         },
         {
@@ -491,7 +512,7 @@ let kpi_detail = {
         right: "1%",
         top: "2%",
         subtextStyle: {
-          fontSize: 14,
+          fontSize: 13,
           color: "rgb(153,153,153)",
         },
       },
@@ -530,6 +551,12 @@ let kpi_detail = {
         {
           type: "value",
           id: 0,
+          name: "(h)",
+          nameTextStyle: {
+            align: "left",
+            fontSize: 12,
+            verticalAlign: "top",
+          },
         },
         {
           type: "value",
@@ -562,7 +589,7 @@ let kpi_detail = {
         right: "1%",
         top: "2%",
         subtextStyle: {
-          fontSize: 14,
+          fontSize: 13,
           color: "rgb(153,153,153)",
         },
       },
@@ -1022,7 +1049,7 @@ let kpi_detail = {
       ],
       yAxis: [
         {
-          name: "(次数)",
+          name: "(次)",
           type: "value",
           nameTextStyle: {
             align: "left",
@@ -1032,12 +1059,12 @@ let kpi_detail = {
 
           axisLabel: {
             formatter: function (value, index) {
-              if (value >= 1000 && value < 1000 * 10) {
-                return value / 1000 + "千";
-              }
-              if (value >= 1000 * 10) {
-                return value / 10000 + "万";
-              }
+              // if (value >= 1000 && value < 1000 * 10) {
+              //   return value / 1000 + "千";
+              // }
+              // if (value >= 1000 * 10) {
+              //   return value / 10000 + "万";
+              // }
               return value;
             },
           },
@@ -1115,6 +1142,7 @@ let kpi_detail = {
         axisTick: {
           show: false,
         },
+        max: 2,
         splitNumber: 2, // 粉三段
         minInterval: 1,
         axisLabel: {
@@ -1130,7 +1158,7 @@ let kpi_detail = {
 
       series: [
         {
-          name: "Step Start",
+          name: "启停状态",
           type: "line",
           step: "start",
           // data: [1, 0, 1, 0, 1, 0,1,1,1,0,1,1,1,0,0,0,0,0,0,0,1,1,0,1,1,1,0,1,1,0],
@@ -1146,8 +1174,8 @@ let kpi_detail = {
       ],
     };
     // @ts-ignore
-    // console.error("option", JSON.stringify(option));
     mychart.setOption(option);
+    // console.error("option", JSON.stringify(option));
     mychart.resize();
   },
 
