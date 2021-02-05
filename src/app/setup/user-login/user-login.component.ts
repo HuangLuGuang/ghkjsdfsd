@@ -20,8 +20,6 @@ import {
   loginurl,
   SSOUSERINFO,
   LOGIN_INFO,
-  sso_app_key,
-  sso_url,
 } from "../../appconfig";
 import { HttpserviceService } from "../../services/http/httpservice.service";
 import { HttpHeaders, HttpClient } from "@angular/common/http";
@@ -219,12 +217,8 @@ export class UserLoginComponent implements OnInit {
   proofSso() {
     // 得到url中的ticket
     var currenturl = this.publicmethodService.get_current_search();
-<<<<<<< HEAD
-    var appKey = sso_app_key;
-=======
     var appKey = environment.appKey;
     // var appKey = "6d38d93e-ed9d-406f-a728-86b1a3f0fb47"; // appKey
->>>>>>> 4d256ff7bd268f69e81f13c430f49b56e01efaf7
     // var redirectUrl = "http://10.190.69.78/setup/login"
     var redirectUrl = this.redirectUrl;
     var redirectUrlIp = this.redirectUrlIp;
