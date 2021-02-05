@@ -1,21 +1,26 @@
-import { Component } from '@angular/core';
+import { Component } from "@angular/core";
 
 @Component({
-  selector: 'ngx-one-column-layout',
-  styleUrls: ['./one-column.layout.scss'],
+  selector: "ngx-one-column-layout",
+  styleUrls: ["./one-column.layout.scss"],
   template: `
     <nb-layout windowMode>
       <nb-layout-header fixed>
         <ngx-header></ngx-header>
       </nb-layout-header>
-      
+
       <!-- <nb-sidebar class="menu-sidebar" tag="menu-sidebar" state="collapsed" responsive> -->
       <!-- <nb-sidebar class="menu-sidebar" tag="menu-sidebar" state="compacted" responsive> -->
-      <nb-sidebar class="menu-sidebar" tag="menu-sidebar" state="expanded" responsive>
+      <nb-sidebar
+        class="menu-sidebar"
+        tag="menu-sidebar"
+        state="expanded"
+        responsive
+      >
         <ng-content select="nb-menu"></ng-content>
       </nb-sidebar>
 
-      <nb-layout-column style="padding: 11px 11px;">
+      <nb-layout-column style="padding: 11px 11px 8px 11px;">
         <ng-content select="router-outlet"></ng-content>
       </nb-layout-column>
 
