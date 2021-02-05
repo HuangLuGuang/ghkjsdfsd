@@ -20,6 +20,8 @@ import {
   loginurl,
   SSOUSERINFO,
   LOGIN_INFO,
+  sso_app_key,
+  sso_url,
 } from "../../appconfig";
 import { HttpserviceService } from "../../services/http/httpservice.service";
 import { HttpHeaders, HttpClient } from "@angular/common/http";
@@ -214,7 +216,7 @@ export class UserLoginComponent implements OnInit {
   proofSso() {
     // 得到url中的ticket
     var currenturl = this.publicmethodService.get_current_search();
-    var appKey = "6d38d93e-ed9d-406f-a728-86b1a3f0fb47";
+    var appKey = sso_app_key;
     // var redirectUrl = "http://10.190.69.78/setup/login"
     var redirectUrl = this.redirectUrl;
     var redirectUrlIp = this.redirectUrlIp;
@@ -228,7 +230,8 @@ export class UserLoginComponent implements OnInit {
       // console.log("SSO登录的url：", url);
       if (currenturl === "") {
         // 当前url没有传递参数！重定向到统一认证平台！
-        var url = `http://passport-test.test.geely.com/html/?appKey=${appKey}&redirectUrl=${redirectUrl}`;
+        // var url = `http://passport-test.test.geely.com/html/?appKey=${appKey}&redirectUrl=${redirectUrl}`;
+        var url = `${sso_url}/html/?appKey=${appKey}&redirectUrl=${redirectUrl}`;
         // this.router.navigate([url]);
         // window.location.href = "http://www.baidu.com";
         localStorage.setItem("SSO", "true"); // important notice
