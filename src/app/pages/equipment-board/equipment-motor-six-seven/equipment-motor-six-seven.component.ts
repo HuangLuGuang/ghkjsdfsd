@@ -84,24 +84,24 @@ export class EquipmentMotorSixSevenComponent implements OnInit {
         [1, '#0d1758']],unit:'℃',un:'常温'
       }
     },
-    // {
-    //   id:'motor_chart_g_4',
-    //   dataLine:{
-    //     value:12,name:'实时湿度',max:100,color:[
-    //       [0, '#203add'],
-    //       [1, '#0d1758']],unit:'%PH'
-    //   }
-    // }
+    {
+      id:'motor_chart_g_4',
+      dataLine:{
+        value:12,name:'实时湿度',max:100,color:[
+          [0, '#203add'],
+          [1, '#0d1758']],unit:'%PH'
+      }
+    }
   ];
   HealthParam_right_chart = [
     { 
       name: "实时温度",nameEn: "实时温度", unit: "℃",value: []
       ,color:[colors[0],colors[0]]
     },
-    // { 
-    //     name: "实时湿度",nameEn: "实时湿度", unit: "%PH",value: [],
-    //     color:[colors[1],colors[1]]
-    // }
+    { 
+        name: "实时湿度",nameEn: "实时湿度", unit: "%PH",value: [],
+        color:[colors[1],colors[1]]
+    }
   ]
   HealthParam_right_xdata = [];
 
@@ -201,6 +201,12 @@ export class EquipmentMotorSixSevenComponent implements OnInit {
   ];
   speedTorque_xData = [];
 
+   //设备介绍
+   introd_name = 'dj_';
+   equipIntroduceList = [
+     {title:''}
+   ]
+   
 
   motor:any = {};
 
@@ -227,12 +233,22 @@ export class EquipmentMotorSixSevenComponent implements OnInit {
          document.getElementById('head_title').innerText = f.title;
           if(f.deviceid == 'six'){
             this.boyang_deviceid = 'device_boyang_01';
-            this.ct_deviceid = 'device_ct_01';
-            this.th_deviceid = 'device_thbox_01';
+            this.ct_deviceid = 'device_thermostat_01';
+            this.th_deviceid = 'device_motor_cabin01';
           }else if(f.deviceid == 'seven'){
             this.boyang_deviceid = 'device_boyang_02';
-            this.ct_deviceid = 'device_ct_02';
-            this.th_deviceid = 'device_thbox_02';
+            this.ct_deviceid = 'device_thermostat_02';
+            this.th_deviceid = 'device_motor_cabin02';
+          }
+          switch(this.boyang_deviceid){
+            case 'device_boyang_01':
+              this.img.url = 'assets/eimdoard/equipment/images/dj6_1011.jpeg';
+              this.introd_name+='6';
+              break;
+            case 'device_boyang_02':
+              this.img.url = 'assets/eimdoard/equipment/images/dj7_1012.jpeg';
+              this.introd_name+='7';
+              break;
           }
      })
 
@@ -359,7 +375,7 @@ export class EquipmentMotorSixSevenComponent implements OnInit {
     })
   }
 
-  //中间最下面表
+  //电机表
   get_motor_list(){
     // 直线电压 直线电流 直线功率
     // urms4,irms4,prms4
@@ -400,32 +416,55 @@ export class EquipmentMotorSixSevenComponent implements OnInit {
       //       data[key] = el[key][0][0];
       //     }
       //   });
+      // 'tempactual',//温度
+      // 'humiactual',//湿度
+      // 'tempset',//温度设定值
+      // 'humiset',//湿度设定值
+      setTimeout(() => {
+        
+        this.HealthParam_right_chart[0].value = res[0].tempactual.map(m =>m[0]);
+        this.HealthParam_right_chart[1].value = res[1].humiactual.map(m =>m[0]);
+        if(this.HealthParam_right_chart[0].value.length> this.HealthParam_right_chart[1].value.length){
+          xdata = res[0].tempactual.map(m => (dateformat(new Date(rTime(m[1])),'hh:mm:ss')))
+        }else{
+          xdata = res[1].humiactual.map(m => (dateformat(new Date(rTime(m[1])),'hh:mm:ss')))
+        }
+        this.HealthParam_right_xdata = xdata;
+  
+        if(document.getElementById('motor_chart_2'))
+          equipment_four_road.create_real_discharge(
+            {attrs:this.HealthParam_right_chart,xData:this.HealthParam_right_xdata,title:''},
+            echarts.init(document.getElementById('motor_chart_2')));
+      }, 10);
 
-      res[0].temperaturereal.forEach(el => {
-        data.push(el[0]);
-        xdata.push(el[1]);
-      });
-      this.HealthParam_right_chart[0].value = data;
-      this.HealthParam_right_xdata = xdata;
-
-      if(document.getElementById('motor_chart_2'))
-        equipment_four_road.create_real_discharge(
-          {attrs:this.HealthParam_right_chart,xData:this.HealthParam_right_xdata,title:''},
-          echarts.init(document.getElementById('motor_chart_2')));
-
-
-      let max =this.HealthParam_right[0].dataLine.max;
+      // 'tempactual',//温度
+      // 'humiactual',//湿度
+      // 'tempset',//温度设定值
+      // 'humiset',//湿度设定值
+      
+      let dataLine =this.HealthParam_right[0].dataLine;
+      let set = res[2].tempset.length > 0? res[2].tempset[res[2].tempset.length-1][0]:0;
       //仪表盘
-      this.HealthParam_right[0].dataLine.value = data.length > 0?data[data.length-1]:0;
-      this.HealthParam_right[0].dataLine.color[0] = [this.HealthParam_right[0].dataLine.value/max,'#203add'];
+      dataLine.value = res[0].tempactual.length > 0? res[1].tempset[res[0].tempactual.length-1][0]:0;
+      dataLine.color[0] = [dataLine.max?(set/dataLine.max):0,'#203add'];
       if(document.getElementById(this.HealthParam_right[0].id))
         equipment_four_road.create_temp_h_1_p_gauge(
           this.HealthParam_right[0].dataLine
           ,echarts.init(document.getElementById(this.HealthParam_right[0].id)));
+
+      dataLine = this.HealthParam_right[1].dataLine;
+      set = res[3].humiset.length > 0? res[3].humiset[res[3].humiset.length-1][0]:0;
+      //仪表盘
+      dataLine.value = res[1].humiactual.length > 0? res[1].humiset[res[1].humiactual.length-1][0]:0;
+      dataLine.color[0] = [dataLine.max?(set/dataLine.max):0,'#203add'];
+      if(document.getElementById(this.HealthParam_right[1].id))
+        equipment_four_road.create_temp_h_1_p_gauge(
+          this.HealthParam_right[1].dataLine
+          ,echarts.init(document.getElementById(this.HealthParam_right[1].id)));
     })
   }
 
-
+  //冷却水
   get_left_data(){
     let res;
     this.subscribeList.left = this.http.callRPC('device_realtime_list',library+'device_realtime_list',
@@ -596,6 +635,8 @@ export const ct_param = [
 ]
 
 export const th_param = [
-  'temperaturereal',//温度
-  'temperatureset'//温度设定值
+  'tempactual',//温度
+  'humiactual',//湿度
+  'tempset',//温度设定值
+  'humiset',//湿度设定值
 ]

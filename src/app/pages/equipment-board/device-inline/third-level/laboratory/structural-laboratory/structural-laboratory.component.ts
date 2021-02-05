@@ -87,7 +87,14 @@ export class StructuralLaboratoryComponent implements OnInit {
       speed_name:[''],//实验名称
       router:''
     },
-    {},
+    {
+      name:'四门两盖01',
+      src:'assets/eimdoard/equipment/images/slz.png',//实验图片路径
+      andon:0,
+      speed:[],
+      speed_name:[''],//实验名称
+      router:'pages/equipment/jinhua-4d2c-01/四门两盖开闭耐久实验台1/one'
+    },
     {},
     {},
     {},
@@ -110,6 +117,8 @@ export class StructuralLaboratoryComponent implements OnInit {
     'device_mts_03':this.list[2],//六自由度振动台
     "device_mts_04":this.list[3],//液压伺服
     'device_skylight_01':this.list[5],//天窗开闭
+
+    'device_4d2c_02':this.list[9]//四门两盖01
   }
   timer:any;
   constructor(private router:Router,private http:HttpserviceService,private thrid:ThirdLevelService,

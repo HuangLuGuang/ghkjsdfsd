@@ -10,5 +10,8 @@
   },
   "/geely-info": {
     "target": "http://172.22.122.51"
+  },
+  "/geely-cancel-token": {
+    "target": "http://172.22.122.51"
   }
 }

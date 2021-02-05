@@ -55,7 +55,16 @@ export class LeftLayoutComponent implements OnInit {
     $('#left_table').scrollTop(top);
     this.top = top;
   }
-  
+
+  mouseover(){
+    console.log('-------------移出---------------');
+    // clearInterval(this.timer);
+  }
+
+  mousemove(){
+    console.log('-------------移入---------------');
+    // this.timer = setInterval(this.scroll,100);
+  }
   // create_scrollbar(){
   //   $('#s').width( $('#table_body_2').width())
   // }

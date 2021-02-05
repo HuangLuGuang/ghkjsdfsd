@@ -22,8 +22,8 @@
         <div class="col-md-4" style="padding: 0px 20px;">
             <div class="sceond_fisrt height_29">
                 <div class="part_title">{{ 'equipment.equipIntroduce'|translate}}</div>
-                <div style="padding: 20px;overflow: auto;">
-                </div>
+                <ngx-equip-introduce style="width: 100%;" [name]="introd_name" [equipIntroduceList]="equipIntroduceList"></ngx-equip-introduce>
+
             </div>
             <div class="center_img">
                 <div class="part_title">{{'equipment.OnlineVideo'|translate}}</div>
@@ -47,15 +47,15 @@
             <div class="sceond_third height_31" style="flex-wrap: wrap;">
                 <div class="part_title">{{ 'equipment.EquipmentHealthParam'|translate}}</div>
                 <div class="dis_f_w center_center width_100 height_50">
-                    <div id="motor_chart_g_3" class="height_100" style="width: 100%;"></div>
-                    <!-- <div id="motor_chart_g_4" class="height_100" style="width: 50%;"></div> -->
+                    <div id="motor_chart_g_3" class="height_100" style="width: 50%;"></div>
+                    <div id="motor_chart_g_4" class="height_100" style="width: 50%;"></div>
                 </div>
                 <div id="motor_chart_2" class="width_100 height_50"></div>
             </div>
             <div class="height_67 bo" style="margin-top: 20px;position: relative;">
                 <div class="part_title">{{ 'equipment.real'|translate }}{{ 'equipment.motor.MotorParam'|translate }}
                 </div>
-                <div class="height_17 dis_f" style="margin-top: 20px;">
+                <div class="height_19 dis_f" style="margin-top: 20px;">
                     <div id="dashboard_67" class="height_100" style="margin-left: 10%;width: 60%;">
                     </div>
                     <div style="width: 40%;" class="c_c height_100">

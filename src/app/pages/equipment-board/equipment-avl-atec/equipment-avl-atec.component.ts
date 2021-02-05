@@ -48,9 +48,12 @@ export class EquipmentAvlAtecComponent implements OnInit {
 
 
   avl_paramlist = [
-    {value:0,name:'drumDragCoeff_F0D',unit:'N'},
-    {value:0,name:'drumDragCoeff_F1D',unit:'N/km/h'},
-    {value:0,name:'drumDragCoeff_F2D',unit:'N/(km/h)^2'},
+    // {value:0,name:'drumDragCoeff_F0D',unit:'N'},
+    // {value:0,name:'drumDragCoeff_F1D',unit:'N/km/h'},
+    // {value:0,name:'drumDragCoeff_F2D',unit:'N/(km/h)^2'},
+    {value:'12',name:'drumDragCoeff_F0D',unit:'N'},
+    {value:'12',name:'drumDragCoeff_F1D',unit:'N/km/h'},
+    {value:'12',name:'drumDragCoeff_F2D',unit:'N/(km/h)^2'},
   ]
 
 
@@ -200,7 +203,10 @@ export class EquipmentAvlAtecComponent implements OnInit {
       this.get_light();
       this.get_avl_d();
       if(i%60 == 0){
-        this.get_light_list();
+        setTimeout(() => {
+          this.get_light_list();
+        }, 10);
+        this.get_avl_d_list();
       }
       i++;
     },1000)
@@ -311,44 +317,57 @@ export class EquipmentAvlAtecComponent implements OnInit {
         });
       
       
-      this.gauge[0].dataLine.value = data.f;
-      this.gauge[1].dataLine.value = data.v;
-      this.gauge[2].dataLine.value = data.a;
-      this.gauge[3].dataLine.value = data.p;
+      this.gauge[0].dataLine.value = data.f ||0;
+      this.gauge[1].dataLine.value = data.v||0;
+      this.gauge[2].dataLine.value = data.a||0;
+      this.gauge[3].dataLine.value = data.p||0;
       [this.gauge[0],this.gauge[1],this.gauge[2],this.gauge[3]].forEach(f=>{
         if(document.getElementById(f.id))
           equipment_four_road.create_temp_h_1_p_gauge(
             f.dataLine
             ,echarts.init(document.getElementById(f.id)));
       })
-      this.avl_paramlist[0].value = data.f0r;
-      this.avl_paramlist[1].value = data.f1r;
-      this.avl_paramlist[2].value = data.f2r;
+      // this.avl_paramlist[0].value = data.f0r;
+      // this.avl_paramlist[1].value = data.f1r;
+      // this.avl_paramlist[2].value = data.f2r;
+      this.avl_paramlist[0].value = data.f0d ||0;
+      this.avl_paramlist[1].value = data.f1d ||0;
+      this.avl_paramlist[2].value = data.f2d ||0;
 
 
-      this.mileage[0].value = data.distance1;
-      this.mileage[1].value = data.distance2;
-      this.mileage[2].value = data.distance3;
-      this.mileage[3].value = data.distance4;
+      this.mileage[0].value = data.distance1 ||0;
+      this.mileage[1].value = data.distance2 ||0;
+      this.mileage[2].value = data.distance3 ||0;
+      this.mileage[3].value = data.distance4 ||0;
 
-      this.avl_chart[0].value.push(data.v);
-      this.avl_chart[1].value.push(data.a);
-      this.avl_xdata.push(rTime(res?res[0].v[0][1]: ''));
-      if(this.avl_xdata.length>10){
-        this.avl_xdata.splice(0,1);
-        this.avl_chart.forEach(f=>{
-          f.value.splice(0,1);
-        })
+      
+      this.inertia = data.rw||0;
+
+    })
+  }
+
+  get_avl_d_list(){
+    let res,xdata:any = [];
+    this.http.callRPC('device_realtime_list',library+'device_realtime_list',{
+      deviceid:this.avl_deviceid,arr:'v,a'
+    }).subscribe((g:any)=>{
+      if(g.result.error || g.result.message[0].code == 0)return;
+      res = g.result.message[0].message;
+      this.avl_chart[0].value = res[0].v.map(m =>(m[0]));
+      this.avl_chart[1].value = res[1].a.map(m =>(m[0]));
+      if(this.avl_chart[0].value.length > this.avl_chart[1].value.length){
+        xdata  = res[0].v.map(m => (dateformat(new Date(rTime(m[1])),'hh:mm:ss')));
+      }else{
+        xdata  = res[1].a.map(m => (dateformat(new Date(rTime(m[1])),'hh:mm:ss')));
       }
+      this.avl_xdata = xdata;
       if(document.getElementById('avl_param_chart_2'))
           equipment_four_road.create_broken_line({
             title:'速度/加速度曲线',
             series:this.avl_chart,
             xData:this.avl_xdata,
           },echarts.init(document.getElementById('avl_param_chart_2')));
-      this.inertia = data.rw;
-
-    })
+    });
   }
 
 
@@ -417,9 +436,12 @@ export const avl_param = [
   'f',//轮速力
   'p',//功率
   'a',//加速度
-  'f0r',//道路模拟器阻力系数F0R
-  'f1r',//道路模拟器阻力系数F1R
-  'f2r',//道路模拟器阻力系数F2R
+  // 'f0r',//道路模拟器阻力系数F0R
+  // 'f1r',//道路模拟器阻力系数F1R
+  // 'f2r',//道路模拟器阻力系数F2R
+  'f0d',//转鼓阻力系数F0D
+  'f1d',//转鼓阻力系数F1D
+  'f2d',//转鼓阻力系数F2D
   'distance1',//里程1
   'distance2',//里程2
   'distance3',//里程3

@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { HttpserviceService } from '../../../services/http/httpservice.service';
-import { colors, create_img_16_9, library, rTime } from '../equipment-board';
+import { colors, create_img_16_9, dateformat, library, rTime } from '../equipment-board';
 import { EquipmentBoardService } from '../serivice/equipment-board.service';
 
 let equipment_four_road = require('../../../../assets/eimdoard/equipment/js/equipment-four-road');
@@ -42,9 +42,9 @@ export class CentralFourJinhuaComponent implements OnInit {
     // {value:'12',name:'roadAnalogyDragCoeff_F0R',unit:'N'},
     // {value:'12',name:'roadAnalogyDragCoeff_F1R',unit:'N/km/h'},
     // {value:'12',name:'roadAnalogyDragCoeff_F2R',unit:'N/(km/h)^2'},
-    // {value:'12',name:'drumDragCoeff_F0D',unit:'N'},
-    // {value:'12',name:'drumDragCoeff_F1D',unit:'N/km/h'},
-    // {value:'12',name:'drumDragCoeff_F2D',unit:'N/(km/h)^2'},
+    {value:'12',name:'drumDragCoeff_F0D',unit:'N'},
+    {value:'12',name:'drumDragCoeff_F1D',unit:'N/km/h'},
+    {value:'12',name:'drumDragCoeff_F2D',unit:'N/(km/h)^2'},
   ]
 
   gauge =[
@@ -83,12 +83,13 @@ export class CentralFourJinhuaComponent implements OnInit {
     {value:[],name:'速度',unit:'km/h',color:[colors[1],colors[1]]},
     {value:[],name:'加速度',unit:'m/s^2',color:[colors[2],colors[2]]},
   ]
+  gauge_xData = [];
+
   //轮转力曲线
   gauge_chart_1 = [
     {value:[],name:'轮边力',unit:'N',color:[colors[0],colors[0]]},
   ]
-  gauge_xData = [];
-
+  gauge_1_xData = [];
 
   jinhua:any = {};
   //环境仓
@@ -216,10 +217,14 @@ export class CentralFourJinhuaComponent implements OnInit {
   
 
   getData(){
-    
+    let i = 0;
     this.timer = self.setInterval(() =>{
       this.get_four();
       this.get_jinhua();
+      if(i%60 == 0){
+        this.get_four_list();
+      }
+      i++;
     },1000)
     
     
@@ -251,7 +256,7 @@ export class CentralFourJinhuaComponent implements OnInit {
       this.discharge[4].value = data.n0||0;
       this.discharge[5].value = data.n1||0;
       this.discharge[6].value = data.n2||0;
-      this.discharge_chart[0].value.push(data.p||0);
+      
 
       // this.discharge_chart[0].value.push(data.distance1);
       // this.discharge_chart[1].value.push(data.distance2);
@@ -260,32 +265,16 @@ export class CentralFourJinhuaComponent implements OnInit {
       // this.discharge_chart[4].value.push(data.n0);
       // this.discharge_chart[5].value.push(data.n1);
       // this.discharge_chart[6].value.push(data.n2);
-      this.discharge_xdata.push(rTime(res && res[0]?res[0].v[0][1]:'0'));//x轴时间
-      if(this.discharge_xdata.length>10){
-        this.discharge_xdata.splice(0,1);
-        this.discharge_chart.forEach(g=>{
-          g.value.splice(0,1);
-        })
-      }
-
-      if(document.getElementById('avl_discharge_chart')){
-        let myChart_8 = echarts.init(document.getElementById('avl_discharge_chart'));;
-        equipment_four_road.create_broken_line(
-          {
-            series:this.discharge_chart,
-            xData:this.discharge_xdata,
-            title:'功率曲线'
-          },myChart_8);
-      }
+      
 
       // 道路模拟阻力系数
       // this.avl_paramlist[0].value = data.f0r ||0;
       // this.avl_paramlist[1].value = data.f1r||0;
       // this.avl_paramlist[2].value = data.f2r||0;
       //转鼓阻力系数
-      // this.avl_paramlist[3].value = data.f0d;
-      // this.avl_paramlist[4].value = data.f1d;
-      // this.avl_paramlist[5].value = data.f2d;
+      this.avl_paramlist[0].value = data.f0d ||0;
+      this.avl_paramlist[1].value = data.f1d || 0;
+      this.avl_paramlist[2].value = data.f2d ||0;
 
 
 
@@ -306,33 +295,9 @@ export class CentralFourJinhuaComponent implements OnInit {
           ,echarts.init(document.getElementById(el.id)));
       });
 
-      // this.gauge_chart[0].value.push(data.f);
-      this.gauge_chart[0].value.push(data.v||0);
-      this.gauge_chart[1].value.push(data.a||0);
-      // this.gauge_chart[0].value.push(data.p);
-      this.gauge_xData.push(rTime(res && res[0]?res[0].v[0][1]:'0'));
-      if(this.gauge_xData.length>10){
-        this.gauge_xData.splice(0,1);
-        this.gauge_chart.forEach(g=>{
-          g.value.splice(0,1);
-        })
-      }
-      if(document.getElementById('avl_param_chart_1'))
-        equipment_four_road.create_broken_line({
-        series:this.gauge_chart,
-        xData:this.gauge_xData,
-        title:'速度/加速度曲线'
-        },echarts.init(document.getElementById('avl_param_chart_1')));
+      
 
-      this.gauge_chart_1[0].value.push(data.f||0);
-      if(this.gauge_chart_1.length>10){
-        this.gauge_chart_1.splice(0,1);
-      }
-      if(document.getElementById('avl_param_chart_2'))equipment_four_road.create_broken_line({
-        series:this.gauge_chart_1,
-        xData:this.gauge_xData,
-        title:'轮边力曲线'
-        },echarts.init(document.getElementById('avl_param_chart_2')));
+    
       
 
       //取消订阅
@@ -340,6 +305,54 @@ export class CentralFourJinhuaComponent implements OnInit {
       // console.log(data)
       // console.log(res)
     })
+  }
+
+  get_four_list(){
+    let res;
+    this.http.callRPC('device_realtime_list',library+'device_realtime_list',{
+      deviceid:this.deviceid_four,arr:'p,a,v,f'
+    }).subscribe((g:any)=>{
+      if(g.result.error || g.result.message[0].code == 0)return;
+      res = g.result.message[0].message;
+      setTimeout(() => {
+        this.discharge_chart[0].value = res[0].p.map(m =>(m[0]));
+        this.discharge_xdata =  res[0].p.map(m => (dateformat(new Date(rTime(m[1])),'hh:mm:ss')));;
+        if(document.getElementById('avl_discharge_chart')){
+          let myChart_8 = echarts.init(document.getElementById('avl_discharge_chart'));;
+          equipment_four_road.create_broken_line(
+            {
+              series:this.discharge_chart,
+              xData:this.discharge_xdata,
+              title:'功率曲线'
+            },myChart_8);
+        }
+      }, 10);
+
+      setTimeout(() => {
+        this.gauge_chart[0].value = res[1].a.map(m =>(m[0]));
+        this.gauge_chart[1].value = res[2].v.map(m =>(m[0]));
+        if(this.gauge_chart[0].value.length > this.gauge_chart[1].value.length){
+          this.gauge_xData = res[1].a.map(m => (dateformat(new Date(rTime(m[1])),'hh:mm:ss')));;
+        }else{
+          this.gauge_xData = res[2].v.map(m => (dateformat(new Date(rTime(m[1])),'hh:mm:ss')));;
+        }
+        if(document.getElementById('avl_param_chart_1'))
+          equipment_four_road.create_broken_line({
+          series:this.gauge_chart,
+          xData:this.gauge_xData,
+          title:'速度/加速度曲线'
+          },echarts.init(document.getElementById('avl_param_chart_1')));
+      }, 20);
+
+      this.gauge_chart_1[0].value = res[3].f.map(m =>(m[0]));
+      this.gauge_1_xData = res[3].f.map(m => (dateformat(new Date(rTime(m[1])),'hh:mm:ss')));;
+      if(document.getElementById('avl_param_chart_2'))equipment_four_road.create_broken_line({
+        series:this.gauge_chart_1,
+        xData:this.gauge_1_xData,
+        title:'轮边力曲线'
+        },echarts.init(document.getElementById('avl_param_chart_2')));
+
+    });
   }
 
   get_jinhua(){
