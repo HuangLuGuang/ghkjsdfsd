@@ -232,6 +232,7 @@ export class UserLoginComponent implements OnInit {
       // console.log("SSO登录的url：", url);
       if (currenturl === "") {
         // 当前url没有传递参数！重定向到统一认证平台！
+        // var url = `http://passport-test.test.geely.com/html/?appKey=${appKey}&redirectUrl=${redirectUrl}`;
         var url = `${environment.url}?appKey=${appKey}&redirectUrl=${redirectUrl}`;
 
         // var url = `http://passport-test.test.geely.com/html/?appKey=${appKey}&redirectUrl=${redirectUrl}`; // url

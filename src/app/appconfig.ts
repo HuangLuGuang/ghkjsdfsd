@@ -111,7 +111,7 @@ export interface List{
     badgePosition:string,
     responsive:boolean,
 }
-  
+
 
 
 
@@ -126,25 +126,25 @@ export interface List{
 
     // 结合唐山的 --------------------------------
 
-    // login 
-    // export let LOGIN_API = 'http://192.168.8.105/api/v1/auth/login';   
-    // export let INFO_API = 'http://192.168.8.105/api/v1/auth/info';   
+    // login
+    // export let LOGIN_API = 'http://192.168.8.105/api/v1/auth/login';
+    // export let INFO_API = 'http://192.168.8.105/api/v1/auth/info';
 
     // // plv8 url
     // export let PLV8_URL = "http://192.168.8.105/rpc/v1"
 
 
 
-    export let LOGIN_API = '/api/v1/auth/login';   
-    export let INFO_API = '/api/v1/auth/info';   
+    export let LOGIN_API = '/api/v1/auth/login';
+    export let INFO_API = '/api/v1/auth/info';
 
     // plv8 url
     export let PLV8_URL = "/rpc/v1"
 
 
     // login  mydocker
-    // export let LOGIN_API = 'http://192.168.10.141/api/v1/auth/login';   
-    // export let INFO_API = 'http://192.168.10.141/api/v1/auth/info';   
+    // export let LOGIN_API = 'http://192.168.10.141/api/v1/auth/login';
+    // export let INFO_API = 'http://192.168.10.141/api/v1/auth/info';
 
     // // plv8 url
     // export let PLV8_URL = "http://192.168.10.141/rpc/v1"
@@ -168,7 +168,7 @@ export const mq_config = {
     AliveInterval:100,
     useSSL:false,
   };
-  
+
 export const guid2=()=> {
     function S4() {
         return (((1 + Math.random()) * 0x10000) | 0).toString(16).substring(1);
