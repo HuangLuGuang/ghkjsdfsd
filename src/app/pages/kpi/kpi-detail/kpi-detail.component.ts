@@ -538,10 +538,10 @@ export class KpiDetailComponent implements OnInit {
                 label: {
                   show: true,
                   // position: "insideTop",
-                  fontSize: 14,
+                  fontSize: 12,
                   position: [-5, 2],
                   // color: "#5D920D",
-                  color: "#ACACAC",
+                  color: "#5F5F5F",
                   formatter: function (p) {
                     return p.value > 0 ? p.value + "%" : "0" + "%";
                   },
@@ -555,10 +555,10 @@ export class KpiDetailComponent implements OnInit {
                 label: {
                   show: true,
                   // position: "insideTop",
-                  fontSize: 14,
+                  fontSize: 12,
                   position: [-5, 2],
                   // color: "#3333FF",
-                  color: "#ACACAC",
+                  color: "#5F5F5F",
                   formatter: function (p) {
                     return p.value > 0 ? p.value + "%" : "0" + "%";
                   },
@@ -574,16 +574,16 @@ export class KpiDetailComponent implements OnInit {
                 value: _columns["startyear"] + "年利用率:",
                 textStyle: {
                   // color: "#5D920D",
-                  color: "#ACACAC",
-                  fontSize: 13,
+                  color: "#5F5F5F",
+                  fontSize: 12,
                 },
               },
               {
                 value: _columns["endyear"] + "年利用率:",
                 textStyle: {
                   // color: "#3333FF",
-                  fontSize: 13,
-                  color: "#ACACAC",
+                  fontSize: 12,
+                  color: "#5F5F5F",
                 },
               },
             ],

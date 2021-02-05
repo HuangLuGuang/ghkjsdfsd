@@ -41,7 +41,8 @@
 <!-- <div class="row" style="margin: 0 -11px;" *ngFor='let row of mothed_table_url.device.cards; let row_index = index;'> -->
 <div class="row" style="margin: 0 -11px;" *ngFor='let row of mothed_table_url_card; let row_index = index;'>
     <div class="col-md-4 myechart" *ngFor='let col of row; let col_index = index'>
-        <nb-card accent='info' style="position: relative;">
+        <!-- accent='info' -->
+        <nb-card style="position: relative;">
             <nb-card-header style="position: absolute;border-bottom: 0px solid #edf1f7;z-index: 1;">{{col.title}}</nb-card-header>
             <nb-card-body class="mychart_body" style="width: 100%;    padding-top: 20px;">
                 <div id="kpi_{{row_index}}{{col_index}}" ></div>

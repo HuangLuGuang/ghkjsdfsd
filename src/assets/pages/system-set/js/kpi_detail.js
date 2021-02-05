@@ -497,7 +497,7 @@ let kpi_detail = {
 
     // @ts-ignore
     mychart.setOption(option);
-
+    // console.error("=========", JSON.stringify(option));
     mychart.resize();
   },
 
@@ -512,8 +512,8 @@ let kpi_detail = {
         right: "1%",
         top: "2%",
         subtextStyle: {
-          fontSize: 13,
-          color: "rgb(153,153,153)",
+          fontSize: 12,
+          color: "#5F5F5F",
         },
       },
       tooltip: {
@@ -589,8 +589,8 @@ let kpi_detail = {
         right: "1%",
         top: "2%",
         subtextStyle: {
-          fontSize: 13,
-          color: "rgb(153,153,153)",
+          fontSize: 12,
+          color: "#5F5F5F",
         },
       },
       tooltip: {
@@ -940,6 +940,8 @@ let kpi_detail = {
               label: {
                 normal: {
                   show: true,
+                  position: [-50, 0],
+                  color: "orange",
                   formatter: function (p) {
                     return p.value > 0 ? p.value : "";
                   },
@@ -966,6 +968,8 @@ let kpi_detail = {
               label: {
                 normal: {
                   show: true,
+                  position: [50, 0],
+                  color: "orange",
                   formatter: function (p) {
                     return p.value > 0 ? p.value : "";
                   },
