@@ -469,15 +469,17 @@ export class SecondLevelComponent implements OnInit {
       this.boardservice.sendLoad({ close: false });
       this.createEchart();
       this.myChart.resize();
+      this.device_active.reflow();
+      this.key_index.reflow();
     }, 100);
 
     
 
-    this.layoutService.onInitLayoutSize().subscribe((f) => {
-      this.key_index.reflow();
-      this.device_active.reflow();
-      this.myChart.resize();
-    });
+    // this.layoutService.onInitLayoutSize().subscribe((f) => {
+    //   this.key_index.reflow();
+    //   this.device_active.reflow();
+    //   this.myChart.resize();
+    // });
   }
   createEchart() {
     this.ngZone.runOutsideAngular(() => {
