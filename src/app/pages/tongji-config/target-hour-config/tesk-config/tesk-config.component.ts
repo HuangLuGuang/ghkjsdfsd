@@ -394,18 +394,7 @@ export class TeskConfigComponent implements OnInit {
     var groups_data = this.group.getselect();
     // 将科室/功能组，转为列表
     var groups_data_ = groups_data === "" ? [] : groups_data.split(";");
-    // 搜索的 时间范围 daterange 必选，修改为 start end
-    // console.log("**************\n") EditDelTooltipComponent
 
-    // if(groups_data_.length < 1 ){
-    //   this.dialogService.open(EditDelTooltipComponent, { closeOnBackdropClick: false, context: { title: '提示', content:   `请选择要搜索的数据！`}} ).onClose.subscribe(
-    //     name=>{
-    //       // console.log("----name-----", name);
-    //     }
-    //   );
-    // }else {
-
-    // }
     var columns = {
       offset: 0,
       limit: this.agGrid.get_pagesize(),
@@ -417,7 +406,6 @@ export class TeskConfigComponent implements OnInit {
       month: inittable_before.month,
       year: inittable_before.year,
     };
-    // console.log("**************\n", columns);
     // 执行搜索函数！GETTABLE  dev_get_kpi_device_search
     this.loading = true;
     this.http.callRPC("device", this.GETTABLE, columns).subscribe((result) => {
@@ -614,30 +602,14 @@ export class TeskConfigComponent implements OnInit {
   get_start_end() {
     var month = this.myMonth.getselect();
     var year = this.myYear.getselect();
-    var month_value = {
-      一月: 1,
-      二月: 2,
-      三月: 3,
-      四月: 4,
-      五月: 5,
-      六月: 6,
-      七月: 7,
-      八月: 8,
-      九月: 9,
-      十月: 10,
-      十一月: 11,
-      十二月: 12,
-    };
-    month = month_value[month];
+
     year = Number(year.split("年")[0]);
     var start = this.datepip.transform(
       new Date(year, month - 1, 1),
       "yyyy-MM-dd"
     ); // start
     var end = this.datepip.transform(new Date(year, month, 0), "yyyy-MM-dd"); // end
-    // var current = new Date()
-    // var start = this.datepip.transform(new Date(current.getFullYear(), current.getMonth(), 1),  'yyyy-MM-dd'); // 当前start
-    // var end = this.datepip.transform(new Date(current.getFullYear(), current.getMonth() + 1, 0), 'yyyy-MM-dd');   // end
+
     return {
       start: start,
       end: end,
@@ -670,7 +642,7 @@ export class TeskConfigComponent implements OnInit {
     // 日期范围
     // 将科室/功能组，转为列表
     var groups_data_ = groups_data === "" ? [] : groups_data.split(";");
-    var month = month_value[this.myMonth.getselect()]; // 选择的月
+    var month = this.myMonth.getselect(); // 选择的月
 
     return {
       limit: this.agGrid.get_pagesize(),

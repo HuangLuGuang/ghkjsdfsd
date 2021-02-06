@@ -253,7 +253,9 @@ export class GroupDataSumComponent implements OnInit {
 
   // year、month
   inpuvalue(inpuvalue) {
-    this.query(inpuvalue);
+    if (inpuvalue != "") {
+      this.query(inpuvalue);
+    }
   }
 
   // 搜索
@@ -265,6 +267,7 @@ export class GroupDataSumComponent implements OnInit {
   // 导出
   download() {
     this.agGrid.download("功能组数据汇总");
+    // this.RecordOperation("导出", 1, "功能组数据汇总");
   }
 
   // 重置

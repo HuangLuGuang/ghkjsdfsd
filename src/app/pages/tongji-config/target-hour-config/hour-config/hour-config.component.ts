@@ -213,12 +213,9 @@ export class HourConfigComponent implements OnInit {
 
   // input 传入的值
   inpuvalue(inpuvalue) {
-    // if (inpuvalue != "") {
-    //   console.log("传入的值设备名称----->", inpuvalue);
-    //   this.query(inpuvalue);
-    // }
-    // console.log("传入的值设备名称----->", inpuvalue);
-    this.query(inpuvalue);
+    if (inpuvalue != "") {
+      this.query(inpuvalue);
+    }
   }
 
   // 搜索
@@ -241,7 +238,7 @@ export class HourConfigComponent implements OnInit {
     var devicename =
       this.myinput?.getinput() === undefined ? "" : this.myinput?.getinput(); // 设备名称
     var year = this.myYear.getselect().split("年")[0]; // 选择的年
-    var month = month_value[this.myMonth.getselect()]; // 选择的月
+    var month = this.myMonth.getselect(); // 选择的月
     var groups_data = this.groups_func.getselect(); // 科室功能组
     var group = groups_data === "" ? [] : groups_data.split(";"); // 科室功能组转为列表
     var type = this.eimdevicetpye.getselect(); // 设备类型
@@ -292,25 +289,11 @@ export class HourConfigComponent implements OnInit {
 
     var devicename =
       this.myinput?.getinput() === undefined ? "" : this.myinput?.getinput(); // 设备名称
-    var month_value = {
-      一月: "01",
-      二月: "02",
-      三月: "03",
-      四月: "04",
-      五月: "05",
-      六月: "06",
-      七月: "07",
-      八月: "08",
-      九月: "09",
-      十月: "10",
-      十一月: "11",
-      十二月: "12",
-    };
 
     return {
       limit: this.agGrid.get_pagesize(),
       employeeid: this.userinfo.getEmployeeID(),
-      month: month_value[this.myMonth.getselect()],
+      month: this.myMonth.getselect(),
       year: this.myYear.getselect().split("年")[0],
       devicename: [devicename], // 设备名称
       group: group, // 科室功能组
