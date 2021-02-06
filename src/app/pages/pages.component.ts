@@ -56,7 +56,7 @@ export class PagesComponent implements OnInit {
 
   ngOnInit() {
     // console.log("pages.component------------->");
-    console.error("什么环境：", environment.name);
+    console.warn("什么环境：", environment.name);
     this.loadMenu();
   }
 
