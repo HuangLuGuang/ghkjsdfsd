@@ -213,7 +213,7 @@ export class KpiDetailComponent implements OnInit {
           defalultdata.pieTotal = numbers;
         }
       }
-      console.log("第一行，第一列：", defalultdata);
+      // console.log("第一行，第一列：", defalultdata);
       kpi_detail.one_row_one(eleid, defalultdata);
     });
   };
@@ -229,7 +229,7 @@ export class KpiDetailComponent implements OnInit {
   // 第一行第二个
   one_row_two = (eleid, monthed, columns) => {
     this.querst("", monthed, columns).subscribe((result) => {
-      console.log("第二行第二个 ", result);
+      // console.log("第二行第二个 ", result);
       var res = result["result"]["message"][0];
       var defaultdata = {
         color: ["#5D920D", "#3333FF", "#DBB70D", "#FF4E0D"],
@@ -291,7 +291,7 @@ export class KpiDetailComponent implements OnInit {
     columns.end = columns.year; // end 为 今年的
     columns.start = columns.year - 1; // start 为 去年的
     this.querst("", monthed, columns).subscribe((result) => {
-      console.log("第一行第三个 ", result);
+      // console.log("第一行第三个 ", result);
       var res = result["result"]["message"][0];
       var defaultdata = {
         // ["#FFBF9F", "#93C9FF"]
@@ -736,7 +736,7 @@ export class KpiDetailComponent implements OnInit {
       },
     };
     this.querst("", monthed, _columns).subscribe((result) => {
-      console.log("第二行第二个res： ", result);
+      // console.log("第二行第二个res： ", result);
       var res = result["result"]["message"][0];
       if (res["code"] === 1) {
         var month = res["month"];
@@ -758,7 +758,7 @@ export class KpiDetailComponent implements OnInit {
             year[0]["dates"] + "开动率" + ":\t" + year[0]["rate"];
         }
       }
-      console.log("第二行第二个数据格式：", defaultdata);
+      // console.log("第二行第二个数据格式：", defaultdata);
       kpi_detail.two_row_two(eleid, defaultdata);
     });
   };
@@ -820,7 +820,7 @@ export class KpiDetailComponent implements OnInit {
       },
     };
     this.querst("", monthed, _columns).subscribe((result) => {
-      console.log("第二行第三个res： ", result);
+      // console.log("第二行第三个res： ", result);
       var res = result["result"]["message"][0];
       if (res["code"] === 1) {
         var availability = res["availability"]; // 可用率
@@ -851,7 +851,7 @@ export class KpiDetailComponent implements OnInit {
             year[0]["dates"] + "可用率:\t" + year[0]["availability"];
         }
       }
-      console.log("第二行第三个数据格式：", defaultdata);
+      // console.log("第二行第三个数据格式：", defaultdata);
       kpi_detail.two_row_three(eleid, defaultdata);
     });
   };
@@ -927,7 +927,7 @@ export class KpiDetailComponent implements OnInit {
     };
 
     this.querst("", monthed, _columns).subscribe((result) => {
-      console.log("得到第三行，第一个： ", result);
+      // console.log("得到第三行，第一个： ", result);
       var res = result["result"]["message"][0];
       if (res["code"] === 1) {
         var lastyear = res["lastyear"];
@@ -960,7 +960,7 @@ export class KpiDetailComponent implements OnInit {
       defaultdata.xData.reverse();
       defaultdata.lastYearData.reverse();
       defaultdata.thisYearData.reverse();
-      console.log("得到第三行，第一个数据格式：", defaultdata);
+      // console.log("得到第三行，第一个数据格式：", defaultdata);
       kpi_detail.three_row_one(eleid, defaultdata);
     });
   };
@@ -1007,7 +1007,7 @@ export class KpiDetailComponent implements OnInit {
     };
 
     this.querst("", monthed, _columns).subscribe((result) => {
-      console.log("第三行，第二个： ", result);
+      // console.log("第三行，第二个： ", result);
       var res = result["result"]["message"][0];
       if (res["code"] === 1) {
         var message = res["message"];
@@ -1033,7 +1033,7 @@ export class KpiDetailComponent implements OnInit {
           }
         }
       }
-      console.log("得到第三行，第二个数据格式：", defaultdata);
+      // console.log("得到第三行，第二个数据格式：", defaultdata);
       kpi_detail.three_row_two(eleid, defaultdata);
     });
   };
@@ -1047,7 +1047,7 @@ export class KpiDetailComponent implements OnInit {
       SeriesData: [],
     };
     this.querst("", monthed, columns).subscribe((result) => {
-      console.log("得到第三行，第三个： ", result);
+      // console.log("得到第三行，第三个： ", result);
       var res = result["result"]["message"][0];
       if (res["code"] === 1) {
         var message = res["message"];
@@ -1064,7 +1064,7 @@ export class KpiDetailComponent implements OnInit {
         defaultdata.xData = [0];
         defaultdata.SeriesData = [0];
       }
-      console.log("得到第三行，第三个数据格式：", defaultdata);
+      // console.log("得到第三行，第三个数据格式：", defaultdata);
       kpi_detail.three_row_three(eleid, defaultdata);
     });
   };
@@ -1329,8 +1329,8 @@ export class KpiDetailComponent implements OnInit {
       this.table_url = this.mothed_table_url.department.url;
       this.button_title = this.kpi_for_detail["department"];
     }
-    console.log("kpi_detail----", this.kpi_for_detail);
-    console.log("type----", this.type);
+    // console.log("kpi_detail----", this.kpi_for_detail);
+    // console.log("type----", this.type);
 
     this.layoutService.onInitLayoutSize().subscribe((f) => {
       var ids = [
@@ -1364,7 +1364,7 @@ export class KpiDetailComponent implements OnInit {
     }
 
     window.onresize = function () {
-      console.log("++++++++++++++++++++++++");
+      // console.log("++++++++++++++++++++++++");
       var ids = [
         "kpi_00",
         "kpi_01",

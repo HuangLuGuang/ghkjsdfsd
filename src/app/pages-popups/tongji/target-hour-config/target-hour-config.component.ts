@@ -51,18 +51,18 @@ export class TargetHourConfigComponent implements OnInit {
     var year = Number(this.data["year"]);
     var month = this.data["month"];
     var month_value = {
-      一月: 1,
-      二月: 2,
-      三月: 3,
-      四月: 4,
-      五月: 5,
-      六月: 6,
-      七月: 7,
-      八月: 8,
-      九月: 9,
-      十月: 10,
-      十一月: 11,
-      十二月: 12,
+      "01": 1,
+      "02": 2,
+      "03": 3,
+      "04": 4,
+      "05": 5,
+      "06": 6,
+      "07": 7,
+      "08": 8,
+      "09": 9,
+      "10": 10,
+      "11": 11,
+      "12": 12,
     };
     month = month_value[month];
     // 默认的日期
