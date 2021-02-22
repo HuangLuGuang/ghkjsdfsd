@@ -391,8 +391,16 @@ export class DeviceAndonHistoryComponent implements OnInit {
       new Date(curr_year, curr_month - 1, 1),
       "yyyy-MM-dd"
     ); // start
+
+    // 当前月的最后一天
+    // var end = this.datepip.transform(
+    //   new Date(curr_year, curr_month, 0),
+    //   "yyyy-MM-dd"
+    // ); // end
+
+    // 当前日期
     var end = this.datepip.transform(
-      new Date(curr_year, curr_month, 0),
+      new Date(curr_year, curr_month - 1, new Date().getDate()),
       "yyyy-MM-dd"
     ); // end
     return {

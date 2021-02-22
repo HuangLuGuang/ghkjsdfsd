@@ -22,10 +22,10 @@
     </div>
 </div>
 
-<div class="row" style="margin: 0px -11px;">
+<div class="row" style="margin: 0px -11px; min-height: 800px;">
     <!-- 当前设备运行状态 -->
     <div class="col-md-8">
-        <nb-card>
+        <nb-card  style="height: 100%;">
             <nb-card-header>
                 <div class="row">
                     <div class="col-md-10"  style="font-size: small;">
@@ -83,10 +83,10 @@
     </div>
     <!-- 设备状态历史(仅20天) -->
     <div class="col-md-4 " style="padding-left: 0px;">
-        <nb-card>
+        <nb-card  style="height: 100%;">
             <nb-card-header>
                 <div class="row" >
-                    <div class="col-md-6" style="font-size: small;">设备状态历史(近20条)</div>
+                    <div class="col-md-6" style="font-size: small;">设备状态历史</div>
                     <div class="col-md-4" style="text-align: end;">
                         <nb-select placeholder="请选择时间" [(selected)]="selectedItem"  (selectedChange)="selectedChange($event)"
                             size="small" status="info">

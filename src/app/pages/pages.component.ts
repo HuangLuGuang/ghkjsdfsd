@@ -47,8 +47,8 @@ export class PagesComponent implements OnInit {
   ) {
     this.translate.onLangChange.subscribe((params) => {
       localStorage.setItem("currentLanguage", params["lang"]);
-      // localStorage.removeItem(SYSMENU);
-      // localStorage.removeItem(MULU);
+      localStorage.removeItem(SYSMENU);
+      localStorage.removeItem(MULU);
       // localStorage.removeItem("hidden_menu");
       this.loadMenu();
     });

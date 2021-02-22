@@ -29,7 +29,7 @@
     </nb-accordion-item>
   
     
-  </nb-accordion>
+</nb-accordion>
 
 
 
@@ -40,8 +40,8 @@
       <nb-card-body>
           <div class="row">
             <!-- 编辑 -->
-              <div class="col-md-6">
-                  <div class="row map-info-icon"><nb-icon icon="edit-2-outline" style="width: 100%;"></nb-icon></div>
+              <div class="col-md-4">
+                  <div class="row map-info-icon"><nb-icon icon="edit-2-outline" style="width: 90%;"></nb-icon></div>
                   <div class="row"><button nbButton size="tiny" fullWidth status="control" (click)="edit(user_deviceInfo)">{{'POSITIONMONITORING.TABS.EDIT' | translate }}</button></div>
               </div>
               <!-- 轨迹 -->
@@ -54,18 +54,29 @@
                   <div class="row map-info-icon"><nb-icon icon="pin-outline"></nb-icon></div>
                   <div class="row"><button nbButton size="tiny" fullWidth status="control" (click)="trace(user_deviceInfo)">{{'POSITIONMONITORING.TABS.TRACE' | translate }}</button></div>
               </div> -->
+
+              <!-- 设备指令 -->
+              <div class="col-md-4">
+                  <div class="row map-info-icon"><nb-icon icon="radio-outline" style="width: 90%;"></nb-icon></div>
+                  <div class="row"><button nbButton size="tiny" fullWidth status="control" (click)="order(user_deviceInfo)">{{'POSITIONMONITORING.TABS.ORDER' | translate }}</button></div>
+              </div>
+              <!-- 设备详情 -->
+              <div class="col-md-4">
+                  <div class="row map-info-icon"><nb-icon icon="pin-outline" style="width: 90%;"></nb-icon></div>
+                  <div class="row"><button nbButton size="tiny" fullWidth status="control" (click)="detail(user_deviceInfo)">{{'POSITIONMONITORING.TABS.DETAIL' | translate }}</button></div>
+              </div>
               <!-- 更多 -->
-              <div class="col-md-6">
+              <!-- <div class="col-md-6">
                   <div class="row map-info-icon"><nb-icon icon="more-horizontal-outline" style="width: 100%;"></nb-icon></div>
                   <div class="row">
                       <button nbButton size="tiny" fullWidth status="control" 
                       nbContextMenuPlacement="right" [nbContextMenu]="moreitems" nbContextMenuTrigger="hover" 
-                      nbContextMenuTag="more-menu"
+                      nbContextMenuTag="my-more-menu"
 
                       >{{'POSITIONMONITORING.TABS.MORE' | translate }}</button>
                   </div>
 
-              </div>
+              </div> -->
           </div>
       </nb-card-body>
 
