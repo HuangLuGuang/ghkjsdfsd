@@ -1346,6 +1346,7 @@ export class KpiDetailComponent implements OnInit {
       ];
       ids.forEach((item) => {
         var item_echart = document.getElementById(item);
+
         if (item_echart) echarts.init(item_echart).resize();
       });
     });
@@ -1390,6 +1391,26 @@ export class KpiDetailComponent implements OnInit {
   // 销毁组件时，删除 kpi_for_detail
   ngOnDestroy() {
     localStorage.removeItem("device_hour_report_kpi_for_detail");
+    // 清除 echart
+    var ids = [
+      "kpi_00",
+      "kpi_01",
+      "kpi_02",
+      "kpi_10",
+      "kpi_11",
+      "kpi_12",
+      "kpi_20",
+      "kpi_21",
+      "kpi_22",
+    ];
+    ids.forEach((item) => {
+      var item_echart = document.getElementById(item);
+      if (item_echart) {
+        var my_echart = echarts.init(item_echart);
+        my_echart.clear();
+        my_echart.dispose();
+      }
+    });
   }
 
   // 返回 kpi报表
