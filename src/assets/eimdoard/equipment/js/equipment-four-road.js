@@ -9,7 +9,7 @@ let equipment_four_road = {
             myChart.resize();
             return;
         }
-        var xData = data.xData,
+        var xData = data.xData.map(f =>( f.substring(0,f.length-1)));
             borderData = [],
             legend = data.title_arr,
             borderHeight = 0,
@@ -53,7 +53,16 @@ let equipment_four_road = {
                 color: COLOR,
                 fontSize: 12,
             }
-        }]
+        }, {
+            text: '月',
+            right: '4%',
+            bottom:'1%',
+            textStyle: {
+                color: COLOR,
+                fontSize: 12,
+            }
+        }];
+        // option_s.xAxis.data = xData.map(f =>( f.substring(0,f.length-1)));
         myChart.setOption(option_s, config ? config : {});
         // if (!config) myChart.resize();
     },
