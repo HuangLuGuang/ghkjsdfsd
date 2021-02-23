@@ -55,19 +55,17 @@ export class LeftLayoutComponent implements OnInit {
     $('#left_table').scrollTop(top);
     this.top = top;
   }
-
-  mouseover(){
-    console.log('-------------移出---------------');
-    // clearInterval(this.timer);
-  }
-
-  mousemove(){
+  
+  mouseenter(){
     console.log('-------------移入---------------');
-    // this.timer = setInterval(this.scroll,100);
+    clearInterval(this.timer);
   }
-  // create_scrollbar(){
-  //   $('#s').width( $('#table_body_2').width())
-  // }
+  
+  mouseleave(){
+    console.log('-------------移出---------------');
+    this.timer = setInterval(this.scroll,100);
+  }
+
 
   resize=()=>{
     setTimeout(() => {
@@ -94,7 +92,7 @@ export class LeftLayoutComponent implements OnInit {
             ];
       let myChart = echarts.init(document.getElementById(id));
       if(myChart)equipment_four_road.create_device_circular(
-        {title:title,message:message,value:status},myChart);
+        {title:title,message:message,value:status,level:'laboratory'},myChart);
     }
   }
 

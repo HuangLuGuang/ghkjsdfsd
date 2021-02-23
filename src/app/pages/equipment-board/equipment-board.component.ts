@@ -94,9 +94,20 @@ export class EquipmentBoardComponent implements OnInit {
           }
       }
     });
+
+    // window.addEventListener('keydown',this.keydown);
     
   }
 
+  //按钮事件
+  // keydown= (event)=> {
+  //   if (event.keyCode == 122) {
+  //     // event.returnValue = false
+  //     console.log('f11');
+  //     //刷新表格
+  //     this.boradservice.sendChartResize();
+  //   }
+  // }
 
 
   resize=()=>{
@@ -167,7 +178,11 @@ export class EquipmentBoardComponent implements OnInit {
     var sf = <Screenfull>screenfull;
     if (sf.isEnabled){ // sf.isEnabled 布尔值，判断是否允许进入全屏！
       this.is_not_fullscreen = sf.isFullscreen;
-      sf.toggle(board)
+      sf.toggle(board);
+      //刷新表格
+      this.boradservice.sendChartResize();
+      console.log('-------------按钮全屏功能-----------')
+
     }
   };
 

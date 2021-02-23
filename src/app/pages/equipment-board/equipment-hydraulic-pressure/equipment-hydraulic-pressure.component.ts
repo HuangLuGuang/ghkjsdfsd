@@ -170,14 +170,15 @@ xData:[]
     //记录默认进去选中的tag
     this.click_list = [this.list_1[0],this.list_2[0]]
     this.getData();
-    setTimeout(() => {
-      create_img_16_9();
-    }, 1000);
+    
 
   }
 
   ngAfterViewInit(){
-    this.boardservice.sendLoad({close:false})
+    this.boardservice.sendLoad({close:false});
+    setTimeout(() => {
+      create_img_16_9();
+    }, 1000);
   }
 
 

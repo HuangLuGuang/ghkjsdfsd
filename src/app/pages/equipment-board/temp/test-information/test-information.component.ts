@@ -95,6 +95,14 @@ export class TestInformationComponent implements OnInit {
     this.top = top;
   }
 
+  mouseenter(){
+    clearInterval(this.timer);
+  }
+
+  mouseleave(){
+    this.timer = setInterval(this.scroll,100);
+  }
+
   get_height(){
     return this.experiment.data.length <= 1?'auto':'64%';
   }

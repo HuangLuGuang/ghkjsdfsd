@@ -7,9 +7,14 @@
     margin: 0px 20px 0px 20px;
     .equipintrod {
         position: relative;
-        min-height: 220px;
+        // min-height: 220px;
         width: 100%;
         display: flex;
+    }
+    .HPU_name{
+        position: absolute;
+        top: 0;
+        left: 1%;
     }
     .HPU_statistics {
         height: 70%;
@@ -18,7 +23,8 @@
         position: relative;
         .HPU {
             border-radius: 10px;
-            border: 1px solid rgb(51, 111, 223);
+            position: relative;
+            border: 1px solid #4070ca;
             width: 100%;
             display: flex;
             padding: 2%;
@@ -39,8 +45,9 @@
                 flex-wrap: wrap;
                 align-items: center;
                 .d {
-                    border: 1px solid #202223;
+                    border: 1px solid #4b5053;
                     border-radius: 5px;
+                    box-shadow: 3px 4px 2px -1px #001119;
                     height: 34px;
                     margin-left: 1%;
                     display: flex;
@@ -51,7 +58,7 @@
         }
     }
     .bo {
-        box-shadow: 0 0px 1px 3px rgba(50, 84, 129, 1) inset;
+        box-shadow: 3px 0px 4px 2px #325481 inset;
         display: flex;
         flex-wrap: wrap;
         align-items: center;
@@ -176,6 +183,7 @@
         }
         .d {
             border: 1px solid rgb(77, 129, 177);
+            box-shadow: 5px 1px 2px #100202;
             border-radius: 5px;
             height: 34px;
             margin-left: 1%;
@@ -195,7 +203,6 @@
         width: 40px;
         height: 40px;
         border-radius: 20px;
-        margin: 5% 10% 10% 43%;
     }
     .HEWater {
         margin-top: 20px;
@@ -247,6 +254,13 @@
             -webkit-background-size: cover;
             -o-background-size: cover;
             background-position: center center;
+        }
+        .img_div{
+            width: 100%;height: 100%;
+            position: absolute;
+            display: flex;
+                align-items: center;
+                justify-content: center;
         }
     }
     .dis_flex {

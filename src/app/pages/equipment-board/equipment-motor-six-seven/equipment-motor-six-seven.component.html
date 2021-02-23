@@ -52,10 +52,10 @@
                 </div>
                 <div id="motor_chart_2" class="width_100 height_50"></div>
             </div>
-            <div class="height_67 bo" style="margin-top: 20px;position: relative;">
+            <div class="height_67 bo" style="margin-top: 20px;padding-top: 20px;position: relative;">
                 <div class="part_title">{{ 'equipment.real'|translate }}{{ 'equipment.motor.MotorParam'|translate }}
                 </div>
-                <div class="height_19 dis_f" style="margin-top: 20px;">
+                <div class="height_19 dis_f" >
                     <div id="dashboard_67" class="height_100" style="margin-left: 10%;width: 60%;">
                     </div>
                     <div style="width: 40%;" class="c_c height_100">
@@ -76,14 +76,14 @@
                             <div class=" dis_f_w center_center">
                                 {{'equipment.motor.LinearVoltage'|translate}}
                             </div>
-                            <div class="height_100  bord dis_f_w center_center big_font">{{ motor.urms4 }}</div>
+                            <div class="height_100  bord dis_f_w center_center big_font">{{ motor.urms4 || 0}}</div>
                         </div>
                         <div style="width: 1%;"></div>
                         <div class="height_100 center_center dis_f " style="width: 30%;">
                             <div class="center_center dis_f_w">
                                 {{'equipment.motor.LineaCurrent'|translate}}
                             </div>
-                            <div class="height_100  bord center_center dis_f_w big_font">{{ motor.irms4 }}</div>
+                            <div class="height_100  bord center_center dis_f_w big_font">{{ motor.irms4|| 0 }}</div>
                         </div>
                         <div style="width: 1%;"></div>
 
@@ -91,7 +91,7 @@
                             <div class="center_center dis_f_w">
                                 {{'equipment.motor.DCpower'|translate}}
                             </div>
-                            <div class="height_100  bord center_center dis_f_w big_font">{{ motor.prms4 }}</div>
+                            <div class="height_100  bord center_center dis_f_w big_font">{{ motor.prms4|| 0 }}</div>
                         </div>
                     </div>
                     <div class="height_50 dis_f_w center_center">
@@ -99,7 +99,7 @@
                             <div class="center_center dis_f_w">
                                 {{'equipment.motor.AveVoltage'|translate}}
                             </div>
-                            <div class="height_100  bord center_center dis_f_w big_font">{{ motor.urmsa }}</div>
+                            <div class="height_100  bord center_center dis_f_w big_font">{{ motor.urmsa|| 0 }}</div>
                         </div>
                         <div style="width: 1%;"></div>
 
@@ -107,15 +107,15 @@
                             <div class="center_center dis_f_w">
                                 {{'equipment.motor.AveCurrent'|translate}}
                             </div>
-                            <div class="height_100  bord center_center dis_f_w big_font">{{ motor.irmsa }}</div>
+                            <div class="height_100  bord center_center dis_f_w big_font">{{ motor.irmsa|| 0 }}</div>
                         </div>
                         <div style="width: 1%;"></div>
 
                         <div class="height_100 center_center dis_f" style="width: 30%;">
-                            <div class="center_center dis_f_w">
+                            <div class="center_center dis_f_w" >
                                 {{'equipment.motor.OutputPower'|translate}}
                             </div>
-                            <div class="height_100  bord center_center dis_f_w big_font">{{motor.prmsa}}</div>
+                            <div class="height_100  bord center_center dis_f_w big_font">{{motor.prmsa|| 0}}</div>
                         </div>
                     </div>
                 </div>

@@ -87,7 +87,8 @@ export class RightLayoutComponent implements OnInit {
           left: 20,
           right: '4%',
           height:'76%',
-          top:'10%'
+          top:'10%',
+          containLabel:true,
       },
       xAxis: {
           type: 'category',

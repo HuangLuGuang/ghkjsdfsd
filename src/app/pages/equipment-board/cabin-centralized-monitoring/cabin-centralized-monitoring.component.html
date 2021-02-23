@@ -10,13 +10,13 @@
             </div>
             <div class="thrid height_35" style="margin-top: 20px;">
                 <div class="part_title">ATEC{{'equipment.EnvironmentRoom'|translate}}</div>
-                <div class=" dis_f_w" style="justify-content: flex-end;">
+                <div class=" dis_f_w" style="justify-content: flex-end;position: absolute;right: 20px;">
                     {{'equipment.warehouseStatus'|translate}}：
                     <div style="border-radius: 60px;width: 20px;height: 20px;margin-right: 20px;" [ngStyle]="{'background':atec.cang==1?'#07ef07':'#202223'}"></div>
                     {{'equipment.FreshAirSystem'|translate}}：
                     <div style="border-radius: 60px;width: 20px;height: 20px;" [ngStyle]="{'background':atec.newF==1?'#07ef07':'#202223'}"></div>
                 </div>
-                <div class="height_50" style="display: flex;justify-content: center;align-items: center;">
+                <div class="height_50" style="display: flex;justify-content: center;align-items: center;margin-top: 1%;">
                     <div id="real_temperature_4"></div>
                     <div id="real_temperature_5"></div>
                     <div id="real_temperature_6"></div>

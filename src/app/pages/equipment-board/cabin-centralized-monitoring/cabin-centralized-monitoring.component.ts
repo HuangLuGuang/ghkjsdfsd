@@ -183,9 +183,7 @@ export class CabinCentralizedMonitoringComponent implements OnInit {
         document.getElementById('head_title').innerText = f.title;
     })
     this.getData();
-    setTimeout(() => {
-      create_img_16_9();
-    }, 1000);
+    
 
     this.subscribeList.resize =this.boardservice.chartResize().subscribe(f=>{
       this.resize();
@@ -195,6 +193,9 @@ export class CabinCentralizedMonitoringComponent implements OnInit {
 
   ngAfterViewInit(){
     this.boardservice.sendLoad({close:false})
+    setTimeout(() => {
+      create_img_16_9();
+    }, 1000);
   }
 
   resize = () =>{

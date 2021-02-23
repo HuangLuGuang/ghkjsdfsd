@@ -61,7 +61,8 @@
         display: flex;
     }
     .title {
-        font-size: xx-large;
+        // font-size: xx-large;
+        font-size: 2rem;
         color: white;
         width: 100%;
         line-height: 2.5rem;
@@ -78,7 +79,7 @@
         position: relative;
         display: flex;
         flex-wrap: wrap;
-        font-size: 0.8vw;
+        font-size: 0.9rem;
         // #left_img {
         #center {
             color: #dcdcdc;

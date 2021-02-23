@@ -124,9 +124,7 @@ export class TwoDriveChassisComponent implements OnInit {
 
 
     this.getData();
-    setTimeout(() => {
-      create_img_16_9();
-    }, 1000);
+    
 
 
     this.subscribeList.resize =this.boardservice.chartResize().subscribe(f=>{
@@ -136,7 +134,10 @@ export class TwoDriveChassisComponent implements OnInit {
 
 
   ngAfterViewInit(){
-    this.boardservice.sendLoad({close:false})
+    this.boardservice.sendLoad({close:false});
+    setTimeout(() => {
+      create_img_16_9();
+    }, 1000);
   }
 
   resize = () =>{

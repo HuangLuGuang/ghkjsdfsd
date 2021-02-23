@@ -9,7 +9,22 @@ let oilsrouce = {
             tooltip: {
                 show: true,
                 trigger: "item",
+                formatter:function(r){
+                    let str = `
+                    <span>蓄能器压力</span><br/>
+                    <div style="text-align:left;">
+                    `;
+                    data.indicator.forEach((f,i)=>{
+                        str+=f.name+'：'+r.value[i]+'Pa<br/>'
+                    });
+                    str+='</div>';
+                    console.log(r)
+                    return str;
+                }
             },
+            // grid:{
+            //     containLabel:true,
+            // },
             legend: {
                 show: false,
                 data: ['蓄能器压力'],
@@ -69,7 +84,7 @@ let oilsrouce = {
                     symbolSize: 8,
                     areaStyle: {
                         normal: {
-                            color: '#00cc66',
+                            color: '#f8fc00',
                         }
                     },
                     itemStyle: {
@@ -113,12 +128,13 @@ let oilsrouce = {
         series_old.forEach(f => {
             servies.push({
                 type: "gauge",
-                radius: shape ? '80%' : '60%',
+                // radius: shape ? '80%' : '60%',
+                radius: '90%',
                 center: f.center,
                 splitNumber: 0, //刻度数量
-                startAngle: 180,
+                startAngle: 225,
                 max: f.max,
-                endAngle: 0,
+                endAngle: -45,
                 axisLine: {
                     show: true,
                     lineStyle: {
@@ -139,7 +155,7 @@ let oilsrouce = {
                 pointer: {
                     show: true,
                     length: "80%",
-                    width: "2%",
+                    width: "8%",
                 },
                 title: {
                     show: true,
@@ -153,11 +169,12 @@ let oilsrouce = {
                 //仪表盘详情，用于显示数据。
                 detail: {
                     show: true,
-                    offsetCenter: [0, "35%"],
+                    offsetCenter: [0, "50%"],
                     textStyle: {
                         fontSize: 12,
                     },
-                    formatter: f.data.value + f.unit
+                    formatter: f.data.value
+                    // formatter: f.data.value+'\n' + f.unit
                 },
                 data: [f.data],
             });

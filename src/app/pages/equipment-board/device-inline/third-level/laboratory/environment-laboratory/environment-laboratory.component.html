@@ -6,7 +6,6 @@
         <div class="center">
             <div class="one" *ngFor="let map of list" (click)="goto_borad(map)">
                 <img [src]="map.src || 'assets/eimdoard/equipment/images/blue_beijing.png'" alt="" />
-                <div style="width: 100%;height: 10%;font-size: 1.2vh;" *ngIf="!map.type">{{map.name}} {{map.number}}</div>
                 <!-- <div style="width: 100%;height: 10%;font-size: 1.2vh;" *ngIf="!map.type">{{map.number}}</div> -->
                 <div style="width: 30%;height: 65%;margin-left: 20px;" *ngIf="!map.type && map.name">
                     <div class="andon_color">
@@ -28,10 +27,12 @@
                 </div>
 
                 <div *ngIf="map.type == 'multiple'" class="multiple">
-                    <div style="width: 50%;height: 10%;font-size: 1.2vh;">{{map.name}} </div>
-                    <div style="width: 50%;height: 10%;font-size: 1.2vh;">{{map.other.name}}</div>
-                    <div style="width: 50%;height: 10%;font-size: 1.2vh;">{{map.number}}</div>
-                    <div style="width: 50%;height: 10%;font-size: 1.2vh;">{{map.other.number}}</div>
+                    <div class="ti">
+                        <span >{{map.name}} </span>
+                        <span >{{map.other.name}}</span>
+                        <span >{{map.number}}</span>
+                        <span >{{map.other.number}}</span>
+                    </div>
                     <div style="width: 30%;height: 80%;margin-left: 7px; margin-top: 3px;">
                         <div class="andon_color">
                             <div *ngFor="let item of andon;let i = index;" style="height: 25%;">

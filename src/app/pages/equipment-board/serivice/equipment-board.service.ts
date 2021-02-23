@@ -17,7 +17,7 @@ export class EquipmentBoardService implements OnDestroy{
     window.addEventListener('resize',this.resize);
 
     this.layoutService.onInitLayoutSize().subscribe(f=>{
-      this.chart_subject.next('resize');
+      this.sendChartResize();
     })
 
     
@@ -30,6 +30,10 @@ export class EquipmentBoardService implements OnDestroy{
 
   public chartResize(){
     return this.chart_subject.asObservable();
+  }
+
+  public sendChartResize(){
+    this.chart_subject.next('resize');
   }
 
   //默认打开加载锁屏
@@ -62,7 +66,12 @@ export class EquipmentBoardService implements OnDestroy{
     // if(this.timeout)clearTimeout(this.timeout);
     // console.log(111111111111111111111111)
     this.timeout = setTimeout(() => {
-      this.chart_subject.next('resize');
+      if(window.document.body.offsetHeight <= window.screen.height 
+        && window.screen.height > document.getElementsByTagName('ngx-equipment-board')[0].scrollHeight){
+          console.log('--------------监听尺寸变化全屏功能---------')
+          // alert('--------------f11取消全屏化---------')
+          this.chart_subject.next('resize');
+        }
     },10);
     // var sf = <Screenfull>screenfull;
 

@@ -271,13 +271,14 @@ export class EquipmentShockComponent implements OnInit {
       // })
     },1000)
 
-    setTimeout(f=>{
-      create_img_16_9();
-    },1000)
+    
   }
 
   ngAfterViewInit(){
-      this.boardservice.sendLoad({close:false})
+      this.boardservice.sendLoad({close:false});
+      setTimeout(f=>{
+        create_img_16_9();
+      },1000)
   }
  
 

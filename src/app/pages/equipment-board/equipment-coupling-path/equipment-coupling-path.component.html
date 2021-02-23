@@ -20,9 +20,7 @@
             </div>
             <div class="center_img">
                 <div class="part_title">{{'equipment.OnlineVideo'|translate}}</div>
-                <div style="width: 100%;height: 100%;display: flex;
-                align-items: center;
-                justify-content: center;">
+                <div class="img_div">
                     <img id="img" [src]="img.url" [alt]="img.name">
                 </div>
             </div>
@@ -30,7 +28,7 @@
                 <ngx-chart-curve-v3 #chart_3 [chartName]="'chart_3'" (clicEvent)="clicEvent($event,3)" [list]="list_3">
                     <div style="width: 100%;display: flex;padding-left: 4%; height: 100%; ">
                         <div class="_table height_100" style="width: 66%;margin-bottom: 0px;">
-                            <div class="table_bo height_48">
+                            <div class="table_bo height_31">
                                 <table>
                                     <tr class="header">
                                         <td *ngFor="let title of switchStatus.title;let i = index" [ngStyle]="{'width':switchStatus.width[i]}">
@@ -39,7 +37,7 @@
                                     </tr>
                                 </table>
                             </div>
-                            <div class="table_bo height_58" style="overflow-x: hidden;">
+                            <div class="table_bo height_60 scrollbar" style="overflow-x: hidden;">
                                 <table>
                                     <tr class="body" *ngFor="let items of switchStatus.data">
                                         <td *ngFor="let item of items;let i = index" [ngStyle]="{'width':switchStatus.width[i]}">

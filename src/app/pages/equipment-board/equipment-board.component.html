@@ -1,31 +1,28 @@
 <nb-card [nbSpinner]="loading" nbSpinnerSize="giant" nbSpinnerStatus="control" style="height: 100%;border: 0;margin: 0;">
-
-    <div id="equipment">
-        <div id="title_img">
-            <div style="position: absolute;">
-                <div class="return_button_1 head" *ngIf="b_show.home" (click)="menu_btn_click()">
+    <nb-card-body style="padding: 0;">
+        <div id="equipment">
+            <div id="title_img">
+                <div style="position: absolute;">
+                    <div class="return_button_1 head" *ngIf="b_show.home" (click)="menu_btn_click()">
+                    </div>
+                    <div class="return_button_2 head" *ngIf="b_show.back" (click)="return_btn_click()">
+                    </div>
                 </div>
-                <div class="return_button_2 head" *ngIf="b_show.back" (click)="return_btn_click()">
+                <div class="title">
+                    <span id="head_title">{{ title }}</span>
+                </div>
+                <div class="right_button">
+                    <div class="head">
+                        <span>{{get_now_date_str()}}</span>
+                    </div>
+                    <nb-icon style="margin-top: 5px;" [icon]="is_not_fullscreen ? 'expand-outline' : 'collapse-outline'" [status]="is_not_fullscreen ? 'warning' : 'info'" (click)="showAllTemplate()"></nb-icon>
                 </div>
             </div>
-            <div class="title">
-                <span id="head_title">{{ title }}</span>
-            </div>
-            <div class="right_button">
-                <div class="head">
-                    <span>{{get_now_date_str()}}</span>
+            <div class="body">
+                <div id="center">
+                    <router-outlet style="display: none;"></router-outlet>
                 </div>
-                <nb-icon style="margin-top: 5px;" [icon]="is_not_fullscreen ? 'expand-outline' : 'collapse-outline'" [status]="is_not_fullscreen ? 'warning' : 'info'" (click)="showAllTemplate()"></nb-icon>
             </div>
         </div>
-        <div class="body">
-            <div id="center">
-                <router-outlet style="display: none;"></router-outlet>
-            </div>
-        </div>
-    </div>
+    </nb-card-body>
 </nb-card>
-
-<!-- <div class="load" *ngIf="expression">
-
-</div> -->

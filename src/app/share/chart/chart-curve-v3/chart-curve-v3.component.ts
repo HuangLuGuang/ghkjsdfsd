@@ -1,5 +1,6 @@
 import { Component, EventEmitter, Input, NgZone, OnInit, Output} from '@angular/core';
 import { LayoutService } from '../../../@core/utils/layout.service';
+import { EquipmentBoardService } from '../../../pages/equipment-board/serivice/equipment-board.service';
 
 let equipment_four_road = require('../../../../assets/eimdoard/equipment/js/equipment-four-road')
 // 引入jquery
@@ -43,9 +44,10 @@ export class ChartCurveV3Component implements OnInit {
 //下拉显示的字段
   languageName = 'name';//默认为中文
 
+  sublist:any = {};
 
 
-  constructor(private layoutService:LayoutService,private ngzone:NgZone ) { }
+  constructor(private layoutService:LayoutService,private ngzone:NgZone,private boardservice:EquipmentBoardService ) { }
 
   ngOnInit(): void {
       //获取当前显示的语言
@@ -53,12 +55,8 @@ export class ChartCurveV3Component implements OnInit {
         if(language == 'en-US')//英文
             this.languageName = 'nameEn'
 
-        // 订阅左上角点击后宽度变化
-        this.layoutService.onInitLayoutSize().subscribe(f=>{
-            if(this.myChart)
-            this.myChart.resize();
-            let dom = document.getElementById(this.dashboardName);
-            if(dom)echarts.init(dom).resize();
+        this.sublist.chart_res = this.boardservice.chartResize().subscribe(f=>{
+            this.chartResize_v3();
         })
 
         //tag默认选中
@@ -72,7 +70,7 @@ export class ChartCurveV3Component implements OnInit {
 
   }
   ngAfterViewInit (){
-      window.addEventListener('resize',this.chartResize_v3);
+    //   window.addEventListener('resize',this.chartResize_v3);
   }
 
   chartResize_v3=()=>{
@@ -215,7 +213,7 @@ export class ChartCurveV3Component implements OnInit {
             left: '10%',
             top: '7%',
             right: '5%',
-            bottom: '15%',
+            bottom: '16%',
             height:'60%',
 
         },
@@ -238,7 +236,7 @@ export class ChartCurveV3Component implements OnInit {
             icon: 'circle',
             type:'scroll',
             orient: 'horizontal',
-            top: '80.5%',
+            bottom: '0%',
             width: '100%',
             right: 'center',
             // itemWidth: 16.5,
@@ -258,7 +256,7 @@ export class ChartCurveV3Component implements OnInit {
             data: this.xData,
             axisLabel: {
                 show: true,
-                fontSize: 9,
+                fontSize: 12,
                 color:COLOR,//X轴文字颜色
                 // formatter: function(value) {
                 //     var str = "";
@@ -318,7 +316,7 @@ export class ChartCurveV3Component implements OnInit {
                 show: true,
                 color:COLOR,//X轴文字颜色
                 textStyle: {
-                    fontSize: 9,
+                    fontSize: 12,
                     // color: "rgb(116,142,171)" //X轴文字颜色s
                 }
             },
@@ -525,11 +523,15 @@ export class ChartCurveV3Component implements OnInit {
 
   //组件销毁
   ngOnDestroy(){
-    window.removeEventListener('resize',this.chartResize_v3);
+    // window.removeEventListener('resize',this.chartResize_v3);
     this.dashboard_select= null;
     if(this.myChart)this.myChart.dispose();
     let dom = document.getElementById(this.dashboardName);
     if(dom)echarts.init(dom).dispose();
+
+    for(let key in this.sublist){
+        this.sublist[key].unsubscribe();
+      }
   }
 
 }

@@ -19,11 +19,12 @@ let equipment_four_road = {
         // console.log(seriesData);
         let option_s = this.getoption(xData, 'fun', legend, borderHeight, normalColor, seriesData);
         option_s.grid = {
-                left: "10%",
-                top: "30%",
+                left: "6%",
+                top: "20%",
                 bottom: 0,
-                width: '80%',
-                height: '45%'
+                width: '90%',
+                height: '75%',
+                containLabel:true,
             }
             // option_s.yAxis[0].name = '小时';
             // option_s.yAxis[0].nameLocation = 'end';
@@ -77,6 +78,7 @@ let equipment_four_road = {
         // if (myChart) myChart.resize();
         // })
         option_q.grid.left = '10%';
+        option_q.grid.width = '100%';
         option_q.yAxis[0].axisLine = {
             show: false
         }
@@ -274,7 +276,7 @@ let equipment_four_road = {
             name: '',
             type: 'pie',
             clockWise: false,
-            radius: [30, 40],
+            radius: ['70%', '90%'],
             //animation: false,
             itemStyle: {
                 normal: {
@@ -314,8 +316,8 @@ let equipment_four_road = {
                     zlevel: 3,
                     style: {
                         image: img,
-                        width: 50,
-                        height: 50
+                        width: gauge_data.level?80:63,
+                        height: gauge_data.level?80:63
                     },
                     left: 'center',
                     top: 'center',
@@ -801,7 +803,8 @@ let equipment_four_road = {
                 },
                 axisLabel: {
                     distance: -30,
-                    color: '#999',
+                    color: COLOR,
+                    // color: '#999',
                     fontSize: 12,
 
                 },
@@ -1440,7 +1443,7 @@ let equipment_four_road = {
                     show: true,
                     color: COLOR, //X轴文字颜色
                     textStyle: {
-                        fontSize: 9,
+                        fontSize: 12,
                         // color: "rgb(116,142,171)" //X轴文字颜色s
                     }
                 },
@@ -1667,16 +1670,17 @@ let equipment_four_road = {
                 trigger: 'axis',
             },
             grid: {
-                // buttom: '5%',
+                // bottom: 100,
                 top: '20%',
-                width: '85%',
-                left: '10%',
-                right: '5%',
-                height: '42%'
+                // width: '85%',
+                // left: '10%',
+                // right: '5%',
+                height: '42%',
+                // containLabel:true,
             },
             legend: {
                 show: true,
-                bottom: '1%',
+                bottom: '0%',
                 type: 'scroll',
                 pageIconColor: 'rgba(217, 244, 45, 1)',
                 pageTextStyle: {

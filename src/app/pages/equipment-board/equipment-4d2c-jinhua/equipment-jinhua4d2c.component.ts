@@ -105,9 +105,7 @@ export class EquipmentJinhua4d2cComponent implements OnInit {
  
      //赋值
      this.getData();
-     setTimeout(() => {
-       create_img_16_9();
-     }, 1000);
+     
  
      this.subscribeList.resize =this.boardservice.chartResize().subscribe(f=>{
        this.resize();
@@ -116,6 +114,9 @@ export class EquipmentJinhua4d2cComponent implements OnInit {
 
   ngAfterViewInit(){
     this.boardservice.sendLoad({close:false})
+    setTimeout(() => {
+      create_img_16_9();
+    }, 1000);
   }
 
   getData(){
@@ -240,7 +241,7 @@ export class EquipmentJinhua4d2cComponent implements OnInit {
 
   resize= ()=>{
     setTimeout(() => {
-      ['atec_line_3','atec_pie_5','atec_pie_6'].forEach(f=>{
+      ['atec_line_3','atec_pie_5','atec_pie_6','progress_1','progress_2','progress_3','progress_4'].forEach(f=>{
         let dom = document.getElementById(f);
         if(dom){
           echarts.init(dom).resize();

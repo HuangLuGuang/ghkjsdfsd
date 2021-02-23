@@ -15,7 +15,7 @@
 
         </table>
     </div>
-    <div id="scroll" class="table_bo {{ this.experiment.data.length >= 2?'length_too_long':''}}">
+    <div id="scroll" class="table_bo {{ this.experiment.data.length >= 2?'length_too_long':''}}" (mouseenter)="mouseenter()" (mouseleave)="mouseleave()">
         <table id="table_body">
             <tr id="tr" class="body" *ngFor="let items of experiment.data">
                 <ng-container *ngFor="let item of items;let i = index">

@@ -130,7 +130,7 @@ export class OilSourceMonitoringComponent implements OnInit {
   //HPU列表中一个hpu的三个表的参数
   HPUlist_series = [{
     data: {
-        name: "油压",
+        name: "油压-GPM",
         value: 0,
       },
       axisLine_color: [
@@ -138,12 +138,12 @@ export class OilSourceMonitoringComponent implements OnInit {
           [3100/3200, "#f39c11"],
           [1, "#fa4e4b"],
       ],
-      center:["20%", "65%"],
+      center:["20%", "70%"],
       unit:'GPM',
       max:3200
     },{
     data: {
-        name: "油流量",
+        name: "油流量-GPM",
         value: 0,
       },
       axisLine_color: [
@@ -151,12 +151,12 @@ export class OilSourceMonitoringComponent implements OnInit {
           [150/180, "#f39c11"],
           [1, "#fa4e4b"],
       ],
-      center: ["50%", "65%"],
+      center: ["50%", "70%"],
       unit:'GPM',
       max:180
     },{
       data: {
-          name: "油温",
+          name: "油温-℃",
           value: 0,
       },
       axisLine_color: [
@@ -164,7 +164,7 @@ export class OilSourceMonitoringComponent implements OnInit {
           [53/55, "#f39c11"],
           [1, "#fa4e4b"],
       ],
-      center: ["80%", "65%"],
+      center: ["80%", "70%"],
       unit:'℃',
       max:55,
   }]
@@ -371,7 +371,7 @@ export class OilSourceMonitoringComponent implements OnInit {
     
     let i = 0;
     this.timer = self.setInterval(f=>{
-      this.get_XNQ_HPU();
+      this.get_HPU();
       this.get_Error_Message();
       this.get_cleanlinss();
       this.get_Water();
@@ -460,7 +460,7 @@ export class OilSourceMonitoringComponent implements OnInit {
 
 
   /**
-   * 获取蓄能器数据
+   * 获取数据
    * get_hpu函数返回
    * hh01 时间 单位小时
    * hs30 hpu状态
@@ -470,7 +470,7 @@ export class OilSourceMonitoringComponent implements OnInit {
    * hv03油温
    * 
    */
-  get_XNQ_HPU(){
+  get_HPU(){
     // get_hpu('{"deviceid":"device_hpu_01"}')
     //  hh01:'time',hs30:'status',hs1
     let res;
@@ -688,18 +688,28 @@ export class OilSourceMonitoringComponent implements OnInit {
    */
   get_Radar(){
     // SELECT get_accumulator('{"deviceid":"device_hpu_02"}')
-    let res;
+    let res:any = {},res_1,arr = ["ab11","ab12","ab21","ab31","ab41","ab51","ab61","ab71","ab81","ab22","ab32","ab42","ab52","ab62","ab72","ab82"];
     this.subscribeList.rader = this.http.callRPC('get_accumulator',library+'get_accumulator',
-    {"device":"device_accumulator_01","arr":"ab11,ab12,ab21,ab31,ab41,ab51,ab61,ab71,ab81,ab22,ab32,ab42,ab52,ab62,ab72,ab82"}).subscribe((f:any)=>{
+    {"device":"device_accumulator_01","arr":arr.join(',')}).subscribe((f:any)=>{
       if(f.result.error || f.result.message[0].code == 0)return;
-      res = f.result.message[0].message?f.result.message[0].message[0]:{};
-      if(!res)res = {};
+      res_1 = f.result.message[0].message?f.result.message[0].message:{};
+
+      if(res_1){
+        res_1.forEach(el => {
+          for(let key in el){
+            res[key] = el[key][0][0];
+          }
+        });
+      }
       this.radar_1.value = [
         res.ab11,res.ab81,res.ab71,res.ab61,res.ab51,res.ab51,res.ab31,res.ab21,
       ];
       this.radar_2.value = [
         res.ab12,res.ab82,res.ab72,res.ab62,res.ab52,res.ab52,res.ab32,res.ab22,
-      ]
+      ];
+
+      this.radar_1.value = this.radar_1.value.map(m => m||0);
+      this.radar_2.value = this.radar_2.value.map(m => m||0);
       let radar_1 = document.getElementById('radar_1')
       if(radar_1)oilsrouce.create_radar(this.radar_1,echarts.init(radar_1));
       let radar_2 = document.getElementById('radar_2')

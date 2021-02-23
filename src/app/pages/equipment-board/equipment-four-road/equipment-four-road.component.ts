@@ -235,13 +235,14 @@ export class EquipmentFourRoadComponent implements OnInit {
     //获取数据
     this.getData();
     
-    setTimeout(f=>{
-      create_img_16_9();
-    },1000)
+    
   }
 
   ngAfterViewInit(){
     this.boardservice.sendLoad({close:false})
+    setTimeout(f=>{
+      create_img_16_9();
+    },1000)
   }
 
 

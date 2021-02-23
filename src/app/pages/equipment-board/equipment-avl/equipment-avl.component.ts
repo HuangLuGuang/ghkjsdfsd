@@ -173,9 +173,7 @@ export class EquipmentAvlComponent implements OnInit {
 
     //赋值
     this.getData();
-    setTimeout(() => {
-      create_img_16_9();
-    }, 1000);
+    
 
     this.subscribeList.resize =this.boardservice.chartResize().subscribe(f=>{
       this.resize();
@@ -184,7 +182,10 @@ export class EquipmentAvlComponent implements OnInit {
   }
 
   ngAfterViewInit(){
-    this.boardservice.sendLoad({close:false})
+    this.boardservice.sendLoad({close:false});
+    setTimeout(() => {
+      create_img_16_9();
+    }, 1000);
   }
 
 
