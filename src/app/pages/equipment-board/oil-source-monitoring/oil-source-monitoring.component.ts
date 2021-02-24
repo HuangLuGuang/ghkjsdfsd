@@ -130,7 +130,7 @@ export class OilSourceMonitoringComponent implements OnInit {
   //HPU列表中一个hpu的三个表的参数
   HPUlist_series = [{
     data: {
-        name: "油压-GPM",
+        name: "油压-PSI",
         value: 0,
       },
       axisLine_color: [
@@ -139,7 +139,7 @@ export class OilSourceMonitoringComponent implements OnInit {
           [1, "#fa4e4b"],
       ],
       center:["20%", "70%"],
-      unit:'GPM',
+      unit:'PSI',
       max:3200
     },{
     data: {

@@ -184,6 +184,13 @@ const ROUTERS: Routes = [{
         .then(m=>m.Equipment4d2cJinhuaModule),
 
       },
+      {
+        //昇微+4m3
+        path:'shengwei',
+        loadChildren:()=>import('./equipment-shengwei-4m3/equipment-shengwei-4m3.module')
+        .then(m=>m.EquipmentShengwei4m3Module),
+
+      },
       
       // {
       //   path:'detailsDemo/:title/:deviceid',

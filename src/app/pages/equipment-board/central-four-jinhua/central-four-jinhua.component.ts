@@ -72,7 +72,7 @@ export class CentralFourJinhuaComponent implements OnInit {
     },{
       id:'gauge_4',
       dataLine:{
-        value:12,name:'功率',max:100,color:[
+        value:12,name:'轮边功率',max:100,color:[
         [0.4, '#203add'],
         [1, '#0d1758']],unit:'Kw'
       }

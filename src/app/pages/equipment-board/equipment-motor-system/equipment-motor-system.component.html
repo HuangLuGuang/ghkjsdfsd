@@ -96,11 +96,11 @@
                 </div>
                 <div style="width: 40%;" class="c_c height_20">
                     <div style="width: 50%;">系统效率</div>
-                    <div class="blue_b">{{motor?.cal_eff_sys}}</div>
+                    <div class="blue_b">{{motor?.cal_eff_sys}}%</div>
                     <div style="width: 50%;">电机效率</div>
-                    <div class="blue_b">{{motor?.cal_eff_mot}}</div>
+                    <div class="blue_b">{{motor?.cal_eff_mot}}%</div>
                     <div style="width: 50%;">控制器效率</div>
-                    <div class="blue_b">{{motor?.cal_eff_inv}}</div>
+                    <div class="blue_b">{{motor?.cal_eff_inv}}%</div>
                 </div>
                 <div id="line_chart_12" class="height_23">
                 </div>
@@ -110,14 +110,14 @@
                             <div class="center" style="width: 40%;">
                                 {{'equipment.motor.BusVoltage'|translate}}
                             </div>
-                            <div class="height_80 width_50 bord center">{{ motor?.pa_udc1 }}</div>
+                            <div class="height_80 width_50 bord center">{{ motor?.pa_udc1 }}V</div>
                         </div>
                         <div style="width: 3%;"></div>
                         <div class="height_100 center_1" style="width: 30%;">
                             <div class="center" style="width: 40%;">
                                 {{'equipment.motor.BusCurrent'|translate}}
                             </div>
-                            <div class="height_80 width_50 bord center">{{ motor?.pa_idc1 }}</div>
+                            <div class="height_80 width_50 bord center">{{ motor?.pa_idc1 }}A</div>
                         </div>
                         <div style="width: 3%;"></div>
 
@@ -125,7 +125,7 @@
                             <div class="center" style="width: 40%;">
                                 {{'equipment.motor.DCpower'|translate}}
                             </div>
-                            <div class="height_80 width_50 bord center">{{ motor?.pa_p1 }}</div>
+                            <div class="height_80 width_50 bord center">{{ motor?.pa_p1 }}kW</div>
                         </div>
                     </div>
                     <div class="height_50" style="display: flex;flex-wrap: wrap;justify-content: center;">
@@ -133,7 +133,7 @@
                             <div class="center" style="width: 40%;">
                                 {{'equipment.motor.AveVoltage'|translate}}
                             </div>
-                            <div class="height_80 width_50 bord center">{{ motor?.pa_urmsa }}</div>
+                            <div class="height_80 width_50 bord center">{{ motor?.pa_urmsa }}V</div>
                         </div>
                         <div style="width: 3%;"></div>
 
@@ -141,7 +141,7 @@
                             <div class="center" style="width: 40%;">
                                 {{'equipment.motor.AveCurrent'|translate}}
                             </div>
-                            <div class="height_80 width_50 bord center">{{ motor?.pa_irmsa }}</div>
+                            <div class="height_80 width_50 bord center">{{ motor?.pa_irmsa }}A</div>
                         </div>
                         <div style="width: 3%;"></div>
 
@@ -149,7 +149,7 @@
                             <div class="center" style="width: 47%;">
                                 {{'equipment.motor.AveOutputPowerOfController'|translate}}
                             </div>
-                            <div class="height_80 width_50 bord center">{{motor?.pa_pa}}</div>
+                            <div class="height_80 width_50 bord center">{{motor?.pa_pa}}kW</div>
                         </div>
                     </div>
                 </div>

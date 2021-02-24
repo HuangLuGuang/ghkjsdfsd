@@ -35,7 +35,7 @@
                         <div class=" discharge" [ngStyle]="{'width':[4,5,6].includes(i)?'27%':'23%'}">
                             {{'equipment.'+item.name|translate}}
                             <div class=" div_blue">
-                                {{item.value}}{{item.unit}}
+                                {{item.value||0}}{{item.unit}}
                             </div>
                         </div>
                     </ng-container>
@@ -75,7 +75,7 @@
                     <div class="width_31 discharge" *ngFor="let item of avl_paramlist">
                         {{'equipment.'+item.name|translate}}
                         <div class=" div_blue">
-                            {{item.value}}{{item.unit}}
+                            {{item.value||0}}{{item.unit}}
                         </div>
                     </div>
                 </div>

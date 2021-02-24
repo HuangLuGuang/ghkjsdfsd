@@ -252,7 +252,7 @@ export class EquipmentXenonLampComponent implements OnInit {
   }
 
   get_4400_list(){
-    this.subscribeList.get_line_coolingWater = this.http.callRPC('device_realtime_list',library+'device_realtime_list',
+    this.subscribeList.get_line_coolingWater = this.http.callRPC('device_realtime_list_4400',library+'device_realtime_list_4400',
     {
       deviceid:this.deviceid_4400,
       arr:'tr_water_temperature,tr_irradiance1,tr_irradiance2,tr_chamber_temperature,tr_relative_humidity'
@@ -264,7 +264,7 @@ export class EquipmentXenonLampComponent implements OnInit {
           let xdata = [];
           let data = [];
           res[0].tr_water_temperature.forEach(el => {
-            xdata.push(el[0]|| 0);
+            data.push(el[0]|| 0);
             xdata.push(dateformat(new Date(rTime(el[1])),'hh:mm:ss'));
           });
           this.line_chart_1.attrs[0].value = data;

@@ -192,7 +192,7 @@ export class SecondLevelComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    var title = "吉利汽车研究院";
+    var title = "中央研究院";
     $("#head_title").text(title);
     //获取看板的实验室权限
     this.items = this.items.find(f => 

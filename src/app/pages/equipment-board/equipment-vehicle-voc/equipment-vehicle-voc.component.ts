@@ -284,10 +284,9 @@ export class EquipmentVehicleVocComponent implements OnInit {
    */
   assignment(cang_num,data){
     this.ngzone.runOutsideAngular(()=>{
-
       let cang_name = 'cang_'+cang_num;
       this[cang_name].status = data[`chb${cang_num}_run`];
-      this[cang_name].tempReal = data[`chb${cang_num}_temppv`].chb2_temppv||0;
+      this[cang_name].tempReal = data[`chb${cang_num}_temppv`]?(data[`chb${cang_num}_temppv`].chb2_temppv||0):0;
       this[cang_name].tempSet = data[`chb${cang_num}_tempsv`]||0;
       this[cang_name].rhReal = data[`chb${cang_num}_humipv`]||0;
       this[cang_name].rhSet = data[`chb${cang_num}_humisv`]||0;

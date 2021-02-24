@@ -35,7 +35,7 @@
                         <div class="width_33 discharge">
                             {{item.name|translate}}
                             <div class="width_70 div_blue">
-                                {{item.value}}
+                                {{item.value}}ppm
                             </div>
                         </div>
                     </ng-container>
@@ -80,8 +80,8 @@
                         <div>{{language?item.titleEn:item.title}}</div>
                     </div>
                     <div class="font_w_20" style="display: flex;align-items: center;height: 76%;">
-                        {{'equipment.loopFanRate' |translate}}:<br> {{environmental.ct_fun_hz_set}}
-                        <br> {{'equipment.NewTrendFanRate' |translate}}:<br> {{environmental.xf_fun_hz_set}}
+                        {{'equipment.loopFanRate' |translate}}:<br> {{environmental.ct_fun_hz_set}}Hz
+                        <br> {{'equipment.NewTrendFanRate' |translate}}:<br> {{environmental.xf_fun_hz_set}}Hz
                     </div>
                 </div>
             </div>

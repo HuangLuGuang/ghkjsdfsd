@@ -65,17 +65,19 @@ export const DEVICEID_TO_NAME  ={
   'device_jinhua_cabin02':'锦华常温浸车舱',//锦华常温浸车舱
   'device_atec_05':'整车高低温试验舱',//整车高低温试验舱
 
-  'device_avlmotor_01':'电机1',//电机1
-  'device_avlmotor_02':'电机2',//电机2
-  'device_avlmotor_03':'电机3',//电机3
-  "device_avlmotor_04":'电机4',//电机4
-  'device_boyang_01':'电机6',//电机6
-  'device_boyang_02':'电机7',//电机7
+  'device_avlmotor_01':'AVL电机8',//AVL电机8
+  'device_avlmotor_02':'AVL电机6',//AVL电机6
+  'device_avlmotor_03':'AVL电机3',//AVL电机3
+  "device_avlmotor_04":'AVL电机7',//AVL电机7
+  'device_boyang_01':'博阳电机5',//博阳电机5
+  'device_boyang_02':'博阳电机4',//博阳电机4
+    // 'device_andmotor_01':'鲁交电机1,//鲁交电机1
 
   'device_auto_voc01':'整车voc',//整车voc环境仓
   'device_atlas_4000':'氙灯Ci4000',//氙灯集中监控Ci4000
   'device_atlas_4400':'氙灯Ci4400',//氙灯集中监控Ci4400
   'device_purewater_01':'纯水',//纯水
+  // 'device_purewater_01':'纯水',//纯水
 
 }
 

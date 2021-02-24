@@ -126,6 +126,13 @@
         }
     }
 }
+.concentrated{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    height: 60%;
+    width: 100%;
+}
 
 .blue {
     background-color: #006ced;

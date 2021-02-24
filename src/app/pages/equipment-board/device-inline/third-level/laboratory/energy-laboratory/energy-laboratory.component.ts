@@ -13,43 +13,43 @@ import { ThirdLevelService } from '../third-level.service';
 export class EnergyLaboratoryComponent implements OnInit {
   list = [
     {
-      name:'电机-1',
-      number:'S1013',
+      name:'AVL电机8',
+      number:'S1003',
       andon:0,
       speed:[],
       src:'assets/eimdoard/equipment/images/dj1_1013.jpeg',//实验图片地址
       speed_name:[''],//实验编号
-      router:'pages/equipment/motor/电机系统测试台架-1/device_avlmotor_01',
+      router:'pages/equipment/motor/AVL电机测试台架8/device_avlmotor_01',
     },
     {
-      name:'电机-2',
-      number:'S1014',
+      name:'AVL电机6',
+      number:'S1013',
       andon:0,
       speed:[],
       src:'assets/eimdoard/equipment/images/dj2_1014.jpeg',//实验图片地址
       speed_name:[''],//实验编号
-      router:'pages/equipment/motor2/电机系统测试台架-2/device_avlmotor_02'
+      router:'pages/equipment/motor2/AVL电机测试台架6/device_avlmotor_02'
     },
     {
-      name:'电机-3',
-      number:'S1003',
+      name:'AVL电机3',
+      number:'S1010',
       andon:0,
       speed:[],
       src:'assets/eimdoard/equipment/images/dj3_1003.jpeg',//实验图片地址
       speed_name:[''],//实验编号
-      router:'pages/equipment/motor3/电机系统测试台架-3/device_avlmotor_03'
+      router:'pages/equipment/motor3/AVL电机测试台架3/device_avlmotor_03'
     },
     {
-      name:'电机-4',
-      number:'S1010',
+      name:'AVL电机7',
+      number:'S1014',
       andon:0,
       speed:[],
       src:'assets/eimdoard/equipment/images/dj4_1010.jpeg',//实验图片地址
       speed_name:[''],//实验编号
-      router:'pages/equipment/motor4/电机系统测试台架-4/device_avlmotor_04'
+      router:'pages/equipment/motor4/AVL电机测试台架7/device_avlmotor_04'
     },
     {
-      name:'电机-5',
+      name:'鲁交电机1',
       number:'S1008',
       andon:0,
       speed:[],
@@ -58,22 +58,22 @@ export class EnergyLaboratoryComponent implements OnInit {
       router:''
     },
     {
-      name:'电机-6',
-      number:'S1011',
+      name:'博阳电机5',
+      number:'S1012',
       andon:0,
       speed:[],
       src:'assets/eimdoard/equipment/images/dj6_1011.jpeg',//实验图片地址
       speed_name:[''],//实验编号
-      router:'pages/equipment/motor6/电机系统测试台架-6/six'
+      router:'pages/equipment/motor6/博阳电机测试台架5/six'
     },
     {
-      name:'电机-7',
-      number:'S1012',
+      name:'博阳电机4',
+      number:'S1011',
       andon:0,
       speed:[],
       src:'assets/eimdoard/equipment/images/dj7_1012.jpeg',//实验图片地址
       speed_name:[''],//实验编号
-      router:'pages/equipment/motor7/电机系统测试台架-7/seven',
+      router:'pages/equipment/motor7/博阳电机测试台架4/seven',
       type:''
     },{},{},{},{},{}
   ]
@@ -87,12 +87,13 @@ export class EnergyLaboratoryComponent implements OnInit {
       {name:'维修',color:'red',t:4},
   ];
   param = {
-    'device_avlmotor_01':this.list[0],//电机1
-    'device_avlmotor_02':this.list[1],//电机2
-    'device_avlmotor_03':this.list[2],//电机3
-    "device_avlmotor_04":this.list[3],//电机4
-    'device_boyang_01':this.list[5],//电机6
-    'device_boyang_02':this.list[6],//电机7
+    'device_avlmotor_01':this.list[0],//AVL电机8
+    'device_avlmotor_02':this.list[1],//AVL电机6
+    'device_avlmotor_03':this.list[2],//AVL电机3
+    "device_avlmotor_04":this.list[3],//AVL电机7
+    'device_boyang_01':this.list[5],//博阳电机5
+    'device_boyang_02':this.list[6],//博阳电机4
+    // 'device_andmotor_01':this.list[4],//鲁交电机1
   }
   timer;
   constructor(private router:Router,private http:HttpserviceService,private thrid:ThirdLevelService,

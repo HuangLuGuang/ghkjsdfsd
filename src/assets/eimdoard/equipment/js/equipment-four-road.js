@@ -2036,7 +2036,7 @@ let equipment_four_road = {
                     }
                 },
                 formatter: function(data_dd) {
-                    console.log(data_dd)
+                    // console.log(data_dd)
                     return `<span 
                     style="display:inline-block;margin-right:5px;border-radius:10px;width:10px;height:10px;background-color:${data_dd[0].color};"></span> 
                     ${ gauge_data.xData[data_dd[0].dataIndex] } ${ gauge_data.data[0].name } ${ gauge_data.data[0].data[data_dd[0].dataIndex]||0 }
@@ -2426,7 +2426,7 @@ let equipment_four_road = {
                     rich: {},
                     offsetCenter: [0, '65%'],
                     formatter: function(value) {
-                        return data.value ? data.value : 0;
+                        return (data.value ? data.value : 0)+data.unit;
                     }
                 },
                 data: [{

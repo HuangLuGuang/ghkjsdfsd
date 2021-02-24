@@ -59,7 +59,7 @@ export class EquipmentAvlComponent implements OnInit {
       color:[colors[2], colors[2]]
     },
     { 
-      name: "功率",nameEn :'功率', unit: "Kw",value: [],
+      name: "轮边功率",nameEn :'功率', unit: "Kw",value: [],
       color:[colors[3], colors[4]]
     }
   ]
@@ -363,7 +363,7 @@ export class EquipmentAvlComponent implements OnInit {
       this.outRenturnWind.forEach((f:any,i:number) => {
         if(!echarts.init(document.getElementById('electric_chart_'+i)))return;
         let c = echarts.init(document.getElementById('electric_chart_'+i));
-        equipment_four_road.create_real_electric({text:f.text,title:this.language?f.titleEn:f.title},c);
+        equipment_four_road.create_real_electric({text:f.text,title:this.language?f.titleEn:f.title,unit:'℃'},c);
       });
 
       //循环风机频率
@@ -419,10 +419,10 @@ export class EquipmentAvlComponent implements OnInit {
             data[key] = el[key][0][0];
           }
         });
-      this.avl_speed[0].dataLine.value = data.f;
-      this.avl_speed[1].dataLine.value = data.v;
-      this.avl_speed[2].dataLine.value = data.a;
-      this.avl_speed[3].dataLine.value = data.p;
+      this.avl_speed[0].dataLine.value = data.f||0;
+      this.avl_speed[1].dataLine.value = data.v||0;
+      this.avl_speed[2].dataLine.value = data.a||0;
+      this.avl_speed[3].dataLine.value = data.p||0;
 
       this.avl_speed.forEach(el=>{
         if(document.getElementById(el.id))

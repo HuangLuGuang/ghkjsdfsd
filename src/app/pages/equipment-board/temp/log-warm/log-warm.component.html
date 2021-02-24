@@ -5,9 +5,12 @@
         <div style="width: 100%;">{{'equipment.LV3Warm'|translate}}</div>
         <!-- <div style="width: 100%;">{{getwarm() | translate}}</div> -->
         <!-- <div id="circular" [ngStyle]="{'color':getwarmStr() == 3?'red':getwarmStr()==2?'':'yellow'}"></div> -->
+        <div></div>
         <div id="circular" [ngStyle]="{'background':errorC ?'red':''}"></div>
     </div>
-    <div class="h_43_w_70" id="warning"></div>
+    <div class="h_43_w_70">
+        <div class="h_43_w_70" id="{{chartid}}"></div>
+    </div>
     <div class="_table height_57">
         <div class="table_bo ">
             <table>

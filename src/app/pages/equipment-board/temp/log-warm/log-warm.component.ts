@@ -16,6 +16,7 @@ declare var $
 export class LogWarmComponent implements OnInit {
   @Input()device
 
+  @Input() chartid = 'warning';
   log_warm = {
     // '时间','日志等级','日志信息'
     title:['time','Loglevel','logInfor'],
@@ -75,7 +76,7 @@ export class LogWarmComponent implements OnInit {
   chartResize=()=>{
     this.ngzone.runOutsideAngular(()=>{
       setTimeout(() => {
-        if(document.getElementById('warning'))echarts.init(document.getElementById('warning')).resize();
+        if(document.getElementById(this.chartid))echarts.init(document.getElementById(this.chartid)).resize();
       }, 500);
 
     })
@@ -182,8 +183,8 @@ export class LogWarmComponent implements OnInit {
       // data.title = ['LV1Warn','LV2Warn'];
       data['xory'] = ['Mon','Tue','Wed','Thu','Fri','Sat','Sun'];
     }
-    if(document.getElementById('warning')){
-      let myChart_3 = echarts.init(document.getElementById('warning'));
+    if(document.getElementById(this.chartid)){
+      let myChart_3 = echarts.init(document.getElementById(this.chartid));
       equipment_four_road.create_warning_chart(data,myChart_3);
     }
   }
@@ -251,7 +252,7 @@ export class LogWarmComponent implements OnInit {
       this.subscribeList[key].unsubscribe();
     }
     // document.getElementById('warning').removeEventListener('resize',this.chartResize)
-    let dom = document.getElementById('warning');
+    let dom = document.getElementById(this.chartid);
     if(dom)echarts.init(dom).dispose();
   }
 
