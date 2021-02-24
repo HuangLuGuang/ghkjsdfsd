@@ -1,12 +1,10 @@
 import { Component, OnInit, ViewChild } from "@angular/core";
-
-import { NzFormatEmitEvent } from "ng-zorro-antd/core";
-
 declare let $;
 
-import { Observable, of } from "rxjs";
-import { map, startWith, filter } from "rxjs/operators";
-import { FormControl } from "@angular/forms";
+import { HttpserviceService } from "../../../services/http/httpservice.service";
+import { PublicmethodService } from "../../../services/publicmethod/publicmethod.service";
+import { UserInfoService } from "../../../services/user-info/user-info.service";
+import { TableOptionComponent } from "../components/table-option/table-option.component";
 
 export interface Group {
   name: string;
@@ -20,71 +18,11 @@ export interface Group {
   styleUrls: ["./location-monitoring.component.scss"],
 })
 export class LocationMonitoringComponent implements OnInit {
-  @ViewChild("all") all: any;
-  @ViewChild("inline") inline: any;
-  @ViewChild("noinline") noinline: any;
+  @ViewChild("myinput") myinput: any;
+  @ViewChild("data_range") data_range: any;
+  @ViewChild("ag_Grid") agGrid: any;
+
   @ViewChild("map") map: any;
-
-  searchValue = "";
-  nodes = [
-    {
-      title: "在线",
-      key: "在线",
-      children: [
-        {
-          title: "在线11",
-          key: "在线11",
-          isLeaf: true,
-
-          lng_lat: [121.32290077, 30.33220264],
-          info: "在线11",
-          updatatime: "2020-07-11 17:56:46(online)",
-          positiontiome: "2020-07-06 09:56:46",
-          positiontype: "卫星定位",
-          deviceno: "9527",
-        },
-        {
-          title: "在线12",
-          key: "在线12",
-          isLeaf: true,
-
-          lng_lat: [121.32260077, 30.33220264],
-          info: "在线12",
-          updatatime: "2020-08-11 17:56:46",
-          positiontiome: "2020-08-06 09:02:46",
-          positiontype: "卫星定位",
-          deviceno: "9537",
-        },
-        {
-          title: "在线13",
-          key: "在线13",
-          isLeaf: true,
-
-          lng_lat: [121.32230077, 30.33220264],
-          info: "在线13",
-          updatatime: "2020-07-13 19:56:46(online)",
-          positiontiome: "2020-07-08 15:44:46",
-          positiontype: "卫星定位",
-          deviceno: "9547",
-        },
-      ],
-    },
-    {
-      title: "0-1",
-      key: "0-1",
-      children: [
-        { title: "0-1-0-0", key: "0-1-0-0", isLeaf: true },
-        { title: "0-1-0-1", key: "0-1-0-1", isLeaf: true },
-        { title: "0-1-0-2", key: "0-1-0-2", isLeaf: true },
-      ],
-    },
-    {
-      title: "0-2",
-      key: "0-2",
-      isLeaf: true,
-    },
-  ];
-
   // 初始化数据
   groups: Group[] = [
     {
@@ -92,7 +30,7 @@ export class LocationMonitoringComponent implements OnInit {
       device_info: [
         {
           title: "在线11",
-          lng_lat: [121.32290077, 30.33220264],
+          lng_lat: [121.32290066, 30.33330255],
           info: "在线11",
           updatatime: "2020-07-11 17:56:46(online)",
           positiontiome: "2020-07-06 09:56:46",
@@ -101,7 +39,7 @@ export class LocationMonitoringComponent implements OnInit {
         },
         {
           title: "在线12",
-          lng_lat: [121.32260077, 30.33220264],
+          lng_lat: [121.32260066, 30.33330255],
           info: "在线12",
           updatatime: "2020-08-11 17:56:46(online)",
           positiontiome: "2020-08-06 09:02:46",
@@ -110,7 +48,7 @@ export class LocationMonitoringComponent implements OnInit {
         },
         {
           title: "在线13",
-          lng_lat: [121.32230077, 30.33220264],
+          lng_lat: [121.32230066, 30.33330255],
           info: "在线13",
           updatatime: "2020-07-13 19:56:46(online)",
           positiontiome: "2020-07-08 15:44:46",
@@ -158,7 +96,7 @@ export class LocationMonitoringComponent implements OnInit {
       device_info: [
         {
           title: "其它31",
-          lng_lat: [121.32290077, 30.33220264],
+          lng_lat: [121.32290099, 30.33020277],
           info: "其它31",
           updatatime: "2020-07-11 17:56:46",
           positiontiome: "2020-07-06 09:56:46",
@@ -167,7 +105,7 @@ export class LocationMonitoringComponent implements OnInit {
         },
         {
           title: "其它32",
-          lng_lat: [121.32260077, 30.33220264],
+          lng_lat: [121.32260099, 30.33020334],
           info: "其它32",
           updatatime: "2020-08-11 17:56:46",
           positiontiome: "2020-08-06 09:02:46",
@@ -176,7 +114,7 @@ export class LocationMonitoringComponent implements OnInit {
         },
         {
           title: "其它33",
-          lng_lat: [121.32200077, 30.33220264],
+          lng_lat: [121.32200099, 30.33020664],
           info: "其它33",
           updatatime: "2020-07-01 22:35:46",
           positiontiome: "2020-06-26 19:32:46",
@@ -188,316 +126,375 @@ export class LocationMonitoringComponent implements OnInit {
     },
   ];
 
-  filteredGroups$: Observable<Group[]>;
-  inputFormControl: FormControl;
+  button; // 权限button
+  myinput_placeholder = "设备类别";
+  loading = false; // 加载
+  refresh = false; // 刷新tabel
 
-  // 得到input 回车的数
-  filteredNgModelOptions$: Observable<Group[]>;
+  active; // aggrid 操作
 
-  // 传递给all、inline、noinline中的数据
-  datas = [];
-  datas_new = [];
+  // agGrid
+  tableDatas = {
+    totalPageNumbers: 0, // 总页数
+    PageSize: 10, // 每页 10条数据
+    isno_refresh_page_size: false, // 是否重新将 每页多少条数据，赋值为默认值
+    columnDefs: [
+      // 列字段 多选：headerCheckboxSelection checkboxSelection
+      {
+        field: "deviceName",
+        headerName: "设备名称",
+        resizable: true,
+        headerCheckboxSelection: true,
+        checkboxSelection: true,
+        autoHeight: true,
+        fullWidth: true,
+        sortable: true,
+        minWidth: 30,
+      },
+      {
+        field: "startAlertTime",
+        headerName: "开始报警时间",
+        resizable: true,
+        sortable: true,
+      },
+      {
+        field: "endAlertTime",
+        headerName: "最后报警时间",
+        resizable: true,
+        sortable: true,
+      },
+      {
+        field: "alertInfo",
+        headerName: "报警信息",
+        resizable: true,
+        sortable: true,
+      },
+      {
+        field: "alertNum",
+        headerName: "报警次数",
+        resizable: true,
+        sortable: true,
+      },
+      {
+        field: "handle",
+        headerName: "是否处理",
+        resizable: true,
+        sortable: true,
+      },
+      {
+        field: "handlePeople",
+        headerName: "处理人",
+        resizable: true,
+        minWidth: 10,
+        sortable: true,
+      },
 
-  constructor() {}
+      {
+        field: "info",
+        headerName: "在线状态",
+        resizable: true,
+        minWidth: 10,
+        sortable: true,
+      },
+    ],
+    rowData: [
+      // data
+    ],
+  };
+  private gridData = [];
 
-  nzEvent(event: NzFormatEmitEvent): void {
-    console.log("event===============", event);
+  message = [
+    {
+      deviceName: "AVL电机测试台架01",
+      startAlertTime: "2020-08-19 08:47:31",
+      endAlertTime: "2020-09-19 08:46:31",
+      alertInfo: "命令报警",
+      alertNum: "20",
+      handle: "true",
+      handlePeople: "王大锤",
+
+      info: "离线",
+      lng_lat: [121.32290077, 30.33220264],
+      updatatime: "2020-07-11 17:56:46",
+      positiontiome: "2020-07-06 09:56:46",
+      positiontype: "卫星定位",
+      deviceno: "9527",
+    },
+    {
+      deviceName: "AVL电机测试台架02",
+      startAlertTime: "2020-08-19 08:47:31",
+      endAlertTime: "2020-09-19 08:46:31",
+      alertInfo: "命令报警",
+      alertNum: "20",
+      handle: "true",
+      handlePeople: "王大锤",
+
+      info: "离线",
+      lng_lat: [121.32260077, 30.33220264],
+      updatatime: "2020-07-11 17:56:46",
+      positiontiome: "2020-07-06 09:56:46",
+      positiontype: "卫星定位",
+      deviceno: "9537",
+    },
+    {
+      deviceName: "AVL电机测试台架03",
+      startAlertTime: "2020-08-19 08:47:31",
+      endAlertTime: "2020-09-19 08:46:31",
+      alertInfo: "命令报警",
+      alertNum: "20",
+      handle: "true",
+      handlePeople: "王大锤",
+
+      info: "离线",
+      lng_lat: [121.32200077, 30.33220264],
+      updatatime: "2020-07-11 17:56:46",
+      positiontiome: "2020-07-06 09:56:46",
+      positiontype: "卫星定位",
+      deviceno: "9557",
+    },
+
+    {
+      deviceName: "AVL电机测试台架04",
+      startAlertTime: "2020-08-19 08:47:31",
+      endAlertTime: "2020-09-19 08:46:31",
+      alertInfo: "命令报警",
+      alertNum: "20",
+      handle: "true",
+      handlePeople: "王大锤",
+
+      info: "在线",
+      lng_lat: [121.32290066, 30.33330255],
+      updatatime: "2020-07-11 17:56:46",
+      positiontiome: "2020-07-06 09:56:46",
+      positiontype: "卫星定位",
+      deviceno: "9567",
+    },
+    {
+      deviceName: "AVL电机测试台架05",
+      startAlertTime: "2020-08-19 08:47:31",
+      endAlertTime: "2020-09-19 08:46:31",
+      alertInfo: "命令报警",
+      alertNum: "20",
+      handle: "true",
+      handlePeople: "王大锤",
+
+      info: "在线",
+      lng_lat: [121.32260066, 30.33330255],
+      updatatime: "2020-07-11 17:56:46",
+      positiontiome: "2020-07-06 09:56:46",
+      positiontype: "卫星定位",
+      deviceno: "9577",
+    },
+    {
+      deviceName: "AVL电机测试台架06",
+      startAlertTime: "2020-08-19 08:47:31",
+      endAlertTime: "2020-09-19 08:46:31",
+      alertInfo: "命令报警",
+      alertNum: "20",
+      handle: "true",
+      handlePeople: "王大锤",
+
+      info: "在线",
+      lng_lat: [121.32230066, 30.33330255],
+      updatatime: "2020-07-11 17:56:46",
+      positiontiome: "2020-07-06 09:56:46",
+      positiontype: "卫星定位",
+      deviceno: "9587",
+    },
+  ];
+
+  constructor(
+    private userinfo: UserInfoService,
+    private publicservice: PublicmethodService,
+    private http: HttpserviceService
+  ) {
+    // 会话过期
+    localStorage.removeItem("alert401flag");
   }
 
   ngOnInit(): void {
-    // this.groups =
-    this.fengzhuang_filter();
-
-    // 初始化数量
-    this.getnull_all_line(this.groups);
+    // button 按钮
+    this.button = localStorage.getItem("buttons_list")
+      ? JSON.parse(localStorage.getItem("buttons_list"))
+      : {};
+    // 添加操作
+    var that = this;
+    this.active = {
+      field: "option",
+      headerName: "操作",
+      resizable: true,
+      fullWidth: true,
+      pinned: "right",
+      miWidth: 10,
+      cellRendererFramework: TableOptionComponent,
+      cellRendererParams: {
+        clicked: function (data: any) {
+          console.log("--添加操作列---", data);
+          // that.change_target_hour([data]);
+        },
+      },
+    };
   }
 
-  // 封装自动
-  fengzhuang_filter() {
-    this.filteredGroups$ = of(this.groups);
-    this.inputFormControl = new FormControl();
-    this.filteredGroups$ = this.inputFormControl.valueChanges.pipe(
-      startWith(""),
-      map((filterString) => this.filter(filterString))
+  ngAfterViewInit() {
+    this.tableDatas.columnDefs.push(this.active);
+
+    // 初始化全部的小车！
+    // this.map.init_show_all(this.groups);
+    this.map.init_show_all(this.message);
+
+    // 初始化table
+    this.inttable();
+    this.loading = false;
+  }
+
+  // button按钮
+  action(actionmethod) {
+    var method = actionmethod.split(":")[1];
+    switch (method) {
+      // case 'add':
+      //   this.add();
+      //   break;
+      // case 'del':
+      //   this.del();
+      //   break;
+      // case 'edit':
+      //   this.edit();
+      //   break;
+      case "query":
+        this.query();
+        break;
+      // case 'import':
+      //   this.import();
+      //   break;
+      case "download":
+        this.download("行驶报表");
+        break;
+    }
+  }
+
+  // input 传入的值
+  inpuvalue(inpuvalue) {
+    if (inpuvalue != "") {
+      console.log("传入的值设备名称----->", inpuvalue);
+      this.query(inpuvalue);
+    }
+  }
+
+  // 搜索按钮
+  query(inpuvalue?) {
+    var devicetype;
+    if (inpuvalue) {
+      devicetype = inpuvalue;
+    } else {
+      devicetype = this.myinput?.getinput();
+    }
+    // 日期范围
+    var daterange_data = this.data_range.getselect();
+    console.log(
+      "<------------搜索----------->",
+      devicetype,
+      "日期范围",
+      daterange_data
     );
   }
+  // 导出
+  download(title) {
+    // this.mytable.download(title);
+  }
+  // 初始化前确保 搜索条件
+  inittable_before() {
+    var devicetype =
+      this.myinput?.getinput() === undefined ? "" : this.myinput?.getinput(); // 设备名称
+    // 日期范围
+    var daterange_data = this.data_range?.getselect();
+    // 将科室/功能组，转为列表
+    return {
+      limit: this.agGrid.get_pagesize(),
+      employeeid: this.userinfo.getEmployeeID(),
+      devicetype: [devicetype],
+      start: daterange_data[0],
+      end: daterange_data[1],
+    };
+  }
+  // 初始化table
+  inttable(event?) {
+    var inittable_before = this.inittable_before();
 
-  // 全部、 在线、离线数量
-  getnull_all_line(groups?) {
-    if (groups) {
-      var inline = groups[0]["device_info"].length;
-      var noinline = groups[1]["device_info"].length;
-      var other = groups[2]["device_info"].length;
-
-      var all_nu = inline + noinline + other;
-      $(".all_num").text(all_nu); // 全部的数量！
-      $(".inline").text(inline); // 在线的数量！
-      $(".noinline").text(noinline); // 离线的数量！
+    var offset;
+    var limit;
+    var PageSize;
+    if (event != undefined) {
+      offset = event.offset;
+      limit = event.limit;
+      PageSize = event.PageSize ? Number(event.PageSize) : 10;
+    } else {
+      offset = 0;
+      limit = 10;
+      PageSize = 10;
     }
+    var columns = {
+      offset: offset,
+      limit: limit,
+      start: inittable_before.start,
+      end: inittable_before.end,
+    };
+    this.loading = true;
+    var message = this.message;
+    this.tableDatas.PageSize = PageSize;
+    this.gridData.push(...message);
+    this.tableDatas.rowData = this.gridData;
+    var totalpagenumbers = this.message.length;
+    this.tableDatas.totalPageNumbers = totalpagenumbers;
+    setTimeout(() => {
+      this.agGrid.init_agGrid(this.tableDatas); // 告诉组件刷新！
+    }, 1000);
+    // 刷新table后，改为原来的！
+    this.tableDatas.isno_refresh_page_size = false;
+  }
+  // 刷新table
+  refresh_table() {
+    this.refresh = true;
+    this.loading = true;
+    this.gridData = [];
+    // 是否 每页多少也，设置为默认值
+    this.tableDatas.isno_refresh_page_size = true;
+    this.inttable();
+    this.loading = false;
+    this.refresh = false;
+
+    // 取消选择的数据 delselect
+    this.myinput.del_input_value();
+    // this.groups_func.dropselect();
+    // this.eimdevicetpye.dropselect();
+  }
+  // nzpageindexchange 页码改变的回调
+  nzpageindexchange(event) {
+    // console.log("页码改变的回调", event);
+    // this.loading = true;
+    this.gridData = [];
+    this.inttable(event);
+    this.loading = false;
   }
 
-  // ---------------tabs---- 更新数据 在线、离线等数据！
-
-  selectid = "#all";
-  active(id) {
-    var li = document.querySelectorAll(".tabs li");
-    // console.log("--li----", li)
-    li.forEach((element) => {
-      element.className = null;
+  // 子组件，map组件调用，通知，刷新小车数据！
+  isno_refresh(event) {
+    var groups_back = Object.assign([], this.groups);
+    groups_back.forEach((item) => {
+      item.device_info.forEach((element) => {
+        element.lng_lat[0] += 0.001;
+        element.lng_lat[1] += 0.1;
+      });
     });
-    var select = document.querySelector(id);
-    select.className = "is-active";
-    this.selectid = id;
-
-    // 根据id不同 得到不同的groups
-    // console.error("根据id不同 得到不同的groups", id);
-    switch (id) {
-      case "#inline":
-        this.groups = [
-          {
-            name: "在线",
-            device_info: [
-              {
-                title: "在线 11",
-                lng_lat: [121.32145, 30.332795],
-                info: "在线 11",
-                updatatime: "2020-07-11 17:56:46(online)",
-                positiontiome: "2020-07-06 09:56:46",
-                positiontype: "卫星定位",
-                deviceno: "9527",
-              },
-              {
-                title: "在线 12",
-                lng_lat: [121.22260077, 30.26220264],
-                info: "在线 12",
-                updatatime: "2020-08-11 17:56:46(online)",
-                positiontiome: "2020-08-06 09:02:46",
-                positiontype: "卫星定位",
-                deviceno: "9537",
-              },
-              {
-                title: "在线 13",
-                lng_lat: [121.12230077, 30.13220264],
-                info: "在线 13",
-                updatatime: "2020-07-13 19:56:46(online)",
-                positiontiome: "2020-07-08 15:44:46",
-                positiontype: "卫星定位",
-                deviceno: "9547",
-              },
-            ],
-            children: ["在线11", "在线12", "在线13"],
-          },
-        ];
-        break;
-      case "#noinline":
-        this.groups = [
-          {
-            name: "离线",
-            device_info: [
-              {
-                title: "离线 21",
-                lng_lat: [121.02290077, 30.33220264],
-                info: "离线 21",
-                updatatime: "2020-07-11 17:56:46(outline)",
-                positiontiome: "2020-07-06 09:56:46",
-                positiontype: "卫星定位",
-                deviceno: "9527",
-              },
-              {
-                title: "离线 22",
-                lng_lat: [121.12260077, 30.34220264],
-                info: "离线 22",
-                updatatime: "2020-08-11 17:56:46(outline)",
-                positiontiome: "2020-08-06 09:02:46",
-                positiontype: "卫星定位",
-                deviceno: "9537",
-              },
-              {
-                title: "离线 23",
-                lng_lat: [121.22200077, 30.35220264],
-                info: "离线 23",
-                updatatime: "2020-07-01 22:35:46(outline)",
-                positiontiome: "2020-06-26 19:32:46",
-                positiontype: "卫星定位",
-                deviceno: "9557",
-              },
-            ],
-            children: ["离线21", "离线22", "离线23"],
-          },
-        ];
-        break;
-
-      case "#all":
-        this.groups = [
-          {
-            name: "在线",
-            device_info: [
-              {
-                title: "在线11",
-                lng_lat: [121.32290077, 30.33220264],
-                info: "在线11",
-                updatatime: "2020-07-11 17:56:46(online)",
-                positiontiome: "2020-07-06 09:56:46",
-                positiontype: "卫星定位",
-                deviceno: "9527",
-              },
-              {
-                title: "在线12",
-                lng_lat: [121.32260077, 30.33220264],
-                info: "在线12",
-                updatatime: "2020-08-11 17:56:46(online)",
-                positiontiome: "2020-08-06 09:02:46",
-                positiontype: "卫星定位",
-                deviceno: "9537",
-              },
-              {
-                title: "在线13",
-                lng_lat: [121.32230077, 30.33220264],
-                info: "在线13",
-                updatatime: "2020-07-13 19:56:46(online)",
-                positiontiome: "2020-07-08 15:44:46",
-                positiontype: "卫星定位",
-                deviceno: "9547",
-              },
-            ],
-            children: ["在线11", "在线12", "在线13"],
-          },
-          {
-            name: "离线",
-            device_info: [
-              {
-                title: "离线21",
-                lng_lat: [121.32290077, 30.33220264],
-                info: "离线21",
-                updatatime: "2020-07-11 17:56:46(outline)",
-                positiontiome: "2020-07-06 09:56:46",
-                positiontype: "卫星定位",
-                deviceno: "9527",
-              },
-              {
-                title: "离线22",
-                lng_lat: [121.32260077, 30.33220264],
-                info: "离线22",
-                updatatime: "2020-08-11 17:56:46(outline)",
-                positiontiome: "2020-08-06 09:02:46",
-                positiontype: "卫星定位",
-                deviceno: "9537",
-              },
-              {
-                title: "离线23",
-                lng_lat: [121.32200077, 30.33220264],
-                info: "离线23",
-                updatatime: "2020-07-01 22:35:46(outline)",
-                positiontiome: "2020-06-26 19:32:46",
-                positiontype: "卫星定位",
-                deviceno: "9557",
-              },
-            ],
-            children: ["离线21", "离线22", "离线23"],
-          },
-          {
-            name: "其它",
-            device_info: [
-              {
-                title: "其它31",
-                lng_lat: [121.32290077, 30.33220264],
-                info: "其它31",
-                updatatime: "2020-07-11 17:56:46",
-                positiontiome: "2020-07-06 09:56:46",
-                positiontype: "卫星定位",
-                deviceno: "9527",
-              },
-              {
-                title: "其它32",
-                lng_lat: [121.32260077, 30.33220264],
-                info: "其它32",
-                updatatime: "2020-08-11 17:56:46",
-                positiontiome: "2020-08-06 09:02:46",
-                positiontype: "卫星定位",
-                deviceno: "9537",
-              },
-              {
-                title: "其它33",
-                lng_lat: [121.32200077, 30.33220264],
-                info: "其它33",
-                updatatime: "2020-07-01 22:35:46",
-                positiontiome: "2020-06-26 19:32:46",
-                positiontype: "卫星定位",
-                deviceno: "9557",
-              },
-            ],
-            children: ["其它31", "其它32", "其它33"],
-          },
-        ];
-        break;
-    }
-    // console.log("groups>>>>>>>>", this.groups);
-    this.fengzhuang_filter();
+    console.error("子组件，map组件调用，通知，刷新小车数据！", groups_back);
+    this.map.init_show_all(groups_back, true);
   }
 
   // 点击设备在map上展示设备信息,子组件调用
-  get_device_for_show_mapinfo(e) {
-    console.log("--点击设备在map上展示设备信息---", e);
-    this.map.show_info_in_map(e);
-  }
 
-  // ---------------------------------------
-  private filterChildren(children: string[], filterValue: string) {
-    var children = children.filter((optionValue) =>
-      optionValue.toLowerCase().includes(filterValue)
-    );
-    return children;
-  }
-
-  private filter(value: string): Group[] {
-    const filterValue = value.toLowerCase();
-    this.datas = [];
-    this.datas_new = [];
-    return this.groups
-      .map((group) => {
-        var item = {
-          name: group.name,
-          device_info: group.device_info,
-          children: this.filterChildren(group.children, filterValue),
-        };
-        this.datas.push(item);
-        this.datas_new.push(item);
-
-        return item;
-      })
-      .filter((group) => group.children.length);
-  }
-
-  trackByFn(index, item) {
-    return item.name;
-  }
-
-  onModelChange(value) {
-    this.filteredNgModelOptions$ = of(this.filter(value));
-    // console.error("&&&&&&&&&&&&&&  onModelChange  &&&&&&&&&&&&&&&&&&&",value);
-    // console.error("this.filteredNgModelOptions$",this.filteredNgModelOptions$);
-    // console.error("this.inputFormControl$",this.inputFormControl);
-    // 传递给子组件的值
-    this.filteredNgModelOptions$.subscribe((res) => {
-      this.datas_new = res;
-      // console.error("????????????", res,value);
-      if (value) {
-        if (this.selectid === "#inline") {
-          this.inline.get_selectdata(res, "open");
-        } else if (this.selectid === "#noinline") {
-          this.noinline.get_selectdata(res, "open");
-        } else {
-          this.all.get_selectdata(res, "open");
-        }
-      } else {
-        if (this.selectid === "#inline") {
-          this.inline.get_selectdata(res, "close");
-        } else if (this.selectid === "#noinline") {
-          this.noinline.get_selectdata(res, "close");
-        } else {
-          this.all.get_selectdata(res, "close");
-        }
-      }
-    });
+  // 得到的，选中的行，数据 array
+  selectedrow(event) {
+    console.log("--点击设备在map上展示设备信息---", event);
+    this.map.show_info_in_map(event);
   }
 }

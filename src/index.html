@@ -36,7 +36,7 @@
     <!-- jquery -->
     <script type="text/javascript" src="/assets/pages/device-inline/js/jquery.js"></script>
 
-    <script type="text/javascript">
+    <!-- <script type="text/javascript">
         // 20201225151850
         $.ajax({
             url: 'https://api.map.baidu.com/api?v=2.0&ak=4TBS12lmsagsuOBKhPTx3QQGbp19Y78Q&services=false',
@@ -68,11 +68,11 @@
                 alert('百度地图获取失败')
             }
         });
-    </script>
-
+    </script> -->
 
     <!--引入百度地图的jssdk，这里需要使用你在百度地图开发者平台申请的 ak -->
     <!-- <script type="text/javascript" src="https://api.map.baidu.com/api?v=2.0&ak=4TBS12lmsagsuOBKhPTx3QQGbp19Y78Q&services=false"></script> -->
+    
 
     <!-- 鼠标实例 -->
     <script type="text/javascript" src="/assets/pages/mobile-asset-management/js/DistanceTool_min.js"></script>
@@ -107,6 +107,9 @@
 
     <!-- flatpickr -->
     <script src="/assets/pages/tongji/flatpickr/flatpickr.min.js" type="text/javascript"></script>
+
+    <!--引入百度地图的jssdk，这里需要使用你在百度地图开发者平台申请的 ak &callback=initialize 異步加載 -->
+    <script type="text/javascript" src="https://api.map.baidu.com/api?v=2.0&ak=4TBS12lmsagsuOBKhPTx3QQGbp19Y78Q&callback=initialize"></script>
 
     <ngx-app>Loading...</ngx-app>
 

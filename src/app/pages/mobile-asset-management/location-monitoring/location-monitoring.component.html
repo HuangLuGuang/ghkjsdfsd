@@ -1,82 +1,89 @@
-<div class="row" style="min-height: 800px; margin-right: -11px;">
-    <div class="col-md-2" >
-        <div style="background: #FFF">
-            <div class="tabs is-centered" >
-                <ul>
-                    <li class="is-active" id="all" (click)="active('#all')">
-                        <a>
-                            <span class="icon is-small"><i class="fas fa-image" aria-hidden="true"></i></span>
-                            全部
-                            <span class="all_num"></span>
-                        </a>
-                    </li>
-                  <li id="inline" (click)="active('#inline')"><a>在线 <span class="all_num inline">23</span></a></li>
-                  <li id="noinline" (click)="active('#noinline')"><a>离线 <span class="all_num noinline">33</span></a></li>
-                </ul>
-            </div>
-    
-    
-            <div class="mysearch" >
-                <!-- 树状搜索 -->
-                <!-- <nz-input-group [nzSuffix]="suffixIcon">
-                    <input type="text" nz-input placeholder="Search" [(ngModel)]="searchValue" />
-                  </nz-input-group>
-                  <ng-template #suffixIcon>
-                    <i nz-icon nzType="search"></i>
-                  </ng-template>
-                  <nz-tree
-                    [nzData]="nodes"
-                    [nzSearchValue]="searchValue"
-                    (nzClick)="nzEvent($event)"
-                    (nzExpandChange)="nzEvent($event)"
-                    (nzSearchValueChange)="nzEvent($event)"
-                  >
-                  </nz-tree> -->
-
-                <!-- <input nbInput placeholder="这是搜索" fullWidth (keyup)="projectNameChanged($event)"> -->
-                <div class="row" style="padding: 0px 21px;">
-                    <input 
-                    [(formControl)]="inputFormControl"
-                    nbInput
-                    fullWidth
-                    type="text"
-                    placeholder="请选择设备"
-                    (ngModelChange)="onModelChange($event)"
-                    [nbAutocomplete]="auto" />
-    
-                    <nb-autocomplete #auto>
-    
-                        <nb-option-group *ngFor="let group of filteredGroups$ | async; trackBy: trackByFn"  [title]="group.name" >
-                            <nb-option *ngFor="let option of group.children" [value]="option">
-                            {{ option }}
-                            </nb-option>
-                        </nb-option-group>
-                
-                    </nb-autocomplete>
+<nb-card style="height: 865px; margin: 0px;">
+    <!-- <nb-card-header>资产位置</nb-card-header> -->
+    <nb-card-body>
+        <div class="row" style=" margin-right: -11px;margin-left: -5px;height: 45%;padding-bottom: 10px;">
+            <!-- 资产-地图 -->
+            <div class="col-md-6" style="    padding: 0px 11px 0px 5px;">
+                <!-- map -->
+                <div class="row" style=" margin: 0px -11px;height: 100%;">
+                    <div class="col-md-12" style="padding: 0px">
+                        <!-- 这是map -->
+                        <ngx-map #map (isno_refresh)="isno_refresh($event)"></ngx-map>
+                    </div>
                 </div>
+            </div>
+            <!-- 资产-报表 -->
+            <div class="col-md-6" style="    padding: 0px 11px 0px 5px;">
                 
+                <!-- table -->
+                <div class="row" style="height: 100%; margin: 0px -11px;">
+                    <div class="col-md-12" style="padding: 0px;border: 1px solid red;padding: 0px 11px 0px 5px;">
+                        
+                    </div>
+                </div>
             </div>
             
-            <div class="tab-conent" *ngIf="selectid == '#all'">
-                <ngx-all #all [datas]="datas_new" (send_user_deviceInfo)="get_device_for_show_mapinfo($event)"></ngx-all>
-            </div>
-            <div class="tab-conent" *ngIf="selectid == '#inline'">
-                <ngx-all #inline [datas]="datas_new" (send_user_deviceInfo)="get_device_for_show_mapinfo($event)"></ngx-all>
-                <!-- <ngx-inline #inline [datas]="datas" (send_user_deviceInfo)="get_device_for_show_mapinfo($event)"></ngx-inline> -->
-            </div>
-            <div class="tab-conent" *ngIf="selectid == '#noinline'">
-                <ngx-all #noinline [datas]="datas_new" (send_user_deviceInfo)="get_device_for_show_mapinfo($event)"></ngx-all>
-                <!-- <ngx-noinline #noinline [datas]="datas"  (send_user_deviceInfo)="get_device_for_show_mapinfo($event)"></ngx-noinline> -->
-            </div>
         </div>
 
-    </div>
-    <div class="col-md-10" style=" padding: 0px;">
-        <nb-card>
-            <nb-card-body style="padding: 4px; height: 835px;">
-                <!-- 这是map -->
-                <ngx-map #map ></ngx-map>
-            </nb-card-body>
-        </nb-card>
-    </div>
-</div>
+        <!-- table 的表格 -->
+        <div class="row" style=" margin-right: -22px;margin-left: -22px;">
+            <div class="col-md-12" >
+                <!-- 搜索等 -->
+                <div class="row" style=" margin: 0px -14px;">
+                    <div class="col-lg-9" style="display: flex;">
+                        <!-- input 设备名称输入框 -->
+                        <div class="example-items-rows button_item"  *ngIf="button?.query">
+                            <ngx-my-input #myinput (inpuvalue)="inpuvalue($event)"  [placeholder]="myinput_placeholder"></ngx-my-input>
+                        </div>
+        
+                        <!-- 日期 -->
+                        <div class="example-items-rows button_item" *ngIf="button?.query">
+                            <ngx-my-date-range #data_range></ngx-my-date-range>
+                        </div>
+        
+                        <!-- 搜索 -->
+                        <div class="example-items-rows button_item query" *ngIf="button?.query">
+                            <button nbButton [status]="button?.query.class" size="small" (click)="action(button?.query.permission)"  [disabled]="button?.query.active == 0? true:false"><nb-icon [icon]="button?.query.icon"></nb-icon>{{button?.query.title}}</button>
+                        </div>
+                        
+                        <!-- add、edit、del -->
+                        <div class="example-items-rows button_item add" *ngIf="button?.add" >
+                            <button nbButton [status]="button?.add.class" size="small" (click)="action(button?.add.permission)"  [disabled]="button?.add.active == 0? true:false"><nb-icon [icon]="button?.add.icon"></nb-icon>{{button?.add.title}}</button>
+                        </div>
+                        <div class="example-items-rows button_item edit" *ngIf="button?.edit">
+                            <button nbButton [status]="button?.edit.class" size="small" (click)="action(button?.edit.permission)"  [disabled]="button?.edit.active == 0? true:false"><nb-icon [icon]="button?.edit.icon"></nb-icon>{{button?.edit.title}}</button>
+                        </div>
+                        <div class="example-items-rows button_item del" *ngIf="button?.del">
+                            <button nbButton [status]="button?.del.class" size="small" (click)="action(button?.del.permission)"  [disabled]="button?.del.active == 0? true:false"><nb-icon [icon]="button?.del.icon"></nb-icon>{{button?.del.title}}</button>
+                        </div>
+        
+                    </div>
+        
+                    <div class="col-lg-3" style="display: flex;">
+                        <!-- 导入、导出 -->
+                        <div style="flex: auto;">
+                        </div>
+                        <!-- <div class=" button_item my_import " *ngIf="button?.import">
+                            <button nbButton [status]="button?.import.class" size="small" (click)="action(button?.import.permission)"  [disabled]="button?.import.active == 0? true:false"><nb-icon [icon]="button?.import.icon"></nb-icon>{{button?.import.title}}</button>
+                            <input type="file" class="import" id="import" (change)="onFileChange($event)" multiple="false" >
+                        </div> -->
+                        
+                        <div class=" button_item download" *ngIf="button?.download">
+                            <button nbButton [status]="button?.download.class" size="small" (click)="action(button?.download.permission)"  [disabled]="button?.download.active == 0? true:false"><nb-icon [icon]="button?.download.icon"></nb-icon>{{button?.download.title}}</button>
+                        </div>
+                        
+                        <div class="" style="text-align: right;">
+                            <!-- loader-outline -->
+                            <button nbButton [nbSpinner]="refresh" nbSpinnerStatus="success" size="small" (click)="refresh_table()">
+                                <nb-icon icon="sync-outline"></nb-icon>
+                            </button>
+                        </div>
+            
+                    </div>
+                </div>
+                <ngx-ag-table #ag_Grid (selectedrow)="selectedrow($event)" (nzpageindexchange)="nzpageindexchange($event)"></ngx-ag-table>
+            </div>
+        </div>
+    </nb-card-body>
+</nb-card>
+

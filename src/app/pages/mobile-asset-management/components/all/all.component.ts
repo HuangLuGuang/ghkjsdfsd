@@ -83,7 +83,7 @@ export class AllComponent implements OnInit {
       .subscribe((title) => {
         this.order(title);
       });
-    console.log("++++++++++++++++++++++++++=datas", this.datas);
+    // console.log("++++++++++++++++++++++++++=datas", this.datas);
   }
 
   ngAfterViewInit() {}

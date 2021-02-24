@@ -1,0 +1,30 @@
+<p>set-weilan works!</p>
+<nb-card style="width: 800px;height: 500px;margin-bottom: 0px; " size="tiny"
+>
+    <nb-card-header>
+        <div class="row">
+            <div class="col-md-4 devicetitle" style="font-size: small;">设置围栏</div>
+            <div class="col-md-6">
+                
+            </div>
+            <div class="col-md-2" style="display: flex;">
+                <div style="flex: auto;">
+                </div>
+                <nb-icon icon="close-outline" style="cursor: pointer;" (click)="closedialog()"></nb-icon>
+            </div>
+        </div>
+    </nb-card-header>
+
+    <nb-card-body>
+        <nb-tabset fullWidth>
+            <nb-tab tabTitle="Users">
+              <p>List of <strong>users</strong>.</p>
+            </nb-tab>
+            <nb-tab tabTitle="Orders">
+              <p>List of <strong>orders</strong>.</p>
+            </nb-tab>
+          </nb-tabset>
+
+    </nb-card-body>
+
+</nb-card>
