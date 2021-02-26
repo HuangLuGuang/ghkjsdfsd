@@ -1,34 +1,34 @@
 
 
 <ag-grid-angular
-    #agGrid 
-    [style]="style"
-    class="ag-theme-alpine"
-    [rowData]="rowData"
-    [columnDefs]="columnDefs"
+#agGrid 
+[style]="style"
+class="ag-theme-alpine"
+[rowData]="rowData"
+[columnDefs]="columnDefs"
 
-    [context]="context"
-    [getRowNodeId]="getRowNodeId"
-    [defaultColDef]="defaultColDef"
+[context]="context"
+[getRowNodeId]="getRowNodeId"
+[defaultColDef]="defaultColDef"
 
-    [pagination]="true"
-    [rowSelection]="rowSelection"
-    [paginationPageSize]="paginationPageSize"
-    [paginationNumberFormatter]="paginationNumberFormatter"
-    [suppressScrollOnNewData]="suppressScrollOnNewData"
-    [suppressPaginationPanel]="suppressPaginationPanel"
-    [suppressRowClickSelection]="suppressRowClickSelection"
+[pagination]="true"
+[rowSelection]="rowSelection"
+[paginationPageSize]="paginationPageSize"
+[paginationNumberFormatter]="paginationNumberFormatter"
+[suppressScrollOnNewData]="suppressScrollOnNewData"
+[suppressPaginationPanel]="suppressPaginationPanel"
+[suppressRowClickSelection]="suppressRowClickSelection"
 
 
-    (filterModified)="onfilterModified($event)"
-    (selectionChanged)="onSelectionChanged($event)"
+(filterModified)="onfilterModified($event)"
+(selectionChanged)="onSelectionChanged($event)"
 
-    
-    
-    [frameworkComponents]="frameworkComponents"
-    (paginationChanged)="onPaginationChanged($event)"
-    (gridReady)="onGridReady($event)"
-    (rowClicked)="onRowClicked($event)"
+
+
+[frameworkComponents]="frameworkComponents"
+(paginationChanged)="onPaginationChanged($event)"
+(gridReady)="onGridReady($event)"
+(rowClicked)="onRowClicked($event)"
 
 >
 </ag-grid-angular>
@@ -38,9 +38,9 @@
         <nz-pagination [(nzPageIndex)]="current" [nzTotal]="totalPageNumbers"
                     [nzPageSize] = "setPageCount"
                     (nzPageIndexChange)="pageIndexChange($event)"
-                   nzShowQuickJumper
-                   [nzShowTotal]="totalTemplate"
-                   
+                nzShowQuickJumper
+                [nzShowTotal]="totalTemplate"
+                
         >
         </nz-pagination>
     </div>
@@ -68,5 +68,7 @@
         </div>
     </div>
 </div>
+
+
 
 <ng-template  #totalTemplate let-total>共 {{ alltotalPageNumbers }} 条, 已选{{selectedRows.length}}条</ng-template>

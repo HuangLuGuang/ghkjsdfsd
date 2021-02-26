@@ -32,13 +32,14 @@ import { EditComponent } from './tongji/test_task_conf/edit/edit.component';
 import { DailyTargetDurationComponent } from './tongji/target-hour-config/daily-target-duration/daily-target-duration.component';
 import { DeviceStatusInfoComponent } from './andon-man-hour/device-status-info/device-status-info.component';
 import { SetWeilanComponent } from './gps/set-weilan/set-weilan.component';
+import { AddEditGpsComponent } from './gps/add-edit-gps/add-edit-gps.component';
 
 
 // DateComponent
 @NgModule({
   declarations: [PagesPopupsComponent, RoleComponent, 
     MySelectComponent, UserEmployeeComponent,  
-    UserEmployeeGroupComponent, EditDelTooltipComponent, DeviceManageComponent, PreinstallDialogComponent,  ExpiredTokenComponent, NewMenuComponent, ChangePassowrdForallComponent, TargetHourConfigComponent, AddComponent, GroupDevicesComponent, EditComponent, DailyTargetDurationComponent, DeviceStatusInfoComponent, SetWeilanComponent,  
+    UserEmployeeGroupComponent, EditDelTooltipComponent, DeviceManageComponent, PreinstallDialogComponent,  ExpiredTokenComponent, NewMenuComponent, ChangePassowrdForallComponent, TargetHourConfigComponent, AddComponent, GroupDevicesComponent, EditComponent, DailyTargetDurationComponent, DeviceStatusInfoComponent, SetWeilanComponent, AddEditGpsComponent,  
   ],
   imports: [
     CommonModule,

@@ -1,35 +1,40 @@
-import { NgModule } from '@angular/core';
-import { Routes, RouterModule } from '@angular/router';
+import { NgModule } from "@angular/core";
+import { Routes, RouterModule } from "@angular/router";
 
 // gps 模块管理
-import { GpsModuleManageComponent } from './gps-module-manage.component';
-import { AssetsManageComponent } from './assets-manage/assets-manage.component';
-import { PowerManagementComponent } from './power-management/power-management.component';
+import { GpsModuleManageComponent } from "./gps-module-manage.component";
+import { AssetsManageComponent } from "./assets-manage/assets-manage.component";
+import { PowerManagementComponent } from "./power-management/power-management.component";
+import { LocationMonitoringComponent } from "./location-monitoring/location-monitoring.component";
 
 const routes: Routes = [
   {
-    path:'',
+    path: "",
     component: GpsModuleManageComponent,
-    children:[
+    children: [
       {
-        path:'assets',
-        component: AssetsManageComponent
+        path: "assets",
+        component: AssetsManageComponent,
       },
       {
-        path:'power',
-        component: PowerManagementComponent
+        path: "power",
+        component: PowerManagementComponent,
       },
       {
-        path:'',
-        redirectTo: 'assets',
-        pathMatch: 'full'
-      }
-    ]
-  }
+        path: "location-monitore",
+        component: LocationMonitoringComponent,
+      },
+      {
+        path: "",
+        redirectTo: "assets",
+        pathMatch: "full",
+      },
+    ],
+  },
 ];
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],
-  exports: [RouterModule]
+  exports: [RouterModule],
 })
-export class GpsModuleManageRoutingModule { }
+export class GpsModuleManageRoutingModule {}

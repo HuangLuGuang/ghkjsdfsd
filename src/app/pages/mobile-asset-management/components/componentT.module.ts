@@ -8,6 +8,7 @@ import {
   NbSelectModule,
   NbCardModule,
   NbButtonModule,
+  NbSpinnerModule,
 } from "@nebular/theme";
 
 import { Ng2SmartTableModule } from "@mykeels/ng2-smart-table";
@@ -21,6 +22,14 @@ import { DeviceEditComponent } from "./device-edit/device-edit.component";
 import { DeviceOrderComponent } from "./device-order/device-order.component";
 import { DeviceDetailInfoComponent } from "./device-detail-info/device-detail-info.component";
 import { TableOptionComponent } from "./table-option/table-option.component";
+import { GpsTableOptionComponent } from "./gps-table-option/gps-table-option.component";
+import { GpsHistoryComponent } from "./gps-history/gps-history.component";
+
+import { MapComponent } from "./map/map.component";
+import { AgTableLocationComponent } from "./ag-table-location/ag-table-location.component";
+
+import { NzSelectModule } from "ng-zorro-antd/select";
+
 @NgModule({
   declarations: [
     AgTableComponent,
@@ -30,6 +39,10 @@ import { TableOptionComponent } from "./table-option/table-option.component";
     DeviceOrderComponent,
     DeviceDetailInfoComponent,
     TableOptionComponent,
+    GpsTableOptionComponent,
+    GpsHistoryComponent,
+    MapComponent,
+    AgTableLocationComponent,
   ],
   imports: [
     CommonModule,
@@ -42,12 +55,18 @@ import { TableOptionComponent } from "./table-option/table-option.component";
     AgGridModule,
     NzPaginationModule,
     NbCardModule,
+    NbSpinnerModule,
+
+    NzSelectModule,
   ],
   exports: [
     AgTableComponent,
     MyInputComponent,
     MyDateRangeComponent,
     TableOptionComponent,
+    GpsHistoryComponent,
+    MapComponent,
+    AgTableLocationComponent,
   ],
 })
 export class ComponentTModule {}

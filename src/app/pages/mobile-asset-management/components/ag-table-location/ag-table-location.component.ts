@@ -17,18 +17,12 @@ import { PublicmethodService } from "../../../../services/publicmethod/publicmet
 
 declare let $;
 
-interface Data {
-  action: boolean;
-  columnDefs: any; // 列字段
-  rowData: any; // 行数据
-}
-
 @Component({
-  selector: "ngx-ag-table",
-  templateUrl: "./ag-table.component.html",
-  styleUrls: ["./ag-table.component.scss"],
+  selector: "ngx-ag-table-location",
+  templateUrl: "./ag-table-location.component.html",
+  styleUrls: ["./ag-table-location.component.scss"],
 })
-export class AgTableComponent implements OnInit {
+export class AgTableLocationComponent implements OnInit {
   @Input("tableDatas") tableDatas: any;
 
   @ViewChild("agGrid") agGrid: AgGridAngular; // 实例在组件可访问

@@ -1,0 +1,121 @@
+<nb-card style="width: 870px;" size="larger" [nbSpinner]="loading"
+    nbSpinnerStatus="danger"
+    nbSpinnerSize="large"
+    nbSpinnerMessage=""
+>
+  <nb-card-header>
+    <div class="row">
+      <div class="col-md-3">{{title}}</div>
+        <div class="col-md-7"></div>
+        <div class="col-md-2" style="text-align: right;">
+            <nb-icon icon="close-outline" style="cursor: pointer;" (click)="closedialog()"></nb-icon>
+        </div>
+    </div>
+  </nb-card-header>
+
+  <nb-card-body>
+      
+    <form class="layui-form" action="" lay-filter="device">
+
+
+        <div class="layui-form-item">
+            <!-- 设备名称 devicename -->
+            <div class="layui-inline" style="width: 46%;">
+                <label class="layui-form-label mylabel mulu_title">设备名称</label>
+                <div class="layui-input-block">
+                <input type="text" name="devicename" required  lay-verify="required|devicename" placeholder="设备名称" autocomplete="off" class="layui-input">
+                </div>
+            </div>
+            <!-- 设备编号 deviceid -->
+            <div class="layui-inline" style="width: 46%;">
+                <label class="layui-form-label mylabel mulu_title">设备ID</label>
+                <div class="layui-input-block">
+                <input type="text" name="deviceid" required  lay-verify="required|deviceid" placeholder="设备编号" autocomplete="off" class="layui-input">
+                </div>
+            </div>
+            <!-- IMEI号 imei -->
+            <div class="layui-inline" style="width: 46%;">
+                <label class="layui-form-label mylabel mulu_title">IMEI号</label>
+                <div class="layui-input-block">
+                    <input type="text" name="imei" required  lay-verify="required|imei" placeholder="IMEI号" autocomplete="off" class="layui-input">
+                </div>
+            </div>
+        </div>
+
+        <div class="layui-form-item">
+            <!-- SIM号  sim -->
+            <div class="layui-inline" style="width: 46%;">
+                <label class="layui-form-label mylabel mulu_title">SIM号</label>
+                <div class="layui-input-block">
+                    <input type="text" name="sim" required  lay-verify="required|sim" placeholder="SIM号" autocomplete="off" class="layui-input">
+                </div>
+            </div>
+
+            <!-- 负责人 belonged -->
+            <div class="layui-inline" style="width: 46%;height: 66px;">
+                <label class="layui-form-label mylabel mulu_title">负责人&nbsp;&nbsp;</label>
+                <div class="layui-input-block">
+                    <input type="text" name="belonged" required  lay-verify="required|belonged" placeholder="负责人" autocomplete="off" class="layui-input">
+                </div>
+            </div>
+
+        </div>
+        
+        <div class="layui-form-item">
+            
+            <!-- 存放地点 location -->
+            <div class="layui-inline" style="width: 46%;">
+                <label class="layui-form-label mylabel mulu_title">存放地点</label>
+                <div class="layui-input-block">
+                    <input type="text" name="location" required  lay-verify="required|location" placeholder="存放地点" autocomplete="off" class="layui-input">
+                </div>
+            </div>
+
+            <!-- 创建人 createdby -->
+            <div class="layui-inline" style="width: 46%;height: 66px;">
+                <label class="layui-form-label mylabel mulu_title">创建人&nbsp;&nbsp;</label>
+                <div class="layui-input-block">
+                    <input type="text" name="createdby" required  lay-verify="required|createdby" placeholder="创建人" autocomplete="off" class="layui-input">
+                </div>
+            </div>
+            
+        </div>
+
+        <div class="layui-form-item">
+
+            <!-- 是否启用 active -->
+            <div class="layui-inline" style="width: 46%;">
+                <label class="layui-form-label mylabel mulu_title">是否启用</label>
+                <div class="layui-input-block">
+                    <input type="checkbox" name="active" lay-skin="switch" lay-text="是|否" value="1">
+                </div>
+            </div>
+            <!-- 是否关注 isfavor -->
+            <div class="layui-inline" style="width: 46%;">
+                <label class="layui-form-label mylabel mulu_title">是否关注</label>
+                <div class="layui-input-block">
+                    <input type="checkbox" name="isfavor" lay-skin="switch" lay-text="是|否" value="1">
+                </div>
+            </div>
+
+            
+        </div>
+
+
+        <div class="layui-form-item">
+            <div class="layui-row"style="text-align: end;">
+                
+                <div class="layui-inline">
+                  <div class="layui-input-inline">
+                      <!-- (click)="confirm()" -->
+                      <button class="layui-btn layui-btn-primary" (click)="cancel()">取消</button>
+                      <button type="submit" class="submit_device layui-btn" lay-submit="" lay-filter="gpsdevice" >确定</button>
+                  </div>
+                </div>
+                
+            </div>
+        </div>
+    </form>
+    
+  </nb-card-body>
+</nb-card>

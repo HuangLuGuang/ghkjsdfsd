@@ -1,4 +1,4 @@
-<nb-card style="height: 865px; margin: 0px;">
+<nb-card style="height: 990px; margin: 0px;">
     <!-- <nb-card-header>资产位置</nb-card-header> -->
     <nb-card-body>
         <div class="row" style=" margin-right: -11px;margin-left: -5px;height: 45%;padding-bottom: 10px;">
@@ -47,7 +47,7 @@
                         </div>
                         
                         <!-- add、edit、del -->
-                        <div class="example-items-rows button_item add" *ngIf="button?.add" >
+                        <!-- <div class="example-items-rows button_item add" *ngIf="button?.add" >
                             <button nbButton [status]="button?.add.class" size="small" (click)="action(button?.add.permission)"  [disabled]="button?.add.active == 0? true:false"><nb-icon [icon]="button?.add.icon"></nb-icon>{{button?.add.title}}</button>
                         </div>
                         <div class="example-items-rows button_item edit" *ngIf="button?.edit">
@@ -55,7 +55,7 @@
                         </div>
                         <div class="example-items-rows button_item del" *ngIf="button?.del">
                             <button nbButton [status]="button?.del.class" size="small" (click)="action(button?.del.permission)"  [disabled]="button?.del.active == 0? true:false"><nb-icon [icon]="button?.del.icon"></nb-icon>{{button?.del.title}}</button>
-                        </div>
+                        </div> -->
         
                     </div>
         
@@ -81,9 +81,26 @@
             
                     </div>
                 </div>
-                <ngx-ag-table #ag_Grid (selectedrow)="selectedrow($event)" (nzpageindexchange)="nzpageindexchange($event)"></ngx-ag-table>
+                <div class="row" [nbSpinner]="loading" nbSpinnerStatus="basic">
+                    <div class="col-md-12">
+                        
+                        <ngx-ag-table #ag_Grid (selectedrow)="selectedrow($event)" (nzpageindexchange)="nzpageindexchange($event)"></ngx-ag-table>
+                    </div>
+                </div>
+                
             </div>
         </div>
     </nb-card-body>
 </nb-card>
 
+<nz-drawer
+      [nzClosable]="false"
+      [nzVisible]="visible"
+      nzPlacement="left"
+      nzTitle="GPS历史位置"
+      [nzWidth]=856
+      (nzOnClose)="close()"
+    >
+
+    <ngx-gps-history #gpshistory></ngx-gps-history>
+</nz-drawer>

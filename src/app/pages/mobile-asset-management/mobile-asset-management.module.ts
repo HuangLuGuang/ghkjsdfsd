@@ -1,35 +1,56 @@
-import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { NgModule } from "@angular/core";
+import { CommonModule } from "@angular/common";
 
-import { MobileAssetManagementRoutingModule } from './mobile-asset-management-routing.module';
-import { MobileAssetManagementComponent } from './mobile-asset-management.component';
-import { LocationMonitoringComponent } from './location-monitoring/location-monitoring.component';
-import { NbTabsetModule, NbAutocompleteModule, NbInputModule, NbFormFieldModule, NbIconModule, NbMenuModule, NbAccordionModule, NbPopoverModule, NbListModule, NbButtonModule, NbCardModule, NbDialogModule, NbContextMenuModule, NbSpinnerModule } from '@nebular/theme';
-import { AllComponent } from './components/all/all.component';
+import { MobileAssetManagementRoutingModule } from "./mobile-asset-management-routing.module";
+import { MobileAssetManagementComponent } from "./mobile-asset-management.component";
+import {
+  NbTabsetModule,
+  NbAutocompleteModule,
+  NbInputModule,
+  NbFormFieldModule,
+  NbIconModule,
+  NbMenuModule,
+  NbAccordionModule,
+  NbPopoverModule,
+  NbListModule,
+  NbButtonModule,
+  NbCardModule,
+  NbDialogModule,
+  NbContextMenuModule,
+  NbSpinnerModule,
+} from "@nebular/theme";
+import { AllComponent } from "./components/all/all.component";
 
 // 响应式表单
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 
 // 多语言切换
-import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
-import { TranslateHttpLoader } from '@ngx-translate/http-loader';
-import { HttpClient } from '@angular/common/http';
-import { MapComponent } from './components/map/map.component';
-import { DeviceTraceComponent } from './components/device-trace/device-trace.component';
-import { ComponentTModule } from './components/componentT.module';
-import { NzDropDownModule, NzPaginationModule, NzTreeModule } from 'ng-zorro-antd';
-import { NzInputModule } from 'ng-zorro-antd/input';
+import { TranslateModule, TranslateLoader } from "@ngx-translate/core";
+import { TranslateHttpLoader } from "@ngx-translate/http-loader";
+import { HttpClient } from "@angular/common/http";
+import { DeviceTraceComponent } from "./components/device-trace/device-trace.component";
+import {
+  NzDropDownModule,
+  NzPaginationModule,
+  NzTreeModule,
+} from "ng-zorro-antd";
+import { NzInputModule } from "ng-zorro-antd/input";
 
-import { AgGridModule } from 'ag-grid-angular';
+import { AgGridModule } from "ag-grid-angular";
+
+import { NzDrawerModule } from "ng-zorro-antd/drawer";
 
 // Aot requires an export function for factories
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http);
 }
 
-
 @NgModule({
-  declarations: [MobileAssetManagementComponent, LocationMonitoringComponent, AllComponent, MapComponent,  DeviceTraceComponent,],
+  declarations: [
+    MobileAssetManagementComponent,
+    AllComponent,
+    DeviceTraceComponent,
+  ],
   imports: [
     CommonModule,
     ReactiveFormsModule,
@@ -52,7 +73,7 @@ export function HttpLoaderFactory(http: HttpClient) {
 
     NzPaginationModule,
     AgGridModule,
-    ComponentTModule,
+    NzDrawerModule,
 
     // nztree
     NzTreeModule,
@@ -60,19 +81,14 @@ export function HttpLoaderFactory(http: HttpClient) {
     FormsModule,
     NzDropDownModule,
 
-
-
-
     // Translate
     TranslateModule.forChild({
       loader: {
         provide: TranslateLoader,
         useFactory: HttpLoaderFactory,
-        deps: [HttpClient]
-      }
+        deps: [HttpClient],
+      },
     }),
-
-
-  ]
+  ],
 })
-export class MobileAssetManagementModule { }
+export class MobileAssetManagementModule {}
