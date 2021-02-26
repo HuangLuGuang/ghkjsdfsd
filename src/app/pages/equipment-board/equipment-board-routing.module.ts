@@ -191,6 +191,12 @@ const ROUTERS: Routes = [{
         .then(m=>m.EquipmentShengwei4m3Module),
 
       },
+
+      {//整车异响
+        path:'ccts-bsr',
+        loadChildren:()=>import('./equipment-cts-bsr/equipment-cts-bsr.module')
+        .then(m=>m.EquipmentCtsBsrModule)
+      },
       
       // {
       //   path:'detailsDemo/:title/:deviceid',

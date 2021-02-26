@@ -13,10 +13,11 @@ import { EnvironmentLaboratoryComponent } from './laboratory/environment-laborat
 import { EnergyLaboratoryComponent } from './laboratory/energy-laboratory/energy-laboratory.component';
 import { ThirdLevelService } from './laboratory/third-level.service';
 import { PhysicalLaboratoryComponent } from './laboratory/physical-laboratory/physical-laboratory.component';
+import { NoiseLaboratoryComponent } from './laboratory/noise-laboratory/noise-laboratory.component';
 
 
 @NgModule({
-  declarations: [ThirdLevelComponent,StructuralLaboratoryComponent, EnvironmentLaboratoryComponent, EnergyLaboratoryComponent, PhysicalLaboratoryComponent],
+  declarations: [ThirdLevelComponent,StructuralLaboratoryComponent, EnvironmentLaboratoryComponent, EnergyLaboratoryComponent, PhysicalLaboratoryComponent, NoiseLaboratoryComponent],
   imports: [
     CommonModule,
     ThirdLevelRoutingModule,

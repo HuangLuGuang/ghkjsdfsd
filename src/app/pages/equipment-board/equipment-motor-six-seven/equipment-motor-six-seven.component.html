@@ -60,11 +60,11 @@
                     </div>
                     <div style="width: 40%;" class="c_c height_100">
                         <div style="width: 50%;">系统效率</div>
-                        <div class="blue_b">{{motor?.eff_sys || 0}}</div>
+                        <div class="blue_b">{{motor?.eff_sys || 0}}%</div>
                         <div style="width: 50%;">电机效率</div>
-                        <div class="blue_b">{{motor?.eff_mot || 0}}</div>
+                        <div class="blue_b">{{motor?.eff_mot || 0}}%</div>
                         <div style="width: 50%;">控制器效率</div>
-                        <div class="blue_b">{{motor?.eff_con || 0}}</div>
+                        <div class="blue_b">{{motor?.eff_con || 0}}%</div>
                     </div>
                 </div>
 
@@ -76,14 +76,14 @@
                             <div class=" dis_f_w center_center">
                                 {{'equipment.motor.LinearVoltage'|translate}}
                             </div>
-                            <div class="height_100  bord dis_f_w center_center big_font">{{ motor.urms4 || 0}}</div>
+                            <div class="height_100  bord dis_f_w center_center big_font">{{ motor.urms4 || 0}}V</div>
                         </div>
                         <div style="width: 1%;"></div>
                         <div class="height_100 center_center dis_f " style="width: 30%;">
                             <div class="center_center dis_f_w">
                                 {{'equipment.motor.LineaCurrent'|translate}}
                             </div>
-                            <div class="height_100  bord center_center dis_f_w big_font">{{ motor.irms4|| 0 }}</div>
+                            <div class="height_100  bord center_center dis_f_w big_font">{{ motor.irms4|| 0 }}A</div>
                         </div>
                         <div style="width: 1%;"></div>
 
@@ -91,7 +91,7 @@
                             <div class="center_center dis_f_w">
                                 {{'equipment.motor.DCpower'|translate}}
                             </div>
-                            <div class="height_100  bord center_center dis_f_w big_font">{{ motor.prms4|| 0 }}</div>
+                            <div class="height_100  bord center_center dis_f_w big_font">{{ motor.prms4|| 0 }}kW</div>
                         </div>
                     </div>
                     <div class="height_50 dis_f_w center_center">
@@ -99,7 +99,7 @@
                             <div class="center_center dis_f_w">
                                 {{'equipment.motor.AveVoltage'|translate}}
                             </div>
-                            <div class="height_100  bord center_center dis_f_w big_font">{{ motor.urmsa|| 0 }}</div>
+                            <div class="height_100  bord center_center dis_f_w big_font">{{ motor.urmsa|| 0 }}V</div>
                         </div>
                         <div style="width: 1%;"></div>
 
@@ -107,7 +107,7 @@
                             <div class="center_center dis_f_w">
                                 {{'equipment.motor.AveCurrent'|translate}}
                             </div>
-                            <div class="height_100  bord center_center dis_f_w big_font">{{ motor.irmsa|| 0 }}</div>
+                            <div class="height_100  bord center_center dis_f_w big_font">{{ motor.irmsa|| 0 }}A</div>
                         </div>
                         <div style="width: 1%;"></div>
 
@@ -115,7 +115,7 @@
                             <div class="center_center dis_f_w" >
                                 {{'equipment.motor.OutputPower'|translate}}
                             </div>
-                            <div class="height_100  bord center_center dis_f_w big_font">{{motor.prmsa|| 0}}</div>
+                            <div class="height_100  bord center_center dis_f_w big_font">{{motor.prmsa|| 0}}kW</div>
                         </div>
                     </div>
                 </div>

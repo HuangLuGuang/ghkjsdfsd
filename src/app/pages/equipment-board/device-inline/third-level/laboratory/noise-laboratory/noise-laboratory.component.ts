@@ -2,58 +2,42 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { HttpserviceService } from '../../../../../../services/http/httpservice.service';
 import { EquipmentBoardService } from '../../../../serivice/equipment-board.service';
+import { s_role } from '../../../../temp/equipment-status/equipment-status.component';
 import { ThirdLevelService } from '../third-level.service';
 
 @Component({
-  selector: 'ngx-physical-laboratory',
-  templateUrl: './physical-laboratory.component.html',
-  styleUrls: ['./physical-laboratory.component.scss']
+  selector: 'ngx-noise-laboratory',
+  templateUrl: './noise-laboratory.component.html',
+  styleUrls: ['./noise-laboratory.component.scss']
 })
-export class PhysicalLaboratoryComponent implements OnInit {
+export class NoiseLaboratoryComponent implements OnInit {
   list = [
     {
-      name:'整车voc环境仓',
-      number:'',
-      andon:0,
-      speed:[],
-      src:'assets/eimdoard/equipment/images/slz.png',//实验图片地址
-      speed_name:[''],//实验编号
-      router:'/pages/equipment/vehicle/整车voc环境仓',
-    },
-    {
-      name:'氙灯集中监控',
+      name:'整车异响',
       number:'',
       andon:0,
       speed:[],
       src:'',//实验图片地址
       speed_name:[''],//实验编号
-      router:'/pages/equipment/xenon/氙灯老化设备集中监控',
+      router:'pages/equipment/ccts-bsr/整车异响',
     },
     {
-      name:'纯水系统',
-      number:'',
-      andon:0,
-      speed:[],
-      src:'',//实验图片地址
-      speed_name:[''],//实验编号
-      router:'/pages/equipment/pure/纯水系统',
+      
     },
     {
-      name:'晟微、4m3',
-      number:'',
-      andon:0,
-      speed:[],
-      src:'',//实验图片地址
-      speed_name:[''],//实验编号
-      router:'/pages/equipment/shengwei/晟微、4m3环境仓集中监控',
+      
     },
     {
-
+      
     },
     {
+      
     },
     {
-
+      
+    },
+    {
+      
     },{},{},{},{},{}
   ]
   @ViewChild('left')left:any;
@@ -66,13 +50,7 @@ export class PhysicalLaboratoryComponent implements OnInit {
       {name:'维修',color:'red',t:4},
   ];
   param = {
-    'device_auto_voc01':this.list[0],//整车voc环境仓
-    'device_atlas_4000':this.list[1],//氙灯集中监控ci4000
-    'device_atlas_4400':this.list[1],//氙灯集中监控ci4400
-    'device_purewater_01':this.list[2],//纯水
-    'device_cabin_voc01':this.list[3],//晟微、4m3
-    'device_4m3_01':this.list[3],//晟微、4m3
-    // 'device_avlmotor_03':this.list[2],//纯水系统
+    'device_cts_01':this.list[0],
   }
   timer;
   constructor(private router:Router,private http:HttpserviceService,private thrid:ThirdLevelService,
@@ -80,7 +58,7 @@ export class PhysicalLaboratoryComponent implements OnInit {
 
   ngOnInit(): void {
     if(document.getElementById('head_title'))
-        document.getElementById('head_title').innerText = '理化与环保试验室';
+        document.getElementById('head_title').innerText = '验证中心-噪声与震动实验室';
   }
 
   ngAfterViewInit(){
@@ -90,19 +68,24 @@ export class PhysicalLaboratoryComponent implements OnInit {
     let now;
     this.timer = self.setInterval(f=>{
       this.get_center_data();
-      this.thrid.get_device_taskinfo_list(param,this.right).subscribe((f:any)=>{
-        for(let key in f){
-          this.param[key].speed = f[key].map(m=> (m.speed));
-          this.param[key].speed_name = f[key].map(m=> (m.experiment));
-        }
-      });
+      
       this.thrid.get_log_list(param,this.left);
       now = new Date();
       if(now.getDate() == 1){
         this.thrid.get_andon_status_year(param,this.left);
         this.thrid.get_andon_status_last_year(param,this.left);
       }
-    },1000)
+    },1000);
+    this.thrid.get_device_taskinfo_list(param,this.right).subscribe((f:any)=>{
+      // f.forEach(el => {
+      //   this.param[el.deviceid].speed[0] = el.rate;
+      //   this.param[el.deviceid].speed_name[0] = el.taskchildnum;
+      // });
+      for(let key in f){
+        this.param[key].speed = f[key].map(m=> (m.speed));
+        this.param[key].speed_name = f[key].map(m=> (m.experiment));
+      }
+    });
     this.thrid.get_andon_status_year(param,this.left);
     this.thrid.get_andon_status_last_year(param,this.left);
 
@@ -114,6 +97,7 @@ export class PhysicalLaboratoryComponent implements OnInit {
   }
 
   goto_borad(map){
+    console.log(map.router)
     if(map.router){
       this.router.navigate([map.router]);
       this.boardservice.sendLoad({close:true})
@@ -121,7 +105,12 @@ export class PhysicalLaboratoryComponent implements OnInit {
   }
 
   get_center_data(){
-    
+    this.http.callRPC('get_andon_status_list','get_andon_status_list',{deviceid:Object.keys(this.param)}).subscribe((f:any)=>{
+      if(f.result.error || f.result.message[0].code == 0)return;
+      f.result.message[0].message.forEach(el => {
+        this.param[el.deviceid].andon = s_role[el.status];
+      });
+    })
   }
 
   ngOnDestroy(){

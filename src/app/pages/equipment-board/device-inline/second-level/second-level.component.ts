@@ -517,6 +517,10 @@ export class SecondLevelComponent implements OnInit {
           this.router.navigate(["/pages/equipment/third-level/physical"]);
           this.boardservice.sendLoad({ close: true });
           break;
+        case "noise":
+          this.router.navigate(["/pages/equipment/third-level/noise"]);
+          this.boardservice.sendLoad({ close: true });
+          break;
       }
     }, 100);
   }

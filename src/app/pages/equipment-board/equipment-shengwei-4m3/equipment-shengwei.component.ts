@@ -85,7 +85,7 @@ export class EquipmentShengweiComponent implements OnInit {
 
   resize=()=>{
     setTimeout(() => {
-      ['cabin_pie_4','abin_pie_5','cabin_line_4'].forEach(f=>{
+      ['cabin_pie_4','cabin_pie_5','line_chart_1','cabin_line_4'].forEach(f=>{
         let dom = document.getElementById(f);
         if(dom){
           echarts.init(dom).resize();
@@ -213,7 +213,7 @@ export class EquipmentShengweiComponent implements OnInit {
 
   ngOnDestroy(){
     clearInterval(this.timer);
-    ['cabin_pie_4,cabin_pie_5,cabin_line_4'].forEach(f=>{
+    ['cabin_pie_4','cabin_pie_5','line_chart_1','cabin_line_4'].forEach(f=>{
       let dom = document.getElementById(f);
       if(dom){
         echarts.init(dom).dispose();

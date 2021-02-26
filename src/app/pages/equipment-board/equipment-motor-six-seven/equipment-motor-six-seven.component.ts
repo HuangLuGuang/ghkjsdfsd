@@ -446,7 +446,7 @@ export class EquipmentMotorSixSevenComponent implements OnInit {
       let dataLine =this.HealthParam_right[0].dataLine;
       let set = res[2].tempset.length > 0? res[2].tempset[res[2].tempset.length-1][0]:0;
       //仪表盘
-      dataLine.value = res[0].tempactual.length > 0? res[1].tempset[res[0].tempactual.length-1][0]:0;
+      dataLine.value = res[0].tempactual.length > 0? res[0].tempactual[res[0].tempactual.length-1][0]:0;
       dataLine.color[0] = [dataLine.max?(set/dataLine.max):0,'#203add'];
       if(document.getElementById(this.HealthParam_right[0].id))
         equipment_four_road.create_temp_h_1_p_gauge(
@@ -456,7 +456,7 @@ export class EquipmentMotorSixSevenComponent implements OnInit {
       dataLine = this.HealthParam_right[1].dataLine;
       set = res[3].humiset.length > 0? res[3].humiset[res[3].humiset.length-1][0]:0;
       //仪表盘
-      dataLine.value = res[1].humiactual.length > 0? res[1].humiset[res[1].humiactual.length-1][0]:0;
+      dataLine.value = res[1].humiactual.length > 0? res[1].humiactual[res[1].humiactual.length-1][0]:0;
       dataLine.color[0] = [dataLine.max?(set/dataLine.max):0,'#203add'];
       if(document.getElementById(this.HealthParam_right[1].id))
         equipment_four_road.create_temp_h_1_p_gauge(

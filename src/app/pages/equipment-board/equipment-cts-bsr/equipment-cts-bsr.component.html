@@ -1,0 +1,99 @@
+<div id="cts">
+    <div class="row height_100" style="margin: 0;">
+        <div class="col-md-4 height_100" style="padding: 0px 0px 0px 20px;">
+            <div class="backgroud height_39">
+                <ngx-equipment-status [device]='device_cts' style="display: flex;width: 100%;height: 100%;"></ngx-equipment-status>
+            </div>
+            <div class="backgroud  height_20">
+                <div class="part_title">{{'equipment.expInfor'|translate}}</div>
+                <ngx-test-information [device]='device_cts' style="width: 100%;"></ngx-test-information>
+            </div>
+            <div class="backgroud height_35">
+                <ngx-log-warm [device]='device_cts'></ngx-log-warm>
+            </div>
+        </div> 
+        <div class="col-md-4 height_100" style="padding: 0px 20px;">
+            <div class="backgroud height_29">
+                <div class="part_title" style="overflow: auto;">{{ 'equipment.equipIntroduce'|translate}}</div>
+            </div>
+            <div class="center_img">
+                <div class="part_title">{{'equipment.OnlineVideo'|translate}}</div>
+                <div style="width: 100%;height: 100%;display: flex;align-items: center;justify-content: center;">
+                    <img id="img" [src]="img.url" [alt]="img.name">
+                </div>
+            </div>
+            <div class="backgroud height_32" style="padding-top:30px;">
+                <div class="part_title">{{'equipment.real'|translate}}</div>
+                <div class="_table">
+                    <div class="table_bo height_48">
+                        <table>
+                            <tr class="header">
+                                <td *ngFor="let title of switchStatus.title" [ngStyle]="{'width':get_td_width(switchStatus.title.length)}">
+                                    <div style="white-space: normal;
+                                    word-wrap: break-word;
+                                    width: 100%;
+                                    word-break: break-all;">
+                                        {{"equipment."+title | translate}}
+                                    </div>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                    <div class="table_bo height_50 scrollbar" style="overflow-y: auto;">
+                        <table>
+                            <tr class="body" *ngFor="let items of switchStatus.data">
+                                <td *ngFor="let item of items;let i = index" style="position: relative;" [ngStyle]="{'width':get_td_width(switchStatus.title.length)}">
+                                    <div class="font_w_too_long" style="padding-top: 1%;" title="{{item}}" *ngIf="i == 0">{{item}}</div>
+                                    <div *ngIf="i != 0" style="display: flex;justify-content: center;">
+                                        <div id="{{item.id}}" [ngStyle]="{'background': item.color}">
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4" style="padding: 0px 20px 0px 0px;">
+            <div class="backgroud height_33">
+                <div class="part_title">weiss{{'equipment.EnvironBinParam'|translate}}</div>
+                <div class="cang">
+                    <div class="cang_top"> 
+                        <div id="cang_pie_5"></div>
+                        <div id="cang_pie_6"></div>
+                        <div class="cang_1_set">
+                            <div class="set_1">温度设定值：<span class="span_css">{{ cts_cang.temp_set}}℃</span></div>
+                            <div class="set_1">湿度设定值：<span class="span_css">{{ cts_cang.hum_set }}%RH</span></div>
+                        </div>
+                    </div>
+                    <div id="cang_chart_1"></div>
+                </div>
+            </div>
+            <div class="backgroud height_33">
+                <div class="part_title">weiss{{'equipment.EnvironBinParam'|translate}}</div>
+                <div class="chart">
+                    <div  class="po">
+                        <div id="bsr_chart_g_1" class="height_100" style="width: 25%;"></div>
+                        <div id="bsr_chart_g_2" class="height_100" style="width: 25%;"></div>
+                        <div id="bsr_chart_g_3" class="height_100" style="width: 25%;"></div>
+                        <div id="bsr_chart_g_4" class="height_100" style="width: 25%;"></div>
+                        <div id="bsr_chart_1" class="width_100 height_50"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="backgroud height_33">
+                <div class="part_title">weiss{{'equipment.EnvironBinParam'|translate}}</div>
+                <div class="chart">
+                    <div class="po">
+                        <div id="bsr_chart_g_5" class="height_100" style="width: 25%;"></div>
+                        <div id="bsr_chart_g_6" class="height_100" style="width: 25%;"></div>
+                        <div id="bsr_chart_g_7" class="height_100" style="width: 25%;"></div>
+                        <div id="bsr_chart_g_8" class="height_100" style="width: 25%;"></div>
+                        <div id="bsr_chart_1" class="width_100 height_50"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

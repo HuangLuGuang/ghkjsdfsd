@@ -78,6 +78,12 @@ export const DEVICEID_TO_NAME  ={
   'device_atlas_4400':'氙灯Ci4400',//氙灯集中监控Ci4400
   'device_purewater_01':'纯水',//纯水
   // 'device_purewater_01':'纯水',//纯水
+  'device_cabin_voc01':'晟微',//
+  'device_4m3_01':'4m3',
+
+
+  'device_cts_01':'CTS',//CTS-声学高低温环境舱
+
 
 }
 

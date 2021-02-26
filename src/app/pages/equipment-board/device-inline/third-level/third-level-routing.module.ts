@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { EnergyLaboratoryComponent } from './laboratory/energy-laboratory/energy-laboratory.component';
 import { EnvironmentLaboratoryComponent } from './laboratory/environment-laboratory/environment-laboratory.component';
+import { NoiseLaboratoryComponent } from './laboratory/noise-laboratory/noise-laboratory.component';
 import { PhysicalLaboratoryComponent } from './laboratory/physical-laboratory/physical-laboratory.component';
 import { StructuralLaboratoryComponent } from './laboratory/structural-laboratory/structural-laboratory.component';
 import { ThirdLevelComponent } from './third-level.component';
@@ -31,6 +32,11 @@ const routes: Routes = [
         //理化与环境实验室
         path:'physical',
         component:PhysicalLaboratoryComponent
+      },
+      {
+        // 噪声
+        path:'noise',
+        component:NoiseLaboratoryComponent
       }
     ]
   }
