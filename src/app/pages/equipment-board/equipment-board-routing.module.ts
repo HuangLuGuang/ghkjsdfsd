@@ -197,6 +197,11 @@ const ROUTERS: Routes = [{
         loadChildren:()=>import('./equipment-cts-bsr/equipment-cts-bsr.module')
         .then(m=>m.EquipmentCtsBsrModule)
       },
+       {//马哈
+        path:'maha',
+        loadChildren:()=>import('./equipment-maha/equipment-maha.module')
+        .then(m=>m.EquipmentMahaModule)
+      },
       
       // {
       //   path:'detailsDemo/:title/:deviceid',

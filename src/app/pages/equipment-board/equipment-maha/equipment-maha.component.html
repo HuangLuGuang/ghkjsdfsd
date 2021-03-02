@@ -1,0 +1,89 @@
+<div id="maha">
+    <div class="row height_100" style="margin: 0;">
+        <div class="col-md-4 height_100" style="padding: 0px 0px 0px 20px;">
+            <div class="backgroud height_39">
+                <ngx-equipment-status [device]='device_maha' style="display: flex;width: 100%;height: 100%;"></ngx-equipment-status>
+            </div>
+            <div class="backgroud  height_20">
+                <div class="part_title">{{'equipment.expInfor'|translate}}</div>
+                <ngx-test-information [device]='device_maha' style="width: 100%;"></ngx-test-information>
+            </div>
+            <div class="backgroud height_35">
+                <ngx-log-warm [device]='device_maha'></ngx-log-warm>
+            </div>
+        </div> 
+        <div class="col-md-4 height_100" style="padding: 0px 20px;">
+            <div class="backgroud height_30">
+                <div class="part_title">CO、CH浓度</div>
+                <div class="cang">
+                    <div class="cang_top"> 
+                        <div id="cang_pie_5"></div>
+                        <div id="cang_pie_6"></div>
+                        <div class="cang_1_set">
+                            <div class="set_1">一氧化碳：<span class="span_css">{{ gas_cang.co}}%</span></div>
+                            <div class="set_1">碳氢：<span class="span_css">{{ gas_cang.ch }}%</span></div>
+                        </div>
+                    </div>
+                    <div id="cang_chart_1"></div>
+                </div>
+            </div>
+            <div class="center_img">
+                <div class="part_title">{{'equipment.OnlineVideo'|translate}}</div>
+                <div style="width: 100%;height: 100%;display: flex;align-items: center;justify-content: center;">
+                    <img id="img" [src]="img.url" [alt]="img.name">
+                </div>
+            </div>
+            <div class="backgroud height_31" >
+                <div class="part_title">测功机</div>
+                <div class="lay">
+                    <div class="one">
+                        <div id="dashboard_67" class="height_50" style="width: 60%;">
+                        </div>
+                        <div style="width: 30%;" class="c_c height_50">
+                            <div style="width: 50%;text-align: left;">速度:</div>
+                            <div class="blue_b">{{maha?.speed_total || 0}}km/h</div>
+                            <div style="width: 50%;text-align: left;">功率:</div>
+                            <div class="blue_b">{{maha?.power_total || 0}}kW</div>
+                            <div style="width: 50%;text-align: left;">牵引力:</div>
+                            <div class="blue_b">{{maha?.tractive_force_total || 0}}N</div>
+                        </div>
+                        <div id="line_chart_12_67" class="height_50" style="width: 100%;">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4" style="padding: 0px 20px 0px 0px;">
+            <div class="height_60 backgroud">
+                <div class="part_title">朗德空调</div>
+
+            </div>
+            <div class="height_36 backgroud" style="display: flex;flex-wrap: wrap;">
+                <div class="left_front">
+                    <div class="title">左前</div>
+                    <div class="value">V:<span>{{maha.speed_front_left||0}}km/h</span></div>
+                    <div class="value">p:<span>{{maha.power_front_left||0}}kW</span></div>
+                    <div class="value">F:<span>{{maha.tractive_force_front_left||0}}N</span></div>
+                </div>
+                <div class="rightfront">
+                    <div class="title">右前</div>
+                    <div class="value">V:<span>{{maha.speed_front_right||0}}km/h</span></div>
+                    <div class="value">p:<span>{{maha.power_front_right||0}}kW</span></div>
+                    <div class="value">F:<span>{{maha.tractive_force_front_right||0}}N</span></div>
+                </div>
+                <div class="rear_left">
+                    <div class="title">左后</div>
+                    <div class="value">V:<span>{{maha.speed_rear_left||0}}km/h</span></div>
+                    <div class="value">p:<span>{{maha.power_rear_left||0}}kW</span></div>
+                    <div class="value">F:<span>{{maha.tractive_force_rear_left||0}}N</span></div>
+                </div>
+                <div class="rear_right">
+                    <div class="title">右后</div>
+                    <div class="value">V:<span>{{maha.speed_rear_right||0}}km/h</span></div>
+                    <div class="value">p:<span>{{maha.power_rear_right||0}}kW</span></div>
+                    <div class="value">F:<span>{{maha.tractive_force_rear_right||0}}N</span></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

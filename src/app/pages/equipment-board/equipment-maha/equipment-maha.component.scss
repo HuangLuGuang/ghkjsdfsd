@@ -1,4 +1,4 @@
-#cts{
+#maha{
     height: 100%;
     width: 100%;
     .backgroud {
@@ -66,7 +66,7 @@
                 height: 100%;
             }
             .cang_1_set{
-                width: 40%;
+                width: 35%;
                 height: 100%;
                 display: flex;
                 flex-wrap: wrap;
@@ -74,9 +74,10 @@
                 align-items: center;
                 .set_1 {
                     height: 50%;
+                    width: 100%;
                     display: flex;
-                    /* justify-content: center; */
                     align-items: center;
+                    justify-content: flex-end;
                 }
                 .span_css {
                     padding: 2px;
@@ -87,112 +88,44 @@
             }
         }
     }
-
-    .chart{
+    .lay{
+        position: relative;
         width: 100%;
         height: 100%;
-        position: relative;
-        .po{
+        .one{
+            position: absolute;
             width: 100%;
             height: 100%;
-            position: absolute;
             display: flex;
             flex-wrap: wrap;
             justify-content: center;
-            align-items: center;
         }
     }
-    ._table_other{
-        width: 100%;
-        height: 50%;
+    .c_c {
         display: flex;
         flex-wrap: wrap;
         justify-content: center;
         align-items: center;
     }
-    .width_100{
-        width: 100%;
-    }
-
-    #strip {
-        width: 23px;
-        height: 6px;
-        border-radius: 2px;
-    }
-    #circle {
-        width: 20px;
-        height: 20px;
-        // background: #7fee1d;
-        border-radius: 60px;
-    }
-    .font_w_too_long {
-        word-break: keep-all;
-        white-space: nowrap;
-        overflow: hidden;
-        text-overflow: ellipsis;
-        width: 100%;
-        position: absolute;
-        top: 0;
-        // width: 75px;
-    }
-    .table_bo {
-        border: 1px solid #4472c4;
-    }
-    ._table {
-        // border: 1px solid rgb(68, 114, 196);
-        padding: 0% 3%;
-        width: 100%;
+    .left_front,.rightfront,.rear_left,.rear_right{
+        width: 50%;
         height: 50%;
-        table {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        font-weight: bold;
+        .title{
+            display: flex;
             width: 100%;
-            height: 100%;
-            .header {
-                // height: 10%;
-                background: rgb(68, 114, 196);
-                td {
-                    width: 33%;
-                    padding: 5px;
-                }
-            }
-            .body {
-                font-size: 12px;
-                .progress_o {
-                    border-radius: 3px;
-                    width: 100%;
-                }
-                td {
-                    // padding: 5px;
-                    width: 33%;
-                }
-                .progres_1 {
-                    position: relative;
-                }
-                .progres_2 {
-                    position: absolute;
-                    top: 0px;
-                }
-            }
         }
-        .font_tolong {
-            white-space: nowrap;
-            overflow: hidden;
-            text-overflow: ellipsis;
+        .value{
+            width: 100%;
+            display: flex;
+            justify-content: space-around;
         }
-    }
-    .scrollbar::-webkit-scrollbar {
-        z-index: 10;
-        width: 5px;
-        height: 5px;
-    }
-    .scrollbar::-webkit-scrollbar-thumb {
-        border-radius: 10px;
-        box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.2);
-        // background: #535353;
-        background: #888888;
-    }
-    .scrollbar::-webkit-scrollbar-track {
-        box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.2);
-        border-radius: 10px;
-        background: #888888;
+        span{
+            min-width: 100px;
+            background: rgb(99, 133, 195);
+        }
     }
 }

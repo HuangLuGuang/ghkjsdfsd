@@ -22,7 +22,13 @@ export class NoiseLaboratoryComponent implements OnInit {
       router:'pages/equipment/ccts-bsr/整车异响',
     },
     {
-      
+      name:'MAHA转毂',
+      number:'',
+      andon:0,
+      speed:[],
+      src:'',//实验图片地址
+      speed_name:[''],//实验编号
+      router:'pages/equipment/maha/MAHA-75英寸四驱四电机低噪音底盘测功机',
     },
     {
       
@@ -50,7 +56,8 @@ export class NoiseLaboratoryComponent implements OnInit {
       {name:'维修',color:'red',t:4},
   ];
   param = {
-    'device_cts_01':this.list[0],
+    'device_auto_bsr01':this.list[0],
+    'device_maha_dyno01':this.list[1],
   }
   timer;
   constructor(private router:Router,private http:HttpserviceService,private thrid:ThirdLevelService,

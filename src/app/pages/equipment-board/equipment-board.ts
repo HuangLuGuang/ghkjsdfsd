@@ -83,6 +83,8 @@ export const DEVICEID_TO_NAME  ={
 
 
   'device_cts_01':'CTS',//CTS-声学高低温环境舱
+  'device_auto_bsr01':'整车异响',//MTS整车异响试验系统
+  'device_maha_dyno01':'MAHA转毂',//MAHA转毂
 
 
 }

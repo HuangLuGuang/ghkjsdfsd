@@ -64,7 +64,6 @@ export class EquipmentBoardService implements OnDestroy{
   timeout;
   resize=()=>{
     // if(this.timeout)clearTimeout(this.timeout);
-    // console.log(111111111111111111111111)
     this.timeout = setTimeout(() => {
       if(window.document.body.offsetHeight <= window.screen.height 
         && window.screen.height > document.getElementsByTagName('ngx-equipment-board')[0].scrollHeight){

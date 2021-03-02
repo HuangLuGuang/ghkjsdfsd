@@ -2,14 +2,14 @@
     <div class="row height_100" style="margin: 0;">
         <div class="col-md-4 height_100" style="padding: 0px 0px 0px 20px;">
             <div class="backgroud height_39">
-                <ngx-equipment-status [device]='device_cts' style="display: flex;width: 100%;height: 100%;"></ngx-equipment-status>
+                <ngx-equipment-status [device]='device_bsr' style="display: flex;width: 100%;height: 100%;"></ngx-equipment-status>
             </div>
             <div class="backgroud  height_20">
                 <div class="part_title">{{'equipment.expInfor'|translate}}</div>
-                <ngx-test-information [device]='device_cts' style="width: 100%;"></ngx-test-information>
+                <ngx-test-information [device]='device_bsr' style="width: 100%;"></ngx-test-information>
             </div>
             <div class="backgroud height_35">
-                <ngx-log-warm [device]='device_cts'></ngx-log-warm>
+                <ngx-log-warm [device]='device_bsr'></ngx-log-warm>
             </div>
         </div> 
         <div class="col-md-4 height_100" style="padding: 0px 20px;">
@@ -53,11 +53,17 @@
                         </table>
                     </div>
                 </div>
+                <div class="_table_other">
+                    <!-- <div id="bsr_chart_g_7" class="height_100" style="width: 40%;"></div>
+                    <div id="bsr_chart_g_8" class="height_100" style="width: 40%;"></div> -->
+                    <div id="bsr_chart_3" class="height_100" style="width: 100%;"></div>
+                </div>
+                
             </div>
         </div>
         <div class="col-md-4" style="padding: 0px 20px 0px 0px;">
             <div class="backgroud height_33">
-                <div class="part_title">weiss{{'equipment.EnvironBinParam'|translate}}</div>
+                <div class="part_title">{{'equipment.EnvironBinParam'|translate}}</div>
                 <div class="cang">
                     <div class="cang_top"> 
                         <div id="cang_pie_5"></div>
@@ -70,27 +76,26 @@
                     <div id="cang_chart_1"></div>
                 </div>
             </div>
-            <div class="backgroud height_33">
-                <div class="part_title">weiss{{'equipment.EnvironBinParam'|translate}}</div>
+            <div class="backgroud height_31">
+                <div class="part_title">温度</div>
                 <div class="chart">
                     <div  class="po">
-                        <div id="bsr_chart_g_1" class="height_100" style="width: 25%;"></div>
-                        <div id="bsr_chart_g_2" class="height_100" style="width: 25%;"></div>
-                        <div id="bsr_chart_g_3" class="height_100" style="width: 25%;"></div>
-                        <div id="bsr_chart_g_4" class="height_100" style="width: 25%;"></div>
+                        <div id="bsr_chart_g_1" class="height_50" style="width: 25%;"></div>
+                        <div id="bsr_chart_g_2" class="height_50" style="width: 25%;"></div>
+                        <div id="bsr_chart_g_3" class="height_50" style="width: 25%;"></div>
+                        <div id="bsr_chart_g_4" class="height_50" style="width: 25%;"></div>
                         <div id="bsr_chart_1" class="width_100 height_50"></div>
                     </div>
                 </div>
             </div>
-            <div class="backgroud height_33">
-                <div class="part_title">weiss{{'equipment.EnvironBinParam'|translate}}</div>
+            <div class="backgroud height_30">
+                <div class="part_title">位移</div>
                 <div class="chart">
                     <div class="po">
-                        <div id="bsr_chart_g_5" class="height_100" style="width: 25%;"></div>
-                        <div id="bsr_chart_g_6" class="height_100" style="width: 25%;"></div>
-                        <div id="bsr_chart_g_7" class="height_100" style="width: 25%;"></div>
-                        <div id="bsr_chart_g_8" class="height_100" style="width: 25%;"></div>
-                        <div id="bsr_chart_1" class="width_100 height_50"></div>
+                        <div id="bsr_chart_g_5" class="height_50" style="width: 25%;"></div>
+                        <div id="bsr_chart_g_6" class="height_50" style="width: 25%;"></div>
+                        
+                        <div id="bsr_chart_2" class="width_100 height_50"></div>
                     </div>
                 </div>
             </div>

@@ -692,7 +692,7 @@ export class OilSourceMonitoringComponent implements OnInit {
     this.subscribeList.rader = this.http.callRPC('get_accumulator',library+'get_accumulator',
     {"device":"device_accumulator_01","arr":arr.join(',')}).subscribe((f:any)=>{
       if(f.result.error || f.result.message[0].code == 0)return;
-      res_1 = f.result.message[0].message?f.result.message[0].message:{};
+      res_1 = f.result.message[0].message?f.result.message[0].message:[];
 
       if(res_1){
         res_1.forEach(el => {

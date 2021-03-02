@@ -233,7 +233,6 @@ export class ExperimentParamsComponent implements OnInit {
     for(let key in this.subscribeList){
       this.subscribeList[key].unsubscribe();
     }
-    window.removeEventListener('resize',this.chartResize);
     let chart = document.getElementById('third_second');
     if(chart)echarts.init(chart).dispose();
 
