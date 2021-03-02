@@ -3,6 +3,7 @@ import { Component, OnInit, ViewChild } from "@angular/core";
 import { HttpserviceService } from "../../../../services/http/httpservice.service";
 import { PublicmethodService } from "../../../../services/publicmethod/publicmethod.service";
 import { UserInfoService } from "../../../../services/user-info/user-info.service";
+import { GpsLngLatCellComponent } from "../gps-lng-lat-cell/gps-lng-lat-cell.component";
 
 @Component({
   selector: "ngx-gps-history",
@@ -26,7 +27,7 @@ export class GpsHistoryComponent implements OnInit {
   tableDatas = {
     // 新增，设置高度
     // style: "width: 100%; height: 443px",
-    style: "width: 100%; height: 890px",
+    style: "width: 100%; height: 745px",
 
     totalPageNumbers: 0, // 总页数
     PageSize: 10, // 每页 10条数据
@@ -34,27 +35,21 @@ export class GpsHistoryComponent implements OnInit {
     columnDefs: [
       // 列字段 多选：headerCheckboxSelection checkboxSelection
       {
-        field: "deviceid",
+        field: "imei",
         headerName: "设备编号",
         resizable: true,
         headerCheckboxSelection: true,
         checkboxSelection: true,
         autoHeight: true,
         fullWidth: true,
-        minWidth: 30,
+        width: 180,
         sortable: true,
       },
       {
         field: "devicename",
         headerName: "设备名称",
         resizable: true,
-        sortable: true,
-      },
-
-      {
-        field: "latlon",
-        headerName: "经纬度",
-        resizable: true,
+        width: 200,
         sortable: true,
       },
 
@@ -72,6 +67,15 @@ export class GpsHistoryComponent implements OnInit {
         minWidth: 10,
         sortable: true,
       },
+
+      {
+        field: "latlon",
+        headerName: "经纬度",
+        resizable: true,
+        width: 250,
+        cellRendererFramework: GpsLngLatCellComponent,
+        sortable: true,
+      },
     ],
     rowData: [
       // data
@@ -82,7 +86,7 @@ export class GpsHistoryComponent implements OnInit {
   TABLE = "gps_monitoring";
   METHDO = "dev_get_gps_monitoring_device";
 
-  deviceid = "";
+  imei = "";
 
   ngOnInit(): void {}
 
@@ -97,14 +101,15 @@ export class GpsHistoryComponent implements OnInit {
     return {
       limit: this.agGrid.get_pagesize(),
       employeeid: this.userinfo.getEmployeeID(),
-      deviceid: this.deviceid,
+      imei: this.imei,
     };
   }
 
   // 初始化历史
-  init_history(deviceid) {
-    this.deviceid = deviceid;
+  init_history(imei) {
+    this.imei = imei;
     setTimeout(() => {
+      this.gridData = [];
       this.inttable();
     }, 100);
   }
@@ -127,7 +132,7 @@ export class GpsHistoryComponent implements OnInit {
     var columns = {
       offset: offset,
       limit: limit,
-      deviceid: inittable_before.deviceid,
+      imei: inittable_before.imei,
     };
     this.http.callRPC(this.TABLE, this.METHDO, columns).subscribe((result) => {
       var tabledata = result["result"]["message"][0];

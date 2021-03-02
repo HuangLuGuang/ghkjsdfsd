@@ -382,7 +382,7 @@ export class DeviceManageComponent implements OnInit {
       this.dialogService
         .open(EditDelTooltipComponent, {
           closeOnBackdropClick: false,
-          context: { title: "提示", content: `请选择要搜索的数据！` },
+          context: { title: "提示", content: `缺少搜索条件！` },
         })
         .onClose.subscribe((name) => {
           // console.log("----name-----", name);

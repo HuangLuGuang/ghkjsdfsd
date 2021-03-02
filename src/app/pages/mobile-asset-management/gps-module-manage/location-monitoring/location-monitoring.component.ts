@@ -5,6 +5,7 @@ import { HttpserviceService } from "../../../../services/http/httpservice.servic
 import { PublicmethodService } from "../../../../services/publicmethod/publicmethod.service";
 import { UserInfoService } from "../../../../services/user-info/user-info.service";
 import { TableOptionComponent } from "../../components/table-option/table-option.component";
+import { IsnotFavorComponent } from "../assets-manage/isnot-favor/isnot-favor.component";
 
 export interface Group {
   name: string;
@@ -22,6 +23,8 @@ export class LocationMonitoringComponent implements OnInit {
   @ViewChild("data_range") data_range: any;
   @ViewChild("ag_Grid") agGrid: any;
   @ViewChild("gpshistory") gpshistory: any;
+  @ViewChild("mydateselect") mydateselect: any;
+  @ViewChild("myselect") myselect: any;
 
   @ViewChild("map") map: any;
   // 初始化数据
@@ -128,7 +131,7 @@ export class LocationMonitoringComponent implements OnInit {
   ];
 
   button; // 权限button
-  myinput_placeholder = "设备类别";
+  myinput_placeholder = "设备编号";
   loading = true; // 加载
   refresh = false; // 刷新tabel
 
@@ -137,7 +140,8 @@ export class LocationMonitoringComponent implements OnInit {
   // agGrid
   tableDatas = {
     // 新增，设置高度
-    style: "width: 100%; height: 443px",
+    // style: "width: 100%; height: 443px",
+    style: "width: 100%; height: 325px",
 
     totalPageNumbers: 0, // 总页数
     PageSize: 10, // 每页 10条数据
@@ -152,17 +156,37 @@ export class LocationMonitoringComponent implements OnInit {
         checkboxSelection: true,
         autoHeight: true,
         fullWidth: true,
-        minWidth: 30,
+        width: 160,
         sortable: true,
       },
       {
         field: "devicename",
         headerName: "设备名称",
         resizable: true,
+        width: 160,
         sortable: true,
       },
-      { field: "imei", headerName: "IMEI号", resizable: true, sortable: true },
-      { field: "sim", headerName: "SIM号", resizable: true, sortable: true },
+      {
+        field: "imei",
+        headerName: "IMEI号",
+        resizable: true,
+        sortable: true,
+        width: 160,
+      },
+      {
+        field: "belonged",
+        headerName: "负责人",
+        resizable: true,
+        sortable: true,
+        width: 120,
+      },
+      {
+        field: "sim",
+        headerName: "SIM号",
+        resizable: true,
+        sortable: true,
+        width: 130,
+      },
       {
         field: "gpstype",
         headerName: "定位类型",
@@ -191,6 +215,7 @@ export class LocationMonitoringComponent implements OnInit {
       {
         field: "isfavor",
         headerName: "是否关注",
+        cellRendererFramework: IsnotFavorComponent,
         resizable: true,
         sortable: true,
       },
@@ -233,9 +258,12 @@ export class LocationMonitoringComponent implements OnInit {
   TABLE = "gps_monitoring";
   METHDO = "dev_get_gps_monitoring";
 
+  // 历史位置，折线
+  METHDOHISTROY = "dev_get_gps_monitoring_device";
+
   message = [
     {
-      deviceName: "AVL电机测试台架01",
+      devicename: "AVL电机测试台架01",
       startAlertTime: "2020-08-19 08:47:31",
       endAlertTime: "2020-09-19 08:46:31",
       alertInfo: "命令报警",
@@ -251,7 +279,7 @@ export class LocationMonitoringComponent implements OnInit {
       deviceno: "9527",
     },
     {
-      deviceName: "AVL电机测试台架02",
+      devicename: "AVL电机测试台架02",
       startAlertTime: "2020-08-19 08:47:31",
       endAlertTime: "2020-09-19 08:46:31",
       alertInfo: "命令报警",
@@ -267,7 +295,7 @@ export class LocationMonitoringComponent implements OnInit {
       deviceno: "9537",
     },
     {
-      deviceName: "AVL电机测试台架03",
+      devicename: "AVL电机测试台架03",
       startAlertTime: "2020-08-19 08:47:31",
       endAlertTime: "2020-09-19 08:46:31",
       alertInfo: "命令报警",
@@ -284,7 +312,7 @@ export class LocationMonitoringComponent implements OnInit {
     },
 
     {
-      deviceName: "AVL电机测试台架04",
+      devicename: "AVL电机测试台架04",
       startAlertTime: "2020-08-19 08:47:31",
       endAlertTime: "2020-09-19 08:46:31",
       alertInfo: "命令报警",
@@ -300,7 +328,7 @@ export class LocationMonitoringComponent implements OnInit {
       deviceno: "9567",
     },
     {
-      deviceName: "AVL电机测试台架05",
+      devicename: "AVL电机测试台架05",
       startAlertTime: "2020-08-19 08:47:31",
       endAlertTime: "2020-09-19 08:46:31",
       alertInfo: "命令报警",
@@ -316,7 +344,7 @@ export class LocationMonitoringComponent implements OnInit {
       deviceno: "9577",
     },
     {
-      deviceName: "AVL电机测试台架06",
+      devicename: "AVL电机测试台架06",
       startAlertTime: "2020-08-19 08:47:31",
       endAlertTime: "2020-09-19 08:46:31",
       alertInfo: "命令报警",
@@ -374,8 +402,7 @@ export class LocationMonitoringComponent implements OnInit {
     this.tableDatas.columnDefs.push(this.active);
 
     // 初始化全部的小车！
-    // this.map.init_show_all(this.groups);
-    this.map.init_show_all(this.message);
+    // this.map.init_show_all(this.message);
 
     // 初始化table
     setTimeout(() => {
@@ -412,44 +439,91 @@ export class LocationMonitoringComponent implements OnInit {
   inpuvalue(inpuvalue) {
     if (inpuvalue != "") {
       console.log("传入的值设备名称----->", inpuvalue);
-      this.query(inpuvalue);
+      this.query();
+    }
+  }
+  // select 选择的关注的时间段
+  my_date_select(my_date_select) {
+    if (my_date_select != "") {
+      console.log("选择的关注的时间段----->", my_date_select);
+      this.query();
+    }
+  }
+
+  // select 选择的关注的类别
+  selectvalue(selectvalue) {
+    if (selectvalue != "" || selectvalue === 0) {
+      console.log("选择的关注的类别----->", selectvalue);
+      this.query();
     }
   }
 
   // 搜索按钮
-  query(inpuvalue?) {
-    var devicetype;
-    if (inpuvalue) {
-      devicetype = inpuvalue;
-    } else {
-      devicetype = this.myinput?.getinput();
-    }
-    // 日期范围
-    var daterange_data = this.data_range.getselect();
-    console.log(
-      "<------------搜索----------->",
-      devicetype,
-      "日期范围",
-      daterange_data
-    );
+  query() {
+    var inittable_before = this.inittable_before();
+    // console.log("<------------搜索----------->", inittable_before);
+    var offset = 0;
+    var limit = inittable_before.limit;
+    var PageSize = inittable_before.limit;
+    var columns = {
+      offset: offset,
+      limit: limit,
+      daterange_data: inittable_before.daterange_data,
+      isfavor: inittable_before.isfavor,
+      deviceid: inittable_before.deviceid,
+    };
+    this.http.callRPC(this.TABLE, this.METHDO, columns).subscribe((result) => {
+      var tabledata = result["result"]["message"][0];
+      if (tabledata["code"] === 1) {
+        this.loading = false;
+        var message = result["result"]["message"][0]["message"];
+        this.tableDatas.PageSize = PageSize;
+        this.gridData = [];
+        this.gridData.push(...message);
+        this.tableDatas.rowData = this.gridData;
+        var totalpagenumbers = tabledata["numbers"]
+          ? tabledata["numbers"][0]["numbers"]
+          : "未得到总条数";
+        this.tableDatas.totalPageNumbers = totalpagenumbers;
+        this.agGrid.init_agGrid(this.tableDatas); // 告诉组件刷新！
+        // 刷新table后，改为原来的！
+        this.tableDatas.isno_refresh_page_size = false;
+        this.RecordOperation("搜索定位监控", 1, JSON.stringify(columns));
+
+        // *******************************
+        // 初始化得到的gps，在map地图上展示！
+        this.init_show_all(message);
+
+        // *******************************
+      } else {
+        var data = tabledata["message"];
+        this.querydanger(JSON.stringify(data));
+        this.RecordOperation("搜索定位监控", 0, JSON.stringify(columns));
+      }
+    });
   }
   // 导出
   download(title) {
     this.agGrid.download(title);
   }
+
   // 初始化前确保 搜索条件
   inittable_before() {
-    var devicetype =
+    var deviceid =
       this.myinput?.getinput() === undefined ? "" : this.myinput?.getinput(); // 设备名称
-    // 日期范围
-    var daterange_data = this.data_range?.getselect();
-    // 将科室/功能组，转为列表
+    // 日期范围下拉
+    var daterange_data = this.mydateselect?.getselect();
+    // 关注下拉
+    var myselect = this.myselect?.getselect();
     return {
       limit: this.agGrid.get_pagesize(),
       employeeid: this.userinfo.getEmployeeID(),
-      devicetype: [devicetype],
-      start: daterange_data[0],
-      end: daterange_data[1],
+      deviceid: deviceid,
+      daterange_data: daterange_data,
+      isfavor: myselect,
+
+      // start: daterange_data[0],
+      // end: daterange_data[1],
     };
   }
 
@@ -471,8 +545,11 @@ export class LocationMonitoringComponent implements OnInit {
     var columns = {
       offset: offset,
       limit: limit,
-      start: inittable_before.start,
-      end: inittable_before.end,
+      daterange_data: inittable_before.daterange_data,
+      isfavor: inittable_before.isfavor,
+      deviceid: inittable_before.deviceid,
+      // start: inittable_before.start,
+      // end: inittable_before.end,
     };
     this.http.callRPC(this.TABLE, this.METHDO, columns).subscribe((result) => {
       var tabledata = result["result"]["message"][0];
@@ -490,10 +567,29 @@ export class LocationMonitoringComponent implements OnInit {
         // 刷新table后，改为原来的！
         this.tableDatas.isno_refresh_page_size = false;
         this.RecordOperation("查看定位监控", 1, JSON.stringify(columns));
+
+        // *******************************
+        // 初始化得到的gps，在map地图上展示！
+        this.init_show_all(message);
+
+        // *******************************
       } else {
         this.RecordOperation("查看定位监控", 0, JSON.stringify(columns));
       }
     });
+  }
+
+  // 调用子组件map，上的 init_show_all，初始化小车！
+  init_show_all(message: any[]) {
+    // 清除map地图上的所有的覆盖物
+    this.map.clearOverlay();
+
+    var message_list = Object.assign([], message);
+    message_list.forEach((item) => {
+      item["lng_lat"] = item["latlon"].split(",");
+    });
+    this.map.init_show_all(message_list);
+    // console.error("初始化小车的数据格式：", message_list);
   }
 
   // 更新table
@@ -514,8 +610,11 @@ export class LocationMonitoringComponent implements OnInit {
     var columns = {
       offset: offset,
       limit: limit,
-      start: inittable_before.start,
-      end: inittable_before.end,
+      daterange_data: inittable_before.daterange_data,
+      isfavor: inittable_before.isfavor,
+      deviceid: inittable_before.deviceid,
+      // start: inittable_before.start,
+      // end: inittable_before.end,
     };
     this.http.callRPC(this.TABLE, this.METHDO, columns).subscribe((result) => {
       var tabledata = result["result"]["message"][0];
@@ -541,6 +640,14 @@ export class LocationMonitoringComponent implements OnInit {
 
   // 刷新table
   refresh_table() {
+    // 清除map地图上的所有的覆盖物
+    this.map.clearOverlay();
+
+    // 取消选择的数据 delselect
+    this.myinput.del_input_value(); // input
+    this.mydateselect.reset_month(); // 时间段
+    this.myselect.reset_month(); // 下拉 关注
+
     this.refresh = true;
     this.loading = true;
     this.gridData = [];
@@ -549,11 +656,6 @@ export class LocationMonitoringComponent implements OnInit {
     this.inttable();
     this.loading = false;
     this.refresh = false;
-
-    // 取消选择的数据 delselect
-    // this.myinput.del_input_value();
-    // this.groups_func.dropselect();
-    // this.eimdevicetpye.dropselect();
   }
   // nzpageindexchange 页码改变的回调
   nzpageindexchange(event) {
@@ -580,18 +682,79 @@ export class LocationMonitoringComponent implements OnInit {
   // 点击设备在map上展示设备信息,子组件调用
   // 得到的，选中的行，数据 array
   selectedrow(event) {
-    console.log("--点击设备在map上展示设备信息---", event);
-    // this.map.show_info_in_map(event);
+    // console.log("--点击设备在map上展示设备信息---", event);
+    var imei = event[0]["imei"];
+    this.map.show_info_in_map(event);
+
+    // 测试，点击行时，展示折线
+    var latlon = {
+      "110003115": [
+        "121.32290099,30.33020277,2021-03-01 09:10:48",
+        "121.32250099,30.32020277,2021-03-02 09:10:48",
+        "121.38210099,30.30020277,2021-03-03 09:10:48",
+      ],
+      "110003116": [
+        "121.32260099, 30.33020334,2021-03-04 09:10:48",
+        "121.31210099,30.30980277,2021-03-05 09:10:48",
+        "121.36170099,30.28080277,2021-03-06 09:10:48",
+      ],
+      "110003117": [
+        "121.32290099,30.32980277,2021-03-07 09:10:48",
+        "121.32250099,30.32010877,2021-03-08 09:10:48",
+        "121.38210099,30.30019877,2021-03-09 09:10:48",
+      ],
+    };
+
+    var columns = {
+      imei: imei,
+      offset: 0, // 开始位置
+      limit: 10, // 总条数
+    };
+    this.http
+      .callRPC(this.TABLE, this.METHDOHISTROY, columns)
+      .subscribe((result) => {
+        var resdata = result["result"]["message"][0];
+        if (resdata["code"] === 1) {
+          var message = result["result"]["message"][0]["message"];
+          var handle_history_for_line = this.handle_history_for_line(message);
+          // console.error(
+          //   "handle_history_for_line**************************",
+          //   handle_history_for_line
+          // );
+          this.map.hit_to_show_line(handle_history_for_line);
+        } else {
+        }
+      });
+
+    // this.map.hit_to_show_line(latlon[event[0]["deviceid"]]);
+  }
+
+  // 解析历史数据
+  handle_history_for_line(message: any[]) {
+    var latlon_list = [];
+    message.forEach((item) => {
+      var latlon = item["latlon"] + "," + item["recordtime"];
+      latlon_list.push(latlon);
+    });
+    return latlon_list;
   }
 
   // 历史位置
   history_location(data) {
     this.visible = true;
-    this.gpshistory.init_history(data["deviceid"]);
+    this.gpshistory.init_history(data["imei"]);
   }
 
   close(): void {
     this.visible = false;
+  }
+
+  querydanger(data) {
+    this.publicservice.showngxtoastr({
+      position: "toast-top-right",
+      status: "danger",
+      conent: "搜索失败：" + data,
+    });
   }
 
   // option_record

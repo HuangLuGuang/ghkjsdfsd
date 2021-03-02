@@ -35,7 +35,7 @@ export class AssetsManageComponent implements OnInit {
   refresh = false; // 刷新tabel
   button; // 权限button
 
-  myinput_placeholder = "设备类别";
+  myinput_placeholder = "设备编号";
 
   option; // 操作
 
@@ -48,7 +48,7 @@ export class AssetsManageComponent implements OnInit {
   // agGrid
   tableDatas = {
     // 新增，设置高度
-    style: "width: 100%; height: 798px",
+    style: "width: 100%; height: 664px",
 
     totalPageNumbers: 0, // 总页数
     PageSize: 10, // 每页 10条数据
@@ -118,7 +118,7 @@ export class AssetsManageComponent implements OnInit {
         field: "active",
         headerName: "是否启用",
         resizable: true,
-        width: 50,
+        width: 100,
         sortable: true,
         cellRendererFramework: IsnotActiveComponent,
       },
@@ -126,7 +126,7 @@ export class AssetsManageComponent implements OnInit {
         field: "isfavor",
         headerName: "是否关注",
         resizable: true,
-        width: 50,
+        width: 100,
         sortable: true,
         cellRendererFramework: IsnotFavorComponent,
       },
@@ -213,8 +213,17 @@ export class AssetsManageComponent implements OnInit {
   // input 传入的值
   inpuvalue(inpuvalue) {
     if (inpuvalue != "") {
-      console.log("传入的值设备名称----->", inpuvalue);
+      // console.log("传入的值设备名称----->", inpuvalue);
       this.query(inpuvalue);
+    } else if (inpuvalue == undefined) {
+      this.dialogService
+        .open(EditDelTooltipComponent, {
+          closeOnBackdropClick: false,
+          context: { title: "提示", content: `缺少搜索条件！` },
+        })
+        .onClose.subscribe((name) => {
+          // console.log("----name-----", name);
+        });
     }
   }
 
@@ -368,16 +377,59 @@ export class AssetsManageComponent implements OnInit {
 
   // 搜索按钮
   query(inpuvalue?) {
-    var devicetype;
-    if (inpuvalue) {
-      devicetype = inpuvalue;
+    var inittable_before = this.inittable_before();
+    var deviceid = inittable_before.deviceid;
+    if (deviceid != "") {
+      var offset = 0;
+      var limit = inittable_before.limit;
+      var PageSize = inittable_before.limit;
+      var columns = {
+        offset: offset,
+        limit: limit,
+        deviceid: inittable_before.deviceid,
+      };
+
+      this.http
+        .callRPC(this.TABLE, this.METHOD, columns)
+        .subscribe((result) => {
+          var tabledata = result["result"]["message"][0];
+          if (tabledata["code"] === 1) {
+            this.loading = false;
+            var message = result["result"]["message"][0]["message"];
+            this.tableDatas.PageSize = PageSize;
+            this.gridData = [];
+            this.gridData.push(...message);
+            this.tableDatas.rowData = this.gridData;
+            var totalpagenumbers = tabledata["numbers"]
+              ? tabledata["numbers"][0]["numbers"]
+              : "未得到总条数";
+            this.tableDatas.totalPageNumbers = totalpagenumbers;
+            this.agGrid.init_agGrid(this.tableDatas); // 告诉组件刷新！
+            // 刷新table后，改为原来的！
+            this.tableDatas.isno_refresh_page_size = false;
+            this.RecordOperation("搜索gps设备", 1, JSON.stringify(columns));
+          } else {
+            var data = tabledata["message"];
+            this.querydanger(JSON.stringify(data));
+            this.RecordOperation("搜索gps设备", 0, JSON.stringify(columns));
+          }
+        });
     } else {
-      devicetype = this.myinput?.getinput();
+      this.dialogService
+        .open(EditDelTooltipComponent, {
+          closeOnBackdropClick: false,
+          context: { title: "提示", content: `缺少搜索条件！` },
+        })
+        .onClose.subscribe((name) => {
+          // console.log("----name-----", name);
+        });
     }
-    console.log("<------------搜索----------->", devicetype);
   }
 
   refresh_table() {
+    // 取消选择的数据 delselect
+    this.myinput.del_input_value();
+
     this.refresh = true;
     this.loading = true;
     this.gridData = [];
@@ -388,8 +440,6 @@ export class AssetsManageComponent implements OnInit {
     this.loading = false;
     this.refresh = false;
 
-    // 取消选择的数据 delselect
-    this.myinput.del_input_value();
     // this.groups_func.dropselect();
     // this.eimdevicetpye.dropselect();
   }
@@ -408,9 +458,12 @@ export class AssetsManageComponent implements OnInit {
 
   // 初始化前确保 搜索条件
   inittable_before() {
+    var deviceid =
+      this.myinput?.getinput() === undefined ? "" : this.myinput?.getinput(); // 设备名称
     return {
       limit: this.agGrid.get_pagesize(),
       employeeid: this.userinfo.getEmployeeID(),
+      deviceid: deviceid,
     };
   }
 
@@ -432,6 +485,7 @@ export class AssetsManageComponent implements OnInit {
     var columns = {
       offset: offset,
       limit: limit,
+      deviceid: inittable_before.deviceid,
     };
     this.http.callRPC(this.TABLE, this.METHOD, columns).subscribe((result) => {
       var tabledata = result["result"]["message"][0];
@@ -474,6 +528,7 @@ export class AssetsManageComponent implements OnInit {
     var columns = {
       offset: offset,
       limit: limit,
+      deviceid: inittable_before.deviceid,
     };
     this.http.callRPC(this.TABLE, this.METHOD, columns).subscribe((result) => {
       var tabledata = result["result"]["message"][0];
@@ -840,6 +895,13 @@ export class AssetsManageComponent implements OnInit {
       position: "toast-top-right",
       status: "danger",
       conent: "导入失败!",
+    });
+  }
+  querydanger(data) {
+    this.publicservice.showngxtoastr({
+      position: "toast-top-right",
+      status: "danger",
+      conent: "搜索失败：" + data,
     });
   }
 

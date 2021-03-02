@@ -9,6 +9,7 @@ import {
   NbCardModule,
   NbButtonModule,
   NbSpinnerModule,
+  NbTooltipModule,
 } from "@nebular/theme";
 
 import { Ng2SmartTableModule } from "@mykeels/ng2-smart-table";
@@ -29,6 +30,11 @@ import { MapComponent } from "./map/map.component";
 import { AgTableLocationComponent } from "./ag-table-location/ag-table-location.component";
 
 import { NzSelectModule } from "ng-zorro-antd/select";
+import { GpsLngLatCellComponent } from "./gps-lng-lat-cell/gps-lng-lat-cell.component";
+
+import { NzToolTipModule } from "ng-zorro-antd/tooltip";
+import { MyDateSelectComponent } from "./my-date-select/my-date-select.component";
+import { MySelectComponent } from "./my-select/my-select.component";
 
 @NgModule({
   declarations: [
@@ -43,6 +49,9 @@ import { NzSelectModule } from "ng-zorro-antd/select";
     GpsHistoryComponent,
     MapComponent,
     AgTableLocationComponent,
+    GpsLngLatCellComponent,
+    MyDateSelectComponent,
+    MySelectComponent,
   ],
   imports: [
     CommonModule,
@@ -58,6 +67,11 @@ import { NzSelectModule } from "ng-zorro-antd/select";
     NbSpinnerModule,
 
     NzSelectModule,
+
+    // tootip
+    NbTooltipModule,
+
+    NzToolTipModule,
   ],
   exports: [
     AgTableComponent,
@@ -67,6 +81,8 @@ import { NzSelectModule } from "ng-zorro-antd/select";
     GpsHistoryComponent,
     MapComponent,
     AgTableLocationComponent,
+    MyDateSelectComponent,
+    MySelectComponent,
   ],
 })
 export class ComponentTModule {}

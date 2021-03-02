@@ -12,6 +12,7 @@ import {
   NbSidebarModule,
   NbSpinnerModule,
   NbIconModule,
+  NbToggleModule,
 } from "@nebular/theme";
 import { AssetsManageComponent } from "./assets-manage/assets-manage.component";
 import { FormsModule } from "@angular/forms";
@@ -48,6 +49,7 @@ import { NzDrawerModule } from "ng-zorro-antd/drawer";
     NbSidebarModule,
     NbCardModule,
     NbIconModule,
+    NbToggleModule,
 
     NbSpinnerModule,
     AgGridModule,

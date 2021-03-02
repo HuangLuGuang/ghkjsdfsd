@@ -204,6 +204,17 @@ export class MapComponent implements OnInit {
     }
   }
 
+  // 测试，点击行时，展示折线
+  // points: ["121.32290099,30.33020277", "121.32250099,30.32020277", "121.32210099,30.30020277"]
+  hit_to_show_line(points: any[]) {
+    mapjs.hit_to_show_line(points);
+  }
+
+  // 清空所以的覆盖物
+  clearOverlay() {
+    mapjs.clearOverlay();
+  }
+
   // 初始化全部小车！
   init_show_all(alldata: any[], isnorefresh?) {
     if (isnorefresh) {
