@@ -5,6 +5,12 @@ import { colors, create_img_16_9, dateformat, library, rTime } from '../equipmen
 import { EquipmentBoardService } from '../serivice/equipment-board.service';
 var equipment_four_road = require('../../../../assets/eimdoard/equipment/js/equipment-four-road');
 
+/**
+ * 台架2  4d2c_01 atec_02
+ * 台架3  4d2c_02 jinhua_cabin03
+ * 台架4  4d2c_06 
+ * 台架5  4d2c_07
+ */
 @Component({
   selector: 'ngx-equipment-jinhua4d2c',
   templateUrl: './equipment-jinhua4d2c.component.html',
@@ -94,10 +100,10 @@ export class EquipmentJinhua4d2cComponent implements OnInit {
          document.getElementById('head_title').innerText = f.title;
         let arr = decodeURIComponent(window.location.pathname).split('/');
         if(arr[arr.length-1] == 'one'){
-          this.device_4d2c = 'device_4d2c_02';
+          this.device_4d2c = 'device_4d2c_05';
           this.device_atec = 'device_jinhua_cabin01';
         }else{
-
+            
         }
 
      })

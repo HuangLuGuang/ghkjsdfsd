@@ -173,10 +173,12 @@ export class EquipmentSkylightOpenCloseComponent implements OnInit {
           this.atec.tempSet = data.temp_setpoint||0;
     
           if(document.getElementById('cabin_pie_1'))
-          equipment_four_road.create_real_disk({value:this.atec.tempReal,text:this.language?'RealTEMP':'实时温度',unit:'%RH'},
-          echarts.init(document.getElementById('cabin_pie_1')));
+          // equipment_four_road.create_real_disk({value:this.atec.tempReal,text:this.language?'RealTEMP':'实时温度',unit:'%RH'},
+            equipment_four_road.create_motor_temperature({value:this.atec.tempReal,title:this.language?'RealTEMP':'实时温度',unit:'%RH'},
+            echarts.init(document.getElementById('cabin_pie_1')));
           if(document.getElementById('cabin_pie_2'))
-            equipment_four_road.create_real_disk({value:this.atec.rhReal,text:this.language?'RealRH':'实时湿度',unit:'℃'},
+            // equipment_four_road.create_real_disk({value:this.atec.rhReal,text:this.language?'RealRH':'实时湿度',unit:'℃'},
+            equipment_four_road.create_motor_temperature({value:this.atec.rhReal,title:this.language?'RealRH':'实时湿度',unit:'℃'},
             echarts.init(document.getElementById('cabin_pie_2')));
         })
       }, 10);
@@ -287,12 +289,12 @@ export class EquipmentSkylightOpenCloseComponent implements OnInit {
   }
 
   initChart(){
-    if(document.getElementById('cabin_pie_1'))
-      equipment_four_road.create_real_disk({value:this.atec.tempReal,text:this.language?'RealTEMP':'实时温度',unit:'%RH'},
-      echarts.init(document.getElementById('cabin_pie_1')));
-    if(document.getElementById('cabin_pie_2'))
-      equipment_four_road.create_real_disk({value:this.atec.rhReal,text:this.language?'RealRH':'实时湿度',unit:'℃'},
-      echarts.init(document.getElementById('cabin_pie_2')));
+    // if(document.getElementById('cabin_pie_1'))
+    //   equipment_four_road.create_real_disk({value:this.atec.tempReal,text:this.language?'RealTEMP':'实时温度',unit:'%RH'},
+    //   echarts.init(document.getElementById('cabin_pie_1')));
+    // if(document.getElementById('cabin_pie_2'))
+    //   equipment_four_road.create_real_disk({value:this.atec.rhReal,text:this.language?'RealRH':'实时湿度',unit:'℃'},
+      // echarts.init(document.getElementById('cabin_pie_2')));
     if(document.getElementById('cabin_line_1')){
       let myChart_9 = echarts.init(document.getElementById('cabin_line_1'));;
       equipment_four_road.create_real_discharge({attrs:this.atec.attrs,xData:this.atec.xdata},myChart_9);

@@ -69,7 +69,7 @@ export class StructuralLaboratoryComponent implements OnInit {
       andon:0,
       speed:[],
       speed_name:[''],//实验名称
-      router:''
+      router:'pages/equipment/glass-lift/玻璃升降试验台'
     },
     {
       name:'开闭件台架',
@@ -118,7 +118,7 @@ export class StructuralLaboratoryComponent implements OnInit {
     'device_mts_03':this.list[2],//六自由度振动台
     "device_mts_04":this.list[3],//液压伺服
     'device_skylight_01':this.list[5],//天窗开闭
-
+    'device_skylight_02':this.list[6],//玻璃升降
     'device_4d2c_02':this.list[9]//四门两盖01
   }
   timer:any;

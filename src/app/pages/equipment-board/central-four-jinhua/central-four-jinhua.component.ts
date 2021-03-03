@@ -149,7 +149,7 @@ export class CentralFourJinhuaComponent implements OnInit {
   ]
 
   img = {
-    url:'assets/eimdoard/equipment/images/lqdp.png',
+    url:'assets/eimdoard/equipment/images/sqdp.png',
     name:''
   }
 
@@ -369,23 +369,23 @@ export class CentralFourJinhuaComponent implements OnInit {
       });
       //温度
       this.EnvironBin[0].dataLine.value =  data.mwsmart_main_emission_vw200 ||0;
-      this.EnvironBin[0].dataLine.color[0] =  [data.mwsmart_main_emission_vw202/this.EnvironBin[0].dataLine.max,'#203add'];
+      this.EnvironBin[0].dataLine.color[0] =  [(data.mwsmart_main_emission_vw202||0)/this.EnvironBin[0].dataLine.max,'#203add'];
 
       //湿度
       this.EnvironBin[1].dataLine.value =  data.mwsmart_main_emission_vw206 ||0;
-      this.EnvironBin[1].dataLine.color[0] =  [data.mwsmart_main_emission_vw208/this.EnvironBin[1].dataLine.max,'#203add'];
+      this.EnvironBin[1].dataLine.color[0] =  [(data.mwsmart_main_emission_vw208||0)/this.EnvironBin[1].dataLine.max,'#203add'];
       
       //阳光辐射
       this.EnvironBin[2].dataLine.value =  data.mwsmart_main_emission_vw212 ||0;
-      this.EnvironBin[2].dataLine.color[0] =  [data.mwsmart_main_emission_vw214/this.EnvironBin[2].dataLine.max,'#203add'];
+      this.EnvironBin[2].dataLine.color[0] =  [(data.mwsmart_main_emission_vw214||0)/this.EnvironBin[2].dataLine.max,'#203add'];
 
       //舱内压力
       this.EnvironBin[3].dataLine.value =  data.mwsmart_main_emission_vw218 ||0;
-      this.EnvironBin[3].dataLine.color[0] =  [data.mwsmart_main_emission_vw220/this.EnvironBin[3].dataLine.max,'#203add'];
+      this.EnvironBin[3].dataLine.color[0] =  [(data.mwsmart_main_emission_vw220||0)/this.EnvironBin[3].dataLine.max,'#203add'];
 
       //排费压力
       this.EnvironBin[4].dataLine.value =  data.mwsmart_main_emission_vw224 ||0;
-      this.EnvironBin[4].dataLine.color[0] =  [data.mwsmart_main_emission_vw226/this.EnvironBin[4].dataLine.max,'#203add'];
+      this.EnvironBin[4].dataLine.color[0] =  [(data.mwsmart_main_emission_vw226||0)/this.EnvironBin[4].dataLine.max,'#203add'];
 
       this.EnvironBinParam[0].value = data.mwsmart_main_emission_vw228 ||0;
       this.EnvironBinParam[1].value = data.mwsmart_main_emission_v322 ||0;

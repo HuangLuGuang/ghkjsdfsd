@@ -54,6 +54,7 @@ export const DEVICEID_TO_NAME  ={
   'device_hpu_04':'油源4',//油源4
   'device_hpu_05':'油源5',//油源5
   'device_skylight_01':'天窗开闭',//天窗开闭
+  'device_skylight_02':'玻璃升降',//玻璃升降
   'device_4d2c_02':'四门两盖01',//四门两盖01
 
   'device_avldyno_01':'AVL耐久2驱-S1060',//AVL耐久2驱-S1060

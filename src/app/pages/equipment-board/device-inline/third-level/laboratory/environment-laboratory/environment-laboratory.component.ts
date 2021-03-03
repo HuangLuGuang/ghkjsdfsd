@@ -44,7 +44,7 @@ export class EnvironmentLaboratoryComponent implements OnInit {
       name:'AVL排放2驱',
       number:'S1070',
       andon:0,
-      src:'assets/eimdoard/equipment/images/sqdp.png',//实验图片
+      src:'assets/eimdoard/equipment/images/paifang.jpg',//实验图片
       speed:[],
       speed_name:[''],
       router:'pages/equipment/avl/AVL转毂+久鼎环境舱+排放分析'
@@ -62,7 +62,7 @@ export class EnvironmentLaboratoryComponent implements OnInit {
       name:'AVL排放2驱',
       number:'S1074',
       andon:0,
-      src:'assets/eimdoard/equipment/images/hm_1074.png',//实验图片
+      src:'assets/eimdoard/equipment/images/liangqu.jpg',//实验图片
       speed:[],
       speed_name:[''],
       router:'pages/equipment/avl-etec/两驱AVL转毂+ATEC环境舱+排放分析/two'
@@ -71,7 +71,7 @@ export class EnvironmentLaboratoryComponent implements OnInit {
       name:'AVL排放4驱',
       number:'S1074',
       andon:0,
-      src:'assets/eimdoard/equipment/images/hm_4_1074.png',//实验图片
+      src:'assets/eimdoard/equipment/images/siqu.jpg',//实验图片
       speed:[],
       speed_name:[''],
       router:'pages/equipment/avl-etec2/四驱AVL转毂+ATEC环境舱+排放分析/four'

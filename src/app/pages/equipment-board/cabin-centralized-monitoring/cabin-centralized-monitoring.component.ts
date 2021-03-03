@@ -275,9 +275,9 @@ export class CabinCentralizedMonitoringComponent implements OnInit {
           }
         });
       // 冷却水压力
-      this.jinhua_en[0].dataLine.value = data.mwsmart_main_soaking_s_vw206;
+      this.jinhua_en[0].dataLine.value = data.mwsmart_main_soaking_s_vw206 ||0;
       //冷却水温度
-      this.jinhua_en[1].dataLine.value = data.mwsmart_main_soaking_s_vw208;
+      this.jinhua_en[1].dataLine.value = data.mwsmart_main_soaking_s_vw208 ||0;
       // //温度实际值
       // this.jinhua_en[2].dataLine.value = data.mwsmart_main_soaking_s_vw200;
 
@@ -286,8 +286,8 @@ export class CabinCentralizedMonitoringComponent implements OnInit {
         equipment_four_road.create_gauge_jinhua(f.dataLine,echarts.init(document.getElementById(f.id)));
       })
       // 实时温度
-      this.gauge[3].dataLine.value = data.mwsmart_main_soaking_s_vw200;
-      this.gauge[3].dataLine.color[0] = [data.mwsmart_main_soaking_s_vw202/this.gauge[3].dataLine.max, '#203add'];
+      this.gauge[3].dataLine.value = data.mwsmart_main_soaking_s_vw200 ||0;
+      this.gauge[3].dataLine.color[0] = [(data.mwsmart_main_soaking_s_vw202||0)/this.gauge[3].dataLine.max, '#203add'];
       if(document.getElementById(this.gauge[3].id))
         equipment_four_road.create_temp_h_1_p_gauge(
           this.gauge[3].dataLine
@@ -379,14 +379,14 @@ export class CabinCentralizedMonitoringComponent implements OnInit {
       this.atec.hc = data.hc_concentration;
 
       // 温度
-      this.gauge[0].dataLine.value = data.realtime_temp;
-      this.gauge[0].dataLine.color[0] = [data.realtime_temp/this.gauge[0].dataLine.max, '#203add'];
+      this.gauge[0].dataLine.value = data.realtime_temp||0;
+      this.gauge[0].dataLine.color[0] = [(data.realtime_temp||0)/this.gauge[0].dataLine.max, '#203add'];
       //湿度
-      this.gauge[1].dataLine.value = data.realtime_humidity;
-      this.gauge[1].dataLine.color[0] = [data.realtime_humidity/this.gauge[1].dataLine.max, '#203add'];
+      this.gauge[1].dataLine.value = data.realtime_humidity||0;
+      this.gauge[1].dataLine.color[0] = [(data.realtime_humidity||0)/this.gauge[1].dataLine.max, '#203add'];
       // 微压差
-      this.gauge[2].dataLine.value = data.micro_pressure_pv;
-      this.gauge[2].dataLine.color[0] = [data.micro_pressure_sp/this.gauge[2].dataLine.max, '#203add'];
+      this.gauge[2].dataLine.value = data.micro_pressure_pv||0;
+      this.gauge[2].dataLine.color[0] = [(data.micro_pressure_sp||0)/this.gauge[2].dataLine.max, '#203add'];
       [0,1,2].forEach(f=>{
         if(document.getElementById(this.gauge[f].id))
         equipment_four_road.create_temp_h_1_p_gauge(

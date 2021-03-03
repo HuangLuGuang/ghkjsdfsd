@@ -197,10 +197,15 @@ const ROUTERS: Routes = [{
         loadChildren:()=>import('./equipment-cts-bsr/equipment-cts-bsr.module')
         .then(m=>m.EquipmentCtsBsrModule)
       },
-       {//马哈
+      {//马哈
         path:'maha',
         loadChildren:()=>import('./equipment-maha/equipment-maha.module')
         .then(m=>m.EquipmentMahaModule)
+      },
+      {//玻璃升降台
+        path:'glass-lift',
+        loadChildren:()=>import('./equipment-glass-lift/equipment-glass-lift.module')
+        .then(m=>m.EquipmentGlassLiftModule)
       },
       
       // {

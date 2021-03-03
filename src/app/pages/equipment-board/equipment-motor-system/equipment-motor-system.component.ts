@@ -178,6 +178,7 @@ export class EquipmentMotorSystemComponent implements OnInit {
   language = '';//语言 空为zh-CN中文
 
   deviceid = '';
+  t_h_deviceid = '';
   subscribeList:any = {};
 
 
@@ -197,18 +198,22 @@ export class EquipmentMotorSystemComponent implements OnInit {
       this.deviceid = f.deviceid;
       switch(this.deviceid){
         case 'device_avlmotor_01':
+          this.t_h_deviceid = 'sensor_temp_humi_08';
           this.img.url = 'assets/eimdoard/equipment/images/dj1_1013.jpeg';
           this.introd_name += '1';
           break;
         case 'device_avlmotor_02':
+          this.t_h_deviceid = 'sensor_temp_humi_06';
           this.img.url = 'assets/eimdoard/equipment/images/dj2_1014.jpeg';
           this.introd_name += '2';
           break;
         case 'device_avlmotor_03':
+          this.t_h_deviceid = 'sensor_temp_humi_03';
           this.img.url = 'assets/eimdoard/equipment/images/dj3_1003.jpeg';
           this.introd_name += '3';
           break;
         case 'device_avlmotor_04':
+          this.t_h_deviceid = 'sensor_temp_humi_07';
           this.img.url = 'assets/eimdoard/equipment/images/dj4_1010.jpeg';
           this.introd_name += '4';
           break;
@@ -476,7 +481,7 @@ torque: 0.151 扭矩
     let chart;
     let yearPlanData = [],yearOrderData= [],differenceData=[],visibityData=[],xAxisData=[];
     this.subscribeList.h_t_h = this.http.callRPC('get_temperature',library+'get_temperature_numbers'
-    ,{deviceid:t_h_deviceid || this.deviceid}).subscribe((g:any) =>{
+    ,{deviceid:t_h_deviceid || this.t_h_deviceid}).subscribe((g:any) =>{
       if(g.result.error || g.result.message[0].code == 0)return;
       g.result.message[0].message.forEach(el => {
         yearPlanData.push(el.temperature);//温度

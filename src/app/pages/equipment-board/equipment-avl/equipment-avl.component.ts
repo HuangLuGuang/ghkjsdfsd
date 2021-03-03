@@ -137,7 +137,7 @@ export class EquipmentAvlComponent implements OnInit {
   
 
   img = {
-    url:'assets/eimdoard/equipment/images/s.png',
+    url:'assets/eimdoard/equipment/images/paifang.jpg',
     name:''
   }
 
@@ -312,7 +312,7 @@ export class EquipmentAvlComponent implements OnInit {
       if(document.getElementById('temp_humidity_pressure'))
         equipment_four_road.create_temp_humidity_pressure_gauge({
           temp:{
-              value:data.ct_temp,
+              value:data.ct_temp||0,
               max:120,
               color:[
                   [0.4, '#203add'],
@@ -320,7 +320,7 @@ export class EquipmentAvlComponent implements OnInit {
               ]
           },
           humidity:{
-              value:data.ct_hum,
+              value:data.ct_hum||0,
               max:120,
               color:[
                   [0.4, '#203add'],
@@ -328,7 +328,7 @@ export class EquipmentAvlComponent implements OnInit {
               ]
           },
           pressure:{
-              value:data.ct_pressure_set,
+              value:data.ct_pressure_set||0,
               max:120,
               color:[
                   [0.4, '#203add'],
@@ -340,26 +340,26 @@ export class EquipmentAvlComponent implements OnInit {
      
 
       // 舱状态
-      this.environmental_real_data.arr[0].value = data.start;
+      this.environmental_real_data.arr[0].value = data.start ||0;
       // 新风系统
-      this.environmental_real_data.arr[1].value = data.xf_start;
+      this.environmental_real_data.arr[1].value = data.xf_start||0;
       // 转轮排湿
-      this.environmental_real_data.arr[2].value = data.wd_running;
+      this.environmental_real_data.arr[2].value = data.wd_running||0;
       // 制冷除湿
-      this.environmental_real_data.arr[3].value = data.rd_running;
+      this.environmental_real_data.arr[3].value = data.rd_running||0;
       // 制冷机组1
-      this.environmental_real_data.arr[4].value = data.select_unit_1;
+      this.environmental_real_data.arr[4].value = data.select_unit_1||0;
       // 制冷机组2
-      this.environmental_real_data.arr[5].value = data.select_unit_2;
+      this.environmental_real_data.arr[5].value = data.select_unit_2||0;
 
       //新风温度
-      this.outRenturnWind[0].text = data.xf_out_temp;
+      this.outRenturnWind[0].text = data.xf_out_temp||0;
       //新风湿度
-      this.outRenturnWind[1].text = data.xf_out_hum;
+      this.outRenturnWind[1].text = data.xf_out_hum||0;
       // 出风温度
-      this.outRenturnWind[2].text = data.ct_back_temp;
+      this.outRenturnWind[2].text = data.ct_back_temp||0;
       // 出风湿度
-      this.outRenturnWind[3].text = data.ct_back_hum;
+      this.outRenturnWind[3].text = data.ct_back_hum||0;
       this.outRenturnWind.forEach((f:any,i:number) => {
         if(!echarts.init(document.getElementById('electric_chart_'+i)))return;
         let c = echarts.init(document.getElementById('electric_chart_'+i));
@@ -367,9 +367,9 @@ export class EquipmentAvlComponent implements OnInit {
       });
 
       //循环风机频率
-      this.environmental.ct_fun_hz_set = data.ct_fun_hz_set;
+      this.environmental.ct_fun_hz_set = data.ct_fun_hz_set||0;
       //新风风机频率
-      this.environmental.xf_fun_hz_set = data.xf_fun_hz_set;
+      this.environmental.xf_fun_hz_set = data.xf_fun_hz_set||0;
     })
   }
 

@@ -304,8 +304,10 @@ export class EquipmentCtsBsrComponent implements OnInit {
    */
   chart_long_clear(d){
     if(d.xdata.length > 10){
-      d.xdata.unshift();
-      d.data.value.shift();
+      d.xdata.shift();
+      d.data.forEach(el => {
+        el.value.shift();
+      });
     }
   }
 

@@ -121,7 +121,7 @@ export class EquipmentAvlAtecComponent implements OnInit {
   ]
 
   img = {
-    url:'assets/eimdoard/equipment/images/sqdp.png',
+    url:'',
     name:''
   }
 
@@ -155,10 +155,12 @@ export class EquipmentAvlAtecComponent implements OnInit {
           this.light_deviceid = 'device_avl_igem02';
           this.aetc_deviceid = 'device_atec_03';
           this.avl_deviceid = 'device_avl2dyno_01';
+          this.img.url = 'assets/eimdoard/equipment/images/liangqu.jpg';
         }else if(f.deviceid == 'four'){
           this.light_deviceid = 'device_avl_igem03';
           this.aetc_deviceid = 'device_atec_04';
           this.avl_deviceid = 'device_avl4dyno_01';
+          this.img.url = 'assets/eimdoard/equipment/images/siqu.jpg';
         }
         
     })
@@ -255,17 +257,17 @@ export class EquipmentAvlAtecComponent implements OnInit {
           }
         });
       this.light_data = data;
-      this.gauge[4].dataLine.value = data.realtime_temp;
-      this.gauge[4].dataLine.color[0] = [data.temp_setpoint/this.gauge[4].dataLine.max, '#203add'];
-      this.gauge[5].dataLine.value = data.realtime_humidity;
-      this.gauge[5].dataLine.color[0] = [data.humidity_setpoint/this.gauge[5].dataLine.max, '#203add'];
-      this.gauge[6].dataLine.value = data.micro_pressure_pv;
-      this.gauge[6].dataLine.color[0] = [data.micro_pressure_sp/this.gauge[6].dataLine.max, '#203add'];
+      this.gauge[4].dataLine.value = data.realtime_temp || 0;
+      this.gauge[4].dataLine.color[0] = [(data.temp_setpoint||0)/this.gauge[4].dataLine.max, '#203add'];
+      this.gauge[5].dataLine.value = data.realtime_humidity || 0;
+      this.gauge[5].dataLine.color[0] = [(data.humidity_setpoint||0)/this.gauge[5].dataLine.max, '#203add'];
+      this.gauge[6].dataLine.value = data.micro_pressure_pv || 0;
+      this.gauge[6].dataLine.color[0] = [(data.micro_pressure_sp||0)/this.gauge[6].dataLine.max, '#203add'];
       [this.gauge[4],this.gauge[5],this.gauge[6]].forEach(el => {
         if(document.getElementById(el.id))
-        equipment_four_road.create_temp_h_1_p_gauge(
-          el.dataLine
-          ,echarts.init(document.getElementById(el.id)));
+          equipment_four_road.create_temp_h_1_p_gauge(
+            el.dataLine
+            ,echarts.init(document.getElementById(el.id)));
       });
       
     })

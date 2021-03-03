@@ -208,9 +208,9 @@ let rtm3a = {
                 formatter: function(params) {
                     return params[0].name + '<br/>' +
                         params[0].seriesName + ' : ' + params[0].value + '<br/>' +
-                        params[1].seriesName + ' : ' + params[1].value + '<br/>'+
-                        params[2].seriesName + ' : ' + params[2].value + '<br/>'+
-                        params[3].seriesName + ' : ' + params[3].value + '<br/>';
+                        params[1].seriesName + ' : ' + params[1].value + '<br/>';
+                        // params[2].seriesName + ' : ' + params[2].value + '<br/>'+
+                        // params[3].seriesName + ' : ' + params[3].value + '<br/>';
                 },
                 textStyle: {
                     color: '#FFF',

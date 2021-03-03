@@ -23,7 +23,8 @@
                     <div class="pump">
                         <div style="width: 100%;">泵组</div>
                         <div class="c">
-                            <div class="d" *ngFor="let f of item.pumpList" [ngStyle]="{'background':f.s?'#00FF33':'',width:(100-item.pumpList.length)/item.pumpList.length+'%'}">
+                            <div class="d" *ngFor="let f of item.pumpList" 
+                            [ngStyle]="{'background':f.s?'#00FF33':'',color:f.s?'black':'',width:(100-item.pumpList.length)/item.pumpList.length+'%'}">
                                 {{ f.name }}
                             </div>
 
@@ -106,7 +107,9 @@
                     <div class="w_100 height_43" id="pumpClick"></div>
                     <div class="w_100 height_29" style="display: flex;flex-wrap: wrap;justify-content: center;">
                         <div style="width: 100%;height: 31%;">泵组</div>
-                        <div class="d" *ngFor="let f of HPUselect.HPUselectItem.pumpList" [ngStyle]="{'background':f.s?'#00FF33':'',width:(90-HPUselect.HPUselectItem.pumpList.length)/HPUselect.HPUselectItem.pumpList.length+'%'}">
+                        <div class="d" *ngFor="let f of HPUselect.HPUselectItem.pumpList" 
+                        [ngStyle]="{'background':f.s?'#00FF33':'',color:f.s?'black':'',
+                        width:(90-HPUselect.HPUselectItem.pumpList.length)/HPUselect.HPUselectItem.pumpList.length+'%'}">
                             {{ f.name }}
                         </div>
                     </div>

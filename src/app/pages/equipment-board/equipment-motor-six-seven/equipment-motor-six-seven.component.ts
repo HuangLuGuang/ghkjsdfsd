@@ -1,11 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { HttpserviceService } from '../../../services/http/httpservice.service';
-import { colors, create_img_16_9, dateformat, library, rTime } from '../equipment-board';
+import { colors, create_img_16_9, dateformat, library, rTime, t_h_deviceid } from '../equipment-board';
 import { EquipmentBoardService } from '../serivice/equipment-board.service';
 
 let equipment_four_road = require('../../../../assets/eimdoard/equipment/js/equipment-four-road');
 let oilsrouce = require('../../../../assets/eimdoard/equipment/js/oilsrouce');
+let rtm3a = require('../../../../assets/eimdoard/rtm3/js/rtm3a');
 
 @Component({
   selector: 'ngx-equipment-motor-six-seven',
@@ -234,11 +235,12 @@ export class EquipmentMotorSixSevenComponent implements OnInit {
           if(f.deviceid == 'six'){
             this.boyang_deviceid = 'device_boyang_01';
             this.ct_deviceid = 'device_thermostat_01';
-            this.th_deviceid = 'device_motor_cabin01';
+            this.th_deviceid = 'sensor_temp_humi_05';
+
           }else if(f.deviceid == 'seven'){
             this.boyang_deviceid = 'device_boyang_02';
             this.ct_deviceid = 'device_thermostat_02';
-            this.th_deviceid = 'device_motor_cabin02';
+            this.th_deviceid = 'sensor_temp_humi_04';
           }
           switch(this.boyang_deviceid){
             case 'device_boyang_01':
@@ -405,65 +407,101 @@ export class EquipmentMotorSixSevenComponent implements OnInit {
 
 
   //温湿度
-  get_Temp_Hum(){
-    let res,data:any = [],xdata = [];
-    this.subscribeList.temp_hum = this.http.callRPC('device_realtime_list',library+'device_realtime_list'
-    ,{deviceid:this.th_deviceid,arr:th_param.join(',')}).subscribe((g:any) =>{
-      if(g.result.error || g.result.message[0].code == 0)return;
-      res = g.result.message[0].message;
-      // if(res)
-      //   res.forEach(el => {
-      //     for(let key in el){
-      //       data[key] = el[key][0][0];
-      //     }
-      //   });
-      // 'tempactual',//温度
-      // 'humiactual',//湿度
-      // 'tempset',//温度设定值
-      // 'humiset',//湿度设定值
-      setTimeout(() => {
+  // get_Temp_Hum(){
+  //   let res,data:any = [],xdata = [];
+  //   this.subscribeList.temp_hum = this.http.callRPC('device_realtime_list',library+'device_realtime_list'
+  //   ,{deviceid:this.th_deviceid,arr:th_param.join(',')}).subscribe((g:any) =>{
+  //     if(g.result.error || g.result.message[0].code == 0)return;
+  //     res = g.result.message[0].message;
+  //     // if(res)
+  //     //   res.forEach(el => {
+  //     //     for(let key in el){
+  //     //       data[key] = el[key][0][0];
+  //     //     }
+  //     //   });
+  //     // 'tempactual',//温度
+  //     // 'humiactual',//湿度
+  //     // 'tempset',//温度设定值
+  //     // 'humiset',//湿度设定值
+  //     setTimeout(() => {
         
-        this.HealthParam_right_chart[0].value = res[0].tempactual.map(m =>m[0]);
-        this.HealthParam_right_chart[1].value = res[1].humiactual.map(m =>m[0]);
-        if(this.HealthParam_right_chart[0].value.length> this.HealthParam_right_chart[1].value.length){
-          xdata = res[0].tempactual.map(m => (dateformat(new Date(rTime(m[1])),'hh:mm:ss')))
-        }else{
-          xdata = res[1].humiactual.map(m => (dateformat(new Date(rTime(m[1])),'hh:mm:ss')))
-        }
-        this.HealthParam_right_xdata = xdata;
+  //       this.HealthParam_right_chart[0].value = res[0].tempactual.map(m =>m[0]);
+  //       this.HealthParam_right_chart[1].value = res[1].humiactual.map(m =>m[0]);
+  //       if(this.HealthParam_right_chart[0].value.length> this.HealthParam_right_chart[1].value.length){
+  //         xdata = res[0].tempactual.map(m => (dateformat(new Date(rTime(m[1])),'hh:mm:ss')))
+  //       }else{
+  //         xdata = res[1].humiactual.map(m => (dateformat(new Date(rTime(m[1])),'hh:mm:ss')))
+  //       }
+  //       this.HealthParam_right_xdata = xdata;
   
-        if(document.getElementById('motor_chart_2'))
-          equipment_four_road.create_real_discharge(
-            {attrs:this.HealthParam_right_chart,xData:this.HealthParam_right_xdata,title:''},
-            echarts.init(document.getElementById('motor_chart_2')));
-      }, 10);
+  //       if(document.getElementById('motor_chart_2'))
+  //         equipment_four_road.create_real_discharge(
+  //           {attrs:this.HealthParam_right_chart,xData:this.HealthParam_right_xdata,title:''},
+  //           echarts.init(document.getElementById('motor_chart_2')));
+  //     }, 10);
 
-      // 'tempactual',//温度
-      // 'humiactual',//湿度
-      // 'tempset',//温度设定值
-      // 'humiset',//湿度设定值
+  //     // 'tempactual',//温度
+  //     // 'humiactual',//湿度
+  //     // 'tempset',//温度设定值
+  //     // 'humiset',//湿度设定值
       
-      let dataLine =this.HealthParam_right[0].dataLine;
-      let set = res[2].tempset.length > 0? res[2].tempset[res[2].tempset.length-1][0]:0;
-      //仪表盘
-      dataLine.value = res[0].tempactual.length > 0? res[0].tempactual[res[0].tempactual.length-1][0]:0;
-      dataLine.color[0] = [dataLine.max?(set/dataLine.max):0,'#203add'];
-      if(document.getElementById(this.HealthParam_right[0].id))
-        equipment_four_road.create_temp_h_1_p_gauge(
-          this.HealthParam_right[0].dataLine
-          ,echarts.init(document.getElementById(this.HealthParam_right[0].id)));
+  //     let dataLine =this.HealthParam_right[0].dataLine;
+  //     let set = res[2].tempset.length > 0? res[2].tempset[res[2].tempset.length-1][0]:0;
+  //     //仪表盘
+  //     dataLine.value = res[0].tempactual.length > 0? res[0].tempactual[res[0].tempactual.length-1][0]:0;
+  //     dataLine.color[0] = [dataLine.max?(set/dataLine.max):0,'#203add'];
+  //     if(document.getElementById(this.HealthParam_right[0].id))
+  //       equipment_four_road.create_temp_h_1_p_gauge(
+  //         this.HealthParam_right[0].dataLine
+  //         ,echarts.init(document.getElementById(this.HealthParam_right[0].id)));
 
-      dataLine = this.HealthParam_right[1].dataLine;
-      set = res[3].humiset.length > 0? res[3].humiset[res[3].humiset.length-1][0]:0;
-      //仪表盘
-      dataLine.value = res[1].humiactual.length > 0? res[1].humiactual[res[1].humiactual.length-1][0]:0;
-      dataLine.color[0] = [dataLine.max?(set/dataLine.max):0,'#203add'];
-      if(document.getElementById(this.HealthParam_right[1].id))
-        equipment_four_road.create_temp_h_1_p_gauge(
-          this.HealthParam_right[1].dataLine
-          ,echarts.init(document.getElementById(this.HealthParam_right[1].id)));
+  //     dataLine = this.HealthParam_right[1].dataLine;
+  //     set = res[3].humiset.length > 0? res[3].humiset[res[3].humiset.length-1][0]:0;
+  //     //仪表盘
+  //     dataLine.value = res[1].humiactual.length > 0? res[1].humiactual[res[1].humiactual.length-1][0]:0;
+  //     dataLine.color[0] = [dataLine.max?(set/dataLine.max):0,'#203add'];
+  //     if(document.getElementById(this.HealthParam_right[1].id))
+  //       equipment_four_road.create_temp_h_1_p_gauge(
+  //         this.HealthParam_right[1].dataLine
+  //         ,echarts.init(document.getElementById(this.HealthParam_right[1].id)));
+  //   })
+  // }
+
+   //环境历史信息
+   get_Temp_Hum(){
+    let chart;
+    let yearPlanData = [],yearOrderData= [],differenceData=[],visibityData=[],xAxisData=[];
+    this.subscribeList.h_t_h = this.http.callRPC('get_temperature',library+'get_temperature_numbers'
+    ,{deviceid:t_h_deviceid || this.th_deviceid}).subscribe((g:any) =>{
+      if(g.result.error || g.result.message[0].code == 0)return;
+      g.result.message[0].message.forEach(el => {
+        yearPlanData.push(el.temperature);//温度
+        yearOrderData.push(el.humidity);//湿度
+        xAxisData.push(rTime(el.recordtime));
+      });
+
+      rtm3a.create_third_chart_line({
+        yearPlanData:yearPlanData.length > 0?yearPlanData:[0],
+        yearOrderData:yearOrderData.length>0?yearOrderData:[0],
+        differenceData:differenceData.length>0?differenceData:[0],
+        visibityData:visibityData.length>0?visibityData:[0],
+        xAxisData:xAxisData.length>0?xAxisData:[0],
+        title:''
+      }, 'motor_chart_2');
+      let temp = yearPlanData.length>0?yearPlanData[yearPlanData.length-1]:0;
+      let hum = yearOrderData.length>0?yearOrderData[yearOrderData.length-1]:0;
+      chart = document.getElementById('motor_chart_g_3');
+      if(chart)
+        equipment_four_road.create_motor_temperature( {value:temp,unit:'℃',title:'温度'},echarts.init(chart));
+      chart = document.getElementById('motor_chart_g_4');
+      if(chart)
+        equipment_four_road.create_motor_temperature( {value:hum,unit:'RH' ,title:'湿度'},echarts.init(chart));
+        
+
+      this.subscribeList.h_t_h.unsubscribe();
     })
-  }
+
+   }
 
   //冷却水
   get_left_data(){
