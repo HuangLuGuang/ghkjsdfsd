@@ -98,17 +98,17 @@ export class EquipmentGlassLiftComponent implements OnInit {
     },
     three:{
       rate: 0, //百分比
-      station2_test_count_total: 0, //测试次数
-      station2_test_time_total: 0, //测试时间
-      station2_tested_count: 0,  //以测次数
-      station2_tested_time: 0, //以测时间
+      station3_test_count_total: 0, //测试次数
+      station3_test_time_total: 0, //测试时间
+      station3_tested_count: 0,  //以测次数
+      station3_tested_time: 0, //以测时间
     },
     four:{
       rate: 0, //百分比
-      station2_test_count_total: 0, //测试次数
-      station2_test_time_total: 0, //测试时间
-      station2_tested_count: 0,  //以测次数
-      station2_tested_time: 0, //以测时间
+      station3_test_count_total: 0, //测试次数
+      station3_test_time_total: 0, //测试时间
+      station3_tested_count: 0,  //以测次数
+      station3_tested_time: 0, //以测时间
     }
   }
 
