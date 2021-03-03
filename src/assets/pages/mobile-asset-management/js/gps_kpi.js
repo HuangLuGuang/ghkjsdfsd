@@ -6,7 +6,7 @@ let gpskpi = {
     var mychart = echarts.init(document.getElementById(element));
     var option = {
       //   color: ["#5470c6", "#91cc75"],
-      color: ["#5D920D", "#DBB70D"],
+      color: ["#5D920D", "#FF4E0D"], // 在线、异常
       title: {
         text: "在线、异常设备饼状图",
         left: "center",
@@ -65,7 +65,7 @@ let gpskpi = {
     var mychart = echarts.init(document.getElementById(element));
     var option = {
       //   color: ["#5470c6", "#91cc75"],
-      color: ["#5D920D", "#DBB70D"],
+      color: ["#5D920D", "#FF4E0D"], // 在线、异常
       title: {
         // text: "一周在线设备柱状图",
         text: data.text,

@@ -145,7 +145,7 @@ export class LocationMonitoringComponent implements OnInit {
   tableDatas = {
     // 新增，设置高度
     // style: "width: 100%; height: 443px",
-    style: "width: 100%; height: 412px",
+    style: "width: 100%; height: 387px",
 
     totalPageNumbers: 0, // 总页数
     PageSize: 10, // 每页 10条数据
@@ -630,6 +630,9 @@ export class LocationMonitoringComponent implements OnInit {
           $("#numbersage").text(res["numbersage"]);
           $("#numbersoffline").text(res["numbersoffline"]);
           $("#numbersonline").text(res["numbersonline"]);
+
+          $("#numbersonline").attr("style", "color:#5D920D");
+          $("#numbersoffline").attr("style", "color:#FF4E0D");
 
           // pie 饼状图
           var data = [
