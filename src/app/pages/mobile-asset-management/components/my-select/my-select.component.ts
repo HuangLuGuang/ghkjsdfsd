@@ -76,7 +76,7 @@ export class MySelectComponent implements OnInit {
       // var select_data = that.select_data; //[{id: 3, label: "nvh"},]
       // var select_label_list = that.select_label_list;
       eleTree.on("nodeClick(single_data6_my_select)", function (d) {
-        console.error("select_data", d.data.currentData);
+        // console.error("select_data", d.data.currentData);
         $("[name='single_single_my_select']").val(d.data.currentData.label);
         // that.selectvalue.emit(d.data.currentData.label);
         that.selectvalue.emit(d.data.currentData.id);

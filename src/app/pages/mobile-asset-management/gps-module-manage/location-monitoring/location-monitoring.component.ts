@@ -1,4 +1,6 @@
+import { DatePipe } from "@angular/common";
 import { Component, OnInit, ViewChild } from "@angular/core";
+import { LayoutService } from "../../../../@core/utils";
 declare let $;
 
 import { HttpserviceService } from "../../../../services/http/httpservice.service";
@@ -12,6 +14,8 @@ export interface Group {
   device_info: any[];
   children: string[];
 }
+// let gpsdevice = require("../../../../assets/pages/mobile-asset-management/js/gps_kpi");
+let gpsdevice = require("../../../../../assets/pages/mobile-asset-management/js/gps_kpi");
 
 @Component({
   selector: "ngx-location-monitoring",
@@ -141,7 +145,7 @@ export class LocationMonitoringComponent implements OnInit {
   tableDatas = {
     // 新增，设置高度
     // style: "width: 100%; height: 443px",
-    style: "width: 100%; height: 325px",
+    style: "width: 100%; height: 412px",
 
     totalPageNumbers: 0, // 总页数
     PageSize: 10, // 每页 10条数据
@@ -241,13 +245,13 @@ export class LocationMonitoringComponent implements OnInit {
         sortable: true,
       },
 
-      {
-        field: "info",
-        headerName: "在线状态",
-        resizable: true,
-        minWidth: 10,
-        sortable: true,
-      },
+      // {
+      //   field: "info",
+      //   headerName: "在线状态",
+      //   resizable: true,
+      //   minWidth: 10,
+      //   sortable: true,
+      // },
     ],
     rowData: [
       // data
@@ -260,6 +264,12 @@ export class LocationMonitoringComponent implements OnInit {
 
   // 历史位置，折线
   METHDOHISTROY = "dev_get_gps_monitoring_device";
+
+  // kpi设备数据
+  METHDOKPIDEVICE = "dev_get_gps_nubmers";
+
+  // kpi bar
+  METHDOKPIBAR = "dev_get_gps_nubmers_columnar";
 
   message = [
     {
@@ -367,7 +377,9 @@ export class LocationMonitoringComponent implements OnInit {
   constructor(
     private userinfo: UserInfoService,
     private publicservice: PublicmethodService,
-    private http: HttpserviceService
+    private http: HttpserviceService,
+    private datepip: DatePipe,
+    private layoutService: LayoutService
   ) {
     // 会话过期
     localStorage.removeItem("alert401flag");
@@ -396,6 +408,16 @@ export class LocationMonitoringComponent implements OnInit {
         },
       },
     };
+
+    // 初始化，设备kpi
+    this.init_pgs_kpi();
+    this.layoutService.onInitLayoutSize().subscribe((f) => {
+      var ids = ["devicepie", "devicebar"];
+      ids.forEach((item) => {
+        var item_echart = document.getElementById(item);
+        if (item_echart) echarts.init(item_echart).resize();
+      });
+    });
   }
 
   ngAfterViewInit() {
@@ -408,6 +430,21 @@ export class LocationMonitoringComponent implements OnInit {
     setTimeout(() => {
       this.inttable();
     }, 200);
+  }
+
+  // 销毁组件时，删除 kpi_for_detail
+  ngOnDestroy() {
+    localStorage.removeItem("device_hour_report_kpi_for_detail");
+    // 清除 echart
+    var ids = ["devicepie", "devicebar"];
+    ids.forEach((item) => {
+      var item_echart = document.getElementById(item);
+      if (item_echart) {
+        var my_echart = echarts.init(item_echart);
+        my_echart.clear();
+        my_echart.dispose();
+      }
+    });
   }
 
   // button按钮
@@ -471,6 +508,7 @@ export class LocationMonitoringComponent implements OnInit {
       daterange_data: inittable_before.daterange_data,
       isfavor: inittable_before.isfavor,
       deviceid: inittable_before.deviceid,
+      offline: inittable_before.offline,
     };
     this.http.callRPC(this.TABLE, this.METHDO, columns).subscribe((result) => {
       var tabledata = result["result"]["message"][0];
@@ -521,6 +559,7 @@ export class LocationMonitoringComponent implements OnInit {
       deviceid: deviceid,
       daterange_data: daterange_data,
       isfavor: myselect,
+      offline: 0,
 
       // start: daterange_data[0],
       // end: daterange_data[1],
@@ -548,6 +587,7 @@ export class LocationMonitoringComponent implements OnInit {
       daterange_data: inittable_before.daterange_data,
       isfavor: inittable_before.isfavor,
       deviceid: inittable_before.deviceid,
+      offline: inittable_before.offline,
       // start: inittable_before.start,
       // end: inittable_before.end,
     };
@@ -577,6 +617,44 @@ export class LocationMonitoringComponent implements OnInit {
         this.RecordOperation("查看定位监控", 0, JSON.stringify(columns));
       }
     });
+  }
+
+  // 初始化gps pie bar  numbersage  numbersoffline  numbersonline
+  init_pgs_kpi() {
+    // 设备数据kpi
+    this.http
+      .callRPC(this.TABLE, this.METHDOKPIDEVICE, {})
+      .subscribe((result) => {
+        var res = result["result"]["message"][0];
+        if (res["code"] === 1) {
+          $("#numbersage").text(res["numbersage"]);
+          $("#numbersoffline").text(res["numbersoffline"]);
+          $("#numbersonline").text(res["numbersonline"]);
+
+          // pie 饼状图
+          var data = [
+            { value: res["numbersonline"], name: "在线设备" },
+            { value: res["numbersoffline"], name: "异常设备" },
+          ];
+          gpsdevice.devicepie("devicepie", data);
+        }
+      });
+
+    // bar
+    var get_currdata_agodata = this.get_currdata_agodata();
+    this.http
+      .callRPC(this.TABLE, this.METHDOKPIBAR, get_currdata_agodata)
+      .subscribe((result) => {
+        var res = result["result"]["message"][0];
+        if (res["code"] === 1) {
+          var data = {
+            text: "一周在线设备柱状图",
+            xdata: res["numbersofflinetime"],
+            series: [res["numbersonline"], res["numbersoffline"]],
+          };
+          gpsdevice.devicebar("devicebar", data);
+        }
+      });
   }
 
   // 调用子组件map，上的 init_show_all，初始化小车！
@@ -613,6 +691,7 @@ export class LocationMonitoringComponent implements OnInit {
       daterange_data: inittable_before.daterange_data,
       isfavor: inittable_before.isfavor,
       deviceid: inittable_before.deviceid,
+      offline: inittable_before.offline,
       // start: inittable_before.start,
       // end: inittable_before.end,
     };
@@ -744,6 +823,47 @@ export class LocationMonitoringComponent implements OnInit {
     this.visible = true;
     this.gpshistory.init_history(data["imei"]);
   }
+  // 一键盘点
+  check() {
+    var inittable_before = this.inittable_before();
+    var offset = 0;
+    var limit = inittable_before.limit ? inittable_before.limit : 10;
+    var PageSize = inittable_before.limit ? inittable_before.limit : 10;
+    var columns = {
+      offset: offset,
+      limit: limit,
+      daterange_data: inittable_before.daterange_data,
+      isfavor: inittable_before.isfavor,
+      deviceid: inittable_before.deviceid,
+      offline: 1,
+    };
+    this.http.callRPC(this.TABLE, this.METHDO, columns).subscribe((result) => {
+      var tabledata = result["result"]["message"][0];
+      if (tabledata["code"] === 1) {
+        this.loading = false;
+        var message = result["result"]["message"][0]["message"];
+        this.tableDatas.PageSize = PageSize;
+        this.gridData.push(...message);
+        this.tableDatas.rowData = this.gridData;
+        var totalpagenumbers = tabledata["numbers"]
+          ? tabledata["numbers"][0]["numbers"]
+          : "未得到总条数";
+        this.tableDatas.totalPageNumbers = totalpagenumbers;
+        this.agGrid.init_agGrid(this.tableDatas); // 告诉组件刷新！
+        // 刷新table后，改为原来的！
+        this.tableDatas.isno_refresh_page_size = false;
+        this.RecordOperation("一键盘点定位监控", 1, JSON.stringify(columns));
+
+        // *******************************
+        // 初始化得到的gps，在map地图上展示！
+        this.init_show_all(message);
+
+        // *******************************
+      } else {
+        this.RecordOperation("一键盘点定位监控", 0, JSON.stringify(columns));
+      }
+    });
+  }
 
   close(): void {
     this.visible = false;
@@ -755,6 +875,19 @@ export class LocationMonitoringComponent implements OnInit {
       status: "danger",
       conent: "搜索失败：" + data,
     });
+  }
+
+  // 得到前30天数据
+  get_currdata_agodata() {
+    var date1 = new Date();
+    var date2 = new Date(date1);
+    //-30为30天前，+30可以获得30天后的日期
+    date2.setDate(date1.getDate() - 30);
+    return {
+      starttime: this.datepip.transform(date2, "yyyy-MM-dd"),
+      endtime: this.datepip.transform(date1, "yyyy-MM-dd"),
+    };
+    // datepip
   }
 
   // option_record

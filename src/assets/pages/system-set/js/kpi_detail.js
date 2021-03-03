@@ -401,7 +401,7 @@ let kpi_detail = {
           top: "15%",
           // right: "10%",
           right: 30,
-          left: "10%",
+          left: "11%",
           bottom: "18%",
           // containLabel: true,
         },
@@ -460,7 +460,7 @@ let kpi_detail = {
           // max: function (value) {
           //   return Number((value.max + 100).toFixed(2));
           // },
-          interval: 50,
+          // interval: 50,
           gridIndex: 0,
           axisLabel: {
             formatter: "{value}%",

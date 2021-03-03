@@ -115,6 +115,12 @@ let gpskpi = {
       ],
       yAxis: [
         {
+          name: "(个)",
+          nameTextStyle: {
+            align: "left",
+            fontSize: 12,
+            verticalAlign: "top",
+          },
           type: "value",
         },
       ],
