@@ -846,6 +846,7 @@ export class LocationMonitoringComponent implements OnInit {
         this.loading = false;
         var message = result["result"]["message"][0]["message"];
         this.tableDatas.PageSize = PageSize;
+        this.gridData = [];
         this.gridData.push(...message);
         this.tableDatas.rowData = this.gridData;
         var totalpagenumbers = tabledata["numbers"]
