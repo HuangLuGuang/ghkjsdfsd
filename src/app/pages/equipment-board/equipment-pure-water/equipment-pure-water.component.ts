@@ -335,7 +335,7 @@ export class EquipmentPureWaterComponent implements OnInit {
       this.list.rocxf.bcolor = data.ro_flush?'green':'black';
       //ph加药
       this.list.ph_l.bcolor = data.ph_potion_tank_l?'green':'black';
-      // TODO ph加药泵
+      // ph加药泵
       this.list.phjyb.bcolor = data.ph_dosing_pump?'green':'black';
 
       //二级高压泵负载
@@ -363,7 +363,7 @@ export class EquipmentPureWaterComponent implements OnInit {
       this.list.ccsx_l.bcolor = data.ultra_pure_water_tank_l?'green':'black';
 
       // TODO 输送泵 
-      this.list.ssb.bcolor = 'black';
+      this.list.ssb.bcolor = 'rgba(1,1,1,0)';
 
       error_str = '';
 

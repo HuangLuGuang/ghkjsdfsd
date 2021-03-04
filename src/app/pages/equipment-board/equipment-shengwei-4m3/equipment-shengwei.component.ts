@@ -129,7 +129,7 @@ export class EquipmentShengweiComponent implements OnInit {
           echarts.init(document.getElementById('cabin_pie_4')));
       
       if(document.getElementById('cabin_pie_5'))
-          equipment_four_road.create_motor_temperature({value:data.temperature_actual ||0,title:'湿度',unit:'RH'},
+          equipment_four_road.create_motor_temperature({value:data.humidity_actual ||0,title:'湿度',unit:'RH'},
           echarts.init(document.getElementById('cabin_pie_5')));
       // cabin_pie_4,cabin_pie_5
     });

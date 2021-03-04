@@ -65,7 +65,7 @@
     padding: 2px;
     top: 15%;
     left: 25%;
-    font-size: 13px;
+    // font-size: 13px;
     display: flex;
     border-radius: 4px;
     justify-content: center;
@@ -84,7 +84,7 @@
     padding: 2px;
     top: 11%;
     left: 26%;
-    font-size: 13px;
+    // font-size: 13px;
     display: flex;
     border-radius: 4px;
     justify-content: center;
@@ -101,7 +101,7 @@
     padding: 2px;
     top: 22%;
     left: 34%;
-    font-size: 13px;
+    // font-size: 13px;
     display: flex;
     border-radius: 4px;
     justify-content: center;
@@ -123,7 +123,7 @@
     padding: 2px;
     top: 9.5%;
     left: 33%;
-    font-size: 13px;
+    // font-size: 13px;
     display: flex;
     border-radius: 4px;
     justify-content: center;
@@ -141,7 +141,7 @@
     padding: 2px;
     top: 14%;
     left: 50%;
-    font-size: 13px;
+    // font-size: 13px;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -159,7 +159,7 @@
     padding: 2px;
     top: 4.2%;
     left: 44%;
-    font-size: 13px;
+    // font-size: 13px;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -296,6 +296,11 @@ nb-icon {
             height: 57%;
             border: 1px rgb(250, 246, 34) solid;
             position: relative;
+            span{
+                white-space: pre;
+                text-overflow: ellipsis;
+                overflow: hidden;
+            }
             .w{
                 position: absolute;
                 width: 20%;

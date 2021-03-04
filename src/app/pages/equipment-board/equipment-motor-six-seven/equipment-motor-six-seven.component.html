@@ -2,7 +2,8 @@
     <div class="row" style="margin: 0;height: 100%;">
         <div class="col-md-4" style="padding: 0px 0px 0px 20px;">
             <div class="first_first height_41">
-                <ngx-equipment-status andon_status_font='ATECSafetyLampStatus' [device]='boyang_deviceid' style="display: flex;width: 100%;"></ngx-equipment-status>
+                <ngx-equipment-status  [device]='boyang_deviceid' style="display: flex;width: 100%;"></ngx-equipment-status>
+                <!-- <ngx-equipment-status andon_status_font='ATECSafetyLampStatus' [device]='boyang_deviceid' style="display: flex;width: 100%;"></ngx-equipment-status> -->
             </div>
             <div class="first_second lattice_layout" style="height: 20%;">
                 <div class="part_title">{{'equipment.expInfor'|translate}}</div>
@@ -17,6 +18,8 @@
                     <div id="motor_chart_g_6" class="height_100" style="width: 25%;"></div>
                 </div>
                 <div id="motor_chart_1" class="width_100 height_50"></div> -->
+                <ngx-log-warm [device]='boyang_deviceid' style="display: flex;width: 100%;flex-wrap: wrap;"></ngx-log-warm>
+           
             </div>
         </div>
         <div class="col-md-4" style="padding: 0px 20px;">

@@ -459,13 +459,13 @@ export class CentralFourJinhuaComponent implements OnInit {
 }
 export const four_param = [
   // 'recordtime',//记录时间
+  // 'f0r',//道路模拟阻力系数F0R
+  // 'f1r',//道路模拟阻力系数F1R
+  // 'f2r',//道路模拟阻力系数F2R
   'v',//速度
   'f',//牵引力
   'p',//功率
   'a',//加速度
-  // 'f0r',//道路模拟阻力系数F0R
-  // 'f1r',//道路模拟阻力系数F1R
-  // 'f2r',//道路模拟阻力系数F2R
   'n0',//风扇转动系数n0
   'n1',//风扇转动系数n1
   'n2',//风扇转动系数n2

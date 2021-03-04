@@ -313,6 +313,9 @@ export class EquipmentSkylightOpenCloseComponent implements OnInit {
 
   ngOnDestroy(){
     clearInterval(this.timer);
+    for(let key in this.subscribeList){
+      this.subscribeList[key].unsubscribe();
+     }
     let chart;
     [
       'cabin_pie_1','cabin_pie_2','cabin_line_1',
