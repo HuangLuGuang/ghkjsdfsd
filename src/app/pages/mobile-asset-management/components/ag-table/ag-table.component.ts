@@ -99,7 +99,7 @@ export class AgTableComponent implements OnInit {
     this.paginationPageSize = employee_agGrid["PageSize"];
 
     // 每页显示的条数
-    console.log("*******************8this.gridApi>>", this.gridApi);
+    // console.log("*******************8this.gridApi>>", this.gridApi);
     this.gridApi.paginationSetPageSize(employee_agGrid["PageSize"]);
     this.rowData = employee_agGrid["rowData"]; // 行数据
     this.alltotalPageNumbers = employee_agGrid["totalPageNumbers"]; // 数据库中的总条数

@@ -90,6 +90,7 @@ export class MonthSelectComponent implements OnInit {
         $("[name='single_title']").val(d.data.currentData.label);
         that.inpuvalue.emit(d.data.currentData.label);
         $(".single_ele5").hide();
+        that.xialaicon = "arrow-ios-downward-outline";
       });
       $(document).on("click", function () {
         $(".single_ele5").hide();

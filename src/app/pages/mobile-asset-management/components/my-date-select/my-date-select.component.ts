@@ -33,12 +33,12 @@ export class MyDateSelectComponent implements OnInit {
 
   ngAfterViewInit() {
     this.placeholder_title = this.placeholder;
-    $("[name='single_my_date_select']").attr(
+    $("[name='gps_single_my_date_select']").attr(
       "placeholder",
       this.placeholder_title
     );
     // $(".tree_isShow").hide();
-    $("[name='single_my_date_select']").val(this.default_month);
+    $("[name='gps_single_my_date_select']").val(this.default_month);
   }
 
   tree_data; // 树结构数据
@@ -49,7 +49,7 @@ export class MyDateSelectComponent implements OnInit {
     var single_el5s;
     layui.use(["eleTree"], function () {
       var eleTree = layui.eleTree;
-      $("[name='single_my_date_select']").on("click", function (e) {
+      $("[name='gps_single_my_date_select']").on("click", function (e) {
         if (that.xialaicon === "arrow-ios-upward-outline") {
           that.xialaicon = "arrow-ios-downward-outline";
         } else {
@@ -78,7 +78,7 @@ export class MyDateSelectComponent implements OnInit {
       // var select_label_list = that.select_label_list;
       eleTree.on("nodeClick(single_data5_my_date_select)", function (d) {
         // console.error("select_data",d.data.currentData)
-        $("[name='single_my_date_select']").val(d.data.currentData.label);
+        $("[name='gps_single_my_date_select']").val(d.data.currentData.label);
         // that.my_date_select.emit(d.data.currentData.label);
         that.my_date_select.emit(d.data.currentData.id);
         $(".single_ele5").hide();
@@ -98,12 +98,12 @@ export class MyDateSelectComponent implements OnInit {
       "近一周" = 7,
       "近一个月" = 30,
     }
-    var select_month = $("[name='single_my_date_select']").val();
+    var select_month = $("[name='gps_single_my_date_select']").val();
     return Month[select_month];
   }
   // 删除选择的
   delselect() {
-    $("[name='single_my_date_select']").val(this.default_month);
+    $("[name='gps_single_my_date_select']").val(this.default_month);
   }
 
   // 清空下拉数据

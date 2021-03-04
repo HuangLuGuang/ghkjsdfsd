@@ -387,9 +387,16 @@ export class LocationMonitoringComponent implements OnInit {
 
   ngOnInit(): void {
     // button 按钮
-    this.button = localStorage.getItem("buttons_list")
-      ? JSON.parse(localStorage.getItem("buttons_list"))
-      : {};
+    // this.button = localStorage.getItem("buttons_list")
+    //   ? JSON.parse(localStorage.getItem("buttons_list"))
+    //   : {};
+
+    // 得到pathname --在得到button
+    var roleid = this.userinfo.getEmployeeRoleID();
+    this.publicservice.get_buttons_bypath(roleid).subscribe((result) => {
+      this.button = result;
+    });
+
     // 添加操作
     var that = this;
     this.active = {
@@ -434,6 +441,7 @@ export class LocationMonitoringComponent implements OnInit {
 
   // 销毁组件时，删除 kpi_for_detail
   ngOnDestroy() {
+    localStorage.removeItem("buttons_list");
     localStorage.removeItem("device_hour_report_kpi_for_detail");
     // 清除 echart
     var ids = ["devicepie", "devicebar"];
@@ -550,9 +558,13 @@ export class LocationMonitoringComponent implements OnInit {
     var deviceid =
       this.myinput?.getinput() === undefined ? "" : this.myinput?.getinput(); // 设备名称
     // 日期范围下拉
-    var daterange_data = this.mydateselect?.getselect();
+    var daterange_data =
+      this.mydateselect?.getselect() === undefined
+        ? 3
+        : this.mydateselect?.getselect();
     // 关注下拉
-    var myselect = this.myselect?.getselect();
+    var myselect =
+      this.myselect?.getselect() === undefined ? 2 : this.myselect?.getselect();
     return {
       limit: this.agGrid.get_pagesize(),
       employeeid: this.userinfo.getEmployeeID(),

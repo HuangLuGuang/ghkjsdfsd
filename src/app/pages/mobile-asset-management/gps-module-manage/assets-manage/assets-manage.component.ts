@@ -151,7 +151,6 @@ export class AssetsManageComponent implements OnInit {
     // 得到pathname --在得到button
     var roleid = this.userinfo.getEmployeeRoleID();
     this.publicservice.get_buttons_bypath(roleid).subscribe((result) => {
-      console.log("result>>>>>>", result);
       this.button = result;
       localStorage.setItem("buttons_list", JSON.stringify(result));
     });
@@ -178,6 +177,11 @@ export class AssetsManageComponent implements OnInit {
         },
       },
     };
+  }
+
+  // 销毁组件时，删除 kpi_for_detail
+  ngOnDestroy() {
+    localStorage.removeItem("buttons_list");
   }
 
   ngAfterViewInit() {
