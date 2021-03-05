@@ -88,7 +88,7 @@ export class TwoDriveChassisComponent implements OnInit {
   //速度/加速度曲线
   gauge_chart = [
     {value:[],name:'速度',unit:'km/h',color:[colors[1],colors[1]]},
-    {value:[],name:'加速度',unit:'m/s^2',color:[colors[2],colors[2]]},
+    // {value:[],name:'加速度',unit:'m/s^2',color:[colors[2],colors[2]]},
   ]
   //轮转力曲线
   gauge_chart_1 = [
@@ -245,7 +245,7 @@ export class TwoDriveChassisComponent implements OnInit {
     let res;
     this.subscribeList.left = this.http.callRPC('device_realtime_list',library+'device_realtime_list',
     {"deviceid":this.deviceid,
-    arr:'p,v,a,f'}).subscribe((g:any)=>{
+    arr:'p,v,f'}).subscribe((g:any)=>{
       if(g.result.error || g.result.message[0].code == 0)return;
       res = g.result.message[0].message;
 
@@ -272,23 +272,24 @@ export class TwoDriveChassisComponent implements OnInit {
       setTimeout(() => {
         // this.gauge_chart[0].value.push(data.f);
         this.gauge_chart[0].value = res[1].v.map(m => (m[0]|| 0));
-        this.gauge_chart[1].value = res[2].a.map(m => (m[0]|| 0));
-        if(this.gauge_chart[0].value.length>this.gauge_chart[1].value.length){
-          this.gauge_xData = res[1].v.map(m => (dateformat(new Date(rTime(m[1])),'hh:mm:ss')));
-        }else{
-          this.gauge_xData = res[2].a.map(m => (dateformat(new Date(rTime(m[1])),'hh:mm:ss')));
-        }
+        // this.gauge_chart[1].value = res[2].a.map(m => (m[0]|| 0));
+        // if(this.gauge_chart[0].value.length>this.gauge_chart[1].value.length){
+        //   this.gauge_xData = res[1].v.map(m => (dateformat(new Date(rTime(m[1])),'hh:mm:ss')));
+        // }else{
+        //   this.gauge_xData = res[2].a.map(m => (dateformat(new Date(rTime(m[1])),'hh:mm:ss')));
+        // }
+        this.gauge_xData = res[1].v.map(m => (dateformat(new Date(rTime(m[1])),'hh:mm:ss')));
         if(document.getElementById('avl_param_chart_1'))
           equipment_four_road.create_broken_line({
           series:this.gauge_chart,
           xData:this.gauge_xData,
-          title:'速度/加速度曲线'
+          title:'速度曲线'
           },echarts.init(document.getElementById('avl_param_chart_1')));
 
       },20);
 
       value = [],xdata = [];
-      res[3].f.forEach(el => {
+      res[2].f.forEach(el => {
         value.push(el[0]|| 0);
         xdata.push(dateformat(new Date(rTime(el[1])),'hh:mm:ss'));
       });

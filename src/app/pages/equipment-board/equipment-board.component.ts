@@ -68,7 +68,12 @@ export class EquipmentBoardComponent implements OnInit {
         }, 500);
       }
     })
+    
+    //监听推出全屏
+    document.addEventListener('fullscreenchange', this.fullscreenchange);
   }
+
+  
   
   ngAfterViewInit(){ 
     let url = decodeURIComponent(window.location.pathname);
@@ -115,6 +120,12 @@ export class EquipmentBoardComponent implements OnInit {
       create_img_16_9();
     }, 1000)
 
+  }
+
+  fullscreenchange=(event) => {
+    if(!document.fullscreenElement){
+      this.is_not_fullscreen = true;
+    }
   }
 
 
@@ -165,6 +176,8 @@ export class EquipmentBoardComponent implements OnInit {
 
   //组件销毁
   ngOnDestroy(){
+    document.removeEventListener('fullscreenchange', this.fullscreenchange);
+
     clearInterval(this.dateInterval);
     this.isFirstLevel.unsubscribe();
     for(let key in this.subscribeList){

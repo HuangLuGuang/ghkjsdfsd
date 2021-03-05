@@ -81,7 +81,7 @@ export class CentralFourJinhuaComponent implements OnInit {
   //速度/加速度曲线
   gauge_chart = [
     {value:[],name:'速度',unit:'km/h',color:[colors[1],colors[1]]},
-    {value:[],name:'加速度',unit:'m/s^2',color:[colors[2],colors[2]]},
+    // {value:[],name:'加速度',unit:'m/s^2',color:[colors[2],colors[2]]},
   ]
   gauge_xData = [];
 
@@ -286,14 +286,14 @@ export class CentralFourJinhuaComponent implements OnInit {
       //速度
       this.gauge[1].dataLine.value = data.v||0;
       //加速度
-      this.gauge[2].dataLine.value = data.a||0;
+      // this.gauge[2].dataLine.value = data.a||0;
       //功率
       this.gauge[3].dataLine.value = data.p||0;
       this.gauge.forEach(el => {
         if(document.getElementById(el.id))
-        equipment_four_road.create_temp_h_1_p_gauge(
-          el.dataLine
-          ,echarts.init(document.getElementById(el.id)));
+          equipment_four_road.create_temp_h_1_p_gauge(
+            el.dataLine
+            ,echarts.init(document.getElementById(el.id)));
       });
 
       
@@ -311,7 +311,7 @@ export class CentralFourJinhuaComponent implements OnInit {
   get_four_list(){
     let res;
     this.http.callRPC('device_realtime_list',library+'device_realtime_list',{
-      deviceid:this.deviceid_four,arr:'p,a,v,f'
+      deviceid:this.deviceid_four,arr:'p,v,f'
     }).subscribe((g:any)=>{
       if(g.result.error || g.result.message[0].code == 0)return;
       res = g.result.message[0].message;
@@ -330,23 +330,24 @@ export class CentralFourJinhuaComponent implements OnInit {
       }, 10);
 
       setTimeout(() => {
-        this.gauge_chart[0].value = res[1].a.map(m =>(m[0]));
-        this.gauge_chart[1].value = res[2].v.map(m =>(m[0]));
-        if(this.gauge_chart[0].value.length > this.gauge_chart[1].value.length){
-          this.gauge_xData = res[1].a.map(m => (dateformat(new Date(rTime(m[1])),'hh:mm:ss')));;
-        }else{
-          this.gauge_xData = res[2].v.map(m => (dateformat(new Date(rTime(m[1])),'hh:mm:ss')));;
-        }
+        this.gauge_chart[0].value = res[1].v.map(m =>(m[0]));
+        // this.gauge_chart[1].value = res[2].a.map(m =>(m[0]));
+        // if(this.gauge_chart[0].value.length > this.gauge_chart[1].value.length){
+        //   this.gauge_xData = res[1].v.map(m => (dateformat(new Date(rTime(m[1])),'hh:mm:ss')));;
+        // }else{
+        //   this.gauge_xData = res[2].a.map(m => (dateformat(new Date(rTime(m[1])),'hh:mm:ss')));;
+        // }
+        this.gauge_xData = res[1].v.map(m => (dateformat(new Date(rTime(m[1])),'hh:mm:ss')));;
         if(document.getElementById('avl_param_chart_1'))
           equipment_four_road.create_broken_line({
           series:this.gauge_chart,
           xData:this.gauge_xData,
-          title:'速度/加速度曲线'
+          title:'速度曲线'
           },echarts.init(document.getElementById('avl_param_chart_1')));
       }, 20);
 
-      this.gauge_chart_1[0].value = res[3].f.map(m =>(m[0]));
-      this.gauge_1_xData = res[3].f.map(m => (dateformat(new Date(rTime(m[1])),'hh:mm:ss')));;
+      this.gauge_chart_1[0].value = res[2].f.map(m =>(m[0]));
+      this.gauge_1_xData = res[2].f.map(m => (dateformat(new Date(rTime(m[1])),'hh:mm:ss')));;
       if(document.getElementById('avl_param_chart_2'))equipment_four_road.create_broken_line({
         series:this.gauge_chart_1,
         xData:this.gauge_1_xData,
@@ -465,7 +466,7 @@ export const four_param = [
   'v',//速度
   'f',//牵引力
   'p',//功率
-  'a',//加速度
+  // 'a',//加速度
   'n0',//风扇转动系数n0
   'n1',//风扇转动系数n1
   'n2',//风扇转动系数n2

@@ -15,7 +15,7 @@ let equipment_four_road = require('../../../../assets/eimdoard/equipment/js/equi
 export class EquipmentAvlAtecComponent implements OnInit {
   avl_chart = [
     {value:[],name:'速度',unit:'km/h',color:[colors[0],colors[0]]},
-    {value:[],name:'加速度',unit:'m/s^2',color:[colors[1],colors[1]]},
+    // {value:[],name:'加速度',unit:'m/s^2',color:[colors[1],colors[1]]},
   ];
   avl_xdata = [];
 
@@ -322,7 +322,7 @@ export class EquipmentAvlAtecComponent implements OnInit {
       
       this.gauge[0].dataLine.value = data.f ||0;
       this.gauge[1].dataLine.value = data.v||0;
-      this.gauge[2].dataLine.value = data.a||0;
+      // this.gauge[2].dataLine.value = data.a||0;
       this.gauge[3].dataLine.value = data.p||0;
       [this.gauge[0],this.gauge[1],this.gauge[2],this.gauge[3]].forEach(f=>{
         if(document.getElementById(f.id))
@@ -352,21 +352,21 @@ export class EquipmentAvlAtecComponent implements OnInit {
   get_avl_d_list(){
     let res,xdata:any = [];
     this.http.callRPC('device_realtime_list',library+'device_realtime_list',{
-      deviceid:this.avl_deviceid,arr:'v,a'
+      deviceid:this.avl_deviceid,arr:'v'
     }).subscribe((g:any)=>{
       if(g.result.error || g.result.message[0].code == 0)return;
       res = g.result.message[0].message;
       this.avl_chart[0].value = res[0].v.map(m =>(m[0]));
-      this.avl_chart[1].value = res[1].a.map(m =>(m[0]));
-      if(this.avl_chart[0].value.length > this.avl_chart[1].value.length){
-        xdata  = res[0].v.map(m => (dateformat(new Date(rTime(m[1])),'hh:mm:ss')));
-      }else{
-        xdata  = res[1].a.map(m => (dateformat(new Date(rTime(m[1])),'hh:mm:ss')));
-      }
-      this.avl_xdata = xdata;
+      // this.avl_chart[1].value = res[1].a.map(m =>(m[0]));
+      // if(this.avl_chart[0].value.length > this.avl_chart[1].value.length){
+      //   xdata  = res[0].v.map(m => (dateformat(new Date(rTime(m[1])),'hh:mm:ss')));
+      // }else{
+      //   xdata  = res[1].a.map(m => (dateformat(new Date(rTime(m[1])),'hh:mm:ss')));
+      // }
+      this.avl_xdata = res[0].v.map(m => (dateformat(new Date(rTime(m[1])),'hh:mm:ss')));
       if(document.getElementById('avl_param_chart_2'))
           equipment_four_road.create_broken_line({
-            title:'速度/加速度曲线',
+            title:'速度曲线',
             series:this.avl_chart,
             xData:this.avl_xdata,
           },echarts.init(document.getElementById('avl_param_chart_2')));
@@ -438,7 +438,7 @@ export const avl_param = [
   'v',//速度
   'f',//轮速力
   'p',//功率
-  'a',//加速度
+  // 'a',//加速度
   // 'f0r',//道路模拟器阻力系数F0R
   // 'f1r',//道路模拟器阻力系数F1R
   // 'f2r',//道路模拟器阻力系数F2R
