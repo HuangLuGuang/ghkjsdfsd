@@ -42,9 +42,9 @@ export class EquipmentXenonLampComponent implements OnInit {
 
   // 照度曲线 4400
   illuminance = {
-    power:20,
-    radioactivity1:20,
-    radioactivity2:20,
+    power:0,
+    radioactivity1:0,
+    radioactivity2:0,
     attrs:[
       { 
         name: "辐照度1",nameEn :'辐照度1', unit: "W/m^2",value: [],
@@ -80,20 +80,20 @@ export class EquipmentXenonLampComponent implements OnInit {
 
   // 照度曲线 4000
   illuminance_4000 ={
-    power:20,
+    power:0,
     radioactivity1:0,
     radioactivity2:0,
     attrs:[
       { 
-        name: "辐照度1",nameEn :'辐照度1', unit: "W/m^2",value: [2,4,5,7,8],
+        name: "辐照度1",nameEn :'辐照度1', unit: "W/m^2",value: [],
         color:[colors[0], colors[0]]
       },
       { 
-        name: "辐照度2",nameEn :'辐照度2', unit: "W/m^2",value: [2,4,5,7,8],
+        name: "辐照度2",nameEn :'辐照度2', unit: "W/m^2",value: [],
         color:[colors[1], colors[1]]
       },
     ],
-    xdata:[1,2,3,4,5,6,7,8,9]
+    xdata:[]
   }
 
   //温湿度 4000
@@ -104,15 +104,15 @@ export class EquipmentXenonLampComponent implements OnInit {
     hum:0,
     attrs:[
       {
-        name: "温度",nameEn :'Temp', unit: "℃",value: [2,4,5,7,8],
+        name: "温度",nameEn :'Temp', unit: "℃",value: [],
         color:[colors[0], colors[0]]
       },
       {
-        name: "湿度",nameEn :'Hum', unit: "RH",value: [9,4,5,7,8],
+        name: "湿度",nameEn :'Hum', unit: "RH",value: [],
         color:[colors[1], colors[1]]
       }
     ],
-    xdata:[1,1,2,3,4,5,6,7]
+    xdata:[]
   }
 
 
