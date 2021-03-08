@@ -230,20 +230,20 @@ export class LocationMonitoringComponent implements OnInit {
         minWidth: 10,
         sortable: true,
       },
-      {
-        field: "createdon",
-        headerName: "创建时间",
-        resizable: true,
-        minWidth: 10,
-        sortable: true,
-      },
-      {
-        field: "createdby",
-        headerName: "创建人",
-        resizable: true,
-        minWidth: 10,
-        sortable: true,
-      },
+      // {
+      //   field: "createdon",
+      //   headerName: "创建时间",
+      //   resizable: true,
+      //   minWidth: 10,
+      //   sortable: true,
+      // },
+      // {
+      //   field: "createdby",
+      //   headerName: "创建人",
+      //   resizable: true,
+      //   minWidth: 10,
+      //   sortable: true,
+      // },
 
       // {
       //   field: "info",
@@ -270,106 +270,6 @@ export class LocationMonitoringComponent implements OnInit {
 
   // kpi bar
   METHDOKPIBAR = "dev_get_gps_nubmers_columnar";
-
-  message = [
-    {
-      devicename: "AVL电机测试台架01",
-      startAlertTime: "2020-08-19 08:47:31",
-      endAlertTime: "2020-09-19 08:46:31",
-      alertInfo: "命令报警",
-      alertNum: "20",
-      handle: "true",
-      handlePeople: "王大锤",
-
-      info: "离线",
-      lng_lat: [121.32290077, 30.33220264],
-      updatatime: "2020-07-11 17:56:46",
-      positiontiome: "2020-07-06 09:56:46",
-      positiontype: "卫星定位",
-      deviceno: "9527",
-    },
-    {
-      devicename: "AVL电机测试台架02",
-      startAlertTime: "2020-08-19 08:47:31",
-      endAlertTime: "2020-09-19 08:46:31",
-      alertInfo: "命令报警",
-      alertNum: "20",
-      handle: "true",
-      handlePeople: "王大锤",
-
-      info: "离线",
-      lng_lat: [121.32260077, 30.33220264],
-      updatatime: "2020-07-11 17:56:46",
-      positiontiome: "2020-07-06 09:56:46",
-      positiontype: "卫星定位",
-      deviceno: "9537",
-    },
-    {
-      devicename: "AVL电机测试台架03",
-      startAlertTime: "2020-08-19 08:47:31",
-      endAlertTime: "2020-09-19 08:46:31",
-      alertInfo: "命令报警",
-      alertNum: "20",
-      handle: "true",
-      handlePeople: "王大锤",
-
-      info: "离线",
-      lng_lat: [121.32200077, 30.33220264],
-      updatatime: "2020-07-11 17:56:46",
-      positiontiome: "2020-07-06 09:56:46",
-      positiontype: "卫星定位",
-      deviceno: "9557",
-    },
-
-    {
-      devicename: "AVL电机测试台架04",
-      startAlertTime: "2020-08-19 08:47:31",
-      endAlertTime: "2020-09-19 08:46:31",
-      alertInfo: "命令报警",
-      alertNum: "20",
-      handle: "true",
-      handlePeople: "王大锤",
-
-      info: "在线",
-      lng_lat: [121.32290066, 30.33330255],
-      updatatime: "2020-07-11 17:56:46",
-      positiontiome: "2020-07-06 09:56:46",
-      positiontype: "卫星定位",
-      deviceno: "9567",
-    },
-    {
-      devicename: "AVL电机测试台架05",
-      startAlertTime: "2020-08-19 08:47:31",
-      endAlertTime: "2020-09-19 08:46:31",
-      alertInfo: "命令报警",
-      alertNum: "20",
-      handle: "true",
-      handlePeople: "王大锤",
-
-      info: "在线",
-      lng_lat: [121.32260066, 30.33330255],
-      updatatime: "2020-07-11 17:56:46",
-      positiontiome: "2020-07-06 09:56:46",
-      positiontype: "卫星定位",
-      deviceno: "9577",
-    },
-    {
-      devicename: "AVL电机测试台架06",
-      startAlertTime: "2020-08-19 08:47:31",
-      endAlertTime: "2020-09-19 08:46:31",
-      alertInfo: "命令报警",
-      alertNum: "20",
-      handle: "true",
-      handlePeople: "王大锤",
-
-      info: "在线",
-      lng_lat: [121.32230066, 30.33330255],
-      updatatime: "2020-07-11 17:56:46",
-      positiontiome: "2020-07-06 09:56:46",
-      positiontype: "卫星定位",
-      deviceno: "9587",
-    },
-  ];
 
   // 抽屉
   visible = false;
@@ -838,7 +738,7 @@ export class LocationMonitoringComponent implements OnInit {
     this.visible = true;
     this.gpshistory.init_history(data["imei"]);
   }
-  // 一键盘点
+  // 一键盘点  异常设备
   check() {
     var inittable_before = this.inittable_before();
     var offset = 0;
@@ -868,7 +768,7 @@ export class LocationMonitoringComponent implements OnInit {
         this.agGrid.init_agGrid(this.tableDatas); // 告诉组件刷新！
         // 刷新table后，改为原来的！
         this.tableDatas.isno_refresh_page_size = false;
-        this.RecordOperation("一键盘点定位监控", 1, JSON.stringify(columns));
+        this.RecordOperation("异常设备定位监控", 1, JSON.stringify(columns));
 
         // *******************************
         // 初始化得到的gps，在map地图上展示！
@@ -876,7 +776,7 @@ export class LocationMonitoringComponent implements OnInit {
 
         // *******************************
       } else {
-        this.RecordOperation("一键盘点定位监控", 0, JSON.stringify(columns));
+        this.RecordOperation("异常设备定位监控", 0, JSON.stringify(columns));
       }
     });
   }

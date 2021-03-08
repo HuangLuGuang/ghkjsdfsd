@@ -112,7 +112,7 @@ export class AgTableComponent implements OnInit {
     this.defaultColDef = {
       // 默认的列设置
       // flex: 1,
-      editable: false,
+      editable: false, // 是否可以编辑  false
       // sortable: true,
       // filter: true,
     };

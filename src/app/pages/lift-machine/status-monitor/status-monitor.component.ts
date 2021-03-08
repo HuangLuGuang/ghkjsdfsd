@@ -1,181 +1,60 @@
-import { Component, OnInit,ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild } from "@angular/core";
+import { HttpserviceService } from "../../../services/http/httpservice.service";
+
+declare let $;
 
 @Component({
-  selector: 'ngx-status-monitor',
-  templateUrl: './status-monitor.component.html',
-  styleUrls: ['./status-monitor.component.scss']
+  selector: "ngx-status-monitor",
+  templateUrl: "./status-monitor.component.html",
+  styleUrls: ["./status-monitor.component.scss"],
 })
 export class StatusMonitorComponent implements OnInit {
+  @ViewChild("status_monitor_title") status_monitor_title: any;
+  constructor(private http: HttpserviceService) {}
+  ngOnInit(): void {}
 
+  TABLE = "detector";
+  METHOD = "dev_get_detector";
+  METHODALL = "dev_get_detector_numbers";
 
-  @ViewChild("departmentselect") departmentselect:any;
-  @ViewChild("device_tpye") device_tpye: any;
-  @ViewChild("asset_number") asset_number: any;
-  @ViewChild("daterange") daterange: any;
+  ngAfterViewInit() {
+    this.get_init_table();
 
-  // 下拉框---部门
-  departments = {
-    name: "部门信息",
-    placeholder: '请选择部门',
-    groups:[
-      { title: '动力', datas: [{ name: '动力-1' },{ name: '动力-2' },{ name: '动力-3' },{ name: '动力-4' }] },
-      { title: '资产', datas: [{ name: '资产-1' },{ name: '资产-2' },{ name: '资产-3' },{ name: '资产-4' }] },
-      { title: '新能源', datas: [{ name: '新能源-1' },{ name: '新能源-2' },{ name: '新能源-3' },{ name: '新能源-4' }] },
-    ]
-  };
-
-  // 下拉框---设备类型
-  devicetpye = {
-    placeholder: "请选择设备类型",
-    name: '设备类型',
-    datas: [
-      { name: 'GT-2030-123' },
-      { name: 'GT-2030-149' },
-      { name: 'GT-2030-230' },
-      { name: 'GT-2030-359' },
-      { name: 'GT-2030-666' },
-    ]
-  }
-  // 下拉框---资产编号
-  assetnumber = {
-    placeholder: "请选择资产编号",
-    name: '资产编号',
-    datas: [
-      { name: 'GT-2030-123' },
-      { name: 'GT-2030-149' },
-      { name: 'GT-2030-230' },
-      { name: 'GT-2030-359' },
-      { name: 'GT-2030-666' },
-    ]
+    setTimeout(() => {
+      this.get_all_num();
+    }, 200);
   }
 
-
-  // 举升机数量
-  datas = {
-    number:[20, 13],
-    row_col_title: '1号',
-    row_col:[
-      {
-        src: "",
-        time: '7.8',
-        title: 'PWG-DP01'
-      },
-      {
-        src: "assets/pages/lift-machine/images/ico_car_green.png",
-        time: '7.8',
-        title: 'PWG-DP01'
-      },
-      {
-        src: "assets/pages/lift-machine/images/ico_car_green.png",
-        time: '7.8',
-        title: 'PWG-DP01'
-      },
-      {
-        src: "",
-        time: '7.8',
-        title: 'PWG-DP01'
-      },
-      {
-        src: "assets/pages/lift-machine/images/ico_car_green.png",
-        time: '7.8',
-        title: 'PWG-DP01'
-      },
-      {
-        src: "assets/pages/lift-machine/images/ico_car_green.png",
-        time: '7.8',
-        title: 'PWG-DP01'
-      },
-    ],
-    row2_col_title: '2号',
-    row2_col:[
-      {
-        src: "",
-        time: '7.8',
-        title: 'PWG-DP02'
-      },
-      {
-        src: "",
-        time: '7.8',
-        title: 'PWG-DP02'
-      },
-      {
-        src: "assets/pages/lift-machine/images/ico_car_green.png",
-        time: '7.8',
-        title: 'PWG-DP02'
-      },
-      {
-        src: "",
-        time: '7.8',
-        title: 'PWG-DP02'
-      },
-      {
-        src: "",
-        time: '7.8',
-        title: 'PWG-DP02'
-      },
-      {
-        src: "assets/pages/lift-machine/images/ico_car_red.png",
-        time: '7.8',
-        title: 'PWG-DP02'
-      },
-    ],
-    row3_col:[
-      {
-        src: "",
-        time: '7.8',
-        title: 'PWG-DP03'
-      },
-      {
-        src: "",
-        time: '7.8',
-        title: 'PWG-DP03'
-      },
-      {
-        src: "",
-        time: '7.8',
-        title: 'PWG-DP03'
-      },
-      {
-        src: "assets/pages/lift-machine/images/ico_car_green.png",
-        time: '7.8',
-        title: 'PWG-DP03'
-      },
-      {
-        src: "",
-        time: '7.8',
-        title: 'PWG-DP03'
-      },
-      {
-        src: "",
-        time: '7.8',
-        title: 'PWG-DP03'
-      },
-      {
-        src: "assets/pages/lift-machine/images/ico_car_green.png",
-        time: '7.8',
-        title: 'PWG-DP03'
-      },
-      {
-        src: "",
-        time: '7.8',
-        title: 'PWG-DP03'
-      },
-    ],
-  }
-  constructor() { }
-
-  ngOnInit(): void {
+  // 得到 总数
+  get_all_num() {
+    this.http.callRPC(this.TABLE, this.METHODALL, {}).subscribe((result) => {
+      var res = result["result"]["message"][0];
+      if (res["code"] === 1) {
+        var message = res;
+        this.status_monitor_title?.init_num(message);
+      }
+    });
   }
 
-
-  // 搜索按钮
-  query(){
-    var departmentselect_datas = this.departmentselect.getselect();
-    var device_tpye_data = this.device_tpye.getselect();
-    var asset_number_data = this.asset_number.getselect();
-    var daterange_data = this.daterange.getselect();
-    console.log("<------------搜索----------->", departmentselect_datas, device_tpye_data,asset_number_data,daterange_data);
- 
+  // 得到 NVH 数据
+  get_init_table() {
+    this.http.callRPC(this.TABLE, this.METHOD, {}).subscribe((result) => {
+      var res = result["result"]["message"][0];
+      if (res["code"] === 1) {
+        var message = res["message"];
+        for (let index = 1; index < message.length; index++) {
+          const item = message[index];
+          $(".sm_span_" + index + 1).text("举升机工位:" + item["deviceid"]);
+          var status;
+          if (item["status"] === 1) {
+            status = "占位";
+          } else {
+            status = "空闲";
+          }
+          $(".sm_span_" + index + 2).text("当前状态:" + status);
+          $(".sm_span_" + index + 3).text("已使用时长:" + item["time"] + "h");
+        }
+      }
+    });
   }
-
 }

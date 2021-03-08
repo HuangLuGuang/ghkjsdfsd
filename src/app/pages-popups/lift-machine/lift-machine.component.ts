@@ -1,38 +1,69 @@
 import { Component, OnInit, Input } from "@angular/core";
 import { NbDialogRef } from "@nebular/theme";
-import { HttpserviceService } from "../../../services/http/httpservice.service";
-import { PublicmethodService } from "../../../services/publicmethod/publicmethod.service";
-import { UserInfoService } from "../../../services/user-info/user-info.service";
+import { HttpserviceService } from "../../services/http/httpservice.service";
+import { PublicmethodService } from "../../services/publicmethod/publicmethod.service";
+import { UserInfoService } from "../../services/user-info/user-info.service";
 declare let layui;
-
 declare let $;
 
-import { Device } from "../form_verification";
+import { Device } from "./form_verification";
+
 @Component({
-  selector: "ngx-add-edit-gps",
-  templateUrl: "./add-edit-gps.component.html",
-  styleUrls: ["./add-edit-gps.component.scss"],
+  selector: "ngx-lift-machine",
+  templateUrl: "./lift-machine.component.html",
+  styleUrls: ["./lift-machine.component.scss"],
 })
-export class AddEditGpsComponent implements OnInit {
+export class LiftMachineComponent implements OnInit {
   @Input() title: string;
   @Input() content: string; // 'true': 表示edit 'false':表示add
   @Input() rowData: any[];
+
   // 加载
   loading;
 
-  TABLE = "positioning_monitoring";
-  METHOD = "dev_insert_positioning_monitoring_list";
+  TABLE = "lift_machine";
+  METHOD = "dev_insert_lift_machine";
 
-  METHOD2 = "dev_update_positioning_monitoring";
+  METHOD2 = "dev_update_lift_machine";
+
+  // 科室/用户组
+  groups = [];
 
   constructor(
-    private dialogRef: NbDialogRef<AddEditGpsComponent>,
+    private dialogRef: NbDialogRef<LiftMachineComponent>,
     private http: HttpserviceService,
     private userinfo: UserInfoService,
     private publicservice: PublicmethodService
-  ) {}
+  ) {
+    // ====================================
+    // 得到科室 sys_get_groups_limit
+    var columns = {
+      limit: 10,
+      offset: 0,
+    };
+    this.http
+      .callRPC("device", "sys_get_groups_limit", columns)
+      .subscribe((result) => {
+        var res = result["result"]["message"][0];
+        if (res["code"] === 1) {
+          this.groups = res["message"];
+          localStorage.setItem("Device_Groups", JSON.stringify(res["message"]));
+        }
+      });
+    // ====================================
+  }
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    // 科室用户组
+    this.get_groups();
+  }
+
+  // get groups
+  get_groups() {
+    var groups = JSON.parse(localStorage.getItem("Device_Groups"));
+    this.groups = groups;
+  }
+
   ngAfterViewInit() {
     this.layuiform();
   }
@@ -47,7 +78,7 @@ export class AddEditGpsComponent implements OnInit {
       form.render(); // 刷新all
       form.render("select"); // 刷新select
       form.render("checkbox"); // 刷新checkbox
-
+      form.render();
       // 验证 表单
       form.verify({
         deviceid: function (value, item) {
@@ -61,13 +92,13 @@ export class AddEditGpsComponent implements OnInit {
             return "防止SQL注入，请不要输入关于sql语句的特殊字符！";
           }
           if (!str) {
-            return "设备ID不能有特殊字符！";
+            return "设备编号不能有特殊字符！";
           }
           if (new RegExp(Device["deviceid"]).test(value)) {
             if (value.length > 50) {
-              return "设备ID最大长度不超过50！";
+              return "设备编号最大长度不超过50！";
             }
-            return "设备ID不能有中文！";
+            return "设备编号不能有中文！";
           }
         },
         devicename: function (value, item) {
@@ -86,7 +117,7 @@ export class AddEditGpsComponent implements OnInit {
             return "设备名称最大长度不超过50！";
           }
         },
-        imei: function (value, item) {
+        detectorid: function (value, item) {
           // sql注入和特殊字符 special_str
           var special_sql = Device["special_sql"]["special_sql"];
           var special_str = Device["special_sql"]["special_str"];
@@ -97,56 +128,13 @@ export class AddEditGpsComponent implements OnInit {
             return "防止SQL注入，请不要输入关于sql语句的特殊字符！";
           }
           if (!str) {
-            return "IMEI号不能有特殊字符！";
+            return "探测器ID不能有特殊字符！";
           }
-          if (!new RegExp(Device["imei"]).test(value)) {
+          if (!new RegExp(Device["detectorid"]).test(value)) {
             if (value.length > 50) {
-              return "IMEI号最大长度不超过50！";
+              return "探测器ID最大长度不超过50！";
             }
-            return "IMEI号只能为数字！";
-          }
-          if (value.length != 15) {
-            return "IMEI号必须是15个数字！";
-          }
-        },
-        sim: function (value, item) {
-          // sql注入和特殊字符 special_str
-          var special_sql = Device["special_sql"]["special_sql"];
-          var special_str = Device["special_sql"]["special_str"];
-
-          var sql = special_sql.test(value);
-          var str = special_str.test(value);
-          if (sql) {
-            return "防止SQL注入，请不要输入关于sql语句的特殊字符！";
-          }
-          if (!str) {
-            return "SIM号不能有特殊字符！";
-          }
-          if (!new RegExp(Device["sim"]).test(value)) {
-            if (value.length > 50) {
-              return "SIM号最大长度不超过50！";
-            }
-            return "SIM号只能为数字！";
-          }
-          if (value.length != 13) {
-            return "SIM号必须是13个数字！";
-          }
-        },
-        belonged: function (value, item) {
-          // sql注入和特殊字符 special_str
-          var special_sql = Device["special_sql"]["special_sql"];
-          var special_str = Device["special_sql"]["special_str"];
-
-          var sql = special_sql.test(value);
-          var str = special_str.test(value);
-          if (sql) {
-            return "防止SQL注入，请不要输入关于sql语句的特殊字符！";
-          }
-          if (!str) {
-            return "负责人不能有特殊字符！";
-          }
-          if (value.length > 50) {
-            return "负责人最大长度不超过50！";
+            return "探测器ID只能为数字！";
           }
         },
         location: function (value, item) {
@@ -166,7 +154,7 @@ export class AddEditGpsComponent implements OnInit {
             return "存放地点最大长度不超过50！";
           }
         },
-        // createdby: function (value, item) {
+        // groups: function (value, item) {
         //   // sql注入和特殊字符 special_str
         //   var special_sql = Device["special_sql"]["special_sql"];
         //   var special_str = Device["special_sql"]["special_str"];
@@ -177,21 +165,48 @@ export class AddEditGpsComponent implements OnInit {
         //     return "防止SQL注入，请不要输入关于sql语句的特殊字符！";
         //   }
         //   if (!str) {
-        //     return "创建人不能有特殊字符！";
+        //     return "科室功能组不能有特殊字符！";
         //   }
         //   if (value.length > 50) {
-        //     return "创建人最大长度不超过50！";
+        //     return "科室功能组最大长度不超过50！";
         //   }
         // },
+        belonged: function (value, item) {
+          // sql注入和特殊字符 special_str
+          var special_sql = Device["special_sql"]["special_sql"];
+          var special_str = Device["special_sql"]["special_str"];
+
+          var sql = special_sql.test(value);
+          var str = special_str.test(value);
+          if (sql) {
+            return "防止SQL注入，请不要输入关于sql语句的特殊字符！";
+          }
+          if (!str) {
+            return "负责人不能有特殊字符！";
+          }
+          if (value.length > 50) {
+            return "负责人最大长度不超过50！";
+          }
+        },
       });
 
       // 判断是 新增还是编辑
       if (content) {
         // true: 表示edit
         // 表单初始化
-        form.val("device", that.rowData[0]);
+        var formdatar = that.rowData[0];
+        formdatar["groups"] = formdatar["groupsid"];
+        form.val("device", formdatar);
+
+        // 修改选择项
+        setTimeout(() => {
+          $('select[name="groups"]').val(formdatar["groupsid"]);
+        }, 100);
+        form.render("select");
       } else {
         // false: 表示add
+
+        form.val("device", { groups: that.groups[0]["groupid"] });
       }
 
       // 监听表单的提交
@@ -199,13 +214,14 @@ export class AddEditGpsComponent implements OnInit {
         var formdata: FormData = {
           deviceid: "", //  设备ID
           devicename: "", // 设备名称
-          imei: "", // IMEI号
-          sim: "", // SIM号
+          detectorid: "", // d探测器ID
           belonged: "", // 负责人
           location: "", // 存放地点
           createdby: name, // 创建人
+          lastupdatedby: name, // 更新人
           active: 0, // 是否启用
-          isfavor: 0, // 是否关注
+          groups: "", // 科室
+          groupsid: "", // 科室ID
         };
         // layer.alert(JSON.stringify(data.field), {
         //   title: "得到的编辑表单的数据",
@@ -213,27 +229,26 @@ export class AddEditGpsComponent implements OnInit {
         // 将表单的数据赋值个默认的数据，
         formdata.deviceid = data.field.deviceid;
         formdata.devicename = data.field.devicename;
-        formdata.imei = data.field.imei;
-        formdata.sim = data.field.sim;
+        formdata.detectorid = data.field.detectorid;
         formdata.belonged = data.field.belonged;
         formdata.location = data.field.location;
-        formdata.createdby = data.field.createdby;
 
         if (data.field.active != undefined) {
           formdata.active = Number(data.field.active);
         }
-        if (data.field.isfavor != undefined) {
-          formdata.isfavor = Number(data.field.isfavor);
-        }
-        console.error("监听表单的提交", formdata);
 
         // 判断是 新增还是编辑
         if (content) {
           // true: 表示edit
           formdata.id = that.rowData[0]["id"];
+          formdata.groups = that.get_group(data.field.groups);
+          formdata.groupsid = data.field.groups;
+          // console.error("监听表单的提交", formdata);
           that.update_update(formdata);
         } else {
           // false: 表示add
+          formdata.groups = that.get_group(data.field.groups);
+          formdata.groupsid = data.field.groups;
           that.update_install([formdata]);
         }
 
@@ -249,29 +264,41 @@ export class AddEditGpsComponent implements OnInit {
       if (res["code"]) {
         this.dialogRef.close(true);
         this.addsuccess();
-        this.RecordOperation("新增设备", 1, JSON.stringify(data));
+        this.RecordOperation("新增举升机设备", 1, JSON.stringify(data));
       } else {
         this.dialogRef.close(false);
         this.adddanger();
-        this.RecordOperation("新增设备", 0, JSON.stringify(data));
+        this.RecordOperation("新增举升机设备", 0, JSON.stringify(data));
       }
     });
   }
   // 请求数据 修改
   update_update(data: FormData) {
     this.http.callRPC(this.TABLE, this.METHOD2, data).subscribe((result) => {
-      console.log("更新设备数据：", result);
+      // console.log("更新举升机设备数据：", result);
       const res = result["result"]["message"][0];
       if (res["code"]) {
         this.dialogRef.close(true);
         this.editsuccess();
-        this.RecordOperation("编辑设备", 1, JSON.stringify(data));
+        this.RecordOperation("编辑举升机设备", 1, JSON.stringify(data));
       } else {
         this.dialogRef.close(false);
         this.editdanger();
-        this.RecordOperation("编辑设备", 0, JSON.stringify(data));
+        this.RecordOperation("编辑举升机设备", 0, JSON.stringify(data));
       }
     });
+  }
+
+  // 根据groups 如 '78' 得到 对应名称  "验证中心-系统试验部-新能源与电子电气试验室"
+  get_group(groupid): string {
+    var group: string;
+    this.groups.forEach((item) => {
+      if (item["groupid"] == groupid) {
+        group = item["group"];
+        return;
+      }
+    });
+    return group;
   }
 
   // × 关闭diallog   及关闭弹框
@@ -331,16 +358,18 @@ export class AddEditGpsComponent implements OnInit {
     }
   }
 }
-// 表单数据的格式
+
+// 导入需要的数据
 interface FormData {
   deviceid: string; // 设备id
   devicename: string; // 设备名称
-  imei: string; // IMEI号
-  sim: string; // SIM号
+  detectorid: string; // 探测器ID
   belonged: string; // 负责人
   location: string; // 存放地点
   createdby: string; // 创建人
+  lastupdatedby: string; // 更新人
   active: Number; // 是否启用
-  isfavor: Number; // 是否关注
   id?: number; // ID
+  groups: string; // 科室
+  groupsid: string; // 科室id
 }

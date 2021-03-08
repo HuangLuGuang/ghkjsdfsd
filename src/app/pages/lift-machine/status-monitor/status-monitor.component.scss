@@ -1,308 +1,275 @@
-.statusinfo{
-    height: 55px;
-    background: #e5e5e5bd;
-
-    .zong-title{
-        position: absolute;
-        top: 18px;
-        left: 17%;
-        font-size: x-large;
-    }
-    .zong-value{
-        position: absolute;
-        top: 20px;
-        left: 46%;
-        font-size: x-small;
-        span{
-            font-weight: 600;
-        }
-    }
+.one_layout_monitor{
+    // border: 1px rgb(89, 141, 255) solid;
+    height: 100%;
 }
-
-.layoutdatas{
-    .onetitlle{
-        position: absolute;
-        width: 52px;
-        top: 8%;
-        left: 4%;
-        font-size: xx-large;
-    };
-    .twotitlle{
-        position: absolute;
-        width: 52px;
-        bottom: 32%;
-        left: 4%;
-        font-size: xx-large;
-    };
-    .row1-col1{
-        position: absolute;
-        top: 4%;
-        left: 17.5%;
-        // border: 1px red solid;
-        height: 125px;
-        width: 60px;
-
-        // 下面 row-col
-        // img{
-        //     width: 102%;
-        // }
-
-        // 下面 row-col-time
-        // .time{
-        //     position: relative;
-        //     left: 26px;
-        // }
-
-        // 下面 row-col-title
-        // .title{
-        //     position: absolute;
-        //     bottom: -29px;
-        //     width: 100px;
-        //     left: -11px;
-        //     font-weight: 600;
-        // }
+// 主题
+.lift_content{
+    height: 91%;
+    // padding: 0px 10px 5px;
+    .lift_content_cont{
+        // border: 1px solid;
+        height: 100%;
+        
+        background-image:url("../../../../assets/pages/lift-machine/images/bg_two.png");
+        background-repeat: no-repeat;
+        background-size: 100% 100%;
     }
-    .row1-col2{
-        position: absolute;
-        top: 4%;
-        left: 26.5%;
-        // border: 1px red solid;
-        height: 125px;
-        width: 60px;
-    }
-    .row1-col3{
-        position: absolute;
-        top: 4%;
-        left: 32.5%;
-        // border: 1px red solid;
-        height: 125px;
-        width: 60px;
-    }
-    .row1-col4{
-        position: absolute;
-        top: 4%;
-        left: 40.5%;
-        // border: 1px red solid;
-        height: 125px;
-        width: 60px;
-    }
-    .row1-col5{
-        position: absolute;
-        top: 4%;
-        left: 46.5%;
-        // border: 1px red solid;
-        height: 125px;
-        width: 60px;
-    }
-    .row1-col6{
-        position: absolute;
-        top: 4%;
-        left: 60.5%;
-        // border: 1px red solid;
-        height: 125px;
-        width: 60px;
-        img{
-            transform: rotate(-90deg);
-            top: 25px;
-        }
-    }
-
-    // ===========================
-    .row2-col1{
-        position: absolute;
-        bottom: 38%;
-        left: 11.5%;
-        // border: 1px red solid;
-        height: 125px;
-        width: 60px;
-    }
-    .row2-col2{
-        position: absolute;
-        bottom: 38%;
-        left: 17.5%;
-        // border: 1px red solid;
-        height: 125px;
-        width: 60px;
-    }
-    .row2-col3{
-        position: absolute;
-        bottom: 38%;
-        left: 26.5%;
-        // border: 1px red solid;
-        height: 125px;
-        width: 60px;
-    }
-    .row2-col4{
-        position: absolute;
-        bottom: 38%;
-        left: 32.5%;
-        // border: 1px red solid;
-        height: 125px;
-        width: 60px;
-    }
-    .row2-col5{
-        position: absolute;
-        bottom: 38%;
-        left: 40.5%;
-        // border: 1px red solid;
-        height: 125px;
-        width: 60px;
-    }
-    .row2-col6{
-        position: absolute;
-        bottom: 38%;
-        left: 46.5%;
-        // border: 1px red solid;
-        height: 125px;
-        width: 60px;
-    }
-
-
-    .row3-col1{
-        position: absolute;
-        bottom: 16%;
-        left: 11.5%;
-        // border: 1px red solid;
-        height: 125px;
-        width: 60px;
-    }
-    .row3-col2{
-        position: absolute;
-        bottom: 16%;
-        left: 17.5%;
-        // border: 1px red solid;
-        height: 125px;
-        width: 60px;
-    }
-    .row3-col3{
-        position: absolute;
-        bottom: 16%;
-        left: 26.5%;
-        // border: 1px red solid;
-        height: 125px;
-        width: 60px;
-    }
-    .row3-col4{
-        position: absolute;
-        bottom: 16%;
-        left: 32.5%;
-        // border: 1px red solid;
-        height: 125px;
-        width: 60px;
-    }
-    .row3-col5{
-        position: absolute;
-        bottom: 16%;
-        left: 40.5%;
-        // border: 1px red solid;
-        height: 125px;
-        width: 60px;
-    }
-    .row3-col6{
-        position: absolute;
-        bottom: 16%;
-        left: 46.5%;
-        border: 1px red solid;
-        height: 125px;
-        width: 60px;
-    }
-
-
-
-    .row3-col7{
-        position: absolute;
-        bottom: 29%;
-        left: 60.5%;
-        // border: 1px red solid;
-        height: 125px;
-        width: 60px;
-    }
-    .row3-col8{
-        position: absolute;
-        bottom: 29%;
-        left: 66.5%;
-        // border: 1px red solid;
-        height: 125px;
-        width: 60px;
-    }
-
-    // 右下
-    .description{
-        position: absolute;
-        bottom: 1%;
-        left: 46%;
-        .description-bg{
-            position: relative;
-        }
-        .description-col1{
+    .lift_content_car1{
+        .lift_content_car1image{
             position: absolute;
-            height: 101px;
-            width: 60px;
-            top: 5px;
-            left: 23px;
-            
+            top: 11%;
+            right: 6%;
+            width: 67px;
+            transform: rotate( 
+            -90deg
+            );
         }
-        .description-col2{
+        .shuidi1image{
+            transform: rotate(
+                90deg
+            );
+            height: 24px;
+            width: 40px;
             position: absolute;
-            // border: springgreen 1px solid;
-            height: 101px;
-            width: 60px;
-            top: 5px;
-            left: 126px;
-            
+            top: 111px;
+            left: 87%;
+            z-index: 1;
+            cursor: pointer;
         }
-        .description-col3{
+        .shuidi1title{
+            height: 65px;
             position: absolute;
-            // border: springgreen 1px solid;
-            height: 101px;
-            width: 60px;
-            top: 5px;
-            left: 226px;
-            
+            top: 123px;
+            right: 11.4%;
+            z-index: 1;
+            border: 2px #cacabd solid;
+            display: grid;
+            background: #d2d2d2;
+        }
+
+        .lift_content_car2image{
+            position: absolute;
+            top: 22%;
+            right: 6%;
+            width: 67px;
+            transform: rotate( 
+            -90deg
+            );
+        }
+        .shuidi2image{
+            transform: rotate(
+            90deg
+            );
+            height: 24px;
+            width: 40px;
+            position: absolute;
+            top: 203px;
+            left: 87%;
+            z-index: 1;
+            cursor: pointer;
+        }
+        .shuidi2title{
+            height: 65px;
+            position: absolute;
+            top: 217px;
+            right: 11.35%;
+            z-index: 1;
+            border: 2px #cacabd solid;
+            display: grid;
+            background: #d2d2d2f2;
+        }
+
+        .lift_content_car3image{
+            position: absolute;
+            top: 11%;
+            right: 21%;
+            width: 67px;
+            transform: rotate( 
+            -90deg
+            );
+        }
+        .shuidi3image{
+            transform: rotate(
+                -2deg
+            );
+            height: 24px;
+            width: 40px;
+            position: absolute;
+            top: 180px;
+            right: 26%;
+            z-index: 1;
+            cursor: pointer;
+        }
+        .shuidi3title{
+            height: 65px;
+            position: absolute;
+            top: 123px;
+            right: 26.9%;
+            z-index: 1;
+            border: 2px #cacabd solid;
+            display: grid;
+            background: #d2d2d2f2;
+        }
+
+        .lift_content_car4image{
+            position: absolute;
+            top: 14.5%;
+            right: 50%;
+            width: 67px;
+            transform: rotate( 
+            -90deg
+            );
+        }
+        .shuidi4image{
+            transform: rotate(
+                -2deg
+                );
+            height: 24px;
+            width: 40px;
+            position: absolute;
+            top: 217px;
+            right: 48%;
+            z-index: 1;
+            cursor: pointer;
+        }
+        .shuidi4title{
+            height: 65px;
+            position: absolute;
+            top: 153px;
+            right: 55.9%;
+            z-index: 1;
+            border: 2px #cacabd solid;
+            display: grid;
+            background: #d2d2d2f2;
+        }
+
+        .lift_content_car5image{
+            position: absolute;
+            top: 49%;
+            left: 47.5%;
+            width: 67px;
+            transform: rotate( 
+            0deg
+            );
+        }
+        .shuidi5image{
+            transform: rotate(
+                180deg
+                );
+            height: 24px;
+            width: 40px;
+            position: absolute;
+            top: 504px;
+            right: 53%;
+            z-index: 1;
+            cursor: pointer;
+        }
+        .shuidi5title{
+            height: 65px;
+            position: absolute;
+            top: 390px;
+            right: 52.7%;
+            z-index: 1;
+            border: 2px #cacabd solid;
+            display: grid;
+            background: #d2d2d2f2;
+        }
+
+        .lift_content_car6image{
+            position: absolute;
+            top: 79%;
+            right: 50%;
+            width: 67px;
+            transform: rotate( 
+            -90deg
+            );
+        }
+        .shuidi6image{
+            transform: rotate(
+                180deg
+            );
+            height: 24px;
+            width: 40px;
+            position: absolute;
+            top: 672px;
+            left: 49.5%;
+            z-index: 1;
+            cursor: pointer;
+        }
+        .shuidi6title{
+            height: 65px;
+            position: absolute;
+            top: 707px;
+            right: 55.9%;
+            z-index: 1;
+            border: 2px #cacabd solid;
+            display: grid;
+            background: #d2d2d2;
+        }
+
+        .lift_content_car7image{
+            position: absolute;
+            top: 49%;
+            left: 35.78%;
+            width: 67px;
+            transform: rotate( 
+            0deg
+            );
+        }
+        // 水滴7
+        .shuidi7image{
+            transform: rotate(
+            180deg
+            );
+            height: 24px;
+            width: 40px;
+            position: absolute;
+            top: 399px;
+            left: 38%;
+            z-index: 1;
+            cursor: pointer;
+        }
+        .shuidi7title{
+            height: 65px;
+            position: absolute;
+            top: 390px;
+            right: 64.7%;
+            z-index: 1;
+            border: 2px #cacabd solid;
+            display: grid;
+            background: #d2d2d2;
+        }
+        .lift_content_car8image{
+            position: absolute;
+            top: 52.5%;
+            right: 72%;
+            width: 67px;
+            transform: rotate( 
+            -90deg
+            );
+        }
+        .shuidi8image{
+            transform: rotate(
+                180deg
+            );
+            height: 24px;
+            width: 40px;
+            position: absolute;
+            top: 672px;
+            left: 49.5%;
+            z-index: 1;
+            cursor: pointer;
+        }
+
+        .shuidi8title{
+            height: 65px;
+            position: absolute;
+            top: 478px;
+            right: 77.5%;
+            z-index: 1;
+            border: 2px #cacabd solid;
+            display: grid;
+            background: #d2d2d2;
         }
     }
-
 }
-
-
-
-// ===============================公共属性
-.row-col{
-    width: 102%;
-    position: absolute;
-}
-.row-col-time{
-    position: relative;
-    left: 26px;
-    top: 102px;
-    color: #30b230;
-}
-.row-col-time2{
-    position: relative;
-    left: 26px;
-    top: 102px;
-    color: #b29430;
-}
-.row-col-title{
-    position: absolute;
-    bottom: -29px;
-    width: 100px;
-    left: -11px;
-    font-weight: 600;
-}
-.row-col-title-top{
-    position: absolute;
-    top: -25px;
-    width: 100px;
-    left: -11px;
-    font-weight: 600;
-}
-
-
-.description-car{
-    width: 100%;
-}
-.description-title{
-    margin-left: 14px;
-}
-// ===============================公共属性

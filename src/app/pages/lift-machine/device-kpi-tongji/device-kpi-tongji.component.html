@@ -7,30 +7,9 @@
         <!-- buttons -->
         <div class="row" >
             <div class="col-lg-9" style="display: flex;">
-                
-
-                <!-- 部门 --> 
-                <div class="example-items-rows button_item " >
-                    <div class="gongneng_keshi">
-                        <ngx-my-select-tree #departmentselect [placeholder]="groups_placeholder"></ngx-my-select-tree>
-                    </div>
-                </div>
-
-                <!-- 设备类型 -->
-                <div class="example-items-rows button_item" >
-                    <div class="gongneng_keshi">
-                        <ngx-my-select-tree-type #devicetpye [placeholder]="eimdevicetpye_placeholder"></ngx-my-select-tree-type>
-                    </div>
-                </div>
-
                 <!-- input 资产编号 -->
                 <div class="example-items-rows button_item"  *ngIf="button?.query">
                     <ngx-my-input #myinput (inpuvalue)="inpuvalue($event)"  [placeholder]="myinput_placeholder"></ngx-my-input>
-                </div>
-                
-                <!-- 日期 -->
-                <div class="example-items-rows button_item" *ngIf="button?.query">
-                    <ngx-my-date-range #data_range></ngx-my-date-range>
                 </div>
                 
                 <!-- 搜索 -->
@@ -55,10 +34,10 @@
                 <!-- 导入、导出 -->
                 <div style="flex: auto;">
                 </div>
-                <!-- <div class=" button_item my_import " *ngIf="button?.import">
+                <div class=" button_item my_import " *ngIf="button?.import">
                     <button nbButton [status]="button?.import.class" size="small" (click)="action(button?.import.permission)"  [disabled]="button?.import.active == 0? true:false"><nb-icon [icon]="button?.import.icon"></nb-icon>{{button?.import.title}}</button>
                     <input type="file" class="import" id="import" (change)="onFileChange($event)" multiple="false" >
-                </div> -->
+                </div>
                 
                 <div class=" button_item download" *ngIf="button?.download">
                     <button nbButton [status]="button?.download.class" size="small" (click)="action(button?.download.permission)"  [disabled]="button?.download.active == 0? true:false"><nb-icon [icon]="button?.download.icon"></nb-icon>{{button?.download.title}}</button>

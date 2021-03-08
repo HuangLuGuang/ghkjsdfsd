@@ -19,11 +19,12 @@ export class MyDateSelectComponent implements OnInit {
   default_month;
 
   constructor() {
-    this.default_month = "近3天";
+    this.default_month = "全部";
   }
 
   ngOnInit(): void {
     var data = [
+      { id: 3000, label: "全部" },
       { id: 3, label: "近3天" },
       { id: 7, label: "近一周" },
       { id: 30, label: "近一个月" },
@@ -94,6 +95,7 @@ export class MyDateSelectComponent implements OnInit {
 
   getselect() {
     enum Month {
+      "全部" = 3000,
       "近3天" = 3,
       "近一周" = 7,
       "近一个月" = 30,

@@ -1,4 +1,4 @@
-<nb-card style="width: 870px;" size="larger" [nbSpinner]="loading"
+<nb-card style="width: 870px;height: 510px;" size="larger" [nbSpinner]="loading"
     nbSpinnerStatus="danger"
     nbSpinnerSize="large"
     nbSpinnerMessage=""
@@ -26,9 +26,10 @@
                 <input type="text" name="devicename" required  lay-verify="required|devicename" placeholder="设备名称" autocomplete="off" class="layui-input">
                 </div>
             </div>
+
             <!-- 设备编号 deviceid -->
             <div class="layui-inline" style="width: 46%;">
-                <label class="layui-form-label mylabel mulu_title">设备ID</label>
+                <label class="layui-form-label mylabel mulu_title">设备编号</label>
                 <div class="layui-input-block">
                 <input type="text" name="deviceid" required  lay-verify="required|deviceid" placeholder="设备编号" autocomplete="off" class="layui-input">
                 </div>
@@ -37,28 +38,14 @@
         </div>
 
         <div class="layui-form-item">
-            <!-- IMEI号 imei -->
+            <!-- 探测器ID detectorid -->
             <div class="layui-inline" style="width: 46%;">
-                <label class="layui-form-label mylabel mulu_title">IMEI号</label>
+                <label class="layui-form-label mylabel mulu_title">探测器ID</label>
                 <div class="layui-input-block">
-                    <input type="text" name="imei" required  lay-verify="required|imei" placeholder="IMEI号" autocomplete="off" class="layui-input">
+                    <input type="text" name="detectorid" required  lay-verify="required|detectorid" placeholder="探测器ID" autocomplete="off" class="layui-input">
                 </div>
             </div>
 
-            <!-- SIM号  sim -->
-            <div class="layui-inline" style="width: 46%;">
-                <label class="layui-form-label mylabel mulu_title">SIM号</label>
-                <div class="layui-input-block">
-                    <input type="text" name="sim" required  lay-verify="required|sim" placeholder="SIM号" autocomplete="off" class="layui-input">
-                </div>
-            </div>
-
-            
-
-        </div>
-        
-        <div class="layui-form-item">
-            
             <!-- 存放地点 location -->
             <div class="layui-inline" style="width: 46%;">
                 <label class="layui-form-label mylabel mulu_title">存放地点</label>
@@ -67,6 +54,23 @@
                 </div>
             </div>
 
+            
+
+        </div>
+        
+        <div class="layui-form-item">
+
+            <!-- 科室功能组 groups -->
+            <div class="layui-inline" style="width: 46%;">
+                <label class="layui-form-label mylabel mulu_title">科室/功能组</label>
+                <div class="layui-input-block">
+                    <!-- 单选！ --> 
+                    <select id="groups" name="groups" lay-filter="groups" lay-verify="" class="caidantype">
+                        <option *ngFor="let item of groups" [value]=item.id>{{item.group}}</option>
+                    </select> 
+                </div>
+            </div>
+            
             <!-- 负责人 belonged -->
             <div class="layui-inline" style="width: 46%;height: 66px;">
                 <label class="layui-form-label mylabel mulu_title">负责人&nbsp;&nbsp;</label>
@@ -74,15 +78,6 @@
                     <input type="text" name="belonged" required  lay-verify="required|belonged" placeholder="负责人" autocomplete="off" class="layui-input">
                 </div>
             </div>
-
-            <!-- 创建人 createdby -->
-            <!-- <div class="layui-inline" style="width: 46%;height: 66px;">
-                <label class="layui-form-label mylabel mulu_title">创建人&nbsp;&nbsp;</label>
-                <div class="layui-input-block">
-                    <input type="text" name="createdby" required  lay-verify="required|createdby" placeholder="创建人" autocomplete="off" class="layui-input">
-                </div>
-            </div> -->
-            
         </div>
 
         <div class="layui-form-item">
@@ -92,13 +87,6 @@
                 <label class="layui-form-label mylabel mulu_title">是否启用</label>
                 <div class="layui-input-block">
                     <input type="checkbox" name="active" lay-skin="switch" lay-text="是|否" value="1">
-                </div>
-            </div>
-            <!-- 是否关注 isfavor -->
-            <div class="layui-inline" style="width: 46%;">
-                <label class="layui-form-label mylabel mulu_title">是否关注</label>
-                <div class="layui-input-block">
-                    <input type="checkbox" name="isfavor" lay-skin="switch" lay-text="是|否" value="1">
                 </div>
             </div>
 

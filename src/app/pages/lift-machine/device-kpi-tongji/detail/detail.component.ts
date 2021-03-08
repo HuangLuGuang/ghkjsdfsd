@@ -1,24 +1,28 @@
-import { Component, OnInit,Input, Output,EventEmitter } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from "@angular/core";
+import { ICellRendererAngularComp } from "ag-grid-angular";
 
 @Component({
-  selector: 'ngx-detail',
-  templateUrl: './detail.component.html',
-  styleUrls: ['./detail.component.scss']
+  selector: "ngx-detail",
+  templateUrl: "./detail.component.html",
+  styleUrls: ["./detail.component.scss"],
 })
-export class DetailComponent implements  OnInit {
-  @Output() save:EventEmitter<any> = new EventEmitter();
-  value;
-  @Input() rowData: any;
-
-  constructor() { }
+export class DetailComponent implements OnInit, ICellRendererAngularComp {
+  private params: any;
+  active; //  是否启用
+  constructor() {}
 
   ngOnInit(): void {
-    // console.log("详情：-----》", this.value)
+    if (this.params.node.data.active === 1) {
+      this.active = "是";
+    } else {
+      this.active = "否";
+    }
   }
 
-  // 详情！
-  getodetail(){
-    alert("详情！")
+  agInit(params: any): void {
+    this.params = params;
   }
-
+  refresh(): boolean {
+    return false;
+  }
 }

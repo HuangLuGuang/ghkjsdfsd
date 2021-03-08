@@ -691,8 +691,8 @@ export class AssetsManageComponent implements OnInit {
     rowDatas.forEach((rowdata) => {
       var deviceid = rowdata["deviceid"];
       var devicename = rowdata["devicename"];
-      var imei = rowdata["imei"];
-      var sim = rowdata["sim"];
+      var imei = String(rowdata["imei"]);
+      var sim = String(rowdata["sim"]);
       var belonged = rowdata["belonged"];
       var location = rowdata["location"];
       var createdby = rowdata["createdby"];
@@ -836,9 +836,11 @@ export class AssetsManageComponent implements OnInit {
     if (verify_sql_str != 1) {
       return verify_sql_str;
     }
+
     if (createdby.length > 50) {
       return "创建人最大长度不超过50！";
     }
+
     return 1; // 返回1，表示 通过验证！
   }
 

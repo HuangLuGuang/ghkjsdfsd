@@ -33,13 +33,14 @@ import { DailyTargetDurationComponent } from './tongji/target-hour-config/daily-
 import { DeviceStatusInfoComponent } from './andon-man-hour/device-status-info/device-status-info.component';
 import { SetWeilanComponent } from './gps/set-weilan/set-weilan.component';
 import { AddEditGpsComponent } from './gps/add-edit-gps/add-edit-gps.component';
+import { LiftMachineComponent } from './lift-machine/lift-machine.component';
 
 
 // DateComponent
 @NgModule({
   declarations: [PagesPopupsComponent, RoleComponent, 
     MySelectComponent, UserEmployeeComponent,  
-    UserEmployeeGroupComponent, EditDelTooltipComponent, DeviceManageComponent, PreinstallDialogComponent,  ExpiredTokenComponent, NewMenuComponent, ChangePassowrdForallComponent, TargetHourConfigComponent, AddComponent, GroupDevicesComponent, EditComponent, DailyTargetDurationComponent, DeviceStatusInfoComponent, SetWeilanComponent, AddEditGpsComponent,  
+    UserEmployeeGroupComponent, EditDelTooltipComponent, DeviceManageComponent, PreinstallDialogComponent,  ExpiredTokenComponent, NewMenuComponent, ChangePassowrdForallComponent, TargetHourConfigComponent, AddComponent, GroupDevicesComponent, EditComponent, DailyTargetDurationComponent, DeviceStatusInfoComponent, SetWeilanComponent, AddEditGpsComponent, LiftMachineComponent,  
   ],
   imports: [
     CommonModule,

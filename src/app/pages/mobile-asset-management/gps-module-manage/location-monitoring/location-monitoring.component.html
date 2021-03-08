@@ -27,19 +27,21 @@
                             </div>
                             <div class="col-md-4 devicenumbers">
                                 <div>
-                                    <h4>当前在线数量</h4>
+                                    <h4>在线数量</h4>
                                     <p id="numbersonline"></p>
                                 </div>
                             </div>
                             <div class="col-md-4 devicenumbers">
                                 <div>
-                                    <h4>当前异常数量</h4>
+                                    <h4>异常数量</h4>
                                     <p id="numbersoffline"></p>
                                 </div>
                             </div>
                         </div>
 
-                        <div class="row" style="margin: 0px -10px  0px 10px;">
+                        <div class="row" style="margin: 0px -10px  0px 10px;position: relative;">
+                            <!-- 当前设备状态统计 -->
+                            <span class="curr_device_status_tongji">当前设备状态统计</span>
                             <div class="col-md-4">
                                 <!-- pie -->
                                 <div id="devicepie"></div>
@@ -79,9 +81,9 @@
                                 <div class="example-items-rows button_item query" *ngIf="button?.query">
                                     <button nbButton [status]="button?.query.class" size="small" (click)="action(button?.query.permission)"  [disabled]="button?.query.active == 0? true:false"><nb-icon [icon]="button?.query.icon"></nb-icon>{{button?.query.title}}</button>
                                 </div>
-                                <!-- 一键盘点 -->
+                                <!-- 一键盘点  异常设备 -->
                                 <div class="example-items-rows button_item query" *ngIf="button?.query">
-                                    <button nbButton status="info" size="small" (click)="check()"  >一键盘点</button>
+                                    <button nbButton status="info" size="small" (click)="check()"  >异常设备</button>
                                 </div>
 
                                 

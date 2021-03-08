@@ -47,6 +47,14 @@
   border-color: rgba(69, 144, 132, 0.08);
 }
 
+// 鼠标选中，复制cell中的值！
+.ag-cell{
+    user-select: initial; 
+    -moz-user-select: text; 
+    -ms-user-select: text; 
+    -webkit-user-select: text;
+}
+
 
 // install the framework and custom global styles
 @include nb-install() {

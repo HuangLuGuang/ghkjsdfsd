@@ -8,7 +8,7 @@ let gpskpi = {
       //   color: ["#5470c6", "#91cc75"],
       color: ["#5D920D", "#FF4E0D"], // 在线、异常
       title: {
-        text: "在线、异常设备饼状图",
+        // text: "在线、异常设备饼状图",
         left: "center",
         top: 20,
       },
@@ -68,7 +68,7 @@ let gpskpi = {
       color: ["#5D920D", "#FF4E0D"], // 在线、异常
       title: {
         // text: "一周在线设备柱状图",
-        text: data.text,
+        // text: data.text,
         left: "center",
         top: 20,
       },
