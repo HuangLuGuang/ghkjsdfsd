@@ -143,54 +143,49 @@ export class MapComponent implements OnInit {
 
   ngAfterViewInit() {
     setTimeout(() => {
-      // console.error("++++++++000000++++++++", this.is_map_api);
+      // console.warn("++++++++000000++++++++", this.is_map_api);
       if (this.is_map_api) {
         // 初始化地图
         mapjs.initmap("map_map", map_init_point);
+
+        // 初始化离线的设备！
+        // mapjs.initnoinline(this.noinlinedatas_list[1]);
+
+        // 初始化在线的设备
+        // mapjs.initinline(this.noinlinedatas_list[0]);
+
+        // 初始化其它的设备
+        // mapjs.initother(this.noinlinedatas_list[2]);
+
         // 添加地图控件=地图类型+ 缩放图控件
         mapjs.addmapCtrlType();
+
+        // 添加测距
+        // mapjs.ranging();
+
+        // 添加报警控件
+        // mapjs.alert();
+
+        // 20s后刷新
+        var refresh_time = 20;
+        this.refreshInterval = setInterval(() => {
+          refresh_time -= 1;
+          if (refresh_time === 0) {
+            refresh_time = 20;
+            // 执行刷新函数！及初始化全部小车,全部的小车包含了可能点击的小车，
+            // 告诉父组件，让父组件去调用init_show_all初始化小车！
+            // this.isno_refresh.emit(true);
+          }
+
+          mapjs.refresh(refresh_time);
+          // mapjs.refresh(refresh_time);
+        }, 1000);
+
+        // mapjs.refresh(refresh_time);
+        // 点击获取点击的经纬度
+        // mapjs.hitgit_lng_lat()
       }
     }, 1000);
-    // 初始化地图
-    // mapjs.initmap("map_map", map_init_point);
-
-    // 初始化离线的设备！
-    // mapjs.initnoinline(this.noinlinedatas_list[1]);
-
-    // 初始化在线的设备
-    // mapjs.initinline(this.noinlinedatas_list[0]);
-
-    // 初始化其它的设备
-    // mapjs.initother(this.noinlinedatas_list[2]);
-
-    // 添加地图控件=地图类型+ 缩放图控件
-    // mapjs.addmapCtrlType();
-
-    // 添加测距
-    // mapjs.ranging();
-
-    // 添加报警控件
-    // mapjs.alert();
-
-    // 20s后刷新
-    var refresh_time = 20;
-    this.refreshInterval = setInterval(() => {
-      refresh_time -= 1;
-      if (refresh_time === 0) {
-        refresh_time = 20;
-        // 执行刷新函数！及初始化全部小车,全部的小车包含了可能点击的小车，
-        // 告诉父组件，让父组件去调用init_show_all初始化小车！
-        // this.isno_refresh.emit(true);
-      }
-      if (this.is_map_api) {
-        mapjs.refresh(refresh_time);
-      }
-      // mapjs.refresh(refresh_time);
-    }, 1000);
-
-    // mapjs.refresh(refresh_time);
-    // 点击获取点击的经纬度
-    // mapjs.hitgit_lng_lat()
   }
 
   ngOnDestroy() {

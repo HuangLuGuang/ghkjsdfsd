@@ -417,7 +417,7 @@ export class LocationMonitoringComponent implements OnInit {
   // select 选择的关注的时间段
   my_date_select(my_date_select) {
     if (my_date_select != "") {
-      // console.log("选择的关注的时间段----->", my_date_select);
+      console.log("选择的关注的时间段----->", my_date_select);
       this.query();
     }
   }
@@ -425,7 +425,7 @@ export class LocationMonitoringComponent implements OnInit {
   // select 选择的关注的类别
   selectvalue(selectvalue) {
     if (selectvalue != "" || selectvalue === 0) {
-      // console.log("选择的关注的类别----->", selectvalue);
+      console.log("选择的关注的类别----->", selectvalue);
       this.query();
     }
   }
@@ -550,9 +550,8 @@ export class LocationMonitoringComponent implements OnInit {
         // *******************************
         // 初始化得到的gps，在map地图上展示！
         setTimeout(() => {
-          if (this.is_map_api) {
-            this.init_show_all(message);
-          }
+          // console.error("++++++++++++++++", this.is_map_api);
+          this.init_show_all(message);
         }, 500);
         // this.init_show_all(message);
 
@@ -606,6 +605,7 @@ export class LocationMonitoringComponent implements OnInit {
 
   // 调用子组件map，上的 init_show_all，初始化小车！
   init_show_all(message: any[]) {
+    console.warn("+++++++++++++", this.is_map_api);
     if (this.is_map_api) {
       // 清除map地图上的所有的覆盖物
       this.map.clearOverlay();
@@ -614,7 +614,6 @@ export class LocationMonitoringComponent implements OnInit {
         item["lng_lat"] = item["latlon"].split(",");
       });
       this.map.init_show_all(message_list);
-      // console.error("初始化小车的数据格式：", message_list);
     }
   }
 
@@ -713,7 +712,7 @@ export class LocationMonitoringComponent implements OnInit {
   // 点击设备在map上展示设备信息,子组件调用
   // 得到的，选中的行，数据 array
   selectedrow(event) {
-    // console.log("--点击设备在map上展示设备信息---", event, this.is_map_api);
+    console.log("--点击设备在map上展示设备信息---", event, this.is_map_api);
     if (event.length > 0) {
       var imei = event[0]["imei"];
       if (this.is_map_api) {

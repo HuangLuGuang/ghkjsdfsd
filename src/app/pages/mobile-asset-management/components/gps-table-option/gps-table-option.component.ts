@@ -30,7 +30,7 @@ export class GpsTableOptionComponent
   isactive() {
     var button_lists = JSON.parse(localStorage.getItem("buttons_list"));
     var button_list = {};
-    if (button_list) {
+    if (button_lists) {
       if (button_lists["edit"]) {
         button_list["edit"] =
           button_lists["edit"]["active"] === 1 ? true : false;
