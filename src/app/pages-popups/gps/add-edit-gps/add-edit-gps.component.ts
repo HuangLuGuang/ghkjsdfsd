@@ -204,6 +204,7 @@ export class AddEditGpsComponent implements OnInit {
           belonged: "", // 负责人
           location: "", // 存放地点
           createdby: name, // 创建人
+          lastupdatedby: name, // 更新人
           active: 0, // 是否启用
           isfavor: 0, // 是否关注
         };
@@ -217,7 +218,6 @@ export class AddEditGpsComponent implements OnInit {
         formdata.sim = data.field.sim;
         formdata.belonged = data.field.belonged;
         formdata.location = data.field.location;
-        formdata.createdby = data.field.createdby;
 
         if (data.field.active != undefined) {
           formdata.active = Number(data.field.active);
@@ -225,7 +225,7 @@ export class AddEditGpsComponent implements OnInit {
         if (data.field.isfavor != undefined) {
           formdata.isfavor = Number(data.field.isfavor);
         }
-        console.error("监听表单的提交", formdata);
+        // console.error("监听表单的提交", formdata);
 
         // 判断是 新增还是编辑
         if (content) {
@@ -340,6 +340,7 @@ interface FormData {
   belonged: string; // 负责人
   location: string; // 存放地点
   createdby: string; // 创建人
+  lastupdatedby: string; // 更新人
   active: Number; // 是否启用
   isfavor: Number; // 是否关注
   id?: number; // ID

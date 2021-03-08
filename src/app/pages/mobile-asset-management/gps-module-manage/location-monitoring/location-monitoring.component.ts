@@ -17,6 +17,8 @@ export interface Group {
 // let gpsdevice = require("../../../../assets/pages/mobile-asset-management/js/gps_kpi");
 let gpsdevice = require("../../../../../assets/pages/mobile-asset-management/js/gps_kpi");
 
+declare let Ping;
+
 @Component({
   selector: "ngx-location-monitoring",
   templateUrl: "./location-monitoring.component.html",
@@ -189,13 +191,14 @@ export class LocationMonitoringComponent implements OnInit {
         headerName: "SIM号",
         resizable: true,
         sortable: true,
-        width: 130,
+        width: 150,
       },
       {
         field: "gpstype",
         headerName: "定位类型",
         resizable: true,
         sortable: true,
+        width: 100,
       },
       {
         field: "latlon",
@@ -274,6 +277,9 @@ export class LocationMonitoringComponent implements OnInit {
   // 抽屉
   visible = false;
 
+  // map api是否加载了
+  is_map_api = false;
+
   constructor(
     private userinfo: UserInfoService,
     private publicservice: PublicmethodService,
@@ -283,6 +289,27 @@ export class LocationMonitoringComponent implements OnInit {
   ) {
     // 会话过期
     localStorage.removeItem("alert401flag");
+
+    var p = new Ping();
+    var that = this;
+    p.ping("https://api.map.baidu.com", function (err, data) {
+      if (err) {
+        // console.error("error loading resource>>>", err);
+      } else {
+        // console.error("data loading resource>>>", data);
+        that.is_map_api = true;
+        if (!document.getElementById("is_map_api")) {
+          // 动态创建script元素
+          var body = document.getElementsByTagName("body")[0];
+          var bodysrcipt = document.createElement("script");
+          bodysrcipt.type = "text/javascript";
+          bodysrcipt.src =
+            "https://api.map.baidu.com/api?v=2.0&ak=4TBS12lmsagsuOBKhPTx3QQGbp19Y78Q&callback=initialize";
+          bodysrcipt.id = "is_map_api";
+          body.appendChild(bodysrcipt);
+        }
+      }
+    });
   }
 
   ngOnInit(): void {
@@ -390,7 +417,7 @@ export class LocationMonitoringComponent implements OnInit {
   // select 选择的关注的时间段
   my_date_select(my_date_select) {
     if (my_date_select != "") {
-      console.log("选择的关注的时间段----->", my_date_select);
+      // console.log("选择的关注的时间段----->", my_date_select);
       this.query();
     }
   }
@@ -398,7 +425,7 @@ export class LocationMonitoringComponent implements OnInit {
   // select 选择的关注的类别
   selectvalue(selectvalue) {
     if (selectvalue != "" || selectvalue === 0) {
-      console.log("选择的关注的类别----->", selectvalue);
+      // console.log("选择的关注的类别----->", selectvalue);
       this.query();
     }
   }
@@ -522,7 +549,12 @@ export class LocationMonitoringComponent implements OnInit {
 
         // *******************************
         // 初始化得到的gps，在map地图上展示！
-        this.init_show_all(message);
+        setTimeout(() => {
+          if (this.is_map_api) {
+            this.init_show_all(message);
+          }
+        }, 500);
+        // this.init_show_all(message);
 
         // *******************************
       } else {
@@ -574,15 +606,16 @@ export class LocationMonitoringComponent implements OnInit {
 
   // 调用子组件map，上的 init_show_all，初始化小车！
   init_show_all(message: any[]) {
-    // 清除map地图上的所有的覆盖物
-    this.map.clearOverlay();
-
-    var message_list = Object.assign([], message);
-    message_list.forEach((item) => {
-      item["lng_lat"] = item["latlon"].split(",");
-    });
-    this.map.init_show_all(message_list);
-    // console.error("初始化小车的数据格式：", message_list);
+    if (this.is_map_api) {
+      // 清除map地图上的所有的覆盖物
+      this.map.clearOverlay();
+      var message_list = Object.assign([], message);
+      message_list.forEach((item) => {
+        item["lng_lat"] = item["latlon"].split(",");
+      });
+      this.map.init_show_all(message_list);
+      // console.error("初始化小车的数据格式：", message_list);
+    }
   }
 
   // 更新table
@@ -634,8 +667,12 @@ export class LocationMonitoringComponent implements OnInit {
 
   // 刷新table
   refresh_table() {
-    // 清除map地图上的所有的覆盖物
-    this.map.clearOverlay();
+    setTimeout(() => {
+      if (this.is_map_api) {
+        // 清除map地图上的所有的覆盖物
+        this.map.clearOverlay();
+      }
+    }, 500);
 
     // 取消选择的数据 delselect
     this.myinput.del_input_value(); // input
@@ -676,49 +713,55 @@ export class LocationMonitoringComponent implements OnInit {
   // 点击设备在map上展示设备信息,子组件调用
   // 得到的，选中的行，数据 array
   selectedrow(event) {
-    // console.log("--点击设备在map上展示设备信息---", event);
-    var imei = event[0]["imei"];
-    this.map.show_info_in_map(event);
+    // console.log("--点击设备在map上展示设备信息---", event, this.is_map_api);
+    if (event.length > 0) {
+      var imei = event[0]["imei"];
+      if (this.is_map_api) {
+        this.map.show_info_in_map(event);
+      }
 
-    // 测试，点击行时，展示折线
-    var latlon = {
-      "110003115": [
-        "121.32290099,30.33020277,2021-03-01 09:10:48",
-        "121.32250099,30.32020277,2021-03-02 09:10:48",
-        "121.38210099,30.30020277,2021-03-03 09:10:48",
-      ],
-      "110003116": [
-        "121.32260099, 30.33020334,2021-03-04 09:10:48",
-        "121.31210099,30.30980277,2021-03-05 09:10:48",
-        "121.36170099,30.28080277,2021-03-06 09:10:48",
-      ],
-      "110003117": [
-        "121.32290099,30.32980277,2021-03-07 09:10:48",
-        "121.32250099,30.32010877,2021-03-08 09:10:48",
-        "121.38210099,30.30019877,2021-03-09 09:10:48",
-      ],
-    };
+      // 测试，点击行时，展示折线
+      var latlon = {
+        "110003115": [
+          "121.32290099,30.33020277,2021-03-01 09:10:48",
+          "121.32250099,30.32020277,2021-03-02 09:10:48",
+          "121.38210099,30.30020277,2021-03-03 09:10:48",
+        ],
+        "110003116": [
+          "121.32260099, 30.33020334,2021-03-04 09:10:48",
+          "121.31210099,30.30980277,2021-03-05 09:10:48",
+          "121.36170099,30.28080277,2021-03-06 09:10:48",
+        ],
+        "110003117": [
+          "121.32290099,30.32980277,2021-03-07 09:10:48",
+          "121.32250099,30.32010877,2021-03-08 09:10:48",
+          "121.38210099,30.30019877,2021-03-09 09:10:48",
+        ],
+      };
 
-    var columns = {
-      imei: imei,
-      offset: 0, // 开始位置
-      limit: 10, // 总条数
-    };
-    this.http
-      .callRPC(this.TABLE, this.METHDOHISTROY, columns)
-      .subscribe((result) => {
-        var resdata = result["result"]["message"][0];
-        if (resdata["code"] === 1) {
-          var message = result["result"]["message"][0]["message"];
-          var handle_history_for_line = this.handle_history_for_line(message);
-          // console.error(
-          //   "handle_history_for_line**************************",
-          //   handle_history_for_line
-          // );
-          this.map.hit_to_show_line(handle_history_for_line);
-        } else {
-        }
-      });
+      var columns = {
+        imei: imei,
+        offset: 0, // 开始位置
+        limit: 10, // 总条数
+      };
+      this.http
+        .callRPC(this.TABLE, this.METHDOHISTROY, columns)
+        .subscribe((result) => {
+          var resdata = result["result"]["message"][0];
+          if (resdata["code"] === 1) {
+            var message = result["result"]["message"][0]["message"];
+            var handle_history_for_line = this.handle_history_for_line(message);
+            // console.error(
+            //   "handle_history_for_line**************************",
+            //   handle_history_for_line
+            // );
+            if (this.is_map_api) {
+              this.map.hit_to_show_line(handle_history_for_line);
+            }
+          } else {
+          }
+        });
+    }
 
     // this.map.hit_to_show_line(latlon[event[0]["deviceid"]]);
   }
@@ -798,7 +841,7 @@ export class LocationMonitoringComponent implements OnInit {
     var date1 = new Date();
     var date2 = new Date(date1);
     //-30为30天前，+30可以获得30天后的日期
-    date2.setDate(date1.getDate() - 30);
+    date2.setDate(date1.getDate() - 7);
     return {
       starttime: this.datepip.transform(date2, "yyyy-MM-dd"),
       endtime: this.datepip.transform(date1, "yyyy-MM-dd"),

@@ -17,6 +17,7 @@ import { Device } from "../../../pages-popups/lift-machine/form_verification";
 import * as XLSX from "xlsx";
 import { DetailComponent } from "./detail/detail.component";
 import { Observable } from "rxjs";
+import { TableGroupComponent } from "../../tongji/components/table-group/table-group.component";
 type AOA = any[][];
 
 @Component({
@@ -81,12 +82,20 @@ export class DeviceKpiTongjiComponent implements OnInit {
         resizable: true,
         sortable: true,
       },
-      { field: "groups", headerName: "科室", resizable: true, sortable: true },
+      {
+        field: "groups",
+        headerName: "科室",
+        resizable: true,
+        sortable: true,
+        cellRendererFramework: TableGroupComponent,
+        width: 300,
+      },
       {
         field: "belonged",
         headerName: "负责人",
         resizable: true,
         sortable: true,
+        width: 150,
       },
       {
         field: "createdon",
@@ -151,7 +160,7 @@ export class DeviceKpiTongjiComponent implements OnInit {
     // 得到pathname --在得到button
     var roleid = this.userinfo.getEmployeeRoleID();
     this.publicservice.get_buttons_bypath(roleid).subscribe((result) => {
-      console.log("result>>>>>>", result);
+      // console.log("result>>>>>>", result);
       this.button = result;
       localStorage.setItem("buttons_list", JSON.stringify(result));
     });
@@ -170,7 +179,7 @@ export class DeviceKpiTongjiComponent implements OnInit {
       cellRendererFramework: DeviceKpiTongjiOptionComponent,
       cellRendererParams: {
         clicked: function (data: any) {
-          console.log("--添加操作列---", data);
+          // console.log("--添加操作列---", data);
           if (data["active"] === "edit") {
             that.edit([data["data"]]);
           } else {
@@ -238,7 +247,7 @@ export class DeviceKpiTongjiComponent implements OnInit {
   // input 传入的值
   inpuvalue(inpuvalue) {
     if (inpuvalue != "") {
-      console.log("传入的值设备名称----->", inpuvalue);
+      // console.log("传入的值设备名称----->", inpuvalue);
       // this.query(inpuvalue);
       this.query();
     }
@@ -299,7 +308,7 @@ export class DeviceKpiTongjiComponent implements OnInit {
                 item["id"] = element["id"];
                 id_list.push(item);
               });
-              console.error("删除>>", id_list);
+              // console.error("删除>>", id_list);
               this.http
                 .callRPC(this.TABLE, this.DELMETHOD, id_list)
                 .subscribe((result) => {
@@ -346,7 +355,7 @@ export class DeviceKpiTongjiComponent implements OnInit {
     } else {
       rowdata = this.agGrid.getselectedrows();
     }
-    console.log("编辑：行数据>>", rowdata);
+    // console.log("编辑：行数据>>", rowdata);
 
     if (rowdata.length === 0) {
       this.dialogService
@@ -391,7 +400,7 @@ export class DeviceKpiTongjiComponent implements OnInit {
   query() {
     // var asset_number_data = this.myinput.getinput();
     var inittable_before = this.inittable_before();
-    console.log("<------------搜索----------->", inittable_before);
+    // console.log("<------------搜索----------->", inittable_before);
     var offset = 0;
     var limit = inittable_before.limit;
     var PageSize = inittable_before.limit;
@@ -630,11 +639,11 @@ export class DeviceKpiTongjiComponent implements OnInit {
         }
       });
 
-      console.error("++++++++++++++++++++++rowData", rowData);
+      // console.error("++++++++++++++++++++++rowData", rowData);
 
       var verify_err = [];
       var verify_after = this.verify_rowdatas(rowData, verify_err); // 验证后的数据 得到的是验证的 错误信息！
-      console.error("++++++++++++++++++++++verify_after", verify_after);
+      // console.error("++++++++++++++++++++++verify_after", verify_after);
       if (verify_after.length > 0) {
         this.verify_import(verify_after);
         this.RecordOperation("导入举升机设备", 0, JSON.stringify(verify_after));

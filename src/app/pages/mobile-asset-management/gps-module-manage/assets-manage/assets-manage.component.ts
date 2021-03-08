@@ -167,7 +167,7 @@ export class AssetsManageComponent implements OnInit {
       cellRendererFramework: GpsTableOptionComponent,
       cellRendererParams: {
         clicked: function (data: any) {
-          console.log("--添加操作列---", data);
+          // console.log("--添加操作列---", data);
           if (data["active"] === "edit") {
             that.edit([data["data"]]);
           } else {
@@ -300,7 +300,7 @@ export class AssetsManageComponent implements OnInit {
                 item["id"] = element["id"];
                 id_list.push(item);
               });
-              console.error("删除>>", id_list);
+              // console.error("删除>>", id_list);
               this.http
                 .callRPC(this.TABLE, this.DELMETHOD, id_list)
                 .subscribe((result) => {
@@ -343,7 +343,7 @@ export class AssetsManageComponent implements OnInit {
     } else {
       rowdata = this.agGrid.getselectedrows();
     }
-    console.log("编辑：行数据>>", rowdata);
+    // console.log("编辑：行数据>>", rowdata);
     if (rowdata.length === 0) {
       this.dialogService
         .open(EditDelTooltipComponent, {

@@ -30,15 +30,18 @@ export class GpsTableOptionComponent
   isactive() {
     var button_lists = JSON.parse(localStorage.getItem("buttons_list"));
     var button_list = {};
-    if (button_lists["edit"]) {
-      button_list["edit"] = button_lists["edit"]["active"] === 1 ? true : false;
-    } else {
-      button_list["edit"] = false;
-    }
-    if (button_lists["del"]) {
-      button_list["del"] = button_lists["del"]["active"] === 1 ? true : false;
-    } else {
-      button_list["del"] = false;
+    if (button_list) {
+      if (button_lists["edit"]) {
+        button_list["edit"] =
+          button_lists["edit"]["active"] === 1 ? true : false;
+      } else {
+        button_list["edit"] = false;
+      }
+      if (button_lists["del"]) {
+        button_list["del"] = button_lists["del"]["active"] === 1 ? true : false;
+      } else {
+        button_list["del"] = false;
+      }
     }
 
     if (button_list) {

@@ -9,6 +9,8 @@ let mapjs = require("../../../../../assets/pages/mobile-asset-management/js/my_m
 
 declare let $;
 
+declare let Ping;
+
 @Component({
   selector: "ngx-map",
   templateUrl: "./map.component.html",
@@ -123,11 +125,34 @@ export class MapComponent implements OnInit {
   refreshInterval: any;
   constructor(private dialogService: NbDialogService) {}
 
-  ngOnInit(): void {}
+  // map api是否加载了
+  is_map_api = false;
+
+  ngOnInit(): void {
+    var p = new Ping();
+    var that = this;
+    p.ping("https://api.map.baidu.com", function (err, data) {
+      if (err) {
+        // console.error("error loading resource>>>", err);
+        $("#map_map").text("无法请求百度api！请确保可以访问外网！");
+      } else {
+        that.is_map_api = true;
+      }
+    });
+  }
 
   ngAfterViewInit() {
+    setTimeout(() => {
+      // console.error("++++++++000000++++++++", this.is_map_api);
+      if (this.is_map_api) {
+        // 初始化地图
+        mapjs.initmap("map_map", map_init_point);
+        // 添加地图控件=地图类型+ 缩放图控件
+        mapjs.addmapCtrlType();
+      }
+    }, 1000);
     // 初始化地图
-    mapjs.initmap("map_map", map_init_point);
+    // mapjs.initmap("map_map", map_init_point);
 
     // 初始化离线的设备！
     // mapjs.initnoinline(this.noinlinedatas_list[1]);
@@ -139,7 +164,7 @@ export class MapComponent implements OnInit {
     // mapjs.initother(this.noinlinedatas_list[2]);
 
     // 添加地图控件=地图类型+ 缩放图控件
-    mapjs.addmapCtrlType();
+    // mapjs.addmapCtrlType();
 
     // 添加测距
     // mapjs.ranging();
@@ -157,7 +182,10 @@ export class MapComponent implements OnInit {
         // 告诉父组件，让父组件去调用init_show_all初始化小车！
         // this.isno_refresh.emit(true);
       }
-      mapjs.refresh(refresh_time);
+      if (this.is_map_api) {
+        mapjs.refresh(refresh_time);
+      }
+      // mapjs.refresh(refresh_time);
     }, 1000);
 
     // mapjs.refresh(refresh_time);

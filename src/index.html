@@ -77,6 +77,9 @@
     <!-- 鼠标实例 -->
     <script type="text/javascript" src="/assets/pages/mobile-asset-management/js/DistanceTool_min.js"></script>
 
+    <!-- ping-->
+    <script type="text/javascript" src="/assets/pages/mobile-asset-management/js/ping.min.js"></script>
+
     <!-- 路书-->
     <!-- <script type="text/javascript" src="/assets/pages/mobile-asset-management/js/LuShu_min.js"></script> -->
 
@@ -109,7 +112,27 @@
     <script src="/assets/pages/tongji/flatpickr/flatpickr.min.js" type="text/javascript"></script>
 
     <!--引入百度地图的jssdk，这里需要使用你在百度地图开发者平台申请的 ak &callback=initialize 異步加載 -->
-    <script type="text/javascript" src="https://api.map.baidu.com/api?v=2.0&ak=4TBS12lmsagsuOBKhPTx3QQGbp19Y78Q&callback=initialize"></script>
+    <!-- <script type="text/javascript" src="https://api.map.baidu.com/api?v=2.0&ak=4TBS12lmsagsuOBKhPTx3QQGbp19Y78Q&callback=initialize"></script> -->
+
+    <script>
+        var p = new Ping();
+        p.ping("https://api.map.baidu.com", function(err, data){
+            if (err){
+                console.error("error loading resource>>>", err)
+            }else{
+                if (!document.getElementById("is_map_api")) {
+                    // 动态创建script元素
+                    var body = document.getElementsByTagName('body')[0]
+                    var bodysrcipt = document.createElement('script')
+                    bodysrcipt.type = "text/javascript"
+                    bodysrcipt.src = "https://api.map.baidu.com/api?v=2.0&ak=4TBS12lmsagsuOBKhPTx3QQGbp19Y78Q&callback=initialize"
+                    bodysrcipt.id = "is_map_api";
+                    body.appendChild(bodysrcipt)
+
+                }
+            }
+        })
+    </script>
 
     <ngx-app>Loading...</ngx-app>
 
