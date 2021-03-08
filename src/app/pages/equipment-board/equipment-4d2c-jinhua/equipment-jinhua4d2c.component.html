@@ -23,8 +23,8 @@
                 <div class="part_title">{{'equipment.OnlineVideo'|translate}}</div>
                 <img id="img" [src]="img.url">
             </div>
-            <div class="backgrond height_33">
-                <div class="part_title">ATEC环境舱</div>
+            <div class="backgrond height_33" *ngIf="device_atec;else tempHum;">
+                <div class="part_title">环境舱</div>
                 <div class="atec">
                     <div class="atec_layout height_46">
                         <div class="round" [ngStyle]="{background:atec.status?'#66FF66':'black' }"></div>
@@ -39,6 +39,16 @@
                 </div>
 
             </div>
+            <ng-template #tempHum>
+                <div class="backgrond height_33" >
+                    <div class="part_title">温湿度</div>
+                    <div class="atec_layout w_100 height_50">
+                        <div id="atec_pie_5" class="height_100" style="width: 50%;"></div>
+                        <div id="atec_pie_6" class="height_100" style="width: 50%;"></div>
+                    </div>
+                    <div id="atec_line_3" class="w_100 height_50"></div>
+                </div>
+            </ng-template>
         </div>
         <div class="col-md-4" style="padding: 0px 20px 0px 0px;">
             <div class="backgrond height_45 flex">

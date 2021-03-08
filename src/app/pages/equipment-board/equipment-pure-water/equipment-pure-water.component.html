@@ -12,7 +12,7 @@
     </div>
     <div class="all">
 
-        <ng-container *ngFor="let key of object.keys(list)" [ngTemplateOutlet]="setTemp(list[key].type)" [ngTemplateOutletContext]="{ $implicit: list[key] }">
+        <ng-container *ngFor="let key of object.keys(list)" [ngTemplateOutlet]="this[list[key].type]" [ngTemplateOutletContext]="{ $implicit: list[key] }">
         </ng-container>
     </div>
 </div>

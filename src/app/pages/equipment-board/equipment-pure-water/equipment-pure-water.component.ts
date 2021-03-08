@@ -30,19 +30,19 @@ export class EquipmentPureWaterComponent implements OnInit {
     ysh:{
       type:'pull',//方
       sytle:{//定位
-        top:'27%',
-        left:'8%',
+        top:'25.6%',
+        left:'6%',
       },
       bcolor:'black',//颜色
       value:'高',
 
     },
-    //原水高位
+    //原水低位
     ysl:{
       type:'pull',//方
       sytle:{//定位
         top:'34.6%',
-        left:'8%',
+        left:'6%',
       },
       bcolor:'black',//颜色
       value:'低',
@@ -121,8 +121,8 @@ export class EquipmentPureWaterComponent implements OnInit {
     ph_l:{
       type:'pull',//方
       sytle:{//定位
-        top:'35%',
-        left:'72.5%',
+        top:'32%',
+        left:'71.3%',
       },
       bcolor:'black',//颜色
       value:'低',
@@ -161,8 +161,8 @@ export class EquipmentPureWaterComponent implements OnInit {
     ro_2_h:{
       type:'pull',//方
       sytle:{//定位
-        top:'78%',
-        left:'9.7%',
+        top:'80%',
+        left:'7.5%',
       },
       bcolor:'black',//颜色
       value:'高',
@@ -172,7 +172,7 @@ export class EquipmentPureWaterComponent implements OnInit {
       type:'pull',//方
       sytle:{//定位
         top:'89%',
-        left:'9.7%',
+        left:'7.5%',
       },
       bcolor:'black',//颜色
       value:'低',
@@ -217,22 +217,22 @@ export class EquipmentPureWaterComponent implements OnInit {
       bcolor:'black',//颜色
       value:'',
     },
-    // 超纯水箱高
+    // 超纯水箱
     ccsx_h:{
       type:'pull',//方
       sytle:{//定位
         top:'81%',
-        left:'59.6%',
+        left:'57.3%',
       },
       bcolor:'black',//颜色
       value:'高',
     },
-    // 超纯水箱高
+    // 超纯水箱低
     ccsx_l:{
       type:'pull',//方
       sytle:{//定位
         top:'90%',
-        left:'59.6%',
+        left:'57.3%',
       },
       bcolor:'black',//颜色
       value:'低',
@@ -396,10 +396,6 @@ export class EquipmentPureWaterComponent implements OnInit {
     });
   }
 
-  setTemp(type){
-    //判断view是否初始化完成  没完成钱返回undefined 不然angular监测机制会报错
-    return this.viewstatus?this[type]:undefined;
-  }
 
    //组件销毁
    ngOnDestroy(){

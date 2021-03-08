@@ -301,6 +301,11 @@ export class EquipmentMotorSixSevenComponent implements OnInit {
           if(chart)
             echarts.init(chart).resize();
         })
+        this.HealthParam_left.forEach(f=>{
+          chart = document.getElementById(f.id);
+          if(chart)
+            echarts.init(chart).resize();
+        });
         if(document.getElementById('dashboard_67'))
             echarts.init(document.getElementById('dashboard_67')).resize();
         if(document.getElementById('line_chart_12_67'))
