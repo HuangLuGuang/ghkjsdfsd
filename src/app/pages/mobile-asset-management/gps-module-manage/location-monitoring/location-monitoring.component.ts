@@ -290,7 +290,7 @@ export class LocationMonitoringComponent implements OnInit {
     // 会话过期
     localStorage.removeItem("alert401flag");
 
-    var p = new Ping();
+    var p = new Ping({ timeout: 10000 }); // 10s
     var that = this;
     p.ping("https://api.map.baidu.com", function (err, data) {
       if (err) {
