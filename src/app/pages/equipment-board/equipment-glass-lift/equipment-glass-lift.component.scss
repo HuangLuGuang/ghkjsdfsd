@@ -58,18 +58,22 @@
         width: 100%;
         .row_1 {
             width: 37%;
-            height: 30%;
+            height: 100%;
         }
         .left {
             float: left;
+            display: flex;
+            flex-wrap: wrap;
         }
         .right {
             float: right;
+            display: flex;
+            flex-wrap: wrap;
         }
     }
     .cabin_4_set {
         width: 100%;
-        height: 100%;
+        height: 47%;
         display: flex;
         flex-wrap: wrap;
         justify-content: center;
@@ -90,10 +94,22 @@
             white-space: nowrap;
         }
     }
+    .progress {
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 5%;
+        height: 78%;
+        margin-top: 12%;
+        margin-left: 5%;
+    }
     #sky_line_1,#sky_line_2{
         position: absolute;
         height: 85%;
         width: 90%;
+    }
+    .font-big{
+        font-weight: bold;
     }
     .part_title {
         position: absolute;

@@ -29,14 +29,17 @@ export class EquipmentAvlComponent implements OnInit {
         [0.4, '#203add'],
         [1, '#0d1758']],unit:'km/h'
       }
-    },{
-      id:'avl_gauge_3',
-      dataLine:{
-        value:12,name:'加速度',max:100,color:[
-        [0.4, '#203add'],
-        [1, '#0d1758']],unit:'m/s^2'
-      }
-    },{
+    },
+        // {
+    //   id:'avl_gauge_3',
+    //   dataLine:{
+    //     value:12,name:'加速度',max:100,color:[
+    //     [0.4, '#203add'],
+    //     [1, '#0d1758']],unit:'m/s^2'
+    //   }
+    // }
+    // ,
+    {
       id:'avl_gauge_4',
       dataLine:{
         value:12,name:'功率',max:100,color:[
@@ -54,10 +57,10 @@ export class EquipmentAvlComponent implements OnInit {
       name: "速度",nameEn :'速度', unit: "km/h",value: [],
       color:[colors[1], colors[1]]
     },
-    { 
-      name: "加速度",nameEn :'加速度', unit: "m/s^2",value: [],
-      color:[colors[2], colors[2]]
-    },
+    // { 
+    //   name: "加速度",nameEn :'加速度', unit: "m/s^2",value: [],
+    //   color:[colors[2], colors[2]]
+    // },
     { 
       name: "轮边功率",nameEn :'功率', unit: "Kw",value: [],
       color:[colors[3], colors[4]]
@@ -421,8 +424,8 @@ export class EquipmentAvlComponent implements OnInit {
         });
       this.avl_speed[0].dataLine.value = data.f||0;
       this.avl_speed[1].dataLine.value = data.v||0;
-      this.avl_speed[2].dataLine.value = data.a||0;
-      this.avl_speed[3].dataLine.value = data.p||0;
+      // this.avl_speed[2].dataLine.value = data.a||0;
+      this.avl_speed[2].dataLine.value = data.p||0;
 
       this.avl_speed.forEach(el=>{
         if(document.getElementById(el.id))
@@ -437,14 +440,14 @@ export class EquipmentAvlComponent implements OnInit {
   get_avl_speed_list(){
     let res,xdata:any = [],arr = this.avl_speed_chart;
     this.http.callRPC('device_realtime_list',library+'device_realtime_list',{
-      deviceid:this.deviceid_avl_speed,arr:'f,v,a,p'
+      deviceid:this.deviceid_avl_speed,arr:'f,v,p'
     }).subscribe((g:any)=>{
       if(g.result.error || g.result.message[0].code == 0)return;
       res = g.result.message[0].message;
       this.avl_speed_chart[0].value = res[0].f.map(m =>(m[0]));
       this.avl_speed_chart[1].value = res[1].v.map(m =>(m[0]));
-      this.avl_speed_chart[2].value = res[2].a.map(m =>(m[0]));
-      this.avl_speed_chart[3].value = res[3].p.map(m =>(m[0]));
+      // this.avl_speed_chart[2].value = res[2].a.map(m =>(m[0]));
+      this.avl_speed_chart[2].value = res[2].p.map(m =>(m[0]));
 
       let max_index = 0,max = [];
       for (let i = 0; i < res.length - 1; i++) {
@@ -533,7 +536,7 @@ export const environmental_param = [
 
 export const avl_speed_param = [
   'v',//速度
-  'a',//加速度
+  // 'a',//加速度
   'p',//功率
   'f',//牵引力
 ]

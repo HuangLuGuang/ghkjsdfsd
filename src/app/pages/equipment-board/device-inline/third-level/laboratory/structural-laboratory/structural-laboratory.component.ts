@@ -65,7 +65,7 @@ export class StructuralLaboratoryComponent implements OnInit {
     },
     {
       name:'玻璃升降系统',
-      src:'',//实验图片路径
+      src:'assets/eimdoard/equipment/images/slz.png',//实验图片路径
       andon:0,
       speed:[],
       speed_name:[''],//实验名称

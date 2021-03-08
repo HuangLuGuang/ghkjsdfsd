@@ -47,11 +47,11 @@ export class EquipmentXenonLampComponent implements OnInit {
     radioactivity2:20,
     attrs:[
       { 
-        name: "辐照度1",nameEn :'辐照度1', unit: "MJ/㎡",value: [],
+        name: "辐照度1",nameEn :'辐照度1', unit: "W/m^2",value: [],
         color:[colors[0], colors[0]]
       },
       { 
-        name: "辐照度2",nameEn :'辐照度2', unit: "MJ/㎡",value: [],
+        name: "辐照度2",nameEn :'辐照度2', unit: "W/m^2",value: [],
         color:[colors[1], colors[1]]
       },
     ],
@@ -85,11 +85,11 @@ export class EquipmentXenonLampComponent implements OnInit {
     radioactivity2:0,
     attrs:[
       { 
-        name: "辐照度1",nameEn :'辐照度1', unit: "MJ/㎡",value: [2,4,5,7,8],
+        name: "辐照度1",nameEn :'辐照度1', unit: "W/m^2",value: [2,4,5,7,8],
         color:[colors[0], colors[0]]
       },
       { 
-        name: "辐照度2",nameEn :'辐照度2', unit: "MJ/㎡",value: [2,4,5,7,8],
+        name: "辐照度2",nameEn :'辐照度2', unit: "W/m^2",value: [2,4,5,7,8],
         color:[colors[1], colors[1]]
       },
     ],
@@ -218,15 +218,15 @@ export class EquipmentXenonLampComponent implements OnInit {
           this.illuminance.radioactivity2 = data.tr_irradiance2|| 0;
           
           if(document.getElementById('pie_chart_1'))
-              equipment_four_road.create_motor_temperature({value:this.illuminance.power,title:'功率',unit:'P'},
+              equipment_four_road.create_motor_temperature({value:this.illuminance.power,title:'功率',unit:'kw'},
               echarts.init(document.getElementById('pie_chart_1')));
           
           if(document.getElementById('pie_chart_2'))
-              equipment_four_road.create_motor_temperature({value:this.illuminance.radioactivity1,title:'辐照度1',unit:'MJ/㎡'},
+              equipment_four_road.create_motor_temperature({value:this.illuminance.radioactivity1,title:'辐照度1',unit:'W/m^2'},
               echarts.init(document.getElementById('pie_chart_2')));
           
           if(document.getElementById('pie_chart_3'))
-              equipment_four_road.create_motor_temperature({value:this.illuminance.radioactivity2,title:'辐照度2',unit:'MJ/㎡'},
+              equipment_four_road.create_motor_temperature({value:this.illuminance.radioactivity2,title:'辐照度2',unit:'W/m^2'},
               echarts.init(document.getElementById('pie_chart_3')));
         });
       },10)
@@ -339,11 +339,11 @@ export class EquipmentXenonLampComponent implements OnInit {
               echarts.init(document.getElementById('pie_chart_4')));
 
           if(document.getElementById('pie_chart_5'))
-              equipment_four_road.create_motor_temperature({value:this.illuminance_4000.radioactivity1,title:'辐照度1',unit:'MJ/㎡'},
+              equipment_four_road.create_motor_temperature({value:this.illuminance_4000.radioactivity1,title:'辐照度1',unit:'W/m^2'},
               echarts.init(document.getElementById('pie_chart_5')));
 
           if(document.getElementById('pie_chart_6'))
-              equipment_four_road.create_motor_temperature({value:this.illuminance_4000.radioactivity2,title:'辐照度2',unit:'MJ/㎡'},
+              equipment_four_road.create_motor_temperature({value:this.illuminance_4000.radioactivity2,title:'辐照度2',unit:'W/m^2'},
               echarts.init(document.getElementById('pie_chart_6')));
         })
       }, 10);
@@ -429,11 +429,11 @@ export class EquipmentXenonLampComponent implements OnInit {
         echarts.init(document.getElementById('pie_chart_1')));
     
     if(document.getElementById('pie_chart_2'))
-        equipment_four_road.create_motor_temperature({value:this.illuminance.radioactivity1,title:'辐照度1',unit:'MJ/㎡'},
+        equipment_four_road.create_motor_temperature({value:this.illuminance.radioactivity1,title:'辐照度1',unit:'W/m^2'},
         echarts.init(document.getElementById('pie_chart_2')));
     
     if(document.getElementById('pie_chart_3'))
-        equipment_four_road.create_motor_temperature({value:this.illuminance.radioactivity2,title:'辐照度2',unit:'MJ/㎡'},
+        equipment_four_road.create_motor_temperature({value:this.illuminance.radioactivity2,title:'辐照度2',unit:'W/m^2'},
         echarts.init(document.getElementById('pie_chart_3')));
 
     // if(document.getElementById('line_chart_2')){
@@ -459,11 +459,11 @@ export class EquipmentXenonLampComponent implements OnInit {
         echarts.init(document.getElementById('pie_chart_4')));
 
     if(document.getElementById('pie_chart_5'))
-        equipment_four_road.create_motor_temperature({value:this.illuminance_4000.radioactivity1,title:'辐照度1',unit:'MJ/㎡'},
+        equipment_four_road.create_motor_temperature({value:this.illuminance_4000.radioactivity1,title:'辐照度1',unit:'W/m^2'},
         echarts.init(document.getElementById('pie_chart_5')));
 
     if(document.getElementById('pie_chart_6'))
-        equipment_four_road.create_motor_temperature({value:this.illuminance_4000.radioactivity2,title:'辐照度2',unit:'MJ/㎡'},
+        equipment_four_road.create_motor_temperature({value:this.illuminance_4000.radioactivity2,title:'辐照度2',unit:'W/m^2'},
         echarts.init(document.getElementById('pie_chart_6')));
 
     // if(document.getElementById('line_chart_3')){

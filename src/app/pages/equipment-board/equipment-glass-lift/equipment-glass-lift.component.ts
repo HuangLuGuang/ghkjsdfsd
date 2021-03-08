@@ -53,7 +53,7 @@ export class EquipmentGlassLiftComponent implements OnInit {
       },
       { 
         name: "工位4-上升电流",nameEn :'工位4-上升电流', unit: "A",value: [],
-        color:[colors[3], colors[3]]
+        color:[colors[4], colors[4]]
       },
     ],
     xdata:[]
@@ -71,11 +71,11 @@ export class EquipmentGlassLiftComponent implements OnInit {
       },
       { 
         name: "工位3-升降器电压",nameEn :'工位3-升降器电压', unit: "V",value: [],
-        color:[colors[0], colors[0]]
+        color:[colors[2], colors[2]]
       },
       { 
         name: "工位4-升降器电压",nameEn :'工位4-升降器电压', unit: "V",value: [],
-        color:[colors[1], colors[1]]
+        color:[colors[4], colors[4]]
       },
     ],
     xdata:[]
@@ -145,6 +145,7 @@ export class EquipmentGlassLiftComponent implements OnInit {
     let i = 0;
     this.timer = setInterval(()=>{
       this.get_atec_temp();
+      this.get_sky();
       if(i%60==0){
         this.get_atec_temp_list();
         setTimeout(() => {
@@ -163,7 +164,8 @@ export class EquipmentGlassLiftComponent implements OnInit {
     setTimeout(() => {
       [
         'cabin_pie_1','cabin_pie_2','cabin_line_1',
-        'sky_line_1','sky_line_2'
+        'sky_line_1','sky_line_2','progress_1',
+        'progress_2','progress_3','progress_4',
       ].forEach(f=>{
         let chart = document.getElementById(f);
         if(chart)echarts.init(chart).resize();
@@ -236,6 +238,28 @@ export class EquipmentGlassLiftComponent implements OnInit {
     });
   }
 
+  get_sky(){
+    let res;
+    this.http.callRPC('get_sky_rate',library+'get_sky_rate',
+    {"deviceid":this.deviceid_sky}).subscribe((g:any)=>{
+      if(g.result.error || g.result.message[0].code == 0)return;
+      res = g.result.message[0];
+      this.sky_rate.one = res.results_data01[0];
+      this.sky_rate.two = res.results_data02[0];
+      this.sky_rate.three = res.results_data03[0];
+      this.sky_rate.four = res.results_data04[0];
+      if(document.getElementById('progress_1'))
+          equipment_four_road.progress({plan:100,now:this.sky_rate.one.rate ||0},echarts.init(document.getElementById('progress_1')));
+      if(document.getElementById('progress_2'))
+          equipment_four_road.progress({plan:100,now:this.sky_rate.two.rate ||0},echarts.init(document.getElementById('progress_2')));
+      if(document.getElementById('progress_3'))
+          equipment_four_road.progress({plan:100,now:this.sky_rate.three.rate ||0},echarts.init(document.getElementById('progress_3')));
+      if(document.getElementById('progress_4'))
+          equipment_four_road.progress({plan:100,now:this.sky_rate.four.rate ||0},echarts.init(document.getElementById('progress_4')));
+
+
+    })
+  }
 
   get_sky_list(){
     this.http.callRPC('device_realtime_list',library+'device_realtime_list',{
@@ -243,7 +267,7 @@ export class EquipmentGlassLiftComponent implements OnInit {
     }).subscribe((f:any)=>{
       if(f.result.error || f.result.message[0].code == 0)return;
       let res = f.result.message[0].message||[];
-      let xdata = [],key='',index = 0;
+      let xdata = [],key='station1_rise_current',index = 0,length = 0;
       res.forEach((el,i) => {
         for(let k in el){
           if(length < el[k].length){
@@ -264,13 +288,13 @@ export class EquipmentGlassLiftComponent implements OnInit {
       }, 20);
 
 
-      this.current.attrs[0].value = res[4].station1_lifter_voltage.map(m => (m[0]|| 0));
-      this.current.attrs[1].value = res[5].station2_lifter_voltage.map(m => (m[0]|| 0));
-      this.current.attrs[2].value = res[6].station3_lifter_voltage.map(m => (m[0]|| 0));
-      this.current.attrs[3].value = res[7].station4_lifter_voltage.map(m => (m[0]|| 0));
+      this.voltage.attrs[0].value = res[4].station1_lifter_voltage.map(m => (m[0]|| 0));
+      this.voltage.attrs[1].value = res[5].station2_lifter_voltage.map(m => (m[0]|| 0));
+      this.voltage.attrs[2].value = res[6].station3_lifter_voltage.map(m => (m[0]|| 0));
+      this.voltage.attrs[3].value = res[7].station4_lifter_voltage.map(m => (m[0]|| 0));
 
       if(document.getElementById('sky_line_2')){
-        equipment_four_road.create_real_discharge({attrs:this.current.attrs,xData:xdata},echarts.init(document.getElementById('sky_line_2')));
+        equipment_four_road.create_real_discharge({attrs:this.voltage.attrs,xData:xdata},echarts.init(document.getElementById('sky_line_2')));
       }
 
     })
@@ -279,10 +303,14 @@ export class EquipmentGlassLiftComponent implements OnInit {
 
   ngOnDestroy(){
     clearInterval(this.timer);
+    for(let key in this.subscribeList){
+      this.subscribeList[key].unsubscribe();
+     }
     let chart;
     [
       'cabin_pie_1','cabin_pie_2','cabin_line_1',
-      
+      'sky_line_1','sky_line_2','progress_1',
+      'progress_2','progress_3','progress_4',
     ].forEach(f=>{
       chart = document.getElementById(f);
       if(chart)echarts.init(chart).dispose();

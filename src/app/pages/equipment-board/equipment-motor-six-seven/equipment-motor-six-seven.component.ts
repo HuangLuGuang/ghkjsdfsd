@@ -393,15 +393,15 @@ export class EquipmentMotorSixSevenComponent implements OnInit {
       this.threePhase_attrs[2].value = res[2].prms4.map(m =>(m[0]));
 
       if(this.threePhase_attrs[0].value.length>this.threePhase_attrs[1].value.length){
-        this.threePhase_xData = res[0].urms4.map(m =>(m[1]));
+        this.threePhase_xData = res[0].urms4.map(m =>(dateformat(new Date(rTime(m[1])),'hh:mm:ss')));
       }else if(this.threePhase_attrs[1].value.length>this.threePhase_attrs[2].value.length){
-        this.threePhase_xData = res[1].irms4.map(m =>(m[1]));
+        this.threePhase_xData = res[1].irms4.map(m =>(dateformat(new Date(rTime(m[1])),'hh:mm:ss')));
       }else{
-        this.threePhase_xData = res[2].prms4.map(m =>(m[1]));
+        this.threePhase_xData = res[2].prms4.map(m =>(dateformat(new Date(rTime(m[1])),'hh:mm:ss')));
       }
       
       if(chart)
-        equipment_four_road.create_real_discharge({attrs:this.threePhase_attrs,xData:this.threePhase_xData,title:'三相电压电流(U/V/W)'},echarts.init(chart));
+        equipment_four_road.create_real_discharge({attrs:this.threePhase_attrs,xData:this.threePhase_xData,title:'直流电压/电流/功率'},echarts.init(chart));
     })
   }
 
@@ -553,7 +553,7 @@ export class EquipmentMotorSixSevenComponent implements OnInit {
           max = max < res[i+1] ? res[i+1] : max
       }
       max = Object.values(max)
-      this.HealthParam_left_xdata = max[0].map(m => m[1]);
+      this.HealthParam_left_xdata = max[0].map(m => dateformat(new Date(rTime(m[1])),'hh:mm:ss'));
 
       if(document.getElementById('motor_chart_1'))
           equipment_four_road.create_real_discharge(
@@ -651,9 +651,11 @@ export const boyang_param = [
   'urms2',//v向电压
   'irms2',//v向电流
   'urms3',//W相电压
-  'irms3',//平均电流
-  'urms4',//平均电压
-  'irms4',//W相电流
+  'irms3',//W相电流
+  'urmsa',//平均电压
+  'irmsa',//平均电流
+  'urms4',//直流电压
+  'irms4',//直流电流
   'prmsa',//平均功率
   'prms4',//直流功率
   'speed',//转速
@@ -662,8 +664,7 @@ export const boyang_param = [
   'eff_sys',//系统效率
   'eff_con',//控制器效率
   'eff_mot',//电机效率
-  'urmsa',//平均电压
-  'irmsa',//平均电流
+  
 ]
 
 export const ct_param = [

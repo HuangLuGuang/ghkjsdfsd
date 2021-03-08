@@ -54,15 +54,15 @@
                     <div id="en_gauge_4">
                         <div style="width: 90%;display: flex;height: 30%;justify-content: flex-end;">
                             仓状态:
-                            <div class="circular" [ngStyle]="{'background':jinhua.mwsmart_main_emission_v00 == 0?'#C0C0C0':'#07ef07'}"></div>
+                            <div class="circular" [ngStyle]="{'background':!jinhua.mwsmart_main_emission_v00?'black':'#07ef07'}"></div>
                         </div>
                         <div style="width: 90%;display: flex;height: 30%;justify-content: flex-end;">
                             制冷机组A:
-                            <div class="circular" [ngStyle]="{'background':jinhua.mwsmart_main_emission_v03 == 0?'#C0C0C0':'#07ef07'}"></div>
+                            <div class="circular" [ngStyle]="{'background':!jinhua.mwsmart_main_emission_v03?'black':'#07ef07'}"></div>
                         </div>
                         <div style="width: 90%;display: flex;height: 30%;justify-content: flex-end;">
                             制冷机组B:
-                            <div class="circular" [ngStyle]="{'background':jinhua.mwsmart_main_emission_v04 == 0?'#C0C0C0':'#07ef07'}"></div>
+                            <div class="circular" [ngStyle]="{'background':!jinhua.mwsmart_main_emission_v04?'black':'#07ef07'}"></div>
                         </div>
                     </div>
                 </div>
@@ -89,10 +89,10 @@
                         {{rw}}kg
                     </div>
                 </div>
-                <div class="height_25 dis_f_w center_center" style="margin-bottom: 3%;">
+                <div class="height_28 dis_f_w center_center" style="margin-bottom: 3%;">
                     <div id="gauge_1"></div>
                     <div id="gauge_2"></div>
-                    <div id="gauge_3"></div>
+                    <!-- <div id="gauge_3"></div> -->
                     <div id="gauge_4"></div>
                 </div>
                 <div class="height_20 dis_f_w center_center">

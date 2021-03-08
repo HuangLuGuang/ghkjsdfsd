@@ -102,6 +102,7 @@ export class EquipmentJinhua4d2cComponent implements OnInit {
         if(arr[arr.length-1] == 'one'){
           this.device_4d2c = 'device_4d2c_05';
           this.device_atec = 'device_jinhua_cabin01';
+          // this.device_4d2c = 'device_4d2c_02';
         }else{
             
         }
