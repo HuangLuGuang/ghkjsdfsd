@@ -55,7 +55,11 @@ export const DEVICEID_TO_NAME  ={
   'device_hpu_05':'油源5',//油源5
   'device_skylight_01':'天窗开闭',//天窗开闭
   'device_skylight_02':'玻璃升降',//玻璃升降
-  'device_4d2c_02':'四门两盖01',//四门两盖01
+  'device_4d2c_05':'四门两盖01',//四门两盖01
+  'device_4d2c_01':'四门两盖02',//四门两盖02
+  'device_4d2c_02':'四门两盖03',//四门两盖03
+  'device_4d2c_06':'四门两盖04',//四门两盖04
+  'device_4d2c_07':'四门两盖05',//四门两盖05
 
   'device_avldyno_01':'AVL耐久2驱-S1060',//AVL耐久2驱-S1060
   'device_avldyno_02':'AVL耐久2驱-S1060`',//AVL耐久2驱-S1060`

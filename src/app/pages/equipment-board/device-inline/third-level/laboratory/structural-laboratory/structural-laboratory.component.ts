@@ -72,33 +72,48 @@ export class StructuralLaboratoryComponent implements OnInit {
       router:'pages/equipment/glass-lift/玻璃升降试验台'
     },
     {
-      name:'开闭件台架',
-      src:'',//实验图片路径
-      andon:0,
-      speed:[],
-      speed_name:[''],//实验名称
-      router:''
-    },
-    {
-      name:'环境仓集中监控',
-      src:'assets/eimdoard/equipment/images/jg_hjc.png',//实验图片路径
-      type:'concentrated',
-      andon:0,
-      speed:[],
-      speed_name:[''],//实验名称
-      router:''
-    },
-    {
       name:'四门两盖01',
       src:'assets/eimdoard/equipment/images/slz.png',//实验图片路径
       andon:0,
       speed:[],
       speed_name:[''],//实验名称
-      router:'pages/equipment/jinhua-4d2c-01/四门两盖开闭耐久实验台1/one'
+      router:'pages/equipment/jinhua-4d2c-01/四门两盖气动设备1/one'
     },
-    {},
-    {},
-    {},
+    {
+      name:'四门两盖02',
+      src:'assets/eimdoard/equipment/images/slz.png',//实验图片路径
+      andon:0,
+      speed:[],
+      speed_name:[''],//实验名称
+      router:'pages/equipment/jinhua-4d2c-01/四门两盖气动设备2/two'
+    },
+    {
+      name:'四门两盖03',
+      src:'assets/eimdoard/equipment/images/slz.png',//实验图片路径
+      andon:0,
+      speed:[],
+      speed_name:[''],//实验名称
+      router:'pages/equipment/jinhua-4d2c-01/四门两盖气动设备3/three'
+    },
+    {
+      name:'四门两盖04',
+      src:'assets/eimdoard/equipment/images/slz.png',//实验图片路径
+      andon:0,
+      speed:[],
+      speed_name:[''],//实验名称
+      router:'pages/equipment/jinhua-4d2c-01/四门两盖气动设备4/four'
+    },
+    {
+      name:'四门两盖05',
+      src:'assets/eimdoard/equipment/images/slz.png',//实验图片路径
+      andon:0,
+      speed:[],
+      speed_name:[''],//实验名称
+      router:'pages/equipment/jinhua-4d2c-01/四门两盖气动设备5/five'
+    },
+    {
+
+    },
     {},
     {},
   ]
@@ -119,7 +134,11 @@ export class StructuralLaboratoryComponent implements OnInit {
     "device_mts_04":this.list[3],//液压伺服
     'device_skylight_01':this.list[5],//天窗开闭
     'device_skylight_02':this.list[6],//玻璃升降
-    'device_4d2c_02':this.list[9]//四门两盖01
+    'device_4d2c_05':this.list[7],//四门两盖01
+    'device_4d2c_01':this.list[8],//四门两盖02
+    'device_4d2c_02':this.list[9],//四门两盖03
+    'device_4d2c_06':this.list[10],//四门两盖04
+    'device_4d2c_07':this.list[11],//四门两盖05
   }
   timer:any;
   constructor(private router:Router,private http:HttpserviceService,private thrid:ThirdLevelService,

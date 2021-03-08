@@ -182,7 +182,31 @@ const ROUTERS: Routes = [{
         path:'jinhua-4d2c-01/:title/one',
         loadChildren:()=>import('./equipment-4d2c-jinhua/equipment-4d2c-jinhua.module')
         .then(m=>m.Equipment4d2cJinhuaModule),
+      },
+      {
+        //四门两盖02
+        path:'jinhua-4d2c-01/:title/two',
+        loadChildren:()=>import('./equipment-4d2c-jinhua/equipment-4d2c-jinhua.module')
+        .then(m=>m.Equipment4d2cJinhuaModule),
+      },
+      {
+        //四门两盖03
+        path:'jinhua-4d2c-01/:title/three',
+        loadChildren:()=>import('./equipment-4d2c-jinhua/equipment-4d2c-jinhua.module')
+        .then(m=>m.Equipment4d2cJinhuaModule),
+      },
 
+      {
+        //四门两盖04
+        path:'jinhua-4d2c-01/:title/four',
+        loadChildren:()=>import('./equipment-4d2c-jinhua/equipment-4d2c-jinhua.module')
+        .then(m=>m.Equipment4d2cJinhuaModule),
+      },
+      {
+        //四门两盖05
+        path:'jinhua-4d2c-01/:title/five',
+        loadChildren:()=>import('./equipment-4d2c-jinhua/equipment-4d2c-jinhua.module')
+        .then(m=>m.Equipment4d2cJinhuaModule),
       },
       {
         //昇微+4m3
