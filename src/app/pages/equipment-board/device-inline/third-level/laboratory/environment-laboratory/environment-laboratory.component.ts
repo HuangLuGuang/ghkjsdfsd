@@ -38,7 +38,7 @@ export class EnvironmentLaboratoryComponent implements OnInit {
       src:'assets/eimdoard/equipment/images/lqdp.png',//实验图片
       speed:[],
       speed_name:[''],
-      router:''
+      router:'pages/equipment/twodrive3/两驱底盘测功机-3/device_avl4dyno_01'
     },
     {
       name:'AVL排放2驱',
@@ -107,10 +107,12 @@ export class EnvironmentLaboratoryComponent implements OnInit {
   param = {
     'device_avldyno_01':this.list[0],//AVL耐久2驱-S1060
     'device_avldyno_02':this.list[1],//AVL耐久2驱-S1060`
+    'device_avl4dyno_01':this.list[2],//AVL耐久4驱 S1060
+
     'device_avldyno_03':this.list[3],//AVL排放2驱-S1070
     'device_avl4dyno_02':this.list[4],//AVL环模4驱-S1070
     'device_avl2dyno_01':this.list[5],//AVL排放2驱-S1074
-    'device_avl4dyno_01':this.list[6],//AVL排放4驱-S1074
+    'device_avl4dyno_03':this.list[6],//AVL排放4驱-S1074
     'device_jinhua_cabin02':this.list[7],//锦华常温浸车舱
     'device_atec_05':this.list[7].other,//整车高低温试验舱
   }

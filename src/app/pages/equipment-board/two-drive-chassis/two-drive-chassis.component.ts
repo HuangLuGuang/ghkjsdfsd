@@ -193,14 +193,14 @@ export class TwoDriveChassisComponent implements OnInit {
         });
 
       //里程
-      this.discharge[0].value = data.distance1;
-      this.discharge[1].value = data.distance2;
-      this.discharge[2].value = data.distance3;
+      this.discharge[0].value = data.distance1 ||0;
+      this.discharge[1].value = data.distance2 ||0;
+      this.discharge[2].value = data.distance3 ||0;
       this.discharge[3].value = data.distance4;
       // 风扇转动系数
-      this.discharge[4].value = data.n0;
-      this.discharge[5].value = data.n1;
-      this.discharge[6].value = data.n2;
+      this.discharge[4].value = data.n0 ||0;
+      this.discharge[5].value = data.n1 ||0;
+      this.discharge[6].value = data.n2 ||0;
 
       // this.discharge_chart[0].value.push(data.distance1);
       // this.discharge_chart[1].value.push(data.distance2);
@@ -216,22 +216,22 @@ export class TwoDriveChassisComponent implements OnInit {
       // this.avl_paramlist[1].value = data.f1r;
       // this.avl_paramlist[2].value = data.f2r;
       //转鼓阻力系数
-      this.avl_paramlist[0].value = data.f0d;
-      this.avl_paramlist[1].value = data.f1d;
-      this.avl_paramlist[2].value = data.f2d;
+      this.avl_paramlist[0].value = data.f0d||0;
+      this.avl_paramlist[1].value = data.f1d||0;
+      this.avl_paramlist[2].value = data.f2d||0;
 
 
 
       //惯量
-      this.rw =  data.rw;
+      this.rw =  data.rw||0;
       //轮边力  -- 牵引力
-      this.gauge[0].dataLine.value = data.f;
+      this.gauge[0].dataLine.value = data.f||0;
       //速度
-      this.gauge[1].dataLine.value = data.v;
+      this.gauge[1].dataLine.value = data.v||0;
       //加速度
-      this.gauge[2].dataLine.value = data.a;
+      this.gauge[2].dataLine.value = data.a||0;
       //功率
-      this.gauge[3].dataLine.value = data.p;
+      this.gauge[3].dataLine.value = data.p||0;
       this.gauge.forEach(el => {
         if(document.getElementById(el.id))
         equipment_four_road.create_temp_h_1_p_gauge(
