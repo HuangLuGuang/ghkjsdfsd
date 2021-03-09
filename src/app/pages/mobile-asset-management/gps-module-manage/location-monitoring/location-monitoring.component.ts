@@ -487,7 +487,7 @@ export class LocationMonitoringComponent implements OnInit {
     // 日期范围下拉
     var daterange_data =
       this.mydateselect?.getselect() === undefined
-        ? 3
+        ? 3000
         : this.mydateselect?.getselect();
     // 关注下拉
     var myselect =

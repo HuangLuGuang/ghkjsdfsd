@@ -117,6 +117,14 @@ const routes: Routes = [
             "./envitonmental-monitoring/envitonmental-monitoring.module"
           ).then((m) => m.EnvitonmentalMonitoringModule),
       },
+      // 报警管理
+      {
+        path: "alert-management",
+        loadChildren: () =>
+          import("./alert-management/alert-management.module").then(
+            (m) => m.AlertManagementModule
+          ),
+      },
 
       // 系统设置
       {
