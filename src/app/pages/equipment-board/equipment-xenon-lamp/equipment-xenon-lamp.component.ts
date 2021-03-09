@@ -166,28 +166,7 @@ export class EquipmentXenonLampComponent implements OnInit {
   }
 
 
-  // get_4400_illuminance(){
-  //   // SELECT xenon_realtime_list('{"deviceid":device_atlas_4400}')
-  //   this.http.callRPC('device_realtime_list',library+'device_realtime_list',
-  //   {deviceid:"device_avlmotor_02",arr:'speed'}).subscribe((f:any)=>{
-  //     if(f.result.error || f.result.message[0].code == 0)return;
-  //     let res = f.result.message[0].message;
-  //     console.log(res)
-  //     // res.forEach(el => {
-  //     //     this.illuminance.xdata.push(el.dates);
-  //     //     this.illuminance.attrs[0].value.push(el.tr_irradiance1);
-  //     //     this.illuminance.attrs[0].value.push(el.tr_irradiance2);
-  //     // });
-  //     res[0].speed.forEach(el => {
-  //       this.illuminance.xdata.push(el[1]);
-  //         this.illuminance.attrs[0].value.push(el[0]);
-  //     });
-  //     if(document.getElementById('line_chart_2')){
-  //         let myChart_9 = echarts.init(document.getElementById('line_chart_2'));;
-  //         equipment_four_road.create_real_discharge({attrs:this.illuminance.attrs,xData:this.illuminance.xdata},myChart_9);
-  //     }
-  //   })
-  // }
+
 
   get_4400(){
     let res,time,data:any = {};

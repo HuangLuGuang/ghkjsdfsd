@@ -159,7 +159,7 @@ export class EquipmentAvlAtecComponent implements OnInit {
         }else if(f.deviceid == 'four'){
           this.light_deviceid = 'device_avl_igem03';
           this.aetc_deviceid = 'device_atec_04';
-          this.avl_deviceid = 'device_avl4dyno_01';
+          this.avl_deviceid = 'device_avl4dyno_03';
           this.img.url = 'assets/eimdoard/equipment/images/siqu.jpg';
         }
         

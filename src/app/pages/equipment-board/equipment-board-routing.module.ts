@@ -140,6 +140,12 @@ const ROUTERS: Routes = [{
         .then(m=>m.TwoDriveChassisModule),
 
       },
+      { 
+        path: "twodrive3", 
+        loadChildren:()=>import('./two-drive-chassis/two-drive-chassis.module')
+        .then(m=>m.TwoDriveChassisModule),
+
+      },
 
       {
         //油源

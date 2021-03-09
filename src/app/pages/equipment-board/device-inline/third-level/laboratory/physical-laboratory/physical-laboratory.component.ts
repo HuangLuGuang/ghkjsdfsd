@@ -72,7 +72,6 @@ export class PhysicalLaboratoryComponent implements OnInit {
     'device_purewater_01':this.list[2],//纯水
     'device_cabin_voc01':this.list[3],//晟微、4m3
     'device_4m3_01':this.list[3],//晟微、4m3
-    // 'device_avlmotor_03':this.list[2],//纯水系统
   }
   timer;
   constructor(private router:Router,private http:HttpserviceService,private thrid:ThirdLevelService,
