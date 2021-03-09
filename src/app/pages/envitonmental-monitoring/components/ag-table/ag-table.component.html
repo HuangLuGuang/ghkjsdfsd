@@ -1,0 +1,73 @@
+
+
+<ag-grid-angular
+    #agGrid 
+    [style]="style"
+    class="ag-theme-alpine"
+    [rowData]="rowData"
+    [columnDefs]="columnDefs"
+
+    [context]="context"
+    [getRowNodeId]="getRowNodeId"
+    [defaultColDef]="defaultColDef"
+
+    [pagination]="true"
+    [rowSelection]="rowSelection"
+    [paginationPageSize]="paginationPageSize"
+    [paginationNumberFormatter]="paginationNumberFormatter"
+    [suppressScrollOnNewData]="suppressScrollOnNewData"
+    [suppressPaginationPanel]="suppressPaginationPanel"
+    [suppressRowClickSelection]="suppressRowClickSelection"
+
+
+    (filterModified)="onfilterModified($event)"
+    (selectionChanged)="onSelectionChanged($event)"
+
+    
+    
+    [frameworkComponents]="frameworkComponents"
+    (paginationChanged)="onPaginationChanged($event)"
+    (gridReady)="onGridReady($event)"
+    (rowClicked)="onRowClicked($event)"
+
+
+>
+</ag-grid-angular>
+
+<div class="row" style="margin-top: 10px;">
+    <div class="col-md-10" style="text-align: right;">
+        <nz-pagination [(nzPageIndex)]="current" [nzTotal]="totalPageNumbers"
+                    [nzPageSize] = "setPageCount"
+                    (nzPageIndexChange)="pageIndexChange($event)"
+                   nzShowQuickJumper
+                   [nzShowTotal]="totalTemplate"
+                   
+        >
+        </nz-pagination>
+    </div>
+
+    <div class="col-md-2" class="isShow">
+        <div class="select_page">
+            <!-- <nb-select placeholder="10条/页" size="small" [(selected)]="PageSize"  (selectedChange)="onPageSizeChanged()">
+                <nb-option value="10" >10条/页</nb-option>
+                <nb-option value="20">20条/页</nb-option>
+                <nb-option value="30">30条/页</nb-option>
+                <nb-option value="40">40条/页</nb-option>
+                <nb-option value="50">50条/页</nb-option>
+                <nb-option value="1000">1000条/页</nb-option>
+            </nb-select> -->
+
+            <nz-select  [(ngModel)]="PageSize" (ngModelChange)="onPageSizeChanged()">
+                <nz-option nzValue="10" nzLabel="10条/页"></nz-option>
+                <nz-option nzValue="20" nzLabel="20条/页"></nz-option>
+                <nz-option nzValue="30" nzLabel="30条/页" ></nz-option>
+                <nz-option nzValue="40" nzLabel="40条/页" ></nz-option>
+                <nz-option nzValue="50" nzLabel="50条/页" ></nz-option>
+                <nz-option nzValue="1000" nzLabel="1000条/页" ></nz-option>
+            </nz-select>
+
+        </div>
+    </div>
+</div>
+
+<ng-template  #totalTemplate let-total>共 {{ alltotalPageNumbers }} 条, 已选{{selectedRows.length}}条</ng-template>

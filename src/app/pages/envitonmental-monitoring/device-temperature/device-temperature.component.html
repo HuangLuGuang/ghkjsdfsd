@@ -1,0 +1,52 @@
+<nb-card>
+    <nb-card-header style="font-size: small;">温湿度数据导出</nb-card-header>
+
+    <nb-card-body>
+        <!-- button -->
+        <div class="row">
+            <div class="col-lg-9" style="display: flex;">
+                <!-- 安装位置 -->
+                <ngx-location-input #myinput (inpuvalue)="inpuvalue($event)" [placeholder]="myinput_placeholder"></ngx-location-input>
+
+                <!-- 时间下拉框 -->
+                <ngx-my-date-select  #mydateselect (my_date_select)="my_date_select($event)"></ngx-my-date-select>
+
+                <!-- 搜索 -->
+                <div class="example-items-rows button_item query" *ngIf="button?.query">
+                    <button nbButton [status]="button?.query.class" size="small" (click)="action(button?.query.permission)"  [disabled]="button?.query.active == 0? true:false"><nb-icon [icon]="button?.query.icon"></nb-icon>{{button?.query.title}}</button>
+                </div>
+
+            </div>
+
+            <div class="col-lg-3" style="display: flex;">
+                <!-- 导入、导出 -->
+                <div style="flex: auto;">
+                </div>
+
+                <div class=" button_item my_import " *ngIf="button?.import">
+                    <button nbButton [status]="button?.import.class" size="small" (click)="action(button?.import.permission)"  [disabled]="button?.import.active == 0? true:false"><nb-icon [icon]="button?.import.icon"></nb-icon>{{button?.import.title}}</button>
+                    <input type="file" class="import" id="import" (change)="onFileChange($event)" multiple="false" >
+                </div>
+                
+                <div class=" button_item download" *ngIf="button?.download">
+                    <button nbButton [status]="button?.download.class" size="small" (click)="action(button?.download.permission)"  [disabled]="button?.download.active == 0? true:false"><nb-icon [icon]="button?.download.icon"></nb-icon>{{button?.download.title}}</button>
+                </div>
+                
+                <div class="" style="text-align: right;">
+                    <!-- loader-outline -->
+                    <button nbButton [nbSpinner]="refresh" nbSpinnerStatus="success" size="small" (click)="refresh_table()">
+                        <nb-icon icon="sync-outline"></nb-icon>
+                    </button>
+                </div>
+
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-12">
+                <ngx-ag-table #ag_Grid   (nzpageindexchange)="nzpageindexchange($event)"></ngx-ag-table>
+            </div>
+        </div>
+
+    </nb-card-body>
+</nb-card>
