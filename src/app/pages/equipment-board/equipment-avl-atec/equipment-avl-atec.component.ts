@@ -203,11 +203,11 @@ export class EquipmentAvlAtecComponent implements OnInit {
     let i = 0;
     this.timer = self.setInterval(() =>{
       this.get_avl_igem();
-      this.get_light();
+      this.get_atec();
       this.get_avl_d();
       if(i%60 == 0){
         setTimeout(() => {
-          this.get_light_list();
+          this.get_atec_list();
         }, 10);
         this.get_avl_d_list();
       }
@@ -243,7 +243,7 @@ export class EquipmentAvlAtecComponent implements OnInit {
   }
 
   //环境仓参数
-  get_light(){
+  get_atec(){
     let res,data:any = {};
     this.subscribeList.light = this.http.callRPC('get_device_mts_realtimedata',library+'get_device_mts_realtimedata',
     {"device":this.aetc_deviceid,
@@ -257,7 +257,7 @@ export class EquipmentAvlAtecComponent implements OnInit {
           }
         });
       this.light_data = data;
-      this.gauge[4].dataLine.value = data.realtime_temp || 0;
+      this.gauge[4].dataLine.value = data.realtime_temp || 0;//实时温度
       this.gauge[4].dataLine.color[0] = [(data.temp_setpoint||0)/this.gauge[4].dataLine.max, '#203add'];
       this.gauge[5].dataLine.value = data.realtime_humidity || 0;
       this.gauge[5].dataLine.color[0] = [(data.humidity_setpoint||0)/this.gauge[5].dataLine.max, '#203add'];
@@ -274,7 +274,7 @@ export class EquipmentAvlAtecComponent implements OnInit {
   }
 
   //环境仓 曲线
-  get_light_list(){
+  get_atec_list(){
     let res,xdata = [],data = this.light_chart;
     this.http.callRPC('device_realtime_list',library+'device_realtime_list',{
       deviceid:this.aetc_deviceid,arr:'realtime_temp,realtime_humidity,micro_pressure_pv'

@@ -331,7 +331,7 @@ export const  atec = [
   'humidity_setpoint',// 湿度设定值
   'realtime_humidity',//湿度
   'temp_setpoint',//温度设定值
-  'realtime_temp',//湿度
+  'realtime_temp',//温度
   'status',//状态
 ];
 
