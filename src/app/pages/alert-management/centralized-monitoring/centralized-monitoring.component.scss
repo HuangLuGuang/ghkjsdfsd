@@ -1,0 +1,196 @@
+#equipment {
+    background: url('/assets/eimdoard/equipment/images/beijing.png');
+    position: relative;
+    // width: 99.9%;
+    height: 100%;
+    background-size: cover;
+    -webkit-background-size: cover;
+    -o-background-size: cover;
+    background-position: center center;
+    text-align: center;
+    font-family: 微软雅黑;
+    // height: 864px;
+    // width: 1920px;
+    #title_img {
+        background: url('/assets/eimdoard/equipment/images/title.png');
+        background-size: cover;
+        -webkit-background-size: cover;
+        -o-background-size: cover;
+        background-position: center center;
+        text-align: center;
+        margin-left: 0px;
+        margin-right: 0px;
+        // min-height: 54px;
+        height: 5%;
+        position: relative;
+    }
+    .head {
+        display: inline-flex;
+        padding: 10px;
+        color: white;
+        // width: 82px;
+        // height: 40px;
+        cursor: pointer;
+        background-size: cover;
+        -webkit-background-size: cover;
+        -o-background-size: cover;
+    }
+    .return_button_1 {
+        background: url('/assets/eimdoard/equipment/images/home.png') no-repeat;
+        background-size: 100% 100%;
+        width: 42px;
+        height: 62px;
+        float: left;
+        margin-top: 11px;
+        margin-left: 18px;
+    }
+    .return_button_2 {
+        background: url('/assets/eimdoard/equipment/images/back.png') no-repeat;
+        background-size: 100% 100%;
+        width: 42px;
+        height: 40px;
+        float: left;
+        margin-top: 6px;
+        margin-left: 9px;
+    }
+    .right_button {
+        position: absolute;
+        right: 0;
+        top: 0;
+        line-height: 35px;
+        display: flex;
+    }
+    .title {
+        // font-size: xx-large;
+        font-size: 2rem;
+        color: white;
+        width: 100%;
+        line-height: 2.5rem;
+    }
+    nb-icon {
+        background: rgba(22, 67, 127, 1);
+        cursor: pointer;
+        width: 45px;
+        height: 45px;
+    }
+    .body {
+        height: 95%;
+        width: 100%;
+        position: relative;
+        display: flex;
+        flex-wrap: wrap;
+        font-size: 0.9rem;
+        // #left_img {
+        #center {
+            color: #dcdcdc;
+            width: 100%;
+            height: 100%;
+            // margin: 20px 0px 0% 0px;
+            padding: 20px 0 0 0;
+            display: inherit;
+            div {
+                color: blanchedalmond;
+            }
+            ._table {
+                color: blanchedalmond;
+            }
+        }
+    }
+}
+
+// 边框样式
+.chunk{
+    
+    position: relative;
+    background: url(/assets/eimdoard/equipment/images/blue_beijing.png) 50%;
+    background-size: cover;
+    -webkit-background-size: cover;
+    -o-background-size: cover;
+    width: 100%;
+    text-align: center;
+    margin-top: 10px;
+}
+// 边框的title
+.part_title{
+    position: absolute;
+    padding: 0 2%;
+    height: 20px;
+    color: #fff;
+    background: #4472c4;
+    top: 0;
+    left: 0;
+    min-width: 80px;
+}
+
+// 设备汇总信息
+.device_all_info{
+    .numbers{
+        margin: 0px;
+        top: 30px;
+        position: relative;
+        width: 100%;
+        .alert_number{
+            span{
+                margin-right: 20px;
+            }
+        }
+    }
+    .numbers_echart{
+        width: 100%;
+        border: 1px solid;
+        height: 100%;
+        // position: absolute;
+        // top: 20%;
+        padding: 0px;
+        margin-left: 0px;
+        #tj_test_number, #tj_test_number_line{
+            width: 100%;
+            height: 90%;
+        }
+    }
+}
+
+// 事件/报警信息
+.device_alert_info{
+    .device_alert_info_event{
+        height: 40%;
+    }
+    #circular{
+        top: 47%;
+        position: relative;
+        left: 25%;
+
+        width: 30px;
+        height: 30px;
+        border-radius: 60px;
+        background: #3b3838;
+    }
+    span{
+        top: 49%;
+        position: absolute;
+        left: 50%;
+    }
+
+    .device_alert_info_elert{
+        height: 60%;
+        margin: 0px;
+        .table_bo {
+            width: 100%;
+            table{
+                width: 100%;
+                height: 100%;
+                border: 1px solid #4472c4;
+                width: 100%;
+                .header {
+                    // display: flex;
+                    // height: 100%;
+                    background: rgb(68, 114, 196);
+                    padding: 3px 0;
+                    td {
+                        width: 33%;
+                    }
+                }
+            }
+        }
+    }
+}
