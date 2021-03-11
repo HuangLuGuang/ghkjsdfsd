@@ -247,14 +247,14 @@ export class AgTableComponent implements OnInit {
       // var data = this.rowData;
       // var data = this.selectedRows;
       var data = Object.assign([], this.selectedRows);
-      // console.log("导出数据data----", data);
+      console.log("导出数据data----", data);
       data.forEach((element) => {
-        if (element["active"] === 1) {
+        if (element["active"] === 1 || element["active"] === "是") {
           element["active"] = "是";
         } else {
           element["active"] = "否";
         }
-        if (element["isfavor"] === 1) {
+        if (element["isfavor"] === 1 || element["isfavor"] === "是") {
           element["isfavor"] = "是";
         } else {
           element["isfavor"] = "否";

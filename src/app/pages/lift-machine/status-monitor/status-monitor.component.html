@@ -16,7 +16,11 @@
 
                 <div class="lift_content_car1">
                     
-                    <img *ngFor="let item of [1,2,3,4,5,6,7,8]" class="lift_content_car{{item}}image" src="../../../../assets/pages/lift-machine/images/car.png" alt="" srcset="">
+                    <!-- <img *ngFor="let item of [1,2,3,4,5,6,7,8]" class="lift_content_car{{item}}image" src="../../../../assets/pages/lift-machine/images/car.png" alt="" srcset=""> -->
+
+                    <div *ngFor="let item of detector_datas let index=index">
+                        <img *ngIf="item.status===1"  class="lift_content_car{{index+1}}image" src="../../../../assets/pages/lift-machine/images/car.png" alt="" srcset="">
+                    </div>
 
                     <span *ngFor="let item of [1,2,3,4,5,6,7,8]" class="shuidi{{item}}title">
                         <span class="sm_span_{{item}}1">举升机工位：1</span>

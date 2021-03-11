@@ -5,11 +5,19 @@
         <!-- button -->
         <div class="row">
             <div class="col-lg-9" style="display: flex;">
+                <!-- 科室-房间号 -->
+                <ngx-my-linkage-select #linkage></ngx-my-linkage-select>
                 <!-- 安装位置 -->
-                <ngx-location-input #myinput (inpuvalue)="inpuvalue($event)" [placeholder]="myinput_placeholder"></ngx-location-input>
+                <!-- <ngx-location-input #myinput (inpuvalue)="inpuvalue($event)" [placeholder]="myinput_placeholder"></ngx-location-input> -->
 
                 <!-- 时间下拉框 -->
-                <ngx-my-date-select  #mydateselect (my_date_select)="my_date_select($event)"></ngx-my-date-select>
+                <!-- <ngx-my-date-select  #mydateselect (my_date_select)="my_date_select($event)"></ngx-my-date-select> -->
+
+                <!-- 时间范围 -->
+                <ngx-my-date-range #mydaterange></ngx-my-date-range>
+
+                <!-- 时间点 -->
+                <ngx-my-time-point #mytimepoint [placeholder]="placeholder_title"></ngx-my-time-point>
 
                 <!-- 搜索 -->
                 <div class="example-items-rows button_item query" *ngIf="button?.query">

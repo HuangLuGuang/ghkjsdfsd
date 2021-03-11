@@ -34,13 +34,14 @@ import { DeviceStatusInfoComponent } from './andon-man-hour/device-status-info/d
 import { SetWeilanComponent } from './gps/set-weilan/set-weilan.component';
 import { AddEditGpsComponent } from './gps/add-edit-gps/add-edit-gps.component';
 import { LiftMachineComponent } from './lift-machine/lift-machine.component';
+import { AddEditTemperatureComponent } from './envitonmental-monitoring/device-temperature/add-edit-temperature/add-edit-temperature.component';
 
 
 // DateComponent
 @NgModule({
   declarations: [PagesPopupsComponent, RoleComponent, 
     MySelectComponent, UserEmployeeComponent,  
-    UserEmployeeGroupComponent, EditDelTooltipComponent, DeviceManageComponent, PreinstallDialogComponent,  ExpiredTokenComponent, NewMenuComponent, ChangePassowrdForallComponent, TargetHourConfigComponent, AddComponent, GroupDevicesComponent, EditComponent, DailyTargetDurationComponent, DeviceStatusInfoComponent, SetWeilanComponent, AddEditGpsComponent, LiftMachineComponent,  
+    UserEmployeeGroupComponent, EditDelTooltipComponent, DeviceManageComponent, PreinstallDialogComponent,  ExpiredTokenComponent, NewMenuComponent, ChangePassowrdForallComponent, TargetHourConfigComponent, AddComponent, GroupDevicesComponent, EditComponent, DailyTargetDurationComponent, DeviceStatusInfoComponent, SetWeilanComponent, AddEditGpsComponent, LiftMachineComponent, AddEditTemperatureComponent,  
   ],
   imports: [
     CommonModule,

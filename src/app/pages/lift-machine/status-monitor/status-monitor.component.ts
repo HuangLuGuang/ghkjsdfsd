@@ -17,8 +17,12 @@ export class StatusMonitorComponent implements OnInit {
   METHOD = "dev_get_detector";
   METHODALL = "dev_get_detector_numbers";
 
+  detector_datas = [];
+
   ngAfterViewInit() {
-    this.get_init_table();
+    setTimeout(() => {
+      this.get_init_table();
+    }, 100);
 
     setTimeout(() => {
       this.get_all_num();
@@ -42,8 +46,9 @@ export class StatusMonitorComponent implements OnInit {
       var res = result["result"]["message"][0];
       if (res["code"] === 1) {
         var message = res["message"];
-        for (let index = 1; index < message.length; index++) {
-          const item = message[index];
+        this.detector_datas = message;
+        for (let index = 1; index < message.length + 1; index++) {
+          const item = message[index - 1];
           $(".sm_span_" + index + 1).text("举升机工位:" + item["deviceid"]);
           var status;
           if (item["status"] === 1) {

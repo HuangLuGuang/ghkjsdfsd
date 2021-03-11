@@ -12,6 +12,9 @@ import { UserInfoService } from "../../../services/user-info/user-info.service";
 export class DeviceTemperatureComponent implements OnInit {
   @ViewChild("myinput") myinput: any;
   @ViewChild("mydateselect") mydateselect: any;
+  @ViewChild("mydaterange") mydaterange: any; // 日期范围
+  @ViewChild("mytimepoint") mytimepoint: any; // 时间点
+  @ViewChild("linkage") linkage: any; // 联动选择，科室(group)-房间号(room)
   @ViewChild("ag_Grid") agGrid: any;
   loading = false; // 加载
   refresh = false; // 刷新tabel
@@ -21,6 +24,7 @@ export class DeviceTemperatureComponent implements OnInit {
   METHOD = "device_monitor.get_device_temperature";
 
   myinput_placeholder = "请选择设备安装位置";
+  placeholder_title = "请选择时间点";
 
   // agGrid
   tableDatas = {
@@ -32,43 +36,32 @@ export class DeviceTemperatureComponent implements OnInit {
     columnDefs: [
       // 列字段 多选：headerCheckboxSelection checkboxSelection
       {
-        field: "deviceid",
-        headerName: "温湿度传感器ID",
+        field: "recordtime",
+        headerName: "记录时间",
         headerCheckboxSelection: true,
         checkboxSelection: true,
         autoHeight: true,
         fullWidth: true,
+        resizable: true,
+        sortable: true,
+        sort: "asc",
+      },
+      {
+        field: "room",
+        headerName: "房间号",
+        resizable: true,
+        width: 150,
+        sortable: true,
+      },
+
+      {
+        field: "location",
+        headerName: "安装位置",
         width: 300,
         resizable: true,
         sortable: true,
       },
-      {
-        field: "recordtime",
-        headerName: "记录时间",
-        resizable: true,
-        sortable: true,
-      },
-      {
-        field: "temperature",
-        headerName: "温度",
-        width: 100,
-        resizable: true,
-        sortable: true,
-      },
-      {
-        field: "humidity",
-        headerName: "湿度",
-        resizable: true,
-        sortable: true,
-        width: 100,
-      },
-      {
-        field: "location",
-        headerName: "安装位置",
-        resizable: true,
-        minWidth: 10,
-        sortable: true,
-      },
+
       {
         field: "deviceno",
         headerName: "传感器序列号",
@@ -77,25 +70,28 @@ export class DeviceTemperatureComponent implements OnInit {
         sortable: true,
       },
       {
-        field: "status",
-        headerName: "设备状态",
+        field: "deviceid",
+        headerName: "温湿度传感器ID",
+
+        width: 300,
         resizable: true,
-        minWidth: 10,
+        sortable: true,
+      },
+
+      {
+        field: "temperature",
+        headerName: "温度(°C)",
+        width: 200,
+        resizable: true,
         sortable: true,
       },
       {
-        field: "message",
-        headerName: "日志信息",
+        field: "humidity",
+        headerName: "湿度(RH)",
         resizable: true,
-        minWidth: 10,
         sortable: true,
-      },
-      {
-        field: "level",
-        headerName: "日志等级",
-        resizable: true,
         minWidth: 10,
-        sortable: true,
+        flex: 1,
       },
     ],
     rowData: [
@@ -127,6 +123,35 @@ export class DeviceTemperatureComponent implements OnInit {
   ngAfterViewInit() {
     // 初始化table
     this.inttable();
+
+    // 时间点
+    var timepoints = [
+      { id: 1, label: "1点" },
+      { id: 2, label: "2点" },
+      { id: 3, label: "3点" },
+      { id: 4, label: "4点" },
+      { id: 5, label: "5点" },
+      { id: 6, label: "6点" },
+      { id: 7, label: "7点" },
+      { id: 8, label: "8点" },
+      { id: 9, label: "9点" },
+      { id: 10, label: "10点" },
+      { id: 11, label: "11点" },
+      { id: 12, label: "12点" },
+      { id: 13, label: "13点" },
+      { id: 14, label: "14点" },
+      { id: 15, label: "15点" },
+      { id: 16, label: "16点" },
+      { id: 17, label: "17点" },
+      { id: 18, label: "18点" },
+      { id: 19, label: "19点" },
+      { id: 20, label: "20点" },
+      { id: 21, label: "21点" },
+      { id: 22, label: "22点" },
+      { id: 23, label: "23点" },
+      { id: 24, label: "24点" },
+    ];
+    this.mytimepoint.init_select_tree(timepoints);
   }
 
   // 销毁组件时，删除 kpi_for_detail
@@ -181,8 +206,11 @@ export class DeviceTemperatureComponent implements OnInit {
     var columns = {
       offset: offset,
       limit: limit,
-      recordtime: inittable_before.recordtime,
-      location: inittable_before.location,
+      room: inittable_before.room,
+      groups: inittable_before.groups,
+      starttime: inittable_before.starttime,
+      endtime: inittable_before.endtime,
+      time: inittable_before.time,
     };
     this.http.callRPC(this.TABLE, this.METHOD, columns).subscribe((result) => {
       var tabledata = result["result"]["message"][0];
@@ -216,8 +244,9 @@ export class DeviceTemperatureComponent implements OnInit {
 
   refresh_table() {
     // 取消选择的数据 delselect
-    this.myinput.del_input_value();
-    this.mydateselect.reset_month(); // 时间段
+    this.mydaterange.reset_mydate(); // 时间范围
+    this.mytimepoint.dropselect(); // 时间点
+    this.linkage.reset_select(); // 联动选择，科室(group)-房间号(room)
 
     this.refresh = true;
     this.loading = true;
@@ -228,25 +257,39 @@ export class DeviceTemperatureComponent implements OnInit {
     this.loading = false;
     this.refresh = false;
 
+    // this.mydateselect.reset_month(); // 时间段
+    // this.myinput.del_input_value();
     // this.department.dropselect();
     // this.device_tpye.dropselect();
   }
   // 初始化前确保 搜索条件
   inittable_before() {
-    var deviceid =
-      this.myinput?.getinput() === undefined ? "" : this.myinput?.getinput(); // 设备名称
+    // var deviceid =
+    // this.myinput?.getinput() === undefined ? "" : this.myinput?.getinput(); // 安装位置
 
     // 日期范围下拉
-    var daterange_data =
-      this.mydateselect?.getselect() === undefined
-        ? 3
-        : this.mydateselect?.getselect();
+    // var daterange_data =
+    //   this.mydateselect?.getselect() === undefined
+    //     ? 3
+    //     : this.mydateselect?.getselect();
 
+    // 日期范围选择 ["2021-03-01", "2021-03-10"]
+    var daterange =
+      this.mydaterange?.getselect() == undefined
+        ? ["", ""]
+        : this.mydaterange?.getselect(); // 日期范围选择
+    var mytimepoint = this.mytimepoint?.getselect(); // 时间点
+
+    var linkage = this.linkage?.getselect(); // 联动-科室-房间号
+    // console.error("联动-科室-房间号>>>>", linkage);
     return {
       limit: this.agGrid.get_pagesize(),
       employeeid: this.userinfo.getEmployeeID(),
-      location: deviceid,
-      recordtime: daterange_data,
+      groups: linkage["groups"],
+      room: linkage["room"],
+      starttime: daterange[0],
+      endtime: daterange[1],
+      time: mytimepoint,
     };
   }
 
@@ -268,8 +311,11 @@ export class DeviceTemperatureComponent implements OnInit {
     var columns = {
       offset: offset,
       limit: limit,
-      recordtime: inittable_before.recordtime,
-      location: inittable_before.location,
+      room: inittable_before.room,
+      groups: inittable_before.groups,
+      starttime: inittable_before.starttime,
+      endtime: inittable_before.endtime,
+      time: inittable_before.time,
     };
     this.http.callRPC(this.TABLE, this.METHOD, columns).subscribe((result) => {
       var tabledata = result["result"]["message"][0];
@@ -312,8 +358,11 @@ export class DeviceTemperatureComponent implements OnInit {
     var columns = {
       offset: offset,
       limit: limit,
-      recordtime: inittable_before.recordtime,
-      location: inittable_before.location,
+      room: inittable_before.room,
+      groups: inittable_before.groups,
+      starttime: inittable_before.starttime,
+      endtime: inittable_before.endtime,
+      time: inittable_before.time,
     };
     this.http.callRPC(this.TABLE, this.METHOD, columns).subscribe((result) => {
       var tabledata = result["result"]["message"][0];

@@ -114,7 +114,8 @@
 .part_title{
     position: absolute;
     padding: 0 2%;
-    height: 20px;
+    height: 30px;
+    padding-top: 5px;
     color: #fff;
     background: #4472c4;
     top: 0;
@@ -126,10 +127,11 @@
 .device_all_info{
     .numbers{
         margin: 0px;
-        top: 30px;
+        top: 35px;
         position: relative;
         width: 100%;
         .alert_number{
+            margin-left: 20px;
             span{
                 margin-right: 20px;
             }
@@ -137,7 +139,7 @@
     }
     .numbers_echart{
         width: 100%;
-        border: 1px solid;
+        // border: 1px solid;
         height: 100%;
         // position: absolute;
         // top: 20%;
@@ -153,26 +155,26 @@
 // 事件/报警信息
 .device_alert_info{
     .device_alert_info_event{
-        height: 40%;
+        height: 10%;
     }
     #circular{
-        top: 47%;
+        top: 10%;
         position: relative;
-        left: 25%;
-
-        width: 30px;
-        height: 30px;
+        left: 265%;
+        width: 20px;
+        height: 20px;
         border-radius: 60px;
         background: #3b3838;
     }
     span{
-        top: 49%;
+        top: 10%;
         position: absolute;
-        left: 50%;
+        left: 240%;
+        width: 50%;
     }
 
     .device_alert_info_elert{
-        height: 60%;
+        height: 90%;
         margin: 0px;
         .table_bo {
             width: 100%;
@@ -192,5 +194,20 @@
                 }
             }
         }
+    }
+}
+
+// 视频在线
+.device_video{
+    height: 98%;
+    .video_inline_one{
+        border: solid 1px red;
+        height: 40%;
+        margin: 0px;
+    }
+    .video_inline_two{
+        border: solid 1px rgb(83, 175, 40);
+        height: 58%;
+        margin: 0px;
     }
 }

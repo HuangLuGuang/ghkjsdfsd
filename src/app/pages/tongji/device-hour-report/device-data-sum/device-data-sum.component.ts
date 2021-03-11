@@ -227,7 +227,7 @@ export class DeviceDataSumComponent implements OnInit {
       .callRPC("deveice", "dev_get_device_type", columns)
       .subscribe((result) => {
         var res = result["result"]["message"][0];
-        // console.log("得到下拉框的数据---------------->", res)
+        // console.log("得到下拉框的数据---------------->", res);
         if (res["code"] === 1) {
           var groups = res["message"][0]["groups"];
 

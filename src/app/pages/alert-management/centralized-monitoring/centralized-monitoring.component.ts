@@ -1,4 +1,5 @@
 import { Component, OnInit } from "@angular/core";
+import { Router } from "@angular/router";
 import * as screenfull from "screenfull";
 import { Screenfull } from "screenfull";
 import { LayoutService } from "../../../@core/utils";
@@ -38,7 +39,7 @@ export class CentralizedMonitoringComponent implements OnInit {
 
   log_warm = {
     // '时间','日志等级','日志信息'
-    title: ["time", "Loglevel", "logInfor"],
+    title: ["时间", "日志等级", "日志报警"],
     data: [
       ["2020-10-12", "info", "Not ready"],
       ["2020-10-13", "info", "Not ready"],
@@ -49,7 +50,10 @@ export class CentralizedMonitoringComponent implements OnInit {
       ["2020-10-17", "info", "Not ready"],
     ],
   };
-  constructor(private layoutService: LayoutService) {}
+  constructor(private layoutService: LayoutService, private router: Router) {
+    // 会话过期
+    localStorage.removeItem("alert401flag");
+  }
 
   ngOnInit(): void {
     this.creatDateInterval();
@@ -76,9 +80,23 @@ export class CentralizedMonitoringComponent implements OnInit {
 
   ngAfterViewInit() {
     // 初始化 echart
-    alert_management.devicepie("tj_test_number", {});
-    alert_management.deviceline("tj_test_number_line", {});
-    alert_management.devicebar("event_bar", {});
+    var pie_data = {
+      data: [
+        { value: 1048, name: "三级" },
+        { value: 735, name: "二级" },
+        { value: 35, name: "一级" },
+      ],
+    };
+    alert_management.devicepie("tj_test_number", pie_data);
+    var deviceline = {
+      legend_data: ["三级", "二级", "一级"],
+      series_datas: [
+        [2.0, 4.9, 7.0, 23.2, 25.6, 76.7, 135.6, 162.2, 32.6, 20.0, 6.4, 3.3],
+        [2.6, 5.9, 9.0, 26.4, 28.7, 70.7, 175.6, 182.2, 48.7, 18.8, 6.0, 2.3],
+        [2.6, 9.0, 26.4, 175.6, 28.7, 5.9, 70.7, 182.2, 18.8, 6.0, 2.3, 48.7],
+      ],
+    };
+    alert_management.deviceline("tj_test_number_line", deviceline);
   }
 
   //组件销毁
@@ -110,7 +128,7 @@ export class CentralizedMonitoringComponent implements OnInit {
 
     this.loading = true;
     console.log("返回上一级");
-    // let router_str = this.boradservice.back_router_str(this.menu)
+    window.history.go(-1);
     // this.router.navigate([router_str]);
     //当为最上级看板时
   }
@@ -118,7 +136,7 @@ export class CentralizedMonitoringComponent implements OnInit {
   //点击菜单
   menu_btn_click() {
     console.log("点击菜单");
-    // this.router.navigate(['/pages']);
+    this.router.navigate(["/pages"]);
   }
 
   //创建时间 定时

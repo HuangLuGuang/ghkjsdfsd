@@ -1,0 +1,80 @@
+<nb-card style="width: 870px;height: 510px;" size="larger" [nbSpinner]="loading"
+    nbSpinnerStatus="danger"
+    nbSpinnerSize="large"
+    nbSpinnerMessage=""
+>
+  <nb-card-header>
+    <div class="row">
+      <div class="col-md-3">{{title}}</div>
+        <div class="col-md-7"></div>
+        <div class="col-md-2" style="text-align: right;">
+            <nb-icon icon="close-outline" style="cursor: pointer;" (click)="closedialog()"></nb-icon>
+        </div>
+    </div>
+  </nb-card-header>
+
+  <nb-card-body>
+      
+    <form class="layui-form" action="" lay-filter="device">
+
+
+        <div class="layui-form-item">
+            <!-- 房间号 room -->
+            <div class="layui-inline" style="width: 46%;">
+                <label class="layui-form-label mylabel mulu_title">房间号</label>
+                <div class="layui-input-block">
+                <input type="text" name="room" required  lay-verify="required|room" placeholder="房间号" autocomplete="off" class="layui-input">
+                </div>
+            </div>
+            <!-- 科室功能组 groups -->
+            <div class="layui-inline" style="width: 46%;">
+                <label class="layui-form-label mylabel mulu_title">科室/功能组</label>
+                <div class="layui-input-block">
+                    <!-- 单选！ --> 
+                    <select id="groups" name="groups" lay-filter="groups" lay-verify="" class="caidantype">
+                        <option *ngFor="let item of groups" [value]=item.id>{{item.group}}</option>
+                    </select> 
+                </div>
+            </div>
+            
+        </div>
+
+        <div class="layui-form-item">
+            <!-- 传感器序列号 deviceno -->
+            <div class="layui-inline" style="width: 46%;">
+                <label class="layui-form-label mylabel mulu_title">传感器序列号</label>
+                <div class="layui-input-block">
+                    <input type="text" name="deviceno" required  lay-verify="required|deviceno" placeholder="传感器序列号" autocomplete="off" class="layui-input">
+                </div>
+            </div>
+
+            <!-- 是否启用 active -->
+            <div class="layui-inline" style="width: 46%;">
+                <label class="layui-form-label mylabel mulu_title">是否启用</label>
+                <div class="layui-input-block">
+                    <input type="checkbox" name="active" lay-skin="switch" lay-text="是|否" value="1">
+                </div>
+            </div>
+            
+        </div>
+        
+       
+
+
+        <div class="layui-form-item">
+            <div class="layui-row"style="text-align: end;">
+                
+                <div class="layui-inline">
+                  <div class="layui-input-inline">
+                      <!-- (click)="confirm()" -->
+                      <button class="layui-btn layui-btn-primary" (click)="cancel()">取消</button>
+                      <button type="submit" class="submit_device layui-btn" lay-submit="" lay-filter="gpsdevice" >确定</button>
+                  </div>
+                </div>
+                
+            </div>
+        </div>
+    </form>
+    
+  </nb-card-body>
+</nb-card>
