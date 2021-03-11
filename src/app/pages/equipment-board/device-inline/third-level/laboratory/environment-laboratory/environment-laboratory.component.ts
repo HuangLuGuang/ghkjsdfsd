@@ -38,7 +38,7 @@ export class EnvironmentLaboratoryComponent implements OnInit {
       src:'assets/eimdoard/equipment/images/lqdp.png',//实验图片
       speed:[],
       speed_name:[''],
-      router:'pages/equipment/twodrive3/两驱底盘测功机-3/device_avl4dyno_01'
+      router:'pages/equipment/twodrive3/四驱底盘测功机-3/device_avl4dyno_01'
     },
     {
       name:'AVL排放2驱',

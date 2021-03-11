@@ -1,12 +1,8 @@
 #equipment {
-    background: url('/assets/eimdoard/equipment/images/beijing.png');
     position: relative;
     // width: 99.9%;
     height: 100%;
-    background-size: cover;
-    -webkit-background-size: cover;
-    -o-background-size: cover;
-    background-position: center center;
+    
     text-align: center;
     font-family: 微软雅黑;
     // height: 864px;
@@ -55,6 +51,7 @@
     }
     .right_button {
         position: absolute;
+        height: 100%;
         right: 0;
         top: 0;
         line-height: 35px;
@@ -71,7 +68,7 @@
         background: rgba(22, 67, 127, 1);
         cursor: pointer;
         width: 45px;
-        height: 45px;
+        height: 100%;
     }
     .body {
         height: 95%;
@@ -100,4 +97,11 @@
 
 .colors {
     color: rgba(5, 129, 253, 1), rgba(0, 252, 248, 0.8), rgba(248, 0, 248, 0.8), rgba(200, 204, 20, 0.8), rgba(64, 192, 64, 0.8), rgba(90, 92, 30, 0.8), rgba( 56, 112, 160, 0.8), rgba( 152, 120, 88, 0.8), rgba( 120, 120, 184, 0.8), rgba( 208, 152, 72, 0.8), rgba( 128, 72, 120, 0.8), rgba( 144, 172, 88, 0.8), rgba( 80, 80, 168, 0.8), rgba( 112, 48, 160, 0.8), rgba( 32, 36, 32, 0.8), rgba( 248, 252, 248, 0.8), rgba( 0, 0, 248, 0.8), rgba( 0, 252, 0, 0.8), rgba( 248, 252, 0, 0.8), rgba( 40, 100, 40, 0.8), rgba( 64, 204, 200, 0.8), rgba( 112, 184, 184, 0.8),
+}
+.background{
+    background: url('/assets/eimdoard/equipment/images/beijing.png');
+    background-size: cover;
+    -webkit-background-size: cover;
+    -o-background-size: cover;
+    background-position: center center;
 }

@@ -106,7 +106,9 @@ export class LogWarmComponent implements OnInit {
       res = g.result.message[0].message;
       res.forEach((c:any) => {
         logs = Object.values(c);
-        if(logs.length>0 && logs[logs.length-1].level == 3){
+        if(logs.length>0 && logs[logs.length-1].level == 3 
+          // && logs[logs.length-1].recordtime.includes(dateformat(new Date(),'yyyy-MM-dd'))
+          ){
           status = true;
           if(this.device.includes(',')){
             if(str) str += ',';

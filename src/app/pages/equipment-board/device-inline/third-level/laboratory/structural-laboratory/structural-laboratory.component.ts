@@ -47,7 +47,7 @@ export class StructuralLaboratoryComponent implements OnInit {
     },
     {
       name:'MTS HPU',
-      src:'assets/eimdoard/equipment/images/yy.png',//实验图片路径
+      src:'assets/eimdoard/equipment/images/oilsrouce_1.png',//实验图片路径
       andon:0,
       open_close:[0,0,0,0,0],
       type:'oil',

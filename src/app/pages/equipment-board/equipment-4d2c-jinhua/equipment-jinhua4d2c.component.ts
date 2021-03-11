@@ -149,7 +149,6 @@ export class EquipmentJinhua4d2cComponent implements OnInit {
       this.timer = setInterval(()=>{
         this.get_4d2c();
         if(i%60 == 0){
-          this.get_atec_list();
           this.get_Temp_Hum();
         }
         i++;

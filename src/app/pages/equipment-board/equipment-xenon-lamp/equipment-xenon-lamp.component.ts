@@ -184,7 +184,7 @@ export class EquipmentXenonLampComponent implements OnInit {
       setTimeout(() => {
         this.ngzone.runOutsideAngular(()=>{
           this.line_chart_1.tempset = data.c_cooling_water_temperature|| 0;
-          this.line_chart_1.tempset = data.tr_water_resistivity|| 0;
+          this.line_chart_1.conductivity = data.tr_water_resistivity|| 0;
         });
       }, 10);
 

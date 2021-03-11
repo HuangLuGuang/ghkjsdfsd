@@ -19,6 +19,7 @@ import { EquipmentBoardService } from "../../serivice/equipment-board.service";
   selector: "ngx-first-level",
   templateUrl: "./first-level.component.html",
   styleUrls: ["./first-level.component.scss"],
+  changeDetection:ChangeDetectionStrategy.OnPush
 })
 export class FirstLevelComponent implements OnInit {
   is_not_fullscreen = true; // 是否处于全屏

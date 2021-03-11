@@ -337,7 +337,7 @@ export class OilSourceMonitoringComponent implements OnInit {
   subscribeList: any = {};
   timer:any;//定时器
   language = '';//语言 空为zh-CN中文
-  deviceid:any;//设备id
+  // deviceid:any;//设备id
   linesRefresh = false;//表是都需要刷新
 
   constructor(private activateInfo:ActivatedRoute,
@@ -359,7 +359,6 @@ export class OilSourceMonitoringComponent implements OnInit {
       // console.log(f);
       if(document.getElementById('head_title'))
         document.getElementById('head_title').innerText = f.title;
-      this.deviceid = f.deviceid;
     })
 
 

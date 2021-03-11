@@ -422,8 +422,8 @@ export let  voc = [
   'chb3_humipv',//仓3湿度实际值
   'chb3_run',//启动状态
 
-  'irtoppv3',//红外顶板3
-  'irtoppv2',//红外顶板2
+  // 'irtoppv3',//红外顶板3
+  // 'irtoppv2',//红外顶板2
   'irtoppv1',//红外顶板1
 
   'irside1pv',//红外侧板1
