@@ -156,12 +156,13 @@ export class StructuralLaboratoryComponent implements OnInit {
 
     let param = Object.keys(this.param);
     let now;
+    let o = 0;
     this.thrid.get_andon_status_year(param,this.left);
     this.thrid.get_andon_status_last_year(param,this.left);
     this.timer = self.setInterval(f=>{
       this.get_oil_status();
       this.get_center_data();
-      this.thrid.get_log_list(param,this.left)
+      if(o%3 ==0 )this.thrid.get_log_list(param,this.left)
       this.thrid.get_device_taskinfo_list(param,this.right).subscribe((f:any)=>{
         for(let key in f){
           this.param[key].speed = f[key].map(m=> (m.speed));
@@ -171,8 +172,9 @@ export class StructuralLaboratoryComponent implements OnInit {
       now = new Date();
       if(now.getDate() == 1){
         this.thrid.get_andon_status_year(param,this.left);
-      this.thrid.get_andon_status_last_year(param,this.left);
+        this.thrid.get_andon_status_last_year(param,this.left);
       }
+      o++;
     },1000)
     setTimeout(() => {
       this.right.initChart();

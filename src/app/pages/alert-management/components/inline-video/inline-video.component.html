@@ -2,7 +2,7 @@
     01/13/2021 09:09:45 information Stmgr 'CS11_4poster_20180314.cfg' has connected to the station
 </span>
 <div class="row inline_video_video">
-    <div class="col-md-12" style="height: 100%;">
+    <div class="col-md-12" style="height: 100%;" *ngIf="status">
         <!-- 视频！ -->
         <nz-carousel nzAutoPlay=false nzAutoPlaySpeed=10000 >
             <div nz-carousel-content *ngFor="let index of array" >

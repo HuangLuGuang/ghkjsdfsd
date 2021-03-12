@@ -87,6 +87,7 @@ export class PhysicalLaboratoryComponent implements OnInit {
 
     let param = Object.keys(this.param);
     let now;
+    let o = 0;
     this.timer = self.setInterval(f=>{
       this.get_center_data();
       this.thrid.get_device_taskinfo_list(param,this.right).subscribe((f:any)=>{
@@ -95,12 +96,13 @@ export class PhysicalLaboratoryComponent implements OnInit {
           this.param[key].speed_name = f[key].map(m=> (m.experiment));
         }
       });
-      this.thrid.get_log_list(param,this.left);
+      if(o%3==0)this.thrid.get_log_list(param,this.left);
       now = new Date();
       if(now.getDate() == 1){
         this.thrid.get_andon_status_year(param,this.left);
         this.thrid.get_andon_status_last_year(param,this.left);
       }
+      o++;
     },1000)
     this.thrid.get_andon_status_year(param,this.left);
     this.thrid.get_andon_status_last_year(param,this.left);

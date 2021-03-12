@@ -82,17 +82,17 @@ export class NoiseLaboratoryComponent implements OnInit {
         this.thrid.get_andon_status_year(param,this.left);
         this.thrid.get_andon_status_last_year(param,this.left);
       }
+      this.thrid.get_device_taskinfo_list(param,this.right).subscribe((f:any)=>{
+        // f.forEach(el => {
+        //   this.param[el.deviceid].speed[0] = el.rate;
+        //   this.param[el.deviceid].speed_name[0] = el.taskchildnum;
+        // });
+        for(let key in f){
+          this.param[key].speed = f[key].map(m=> (m.speed));
+          this.param[key].speed_name = f[key].map(m=> (m.experiment));
+        }
+      });
     },1000);
-    this.thrid.get_device_taskinfo_list(param,this.right).subscribe((f:any)=>{
-      // f.forEach(el => {
-      //   this.param[el.deviceid].speed[0] = el.rate;
-      //   this.param[el.deviceid].speed_name[0] = el.taskchildnum;
-      // });
-      for(let key in f){
-        this.param[key].speed = f[key].map(m=> (m.speed));
-        this.param[key].speed_name = f[key].map(m=> (m.experiment));
-      }
-    });
     this.thrid.get_andon_status_year(param,this.left);
     this.thrid.get_andon_status_last_year(param,this.left);
 

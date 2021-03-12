@@ -1,4 +1,4 @@
-import { Component, OnInit } from "@angular/core";
+import { Component, OnInit, ViewChild } from "@angular/core";
 import { Router } from "@angular/router";
 import * as screenfull from "screenfull";
 import { Screenfull } from "screenfull";
@@ -62,11 +62,11 @@ export class CentralizedMonitoringComponent implements OnInit {
     document.addEventListener("fullscreenchange", this.fullscreenchange);
 
     this.layoutService.onInitLayoutSize().subscribe((f) => {
-      var ids = ["tj_test_number", "tj_test_number_line", "event_bar"];
-      ids.forEach((item) => {
-        var item_echart = document.getElementById(item);
-        if (item_echart) echarts.init(item_echart).resize();
-      });
+      // var ids = ["tj_test_number", "tj_test_number_line", "event_bar"];
+      // ids.forEach((item) => {
+      //   var item_echart = document.getElementById(item);
+      //   if (item_echart) echarts.init(item_echart).resize();
+      // });
 
       // nz-carousel-div
       var nz_carousel_style = document
@@ -88,11 +88,11 @@ export class CentralizedMonitoringComponent implements OnInit {
     });
 
     window.onresize = function () {
-      var ids = ["tj_test_number", "tj_test_number_line", "event_bar"];
-      ids.forEach((item) => {
-        var item_echart = document.getElementById(item);
-        if (item_echart) echarts.init(item_echart).resize();
-      });
+      // var ids = ["tj_test_number", "tj_test_number_line", "event_bar"];
+      // ids.forEach((item) => {
+      //   var item_echart = document.getElementById(item);
+      //   if (item_echart) echarts.init(item_echart).resize();
+      // });
     };
   }
 
@@ -218,15 +218,15 @@ export class CentralizedMonitoringComponent implements OnInit {
         .getAttribute("style");
       // console.log("-------------按钮全屏功能-----------", nz_carousel_style);
 
-      if (nz_carousel_style == "height: 430px;line-height: 430px;") {
-        document
-          .getElementsByTagName("nz-carousel")[0]
-          .setAttribute("style", "height: 320px;line-height: 320px;");
-      } else {
-        document
-          .getElementsByTagName("nz-carousel")[0]
-          .setAttribute("style", "height: 430px;line-height: 430px;");
-      }
+      // if (nz_carousel_style == "height: 430px;line-height: 430px;") {
+      //   document
+      //     .getElementsByTagName("nz-carousel")[0]
+      //     .setAttribute("style", "height: 320px;line-height: 320px;");
+      // } else {
+      //   document
+      //     .getElementsByTagName("nz-carousel")[0]
+      //     .setAttribute("style", "height: 430px;line-height: 430px;");
+      // }
     }
   }
 
