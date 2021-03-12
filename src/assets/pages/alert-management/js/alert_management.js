@@ -30,10 +30,11 @@ let alert_management = {
         width: "70%",
         itemWidth: 5,
         itemHeight: 5,
-        left: 0,
+        // left: 0,
         orient: "horizontal",
         // orient: "vertical",
-        bottom: "left",
+        // bottom: "left",
+        bottom: "0",
         icon: "circle",
         pageIconColor: "#fff",
         pageTextStyle: {

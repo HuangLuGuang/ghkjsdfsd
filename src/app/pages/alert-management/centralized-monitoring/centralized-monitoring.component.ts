@@ -67,6 +67,24 @@ export class CentralizedMonitoringComponent implements OnInit {
         var item_echart = document.getElementById(item);
         if (item_echart) echarts.init(item_echart).resize();
       });
+
+      // nz-carousel-div
+      var nz_carousel_style = document
+        .getElementsByTagName("nz-carousel")[0]
+        .getAttribute("style");
+      console.log(
+        "-------------nz_carousel_div_style-----------",
+        nz_carousel_style
+      );
+      // if (nz_carousel_div_style.includes("width: 491.656px;")) {
+      //   document
+      //     .getElementsByClassName("nz-carousel-div")[0]
+      //     .setAttribute("style", "width: 576.656px;");
+      // } else {
+      //   document
+      //     .getElementsByClassName("nz-carousel-div")[0]
+      //     .setAttribute("style", "width: 491.656px;");
+      // }
     });
 
     window.onresize = function () {
@@ -97,6 +115,10 @@ export class CentralizedMonitoringComponent implements OnInit {
       ],
     };
     alert_management.deviceline("tj_test_number_line", deviceline);
+
+    document
+      .getElementsByTagName("nz-carousel")[0]
+      .setAttribute("style", "height: 320px;line-height: 320px;");
   }
 
   //组件销毁
@@ -188,6 +210,23 @@ export class CentralizedMonitoringComponent implements OnInit {
       //刷新表格
       // this.boradservice.sendChartResize();
       console.log("-------------按钮全屏功能-----------");
+      // document
+      //   .getElementsByTagName("nz-carousel")[0]
+      //   .setAttribute("style", "height: 240px;line-height: 240px;");
+      var nz_carousel_style = document
+        .getElementsByTagName("nz-carousel")[0]
+        .getAttribute("style");
+      // console.log("-------------按钮全屏功能-----------", nz_carousel_style);
+
+      if (nz_carousel_style == "height: 430px;line-height: 430px;") {
+        document
+          .getElementsByTagName("nz-carousel")[0]
+          .setAttribute("style", "height: 320px;line-height: 320px;");
+      } else {
+        document
+          .getElementsByTagName("nz-carousel")[0]
+          .setAttribute("style", "height: 430px;line-height: 430px;");
+      }
     }
   }
 

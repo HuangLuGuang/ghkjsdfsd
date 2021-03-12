@@ -10,9 +10,16 @@ import {
   NbIconModule,
   NbSpinnerModule,
 } from "@nebular/theme";
+import { InlineVideoComponent } from "./components/inline-video/inline-video.component";
+
+import { NzCarouselModule } from "ng-zorro-antd/carousel";
 
 @NgModule({
-  declarations: [AlertManagementComponent, CentralizedMonitoringComponent],
+  declarations: [
+    AlertManagementComponent,
+    CentralizedMonitoringComponent,
+    InlineVideoComponent,
+  ],
   imports: [
     CommonModule,
     AlertManagementRoutingModule,
@@ -20,6 +27,7 @@ import {
     NbSpinnerModule,
     NbIconModule,
     NbButtonModule,
+    NzCarouselModule,
   ],
 })
 export class AlertManagementModule {}
