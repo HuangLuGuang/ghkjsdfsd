@@ -10,4 +10,6 @@ export class InlineVideoComponent implements OnInit {
   constructor() {}
 
   ngOnInit(): void {}
+
+  ngAfterViewInit() {}
 }
