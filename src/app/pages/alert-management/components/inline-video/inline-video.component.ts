@@ -1,5 +1,7 @@
-import { Component, OnInit } from "@angular/core";
+import { Component, OnInit, ViewChild } from "@angular/core";
+import { LayoutService } from "../../../../@core/utils";
 
+declare var $;
 @Component({
   selector: "ngx-inline-video",
   templateUrl: "./inline-video.component.html",
@@ -7,9 +9,27 @@ import { Component, OnInit } from "@angular/core";
 })
 export class InlineVideoComponent implements OnInit {
   array = [1, 2, 3, 4];
-  constructor() {}
+  status = true;
+  nzAutoPlay = true; // 自动切换
+  nzAutoPlaySpeed = 10000; // 时间间隔
+  @ViewChild("carousel") carousel: any;
 
-  ngOnInit(): void {}
+  constructor(private layout: LayoutService) {}
 
-  ngAfterViewInit() {}
+  ngOnInit(): void {
+    this.layout.onInitLayoutSize().subscribe((f) => {
+      this.resize();
+    });
+  }
+
+  resize = () => {
+    this.status = false;
+    setTimeout(() => {
+      this.status = true;
+    }, 20);
+  };
+
+  ngOnDestroy() {
+    // window.removeEventListener('resize',this.resize);
+  }
 }

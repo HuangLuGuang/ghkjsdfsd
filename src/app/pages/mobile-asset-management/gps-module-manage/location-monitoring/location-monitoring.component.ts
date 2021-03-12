@@ -33,7 +33,7 @@ export class LocationMonitoringComponent implements OnInit {
   @ViewChild("myselect") myselect: any;
 
   @ViewChild("map") map: any;
-  // 初始化数据
+  // 定时刷新化数据
   groups: Group[] = [
     {
       name: "在线",
@@ -336,7 +336,7 @@ export class LocationMonitoringComponent implements OnInit {
       cellRendererFramework: TableOptionComponent,
       cellRendererParams: {
         clicked: function (data: any) {
-          console.log("--添加操作列---", data);
+          // console.log("--添加操作列---", data);
           // that.change_target_hour([data]);
           that.history_location(data);
         },
@@ -705,7 +705,7 @@ export class LocationMonitoringComponent implements OnInit {
         element.lng_lat[1] += 0.1;
       });
     });
-    console.error("子组件，map组件调用，通知，刷新小车数据！", groups_back);
+    // console.error("子组件，map组件调用，通知，刷新小车数据！", groups_back);
     this.map.init_show_all(groups_back, true);
   }
 

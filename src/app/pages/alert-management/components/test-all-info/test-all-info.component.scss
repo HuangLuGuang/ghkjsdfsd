@@ -1,0 +1,25 @@
+// 试验汇总信息
+.test_all_info{
+    height: 100%;
+    margin: 0px;
+    .table_info {
+        padding-top: 45px;
+        width: 100%;
+        table{
+            width: 100%;
+            height: 100%;
+            border: 1px solid #4472c4;
+            .table_info_header {
+                // display: flex;
+                // height: 100%;
+                height: 7%;
+                // width: 100%;
+                background: rgb(68, 114, 196);
+                padding: 3px 0;
+                td {
+                    width: 33%;
+                }
+            }
+        }
+    }
+}

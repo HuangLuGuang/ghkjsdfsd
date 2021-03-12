@@ -13,12 +13,14 @@ import {
 import { InlineVideoComponent } from "./components/inline-video/inline-video.component";
 
 import { NzCarouselModule } from "ng-zorro-antd/carousel";
+import { TestAllInfoComponent } from './components/test-all-info/test-all-info.component';
 
 @NgModule({
   declarations: [
     AlertManagementComponent,
     CentralizedMonitoringComponent,
     InlineVideoComponent,
+    TestAllInfoComponent,
   ],
   imports: [
     CommonModule,

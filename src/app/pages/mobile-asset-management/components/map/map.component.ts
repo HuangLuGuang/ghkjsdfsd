@@ -134,7 +134,11 @@ export class MapComponent implements OnInit {
     p.ping("https://api.map.baidu.com", function (err, data) {
       if (err) {
         // console.error("error loading resource>>>", err);
-        $("#map_map").text("无法请求百度api！请确保可以访问外网！");
+        // $("#map_map").text("地图无法加载,请检查网络");
+        var span = document.createElement("span");
+        span.setAttribute("style", "color: red; font-size: 18px");
+        span.innerText = "地图无法加载,请检查网络!";
+        document.getElementById("map_map").appendChild(span);
       } else {
         that.is_map_api = true;
       }

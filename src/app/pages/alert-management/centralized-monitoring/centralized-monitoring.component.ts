@@ -1,4 +1,4 @@
-import { Component, OnInit } from "@angular/core";
+import { Component, OnInit, ViewChild } from "@angular/core";
 import { Router } from "@angular/router";
 import * as screenfull from "screenfull";
 import { Screenfull } from "screenfull";
@@ -37,6 +37,7 @@ export class CentralizedMonitoringComponent implements OnInit {
     home: true, //主页按钮
   };
 
+  // 事件/报警信息
   log_warm = {
     // '时间','日志等级','日志信息'
     title: ["时间", "日志等级", "日志报警"],
@@ -50,6 +51,7 @@ export class CentralizedMonitoringComponent implements OnInit {
       ["2020-10-17", "info", "Not ready"],
     ],
   };
+
   constructor(private layoutService: LayoutService, private router: Router) {
     // 会话过期
     localStorage.removeItem("alert401flag");
@@ -68,8 +70,6 @@ export class CentralizedMonitoringComponent implements OnInit {
         var item_echart = document.getElementById(item);
         if (item_echart) echarts.init(item_echart).resize();
       });
-      this.chagne_result = !this.chagne_result;
-      console.error("this.chagne_result>>>>", this.chagne_result);
     });
 
     window.onresize = function () {
@@ -191,6 +191,23 @@ export class CentralizedMonitoringComponent implements OnInit {
       //刷新表格
       // this.boradservice.sendChartResize();
       console.log("-------------按钮全屏功能-----------");
+      // document
+      //   .getElementsByTagName("nz-carousel")[0]
+      //   .setAttribute("style", "height: 240px;line-height: 240px;");
+      var nz_carousel_style = document
+        .getElementsByTagName("nz-carousel")[0]
+        .getAttribute("style");
+      // console.log("-------------按钮全屏功能-----------", nz_carousel_style);
+
+      // if (nz_carousel_style == "height: 430px;line-height: 430px;") {
+      //   document
+      //     .getElementsByTagName("nz-carousel")[0]
+      //     .setAttribute("style", "height: 320px;line-height: 320px;");
+      // } else {
+      //   document
+      //     .getElementsByTagName("nz-carousel")[0]
+      //     .setAttribute("style", "height: 430px;line-height: 430px;");
+      // }
     }
   }
 

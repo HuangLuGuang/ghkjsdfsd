@@ -199,16 +199,20 @@
 
 // 视频在线
 .device_video{
-    height: 98%;
+    height: 50%;
     .video_inline_one{
-        border: solid 1px red;
-        height: 50%;
+        height: 100%;
         margin: 0px;
         padding-top: 30px;
     }
+}
+// 报警区域显示
+.alert_area{
+    height: 47%;
     .video_inline_two{
-        border: solid 1px rgb(83, 175, 40);
-        height: 48%;
+        // border: solid 1px rgb(83, 175, 40);
+        height: 100%;
         margin: 0px;
     }
 }
+
