@@ -48,7 +48,13 @@ export class PhysicalLaboratoryComponent implements OnInit {
       router:'/pages/equipment/shengwei/晟微、4m3环境仓集中监控',
     },
     {
-
+      name:'ATEC舱',
+      number:'',
+      andon:0,
+      speed:[],
+      src:'',//实验图片地址
+      speed_name:[''],//实验编号
+      router:'/pages/equipment/atec/ATEC舱',
     },
     {
     },

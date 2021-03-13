@@ -217,6 +217,11 @@ export class EquipmentMotorSystemComponent implements OnInit {
           this.img.url = 'assets/eimdoard/equipment/images/dj4_1010.jpeg';
           this.introd_name += '4';
           break;
+        case 'device_andmotor_01':
+          this.t_h_deviceid = 'sensor_temp_humi_01';
+          this.img.url = 'assets/eimdoard/equipment/images/dj5_1008.jpeg';
+          this.introd_name += '5';
+          break;
         // case 'device_avlmotor_05':
         //   this.img.url = 'assets/eimdoard/equipment/images/dj5_1008.jpeg';
         //   this.introd_name += '5';

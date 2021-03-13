@@ -55,7 +55,7 @@ export class EnergyLaboratoryComponent implements OnInit {
       speed:[],
       src:'assets/eimdoard/equipment/images/dj5_1008.jpeg',//实验图片地址
       speed_name:[''],//实验编号
-      router:''
+      router:'pages/equipment/motor5/鲁交电机测试台架1/device_andmotor_01'
     },
     {
       name:'博阳电机5',

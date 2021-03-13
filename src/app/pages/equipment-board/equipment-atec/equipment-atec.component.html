@@ -1,0 +1,50 @@
+<div class="atec">
+    <div class="row" style="height: 100%;margin: 0;">
+        <div class="col-md-4" style="padding: 0px 0px 0px 20px;">
+            <div class="backgrond height_41">
+                <ngx-equipment-status [device]='device' style="display: flex;height: 100%;"></ngx-equipment-status>
+            </div>
+            <div class="backgrond height_20">
+                <div class="part_title">{{'equipment.expInfor'|translate}}</div>
+                <ngx-test-information [device]='device' style="width: 100%;"></ngx-test-information>
+
+            </div>
+            <div class="backgrond height_35">
+                <ngx-log-warm [device]='device' style="display: flex;height: 100%;flex-wrap: wrap;"></ngx-log-warm>
+            </div>
+            
+        </div>
+        <div class="col-md-4" style="padding:  0px 20px;">
+            <div class="backgrond height_28">
+                <div class="part_title">{{ 'equipment.equipIntroduce'|translate}}</div>
+                <div style="padding: 20px;overflow: auto;">
+                </div>
+            </div>
+            <div class="center_img backgrond " style="padding: 0;">
+                <div class="part_title">{{'equipment.OnlineVideo'|translate}}</div>
+                <img id="img" [src]="img.url">
+            </div>
+            <div class="backgrond height_33" >
+                <div class="part_title">环境舱</div>
+                <div class="atec_cang">
+                    <div class="atec_layout height_46">
+                        <div class="round" [ngStyle]="{background:atec.status?'#66FF66':'black' }"></div>
+                        <div id="atec_pie_5"></div>
+                        <div id="atec_pie_6"></div>
+                        <div class="atec_1_set height_100">
+                            <div class="set_2">温度设定值：<span class="span_css">{{ atec.tempSet}}℃</span></div>
+                            <div class="set_2">湿度设定值：<span class="span_css">{{ atec.humiSet }}%RH</span></div>
+                        </div>
+                    </div>
+                    <div id="atec_line_3" class="height_54 w_100"></div>
+                </div>
+
+            </div>
+        </div>
+        <div class="col-md-4" style="padding: 0px 20px 0px 0px;">
+            <div class="backgrond height_100" style="display: flex;justify-content: center;align-items: center;">
+                待定
+            </div>
+        </div>
+    </div>
+</div>

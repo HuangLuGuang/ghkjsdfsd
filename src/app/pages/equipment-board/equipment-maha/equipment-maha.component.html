@@ -56,7 +56,192 @@
         <div class="col-md-4" style="padding: 0px 20px 0px 0px;">
             <div class="height_60 backgroud">
                 <div class="part_title">朗德空调</div>
+                <div class="langde">
+                    
+                    <div class="tig">
+                        <div class="name">设备状态</div>
+                        <div class="value">
+                            <div class="circle" [ngStyle]="{background: langde.status?'#07ef07':'black'}"></div>
+                        </div>
+                    </div>
+                    <div class="tig">
+                        <div class="name">加热器状态</div>
+                        <div class="value">
+                            <div class="circle" [ngStyle]="{background: langde.heater_status?'#07ef07':'black'}"></div>
+                        </div>
+                    </div>
+                    <div class="tig">
+                        <div class="name">迎风状态</div>
+                        <div class="value">
+                            <div class="circle" [ngStyle]="{background: langde.front_wind_status?'#07ef07':'black'}"></div>
+                        </div>
+                    </div>
+                    <div class="tig">
+                        <div class="name">点冷状态</div>
+                        <div class="value">
+                            <div class="circle" [ngStyle]="{background: langde.point_cold_status?'#07ef07':'black'}"></div>
+                        </div>
+                    </div>
 
+                    <div class="tig">
+                        <div class="name">房间湿度1</div>
+                        <div class="value" >
+                            <span>
+                                {{langde.room_humidity_1}}RH
+                            </span>
+                        </div>
+                    </div>
+                    <div class="tig">
+                        <div class="name">房间温度1</div>
+                        <div class="value" >
+                            <span>
+                                {{langde.room_temp_1}}℃
+                            </span>
+                        </div>
+                    </div>
+                    <div class="tig">
+                        <div class="name">房间湿度2</div>
+                        <div class="value" >
+                            <span>{{langde.room_humidity_2}}RH</span>
+                        </div>
+                    </div>
+                    <div class="tig">
+                        <div class="name">房间温度2</div>
+                        <div class="value" >
+                            <span>
+                                {{langde.room_humidity_1}}℃
+                            </span>
+                        </div>
+                    </div>
+                    <div class="tig">
+                        <div class="name">新风温度</div>
+                        <div class="value" >
+                            <span>
+                                {{langde.ventilation_temp}}℃
+                            </span>
+                        </div>
+                    </div>
+                    <div class="tig">
+                        <div class="name">送风温度</div>
+                        <div class="value" >
+                            <span>
+                                {{langde.supply_air_temp}}℃
+                            </span>
+                        </div>
+                    </div>
+                    <div class="tig">
+                        <div class="name">房间压力</div>
+                        <div class="value" >
+                            <span>
+                                {{langde.room_pressure}}Pa
+                            </span>
+                        </div>
+                    </div>
+                    <div class="tig">
+                        <div class="name">迎面风风速</div>
+                        <div class="value" >
+                            <span>
+                                {{langde.front_wind_speed}}
+                            </span>
+                        </div>
+                    </div>
+                    <div class="tig">
+                        <div class="name">排风阀开度</div>
+                        <div class="value" >
+                            <span>
+                                {{langde.exhaust_valve}}%
+                            </span>
+                        </div>
+                    </div>
+                    <div class="tig">
+                        <div class="name">新风阀开度</div>
+                        <div class="value" >
+                            <span>
+                                {{langde.ventilation_valve}}%
+                            </span>
+                        </div>
+                    </div>
+                    <div class="tig">
+                        <div class="name">混合阀开度</div>
+                        <div class="value" >
+                            <span>
+                                {{langde.mixer_valve}}%
+                            </span>
+                        </div>
+                    </div>
+                    <div class="tig">
+                        <div class="name">冷冻水阀开度</div>
+                        <div class="value" >
+                            <span>
+                                {{langde.chilling_water_valve}}%
+                            </span>
+                        </div>
+                    </div>
+                    <div class="tig">
+                        <div class="name">加热开度</div>
+                        <div class="value" >
+                            <span>
+                                {{langde.heating}}%
+                            </span>
+                        </div>
+                    </div>
+                    <div class="tig">
+                        <div class="name">送风机频率</div>
+                        <div class="value" >
+                            <span>
+                                {{langde.blower_freq}}
+                            </span>
+                        </div>
+                    </div>
+                    <div class="tig">
+                        <div class="name">回风机频率</div>
+                        <div class="value" >
+                            <span>
+                                {{langde.conditioning_freq}}
+                            </span>
+                        </div>
+                    </div>
+                    <div class="tig">
+                        <div class="name">未排风机频率</div>
+                        <div class="value" >
+                            <span>
+                                {{langde.tailpipe_fan_freq}}
+                            </span>
+                        </div>
+                    </div>
+                    <div class="tig">
+                        <div class="name">点冷风机1频率</div>
+                        <div class="value" >
+                            <span>
+                                {{langde.point_cold_fan_1_freq}}
+                            </span>
+                        </div>
+                    </div>
+                    <div class="tig">
+                        <div class="name">点冷风机2频率</div>
+                        <div class="value" >
+                            <span>
+                                {{langde.point_cold_fan_2_freq}}
+                            </span>
+                        </div>
+                    </div>
+                    <div class="tig">
+                        <div class="name">迎面送风机频率</div>
+                        <div class="value" >
+                            <span>
+                                {{langde.front_blower_freq}}
+                            </span>
+                        </div>
+                    </div>
+                    <div class="tig">
+                        <div class="name">迎面回风机频率</div>
+                        <div class="value" >
+                            <span>
+                                {{langde.front_conditioning_freq}}
+                            </span>
+                        </div>
+                    </div>
+                </div>
             </div>
             <div class="height_36 backgroud" style="display: flex;flex-wrap: wrap;">
                 <div class="left_front">
