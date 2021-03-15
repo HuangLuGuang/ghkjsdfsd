@@ -85,6 +85,7 @@ export const DEVICEID_TO_NAME  ={
   'device_purewater_01':'纯水',//纯水
   'device_cabin_voc01':'晟微',//
   'device_4m3_01':'4m3',
+  'device_atec_06':'ATEC舱06',//
 
 
   'device_cts_01':'CTS',//CTS-声学高低温环境舱
