@@ -137,6 +137,7 @@ export class MapComponent implements OnInit {
         // $("#map_map").text("地图无法加载,请检查网络");
         var span = document.createElement("span");
         span.setAttribute("style", "color: red; font-size: 18px");
+        span.innerText = "";
         span.innerText = "地图无法加载,请检查网络!";
         document.getElementById("map_map").appendChild(span);
       } else {

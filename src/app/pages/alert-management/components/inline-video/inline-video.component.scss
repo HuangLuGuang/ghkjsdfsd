@@ -1,24 +1,39 @@
-.inline_video_title{
+
+.video_inline_one{
+  height: 100%;
+  margin: 0px;
+  padding-top: 30px;
+
+  .inline_video_title{
     position: absolute;
     width: 100%;
     left: 0px;
     color: aliceblue;
     font-size: smaller;
+  }
+
+  .inline_video_video{
+    height: 100%;
+    width: 100%;
+    // height: 303.75px; 
+    // width: 540px; 
+    // height: 340px; width: 620px;
+    border: 1px rgb(83, 189, 22) solid;
+    // padding-left: 4%;
+
+  }
+
 }
 
-.inline_video_video{
-    height: 100%;
-    padding-top: 30px;
-}
+
+
 
 [nz-carousel-content] {
     text-align: center;
-    
-    // height: 160px;
-    // line-height: 160px;
     background: #364d79;
     color: #fff;
     overflow: hidden;
+    
   }
 
 h3 {
@@ -27,8 +42,10 @@ h3 {
 }
 
 nz-carousel{
+  
   position: relative;
   overflow: hidden;
+
   // height: 100%;
   // height: 240px;
   // line-height: 240px;

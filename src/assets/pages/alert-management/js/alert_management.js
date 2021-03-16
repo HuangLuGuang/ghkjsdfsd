@@ -9,9 +9,20 @@ let alert_management = {
       // color: ["#5D920D", "#FF4E0D"], // 在线、异常
       color: ["#FF0000", "#FFA600", "#3CB371"],
       title: {
-        // text: "在线、异常设备饼状图",
+        text: "统计试验总数",
         left: "center",
-        top: 20,
+        top: "45%",
+        subtext: data.subtext,
+        textStyle: {
+          color: "#fff",
+          fontSize: 12,
+          fontWeight: "normal",
+        },
+        subtextStyle: {
+          color: "#fff",
+          fontSize: 12,
+          fontWeight: "normal",
+        },
       },
       tooltip: {
         trigger: "item",
@@ -48,7 +59,7 @@ let alert_management = {
         {
           name: "设备",
           type: "pie",
-          radius: ["30%", "50%"],
+          radius: ["40%", "50%"],
           // data: [
           //   { value: 1048, name: "三级" },
           //   { value: 735, name: "二级" },
@@ -81,6 +92,7 @@ let alert_management = {
     };
     // @ts-ignore
     mychart.setOption(option);
+    // console.error(JSON.stringify(option));
     mychart.resize();
   },
 

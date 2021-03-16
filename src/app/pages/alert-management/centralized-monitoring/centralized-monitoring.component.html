@@ -25,9 +25,9 @@
                 <div id="center" style="min-height: 800px;">
                     <!-- center -->
                     <div class="row" style="width: 100%;">
-                        <div class="col-md-5 ">
+                        <div class="col-md-4 ">
                             <!-- 设备汇总信息 -->
-                            <div class="device_all_info chunk" style="height: 40%;">
+                            <div class="device_all_info chunk" >
                                 <div class="part_title">设备汇总信息</div>
 
                                 <!-- 数量 -->
@@ -53,14 +53,15 @@
                                 <!-- 事件 -->
                                 <div class="row device_alert_info_event">
                                     <div class="col-md-4">
-                                        <div id="circular"></div>
+                                        <div id="circular" [ngStyle]="{background: log_warm.error===1?'#ff0000':'#3b3838'}"></div>
                                         <span>严重报警</span>
                                     </div>
                                     <div class="col-md-8" id="event_bar"></div>
                                 </div>
                                 <!-- 报警 -->
                                 <div class="row device_alert_info_elert">
-                                    <div class="table_bo ">
+                                    <ngx-alert-info-alert style="width: 100%;height: 100%;"></ngx-alert-info-alert>
+                                    <!-- <div class="table_bo ">
                                         <table>
                                             <tr class="header">
                                                 <td class="center_center" *ngFor="let title of log_warm.title;let i =index" [ngStyle]="{'width':i == 0?'20%':i == 1?'20%':'60%'}">
@@ -74,25 +75,32 @@
                                                 </td>
                                             </tr>
                                         </table>
-                                    </div>
+                                    </div> -->
                                 </div>
                             </div>
 
                         </div>
 
-                        <div class="col-md-4 " style="padding-left: 0px;">
+                        
+                        <!-- 视频轮播 -->
+                        <div class="col-md-5 "  style="padding-left: 0px;">
                             <div class="device_video chunk" >
                                 <div class="part_title">视频轮播</div>
+                                
                                 <!-- 科室的视频 -->
-                                <div class="row video_inline_one">
-                                    <div class="col-md-12" style="height: 96%;">
-                                        <ngx-inline-video></ngx-inline-video>
+                                <div class="row diveo_image">
+                                    <!--  style=" border: solid 1px red;" -->
+                                    <div  id="img_id" >
+                                        <div class="inline_video_title row">
+                                            01/13/2021 09:09:45 information Stmgr 'CS11_4poster_20180314.cfg' has connected to the station
+                                        </div>
+                                        <ngx-inline-video #inline></ngx-inline-video>
                                     </div>
                                 </div>
-                                
                             </div>
 
 
+                            <!-- 报警区域显示 -->
                             <div class="alert_area chunk" >
                                 <div class="part_title">报警区域显示</div>
                                 <!-- 非科室的视频 -->
@@ -102,12 +110,14 @@
                         </div>
 
 
-
+                        <!-- 试验汇总信息 -->
                         <div class="col-md-3 " style="padding: 0px;">
                             <div class="test_all_tinfo chunk" style="height: 98%;">
                                 <div class="part_title">试验汇总信息</div>
                                 <!-- 试验汇总信息 -->
-                                <ngx-test-all-info></ngx-test-all-info>
+                                <div class="row" style="padding: 0; margin: 0;">
+                                    <ngx-test-all-info #testinfo style="height: 100%;"></ngx-test-all-info>
+                                </div>
                             </div>
                             
                         </div>

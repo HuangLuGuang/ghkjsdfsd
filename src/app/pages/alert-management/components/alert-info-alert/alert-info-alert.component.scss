@@ -1,22 +1,20 @@
 // 试验汇总信息
-.test_all_info{
-    // height: 10%;
-    height:658px;
-    margin-bottom:20px;
+.device_alert_info_alert{
+    margin-bottom: 20px;
     margin: 0px;
-    .table_info {
-        position: absolute;
+    height: 100%;
+    .alert_info_alert {
+        height: 10%;
         padding: 0;
         margin: 0;
-        padding-top: 45px;
+        padding-top: 25px;
         width: 100%;
-        height: 10%;
         table{
             width: 100%;
             height: 100%;
             overflow-y: scroll;
             border: 1px solid #4472c4;
-            .table_info_header {
+            .alert_info_alert_table_bo_header {
                 // display: flex;
                 // height: 100%;
                 // height: 7%;
@@ -31,12 +29,12 @@
         }
     }
 
-    .table_info_content{
-        height: 85%;
-        // height: 658px;
+    .alert_info_alert_table_info_content{
+        // height: 277px;
+        height: 77%;
         position: absolute;
-        // top: 5%;
-        top: 14%;
+        top: 22%;
+
         padding: 0;
         margin: 0;
         // height: 90%;
@@ -54,8 +52,7 @@
     
 }
 
-
-.table_info_content::-webkit-scrollbar {/*滚动条整体样式*/
+.alert_info_alert_table_info_content::-webkit-scrollbar {/*滚动条整体样式*/
 
     width: 4px;     /*高宽分别对应横竖滚动条的尺寸*/
 

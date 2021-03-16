@@ -1,16 +1,25 @@
-<span class="inline_video_title">
-    01/13/2021 09:09:45 information Stmgr 'CS11_4poster_20180314.cfg' has connected to the station
-</span>
-<div class="row inline_video_video">
-    <div class="col-md-12" style="height: 100%;" *ngIf="status">
-        <!-- 视频！ -->
-        <nz-carousel [nzAutoPlay]="nzAutoPlay" [nzAutoPlaySpeed]="nzAutoPlaySpeed" >
-            <div nz-carousel-content *ngFor="let index of array" >
-              <!-- <h3>{{ index }}</h3> -->
-              <img src="assets/eimdoard/equipment/images/lqdp.png" style="height: 100%; width: 100%;" alt="" srcset="">
-            </div>
-          </nz-carousel>
-
-
-    </div>
+<div class="row video_inline_one"  *ngIf="status">
+  <div class="col-md-12" style="height: 100%; width: 100%; padding: 0;">
+      <div style="height: 100%; width: 100%;" class="inline_video_video_parent">
+          <!-- <span class="inline_video_title">
+            01/13/2021 09:09:45 information Stmgr 'CS11_4poster_20180314.cfg' has connected to the station
+          </span> -->
+          <!-- 视频！ -->
+          <div class="inline_video_video">
+            <nz-carousel [nzAutoPlay]="nzAutoPlay" [nzAutoPlaySpeed]="nzAutoPlaySpeed" [nzDots]="nzDots" #carousel>
+              <div nz-carousel-content *ngFor="let index of array;let i=index">
+                <img [src]="index" style="height: 100%; width: 100%;" alt="" srcset="">
+              </div>
+              <!-- <div nz-carousel-content *ngFor="let index of array" >
+                  <img [src]="index" style="height: 100%; width: 100%;" alt="" srcset="">
+                </div> -->
+            </nz-carousel>
+          </div>
+      </div>
+  </div>
 </div>
+
+
+
+
+

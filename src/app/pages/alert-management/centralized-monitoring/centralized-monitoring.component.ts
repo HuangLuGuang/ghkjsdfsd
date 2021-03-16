@@ -14,6 +14,9 @@ var alert_management = require("../../../../assets/pages/alert-management/js/ale
   styleUrls: ["./centralized-monitoring.component.scss"],
 })
 export class CentralizedMonitoringComponent implements OnInit {
+  @ViewChild("inline") inline: any; // 视频
+  @ViewChild("testinfo") testinfo: any; // 试验信息汇总
+
   is_not_fullscreen = true; // 是否处于全屏
 
   loading = false;
@@ -49,7 +52,23 @@ export class CentralizedMonitoringComponent implements OnInit {
       ["2020-10-16", "info", "Not ready"],
       ["2020-10-17", "error", "Not ready"],
       ["2020-10-17", "info", "Not ready"],
+      ["2020-10-17", "info", "Not ready"],
+      ["2020-10-17", "info", "Not ready"],
+      ["2020-10-17", "info", "Not ready"],
+      ["2020-10-17", "info", "Not ready"],
+      ["2020-10-17", "info", "Not ready"],
+      ["2020-10-17", "info", "Not ready"],
+      ["2020-10-17", "info", "Not ready"],
+      ["2020-10-17", "info", "Not ready"],
+      ["2020-10-17", "info", "Not ready"],
+      ["2020-10-17", "info", "Not ready"],
+      ["2020-10-17", "info", "Not ready"],
+      ["2020-10-17", "info", "Not ready"],
+      ["2020-10-17", "info", "Not ready"],
+      ["2020-10-17", "info", "Not ready"],
+      ["2020-10-17", "info", "Not ready"],
     ],
+    error: 1,
   };
 
   constructor(private layoutService: LayoutService, private router: Router) {
@@ -65,15 +84,21 @@ export class CentralizedMonitoringComponent implements OnInit {
     document.addEventListener("fullscreenchange", this.fullscreenchange);
 
     this.layoutService.onInitLayoutSize().subscribe((f) => {
-      var ids = ["tj_test_number", "tj_test_number_line", "event_bar"];
+      var ids = ["tj_test_number", "tj_test_number_line"];
       ids.forEach((item) => {
         var item_echart = document.getElementById(item);
         if (item_echart) echarts.init(item_echart).resize();
       });
+
+      this.inline.status = false;
+      setTimeout(() => {
+        this.create_img_16_9();
+        this.inline.status = true;
+      }, 120);
     });
 
     window.onresize = function () {
-      var ids = ["tj_test_number", "tj_test_number_line", "event_bar"];
+      var ids = ["tj_test_number", "tj_test_number_line"];
       ids.forEach((item) => {
         var item_echart = document.getElementById(item);
         if (item_echart) echarts.init(item_echart).resize();
@@ -84,6 +109,7 @@ export class CentralizedMonitoringComponent implements OnInit {
   ngAfterViewInit() {
     // 初始化 echart
     var pie_data = {
+      subtext: 45,
       data: [
         { value: 1048, name: "三级" },
         { value: 735, name: "二级" },
@@ -100,15 +126,23 @@ export class CentralizedMonitoringComponent implements OnInit {
       ],
     };
     alert_management.deviceline("tj_test_number_line", deviceline);
+
+    // 从别的界面，跳转进来
+    setTimeout(() => {
+      var ids = ["tj_test_number", "tj_test_number_line"];
+      ids.forEach((item) => {
+        var item_echart = document.getElementById(item);
+        if (item_echart) echarts.init(item_echart).resize();
+      });
+    }, 500);
   }
 
   //组件销毁
   ngOnDestroy() {
     document.removeEventListener("fullscreenchange", this.fullscreenchange);
-
     clearInterval(this.dateInterval);
     // 清除 echart
-    var ids = ["tj_test_number", "tj_test_number_line", "event_bar"];
+    var ids = ["tj_test_number", "tj_test_number_line"];
     ids.forEach((item) => {
       var item_echart = document.getElementById(item);
       if (item_echart) {
@@ -136,7 +170,7 @@ export class CentralizedMonitoringComponent implements OnInit {
     //当为最上级看板时
   }
 
-  //点击菜单
+  //点击菜单  首页
   menu_btn_click() {
     console.log("点击菜单");
     this.router.navigate(["/pages"]);
@@ -191,24 +225,50 @@ export class CentralizedMonitoringComponent implements OnInit {
       //刷新表格
       // this.boradservice.sendChartResize();
       console.log("-------------按钮全屏功能-----------");
-      // document
-      //   .getElementsByTagName("nz-carousel")[0]
-      //   .setAttribute("style", "height: 240px;line-height: 240px;");
-      var nz_carousel_style = document
-        .getElementsByTagName("nz-carousel")[0]
-        .getAttribute("style");
-      // console.log("-------------按钮全屏功能-----------", nz_carousel_style);
 
-      // if (nz_carousel_style == "height: 430px;line-height: 430px;") {
-      //   document
-      //     .getElementsByTagName("nz-carousel")[0]
-      //     .setAttribute("style", "height: 320px;line-height: 320px;");
-      // } else {
-      //   document
-      //     .getElementsByTagName("nz-carousel")[0]
-      //     .setAttribute("style", "height: 430px;line-height: 430px;");
-      // }
+      setTimeout(() => {
+        this.create_img_16_9();
+        // this.change_height(this.testinfo.testinfo);
+      }, 100);
     }
+  }
+
+  // 4-9
+  create_img_16_9 = () => {
+    let dom = document.getElementById("img_id"); // 子
+    if (!dom) return;
+    dom = null;
+    let center_img = $(".diveo_image"); // 父
+    let img = $("#img_id"); // 子
+
+    let height;
+    let i = 9;
+    for (i; i > 0; i--) {
+      height = ((center_img.width() * i * 0.1) / 16) * 9;
+      if (height < center_img.height()) break;
+    }
+    img.height(height);
+    img.width((height / 9) * 16);
+    console.log("图片收缩16/9");
+    // let w  = 16/9*center_img.width();
+    // img.width(w)
+  };
+
+  // 改变heignht
+  change_height(testinfo) {
+    console.error(
+      "*testinfo******************",
+      this.testinfo.testinfo,
+      testinfo
+    );
+    if (!testinfo) {
+      $(".test_all_info").attr("style", "height:840px");
+      $(".table_info_content").attr("style", "top:2%");
+    } else {
+      $(".test_all_info").attr("style", "height:658px");
+      $(".table_info_content").attr("style", "top:5%");
+    }
+    this.testinfo.testinfo = !this.testinfo.testinfo;
   }
 
   // +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++

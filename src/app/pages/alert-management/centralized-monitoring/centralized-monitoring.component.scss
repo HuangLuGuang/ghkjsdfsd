@@ -125,6 +125,8 @@
 
 // 设备汇总信息
 .device_all_info{
+    height: 40%;
+    // height: 300px;
     .numbers{
         margin: 0px;
         top: 35px;
@@ -140,14 +142,16 @@
     .numbers_echart{
         width: 100%;
         // border: 1px solid;
-        height: 100%;
+        height: 90%;
         // position: absolute;
         // top: 20%;
         padding: 0px;
         margin-left: 0px;
         #tj_test_number, #tj_test_number_line{
             width: 100%;
-            height: 90%;
+            height: 100%;
+            // max-height: 330px;
+            // height: 300px;
         }
     }
 }
@@ -155,7 +159,8 @@
 // 事件/报警信息
 .device_alert_info{
     .device_alert_info_event{
-        height: 10%;
+        margin: 0%;
+        padding: 0%;
     }
     #circular{
         top: 10%;
@@ -194,16 +199,36 @@
                 }
             }
         }
+   
     }
 }
 
 // 视频在线
 .device_video{
     height: 50%;
-    .video_inline_one{
+    
+
+    .diveo_image{
+        display: flex;
+        justify-content: center;
+        align-items: center;
         height: 100%;
-        margin: 0px;
-        padding-top: 30px;
+        padding-top: 15px;
+        // height: 360px; width: 640px;
+
+        .inline_video_title{
+            height: 20px;
+            margin-top: 9px;
+            position: absolute;
+            width: 100%;
+            left: 0px;
+            color: aliceblue;
+            font-size: smaller;
+    
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
     }
 }
 // 报警区域显示

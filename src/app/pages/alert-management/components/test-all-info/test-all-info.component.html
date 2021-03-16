@@ -6,8 +6,12 @@
                     {{title}}
                 </td>
             </tr>
-
-            <tr *ngFor="let data of test_all_info.data;let i =index" [ngStyle]="{'color':data[2] == '0'?'#f595ca':(data[2]=='1'?'yellow':'')}">
+        </table>
+    </div>
+    
+    <div class="table_info_content ">
+        <table>
+            <tr class="table_info_center" *ngFor="let data of test_all_info.data;let i =index" [ngStyle]="{'color':data[2] == '0'?'#f595ca':(data[2]=='1'?'yellow':'')}">
                 <td *ngFor="let item of data;let i = index" [ngStyle]="{'width':i<3?'20%':'40%'}">
                     <span *ngIf="i < 3">{{item}}</span>
                     <div class="row" *ngIf="i === 3" style="margin-right: 0px;padding: 0px;">
@@ -15,7 +19,7 @@
                             <button nbButton status="success" size="tiny">查看视频</button>
                         </div>
                         <div class="col-md-6" style="margin: 0px;padding: 0px;">
-                            <button nbButton status="success" size="tiny">消除报警</button>
+                            <button nbButton status="warning" size="tiny">消除报警</button>
                         </div>
                     </div>
                 </td>
