@@ -48,7 +48,13 @@ export class PhysicalLaboratoryComponent implements OnInit {
       router:'/pages/equipment/shengwei/晟微、4m3环境仓集中监控',
     },
     {
-
+      name:'ATEC舱',
+      number:'',
+      andon:0,
+      speed:[],
+      src:'',//实验图片地址
+      speed_name:[''],//实验编号
+      router:'/pages/equipment/atec/ATEC舱',
     },
     {
     },
@@ -72,6 +78,7 @@ export class PhysicalLaboratoryComponent implements OnInit {
     'device_purewater_01':this.list[2],//纯水
     'device_cabin_voc01':this.list[3],//晟微、4m3
     'device_4m3_01':this.list[3],//晟微、4m3
+    'device_atec_06':this.list[4],//atec06
   }
   timer;
   constructor(private router:Router,private http:HttpserviceService,private thrid:ThirdLevelService,

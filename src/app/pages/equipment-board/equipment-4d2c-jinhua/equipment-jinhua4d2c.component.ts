@@ -377,7 +377,7 @@ export class EquipmentJinhua4d2cComponent implements OnInit {
     for(let key in this.subscribeList){
       this.subscribeList[key].unsubscribe();
     }
-    ['atec_line_3','atec_pie_5','atec_pie_6'].forEach(f=>{
+    ['atec_line_3','atec_pie_5','atec_pie_6','progress_1','progress_2','progress_3','progress_4'].forEach(f=>{
       let dom = document.getElementById(f);
       if(dom){
         echarts.init(dom).dispose();

@@ -14,9 +14,10 @@ var equipment_four_road = require('../../../../assets/eimdoard/equipment/js/equi
 })
 export class EquipmentMahaComponent implements OnInit {
   device_maha = 'device_maha_dyno01';
-  device_lang = 'device_lang_ac01';
+  device_langde = 'device_langde_ac01';
   device_gas = 'device_dongfang_gas01';
 
+  object = Object
   gas_chart = [
     {
       name: "CO",nameEn :'CO', unit: "%",value: [],
@@ -46,6 +47,7 @@ export class EquipmentMahaComponent implements OnInit {
   }
 
   maha:any = {};
+  langde:any = {};
 
   language;
   subscribeList:any ={};
@@ -96,6 +98,7 @@ export class EquipmentMahaComponent implements OnInit {
       if(i%60 == 0){
         this.get_maha_list();
       }
+      this.get_langde();
       this.get_gas();
       this.get_maha();
       i++;
@@ -179,6 +182,27 @@ export class EquipmentMahaComponent implements OnInit {
    
   }
 
+  get_langde(){
+      let res,data:any = {};
+      this.subscribeList.get_line_coolingWater = this.http.callRPC('get_device_mts_realtimedata',library+'get_device_mts_realtimedata',
+      {
+        device:this.device_langde,
+        arr:langde.join(',')
+      }).subscribe((f:any)=>{
+        if(f.result.error || f.result.message[0].code == 0)return;
+        res = f.result.message[0].message;
+        if(res){
+          res.forEach(el => {
+            for(let key in el){
+              data[key] = el[key][0][0] || 0;
+            }
+          });
+        };
+  
+        this.langde = data;
+
+      });
+  }
 
   get_maha_list(){
     let chart,res;
@@ -253,3 +277,35 @@ export const maha = [
   'tractive_force_rear_right',//右后牵引力
 
 ]
+
+export const langde = [
+  'status',//设备状态
+  'heater_status',//加热器状态
+  'front_wind_status',//迎风状态
+  'point_cold_status',//点冷状态
+
+  'room_humidity_1',//房间湿度1
+  'room_temp_1',//房间温度1
+  'room_humidity_2',//房间湿度2
+  'room_temp_2',//房间温度2
+  
+  'ventilation_temp',//新风温度
+  'supply_air_temp',//送风温度
+  'room_pressure',//房间压力
+  'front_wind_speed',//迎面风风速
+  'exhaust_valve',//排风阀开度
+  'ventilation_valve',//新风阀开度
+  'mixer_valve',//混合阀开度
+  'chilling_water_valve',//冷冻水阀开度
+
+  'heating',//加热开度
+  
+  'blower_freq',//送风机频率
+  'conditioning_freq',//回风机频率
+  'tailpipe_fan_freq',//未排风机频率
+  'point_cold_fan_1_freq',//点冷风机1频率
+  'point_cold_fan_2_freq',//点冷风机2频率
+  'front_blower_freq',//迎面送风机频率
+  'front_conditioning_freq',//迎面回风机频率
+  
+];

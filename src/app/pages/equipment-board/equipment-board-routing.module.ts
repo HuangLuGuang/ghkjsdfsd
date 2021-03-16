@@ -87,6 +87,11 @@ const ROUTERS: Routes = [{
         component:EquipmentMotorSystemComponent
       },
       {
+        //电机系统测试台架-5
+        path:'motor5/:title/:deviceid',
+        component:EquipmentMotorSystemComponent
+      },
+      {
         //电机系统测试台架-6
         path:'motor6/:title/:deviceid',
         component:EquipmentMotorSixSevenComponent
@@ -236,6 +241,12 @@ const ROUTERS: Routes = [{
         path:'glass-lift',
         loadChildren:()=>import('./equipment-glass-lift/equipment-glass-lift.module')
         .then(m=>m.EquipmentGlassLiftModule)
+      },
+
+      {//玻璃升降台
+        path:'atec/:title',
+        loadChildren:()=>import('./equipment-atec/equipment-atec.module')
+        .then(m=>m.EquipmentAtecModule)
       },
       
       // {
