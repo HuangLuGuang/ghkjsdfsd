@@ -117,11 +117,11 @@ GB/T 29307-2012-电动汽车用驱动电机系统可靠性试验方法
                 </div>
                 <div style="width: 40%;" class="c_c height_20">
                     <div style="width: 50%;">系统效率</div>
-                    <div class="blue_b">{{motor?.cal_eff_sys}}%</div>
+                    <div class="blue_b">{{motor?.cal_eff_sys ||0}}%</div>
                     <div style="width: 50%;">电机效率</div>
-                    <div class="blue_b">{{motor?.cal_eff_mot}}%</div>
+                    <div class="blue_b">{{motor?.cal_eff_mot||0}}%</div>
                     <div style="width: 50%;">控制器效率</div>
-                    <div class="blue_b">{{motor?.cal_eff_inv}}%</div>
+                    <div class="blue_b">{{motor?.cal_eff_inv||0}}%</div>
                 </div>
                 <div id="line_chart_12" class="height_23">
                 </div>
@@ -131,14 +131,14 @@ GB/T 29307-2012-电动汽车用驱动电机系统可靠性试验方法
                             <div class="center" style="width: 40%;">
                                 {{'equipment.motor.BusVoltage'|translate}}
                             </div>
-                            <div class="height_80 width_50 bord center">{{ motor?.pa_udc1 }}V</div>
+                            <div class="height_80 width_50 bord center">{{ motor?.pa_udc1 ||0 }}V</div>
                         </div>
                         <div style="width: 3%;"></div>
                         <div class="height_100 center_1" style="width: 30%;">
                             <div class="center" style="width: 40%;">
                                 {{'equipment.motor.BusCurrent'|translate}}
                             </div>
-                            <div class="height_80 width_50 bord center">{{ motor?.pa_idc1 }}A</div>
+                            <div class="height_80 width_50 bord center">{{ motor?.pa_idc1 ||0 }}A</div>
                         </div>
                         <div style="width: 3%;"></div>
 
@@ -146,7 +146,7 @@ GB/T 29307-2012-电动汽车用驱动电机系统可靠性试验方法
                             <div class="center" style="width: 40%;">
                                 {{'equipment.motor.DCpower'|translate}}
                             </div>
-                            <div class="height_80 width_50 bord center">{{ motor?.pa_p1 }}kW</div>
+                            <div class="height_80 width_50 bord center">{{ motor?.pa_p1||0 }}kW</div>
                         </div>
                     </div>
                     <div class="height_50" style="display: flex;flex-wrap: wrap;justify-content: center;">
@@ -154,7 +154,7 @@ GB/T 29307-2012-电动汽车用驱动电机系统可靠性试验方法
                             <div class="center" style="width: 40%;">
                                 {{'equipment.motor.AveVoltage'|translate}}
                             </div>
-                            <div class="height_80 width_50 bord center">{{ motor?.pa_urmsa }}V</div>
+                            <div class="height_80 width_50 bord center">{{ motor?.pa_urmsa||0 }}V</div>
                         </div>
                         <div style="width: 3%;"></div>
 
@@ -162,7 +162,7 @@ GB/T 29307-2012-电动汽车用驱动电机系统可靠性试验方法
                             <div class="center" style="width: 40%;">
                                 {{'equipment.motor.AveCurrent'|translate}}
                             </div>
-                            <div class="height_80 width_50 bord center">{{ motor?.pa_irmsa }}A</div>
+                            <div class="height_80 width_50 bord center">{{ motor?.pa_irmsa||0 }}A</div>
                         </div>
                         <div style="width: 3%;"></div>
 
@@ -170,7 +170,7 @@ GB/T 29307-2012-电动汽车用驱动电机系统可靠性试验方法
                             <div class="center" style="width: 47%;">
                                 {{'equipment.motor.AveOutputPowerOfController'|translate}}
                             </div>
-                            <div class="height_80 width_50 bord center">{{motor?.pa_pa}}kW</div>
+                            <div class="height_80 width_50 bord center">{{motor?.pa_pa||0}}kW</div>
                         </div>
                     </div>
                 </div>
