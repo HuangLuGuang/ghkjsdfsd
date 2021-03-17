@@ -16,9 +16,9 @@
         <div class="col-md-4" style="padding: 0px 20px;">
             <div class="sceond_fisrt height_29">
                 <div class="part_title">{{ 'equipment.equipIntroduce'|translate}}</div>
-                <div style="padding: 20px;overflow: auto;">
-                    设备分三部分：AVL 转股、排放分析仪、环境舱；
-                </div>
+                <ngx-equip-introduce style="width: 100%;" [name]="introd_name" [equipIntroduceList]="equipIntroduceList"></ngx-equip-introduce>
+                
+               
             </div>
             <div class="center_img">
                 <div class="part_title">{{'equipment.OnlineVideo'|translate}}</div>

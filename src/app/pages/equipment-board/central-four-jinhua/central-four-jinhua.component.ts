@@ -156,6 +156,13 @@ export class CentralFourJinhuaComponent implements OnInit {
   deviceid_four = 'device_avl4dyno_02';//四驱底盘
   deviceid_jinhua = 'device_jinhua_cabin01';//锦华
   rw = 0;
+
+   //设备介绍
+   introd_name = 'zzsjhc';
+   equipIntroduceList = [
+     {title:''},
+     {title:''}
+   ]
    
   timer:any;//定时器
   language = '';//语言 空为zh-CN中文

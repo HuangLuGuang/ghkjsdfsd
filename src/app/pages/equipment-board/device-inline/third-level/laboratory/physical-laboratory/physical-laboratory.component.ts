@@ -16,7 +16,7 @@ export class PhysicalLaboratoryComponent implements OnInit {
       number:'',
       andon:0,
       speed:[],
-      src:'assets/eimdoard/equipment/images/slz.png',//实验图片地址
+      src:'assets/eimdoard/equipment/images/vehicle.jpg',//实验图片地址
       speed_name:[''],//实验编号
       router:'/pages/equipment/vehicle/整车voc环境仓',
     },

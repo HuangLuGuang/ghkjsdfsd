@@ -140,7 +140,7 @@ export class EquipmentAvlComponent implements OnInit {
   
 
   img = {
-    url:'assets/eimdoard/equipment/images/paifang.jpg',
+    url:'assets/eimdoard/equipment/images/hm_1074.png',
     name:''
   }
 
@@ -153,6 +153,17 @@ export class EquipmentAvlComponent implements OnInit {
   deviceid_avl_speed = 'device_avldyno_03';//avl转速
 
   click_list = [];//当前选中的tag
+
+  //设备介绍
+  introd_name = 'avl';
+  equipIntroduceList = [
+    {title:''},
+    {title:'底盘测功机'},
+    {title:'环境模拟仓'},
+    {title:'排放分析仪'},
+    {title:'排放分析仪'},
+    {title:'排放分析仪'},
+  ]
 
   timer:any;//定时器
   language = '';//语言 空为zh-CN中文

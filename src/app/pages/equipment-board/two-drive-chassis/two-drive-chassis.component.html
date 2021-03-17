@@ -14,11 +14,50 @@
             </div>
         </div>
         <div class="col-md-4" style="padding: 0px 20px;">
-            <div class="sceond_fisrt height_29">
+            <div class="sceond_fisrt height_29" style="padding: 0px;">
                 <div class="part_title">{{ 'equipment.equipIntroduce'|translate}}</div>
-                <div style="padding: 20px;overflow: auto;">
-                    设备分三部分：AVL 转股、排放分析仪、环境舱；
-                </div>
+                <ngx-equip-introduce style="width: 100%;" [name]="introd_name" [equipIntroduceList]="equipIntroduceList"></ngx-equip-introduce>
+                <!-- <div style="overflow: auto;width: 100%;height: 100%;position: relative;text-align: left;">
+                    <div style="text-indent: 2rem;">
+                        <div class="equipments_table height_99">
+                            <div class="column_100">
+                            <div class="border_top_1px column_35">名称 name</div>
+                            <div class="border_top_1px column_65">基本参数 specifications</div>
+                            </div>
+                            
+
+                            <div class="column_100">
+                            <div class="border_top_1px column_35">控制执行器电压</div>
+                            <div class="border_top_1px column_65">35 volts DC
+                            </div>
+                            </div>
+                            <div class="column_100">
+                            <div class="border_top_1px column_35">加速执行器速率
+                            </div>
+                            <div class="border_top_1px column_65">0.45m/s max</div>
+                            </div>
+                            <div class="column_100">
+                            <div class="border_top_1px column_35">制动执行器速率
+                            </div>
+                            <div class="border_top_1px column_65">0.3m/s max
+                            </div>
+                            </div>
+                            <div class="column_100">
+                            <div class="border_top_1px column_35">离合器执行器速率
+                            </div>
+                            <div class="border_top_1px column_65">0.35/0.5m/s
+                            </div>
+                            </div>
+                            <div class="column_100">
+                               <div class="border_top_1px column_35">换挡执行器速率
+                               </div>
+                               <div class="border_top_1px column_65">0.6m/s max
+                               </div>
+                               </div>
+                            </div>
+
+                    </div>
+                </div> -->
             </div>
             <div class="center_img">
                 <div class="part_title">{{'equipment.OnlineVideo'|translate}}</div>

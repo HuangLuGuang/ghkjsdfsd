@@ -2,12 +2,19 @@
     // padding: 20px;
     text-align: left;
     font-size: 12px;
-    width: 99%;
+    width: 100%;
+    
     // margin-bottom: 5px;
     position: relative;
     height: 88%;
+    padding: 0% 1%;
     img {
+        // position: absolute;
         height: 100%;
         width: 100%;
+        background-size: cover;
+        -webkit-background-size: cover;
+        -o-background-size: cover;
+        background-position: center center;
     }
 }

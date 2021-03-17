@@ -106,8 +106,15 @@ export class EquipmentVehicleVocComponent implements OnInit {
     ]
   }
   imgsrc = {
-    center:'assets/eimdoard/equipment/images/slz.png'
+    center:'assets/eimdoard/equipment/images/vehicle.jpg'
   }
+
+   //设备介绍
+   introd_name = 'vehicle';
+   equipIntroduceList = [
+     {title:''},
+     {title:''},
+   ]
 
   timer;
 

@@ -86,6 +86,9 @@
     }
     .center_img {
         height: 35%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
         // margin-bottom: 20px;
         #img {
             height: 100%;

@@ -17,7 +17,7 @@ export class NoiseLaboratoryComponent implements OnInit {
       number:'',
       andon:0,
       speed:[],
-      src:'',//实验图片地址
+      src:'assets/eimdoard/equipment/images/ccts-bsr.jpg',//实验图片地址
       speed_name:[''],//实验编号
       router:'pages/equipment/ccts-bsr/整车异响',
     },
@@ -26,7 +26,7 @@ export class NoiseLaboratoryComponent implements OnInit {
       number:'',
       andon:0,
       speed:[],
-      src:'',//实验图片地址
+      src:'assets/eimdoard/equipment/images/maha.jpg',//实验图片地址
       speed_name:[''],//实验编号
       router:'pages/equipment/maha/MAHA-75英寸四驱四电机低噪音底盘测功机',
     },

@@ -69,7 +69,7 @@ export const DEVICEID_TO_NAME  ={
   'device_avl2dyno_01':'AVL排放2驱-S1074',//AVL排放2驱-S1074
   'device_avl4dyno_03':'AVL排放4驱-S1074',//AVL排放4驱-S1074
   'device_jinhua_cabin02':'锦华常温浸车舱',//锦华常温浸车舱
-  'device_atec_05':'整车高低温试验舱',//整车高低温试验舱
+  'device_atec_03':'整车高低温试验舱',//整车高低温试验舱
 
   'device_avlmotor_01':'AVL电机8',//AVL电机8
   'device_avlmotor_02':'AVL电机6',//AVL电机6
@@ -86,6 +86,8 @@ export const DEVICEID_TO_NAME  ={
   'device_cabin_voc01':'晟微',//
   'device_4m3_01':'4m3',
   'device_atec_06':'ATEC舱06',//
+  'device_o3_01':'臭氧老化试验箱',//TODO
+  'device_tc220_01':'TC220型延误循环腐蚀箱',//TODO
 
 
   'device_cts_01':'CTS',//CTS-声学高低温环境舱

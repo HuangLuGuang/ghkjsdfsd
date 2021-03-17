@@ -153,12 +153,12 @@ export class EquipmentAvlAtecComponent implements OnInit {
         document.getElementById('head_title').innerText = f.title;
         if(f.deviceid == 'two'){
           this.light_deviceid = 'device_avl_igem02';
-          this.aetc_deviceid = 'device_atec_03';
+          this.aetc_deviceid = 'device_atec_04';
           this.avl_deviceid = 'device_avl2dyno_01';
           this.img.url = 'assets/eimdoard/equipment/images/liangqu.jpg';
         }else if(f.deviceid == 'four'){
           this.light_deviceid = 'device_avl_igem03';
-          this.aetc_deviceid = 'device_atec_04';
+          this.aetc_deviceid = 'device_atec_05';
           this.avl_deviceid = 'device_avl4dyno_03';
           this.img.url = 'assets/eimdoard/equipment/images/siqu.jpg';
         }

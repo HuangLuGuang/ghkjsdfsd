@@ -163,11 +163,13 @@ export class CabinCentralizedMonitoringComponent implements OnInit {
     },
   ];
   atec_xdata = [];
+
+ 
   
   language;
   subscribeList:any = {};
   deviceid_jinhua = 'device_jinhua_cabin02';
-  deviceid_ATEC = 'device_atec_05';
+  deviceid_ATEC = 'device_atec_03';
   timer;
   constructor(private activateInfo:ActivatedRoute,
     private http:HttpserviceService,private boardservice:EquipmentBoardService) { }

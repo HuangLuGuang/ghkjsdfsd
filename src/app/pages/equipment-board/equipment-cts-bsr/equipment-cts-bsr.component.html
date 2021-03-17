@@ -13,8 +13,32 @@
             </div>
         </div> 
         <div class="col-md-4 height_100" style="padding: 0px 20px;">
-            <div class="backgroud height_29">
+            <div class="backgroud height_29" style="text-align: left;padding-top: 0;">
                 <div class="part_title" style="overflow: auto;">{{ 'equipment.equipIntroduce'|translate}}</div>
+                <ngx-equip-introduce style="width: 100%;height: 100%;" [name]="introd_name" [equipIntroduceList]="equipIntroduceList"></ngx-equip-introduce>
+                <!-- <div style="text-align: left;text-indent: 2rem;">
+                    拟于路试或道路模拟系统，通过2个或4个独立控制的激振器直接对车身进行激励,在 
+                    试验室内查找道路上无法看到或碰到部位异响诊断及整改。还可以进行座椅、车门、 
+                    仪表板、顶棚、通风空调系统和其他子系统进行异响测试。<br>
+                    主要应用领域Major Application^1
+                    <div>
+                        ▲整车异响试验 Vehicle noise test，
+                    </div>
+                    <div>
+                        ▲零部件及子系统异响试验 Parts and subsystems noise Test
+                    </div>
+                </div> -->
+                <!-- 主要技术参数Specification 
+                <div style="text-align: left;text-indent: 2rem;">
+                        <div>▲争空间尺寸Size: 8X7X4.3e</div>
+                        <div>▲背景噪声 Background noise: ≤28dBA ;截止频率 Frequency:200Hz</div>
+                        <div>▲温度范围 Temperature: -40 至 70℃</div>
+                        <div>▲轴距调节 Wheel base: 2000-3400mm</div>
+                        <div>▲频率范围 Frequency range: 0-100Hz, 50dBA</div>
+                        <div>▲动态行程 Trip: ≥150mm, Weight: ≤3500kg</div>
+                        
+                    
+                </div> -->
             </div>
             <div class="center_img">
                 <div class="part_title">{{'equipment.OnlineVideo'|translate}}</div>

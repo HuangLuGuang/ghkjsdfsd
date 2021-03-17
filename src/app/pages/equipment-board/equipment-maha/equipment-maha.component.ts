@@ -42,7 +42,7 @@ export class EquipmentMahaComponent implements OnInit {
   }
 
   img = {
-    url:'assets/eimdoard/equipment/images/slz.png',
+    url:'assets/eimdoard/equipment/images/maha.jpg',
     name:''
   }
 
