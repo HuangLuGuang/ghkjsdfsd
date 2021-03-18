@@ -94,7 +94,7 @@ export class MyLinkageSelectComponent implements OnInit {
         } else {
           that.xialaicon = "arrow-ios-upward-outline";
         }
-        e.stopPropagation();
+        // e.stopPropagation();
         if (!single_el5s) {
           single_el5s = eleTree.render({
             elem: ".group_room_group",
@@ -138,10 +138,10 @@ export class MyLinkageSelectComponent implements OnInit {
         $(".group_room_group").hide();
         that.xialaicon = "arrow-ios-downward-outline";
       });
-      $(document).on("click", function () {
-        $(".group_room_group").hide();
-        that.xialaicon = "arrow-ios-downward-outline";
-      });
+      // $(document).on("click", function () {
+      //   $(".group_room_group").hide();
+      //   that.xialaicon = "arrow-ios-downward-outline";
+      // });
     });
   }
 

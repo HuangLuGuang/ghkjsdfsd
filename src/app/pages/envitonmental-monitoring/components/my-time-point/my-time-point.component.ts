@@ -45,7 +45,7 @@ export class MyTimePointComponent implements OnInit {
         } else {
           that.xialaicon = "arrow-ios-upward-outline";
         }
-        e.stopPropagation();
+        // e.stopPropagation();
         if (!el5s) {
           el5s = eleTree.render({
             elem: ".my_time_point_labels",
@@ -64,7 +64,7 @@ export class MyTimePointComponent implements OnInit {
         $(".layui-laydate").remove();
         // 科室
         $(".group_room_group").hide();
-        that.xialaicon = "arrow-ios-downward-outline";
+        // that.xialaicon = "arrow-ios-downward-outline";
         $(".group_room_room").hide();
         that.xialaicon_room = "arrow-ios-downward-outline";
 
@@ -87,12 +87,20 @@ export class MyTimePointComponent implements OnInit {
         }
         $("[name='my_time_point']").val(that.select_label_list.join(";"));
       });
-      $(document).on("click", function () {
-        $(".my_time_point_labels").hide();
-        that.xialaicon = "arrow-ios-downward-outline";
-      });
+      // $(document).on("click", function () {
+      //   $(".my_time_point_labels").hide();
+      //   that.xialaicon = "arrow-ios-downward-outline";
+      // });
     });
   }
+
+  blur(e){
+    console.log(e);
+    this.xialaicon = "arrow-ios-downward-outline";
+    $(".my_time_point_labels").hide();
+  }
+
+  
 
   getselect() {
     // return $("[name='my_time_point']").val();

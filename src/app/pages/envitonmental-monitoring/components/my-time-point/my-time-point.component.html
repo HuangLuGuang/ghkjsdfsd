@@ -1,7 +1,8 @@
-<div style="position: relative;margin-right: 10px;margin-left: 10px" class="tree_isShow">
+<div style="position: relative;margin-right: 10px;margin-left: 10px" class="tree_isShow" >
     <input type="text" name="my_time_point" required="" lay-verify="required" 
     placeholder="placeholder_title" readonly="" autocomplete="off" 
     class="layui-input my_time_point" style="margin-left: 2px;width: 98%;line-height: 16px;" 
+    (blur)="blur($event)"
     >
     <nb-icon class="xiala" [icon]="xialaicon"></nb-icon>
     <div class="eleTree my_time_point_labels" lay-filter="my_time_point_data"></div>

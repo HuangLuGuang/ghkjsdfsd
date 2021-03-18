@@ -238,7 +238,7 @@ export class EquipmentVehicleVocComponent implements OnInit {
   }
 
   get_chart_list(){
-    this.subscribeList.get_line_coolingWater = this.http.callRPC('device_realtime_list',library+'device_realtime_list',
+    this.subscribeList.get_line_coolingWater = this.http.callRPC('device_realtime_list_second',library+'device_realtime_list_second',
     {deviceid:this.deviceid,arr:'chb1_temppv,chb1_humipv,chb2_temppv,chb2_humipv,chb3_temppv,chb3_humipv'}).subscribe((f:any)=>{
       if(f.result.error || f.result.message[0].code == 0)return;
       let res = f.result.message[0].message;
@@ -293,7 +293,7 @@ export class EquipmentVehicleVocComponent implements OnInit {
     this.ngzone.runOutsideAngular(()=>{
       let cang_name = 'cang_'+cang_num;
       this[cang_name].status = data[`chb${cang_num}_run`];
-      this[cang_name].tempReal = data[`chb${cang_num}_temppv`]?(data[`chb${cang_num}_temppv`].chb2_temppv||0):0;
+      this[cang_name].tempReal = data[`chb${cang_num}_temppv`]?(data[`chb${cang_num}_temppv`]||0):0;
       this[cang_name].tempSet = data[`chb${cang_num}_tempsv`]||0;
       this[cang_name].rhReal = data[`chb${cang_num}_humipv`]||0;
       this[cang_name].rhSet = data[`chb${cang_num}_humisv`]||0;

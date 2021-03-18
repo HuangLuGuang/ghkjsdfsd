@@ -578,7 +578,7 @@ export class OilSourceMonitoringComponent implements OnInit {
 
   get_cleanlinss_list(){
     let i = this.HPUselect.value.match(/\d{1,}/g),chart,arr = this.attrs_cleanliss;
-    this.subscribeList.get_line_speed_torque = this.http.callRPC('device_realtime_list',library+'device_realtime_list',
+    this.subscribeList.get_line_speed_torque = this.http.callRPC('device_realtime_list_second',library+'device_realtime_list_second',
     {"deviceid":"device_hpu_0"+i[0],arr:'cs01,cs02,cs03,cs07'}).subscribe((f:any)=>{
       if(f.result.error || f.result.message[0].code == 0)return;
       let res = f.result.message[0].message;
@@ -641,7 +641,7 @@ export class OilSourceMonitoringComponent implements OnInit {
   get_water_list(){
     let j = ['hw01','hw03','hw05','hw02','hw04','hw06','te04','te05','te02','te01','te03']
     let i = this.HPUselect.value.match(/\d{1,}/g),res,arr = this.HE_Water.attrs;
-    this.subscribeList.get_line_speed_torque = this.http.callRPC('device_realtime_list',library+'device_realtime_list',
+    this.subscribeList.get_line_speed_torque = this.http.callRPC('device_realtime_list_second',library+'device_realtime_list_second',
     {"deviceid":"device_hpu_0"+i[0],arr:j.join(',')}).subscribe((f:any)=>{
       if(f.result.error || f.result.message[0].code == 0)return;
       res = f.result.message[0].message;
