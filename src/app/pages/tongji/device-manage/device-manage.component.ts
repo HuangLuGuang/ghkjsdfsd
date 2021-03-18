@@ -13,7 +13,7 @@ import { NbDialogService } from "@nebular/theme";
 import { HttpserviceService } from "../../../services/http/httpservice.service";
 import { Observable } from "rxjs";
 
-// 引入 eim台账 表单的验证
+// 引入 设备台账 表单的验证
 import { Device } from "../../../pages-popups/tongji/form_verification";
 import { UserInfoService } from "../../../services/user-info/user-info.service";
 import { ActionComponent } from "./action/action.component";
@@ -149,7 +149,7 @@ export class DeviceManageComponent implements OnInit {
         this.importfile();
         break;
       case "download":
-        this.download("eim台账");
+        this.download("设备台账");
         break;
     }
   }
@@ -181,9 +181,9 @@ export class DeviceManageComponent implements OnInit {
     } else {
       rowdata = this.agGrid.getselectedrows();
     }
-    // console.log("删除-eim台账  rowdata", rowdata);
+    // console.log("删除-设备台账  rowdata", rowdata);
     var rowdata_ = this.option_table_before(rowdata);
-    // console.log("删除-eim台账  rowdata_", rowdata_);
+    // console.log("删除-设备台账  rowdata_", rowdata_);
 
     if (rowdata_.length === 0) {
       // 未选中
@@ -229,7 +229,7 @@ export class DeviceManageComponent implements OnInit {
                 const status = result["result"]["message"][0];
                 switch (status["code"]) {
                   case 1:
-                    this.RecordOperation("删除(eim台账)", 1, data_info);
+                    this.RecordOperation("删除(设备台账)", 1, data_info);
                     this.delsuccess();
                     this.gridData = [];
                     this.loading = true;
@@ -239,7 +239,7 @@ export class DeviceManageComponent implements OnInit {
 
                   default:
                     var err_date = "error:" + status["message"];
-                    this.RecordOperation("删除(eim台账)", 0, String(err_date));
+                    this.RecordOperation("删除(设备台账)", 0, String(err_date));
                     this.deldanger();
                     break;
                 }
@@ -265,7 +265,7 @@ export class DeviceManageComponent implements OnInit {
       rowdata = this.agGrid.getselectedrows();
     }
     var rowdata_ = this.option_table_before(rowdata);
-    // console.log("编辑-eim台账----agGrid-----rowdata",rowdata);
+    // console.log("编辑-设备台账----agGrid-----rowdata",rowdata);
     if (rowdata.length === 0) {
       // 未选中
       this.dialogService
@@ -278,7 +278,7 @@ export class DeviceManageComponent implements OnInit {
     } else if (rowdata.length === 1) {
       // 选中一条
       // console.log("选中一条", rowdata);
-      // console.log("编辑-eim台账----agGrid-----rowdata----处理后的",rowdata_);
+      // console.log("编辑-设备台账----agGrid-----rowdata----处理后的",rowdata_);
       this.dialogService
         .open(Add_Edit_DeviceManageComponent, {
           closeOnBackdropClick: false,
@@ -415,12 +415,12 @@ export class DeviceManageComponent implements OnInit {
               : "未得到总条数";
             this.tableDatas.totalPageNumbers = totalpagenumbers;
             this.agGrid.update_agGrid(this.tableDatas); // 告诉组件刷新！
-            this.RecordOperation("搜索", 1, "eim台账");
+            this.RecordOperation("搜索", 1, "设备台账");
             if (message.length < 1) {
               this.searchdanger();
             }
           } else {
-            this.RecordOperation("搜索", 0, "eim台账");
+            this.RecordOperation("搜索", 0, "设备台账");
           }
         });
     }
@@ -430,6 +430,13 @@ export class DeviceManageComponent implements OnInit {
   // 导出文件
   download(title) {
     this.agGrid.download(title);
+  }
+
+  // 导入模板下载
+  import_module_download() {
+    var title = "设备台账"
+    var ismodule = true
+    this.agGrid.download(title, ismodule);
   }
 
   // ----------------------------导入---------------------------
@@ -501,7 +508,7 @@ export class DeviceManageComponent implements OnInit {
       var verify_after = this.verify_rowdatas(rowData, verify_err); // 验证后的数据 得到的是验证的 错误信息！
       if (verify_after.length > 0) {
         this.verify_import(verify_after);
-        this.RecordOperation("导入(eim台账)", 0, "导入excel表");
+        this.RecordOperation("导入(设备台账)", 0, "导入excel表");
       } else {
         // 插入数据库之前 处理数据
         var datas = this.option_table_before(rowData);
@@ -515,7 +522,7 @@ export class DeviceManageComponent implements OnInit {
             this.loading = true;
             this.update_agGrid(); // 告诉组件刷新！
             this.loading = false;
-            this.RecordOperation("导入(eim台账)", 1, "导入excel表");
+            this.RecordOperation("导入(设备台账)", 1, "导入excel表");
           }
         });
       }
@@ -534,7 +541,7 @@ export class DeviceManageComponent implements OnInit {
           // console.log("插入设备数据：", result)
           const status = result["result"]["message"][0]["code"];
           if (status === 1) {
-            this.RecordOperation("导入", 1, "eim台账");
+            this.RecordOperation("导入", 1, "设备台账");
             this.success();
             observale.next(true);
           } else {
@@ -1016,6 +1023,7 @@ export class DeviceManageComponent implements OnInit {
   // =================================================agGrid
 
   tableDatas = {
+    style: "width: 100%; height: 700px",
     totalPageNumbers: 0, // 总页数
     PageSize: 10, // 每页 10条数据
     isno_refresh_page_size: false, // 是否重新将 每页多少条数据，赋值为默认值
@@ -1249,9 +1257,9 @@ export class DeviceManageComponent implements OnInit {
           this.agGrid.init_agGrid(this.tableDatas); // 告诉组件刷新！
           // 刷新table后，改为原来的！
           this.tableDatas.isno_refresh_page_size = false;
-          this.RecordOperation("查看", 1, "eim台账");
+          this.RecordOperation("查看", 1, "设备台账");
         } else {
-          this.RecordOperation("查看", 0, "eim台账");
+          this.RecordOperation("查看", 0, "设备台账");
         }
       });
   }
@@ -1299,9 +1307,9 @@ export class DeviceManageComponent implements OnInit {
           this.agGrid.update_agGrid(this.tableDatas); // 告诉组件刷新！
           // 刷新table后，改为原来的！
           this.tableDatas.isno_refresh_page_size = false;
-          this.RecordOperation("更新", 1, "eim台账");
+          this.RecordOperation("更新", 1, "设备台账");
         } else {
-          this.RecordOperation("更新", 0, "eim台账");
+          this.RecordOperation("更新", 0, "设备台账");
         }
       });
   }

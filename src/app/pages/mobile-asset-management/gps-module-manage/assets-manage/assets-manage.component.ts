@@ -48,7 +48,7 @@ export class AssetsManageComponent implements OnInit {
   // agGrid
   tableDatas = {
     // 新增，设置高度
-    style: "width: 100%; height: 664px",
+    style: "width: 100%; height: 700px",
 
     totalPageNumbers: 0, // 总页数
     PageSize: 10, // 每页 10条数据
@@ -382,6 +382,7 @@ export class AssetsManageComponent implements OnInit {
   // 搜索按钮
   query(inpuvalue?) {
     var inittable_before = this.inittable_before();
+    this.tableDatas.isno_refresh_page_size = true;
     var deviceid = inittable_before.deviceid;
     if (deviceid != "") {
       var offset = 0;

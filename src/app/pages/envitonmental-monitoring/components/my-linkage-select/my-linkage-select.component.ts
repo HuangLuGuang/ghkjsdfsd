@@ -89,11 +89,6 @@ export class MyLinkageSelectComponent implements OnInit {
     layui.use(["eleTree"], function () {
       var eleTree = layui.eleTree;
       $("[name='temperature_group_room_group']").on("click", function (e) {
-        if (that.xialaicon === "arrow-ios-upward-outline") {
-          that.xialaicon = "arrow-ios-downward-outline";
-        } else {
-          that.xialaicon = "arrow-ios-upward-outline";
-        }
         e.stopPropagation();
         if (!single_el5s) {
           single_el5s = eleTree.render({
@@ -111,17 +106,12 @@ export class MyLinkageSelectComponent implements OnInit {
         }
 
         // 关闭日期范围
-        $(".layui-laydate").remove();
-        // 科室
-        $(".group_room_group").hide();
-        that.xialaicon = "arrow-ios-downward-outline";
-        $(".group_room_room").hide();
-        that.xialaicon_room = "arrow-ios-downward-outline";
-
-        $(".my_time_point_labels").hide();
-        that.xialaicon = "arrow-ios-downward-outline";
-
+        // $(".layui-laydate").remove();
+        // $(".group_room_room").hide();
+        // $(".my_time_point_labels").hide();
         $(".group_room_group").toggle();
+        that.toggle();
+        that.other_toggle();
       });
 
       // 节点被选择
@@ -140,7 +130,8 @@ export class MyLinkageSelectComponent implements OnInit {
       });
       $(document).on("click", function () {
         $(".group_room_group").hide();
-        that.xialaicon = "arrow-ios-downward-outline";
+        // that.xialaicon = "arrow-ios-downward-outline";
+        that.toggle();
       });
     });
   }
@@ -180,16 +171,11 @@ export class MyLinkageSelectComponent implements OnInit {
         }
         // 关闭日期范围
         $(".layui-laydate").remove();
-        // 科室
         $(".group_room_group").hide();
-        that.xialaicon = "arrow-ios-downward-outline";
-        $(".group_room_room").hide();
-        that.xialaicon_room = "arrow-ios-downward-outline";
-
         $(".my_time_point_labels").hide();
-        that.xialaicon = "arrow-ios-downward-outline";
 
         $(".group_room_room").toggle();
+        that.toggle();
       });
 
       // 节点被选择
@@ -203,13 +189,58 @@ export class MyLinkageSelectComponent implements OnInit {
         // that.my_date_select.emit(d.data.currentData.id);
         $(".group_room_room").hide();
         $(".group_room_room").hide();
-        that.xialaicon_room = "arrow-ios-downward-outline";
+        // that.xialaicon_room = "arrow-ios-downward-outline";
+        that.toggle();
       });
       $(document).on("click", function () {
         $(".group_room_room").hide();
-        that.xialaicon_room = "arrow-ios-downward-outline";
+        // that.xialaicon_room = "arrow-ios-downward-outline";
+        that.toggle();
       });
     });
+  }
+
+  // i 图标 class 切换
+  toggle() {
+    // group
+    var group_room_group = $(".group_room_group").css("display");
+    if (group_room_group == "none") {
+      $("#group_room_group_i").attr(
+        "class",
+        "layui-icon layui-icon-down single_xiala"
+      );
+    } else {
+      $("#group_room_group_i").attr(
+        "class",
+        "layui-icon layui-icon-up  single_xiala"
+      );
+    }
+    // room
+    var group_room_room = $(".group_room_room").css("display");
+    if (group_room_room == "none") {
+      $("#group_room_room_i").attr(
+        "class",
+        "layui-icon layui-icon-down single_xiala"
+      );
+    } else {
+      $("#group_room_room_i").attr(
+        "class",
+        "layui-icon layui-icon-up  single_xiala"
+      );
+    }
+  }
+  // my-time-point i 图标 class 切换
+  other_toggle() {
+    // 时间点选择器
+    $(".my_time_point_labels").hide();
+    var my_time_point_labels = $(".my_time_point_labels").css("display");
+    if (my_time_point_labels == "none") {
+      $("#my_time_point_i").attr("class", "layui-icon layui-icon-down xiala");
+    } else {
+      $("#my_time_point_i").attr("class", "layui-icon layui-icon-up  xiala");
+    }
+    // 日期选择器
+    $(".layui-laydate").remove();
   }
 
   // 根据groups得到room

@@ -11,7 +11,6 @@ export class MyTimePointComponent implements OnInit {
 
   // 下拉 icon
   xialaicon = "arrow-ios-downward-outline";
-  xialaicon_room = "arrow-ios-downward-outline";
   placeholder_title;
   select_type = [];
 
@@ -40,11 +39,12 @@ export class MyTimePointComponent implements OnInit {
     layui.use(["eleTree"], function () {
       var eleTree = layui.eleTree;
       $("[name='my_time_point']").on("click", function (e) {
-        if (that.xialaicon === "arrow-ios-upward-outline") {
-          that.xialaicon = "arrow-ios-downward-outline";
-        } else {
-          that.xialaicon = "arrow-ios-upward-outline";
-        }
+        // if (that.xialaicon === "arrow-ios-upward-outline") {
+        //   that.xialaicon = "arrow-ios-downward-outline";
+        // } else {
+        //   that.xialaicon = "arrow-ios-upward-outline";
+        // }
+
         e.stopPropagation();
         if (!el5s) {
           el5s = eleTree.render({
@@ -61,14 +61,16 @@ export class MyTimePointComponent implements OnInit {
           that.el5s = el5s;
         }
         // 关闭日期范围
-        $(".layui-laydate").remove();
+        // $(".layui-laydate").remove();
         // 科室
-        $(".group_room_group").hide();
-        that.xialaicon = "arrow-ios-downward-outline";
-        $(".group_room_room").hide();
-        that.xialaicon_room = "arrow-ios-downward-outline";
+        // $(".group_room_group").hide();
+        // $(".group_room_room").hide();
 
         $(".my_time_point_labels").toggle();
+        // ---------------
+        that.toggle();
+        that.other_toggle();
+        // ---------------
       });
 
       // 节点被选择
@@ -89,9 +91,54 @@ export class MyTimePointComponent implements OnInit {
       });
       $(document).on("click", function () {
         $(".my_time_point_labels").hide();
-        that.xialaicon = "arrow-ios-downward-outline";
+        // that.xialaicon = "arrow-ios-downward-outline";
+        that.toggle();
       });
     });
+  }
+
+  // i 图标 class 切换
+  toggle() {
+    var my_time_point_labels = $(".my_time_point_labels").css("display");
+    if (my_time_point_labels == "none") {
+      $("#my_time_point_i").attr("class", "layui-icon layui-icon-down xiala");
+    } else {
+      $("#my_time_point_i").attr("class", "layui-icon layui-icon-up  xiala");
+    }
+  }
+  // 其它的下拉
+  other_toggle() {
+    // 科室房间号下拉框
+    $(".group_room_group").hide();
+    $(".group_room_room").hide();
+    // group
+    var group_room_group = $(".group_room_group").css("display");
+    if (group_room_group == "none") {
+      $("#group_room_group_i").attr(
+        "class",
+        "layui-icon layui-icon-down single_xiala"
+      );
+    } else {
+      $("#group_room_group_i").attr(
+        "class",
+        "layui-icon layui-icon-up  single_xiala"
+      );
+    }
+    // room
+    var group_room_room = $(".group_room_room").css("display");
+    if (group_room_room == "none") {
+      $("#group_room_room_i").attr(
+        "class",
+        "layui-icon layui-icon-down single_xiala"
+      );
+    } else {
+      $("#group_room_room_i").attr(
+        "class",
+        "layui-icon layui-icon-up  single_xiala"
+      );
+    }
+    // 日期选择器
+    $(".layui-laydate").remove();
   }
 
   getselect() {

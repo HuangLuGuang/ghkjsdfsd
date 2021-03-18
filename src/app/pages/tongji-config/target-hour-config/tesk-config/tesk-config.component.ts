@@ -220,7 +220,7 @@ export class TeskConfigComponent implements OnInit {
       //   this.importfile();
       //   break;
       case "download":
-        this.download("试验任务管理");
+        this.download("试验任务配置");
         break;
     }
   }
@@ -459,6 +459,7 @@ export class TeskConfigComponent implements OnInit {
 
   tableDatas = {
     action: false,
+    style: "width: 100%; height: 645px",
     totalPageNumbers: 0, // 总页数
     PageSize: 10, // 每页 10条数据
     isno_refresh_page_size: false, // 是否重新将 每页多少条数据，赋值为默认值

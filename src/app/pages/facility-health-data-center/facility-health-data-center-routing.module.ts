@@ -1,34 +1,39 @@
-import { NgModule } from '@angular/core';
-import { Routes, RouterModule } from '@angular/router';
+import { NgModule } from "@angular/core";
+import { Routes, RouterModule } from "@angular/router";
 
-import { FacilityHealthDataCenterComponent } from './facility-health-data-center.component';
-import { HistoryAlertComponent } from './history-alert/history-alert.component';
-import { RealTimeAlertComponent } from './real-time-alert/real-time-alert.component';
+import { FacilityHealthDataCenterComponent } from "./facility-health-data-center.component";
+import { HistoryAlertComponent } from "./history-alert/history-alert.component";
+import { RealTimeAlertComponent } from "./real-time-alert/real-time-alert.component";
 
 const routes: Routes = [
   {
-    path: '',
+    path: "",
     component: FacilityHealthDataCenterComponent,
-    children:[
+    children: [
       {
-        path: 'real-time',
+        path: "real-time",
         component: RealTimeAlertComponent,
       },
       {
-        path: 'history',
-        component: HistoryAlertComponent,
+        // path: 'history',
+        // component: HistoryAlertComponent,
+        path: "alert-info-config",
+        loadChildren: () =>
+          import("./alert-info-and-config/alert-info-and-config.module").then(
+            (m) => m.AlertInfoAndConfigModule
+          ),
       },
       {
-        path:"",
-        redirectTo: 'real-time',
-        pathMatch: 'full'
-      }
-    ]
+        path: "",
+        redirectTo: "real-time",
+        pathMatch: "full",
+      },
+    ],
   },
 ];
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],
-  exports: [RouterModule]
+  exports: [RouterModule],
 })
-export class FacilityHealthDataCenterRoutingModule { }
+export class FacilityHealthDataCenterRoutingModule {}

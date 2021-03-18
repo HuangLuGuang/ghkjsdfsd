@@ -1,10 +1,10 @@
 <!-- <router-outlet></router-outlet> -->
 
-<nb-card>
+<nb-card style="height: 867px; margin: 0px;">
     <nb-card-header style="font-size: small;">
         统计分析
     </nb-card-header>
-    <nb-card-body style="background-color: #ffffff;">
+    <nb-card-body style="background-color: #ffffff;padding-bottom: 0px;">
         <nz-tabset [nzType]="'card'" [nzSelectedIndex]='index'>
             <nz-tab *ngFor="let item of children; " [nzTitle]="item.title" (nzSelect)="toggle_sum(item)">
             </nz-tab>

@@ -48,6 +48,8 @@ export class AgTableComponent implements OnInit {
   rowSelection; // 选中行
   frameworkComponents; // 表格渲染组件！
 
+  style = "width: 100%; height: 500px;";
+
   defaultColDef;
 
   // 分页
@@ -83,6 +85,10 @@ export class AgTableComponent implements OnInit {
 
   // ---------------
   gridOptions(employee_agGrid) {
+    if (employee_agGrid["style"]) {
+      this.style = employee_agGrid["style"];
+    }
+
     this.columnDefs = employee_agGrid["columnDefs"]; // 列字段
     this.rowData = employee_agGrid["rowData"]; // 行数据
     this.action = employee_agGrid["action"]; // 是否操作

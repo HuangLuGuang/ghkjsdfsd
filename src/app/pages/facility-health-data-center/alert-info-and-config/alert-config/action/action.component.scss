@@ -1,0 +1,26 @@
+
+.buedit{
+    height: -webkit-fill-available;
+    width: 100%;
+    border-color: #00ffff00;
+    background: #ff000000;
+    color: #87898a;
+    .edit:hover{
+        cursor: pointer;
+        color: rgb(0, 123, 255) !important;
+    }
+}
+
+.disable_edit{
+    height: -webkit-fill-available;
+
+    cursor: not-allowed;
+    border-color: #00ffff00;
+    background: #ff000000;
+    color: #87898a;
+    .edit:hover{
+        cursor: not-allowed;
+        // color: rgb(0, 123, 255) !important;
+    }
+}
+

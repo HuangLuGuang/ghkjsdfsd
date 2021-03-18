@@ -1,10 +1,10 @@
 
 
-<nb-card>
+<nb-card style="height: 867px; margin: 0px;">
     <nb-card-header style="font-size: small;">
         设备台账
     </nb-card-header>
-    <nb-card-body>
+    <nb-card-body style="background-color: #ffffff;padding-bottom: 0px;">
         <!-- buttons -->
         <div class="row" >
             <div class="col-lg-9" style="display: flex;">
@@ -48,8 +48,11 @@
             </div>
 
             <div class="col-lg-3" style="display: flex;">
-                <!-- 导入、导出 -->
                 <div style="flex: auto;">
+                </div>
+                <!-- 导入模板下载 导入、导出 -->
+                <div class=" button_item my_import " *ngIf="button?.import">
+                    <button nbButton [status]="button?.import.class" size="small" (click)="import_module_download()"  [disabled]="button?.import.active == 0? true:false">导入模板下载</button>
                 </div>
                 <div class=" button_item my_import " *ngIf="button?.import">
                     <button nbButton [status]="button?.import.class" size="small" (click)="action(button?.import.permission)"  [disabled]="button?.import.active == 0? true:false"><nb-icon [icon]="button?.import.icon"></nb-icon>{{button?.import.title}}</button>

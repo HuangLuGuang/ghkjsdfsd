@@ -28,6 +28,7 @@ export class GroupDataSumComponent implements OnInit {
   METHOD = "dev_get_device_ratio_group";
 
   tableDatas = {
+    style: "width: 100%; height: 645px",
     action: false,
     totalPageNumbers: 0, // 总页数
     PageSize: 10, // 每页 10条数据

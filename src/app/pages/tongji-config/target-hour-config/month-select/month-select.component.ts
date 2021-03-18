@@ -63,11 +63,11 @@ export class MonthSelectComponent implements OnInit {
     layui.use(["eleTree"], function () {
       var eleTree = layui.eleTree;
       $("[name='single_title_hour_config']").on("click", function (e) {
-        if (that.xialaicon === "arrow-ios-upward-outline") {
-          that.xialaicon = "arrow-ios-downward-outline";
-        } else {
-          that.xialaicon = "arrow-ios-upward-outline";
-        }
+        // if (that.xialaicon === "arrow-ios-upward-outline") {
+        //   that.xialaicon = "arrow-ios-downward-outline";
+        // } else {
+        //   that.xialaicon = "arrow-ios-upward-outline";
+        // }
         e.stopPropagation();
         if (!single_el5s) {
           single_el5s = eleTree.render({
@@ -84,6 +84,8 @@ export class MonthSelectComponent implements OnInit {
           that.single_el5s = single_el5s;
         }
         $(".single_ele5").toggle();
+        that.toggle();
+        that.other_toggle();
       });
 
       // 节点被选择
@@ -94,13 +96,68 @@ export class MonthSelectComponent implements OnInit {
         $("[name='single_title_hour_config']").val(d.data.currentData.label);
         that.inpuvalue.emit(d.data.currentData.label);
         $(".single_ele5").hide();
-        that.xialaicon = "arrow-ios-downward-outline";
+        // that.xialaicon = "arrow-ios-downward-outline";
+        that.toggle();
       });
       $(document).on("click", function () {
         $(".single_ele5").hide();
-        that.xialaicon = "arrow-ios-downward-outline";
+        // that.xialaicon = "arrow-ios-downward-outline";
+        that.toggle();
       });
     });
+  }
+
+  // i 图标 class 切换
+  toggle() {
+    var single_ele5 = $(".single_ele5").css("display");
+    if (single_ele5 == "none") {
+      $("#single_ele5_i").attr(
+        "class",
+        "layui-icon layui-icon-down single_xiala"
+      );
+    } else {
+      $("#single_ele5_i").attr(
+        "class",
+        "layui-icon layui-icon-up  single_xiala"
+      );
+    }
+  }
+
+  // 其它的下拉
+  other_toggle() {
+    // 科室下拉框
+    $(".ele5").hide();
+    $(".eletype").hide();
+    $(".single_tree_ele5").hide();
+    var ele5 = $(".ele5").css("display");
+    if (ele5 == "none") {
+      $("#ele5_i").attr("class", "layui-icon layui-icon-down xiala");
+    } else {
+      $("#ele5_i").attr("class", "layui-icon layui-icon-up  xiala");
+    }
+    // 设备统计下拉框
+    var eletype = $(".eletype").css("display");
+    if (eletype == "none") {
+      $("#eletype_i").attr("class", "layui-icon layui-icon-down xiala");
+    } else {
+      $("#eletype_i").attr("class", "layui-icon layui-icon-up  xiala");
+    }
+    // 类型
+    var single_tree_ele5 = $(".single_tree_ele5").css("display");
+    if (single_tree_ele5 == "none") {
+      $("#single_tree_ele5_i").attr(
+        "class",
+        "layui-icon layui-icon-down single_tree_xiala"
+      );
+    } else {
+      $("#single_tree_ele5_i").attr(
+        "class",
+        "layui-icon layui-icon-up  single_tree_xiala"
+      );
+    }
+
+    // 日期选择器
+    $(".layui-laydate").remove();
   }
 
   getselect() {

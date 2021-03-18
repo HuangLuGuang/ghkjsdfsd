@@ -45,7 +45,7 @@ export class DeviceKpiTongjiComponent implements OnInit {
   // agGrid
   tableDatas = {
     // 新增，设置高度
-    style: "width: 100%; height: 655px",
+    style: "width: 100%; height: 700px",
 
     totalPageNumbers: 0, // 总页数
     PageSize: 10, // 每页 10条数据

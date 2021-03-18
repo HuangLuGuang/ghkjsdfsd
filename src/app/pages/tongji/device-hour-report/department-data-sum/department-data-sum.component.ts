@@ -27,6 +27,7 @@ export class DepartmentDataSumComponent implements OnInit {
   METHOD = "dev_get_device_ratio_department";
 
   tableDatas = {
+    style: "width: 100%; height: 645px",
     action: false,
     totalPageNumbers: 0, // 总页数
     PageSize: 10, // 每页 10条数据

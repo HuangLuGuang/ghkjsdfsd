@@ -432,8 +432,10 @@ export class LocationMonitoringComponent implements OnInit {
 
   // 搜索按钮
   query() {
+    this.loading = true;
     var inittable_before = this.inittable_before();
     // console.log("<------------搜索----------->", inittable_before);
+    this.tableDatas.isno_refresh_page_size = true;
     var offset = 0;
     var limit = inittable_before.limit;
     var PageSize = inittable_before.limit;
@@ -458,7 +460,7 @@ export class LocationMonitoringComponent implements OnInit {
           ? tabledata["numbers"][0]["numbers"]
           : "未得到总条数";
         this.tableDatas.totalPageNumbers = totalpagenumbers;
-        this.agGrid.init_agGrid(this.tableDatas); // 告诉组件刷新！
+        this.agGrid.init_agGrid(this.tableDatas); // 告诉组件刷新！true
         // 刷新table后，改为原来的！
         this.tableDatas.isno_refresh_page_size = false;
         this.RecordOperation("搜索定位监控", 1, JSON.stringify(columns));
@@ -782,7 +784,9 @@ export class LocationMonitoringComponent implements OnInit {
   }
   // 一键盘点  异常设备
   check() {
+    this.loading = true;
     var inittable_before = this.inittable_before();
+    this.tableDatas.isno_refresh_page_size = true;
     var offset = 0;
     var limit = inittable_before.limit ? inittable_before.limit : 10;
     var PageSize = inittable_before.limit ? inittable_before.limit : 10;
@@ -822,6 +826,7 @@ export class LocationMonitoringComponent implements OnInit {
       }
     });
   }
+  // 一键盘点  异常设备 更改背景色或不同的字体颜色
 
   close(): void {
     this.visible = false;

@@ -29,6 +29,7 @@ export class DeviceAndonHistoryComponent implements OnInit {
   employeeid = this.userinfo.getEmployeeID();
 
   tableDatas = {
+    style: "width: 100%; height: 692px",
     action: false,
     totalPageNumbers: 0, // 总页数
     PageSize: 10, // 每页 10条数据

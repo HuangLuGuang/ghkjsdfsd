@@ -1,145 +1,140 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input } from "@angular/core";
 declare let $;
 declare let layui;
 
 @Component({
-  selector: 'ngx-my-select-tree',
-  templateUrl: './my-select-tree.component.html',
-  styleUrls: ['./my-select-tree.component.scss']
+  selector: "ngx-my-select-tree",
+  templateUrl: "./my-select-tree.component.html",
+  styleUrls: ["./my-select-tree.component.scss"],
 })
 export class MySelectTreeComponent implements OnInit {
-  @Input("placeholder")placeholder:any;
+  @Input("placeholder") placeholder: any;
 
   // 下拉 icon
-  xialaicon = "arrow-ios-downward-outline"
+  g_xialaicon = "arrow-ios-downward-outline";
+  xialaicon = "arrow-ios-downward-outline";
   placeholder_title;
   select_type = [];
 
   // el5
   el5s;
 
-  constructor() { 
-    
-  }
-
-  
-
+  constructor() {}
 
   ngOnInit(): void {
     // 科室/功能组
-    var data =  [
-        {
-            "id": 1,
-            "label": "安徽省",
-            "children": [
-                {
-                    "id": 2,
-                    "label": "马鞍山市",
-                    "disabled": false,
-                    "children": [
-                        {
-                            "id": 3,
-                            "label": "和县"
-                        },
-                        {
-                            "id": 4,
-                            "label": "花山区",
-                            "checked": false
-                        }
-                    ]
-                },
-                {
-                    "id": 22,
-                    "label": "淮北市",
-                    "children": [
-                        {
-                            "id": 23,
-                            "label": "濉溪县"
-                        },
-                        {
-                            "id": 24,
-                            "label": "相山区",
-                            "checked": false
-                        }
-                    ]
-                }
-            ]
-        },
-        {
-            "id": 5,
-            "label": "河南省",
-            "children": [
-                {
-                    "id": 6,
-                    "label": "郑州市"
-                }
-            ]
-        },
-        {
-            "id": 10,
-            "label": "江苏省",
-            "children": [
-                {
-                    "id": 11,
-                    "label": "苏州市"
-                },
-                {
-                    "id": 12,
-                    "label": "南京市",
-                    "children": [
-                        {
-                            "id": 13,
-                            "label": "姑苏区"
-                        },
-                        {
-                            "id": 14,
-                            "label": "相城区"
-                        }
-                    ]
-                }
-            ]
-        }
+    var data = [
+      {
+        id: 1,
+        label: "安徽省",
+        children: [
+          {
+            id: 2,
+            label: "马鞍山市",
+            disabled: false,
+            children: [
+              {
+                id: 3,
+                label: "和县",
+              },
+              {
+                id: 4,
+                label: "花山区",
+                checked: false,
+              },
+            ],
+          },
+          {
+            id: 22,
+            label: "淮北市",
+            children: [
+              {
+                id: 23,
+                label: "濉溪县",
+              },
+              {
+                id: 24,
+                label: "相山区",
+                checked: false,
+              },
+            ],
+          },
+        ],
+      },
+      {
+        id: 5,
+        label: "河南省",
+        children: [
+          {
+            id: 6,
+            label: "郑州市",
+          },
+        ],
+      },
+      {
+        id: 10,
+        label: "江苏省",
+        children: [
+          {
+            id: 11,
+            label: "苏州市",
+          },
+          {
+            id: 12,
+            label: "南京市",
+            children: [
+              {
+                id: 13,
+                label: "姑苏区",
+              },
+              {
+                id: 14,
+                label: "相城区",
+              },
+            ],
+          },
+        ],
+      },
     ];
     // this.init_select_tree(this.groups);
   }
-  
-  ngAfterViewInit(){
+
+  ngAfterViewInit() {
     this.placeholder_title = this.placeholder;
     $("[name='title']").attr("placeholder", this.placeholder_title);
     // $(".tree_isShow").hide();
   }
 
-  ngOnDestroy(){
+  ngOnDestroy() {
     this.dropselect();
   }
-  
+
   select_data = [];
   select_label_list = [];
   tree_data; // 树结构数据
   // 下拉树示例
-  init_select_tree(data){
+  init_select_tree(data) {
     var that = this;
     that.tree_data = data;
     // data存在-显示，否则不显示
-    if(data.length >0){
+    if (data.length > 0) {
       // $(".tree_isShow").show()
-    }else{
+    } else {
       // $(".tree_isShow").hide()
     }
     var el5s;
-    layui.use(['eleTree',],function(){
+    layui.use(["eleTree"], function () {
       var eleTree = layui.eleTree;
-      $("[name='title']").on("click",function (e) {
-        
-        if (that.xialaicon === "arrow-ios-upward-outline"){
-          that.xialaicon = "arrow-ios-downward-outline"
-        }else{
-          that.xialaicon = "arrow-ios-upward-outline";
+      $("[name='title']").on("click", function (e) {
+        if (that.g_xialaicon === "arrow-ios-upward-outline") {
+          that.g_xialaicon = "arrow-ios-downward-outline";
+        } else {
+          that.g_xialaicon = "arrow-ios-upward-outline";
         }
         e.stopPropagation();
-        if(!el5s){
-          el5s=eleTree.render({
-            elem: '.ele5',
+        if (!el5s) {
+          el5s = eleTree.render({
+            elem: ".ele5",
             data: data,
             defaultExpandAll: false,
             showCheckbox: true,
@@ -151,53 +146,79 @@ export class MySelectTreeComponent implements OnInit {
           that.el5s = el5s;
         }
         $(".ele5").toggle();
-      })
-      
+        that.toggle();
+        that.other_toggle();
+      });
+
       // 节点被选择
       // var select_data = that.select_data; //[{id: 3, label: "nvh"},]
       // var select_label_list = that.select_label_list;
-      eleTree.on("nodeChecked(data5)",function(d) {
-        // console.log(d.data);    // 点击节点对应的数据 
+      eleTree.on("nodeChecked(data5)", function (d) {
+        // console.log(d.data);    // 点击节点对应的数据
         // console.log(d.isChecked);   // input是否被选中
         // -----------------多选，科室功能组
-        if (d.isChecked){
-          that.select_data.push(d.data.currentData);// {id: 3, label: "nvh"}
+        if (d.isChecked) {
+          that.select_data.push(d.data.currentData); // {id: 3, label: "nvh"}
           that.select_label_list.push(d.data.currentData.label);
           that.select_type.push(d.data.currentData.id);
-        }else{
+        } else {
           // console.log("select_label_list>>",that.select_label_list)
           // console.log("d.data.currentData.label>>",[d.data.currentData.label])
           var index = that.select_label_list.indexOf(d.data.currentData.label);
-          console.log("index>>",index)
-          if( index != -1){ // 表示存在
+          console.log("index>>", index);
+          if (index != -1) {
+            // 表示存在
             that.select_label_list.splice(index, 1); // 删除取消的
             that.select_type.splice(index, 1);
           }
           // console.log("select_label_list>>",that.select_label_list)
         }
-        $("[name='title']").val(that.select_label_list.join(';'));
+        $("[name='title']").val(that.select_label_list.join(";"));
         // console.log(d.node);    // 点击的dom节点
         // console.log(this);      // input对应的dom
-    })
-    $(document).on("click",function() {
-          $(".ele5").hide();
-          that.xialaicon = "arrow-ios-downward-outline";
-      })
-    })
+      });
+      $(document).on("click", function () {
+        $(".ele5").hide();
+        // that.xialaicon = "arrow-ios-downward-outline";
+        that.toggle();
+      });
+    });
   }
-  
 
-  getselect(){
+  // i 图标 class 切换
+  toggle() {
+    var ele5 = $(".ele5").css("display");
+    if (ele5 == "none") {
+      $("#ele5_i").attr("class", "layui-icon layui-icon-down xiala");
+    } else {
+      $("#ele5_i").attr("class", "layui-icon layui-icon-up  xiala");
+    }
+  }
+  // 其它的下拉
+  other_toggle() {
+    // 设备类型下拉框
+    $(".eletype").hide();
+    var eletype = $(".eletype").css("display");
+    if (eletype == "none") {
+      $("#eletype_i").attr("class", "layui-icon layui-icon-down xiala");
+    } else {
+      $("#eletype_i").attr("class", "layui-icon layui-icon-up  xiala");
+    }
+    // 日期选择器
+    $(".layui-laydate").remove();
+  }
+
+  getselect() {
     return $("[name='title']").val();
   }
   // 删除选择的
-  delselect(){
+  delselect() {
     $("[name='title']").val("");
     this.select_type = [];
     this.select_label_list = [];
   }
   // 清空下拉数据
-  dropselect(){
+  dropselect() {
     this.delselect();
     // console.log("清空下拉数据",$("[name='title']").val())
     var select = this.el5s?.getChecked();
@@ -205,10 +226,7 @@ export class MySelectTreeComponent implements OnInit {
     //   this.el5s?.reload({data:this.tree_data}); // 重新加载树
     //   this.el5s?.unCheckNodes() //取消所有选中的节点
     // }
-    this.el5s?.reload({data:this.tree_data}); // 重新加载树
-    this.el5s?.unCheckNodes() //取消所有选中的节点
+    this.el5s?.reload({ data: this.tree_data }); // 重新加载树
+    this.el5s?.unCheckNodes(); //取消所有选中的节点
   }
-
-  
-
 }

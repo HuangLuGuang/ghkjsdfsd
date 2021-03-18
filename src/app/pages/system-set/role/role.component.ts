@@ -935,6 +935,7 @@ export class RoleComponent implements OnInit {
   // =================================================agGrid
 
   tableDatas = {
+    style: "width: 100%; height: 700px",
     action: false,
     totalPageNumbers: 0, // 总页数
     PageSize: 10, // 每页 10条数据
