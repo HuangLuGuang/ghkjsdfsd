@@ -68,9 +68,10 @@
                 
                                 <!-- 日期 -->
                                 <div class="example-items-rows button_item" *ngIf="button?.query">
-                                    <!-- <ngx-my-date-range #data_range></ngx-my-date-range> -->
-                                    <ngx-my-date-select #mydateselect (my_date_select)="my_date_select($event)"></ngx-my-date-select>
+                                    <!-- <ngx-my-date-select #mydateselect (my_date_select)="my_date_select($event)"></ngx-my-date-select> -->
+                                    <ngx-my-date-range #data_range></ngx-my-date-range>
                                 </div>
+
 
                                 <!-- 开关 -->
                                 <div class="example-items-rows button_item" *ngIf="button?.query">

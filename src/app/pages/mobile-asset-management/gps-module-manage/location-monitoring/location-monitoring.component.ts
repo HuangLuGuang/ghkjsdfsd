@@ -26,10 +26,10 @@ declare let Ping;
 })
 export class LocationMonitoringComponent implements OnInit {
   @ViewChild("myinput") myinput: any;
-  @ViewChild("data_range") data_range: any;
+  @ViewChild("data_range") data_range: any; // 时间范围
   @ViewChild("ag_Grid") agGrid: any;
   @ViewChild("gpshistory") gpshistory: any;
-  @ViewChild("mydateselect") mydateselect: any;
+  // @ViewChild("mydateselect") mydateselect: any; // 时间选择点
   @ViewChild("myselect") myselect: any;
 
   @ViewChild("map") map: any;
@@ -442,10 +442,12 @@ export class LocationMonitoringComponent implements OnInit {
     var columns = {
       offset: offset,
       limit: limit,
-      daterange_data: inittable_before.daterange_data,
+      // daterange_data: inittable_before.daterange_data,
       isfavor: inittable_before.isfavor,
       deviceid: inittable_before.deviceid,
       offline: inittable_before.offline,
+      starttime: inittable_before.starttime,
+      endtime: inittable_before.endtime,
     };
     this.http.callRPC(this.TABLE, this.METHDO, columns).subscribe((result) => {
       var tabledata = result["result"]["message"][0];
@@ -487,10 +489,19 @@ export class LocationMonitoringComponent implements OnInit {
     var deviceid =
       this.myinput?.getinput() === undefined ? "" : this.myinput?.getinput(); // 设备名称
     // 日期范围下拉
-    var daterange_data =
-      this.mydateselect?.getselect() === undefined
-        ? 3000
-        : this.mydateselect?.getselect();
+    // var daterange_data =
+    //   this.mydateselect?.getselect() === undefined
+    //     ? 3000
+    //     : this.mydateselect?.getselect();
+
+    // 时间范围
+    var get_curr_mounth_one = this.publicservice.get_curr_mounth_one();
+    var default_date = [get_curr_mounth_one[0], get_curr_mounth_one[1]];
+
+    var data_range =
+      this.data_range?.getselect() == undefined
+        ? default_date
+        : this.data_range?.getselect();
     // 关注下拉
     var myselect =
       this.myselect?.getselect() === undefined ? 2 : this.myselect?.getselect();
@@ -498,18 +509,19 @@ export class LocationMonitoringComponent implements OnInit {
       limit: this.agGrid.get_pagesize(),
       employeeid: this.userinfo.getEmployeeID(),
       deviceid: deviceid,
-      daterange_data: daterange_data,
+      // daterange_data: daterange_data,
       isfavor: myselect,
       offline: 0,
 
-      // start: daterange_data[0],
-      // end: daterange_data[1],
+      starttime: data_range[0],
+      endtime: data_range[1],
     };
   }
 
   // 初始化table
   inttable(event?) {
     var inittable_before = this.inittable_before();
+
     var offset;
     var limit;
     var PageSize;
@@ -525,12 +537,12 @@ export class LocationMonitoringComponent implements OnInit {
     var columns = {
       offset: offset,
       limit: limit,
-      daterange_data: inittable_before.daterange_data,
+      // daterange_data: inittable_before.daterange_data,
       isfavor: inittable_before.isfavor,
       deviceid: inittable_before.deviceid,
       offline: inittable_before.offline,
-      // start: inittable_before.start,
-      // end: inittable_before.end,
+      starttime: inittable_before.starttime,
+      endtime: inittable_before.endtime,
     };
     this.http.callRPC(this.TABLE, this.METHDO, columns).subscribe((result) => {
       var tabledata = result["result"]["message"][0];
@@ -637,12 +649,12 @@ export class LocationMonitoringComponent implements OnInit {
     var columns = {
       offset: offset,
       limit: limit,
-      daterange_data: inittable_before.daterange_data,
+      // daterange_data: inittable_before.daterange_data,
       isfavor: inittable_before.isfavor,
       deviceid: inittable_before.deviceid,
       offline: inittable_before.offline,
-      // start: inittable_before.start,
-      // end: inittable_before.end,
+      starttime: inittable_before.starttime,
+      endtime: inittable_before.endtime,
     };
     this.http.callRPC(this.TABLE, this.METHDO, columns).subscribe((result) => {
       var tabledata = result["result"]["message"][0];
@@ -677,7 +689,8 @@ export class LocationMonitoringComponent implements OnInit {
 
     // 取消选择的数据 delselect
     this.myinput.del_input_value(); // input
-    this.mydateselect.reset_month(); // 时间段
+    // this.mydateselect.reset_month(); // 时间段
+    this.data_range.reset_mydate(); // 时间范围
     this.myselect.reset_month(); // 下拉 关注
 
     this.refresh = true;
@@ -793,10 +806,12 @@ export class LocationMonitoringComponent implements OnInit {
     var columns = {
       offset: offset,
       limit: limit,
-      daterange_data: inittable_before.daterange_data,
+      // daterange_data: inittable_before.daterange_data,
       isfavor: inittable_before.isfavor,
       deviceid: inittable_before.deviceid,
       offline: 1,
+      starttime: inittable_before.starttime,
+      endtime: inittable_before.endtime,
     };
     this.http.callRPC(this.TABLE, this.METHDO, columns).subscribe((result) => {
       var tabledata = result["result"]["message"][0];

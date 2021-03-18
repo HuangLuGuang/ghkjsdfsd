@@ -35,21 +35,14 @@ export class GpsHistoryComponent implements OnInit {
     columnDefs: [
       // 列字段 多选：headerCheckboxSelection checkboxSelection
       {
-        field: "imei",
-        headerName: "设备编号",
+        field: "recordtime",
+        headerName: "更新时间",
         resizable: true,
         headerCheckboxSelection: true,
         checkboxSelection: true,
         autoHeight: true,
         fullWidth: true,
-        width: 180,
-        sortable: true,
-      },
-      {
-        field: "devicename",
-        headerName: "设备名称",
-        resizable: true,
-        width: 200,
+        minWidth: 10,
         sortable: true,
       },
 
@@ -59,21 +52,26 @@ export class GpsHistoryComponent implements OnInit {
         resizable: true,
         sortable: true,
       },
-
-      {
-        field: "recordtime",
-        headerName: "更新时间",
-        resizable: true,
-        minWidth: 10,
-        sortable: true,
-      },
-
       {
         field: "latlon",
         headerName: "经纬度",
         resizable: true,
         width: 250,
         cellRendererFramework: GpsLngLatCellComponent,
+        sortable: true,
+      },
+      {
+        field: "imei",
+        headerName: "设备编号",
+        resizable: true,
+        width: 180,
+        sortable: true,
+      },
+      {
+        field: "devicename",
+        headerName: "设备名称",
+        resizable: true,
+        width: 200,
         sortable: true,
       },
     ],
