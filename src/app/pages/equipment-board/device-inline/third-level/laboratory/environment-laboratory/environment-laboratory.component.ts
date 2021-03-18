@@ -44,7 +44,7 @@ export class EnvironmentLaboratoryComponent implements OnInit {
       name:'AVL排放2驱',
       number:'S1070',
       andon:0,
-      src:'assets/eimdoard/equipment/images/paifang.jpg',//实验图片
+      src:'assets/eimdoard/equipment/images/hm_1074.png',//实验图片
       speed:[],
       speed_name:[''],
       router:'pages/equipment/avl/AVL转毂+久鼎环境舱+排放分析'
@@ -114,7 +114,7 @@ export class EnvironmentLaboratoryComponent implements OnInit {
     'device_avl2dyno_01':this.list[5],//AVL排放2驱-S1074
     'device_avl4dyno_03':this.list[6],//AVL排放4驱-S1074
     'device_jinhua_cabin02':this.list[7],//锦华常温浸车舱
-    'device_atec_05':this.list[7].other,//整车高低温试验舱
+    'device_atec_03':this.list[7].other,//整车高低温试验舱
   }
   timer;
   constructor(private router:Router,private thrid:ThirdLevelService,private http:HttpserviceService,

@@ -95,10 +95,15 @@ export class EquipmentCtsBsrComponent implements OnInit {
     ]
   }
 
-
+//设备介绍
+  introd_name = 'ccts-bsr';
+  equipIntroduceList = [
+    {title:''},
+    {title:''},
+  ]
 
   img = {
-    url:'assets/eimdoard/equipment/images/slz.png',
+    url:'assets/eimdoard/equipment/images/ccts-bsr.jpg',
     name:''
   }
 

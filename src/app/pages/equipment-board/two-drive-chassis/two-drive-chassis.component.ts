@@ -103,6 +103,14 @@ export class TwoDriveChassisComponent implements OnInit {
 
   deviceid = '';
 
+   //设备介绍
+   introd_name = 'twodrive';
+   equipIntroduceList = [
+     {title:''},
+     {title:'底盘测功机'},
+     {title:'耐久机器人'},
+   ]
+
   rw = 0;//惯量
   timer:any;//定时器
   language = '';//语言 空为zh-CN中文
@@ -120,6 +128,10 @@ export class TwoDriveChassisComponent implements OnInit {
       if(document.getElementById('head_title'))
         document.getElementById('head_title').innerText = f.title;
       this.deviceid = f.deviceid
+      if('device_avl4dyno_01' == this.deviceid){
+        this.introd_name = 'twodrive_4'
+        this.equipIntroduceList = [];
+      }
     })
 
 

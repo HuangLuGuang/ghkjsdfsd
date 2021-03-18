@@ -14,11 +14,161 @@
             </div>
         </div>
         <div class="col-md-4" style="padding: 0px 20px;">
-            <div class="sceond_fisrt height_28">
+            <div class="sceond_fisrt height_28" style="padding-top: 0;">
                 <div class="part_title">{{ 'equipment.equipIntroduce'|translate}}</div>
-                <div style="padding: 20px;overflow: auto;">
-                    设备分三部分：AVL 转股、排放分析仪、环境舱；
-                </div>
+                <ngx-equip-introduce style="width: 100%;" [name]="introd_name" [equipIntroduceList]="equipIntroduceList"></ngx-equip-introduce>
+
+                <!-- <div style="overflow: auto;width: 100%;position: relative;text-align: left;line-height: 18px;"> -->
+                    <!-- <div style="text-indent: 2rem;text-align: left;">
+                        两驱排放试验室于2017年7月建成并投入使用，拥有奥地利AVL公司的底盘测功机、全流稀释袋采排放分析系统，国内久鼎公司的高低温环境模拟舱设备。
+                    </div>
+                    <div style="text-indent: 2rem;text-align: left;">
+                        可以开展轻型汽车国五、国六＆欧六常温、低温排放试验（含新能源汽车）、燃油消耗量、美国FTP75及SFTP75排放试验、动力性试验、整车标定测试等试验项目。
+                    </div> -->
+                    <!-- <div class="equipments_table height_99">
+                         <div class="column_100">
+                         <div class="border_top_1px column_35">名称 name</div>
+                         <div class="border_top_1px column_65">基本参数 specifications</div>
+                         </div>
+                         <div class="column_100">
+                            <div class="border_top_1px column_35">名称 name</div>
+                            <div class="border_top_1px column_65">基本参数 specifications</div>
+                            </div>
+                         <div class="column_100">
+                         <div class="border_top_1px column_35">滚筒直径</div>
+                         <div class="border_top_1px column_65">1219mm（48英寸）
+                         </div>
+                         </div>
+                         <div class="column_100">
+                         <div class="border_top_1px column_35">转鼓外边缘长度
+                         </div>
+                         <div class="border_top_1px column_65">2743mm</div>
+                         </div>
+                         <div class="column_100">
+                         <div class="border_top_1px column_35">转鼓内边缘长度
+                         </div>
+                         <div class="border_top_1px column_65">914mm
+                         </div>
+                         </div>
+                         <div class="column_100">
+                         <div class="border_top_1px column_35">惯量模拟范围
+                         </div>
+                         <div class="border_top_1px column_65">454～2724kg
+                         </div>
+                         </div>
+                         <div class="column_100">
+                            <div class="border_top_1px column_35">前轴最大持续功率
+                            </div>
+                            <div class="border_top_1px column_65">150kw
+                            </div>
+                            </div>
+                            <div class="column_100">
+                                <div class="border_top_1px column_35">最高车速
+                                </div>
+                                <div class="border_top_1px column_65">200km/h
+                                </div>
+                                </div>
+                                <div class="column_100">
+                                    <div class="border_top_1px column_35">风机风量
+                                    </div>
+                                    <div class="border_top_1px column_65">110000m3/h
+                                    </div>
+                                    </div>
+                        <div class="column_100">
+                            <div class="border_top_1px column_35">风机风速
+                            </div>
+                            <div class="border_top_1px column_65">140km/h
+                            </div>
+                            </div>
+                            <div class="column_100">
+                                <div class="border_top_1px column_35">风机出口尺寸
+                                </div>
+                                <div class="border_top_1px column_65">1000*850mm
+                                </div>
+                                </div>
+                            <div class="column_100">
+                                <div class="border_top_1px column_35">出口最低处到地面
+                                </div>
+                                <div class="border_top_1px column_65">100mm
+                                </div>
+                                </div>
+                         </div> -->
+                         <!-- <div class="equipments_table height_99">
+                            <div class="column_100">
+                                <div class="border_top_1px column_35">名称 name</div>
+                                <div class="border_top_1px column_65">基本参数 specifications</div>
+                            </div>
+                            <div class="column_100">
+                                <div class="border_top_1px column_35">舱尺寸</div>
+                                <div class="border_top_1px column_65">17000x 7000 x 3500mm</div>
+                            </div>
+                            <div class="column_100">
+                                <div class="border_top_1px column_35">温度控制范围</div>
+                                <div class="border_top_1px column_65">-10°C ～ +30°C</div>
+                            </div>
+                            <div class="column_100">
+                                <div class="border_top_1px column_35">温度控制精度  </div>
+                                <div class="border_top_1px column_65">± 1°C</div>
+                            </div>
+                            <div class="column_100">
+                                <div class="border_top_1px column_35">湿度控制范围</div>
+                                <div class="border_top_1px column_65">30%～80%</div>
+                            </div>
+                            <div class="column_100">
+                                <div class="border_top_1px column_35">湿度控制精度</div>
+                                <div class="border_top_1px column_65">＜ ± 5%
+                                </div>
+                            </div>  
+                        </div> -->
+                        <!-- <div>
+                            5、CH4分析仪：
+                            <div style="text-indent: 2rem;">
+                                分析仪型式：Cutter FID
+
+                            </div>
+                            <div style="text-indent: 2rem;">
+
+                                量程：Min：0～10ppm；Max：0～3000ppm
+
+
+                            </div>
+                            <div style="text-indent: 2rem;">
+
+                                线性度：≤ 2%R.S.
+
+                                </div>
+                            <div style="text-indent: 2rem;">
+
+                                测量精度及重复精度：≤ 0.5%FS（对应每段量程的满量程）
+                            </div>
+                        </div> -->
+                        <!-- <div>
+                            4、THC分析仪：用于汽油应用:
+                            <div style="text-indent: 2rem;">
+                                分析仪型式：FID
+                            </div>
+                            <div style="text-indent: 2rem;">
+
+                                量程：0～3,000ppmC1
+
+                            </div>
+                            <div style="text-indent: 2rem;">
+
+                                最小量程为：10 ppmC1
+
+
+                                </div>
+                            <div style="text-indent: 2rem;">
+                                线性度：≤ 2%RS
+                            </div>
+                            <div style="text-indent: 2rem;">
+
+                                测量精度及重复精度：≤ 0.5%FS（对应每段量程的满量程）
+
+
+                            </div>
+                        </div> -->
+                <!-- </div> -->
             </div>
             <div class="center_img">
                 <div class="part_title">{{'equipment.OnlineVideo'|translate}}</div>
@@ -86,7 +236,7 @@
                 </div>
             </div>
             <div class="height_35 bo" style="margin-top: 20px;position: relative;padding-top: 20px;padding-bottom: 5px;">
-                <div class="part_title">{{'equipment.AVLSpeed'|translate}}</div>
+                <div class="part_title">AVL转鼓</div>
                 <div class="height_50" style="display: flex;justify-content: center;">
                     <div *ngFor="let item of avl_speed" id="{{ item.id}}" class="height_100 width_25"></div>
                 </div>
