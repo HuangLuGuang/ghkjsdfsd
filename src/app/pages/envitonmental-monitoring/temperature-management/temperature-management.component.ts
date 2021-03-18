@@ -170,7 +170,9 @@ export class TemperatureManagementComponent implements OnInit {
   ngAfterViewInit() {
     this.tableDatas.columnDefs.push(this.option);
     // 初始化table
-    this.inttable();
+    setTimeout(() => {
+      this.inttable();
+    }, 200);
   }
 
   // 销毁组件时，删除 kpi_for_detail

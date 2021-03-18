@@ -307,9 +307,11 @@ export class AlertConfigComponent implements OnInit {
       this.alertlevel.init_select_trees(this.level);
     }, 400);
 
-    // 初始化aggrid
-    this.inttable();
-    this.loading = false;
+    // 初始化table
+    setTimeout(() => {
+      this.inttable();
+      this.loading = false;
+    }, 200);
   }
 
   action(actionmethod) {

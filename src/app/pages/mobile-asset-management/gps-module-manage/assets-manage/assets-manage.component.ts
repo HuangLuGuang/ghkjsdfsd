@@ -187,7 +187,9 @@ export class AssetsManageComponent implements OnInit {
   ngAfterViewInit() {
     this.tableDatas.columnDefs.push(this.option);
     // 初始化table
-    this.inttable();
+    setTimeout(() => {
+      this.inttable();
+    }, 200);
   }
   // button按钮
   action(actionmethod) {

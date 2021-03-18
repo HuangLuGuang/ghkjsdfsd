@@ -196,7 +196,10 @@ export class NewUserEmployeeComponent implements OnInit {
     // 初始化table
     this.tableDatas.columnDefs.push(this.active);
 
-    this.inttable();
+    // 初始化table
+    setTimeout(() => {
+      this.inttable();
+    }, 200);
   }
 
   ngOnDestroy() {

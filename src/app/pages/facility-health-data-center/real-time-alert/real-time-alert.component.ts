@@ -181,7 +181,9 @@ export class RealTimeAlertComponent implements OnInit {
 
   ngAfterViewInit() {
     // 初始化table
-    this.inttable();
+    setTimeout(() => {
+      this.inttable();
+    }, 200);
     this.loading = false;
   }
 

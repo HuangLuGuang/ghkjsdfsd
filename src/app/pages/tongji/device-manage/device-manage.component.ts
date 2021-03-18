@@ -122,7 +122,10 @@ export class DeviceManageComponent implements OnInit {
 
   ngAfterViewInit() {
     this.tableDatas.columnDefs.push(this.active);
-    this.inttable();
+    // 初始化table
+    setTimeout(() => {
+      this.inttable();
+    }, 200);
   }
 
   ngOnDestroy() {
@@ -434,8 +437,8 @@ export class DeviceManageComponent implements OnInit {
 
   // 导入模板下载
   import_module_download() {
-    var title = "设备台账"
-    var ismodule = true
+    var title = "设备台账";
+    var ismodule = true;
     this.agGrid.download(title, ismodule);
   }
 

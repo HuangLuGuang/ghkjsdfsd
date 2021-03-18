@@ -37,7 +37,9 @@ export class SecurityLogComponent implements OnInit {
   ngAfterViewInit() {
     // ====================================agGrid
     // 初始化table
-    this.inttable();
+    setTimeout(() => {
+      this.inttable();
+    }, 200);
     // ====================================agGrid
   }
 

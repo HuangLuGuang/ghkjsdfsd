@@ -35,8 +35,10 @@ export class OperationLogComponent implements OnInit, OnDestroy {
   }
 
   ngAfterViewInit() {
-    // init  table
-    this.inttable();
+    // 初始化table
+    setTimeout(() => {
+      this.inttable();
+    }, 200);
   }
 
   ngOnDestroy() {}

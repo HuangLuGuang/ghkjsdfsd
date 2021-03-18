@@ -122,7 +122,9 @@ export class DeviceTemperatureComponent implements OnInit {
 
   ngAfterViewInit() {
     // 初始化table
-    this.inttable();
+    setTimeout(() => {
+      this.inttable();
+    }, 200);
 
     // 时间点
     var timepoints = [
