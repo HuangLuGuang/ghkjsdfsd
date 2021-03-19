@@ -250,8 +250,8 @@ export class EquipmentPureWaterComponent implements OnInit {
   };
     
 
-  @ViewChild('round')round:TemplateRef<any>;
-  @ViewChild('pull')pull:TemplateRef<any>;
+  @ViewChild('round')round:unknown ;
+  @ViewChild('pull')pull:unknown ;
   status = '无';
   error_str = '';
 
@@ -267,10 +267,7 @@ export class EquipmentPureWaterComponent implements OnInit {
     private http:HttpserviceService) { }
 
   ngOnInit(): void {
-    this.timer = setInterval(f=>{
-      this.getdata();
-      
-    },1000)
+    
     this.sublist.roule = this.activate.params.subscribe(f=>{
       if(document.getElementById('head_title'))
         document.getElementById('head_title').innerText = f.title;
@@ -279,9 +276,14 @@ export class EquipmentPureWaterComponent implements OnInit {
 
   ngAfterViewInit(){
     this.boardservice.sendLoad({close:false});
+    this.timer = setInterval(f=>{
+      this.getdata();
+      
+    },1000)
     setTimeout(() => {
       this.viewstatus = true;
     }, 100);
+    
   }
 
   getdata(){
@@ -395,6 +397,7 @@ export class EquipmentPureWaterComponent implements OnInit {
       // this.status = data.emergency_stop == 1?'':'';
     });
   }
+
 
 
    //组件销毁

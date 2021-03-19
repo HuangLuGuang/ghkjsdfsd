@@ -11,9 +11,10 @@
         </div>
     </div>
     <div class="all">
-
-        <ng-container *ngFor="let key of object.keys(list)" [ngTemplateOutlet]="this[list[key].type]" [ngTemplateOutletContext]="{ $implicit: list[key] }">
-        </ng-container>
+        <ng-container *ngFor="let key of object.keys(list)">
+            <ng-container  [ngTemplateOutlet]="list[key].type == 'round'?round:pull" [ngTemplateOutletContext]="{ $implicit: list[key] }">
+            </ng-container>
+        </ng-container> 
     </div>
 </div>
 
