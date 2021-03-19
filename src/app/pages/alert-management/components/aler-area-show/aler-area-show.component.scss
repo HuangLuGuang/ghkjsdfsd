@@ -1,0 +1,33 @@
+
+
+.aler_area_show{
+    height: 100%;
+    margin: 0px;
+    .alert_area{
+        height: 100%;
+        width: 100%;
+        // border: 1px red solid;
+    }
+}
+
+// 科室的
+.alert_groups{
+    width: 50%;
+    border: 1px  solid;
+    span{
+        position: relative;
+        top: 50%;
+    }
+}
+// 有无报警的
+.is_not_alert{
+    width: 100%;
+    border: 1px #29d640 solid;
+    position: relative;
+    top: 7%;
+    height: 40%;
+    span{
+        position: relative;
+        top: 29%;;
+    }
+}

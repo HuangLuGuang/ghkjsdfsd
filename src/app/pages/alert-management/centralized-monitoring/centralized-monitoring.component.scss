@@ -235,9 +235,18 @@
 .alert_area{
     height: 47%;
     .video_inline_two{
-        // border: solid 1px rgb(83, 175, 40);
+        border: solid 1px rgb(83, 175, 40);
+        display: flex;
+        justify-content: center;
+        align-items: center;
         height: 100%;
+
         margin: 0px;
+        #alert_area_id{
+            height: 90%;
+            width: 100%;
+            margin-top: 30px;
+        }
     }
 }
 

@@ -1,0 +1,23 @@
+<div class="row aler_area_show" >
+    <div class="col-md-12">
+        <div class="alert_area">
+            <div class="row" style="height: 50%;">
+                <div class="col-md-10" style="display: flex; margin: 0px;">
+                    <div class="alert_groups" [style]="{background: groups_data[0].status==0?'#FF0000':''}"><span>{{groups_data[0].name}}</span></div>
+                    <div class="alert_groups" [style]="{background: groups_data[1].status==0?'#FF0000':''}"><span>{{groups_data[1].name}}</span></div>
+                </div>
+                <div class="col-md-2"></div>
+            </div>
+            <div class="row" style="height: 50%;">
+                <div class="col-md-10" style="display: flex; margin: 0px;">
+                    <div class="alert_groups" [style]="{background: groups_data[2].status==0?'#FF0000':''}"><span>{{groups_data[2].name}}</span></div>
+                    <div class="alert_groups" [style]="{background: groups_data[3].status==0?'#FF0000':''}"><span>{{groups_data[3].name}}</span></div>
+                </div>
+                <div class="col-md-2" style="padding-left: 0px; padding-top: 10%;">
+                    <div class="is_not_alert" style="margin-bottom: 12%;"><span>无报警</span></div>
+                    <div class="is_not_alert" style="background:'#FF0000'"><span>有报警</span></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,8 +1,10 @@
 <div style="border-bottom: 1px solid rgb(233, 233, 233);">
     <label nz-checkbox [(ngModel)]="allChecked" (ngModelChange)="updateAllChecked()" [nzIndeterminate]="indeterminate">
-      Check all
+      全选
     </label>
-  </div>
+</div>
+
+<br />
 
 <nz-checkbox-group [(ngModel)]="checkOptionsOne" (ngModelChange)="log(checkOptionsOne)"></nz-checkbox-group>
 <br />
@@ -14,10 +16,10 @@
         </div>
 
         <div class="button_item">
-            <button nbButton status="warning" size="small">取消</button>
+            <button nbButton status="warning" size="small" (click)="cancle()">取消</button>
         </div>
         <div class="button_item">
-            <button nbButton status="success" size="small">确定</button>
+            <button nbButton status="success" size="small" (click)="confirm()">确定</button>
         </div>
     </div>
 </div>
