@@ -1,0 +1,23 @@
+<div style="border-bottom: 1px solid rgb(233, 233, 233);">
+    <label nz-checkbox [(ngModel)]="allChecked" (ngModelChange)="updateAllChecked()" [nzIndeterminate]="indeterminate">
+      Check all
+    </label>
+  </div>
+
+<nz-checkbox-group [(ngModel)]="checkOptionsOne" (ngModelChange)="log(checkOptionsOne)"></nz-checkbox-group>
+<br />
+<br />
+
+<div class="row">
+    <div class="col-md-12" style="display: flex;">
+        <div style="flex: auto;">
+        </div>
+
+        <div class="button_item">
+            <button nbButton status="warning" size="small">取消</button>
+        </div>
+        <div class="button_item">
+            <button nbButton status="success" size="small">确定</button>
+        </div>
+    </div>
+</div>

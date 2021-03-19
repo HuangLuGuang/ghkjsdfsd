@@ -109,6 +109,14 @@ const routes: Routes = [
             (m) => m.AndonManHourModule
           ),
       },
+      // 数据导出
+      {
+        path: "data-import",
+        loadChildren: () =>
+          import("./data-import/data-import.module").then(
+            (m) => m.DataImportModule
+          ),
+      },
       // 环境监测
       {
         path: "envitonmental-monitoring",
