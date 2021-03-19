@@ -1729,15 +1729,15 @@ let equipment_four_road = {
                 axisLabel: {
                     color: COLOR,
 
-                    formatter: function(str) {
-                        switch (true) {
-                            case str > 10000:
-                                return str / 10000 + 'W';
-                            case str > 1000:
-                                return str / 10000 + 'K';
-                        }
-                        return str;
-                    }
+                    // formatter: function(str) {
+                    //     switch (true) {
+                    //         case str > 10000:
+                    //             return str / 10000 + 'W';
+                    //         case str > 1000:
+                    //             return str / 10000 + 'K';
+                    //     }
+                    //     return str;
+                    // }
                 },
                 axisLine: {
                     show: yxLine ? false : true,

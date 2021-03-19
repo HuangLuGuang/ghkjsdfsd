@@ -254,8 +254,11 @@ export class TwoDriveChassisComponent implements OnInit {
   }
 
   get_real_time_list(){
-    let res;
-    this.subscribeList.left = this.http.callRPC('device_realtime_list',library+'device_realtime_list',
+    let res,method = 'device_realtime_list';
+    if(this.deviceid == 'device_avldyno_01'){
+      method = 'device_realtime_list_second';
+    }
+    this.subscribeList.left = this.http.callRPC(method,library+method,
     {"deviceid":this.deviceid,
     arr:'p,v,f'}).subscribe((g:any)=>{
       if(g.result.error || g.result.message[0].code == 0)return;
