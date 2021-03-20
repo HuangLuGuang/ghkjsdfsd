@@ -116,13 +116,16 @@ export class EquipmentMotorLujiaoComponent implements OnInit {
   }
 
   resize =()=>{
-    ['coolingWater','AxleBoxTemperature1','AxleBoxTemperature2','circularD_chart'
-    ,'pre_1','pre_2','pre_3','pre_4','pre_5','pre_6','chart_line1','chart_line2'].forEach(f=>{
-      let dom = document.getElementById(f);
-      if(dom){
-        echarts.init(dom).resize();
-      }
-    })
+    setTimeout(() => {
+      ['coolingWater','AxleBoxTemperature1','AxleBoxTemperature2','circularD_chart','motor_chart','temperature','humidity'
+      ,'pre_1','pre_2','pre_3','pre_4','pre_5','pre_6','chart_line1','chart_line2'].forEach(f=>{
+        let dom = document.getElementById(f);
+        console.log(f,dom)
+        if(dom){
+          echarts.init(dom).resize();
+        }
+      })
+    }, 50);
   }
 
   get_real_data(){
@@ -320,7 +323,7 @@ export class EquipmentMotorLujiaoComponent implements OnInit {
     for(let key in this.subscribeList){
       this.subscribeList[key].unsubscribe();
     }
-    ['coolingWater','AxleBoxTemperature1','AxleBoxTemperature2','circularD_chart'
+    ['coolingWater','AxleBoxTemperature1','AxleBoxTemperature2','circularD_chart','motor_chart','temperature','humidity'
     ,'pre_1','pre_2','pre_3','pre_4','pre_5','pre_6','chart_line1','chart_line2'].forEach(f=>{
       let dom = document.getElementById(f);
       if(dom){
