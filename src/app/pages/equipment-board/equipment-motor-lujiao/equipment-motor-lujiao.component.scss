@@ -1,0 +1,168 @@
+#motor {
+    width: 100%;
+    height: 100%;
+    // height: 900px;
+    // min-height: 900px;
+    padding-bottom: 20px;
+    .first_first,
+    .first_second,
+    .first_third,
+    .sceond_fisrt {
+        // height: 33%;
+        width: 100%;
+        display: flex;
+        // box-shadow: 0 0px 1px 3px rgba(50, 84, 129, 1) inset;
+        background: url('/assets/eimdoard/equipment/images/blue_beijing.png') center center;
+        background-size: cover;
+        -webkit-background-size: cover;
+        -o-background-size: cover;
+        padding: 2%;
+    }
+
+    .center_img {
+        // height: 100;
+        background: url('/assets/eimdoard/equipment/images/blue_beijing.png') center center;
+        background-size: cover;
+        -webkit-background-size: cover;
+        -o-background-size: cover;
+        height: 32%;
+        position: relative;
+        margin-top: 20px;
+        #img {
+            height: 100%;
+            width: 100%;
+            // background: url('/assets/eimdoard/equipment/images/car_2.png');
+            background-size: cover;
+            -webkit-background-size: cover;
+            -o-background-size: cover;
+            background-position: center center;
+        }
+    }
+    .sceond_third {
+        width: 100%;
+        background: url('/assets/eimdoard/equipment/images/blue_beijing.png') center center;
+        background-size: cover;
+        -webkit-background-size: cover;
+        -o-background-size: cover;
+        display: inherit;
+        box-shadow: 0px 0px;
+        padding: 0%;
+        margin-top: 20px;
+        .circularD {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            align-items: center;
+            position: absolute;
+            height: 100%;
+            width: 100%;
+            .lay {
+                width: 30%;
+                height: 40%;
+                margin-top: 15px;
+            }
+            #coolingWater,
+            #AxleBoxTemperature1,
+            #AxleBoxTemperature2 {
+                width: 100%;
+                height: 90%
+            }
+        }
+    }
+    .thrid {
+        height: 31%;
+        width: 100%;
+        // box-shadow: 0 0px 1px 3px rgba(50, 84, 129, 1) inset;
+        padding: 2%;
+        position: relative;
+        background: url('/assets/eimdoard/equipment/images/blue_beijing.png') center center;
+        background-size: cover;
+        -webkit-background-size: cover;
+        -o-background-size: cover;
+        display: flex;
+        justify-content: space-evenly;
+        align-items: center;
+        #temperature,
+        #humidity {
+            width: 30%;
+            height: 50%;
+        }
+    }
+    .last{
+        padding: 2%;
+        position: relative;
+        background: url('/assets/eimdoard/equipment/images/blue_beijing.png') center center;
+        background-size: cover;
+        -webkit-background-size: cover;
+        -o-background-size: cover;
+        // display: flex;
+        // justify-content: space-evenly;
+        // align-items: center;
+        margin-top: 20px;
+    }
+
+    .line_top{
+        height: 50%;
+        width: 100%;
+        position: absolute;
+        display: flex;
+        align-items: center;
+        justify-content: space-evenly;
+    }
+    .line_chart{
+        position: absolute;
+        width: 100%;
+        height: 50%;
+        bottom: 0%;
+        left: 0%;
+    }
+    .pre_1{
+        width: 30%;
+        height: 100%;
+    }
+    .pre_2{
+        width: 25%;
+        height: 100%;
+    }
+
+    .blue_b {
+        background: #4472c4;
+        width: 60px
+    }
+    .temphum {
+        width: 40%;
+        height: 50%;
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        align-items: center;
+    }
+
+
+    #motor_chart {
+        width: 100%;
+        height: 50%;
+    }
+
+    .part_title {
+        position: absolute;
+        // width: 100px;
+        padding: 0% 2%;
+        height: 20px;
+        background: #4472c4;
+        top: 0;
+        left: 0;
+        min-width: 80px;
+    }
+    .lattice_layout {
+        margin-top: 20px;
+        display: inherit;
+        position: relative;
+    }
+
+    .dis_f_w {
+        display: flex;
+        flex-wrap: wrap;
+    }
+    
+}
