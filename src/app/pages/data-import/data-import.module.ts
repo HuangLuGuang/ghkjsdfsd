@@ -21,6 +21,8 @@ import { FormsModule } from "@angular/forms";
 import { ComponentTModule } from "../tongji/components/componentT.module";
 import { MyLinkageSelectComponent } from "./components/my-linkage-select/my-linkage-select.component";
 import { MulTableColComponent } from "./components/mul-table-col/mul-table-col.component";
+import { TimeIntervalComponent } from './components/time-interval/time-interval.component';
+import { TimeOneDayComponent } from './components/time-one-day/time-one-day.component';
 
 @NgModule({
   declarations: [
@@ -28,6 +30,8 @@ import { MulTableColComponent } from "./components/mul-table-col/mul-table-col.c
     DeviceRunComponent,
     MyLinkageSelectComponent,
     MulTableColComponent,
+    TimeIntervalComponent,
+    TimeOneDayComponent,
   ],
   imports: [
     CommonModule,

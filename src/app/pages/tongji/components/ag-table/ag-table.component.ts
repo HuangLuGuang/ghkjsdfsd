@@ -139,6 +139,16 @@ export class AgTableComponent implements OnInit {
     this.gridColumnApi = params.columnApi;
   }
 
+  // 父组件调用 更新table中的列 数据导入-》设备运行
+  updatecolumn(column, item?) {
+    if (item) {
+      this.style = item.style;
+      this.paginationPageSize = item.paginationPageSize;
+      this.setPageCount = 10;
+    }
+    this.gridApi.setColumnDefs(column);
+  }
+
   // 点击行数据
   onRowClicked(event) {
     // console.log("点击行数据",event);
@@ -299,6 +309,106 @@ export class AgTableComponent implements OnInit {
             }
           });
       }
+    }
+  }
+  // 导出功能  数据导出--》设备运行
+  download_for_device_run(title, columnDefs?) {
+    this.filename = title + ".xlsx";
+    // console.log("csv名称----", this.filename);
+    if (columnDefs) {
+      this.columnDefs = columnDefs;
+    } else {
+      this.dialogService
+        .open(EditDelTooltipComponent, {
+          closeOnBackdropClick: false,
+          context: {
+            title: "提示",
+            content: `请选择要导出的数据！\n 确定 则继续导出`,
+            rowData: JSON.stringify(true),
+          },
+        })
+        .onClose.subscribe((name) => {
+          if (name) {
+            this.export(table_data);
+            this.RecordOperation("导出" + title, 1, "导出excel表格");
+          }
+        });
+    }
+    var columns = this.columnDefs;
+    var table_header = [];
+    var table_data = [];
+    var select_data = this.selectedRows;
+    var keys = [];
+    for (let k of columns) {
+      // columns []
+      if (k["field"] != "action" && k["field"] != "option") {
+        // 去掉 操作(options)选项
+        if (k["children"]) {
+          var childrens = k["children"];
+          childrens.forEach((children) => {
+            table_header.push(children["headerName"]);
+            keys.push(children["field"]);
+          });
+        } else {
+          table_header.push(k["headerName"]);
+          keys.push(k["field"]);
+        }
+      }
+    }
+
+    if (select_data.length != 0) {
+      // console.log("table_header----", table_header);
+      table_data.push(table_header);
+      console.log("导出数据>>>>>>>>", select_data);
+      var data = Object.assign([], select_data);
+      data.forEach((element) => {
+        if (element["active"] === 1) {
+          element["active"] = "是";
+        } else {
+          element["active"] = "否";
+        }
+        // kpi计算
+        if (element["iscalkpi"] === 1) {
+          element["iscalkpi"] = "是";
+        } else {
+          element["iscalkpi"] = "否";
+        }
+
+        var data_item = [];
+
+        if (keys != []) {
+          for (let k of keys) {
+            data_item.push(element[k]);
+          }
+        } else {
+          for (let k in element) {
+            data_item.push(element[k]);
+          }
+        }
+
+        table_data.push(data_item);
+      });
+      // console.log("table_data=====", table_data);
+      this.export(table_data);
+      // this.selectedRows = [];
+    } else {
+      table_data.push(table_header);
+      // 没有选择导出的数据
+      this.dialogService
+        .open(EditDelTooltipComponent, {
+          closeOnBackdropClick: false,
+          context: {
+            title: "提示",
+            content: `请选择要导出的数据！\n 确定 则继续导出`,
+            rowData: JSON.stringify(true),
+          },
+        })
+        .onClose.subscribe((name) => {
+          if (name) {
+            this.export(table_data);
+            this.RecordOperation("导出" + title, 1, "导出excel表格");
+          }
+        });
     }
   }
 

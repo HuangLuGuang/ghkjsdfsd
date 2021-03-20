@@ -5,9 +5,19 @@
         <div class="example-items-rows button_item">设备名称</div> -->
 
         <!-- 科室/功能组---设备名称 -->
-        <ngx-my-linkage-select (my_date_select)="my_date_select($event)"></ngx-my-linkage-select>
+        <ngx-my-linkage-select #linkageselect (my_date_select)="my_date_select($event)" *ngIf="button?.query"></ngx-my-linkage-select>
     </div>
     <div class="col-lg-6" style="display: flex;">
+
+        <!-- 导出的时间间隔 -->
+        <div class="example-items-rows button_item" *ngIf="button?.query">
+            <ngx-time-interval #timeinterval></ngx-time-interval>
+        </div>
+
+        <!-- 导出的特定的某一天 -->
+        <div class="example-items-rows button_item" *ngIf="button?.query">
+            <ngx-time-one-day #timeoneday></ngx-time-one-day>
+        </div>
  
         <!-- 搜索 -->
         <div class="example-items-rows button_item query" *ngIf="button?.query">
@@ -53,7 +63,7 @@
 
 <div class="row">
     <div class="col-md-3">
-        <ngx-mul-table-col></ngx-mul-table-col>
+        <ngx-mul-table-col (multablecol_confirm)="multablecol_confirm($event)"></ngx-mul-table-col>
     </div>
     <div class="col-md-9" [nbSpinner]="loading" nbSpinnerStatus="basic">
         <ngx-ag-table #ag_Grid   (nzpageindexchange)="nzpageindexchange($event)"></ngx-ag-table>
