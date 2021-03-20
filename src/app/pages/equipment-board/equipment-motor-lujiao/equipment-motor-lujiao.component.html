@@ -1,0 +1,82 @@
+<div id="motor">
+    <div class="row" style="height: 100%;margin:0px;width: 100%;">
+        <div class="col-md-4" style="height: 100%;padding: 0px 0px 0px 20px;">
+            <div class="first_first" style="height: 41%;position: relative;">
+                <ngx-equipment-status [device]='deviceid' style="display: flex;width: 100%;"></ngx-equipment-status>
+            </div>
+            <div class="first_second lattice_layout height_20">
+                <div class="part_title">{{'equipment.expInfor'|translate}}</div>
+                <ngx-test-information [device]='deviceid' style="width: 100%;"></ngx-test-information>
+
+            </div>
+            <div class="dis_f_w first_third lattice_layout height_35">
+                <ngx-log-warm [device]='deviceid' style="display: flex;width: 100%;flex-wrap: wrap;"></ngx-log-warm>
+            </div>
+        </div>
+        <div class="col-md-4" style="height: 100%;padding: 0px 20px;">
+            <div class="sceond_fisrt height_29" style="position: relative;">
+                <div class="part_title">{{ 'equipment.equipIntroduce'|translate}}</div>
+                <ngx-equip-introduce style="width: 100%;" [name]="introd_name" [equipIntroduceList]="equipIntroduceList"></ngx-equip-introduce>
+            </div>
+            <div class="center_img">
+                <div class="part_title">{{'equipment.OnlineVideo'|translate}}</div>
+                <div style="width: 100%;height: 100%;display: flex;align-items: center;justify-content: center;">
+                    <img id="img" [src]="img.url" [alt]="img.name">
+                </div>
+            </div>
+            <div class="sceond_third height_35" style="position: relative;">
+                <div class="part_title">{{'equipment.experimentParams'|translate}}</div>
+                <div class="circularD">
+                    <div class="lay">
+                        <div class="title">线圈温度1 </div>
+                        <div id="coolingWater"></div>
+                    </div>
+                    <div class="lay">
+                        <div class="title">线圈温度2</div>
+                        <div id="AxleBoxTemperature1"></div>
+                    </div>
+                    <div class="lay">
+                        <div class="title">线圈温度3</div>
+                        <div id="AxleBoxTemperature2"></div>
+                    </div>
+                    <div id="circularD_chart" class="height_50" style="width: 100%;max-height: 140px;"></div>
+                </div>
+
+            </div>
+        </div>
+        <div class="col-md-4" style="height: 100%;padding: 0px 20px 0px 0px;">
+            <div class="thrid" style="flex-wrap: wrap;padding-top: 20px;">
+                <div class="part_title">{{'equipment.experimentParams'|translate}}</div>
+                <div id="temperature"></div>
+                <div id="humidity"></div>
+                <div class="temphum">
+                    <div style="width: 50%;">温度</div>
+                    <div class="blue_b">{{temp}}℃</div>
+                    <div style="width: 50%;">湿度</div>
+                    <div class="blue_b">{{hum}}RH</div>
+                </div>
+                <div id="motor_chart"></div>
+            </div>
+            <div class="height_67 last" >
+                <div class="part_title">{{'equipment.experimentParams'|translate}}
+                </div>
+                <div class="height_50" style="position: relative;">
+                    <div class="line_top">
+                        <div id = "pre_1" class="pre_1"></div>
+                        <div id = "pre_2" class="pre_1"></div>
+                    </div>
+                    <div class= "line_chart" id="chart_line1"></div>
+                </div>
+                <div class="height_50" style="position: relative;">
+                    <div class="line_top">
+                        <div id = "pre_3" class="pre_2"></div>
+                        <div id = "pre_4" class="pre_2"></div>
+                        <div id = "pre_5" class="pre_2"></div>
+                        <div id = "pre_6" class="pre_2"></div>
+                    </div>
+                    <div class= "line_chart" id="chart_line2"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -89,7 +89,8 @@ const ROUTERS: Routes = [{
       {
         //电机系统测试台架-5
         path:'motor5/:title/:deviceid',
-        component:EquipmentMotorSystemComponent
+        loadChildren:()=>import('./equipment-motor-lujiao/equipment-motor-lujiao.module')
+        .then(m=>m.EquipmentMotorLujiaoModule)
       },
       {
         //电机系统测试台架-6
