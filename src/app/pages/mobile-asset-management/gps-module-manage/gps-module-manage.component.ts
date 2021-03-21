@@ -3,6 +3,8 @@ import { Router } from "@angular/router";
 
 import { NbMenuItem } from "@nebular/theme";
 
+declare let $;
+
 @Component({
   selector: "ngx-gps-module-manage",
   templateUrl: "./gps-module-manage.component.html",
@@ -41,6 +43,8 @@ export class GpsModuleManageComponent implements OnInit {
       var dom = document.createElement("div");
       dom.className = "cdk-overlay-container";
       document.getElementsByTagName("nb-layout")[0].appendChild(dom);
+    } else {
+      $(".cdk-overlay-container").remove();
     }
     // ========================================
   }
