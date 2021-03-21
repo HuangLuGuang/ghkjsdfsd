@@ -129,6 +129,7 @@ export class AdminLoginComponent implements OnInit {
             .get(INFO_API, opts)
             .pipe(
               map((userInfo) => {
+                // console.log("userInfo======", userInfo);
                 if (userInfo["userInfo"]["roles"]) {
                   console.log("userInfo------------>", userInfo);
                   const userinfo = JSON.stringify(userInfo["userInfo"]);

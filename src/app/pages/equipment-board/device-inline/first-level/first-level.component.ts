@@ -20,7 +20,7 @@ import { EquipmentBoardService } from "../../serivice/equipment-board.service";
   selector: "ngx-first-level",
   templateUrl: "./first-level.component.html",
   styleUrls: ["./first-level.component.scss"],
-  changeDetection:ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class FirstLevelComponent implements OnInit {
   is_not_fullscreen = true; // 是否处于全屏
@@ -291,7 +291,7 @@ export class FirstLevelComponent implements OnInit {
     this.activateInfo.params.subscribe((f) => {
       // console.log(f);
       if (document.getElementById("head_title"))
-        document.getElementById("head_title").innerText = "智慧实验室(G-iLAB)";
+        document.getElementById("head_title").innerText = "智慧试验室(G-iLAB)";
     });
     var menu:any = localStorage.getItem(SYSMENU);
     if(menu){

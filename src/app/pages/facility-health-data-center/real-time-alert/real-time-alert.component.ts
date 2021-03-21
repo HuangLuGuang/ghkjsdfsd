@@ -56,7 +56,7 @@ export class RealTimeAlertComponent implements OnInit {
   tableDatas = {
     style: "width: 100%; height: 695px",
     totalPageNumbers: 0, // 总页数
-    PageSize: 10, // 每页 10条数据
+    PageSize: 15, // 每页 10条数据
     isno_refresh_page_size: false, // 是否重新将 每页多少条数据，赋值为默认值
     columnDefs: [
       // 列字段 多选：headerCheckboxSelection checkboxSelection , flex: 1 自动填充宽度  pinned: 'left' 固定在左侧！
@@ -370,7 +370,7 @@ export class RealTimeAlertComponent implements OnInit {
     if (event != undefined) {
       offset = event.offset;
       limit = event.limit;
-      PageSize = event.PageSize ? Number(event.PageSize) : 10;
+      PageSize = event.PageSize ? Number(event.PageSize) : 15;
     } else {
       offset = 0;
       limit = inittable_before.limit;
@@ -418,7 +418,7 @@ export class RealTimeAlertComponent implements OnInit {
   // 更新table
   update_agGrid(event?) {
     var start_end = this.get_start_end();
-    console.error("++++++++++++++++++start_end+++++++++++++++", start_end);
+    // console.error("++++++++++++++++++start_end+++++++++++++++", start_end);
     // 是否 每页多少也，设置为默认值
     this.tableDatas.isno_refresh_page_size = true;
     var offset;
@@ -427,11 +427,11 @@ export class RealTimeAlertComponent implements OnInit {
     if (event != undefined) {
       offset = event.offset;
       limit = event.limit;
-      PageSize = event.PageSize ? Number(event.PageSize) : 10;
+      PageSize = event.PageSize ? Number(event.PageSize) : 15;
     } else {
       offset = 0;
-      limit = 10;
-      PageSize = 10;
+      limit = 15;
+      PageSize = 15;
     }
     var columns = {
       start: this.init_value.split(" - ")[0],

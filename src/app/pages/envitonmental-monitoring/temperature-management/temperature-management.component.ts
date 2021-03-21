@@ -50,7 +50,7 @@ export class TemperatureManagementComponent implements OnInit {
     style: "width: 100%; height: 700px",
 
     totalPageNumbers: 0, // 总页数
-    PageSize: 10, // 每页 10条数据
+    PageSize: 15, // 每页 10条数据
     isno_refresh_page_size: false, // 是否重新将 每页多少条数据，赋值为默认值
     columnDefs: [
       // 列字段 多选：headerCheckboxSelection checkboxSelection
@@ -448,7 +448,7 @@ export class TemperatureManagementComponent implements OnInit {
     if (event != undefined) {
       offset = event.offset;
       limit = event.limit;
-      PageSize = event.PageSize ? Number(event.PageSize) : 10;
+      PageSize = event.PageSize ? Number(event.PageSize) : 15;
     } else {
       offset = 0;
       limit = inittable_before.limit;
@@ -499,7 +499,7 @@ export class TemperatureManagementComponent implements OnInit {
     if (event != undefined) {
       offset = event.offset;
       limit = event.limit;
-      PageSize = event.PageSize ? Number(event.PageSize) : 10;
+      PageSize = event.PageSize ? Number(event.PageSize) : 15;
     } else {
       offset = 0;
       limit = inittable_before.limit;
