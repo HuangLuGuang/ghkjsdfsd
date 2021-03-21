@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { Router } from '@angular/router';
+import {  Router } from '@angular/router';
 import { HttpserviceService } from '../../../../../../services/http/httpservice.service';
 import { EquipmentBoardService } from '../../../../serivice/equipment-board.service';
 import { s_role } from '../../../../temp/equipment-status/equipment-status.component';
@@ -65,7 +65,7 @@ export class NoiseLaboratoryComponent implements OnInit {
 
   ngOnInit(): void {
     if(document.getElementById('head_title'))
-        document.getElementById('head_title').innerText = '验证中心-噪声与震动实验室';
+        document.getElementById('head_title').innerText = '验证中心-噪声与振动试验室';
   }
 
   ngAfterViewInit(){
@@ -73,10 +73,11 @@ export class NoiseLaboratoryComponent implements OnInit {
 
     let param = Object.keys(this.param);
     let now;
+    let o = 0;
     this.timer = self.setInterval(f=>{
       this.get_center_data();
       
-      this.thrid.get_log_list(param,this.left);
+      if(o%3 ==0 )this.thrid.get_log_list(param,this.left);
       now = new Date();
       if(now.getDate() == 1){
         this.thrid.get_andon_status_year(param,this.left);
@@ -92,6 +93,7 @@ export class NoiseLaboratoryComponent implements OnInit {
           this.param[key].speed_name = f[key].map(m=> (m.experiment));
         }
       });
+      o++;
     },1000);
     this.thrid.get_andon_status_year(param,this.left);
     this.thrid.get_andon_status_last_year(param,this.left);

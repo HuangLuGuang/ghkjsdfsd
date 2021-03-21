@@ -119,11 +119,10 @@ export class ThirdLevelService {
       view.tableBody = f.result.message[0].message.filter(g=> g[0] 
         // && g[0].level == 3
         ).map(m=>(
-        aee = m[0].message.split("\""),
         {
           device:this.deviceid_to_name[m[0].deviceid],
           time:dateformat(new Date(rTime(m[0].recordtime)),'yyyy-MM-dd')
-          ,log:aee[aee.length-1]?aee[aee.length-1]:aee[aee.length-2],
+          ,log:m[0].message,
         }
       ));
       // view.create_scrollbar();
