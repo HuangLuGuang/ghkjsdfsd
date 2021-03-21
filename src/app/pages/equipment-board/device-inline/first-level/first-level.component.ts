@@ -13,6 +13,7 @@ let first_level = require("../../../../../assets/pages/device-inline/js/first-le
 // 全屏
 import * as screenfull from "screenfull";
 import { Screenfull } from "screenfull";
+import { SYSMENU } from "../../../../appconfig";
 import { EquipmentBoardService } from "../../serivice/equipment-board.service";
 
 @Component({
@@ -26,6 +27,7 @@ export class FirstLevelComponent implements OnInit {
   // 定时器
   myChart;
   subscribeList: any = {};
+  isJump = true;//是否可以跳转下一个路由
 
   myChartData = {
     // card的数据
@@ -291,7 +293,12 @@ export class FirstLevelComponent implements OnInit {
       if (document.getElementById("head_title"))
         document.getElementById("head_title").innerText = "智慧实验室(G-iLAB)";
     });
-
+    var menu:any = localStorage.getItem(SYSMENU);
+    if(menu){
+      menu = JSON.parse(menu);
+      this.isJump = !!menu.find(f => 
+        f.link == '/pages/equipment/second-level');
+    }
     // map 地图
   }
 
@@ -372,6 +379,9 @@ export class FirstLevelComponent implements OnInit {
 
   // 跳转到二级
   eclick = (params) => {
+    if(!this.isJump){
+      return;
+    }
     // console.error("******************",params.data)
     // console.error("******************",params)
     if (params.seriesType === "scatter") {

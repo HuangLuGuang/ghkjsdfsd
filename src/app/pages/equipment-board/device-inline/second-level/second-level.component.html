@@ -51,36 +51,39 @@
                 <div class="w" style="top: 2%;left: 39%;" ></div>
                 <div class="w" style="top: 19%;left: 29%;" ></div>
                 <div class="w" style="top: 12%;left: 45%;" ></div>
+
+                <ng-container *ngFor="let item of authorityList;let i =index">
+                    <div  class="{{item.class}} {{item.show?'':'not_click'}}"  (click)="goto_test_room( item) ">
+                        <span>{{item.title}}</span>
+                    </div>
+                </ng-container>
                  
                 <!-- 新能源电机器试验室 -->
-                <div class="newpower {{authority.energy?'':'not_click'}}" (click)="goto_test_room( 'newpower') ">
+                <!-- <div class="newpower {{authority.energy?'':'not_click'}}" (click)="goto_test_room( 'newpower') ">
                     <span>新能源电机试验室</span>
-                </div>
-
-                <!-- 噪声sys -->
-                <div class="noise {{authority.noise? '': 'not_click'}} " (click)="goto_test_room('noise')">
-                    <span>噪声与振动试验室</span>
-                </div>
-
-                <!-- 电子电气 -->
-                <!-- <div class="electrical" (click)="goto_test_room('electrical')">
-                    <span>电子电气试验室</span>
                 </div> -->
 
+                <!-- 噪声sys -->
+                <!-- <div class="noise {{authority.noise? '': 'not_click'}} " (click)="goto_test_room('noise')">
+                    <span>噪声与振动试验室</span>
+                </div> -->
+
+               
+
                 <!-- 理化sys -->
-                <div class="physicochemical {{authority.physical?'':'not_click'}}" (click)="goto_test_room('physicochemical')">
+                <!-- <div class="physicochemical {{authority.physical?'':'not_click'}}" (click)="goto_test_room('physicochemical')">
                     <span>理化试验室</span>
-                </div>
+                </div> -->
 
                 <!-- 结构sys -->
-                <div class="structural {{authority.structural?'':'not_click'}}" (click)="goto_test_room( 'structural') ">
+                <!-- <div class="structural {{authority.structural?'':'not_click'}}" (click)="goto_test_room( 'structural') ">
                     <span>结构试验室</span>
-                </div>
+                </div> -->
 
                 <!-- 环模sys -->
-                <div class="environment {{authority.environment? '': 'not_click'}} " (click)="goto_test_room('environment')">
+                <!-- <div class="environment {{authority.environment? '': 'not_click'}} " (click)="goto_test_room('environment')">
                     <span>环模试验室</span>
-                </div>
+                </div> -->
 
 
 

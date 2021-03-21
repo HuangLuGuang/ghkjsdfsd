@@ -1,4 +1,4 @@
-import { Component, OnInit, NgZone } from "@angular/core";
+import { Component, OnInit, NgZone, ChangeDetectionStrategy } from "@angular/core";
 
 import { LocalStorageService } from "../../../../services/local-storage/local-storage.service";
 
@@ -20,6 +20,7 @@ declare let $;
   selector: "ngx-second-level",
   templateUrl: "./second-level.component.html",
   styleUrls: ["./second-level.component.scss"],
+  // changeDetection:ChangeDetectionStrategy.OnPush
 })
 export class SecondLevelComponent implements OnInit {
   first_level;
@@ -165,14 +166,40 @@ export class SecondLevelComponent implements OnInit {
 
   myChart;
   items:any;
-  //看板权限
-  authority ={
-    environment:false,//环模试验室
-    noise:false,//噪声与振动试验室
-    physical:false,//理化试验室
-    structural:false,//结构试验室
-    energy:false,//新能源电机试验室
-  }
+  authorityList = [
+    {
+      show:false,
+      class:'environment',
+      title:'',
+      link:'',
+    },
+    {
+      show:false,
+      class:'noise',
+      title:'',
+      link:'',
+    },
+    {
+      show:false,
+      class:'physical',
+      title:'',
+      link:'',
+    },
+    {
+      show:false,
+      class:'structural',
+      title:'',
+      // title:'结构试验室',
+      link:'',
+    },
+    {
+      show:false,
+      class:'energy',
+      title:'',
+      link:'',
+    }
+  ]
+
 
   chartResize;//图表刷新订阅
 
@@ -198,12 +225,14 @@ export class SecondLevelComponent implements OnInit {
     this.items = this.items.find(f => 
       f.link == '/pages/equipment/first-level').children.find(f=>
         f.link=='/pages/equipment/second-level').children;
-    this.items.forEach(el => {
-      let arr = el.link.split('/');
-      if(arr.length>0){
-       this.authority[arr[arr.length-1]] = true;
-      }
-    });
+    this.noAuthority(this.items);
+    //获取影藏的菜单
+    let menu = this.localstorage.get('hidden_menu');
+    if(menu){
+      menu = menu.filter(f => f.link.includes('third-level'));
+      this.noAuthority(menu ? menu:null);
+    }
+    console.log(this.authorityList)
     // this.listen_windows_resize();
   }
 
@@ -481,6 +510,29 @@ export class SecondLevelComponent implements OnInit {
     //   this.myChart.resize();
     // });
   }
+
+
+  noAuthority(menu:any){
+    if(menu){
+      menu.forEach(el => {
+        let arr = el.link.split('/');
+        if(arr.length>0){
+          
+          let i = this.authorityList.findIndex(f => f.class == arr[arr.length-1])
+          if(i != -1){
+            this.authorityList[i] = {
+              show:true,
+              class:arr[arr.length-1],
+              title:el.title,
+              link:el.link,
+            }
+          }
+          
+        }
+      });
+    }
+  }
+
   createEchart() {
     this.ngZone.runOutsideAngular(() => {
       this.myChart = echarts.init(document.querySelector(".device-rate"));
@@ -496,32 +548,36 @@ export class SecondLevelComponent implements OnInit {
   }
 
   // 跳转到具体的结构，
-  goto_test_room(testname) {
-    console.log("跳转到具体的结构试验室:", testname);
+  goto_test_room(item) {
+    console.log("跳转到:", item.title);
     setTimeout(() => {
-      switch (testname) {
-        case "newpower":
-          // case 'electrical':
-          this.router.navigate(["pages/equipment/third-level/energy"]);
-          this.boardservice.sendLoad({ close: true });
-          break;
-        case "environment":
-          this.router.navigate(["pages/equipment/third-level/environment"]);
-          this.boardservice.sendLoad({ close: true });
-          break;
-        case "structural":
-          this.router.navigate(["pages/equipment/third-level/structural"]);
-          this.boardservice.sendLoad({ close: true });
-          break;
-        case "physicochemical":
-          this.router.navigate(["/pages/equipment/third-level/physical"]);
-          this.boardservice.sendLoad({ close: true });
-          break;
-        case "noise":
-          this.router.navigate(["/pages/equipment/third-level/noise"]);
-          this.boardservice.sendLoad({ close: true });
-          break;
+      if(item.link){
+        this.router.navigate([item.link.substring(1,item.link.length)]);
+        this.boardservice.sendLoad({ close: true });
       }
+      // switch (testname) {
+      //   case "newpower":
+      //     // case 'electrical':
+      //     this.router.navigate(["pages/equipment/third-level/energy"]);
+      //     this.boardservice.sendLoad({ close: true });
+      //     break;
+      //   case "environment":
+      //     this.router.navigate(["pages/equipment/third-level/environment"]);
+      //     this.boardservice.sendLoad({ close: true });
+      //     break;
+      //   case "structural":
+      //     this.router.navigate(["pages/equipment/third-level/structural"]);
+      //     this.boardservice.sendLoad({ close: true });
+      //     break;
+      //   case "physicochemical":
+      //     this.router.navigate(["/pages/equipment/third-level/physical"]);
+      //     this.boardservice.sendLoad({ close: true });
+      //     break;
+      //   case "noise":
+      //     this.router.navigate(["/pages/equipment/third-level/noise"]);
+      //     this.boardservice.sendLoad({ close: true });
+      //     break;
+      // }
     }, 100);
   }
 

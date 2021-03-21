@@ -60,7 +60,7 @@
 }
 
 // newpower 新能源与电子电气试验室
-.newpower {
+.energy {
     position: absolute;
     padding: 2px;
     top: 15%;
@@ -154,7 +154,7 @@
 }
 
 // physicochemical 理化试验室
-.physicochemical {
+.physical {
     position: absolute;
     padding: 2px;
     top: 4.2%;
@@ -193,7 +193,7 @@
 .physicochemical:hover,
 .environment:hover,
 .structural:hover,
-.newpower:hover,
+.energy:hover,
 .noiseshock:hover,
 .noise:hover,
 .electrical:hover {
