@@ -1048,6 +1048,7 @@ export class RoleComponent implements OnInit {
         resizable: true,
         width: 130,
         sortable: true,
+        flex: 1,
       },
     ],
     rowData: [

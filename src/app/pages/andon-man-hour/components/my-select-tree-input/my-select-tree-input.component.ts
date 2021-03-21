@@ -5,11 +5,11 @@ declare let $;
 declare let layui;
 
 @Component({
-  selector: "ngx-my-select-tree",
-  templateUrl: "./my-select-tree.component.html",
-  styleUrls: ["./my-select-tree.component.scss"],
+  selector: "ngx-my-select-tree-input",
+  templateUrl: "./my-select-tree-input.component.html",
+  styleUrls: ["./my-select-tree-input.component.scss"],
 })
-export class MySelectTreeComponent implements OnInit {
+export class MySelectTreeInputComponent implements OnInit {
   @Output() parent_query = new EventEmitter<Parent_Query>(); // 这是选择设备名称触发
 
   // 科室/功能组下拉框
@@ -59,8 +59,8 @@ export class MySelectTreeComponent implements OnInit {
           that.init_devicename_deviceno(data.value, form);
           that.isgroups = true;
           setTimeout(() => {
-            // that.parent_query.emit(that.get_form_val("group"));
-          }, 500);
+            that.parent_query.emit(that.get_form_val("group"));
+          }, 200);
         }
       });
 
@@ -118,7 +118,7 @@ export class MySelectTreeComponent implements OnInit {
       var res = result["result"]["message"][0];
       if (res["code"] === 1) {
         var devicename_deviceno = res["message"];
-        var option = `<option  value ="[];[]">全部</option>`;
+        var option = "";
 
         devicename_deviceno.forEach((element, index) => {
           if (index === 0) {
@@ -141,8 +141,7 @@ export class MySelectTreeComponent implements OnInit {
     this.deviceid = deviceno.split(";")[1];
     this.deviceno = deviceno.split(";")[0];
     this.devicename =
-      $("#test_task_conf_add_devicename").find("option:selected").text() ==
-      "全部"
+      $("#test_task_conf_add_devicename").find("option:selected").text() == ""
         ? ""
         : $("#test_task_conf_add_devicename").find("option:selected").text();
     $("#test_task_conf_add_deviceno").val(this.deviceid);
@@ -170,38 +169,16 @@ export class MySelectTreeComponent implements OnInit {
         group: $("#test_task_conf_add_group").find("option:selected").text(),
       };
     }
-    var devicename =
-      $("#test_task_conf_add_devicename").find("option:selected").text() ==
-      "全部"
-        ? ""
-        : $("#test_task_conf_add_devicename").find("option:selected").text();
-    if (devicename === "") {
-      return {
-        groups_id: this.groups_id,
-        deviceid: this.deviceid,
-        deviceno: this.deviceno,
-        devicename: "",
-        // devicename:
-        //   this.devicename === ""
-        //     ? $("#test_task_conf_add_devicename").find("option:selected").text()
-        //     : this.devicename,
-        group: $("#test_task_conf_add_group").find("option:selected").text(),
-      };
-    }
+
     return {
       groups_id: this.groups_id,
       deviceid: this.deviceid,
       deviceno: this.deviceno,
       devicename:
-        this.devicename === ""
-          ? $("#test_task_conf_add_devicename").find("option:selected").text()
-          : this.devicename,
-
-      // devicename:
-      //   $("#test_task_conf_add_devicename").find("option:selected").text() ==
-      //   "全部"
-      //     ? ""
-      //     : $("#test_task_conf_add_devicename").find("option:selected").text(),
+        $("#test_task_conf_add_devicename").find("option:selected").text() ==
+        "全部"
+          ? ""
+          : $("#test_task_conf_add_devicename").find("option:selected").text(),
     };
   }
 

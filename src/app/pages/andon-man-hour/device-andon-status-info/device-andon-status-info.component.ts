@@ -186,13 +186,14 @@ export class DeviceAndonStatusInfoComponent implements OnInit {
   // 搜索
   query(group?) {
     var groups_devieces = this.groups_devieces.get_form_val();
+    // console.error("groups_devieces====>", groups_devieces);
     var devicename = [];
     var offset;
     var limit;
     var PageSize;
     var colums;
     offset = 0;
-    limit = 10;
+    limit = 15;
     PageSize = 15;
     if (group) {
       colums = {
@@ -335,7 +336,10 @@ export class DeviceAndonStatusInfoComponent implements OnInit {
     this.tableDatas.isno_refresh_page_size = true;
 
     this.groups_devieces.delselect();
-    this.inttable();
+    setTimeout(() => {
+      // this.inttable();
+      this.update_agGrid();
+    }, 100);
     this.loading = false;
     this.refresh = false;
 
@@ -348,9 +352,16 @@ export class DeviceAndonStatusInfoComponent implements OnInit {
   // 初始化table
   inttable(event?) {
     var devicename = [];
+    var group = [];
     var groups_devieces = this.groups_devieces.get_form_val();
     if (groups_devieces["devicename"]) {
       devicename.push(groups_devieces["devicename"]);
+    }
+    if (
+      groups_devieces["group"] &&
+      groups_devieces["group"] !== "请选择功能组"
+    ) {
+      group.push(groups_devieces["group"]);
     }
     var offset;
     var limit;
@@ -369,11 +380,12 @@ export class DeviceAndonStatusInfoComponent implements OnInit {
       limit: limit,
       employeeid: this.userinfo.getEmployeeID(),
       devicename: devicename,
-      group: [],
+      group: group,
     };
     var table = "andon";
     var method = "pc_device_status_id";
     this.http.callRPC(table, method, colums).subscribe((result) => {
+      // console.error("++++++++++++++++++++++++++++++", result);
       var res = result["result"]["message"][0];
       if (res["code"] === 1) {
         this.loading = false;
@@ -396,6 +408,72 @@ export class DeviceAndonStatusInfoComponent implements OnInit {
       } else {
         this.RecordOperation(
           "查看",
+          0,
+          "设备安灯状态信息:" + JSON.stringify(res["message"])
+        );
+      }
+    });
+  }
+
+  // 更新table
+  update_agGrid(event?) {
+    var devicename = [];
+    var group = [];
+    var groups_devieces = this.groups_devieces.get_form_val();
+    if (groups_devieces["devicename"]) {
+      devicename.push(groups_devieces["devicename"]);
+    }
+    if (
+      groups_devieces["group"] &&
+      groups_devieces["group"] !== "请选择功能组"
+    ) {
+      group.push(groups_devieces["group"]);
+    }
+    var offset;
+    var limit;
+    var PageSize;
+    if (event != undefined) {
+      offset = event.offset;
+      limit = event.limit;
+      PageSize = event.PageSize ? Number(event.PageSize) : 15;
+    } else {
+      offset = 0;
+      limit = 15;
+      PageSize = 15;
+    }
+    var colums = {
+      offset: offset,
+      limit: limit,
+      employeeid: this.userinfo.getEmployeeID(),
+      devicename: devicename,
+      group: group,
+    };
+    var table = "andon";
+    var method = "pc_device_status_id";
+    this.http.callRPC(table, method, colums).subscribe((result) => {
+      // console.error("++++++++++++++++++++++++++++++", result);
+      var res = result["result"]["message"][0];
+      if (res["code"] === 1) {
+        this.loading = false;
+        var message = res["message"];
+        this.tableDatas.PageSize = PageSize;
+        this.gridData.push(...message);
+        this.tableDatas.rowData = this.gridData;
+        var totalpagenumbers = res["numbers"]
+          ? res["numbers"][0]["numbers"]
+          : "未得到总条数";
+        this.tableDatas.totalPageNumbers = totalpagenumbers;
+        this.agGrid.init_agGrid(this.tableDatas); // 告诉组件刷新！
+        // 刷新table后，改为原来的！
+        this.tableDatas.isno_refresh_page_size = false;
+        this.RecordOperation(
+          "更新",
+          1,
+          "设备安灯状态信息:" + JSON.stringify(colums)
+        );
+      } else {
+        this.RecordOperation(
+          "更新",
           0,
           "设备安灯状态信息:" + JSON.stringify(res["message"])
         );
