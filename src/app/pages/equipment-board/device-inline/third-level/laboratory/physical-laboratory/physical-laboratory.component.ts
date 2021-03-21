@@ -39,13 +39,13 @@ export class PhysicalLaboratoryComponent implements OnInit {
       router:'/pages/equipment/pure/纯水系统',
     },
     {
-      name:'晟微、4m3',
+      name:'昇微、4m3',
       number:'',
       andon:0,
       speed:[],
       src:'',//实验图片地址
       speed_name:[''],//实验编号
-      router:'/pages/equipment/shengwei/晟微、4m3环境仓集中监控',
+      router:'/pages/equipment/shengwei/昇微、4m3环境仓集中监控',
     },
     {
       name:'ATEC舱',
