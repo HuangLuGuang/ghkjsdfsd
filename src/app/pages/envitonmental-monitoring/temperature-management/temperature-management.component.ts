@@ -44,6 +44,8 @@ export class TemperatureManagementComponent implements OnInit {
   DELMETHOD = "dev_delete_temperature_manage";
   ADDMETHOD = "dev_insert_temperature_manage";
 
+  employeeid = this.userinfo.getEmployeeID();
+
   // agGrid
   tableDatas = {
     // 新增，设置高度
@@ -364,6 +366,7 @@ export class TemperatureManagementComponent implements OnInit {
       offset: offset,
       limit: limit,
       room: inittable_before.room,
+      employeeid: this.employeeid,
     };
 
     this.http.callRPC(this.TABLE, this.METHOD, columns).subscribe((result) => {
@@ -458,6 +461,7 @@ export class TemperatureManagementComponent implements OnInit {
       offset: offset,
       limit: limit,
       room: inittable_before.room,
+      employeeid: this.employeeid,
     };
     this.http.callRPC(this.TABLE, this.METHOD, columns).subscribe((result) => {
       var tabledata = result["result"]["message"][0];
@@ -509,6 +513,7 @@ export class TemperatureManagementComponent implements OnInit {
       offset: offset,
       limit: limit,
       room: inittable_before.room,
+      employeeid: this.employeeid,
     };
     this.http.callRPC(this.TABLE, this.METHOD, columns).subscribe((result) => {
       var tabledata = result["result"]["message"][0];
@@ -532,6 +537,7 @@ export class TemperatureManagementComponent implements OnInit {
           JSON.stringify(columns)
         );
       } else {
+        this.querydanger(JSON.stringify(tabledata["message"]));
         this.RecordOperation(
           "更新环境监测模块管理",
           0,

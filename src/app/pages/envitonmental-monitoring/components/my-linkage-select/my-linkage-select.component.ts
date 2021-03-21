@@ -25,17 +25,17 @@ export class MyLinkageSelectComponent implements OnInit {
   single_el5s_group;
   single_el5s_room;
 
-  employeeid;
   groups = [];
   TABLE = "temperature_groups";
   METHODGROUP = "dev_get_temperature_groups";
   METHODROOM = "dev_get_temperature_room";
+  employeeid = this.userinfo.getEmployeeID();
 
   constructor(
     private userinfo: UserInfoService,
     private http: HttpserviceService
   ) {
-    this.employeeid = this.userinfo.getEmployeeID();
+    // this.employeeid = this.userinfo.getEmployeeID();
 
     this.http
       .callRPC(this.TABLE, this.METHODGROUP, { employeeid: this.employeeid })
@@ -112,6 +112,7 @@ export class MyLinkageSelectComponent implements OnInit {
         $(".group_room_group").toggle();
         that.toggle();
         that.other_toggle();
+        that.other_toggle_r();
       });
 
       // 节点被选择
@@ -170,12 +171,14 @@ export class MyLinkageSelectComponent implements OnInit {
           that.single_el5s_room = single_el5s_room;
         }
         // 关闭日期范围
-        $(".layui-laydate").remove();
-        $(".group_room_group").hide();
-        $(".my_time_point_labels").hide();
+        // $(".layui-laydate").remove();
+        // $(".group_room_group").hide();
+        // $(".my_time_point_labels").hide();
 
         $(".group_room_room").toggle();
         that.toggle();
+        that.other_toggle();
+        that.other_toggle_g();
       });
 
       // 节点被选择
@@ -242,11 +245,50 @@ export class MyLinkageSelectComponent implements OnInit {
     // 日期选择器
     $(".layui-laydate").remove();
   }
+  other_toggle_g() {
+    // 时间点选择器
+    $(".group_room_group").hide();
+    var group_room_group = $(".group_room_group").css("display");
+    if (group_room_group == "none") {
+      $("#group_room_group_i").attr(
+        "class",
+        "layui-icon layui-icon-down single_xiala"
+      );
+    } else {
+      $("#group_room_group_i").attr(
+        "class",
+        "layui-icon layui-icon-up  single_xiala"
+      );
+    }
+    // 日期选择器
+    $(".layui-laydate").remove();
+  }
+  other_toggle_r() {
+    // 时间点选择器
+    $(".group_room_room").hide();
+    var group_room_room = $(".group_room_room").css("display");
+    if (group_room_room == "none") {
+      $("#group_room_room_i").attr(
+        "class",
+        "layui-icon layui-icon-down single_xiala"
+      );
+    } else {
+      $("#group_room_room_i").attr(
+        "class",
+        "layui-icon layui-icon-up  single_xiala"
+      );
+    }
+    // 日期选择器
+    $(".layui-laydate").remove();
+  }
 
   // 根据groups得到room
   get_room_from_groups(groups) {
     this.http
-      .callRPC(this.TABLE, this.METHODROOM, { groups: groups })
+      .callRPC(this.TABLE, this.METHODROOM, {
+        groups: groups,
+        employeeid: this.employeeid,
+      })
       .subscribe((result) => {
         var res = result["result"]["message"][0];
         if (res["code"] === 1) {

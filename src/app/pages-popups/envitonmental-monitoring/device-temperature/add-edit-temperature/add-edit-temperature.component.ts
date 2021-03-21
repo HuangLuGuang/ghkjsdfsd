@@ -24,6 +24,7 @@ export class AddEditTemperatureComponent implements OnInit {
   METHOD = "dev_insert_temperature_manage";
 
   METHOD2 = "dev_update_temperature_manage";
+  employeeid = this.userinfo.getEmployeeID();
 
   // 科室/用户组
   groups = [];
@@ -39,6 +40,7 @@ export class AddEditTemperatureComponent implements OnInit {
     var columns = {
       limit: 10,
       offset: 0,
+      employeeid: this.employeeid,
     };
     this.http
       .callRPC("device", "sys_get_groups_limit", columns)

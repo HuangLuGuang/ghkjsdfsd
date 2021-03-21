@@ -21,7 +21,8 @@ export class DeviceTemperatureComponent implements OnInit {
   button; // 权限button
 
   TABLE = "device_temperature";
-  METHOD = "device_monitor.get_device_temperature";
+  METHOD = "eim_plv8.get_device_temperature";
+  employeeid = this.userinfo.getEmployeeID();
 
   myinput_placeholder = "请选择设备安装位置";
   placeholder_title = "请选择时间点";
@@ -213,6 +214,7 @@ export class DeviceTemperatureComponent implements OnInit {
       starttime: inittable_before.starttime,
       endtime: inittable_before.endtime,
       time: inittable_before.time,
+      employeeid: this.employeeid,
     };
     this.http.callRPC(this.TABLE, this.METHOD, columns).subscribe((result) => {
       var tabledata = result["result"]["message"][0];
@@ -318,6 +320,7 @@ export class DeviceTemperatureComponent implements OnInit {
       starttime: inittable_before.starttime,
       endtime: inittable_before.endtime,
       time: inittable_before.time,
+      employeeid: this.employeeid,
     };
     this.http.callRPC(this.TABLE, this.METHOD, columns).subscribe((result) => {
       var tabledata = result["result"]["message"][0];
@@ -365,6 +368,7 @@ export class DeviceTemperatureComponent implements OnInit {
       starttime: inittable_before.starttime,
       endtime: inittable_before.endtime,
       time: inittable_before.time,
+      employeeid: this.employeeid,
     };
     this.http.callRPC(this.TABLE, this.METHOD, columns).subscribe((result) => {
       var tabledata = result["result"]["message"][0];
