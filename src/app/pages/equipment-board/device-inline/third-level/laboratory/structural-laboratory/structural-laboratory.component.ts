@@ -147,7 +147,7 @@ export class StructuralLaboratoryComponent implements OnInit {
   ngOnInit(): void {
     if(document.getElementById('head_title'))
         document.getElementById('head_title').innerText = '验证中心-结构试验室';
-
+    
     
   }
 

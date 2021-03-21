@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { Router } from '@angular/router';
+import {  Router } from '@angular/router';
 import { HttpserviceService } from '../../../../../../services/http/httpservice.service';
 import { EquipmentBoardService } from '../../../../serivice/equipment-board.service';
 import { s_role } from '../../../../temp/equipment-status/equipment-status.component';
@@ -65,7 +65,7 @@ export class NoiseLaboratoryComponent implements OnInit {
 
   ngOnInit(): void {
     if(document.getElementById('head_title'))
-        document.getElementById('head_title').innerText = '验证中心-噪声与震动实验室';
+        document.getElementById('head_title').innerText = '验证中心-噪声与振动试验室';
   }
 
   ngAfterViewInit(){

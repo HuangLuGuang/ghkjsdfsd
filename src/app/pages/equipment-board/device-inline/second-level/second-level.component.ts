@@ -20,7 +20,6 @@ declare let $;
   selector: "ngx-second-level",
   templateUrl: "./second-level.component.html",
   styleUrls: ["./second-level.component.scss"],
-  // changeDetection:ChangeDetectionStrategy.OnPush
 })
 export class SecondLevelComponent implements OnInit {
   first_level;
@@ -230,7 +229,7 @@ export class SecondLevelComponent implements OnInit {
     let menu = this.localstorage.get('hidden_menu');
     if(menu){
       menu = menu.filter(f => f.link.includes('third-level'));
-      this.noAuthority(menu ? menu:null);
+      this.noAuthority(menu ? menu:null,'hidden_menu');
     }
     console.log(this.authorityList)
     // this.listen_windows_resize();
@@ -512,7 +511,7 @@ export class SecondLevelComponent implements OnInit {
   }
 
 
-  noAuthority(menu:any){
+  noAuthority(menu:any,local?:string){
     if(menu){
       menu.forEach(el => {
         let arr = el.link.split('/');
@@ -520,12 +519,10 @@ export class SecondLevelComponent implements OnInit {
           
           let i = this.authorityList.findIndex(f => f.class == arr[arr.length-1])
           if(i != -1){
-            this.authorityList[i] = {
-              show:true,
-              class:arr[arr.length-1],
-              title:el.title,
-              link:el.link,
-            }
+            this.authorityList[i].show = !local || this.authorityList[i].show  ?true:false;
+            this.authorityList[i].title = el.title;
+            this.authorityList[i].link = el.link;
+            
           }
           
         }

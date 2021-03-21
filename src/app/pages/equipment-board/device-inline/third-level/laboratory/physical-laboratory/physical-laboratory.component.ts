@@ -86,7 +86,7 @@ export class PhysicalLaboratoryComponent implements OnInit {
 
   ngOnInit(): void {
     if(document.getElementById('head_title'))
-        document.getElementById('head_title').innerText = '理化与环保试验室';
+        document.getElementById('head_title').innerText = '验证中心-理化与环保试验室';
   }
 
   ngAfterViewInit(){
