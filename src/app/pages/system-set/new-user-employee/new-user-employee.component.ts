@@ -46,7 +46,7 @@ export class NewUserEmployeeComponent implements OnInit {
   tableDatas = {
     style: "width: 100%; height: 700px",
     totalPageNumbers: 0, // 总页数
-    PageSize: 10, // 每页 10条数据
+    PageSize: 15, // 每页 10条数据
     isno_refresh_page_size: false, // 是否重新将 每页多少条数据，赋值为默认值
     columnDefs: [
       // 列字段 多选：headerCheckboxSelection checkboxSelection
@@ -457,12 +457,12 @@ export class NewUserEmployeeComponent implements OnInit {
     var loginname;
     loginname = inpuvalue ? inpuvalue : this.myinput.getinput();
     if (loginname != "") {
-      // console.log("button 搜索按钮", loginname, "--");
       var columns = {
         offset: 0,
         limit: this.agGrid.get_pagesize(),
         loginname: [loginname],
       };
+
       this.gridData = [];
       this.loading = true;
       var table = this.TABLE;
@@ -550,7 +550,7 @@ export class NewUserEmployeeComponent implements OnInit {
     if (event != undefined) {
       offset = event.offset;
       limit = event.limit;
-      PageSize = event.PageSize ? Number(event.PageSize) : 10;
+      PageSize = event.PageSize ? Number(event.PageSize) : 15;
     } else {
       offset = 0;
       limit = inittable_before.limit;
@@ -561,6 +561,7 @@ export class NewUserEmployeeComponent implements OnInit {
       limit: limit,
       loginname: [inittable_before.loginname],
     };
+    console.log("columns", columns, "--");
     this.http.callRPC(this.TABLE, this.METHOD, columns).subscribe((result) => {
       // 会话过期
       var tabledata = result["result"]["message"][0];
@@ -597,7 +598,7 @@ export class NewUserEmployeeComponent implements OnInit {
     if (event != undefined) {
       offset = event.offset;
       limit = event.limit;
-      PageSize = event.PageSize ? Number(event.PageSize) : 10;
+      PageSize = event.PageSize ? Number(event.PageSize) : 15;
     } else {
       offset = 0;
       limit = inittable_before.limit;
@@ -800,11 +801,13 @@ export class NewUserEmployeeComponent implements OnInit {
         email: data["email"],
         employeeid: null,
         employeeno: data["employeeno"],
-        lastupdatedby: data["lastupdatedby"],
+        // lastupdatedby: data["lastupdatedby"],
+        lastupdatedby: this.userinfo.getName(),
         loginname: data["loginname"],
         name: data["name"],
         password: "3bf6e666ad793b1e2c69b3da472504d4", // 默认密码
         phone: data["phoneno"],
+        createdby: this.userinfo.getName(), // 创建人
       };
       after_datas.push(after_data_);
       // console.log("得到科室/功能组--角色之前！",data)
@@ -947,7 +950,7 @@ export class NewUserEmployeeComponent implements OnInit {
   verify_email(email) {
     // sql注入和特殊字符 special_str
     // var rex = /^[a-z0-9._%-]+@([a-z0-9-]+\.)+[a-z]{2,4}$|^1[3|4|5|7|8]\d{9}$/;
-    var rex = /^[a-z0-9._%-]+@([a-zA-Z0-9-]+\.)+[a-z]{2,4}$|^1[3|4|5|7|8]\d{9}$/;
+    var rex = /^[a-zA-Z0-9._%-]+@([a-zA-Z0-9-]+\.)+[a-z]{2,4}$|^1[3|4|5|7|8]\d{9}$/;
     if (!rex.test(email)) {
       return "邮箱格式不匹配！";
     }
@@ -980,8 +983,8 @@ export class NewUserEmployeeComponent implements OnInit {
       return verify_sql_str;
     }
     if (groups_name) {
-      if (groups_name.length > 50) {
-        return "用户组最大长度不超过50！";
+      if (groups_name.length > 5000) {
+        return "用户组最大长度不超过5000！";
       }
     }
     return 1; // 返回1，表示 通过验证！
@@ -1076,4 +1079,5 @@ interface OptionEmployeeData {
   name: string;
   password: string;
   phone: string;
+  createdby: string;
 }

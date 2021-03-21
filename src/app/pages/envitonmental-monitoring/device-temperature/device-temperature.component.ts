@@ -31,7 +31,7 @@ export class DeviceTemperatureComponent implements OnInit {
     // 新增，设置高度
     style: "width: 100%; height: 700px",
     totalPageNumbers: 0, // 总页数
-    PageSize: 10, // 每页 10条数据
+    PageSize: 15, // 每页 10条数据
     isno_refresh_page_size: false, // 是否重新将 每页多少条数据，赋值为默认值
     columnDefs: [
       // 列字段 多选：headerCheckboxSelection checkboxSelection
@@ -57,7 +57,7 @@ export class DeviceTemperatureComponent implements OnInit {
       {
         field: "location",
         headerName: "安装位置",
-        width: 300,
+        width: 250,
         resizable: true,
         sortable: true,
       },
@@ -66,7 +66,7 @@ export class DeviceTemperatureComponent implements OnInit {
         field: "deviceno",
         headerName: "传感器序列号",
         resizable: true,
-        minWidth: 10,
+        width: 130,
         sortable: true,
       },
       {
@@ -81,7 +81,7 @@ export class DeviceTemperatureComponent implements OnInit {
       {
         field: "temperature",
         headerName: "温度(°C)",
-        width: 200,
+        width: 300,
         resizable: true,
         sortable: true,
       },
@@ -304,11 +304,11 @@ export class DeviceTemperatureComponent implements OnInit {
     if (event != undefined) {
       offset = event.offset;
       limit = event.limit;
-      PageSize = event.PageSize ? Number(event.PageSize) : 10;
+      PageSize = event.PageSize ? Number(event.PageSize) : 15;
     } else {
       offset = 0;
-      limit = 10;
-      PageSize = 10;
+      limit = 15;
+      PageSize = 15;
     }
     var columns = {
       offset: offset,
@@ -351,7 +351,7 @@ export class DeviceTemperatureComponent implements OnInit {
     if (event != undefined) {
       offset = event.offset;
       limit = event.limit;
-      PageSize = event.PageSize ? Number(event.PageSize) : 10;
+      PageSize = event.PageSize ? Number(event.PageSize) : 15;
     } else {
       offset = 0;
       limit = inittable_before.limit;
