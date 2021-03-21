@@ -9,7 +9,7 @@ let equipment_four_road = {
             myChart.resize();
             return;
         }
-        var xData = data.xData.map(f =>( f.substring(0,f.length-1)));
+        var xData = data.xData.map(f =>( f.substring(0,f.length-1))),
             borderData = [],
             legend = data.title_arr,
             borderHeight = 0,
