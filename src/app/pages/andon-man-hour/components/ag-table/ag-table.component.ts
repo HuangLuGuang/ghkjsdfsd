@@ -228,7 +228,11 @@ export class AgTableComponent implements OnInit {
     var keys = [];
     for (let k of columns) {
       // columns []
-      if (k["field"] != "action" && k["field"] != "option") {
+      if (
+        k["field"] != "action" &&
+        k["field"] != "option" &&
+        k["field"] != "detail"
+      ) {
         // 去掉 操作(options)选项
         if (k["children"]) {
           var childrens = k["children"];
