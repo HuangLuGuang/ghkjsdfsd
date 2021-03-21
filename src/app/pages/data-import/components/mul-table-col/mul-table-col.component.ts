@@ -1,4 +1,4 @@
-import { Component, OnInit } from "@angular/core";
+import { Component, OnInit, Output, EventEmitter } from "@angular/core";
 
 @Component({
   selector: "ngx-mul-table-col",
@@ -6,20 +6,27 @@ import { Component, OnInit } from "@angular/core";
   styleUrls: ["./mul-table-col.component.scss"],
 })
 export class MulTableColComponent implements OnInit {
+  @Output() private multablecol_confirm = new EventEmitter<any>();
+
   allChecked = false;
   indeterminate = false;
 
   checkOptionsOne = [
     // { label: "Apple", value: "Apple", checked: true },
     {
-      label: "Apple 感觉感觉感觉感觉撒旦发射点发",
-      value: "Apple",
+      label: "devicename 设备名称",
+      value: "devicename",
       checked: false,
     },
-    { label: "Pear 撒旦发射点发", value: "Pear", checked: false },
-    { label: "Orange 撒旦发射点发", value: "Orange", checked: false },
-    { label: "Orange1 撒旦发射点发", value: "Orange1", checked: false },
-    { label: "Orange20000 撒旦发射点发", value: "Orange2", checked: false },
+    { label: "location 设备位置", value: "location", checked: false },
+    { label: "group 功能组", value: "group", checked: false },
+    { label: "level 当前定义报警等级", value: "level", checked: false },
+    { label: "message 报警内容", value: "message", checked: false },
+    {
+      label: "automessage 报警内容自定义注释",
+      value: "automessage",
+      checked: false,
+    },
   ];
 
   constructor() {}
@@ -77,9 +84,15 @@ export class MulTableColComponent implements OnInit {
 
   // 确定
   confirm() {
-    console.log(
-      "****************************确定**************",
-      this.checkOptionsOne
-    );
+    var confirmdata = this.checkOptionsOne.filter((item) => {
+      if (item.checked) {
+        return item;
+      }
+    });
+    this.multablecol_confirm.emit(confirmdata);
+    // console.error(
+    //   "-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=confirmdata",
+    //   confirmdata
+    // );
   }
 }

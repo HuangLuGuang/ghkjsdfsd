@@ -128,7 +128,7 @@ export class MyLinkageSelectComponent implements OnInit {
           d.data.currentData.label
         );
         // that.my_date_select.emit(d.data.currentData.label);
-        console.error("节点被选择++++++++++++++", d.data.currentData);
+        // console.error("节点被选择++++++++++++++", d.data.currentData);
         that.init_device(d.data.currentData.id);
 
         // that.get_room_from_groups(d.data.currentData.label);
@@ -183,7 +183,7 @@ export class MyLinkageSelectComponent implements OnInit {
         // console.error("select_data",d.data.currentData)
         $("[name='temperature_group_room_room']").val(d.data.currentData.label);
         // that.my_date_select.emit(d.data.currentData.label);
-        console.error("节点被选择++++++++++++++", d.data.currentData);
+        // console.error("节点被选择++++++++++++++", d.data.currentData);
         // that.my_date_select.emit(d.data.currentData.id);
         that.my_date_select.emit(d.data.currentData);
         $(".group_room_room").hide();
@@ -229,12 +229,12 @@ export class MyLinkageSelectComponent implements OnInit {
   // my-time-point i 图标 class 切换
   other_toggle() {
     // 时间点选择器
-    $(".my_time_point_labels").hide();
-    var my_time_point_labels = $(".my_time_point_labels").css("display");
-    if (my_time_point_labels == "none") {
-      $("#my_time_point_i").attr("class", "layui-icon layui-icon-down xiala");
+    $(".time_interval_labels").hide();
+    var time_interval_labels = $(".time_interval_labels").css("display");
+    if (time_interval_labels == "none") {
+      $("#time_interval_i").attr("class", "layui-icon layui-icon-down xiala");
     } else {
-      $("#my_time_point_i").attr("class", "layui-icon layui-icon-up  xiala");
+      $("#time_interval_i").attr("class", "layui-icon layui-icon-up  xiala");
     }
     // 日期选择器
     $(".layui-laydate").remove();
