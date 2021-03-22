@@ -1951,9 +1951,9 @@ let equipment_four_road = {
                     name: legend[index],
                     type: "line",
                     yAxisIndex: 1,
-                    smooth: false,
-                    symbol: "circle",
-                    symbolSize: 6,
+                    // smooth: false,
+                    // symbol: "circle",
+                    // symbolSize: 6,
                     lineStyle: {
                         normal: {
                             width: 2

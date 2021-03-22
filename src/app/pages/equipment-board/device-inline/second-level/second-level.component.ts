@@ -4,6 +4,8 @@ import { LocalStorageService } from "../../../../services/local-storage/local-st
 
 // my-echart
 let second_level = require("../../../../../assets/pages/device-inline/js/second-level");
+var alert_management = require("../../../../../assets/pages/alert-management/js/alert_management");
+
 
 // 全屏
 import * as screenfull from "screenfull";
@@ -160,8 +162,35 @@ export class SecondLevelComponent implements OnInit {
       name: "累计完成试验数量",
       totaldata: 132,
       data: [10, 52, 20, 34, 39, 33, 22, 0, 0, 0, 0, 0],
+      data_plan:[100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100],
     },
   };
+
+  //实验室状态
+  laboratory = [
+    {
+      errornum:0,//异常的数量
+      name:'结构实验室'
+    },
+    {
+      errornum:0,
+      name:'环模实验室'
+    },
+    {
+      errornum:0,
+      name:'电机实验室'
+    },
+    {
+      errornum:1,
+      name:'理化环保实验室'
+    },
+    {
+      errornum:0,
+      name:'NVH实验室'
+    },
+    
+  ]
+  laboratory_now_error = true;
 
   myChart;
   items:any;
@@ -223,7 +252,7 @@ export class SecondLevelComponent implements OnInit {
     //获取看板的实验室权限
     let items = this.items.find(f => 
       f.link == '/pages/equipment/first-level');
-    //当没有找到 一级目录下单的子目录时 
+    //当没有找到 一级目录下单的子目录时  去中央研究院即看板下找子目录
     if(items.children){
       items = items.children.find(f=>
         f.link=='/pages/equipment/second-level').children;
@@ -496,6 +525,12 @@ export class SecondLevelComponent implements OnInit {
         this.device_active.reflow();
         this.key_index.reflow();
         this.myChart.resize();
+        ['tj_test_number','tj_test_number_line'].forEach(f=>{
+          let dom  = document.getElementById(f);
+          if(f){
+            echarts.init(dom).resize();
+          }
+        })
       }, 100);
     });
 
@@ -517,7 +552,11 @@ export class SecondLevelComponent implements OnInit {
     // });
   }
 
-
+  /**
+   * 
+   * @param menu 
+   * @param local 当值为'hidden_menu'为没有权限
+   */
   noAuthority(menu:any,local?:string){
     if(menu){
       menu.forEach(el => {
@@ -526,6 +565,7 @@ export class SecondLevelComponent implements OnInit {
           
           let i = this.authorityList.findIndex(f => f.class == arr[arr.length-1])
           if(i != -1){
+            //local == hidden_menu 不显示
             this.authorityList[i].show = !local || this.authorityList[i].show  ?true:false;
             this.authorityList[i].title = el.title;
             this.authorityList[i].link = el.link;
@@ -541,12 +581,37 @@ export class SecondLevelComponent implements OnInit {
     this.ngZone.runOutsideAngular(() => {
       this.myChart = echarts.init(document.querySelector(".device-rate"));
       second_level.device_rate(this.myChart, this.teststatus);
+       // 初始化 echart
+      var pie_data = {
+        subtext: 45,
+        data: [
+          { value: 1048, name: "三级" },
+          { value: 735, name: "二级" },
+          { value: 35, name: "一级" },
+        ],
+      };
+      alert_management.devicepie("tj_test_number", pie_data);
+      var deviceline = {
+        legend_data: ["三级", "二级", "一级"],
+        series_datas: [
+          [2.0, 4.9, 7.0, 23.2, 25.6, 76.7, 135.6, 162.2, 32.6, 20.0, 6.4, 3.3],
+          [2.6, 5.9, 9.0, 26.4, 28.7, 70.7, 175.6, 182.2, 48.7, 18.8, 6.0, 2.3],
+          [2.6, 9.0, 26.4, 175.6, 28.7, 5.9, 70.7, 182.2, 18.8, 6.0, 2.3, 48.7],
+        ],
+      };
+      alert_management.deviceline("tj_test_number_line", deviceline);
     });
   }
 
   ngOnDestroy() {
     // this.device_active.destroy();
     // this.key_index.destroy();
+    ['tj_test_number','tj_test_number_line'].forEach(f=>{
+      let dom  = document.getElementById(f);
+      if(f){
+        echarts.init(dom).dispose();
+      }
+    })
     this.myChart.dispose();
     this.chartResize.unsubscribe();
   }

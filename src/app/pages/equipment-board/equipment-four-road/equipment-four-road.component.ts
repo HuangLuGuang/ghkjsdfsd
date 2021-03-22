@@ -251,32 +251,43 @@ export class EquipmentFourRoadComponent implements OnInit {
   getData(){
     // 定时添加数据
     let table,method = '';
+    let o = 0;
     this.timer = self.setInterval(f =>{
       setTimeout(() => {
         
+        this.get_device_mts_status();
+        
+        // if(param[0].length > 0){
+        //   table = 'get_device_mts_time',method = library+'get_device_mts_timerangedata';
+        //   this.get_device_mts_time(table,method,param,this.deviceid,['chart_1','chart_2']);
+        // }
+        // if(param[1].length > 0){
+        //   table = 'get_device_mts_realtimedata',method = library+'get_device_mts_realtimedata';
+        //   this.get_device_mts_realtimedata(table,method,param,this.deviceid,['chart_1','chart_2']);
+        // }
+      }, 10);
+      //三秒查一下
+      if( o%3 == 0){
         let param = this.create_param([
           {value:this.click_list[0],index:1},{value:this.click_list[1],index:2}
           ]);
-        this.get_device_mts_status();
         if(param[0].length > 0){
           table = 'get_device_mts_time',method = library+'get_device_mts_timerangedata';
-          this.get_device_mts_time(table,method,param,this.deviceid,['chart_1','chart_2']);
+          setTimeout(() => {
+            
+            this.get_device_mts_time(table,method,param,this.deviceid,['chart_1','chart_2']);
+          }, 10);
         }
-        if(param[1].length > 0){
-          table = 'get_device_mts_realtimedata',method = library+'get_device_mts_realtimedata';
-          this.get_device_mts_realtimedata(table,method,param,this.deviceid,['chart_1','chart_2']);
-        }
-      }, 10);
-
-      setTimeout(() => {
         let param_1 = this.create_param([{value:[this.click_list[2]],index:3}]);
-        if(param_1[0].length > 0){
-          this.get_device_mts_time_weiss(param_1);
-        }
-        if(param_1[1].length > 0){
-          this.get_device_mts_realtimedata_weiss(param_1);
-        }
-      }, 20);
+          if(param_1[0].length > 0){
+            this.get_device_mts_time_weiss(param_1);
+          }
+      }
+      
+        // if(param_1[1].length > 0){
+        //   this.get_device_mts_realtimedata_weiss(param_1);
+        // }
+      o++;
     },1000)
     
    
@@ -318,10 +329,10 @@ export class EquipmentFourRoadComponent implements OnInit {
     let arr1s = [];
     arr.forEach((f,i)=>{
       this[`attrs_${f.index}`][f.value].forEach(el => {
-        if(el.value &&  el.value.length <= 0)
+        // if(el.value &&  el.value.length <= 0)
           if( arr10s.findIndex(g=> g==el.value) == -1)arr10s.push(el.nameEn.replace(".","").toLocaleLowerCase());
-        if(el.value &&  el.value.length > 0)
-          arr1s.push(el.nameEn.replace(".","").toLocaleLowerCase());
+        // if(el.value &&  el.value.length > 0)
+          // arr1s.push(el.nameEn.replace(".","").toLocaleLowerCase());
       });
     })
     return [arr10s,arr1s];
@@ -381,8 +392,9 @@ export class EquipmentFourRoadComponent implements OnInit {
     // let datestr_ = dateformat(new Date(),'yyyy-MM-dd hh:mm');
     // dateformat(new Date(now.getTime()-10000)
     let now = new Date();
-    this.subscribeList.time = this.http.callRPC(table,method,{"start":dateformat(new Date(now.getTime()-10000),'yyyy-MM-dd hh:mm:ss'),"end": dateformat(now,'yyyy-MM-dd hh:mm:ss'),"device":deviceid,
+    this.subscribeList.time = this.http.callRPC(table,method,{"start":dateformat(new Date(now.getTime()-1000000),'yyyy-MM-dd hh:mm:ss'),"end": dateformat(now,'yyyy-MM-dd hh:mm:ss'),"device":deviceid,
     arr:param[0].join(',')}).subscribe((f:any) =>{
+      // console.log('本次时长',new Date().getTime()-now.getTime())
       if(f.result.error || f.result.message[0].code == 0)return;
       painting_time(f,10,this,arr);
       this.subscribeList.time.unsubscribe();
@@ -411,7 +423,7 @@ export class EquipmentFourRoadComponent implements OnInit {
     let now = new Date();
     this.subscribeList.get_device_mts_time_weiss = this.http.callRPC(
       'get_device_mts_time',library+'get_device_mts_timerangedata',
-      {"start":dateformat(new Date(now.getTime()-10000),'yyyy-MM-dd hh:mm:ss'),"end": dateformat(now,'yyyy-MM-dd hh:mm:ss')
+      {"start":dateformat(new Date(now.getTime()-1000000),'yyyy-MM-dd hh:mm:ss'),"end": dateformat(now,'yyyy-MM-dd hh:mm:ss')
       ,"device":'device_weiss_01',
     arr:param[0].join(',')}).subscribe((f:any) =>{
       if(f.result.error || f.result.message[0].code == 0)return;

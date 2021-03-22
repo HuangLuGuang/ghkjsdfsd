@@ -166,7 +166,18 @@ export class ThirdLevelService {
     });
   }
 
-
+  /**
+   * 获取设备运行状态
+   * @param deviceList 
+   */
+  get_equipment_status(deviceList:string[]){
+    return new Observable(s =>{
+      this.http.callRPC('get_task_numbers','public.get_device_status',{"deviceid":deviceList.join(',')}).subscribe((f:any)=>{
+        if(f.result.error || f.result.message[0].code == 0)return;
+        s.next(f.result.message);
+      });
+    });
+  }
 
   //计算今年安灯状态
   calculation_andon_year(arr,chart_data){

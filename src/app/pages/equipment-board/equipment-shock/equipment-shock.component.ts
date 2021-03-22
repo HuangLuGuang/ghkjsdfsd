@@ -247,18 +247,19 @@ export class EquipmentShockComponent implements OnInit {
     this.color();
 
     //获取数据
-    let table,method;
+    let table,method,o = 0;
     this.timer = self.setInterval(f =>{
       this.get_equip_real();
 
-      let param = this.create_param();
-      if(param[0].length > 0){
+      // if(param[0].length > 0){
+          
+        // }
+      if(o%3 == 0){
+        let param = this.create_param();
         table = 'get_device_mts_time',method = library+'get_device_mts_timerangedata';
         this.get_device_mts_time(table,method,param);
-      }
-      if(param[1].length > 0){
-        table = 'get_device_mts_realtimedata',method = library+'get_device_mts_realtimedata';
-        this.get_device_mts_realtimedata(table,method,param);
+        // table = 'get_device_mts_realtimedata',method = library+'get_device_mts_realtimedata';
+        // this.get_device_mts_realtimedata(table,method,param);
       }
       // this.xData.push(g);
       // if(this.xData.length >10)this.xData.splice(0,1)
@@ -269,6 +270,7 @@ export class EquipmentShockComponent implements OnInit {
       // let array = ['chart_1','chart_2','chart_3'].forEach((f,i)=>{
       //   this[`chart_${i+1}`].painting({attrs:this[`attrs_${i+1}`][this.click_list[i]],xData:this.xData,index:1});
       // })
+      o++;
     },1000)
 
     
@@ -353,7 +355,7 @@ export class EquipmentShockComponent implements OnInit {
     // dateformat(new Date(now.getTime()-10000)
     let now = new Date();
     this.subscribeList.time = this.http.callRPC(table,method,
-      {"start":dateformat(new Date(now.getTime()-10000),'yyyy-MM-dd hh:mm:ss'),
+      {"start":dateformat(new Date(now.getTime()-1000000),'yyyy-MM-dd hh:mm:ss'),
       "end": dateformat(now,'yyyy-MM-dd hh:mm:ss'),"device":this.deviceid,
     arr:param[0].join(',')}).subscribe((f:any) =>{
       if(f.result.error || f.result.message[0].code == 0)return;
@@ -418,10 +420,10 @@ export class EquipmentShockComponent implements OnInit {
     let arr1s = [];
     this.click_list.forEach((f,i)=>{
       this[`attrs_${i+1}`][f].forEach(el => {
-        if(el.value &&  el.value.length <= 0)
+        // if(el.value &&  el.value.length <= 0)
           if( arr10s.findIndex(g=> g==el.value) == -1)arr10s.push(el.nameEn.replace(".","").toLocaleLowerCase());
-        if(el.value &&  el.value.length > 0)
-          arr1s.push(el.nameEn.replace(".","").toLocaleLowerCase());
+        // if(el.value &&  el.value.length > 0)
+        //   arr1s.push(el.nameEn.replace(".","").toLocaleLowerCase());
       });
     })
     return [arr10s,arr1s];

@@ -185,19 +185,22 @@ xData:[]
   getData(){
      // 定时添加数据
      let table,method = '';
+     let o = 0;
     this.timer = self.setInterval(f =>{
       this.get_device_mts_status();//实时状态表
       this.get_device_mst_oilseparator();//开油器
-      let param = this.create_param();
-      if(param[1].length > 0){
-        table = 'get_device_mts_realtimedata',method = library+'get_device_mts_realtimedata';
-        this.get_device_mts_realtimedata(table,method,param);
+      // if(param[1].length > 0){
+        //   table = 'get_device_mts_realtimedata',method = library+'get_device_mts_realtimedata';
+        //   this.get_device_mts_realtimedata(table,method,param);
+        // }
+      if(o%3 == 0){
+        let param = this.create_param();
+        if(param[0].length > 0){
+          table = 'get_device_mts_timerangedata',method = library+'get_device_mts_timerangedata';
+          this.get_device_mts_time(table,method,param);
+        }
       }
-      if(param[0].length > 0){
-        table = 'get_device_mts_timerangedata',method = library+'get_device_mts_timerangedata';
-        this.get_device_mts_time(table,method,param);
-      }
-
+      o++;
     },1000)
 
   }
@@ -240,10 +243,10 @@ xData:[]
     let arr1s = [];
     this.click_list.forEach((f,i)=>{
       this[`attrs_${i+1}`][f].forEach(el => {
-        if(el.value &&  el.value.length <= 0)
+        // if(el.value &&  el.value.length <= 0)
           if( arr10s.findIndex(g=> g==el.value) == -1)arr10s.push(el.nameEn.replace(".","").toLocaleLowerCase());
-        if(el.value &&  el.value.length > 0)
-          arr1s.push(el.nameEn.replace(".","").toLocaleLowerCase());
+        // if(el.value &&  el.value.length > 0)
+        //   arr1s.push(el.nameEn.replace(".","").toLocaleLowerCase());
       });
     })
     return [arr10s,arr1s];
@@ -298,7 +301,8 @@ xData:[]
     // let datestr = dateformat(new Date(),'yyyy-MM-dd hh:mm');
     // let datestr_ = dateformat(new Date(),'yyyy-MM-dd hh:mm');
     let now = new Date();
-    this.subscribeList.time = this.http.callRPC(table,method,{"start":dateformat(new Date(now.getTime()-10000),'yyyy-MM-dd hh:mm:ss'),"end": dateformat(now,'yyyy-MM-dd hh:mm:ss'),"device":this.deviceid,
+    this.subscribeList.time = this.http.callRPC(table,method,
+      {"start":dateformat(new Date(now.getTime()-1000000),'yyyy-MM-dd hh:mm:ss'),"end": dateformat(now,'yyyy-MM-dd hh:mm:ss'),"device":this.deviceid,
 
     // this.http.callRPC(table,method,{"start":"2020-11-09 14:02:00","end":"2020-11-10 20:20:00","device":"device_mts_01",
     arr:param[0].join(',')}).subscribe((f:any) =>{
