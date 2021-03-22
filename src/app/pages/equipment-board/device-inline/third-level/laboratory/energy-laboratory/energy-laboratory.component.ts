@@ -136,10 +136,7 @@ export class EnergyLaboratoryComponent implements OnInit {
     this.thrid.get_andon_status_last_year(param,this.left);
 
     
-    setTimeout(() => {
-      
-      this.right.initChart();
-    }, 1000);
+    
   }
 
   goto_borad(map){

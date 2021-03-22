@@ -157,9 +157,7 @@ export class EnvironmentLaboratoryComponent implements OnInit {
       if(o%3 ==0 )this.thrid.get_log_list(param,this.left);
       o++;
     },1000)
-    setTimeout(() => {
-      this.right.initChart();
-    }, 1000);
+    
   }
 
   get_center_data(){
