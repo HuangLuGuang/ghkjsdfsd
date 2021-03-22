@@ -42,14 +42,14 @@ export class RightLayoutComponent implements OnInit {
     })
     let o = 0;
     this.timer = setInterval(()=>{
-      if(o%10 == 0){
+      if(o%4 == 0){
         this.thirdLevelService.get_task_num(this._list).subscribe((f:any)=>{
           this.initChart(f);
           this.task_num = f.sum.reduce((total,cur)=>total+cur,0);
         })
       }
       o++;
-    },400)
+    },1000)
 
   }
 
