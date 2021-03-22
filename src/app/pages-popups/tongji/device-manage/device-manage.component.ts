@@ -33,6 +33,7 @@ export class DeviceManageComponent implements OnInit {
     var columns = {
       limit: 10,
       offset: 0,
+      employeeid: this.employeeid,
     };
     this.http
       .callRPC("device", "sys_get_groups_limit", columns)
@@ -63,6 +64,7 @@ export class DeviceManageComponent implements OnInit {
 
   // 域账号
   loginname = this.userinfo.getLoginName();
+  employeeid = this.userinfo.getEmployeeID();
 
   ngAfterViewInit() {
     // console.log("编辑----添加",this.rowData)

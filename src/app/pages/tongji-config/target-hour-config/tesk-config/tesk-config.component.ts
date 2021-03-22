@@ -152,6 +152,7 @@ export class TeskConfigComponent implements OnInit {
   }
 
   ngAfterViewInit() {
+    $(".single_xiala").css("top", "5px");
     this.tableDatas.columnDefs.push(this.active);
     this.tableDatas.columnDefs[6] = this.taskstatus;
 

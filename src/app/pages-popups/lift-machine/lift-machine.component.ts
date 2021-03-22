@@ -25,6 +25,7 @@ export class LiftMachineComponent implements OnInit {
   METHOD = "dev_insert_lift_machine";
 
   METHOD2 = "dev_update_lift_machine";
+  employeeid = this.userinfo.getEmployeeID();
 
   // 科室/用户组
   groups = [];
@@ -40,6 +41,7 @@ export class LiftMachineComponent implements OnInit {
     var columns = {
       limit: 10,
       offset: 0,
+      employeeid: this.employeeid,
     };
     this.http
       .callRPC("device", "sys_get_groups_limit", columns)

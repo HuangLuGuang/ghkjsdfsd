@@ -4,6 +4,8 @@ import { HttpserviceService } from "../../../services/http/httpservice.service";
 import { PublicmethodService } from "../../../services/publicmethod/publicmethod.service";
 import { UserInfoService } from "../../../services/user-info/user-info.service";
 
+declare let $;
+
 @Component({
   selector: "ngx-device-temperature",
   templateUrl: "./device-temperature.component.html",
