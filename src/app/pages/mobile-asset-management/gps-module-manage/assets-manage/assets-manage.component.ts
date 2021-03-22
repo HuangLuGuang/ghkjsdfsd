@@ -17,6 +17,8 @@ import { IsnotActiveComponent } from "./isnot-active/isnot-active.component";
 import { IsnotFavorComponent } from "./isnot-favor/isnot-favor.component";
 type AOA = any[][];
 
+declare let $;
+
 @Component({
   selector: "ngx-assets-manage",
   templateUrl: "./assets-manage.component.html",

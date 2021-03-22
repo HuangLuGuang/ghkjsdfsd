@@ -621,12 +621,12 @@ export class LocationMonitoringComponent implements OnInit {
   init_show_all(message: any[]) {
     console.warn("+++++++++++++", this.is_map_api);
     if (this.is_map_api) {
-      // 清除map地图上的所有的覆盖物
-      this.map.clearOverlay();
       var message_list = Object.assign([], message);
       message_list.forEach((item) => {
         item["lng_lat"] = item["latlon"].split(",");
       });
+      // 清除map地图上的所有的覆盖物
+      this.map.clearOverlay();
       this.map.init_show_all(message_list);
     }
   }

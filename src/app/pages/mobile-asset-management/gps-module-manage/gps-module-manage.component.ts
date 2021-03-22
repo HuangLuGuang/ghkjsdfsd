@@ -43,8 +43,6 @@ export class GpsModuleManageComponent implements OnInit {
       var dom = document.createElement("div");
       dom.className = "cdk-overlay-container";
       document.getElementsByTagName("nb-layout")[0].appendChild(dom);
-    } else {
-      $(".cdk-overlay-container").remove();
     }
     // ========================================
   }
