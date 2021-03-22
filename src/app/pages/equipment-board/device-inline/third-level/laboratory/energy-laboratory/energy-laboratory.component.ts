@@ -93,7 +93,7 @@ export class EnergyLaboratoryComponent implements OnInit {
     "device_avlmotor_04":this.list[3],//AVL电机7
     'device_boyang_01':this.list[5],//博阳电机5
     'device_boyang_02':this.list[6],//博阳电机4
-    // 'device_andmotor_01':this.list[4],//鲁交电机1
+    'device_andmotor_01':this.list[4],//鲁交电机1
   }
   timer;
   constructor(private router:Router,private http:HttpserviceService,private thrid:ThirdLevelService,

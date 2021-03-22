@@ -130,6 +130,43 @@ export class ThirdLevelService {
   }
 
 
+  get_task_num(deviceList:string[]){
+    return new Observable(s =>{
+      this.http.callRPC('get_task_numbers','public.get_task_numbers',{"deviceid":deviceList}).subscribe((f:any)=>{
+        if(f.result.error || f.result.message[0].code == 0)return;
+        // 1.deviceid
+        // 2.总数
+        // 3.完成个数
+        // 4.未完成个数
+        let json = {
+          sum:[],//总数
+          carryOut:[],//完成个数
+          undone:[],//未完成
+        };
+        let o = 1;
+        f.result.message[0].message.forEach(el => {
+          switch(o){
+            case 1:
+              break;
+            case 2:
+              json.sum.push(el);
+              break;
+            case 3:
+              json.carryOut.push(el);
+              break;
+            case 4:
+              json.undone.push(el);
+              o =0;
+              break;
+          }
+          o++;
+        });
+        s.next(json);
+      })
+    });
+  }
+
+
 
   //计算今年安灯状态
   calculation_andon_year(arr,chart_data){

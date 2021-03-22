@@ -62,13 +62,13 @@ export const DEVICEID_TO_NAME  ={
   'device_4d2c_06':'四门两盖04',//四门两盖04
   'device_4d2c_07':'四门两盖05',//四门两盖05
 
-  'device_avldyno_01':'AVL耐久2驱-1 S1060',//AVL耐久2驱-S1060
-  'device_avldyno_02':'AVL耐久2驱-2 S1060',//AVL耐久2驱-S1060`
-  'device_avl4dyno_01':'AVL耐久4驱-3 S1060',//
-  'device_avldyno_03':'AVL排放2驱-S1070',//AVL排放2驱-S1070
-  'device_avl4dyno_02':'AVL环模4驱-S1070',//AVL环模4驱-S1070
-  'device_avl2dyno_01':'AVL排放2驱-S1074',//AVL排放2驱-S1074
-  'device_avl4dyno_03':'AVL排放4驱-S1074',//AVL排放4驱-S1074
+  'device_avldyno_01':'AVL耐久2驱-1',//AVL耐久2驱-S1060
+  'device_avldyno_02':'AVL耐久2驱-2',//AVL耐久2驱-S1060`
+  'device_avl4dyno_01':'AVL耐久4驱-3',//
+  'device_avldyno_03':'AVL排放2驱',//AVL排放2驱-S1070
+  'device_avl4dyno_02':'AVL环模4驱',//AVL环模4驱-S1070
+  'device_avl2dyno_01':'AVL排放2驱',//AVL排放2驱-S1074
+  'device_avl4dyno_03':'AVL排放4驱',//AVL排放4驱-S1074
   'device_jinhua_cabin02':'锦华常温浸车舱',//锦华常温浸车舱
   'device_atec_03':'整车高低温试验舱',//整车高低温试验舱
 
@@ -78,13 +78,13 @@ export const DEVICEID_TO_NAME  ={
   "device_avlmotor_04":'AVL电机7',//AVL电机7
   'device_boyang_01':'博阳电机5',//博阳电机5
   'device_boyang_02':'博阳电机4',//博阳电机4
-    // 'device_andmotor_01':'鲁交电机1,//鲁交电机1
+  'device_andmotor_01':'鲁交电机1',//鲁交电机1
 
   'device_auto_voc01':'整车voc',//整车voc环境仓
   'device_atlas_4000':'氙灯Ci4000',//氙灯集中监控Ci4000
   'device_atlas_4400':'氙灯Ci4400',//氙灯集中监控Ci4400
   'device_purewater_01':'纯水',//纯水
-  'device_cabin_voc01':'晟微',//
+  'device_cabin_voc01':'昇微',//
   'device_4m3_01':'4m3',
   'device_atec_06':'ATEC舱06',//
   'device_o3_01':'臭氧老化试验箱',//TODO
