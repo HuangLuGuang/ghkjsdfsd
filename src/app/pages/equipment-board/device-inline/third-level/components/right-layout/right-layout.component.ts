@@ -1,5 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
+import { DEVICEID_TO_NAME } from '../../../../equipment-board';
 import { EquipmentBoardService } from '../../../../serivice/equipment-board.service';
+import { ThirdLevelService } from '../../laboratory/third-level.service';
 
 @Component({
   selector: 'ngx-right-layout',
@@ -23,12 +25,32 @@ export class RightLayoutComponent implements OnInit {
     // {device:'四立柱',experiment:'WT0001-202011',speed:20},
   ]
   subscribeList:any = {};
-  constructor(private boardservice:EquipmentBoardService) { }
+  @Input() set list(data){
+    if(data){
+      this._list = Object.keys(data)
+    }
+  };
+  
+  _list;
+  task_num = 0;
+  timer;
+  constructor(private boardservice:EquipmentBoardService,private thirdLevelService:ThirdLevelService) { }
 
   ngOnInit(): void {
     this.subscribeList.resize =this.boardservice.chartResize().subscribe(f=>{
       this.resize();
     })
+    let o = 0;
+    this.timer = setInterval(()=>{
+      if(o%4 == 0){
+        this.thirdLevelService.get_task_num(this._list).subscribe((f:any)=>{
+          this.initChart(f);
+          this.task_num = f.sum.reduce((total,cur)=>total+cur,0);
+        })
+      }
+      o++;
+    },1000)
+
   }
 
   resize = ()=>{
@@ -38,43 +60,28 @@ export class RightLayoutComponent implements OnInit {
     }, 500);
   }
 
-  initChart(){
+  initChart(f){
+    // sum:[],//总数
+    // carryOut:[],//完成个数
+    // undone:[],//未完成
     if(!document.getElementById('right_chart_1'))return;
-    let xdata = ['1111','2222','3333'];
-    let completed  = [{
-      value:100,
-      itemStyle:{
-          color:'#33FF99'
+    let xdata = this._list.map(m =>(DEVICEID_TO_NAME[m]));
+    let completed = this._list.map((m,i) =>(
+      {
+        value:f.carryOut[i],
+        itemStyle:{
+            color:'#5D920D'
+        }
       }
-    },{
-      value:100,
+    ));
+    
+    let plan = this._list.map((m,i) =>({
+      value:f.sum[i],
       itemStyle:{
-          color:'#FFFF99'
+          color:'#DBB70D'
       }
-    },
-    {
-      value:100,
-      itemStyle:{
-          color:'#CCFFFF'
-      }
-    }]
-    let plan = [{
-      value:200,
-      itemStyle:{
-          color:'rgb(124,126,136)'
-      }
-    },
-    {
-      value:150,
-      itemStyle:{
-          color:'rgb(124,126,136)'
-      }
-    },{
-      value:100,
-      itemStyle:{
-          color:'rgb(124,126,136)'
-      }
-    }]
+    }));
+    
     let chart = echarts.init(document.getElementById('right_chart_1'));
     let option = {
       tooltip: {
@@ -95,7 +102,7 @@ export class RightLayoutComponent implements OnInit {
           data: xdata,
           axisLine: {
             lineStyle: {
-                color: "rgba(204,187,225,0.5)",
+                color: "rgb(220, 220, 220)",
             }
           },
           splitLine: {
@@ -104,12 +111,20 @@ export class RightLayoutComponent implements OnInit {
           axisTick: {
               show: false
           },
+          axisLabel: {
+            rotate: 30,
+            align: 'right', 
+            textStyle: { 
+              fontSize: '90%', 
+              color: "rgb(220, 220, 220)" 
+            }
+          },
       },
       yAxis: {
           type: 'value',
           axisLine: {
             lineStyle: {
-                color: "rgba(204,187,225,0.5)",
+                color: "rgb(220, 220, 220)",
             }
           },
           splitLine: {
@@ -143,6 +158,7 @@ export class RightLayoutComponent implements OnInit {
   }
 
   ngOnDestroy(){
+    clearInterval(this.timer);
     let chart = document.getElementById('right_chart_1');
     if(chart)echarts.init(chart).dispose();
     for(let key in this.subscribeList){

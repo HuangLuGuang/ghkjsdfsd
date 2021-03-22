@@ -176,9 +176,7 @@ export class StructuralLaboratoryComponent implements OnInit {
       }
       o++;
     },1000)
-    setTimeout(() => {
-      this.right.initChart();
-    }, 1000);
+    
   }
 
 

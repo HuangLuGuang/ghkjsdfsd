@@ -82,8 +82,10 @@ export class EquipmentBoardComponent implements OnInit {
 
   ngAfterViewInit() {
     let url = decodeURIComponent(window.location.pathname);
+    let parentid =  this.menu.find(f => f.link == url ).parentid
+    let parent = this.menu.find(f => f.id == parentid);
     setTimeout(() => {
-      if (url.includes("first-level")) {
+      if (!parent) {
         this.b_show.back = false; //最上级看板的影藏返回按钮
       } else {
         this.b_show.back = true;
@@ -95,9 +97,10 @@ export class EquipmentBoardComponent implements OnInit {
     // 监听路由
     this.isFirstLevel = this.router.events.subscribe((event: Event) => {
       if (event instanceof NavigationEnd) {
-        url = event.url.split("/").pop();
-        console.log(url);
-        if (["first-level", "equipment"].includes(url)) {
+        url = decodeURIComponent(event.url)
+        let parentid =  this.menu.find(f => f.link == url).parentid
+        let parent = this.menu.find(f => f.id == parentid );
+        if ( !parent) {
           this.b_show.back = false; //最上级看板的影藏返回按钮
         } else {
           this.b_show.back = true;
