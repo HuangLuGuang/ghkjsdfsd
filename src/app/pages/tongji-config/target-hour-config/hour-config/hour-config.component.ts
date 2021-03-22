@@ -118,6 +118,7 @@ export class HourConfigComponent implements OnInit {
         minWidth: 10,
         fullWidth: true,
         sortable: true,
+        flex: 1,
       },
     ],
     rowData: [

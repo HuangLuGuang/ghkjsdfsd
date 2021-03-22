@@ -565,6 +565,7 @@ export class TeskConfigComponent implements OnInit {
         resizable: true,
         minWidth: 10,
         sortable: true,
+        flex: 1,
       }, // 更新时间
     ],
     rowData: [

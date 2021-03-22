@@ -1046,9 +1046,10 @@ export class RoleComponent implements OnInit {
         field: "lastupdatedby",
         headerName: "更新人",
         resizable: true,
-        width: 130,
+        // width: 130,
+        minWidth: 10,
         sortable: true,
-        flex: 1,
+        // flex: 1,
       },
     ],
     rowData: [
