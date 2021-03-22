@@ -33,16 +33,24 @@ export class RightLayoutComponent implements OnInit {
   
   _list;
   task_num = 0;
+  timer;
   constructor(private boardservice:EquipmentBoardService,private thirdLevelService:ThirdLevelService) { }
 
   ngOnInit(): void {
     this.subscribeList.resize =this.boardservice.chartResize().subscribe(f=>{
       this.resize();
     })
-    this.thirdLevelService.get_task_num(this._list).subscribe((f:any)=>{
-      this.initChart(f);
-      this.task_num = f.sum.reduce((total,cur)=>total+cur,0);
-    })
+    let o = 0;
+    this.timer = setInterval(()=>{
+      if(o%10 == 0){
+        this.thirdLevelService.get_task_num(this._list).subscribe((f:any)=>{
+          this.initChart(f);
+          this.task_num = f.sum.reduce((total,cur)=>total+cur,0);
+        })
+      }
+      o++;
+    },400)
+
   }
 
   resize = ()=>{
@@ -150,6 +158,7 @@ export class RightLayoutComponent implements OnInit {
   }
 
   ngOnDestroy(){
+    clearInterval(this.timer);
     let chart = document.getElementById('right_chart_1');
     if(chart)echarts.init(chart).dispose();
     for(let key in this.subscribeList){
