@@ -115,7 +115,7 @@ export class DeviceTemperatureComponent implements OnInit {
     // 得到pathname --在得到button
     var roleid = this.userinfo.getEmployeeRoleID();
     this.publicservice.get_buttons_bypath(roleid).subscribe((result) => {
-      // console.log("result>>>>>>", result);
+      console.log("result>>>>>>", result);
       this.button = result;
       localStorage.setItem("buttons_list", JSON.stringify(result));
     });

@@ -29,6 +29,11 @@ export class InlineVideoComponent implements OnInit {
     });
   }
 
+  // 父组件调用，修改status
+  change_status(status) {
+    this.status = status;
+  }
+
   resize = () => {
     this.status = false;
     setTimeout(() => {

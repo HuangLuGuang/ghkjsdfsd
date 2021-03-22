@@ -325,14 +325,15 @@ export class DeviceManageComponent implements OnInit {
         formdatar["groups"] = formdatar["groupsid"];
         // formdatar["groups"] = formdatar["group"]
         // 初始化表单
-        form.val("device", formdatar);
 
         // 修改选择项
         setTimeout(() => {
+          form.val("device", formdatar);
           $('select[name="groups"]').val(formdatar["groupsid"]);
-        }, 100);
-
+          form.render("select");
+        }, 200);
         form.render("select");
+
         // 初始化createdon（创建时间）、purchaseon (购置日期)
 
         var createdon = formdatar["createdon"];

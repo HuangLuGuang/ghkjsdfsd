@@ -135,6 +135,15 @@ export class CentralizedMonitoringComponent implements OnInit {
         if (item_echart) echarts.init(item_echart).resize();
       });
     }, 500);
+
+    // 视频轮播
+    // this.inline.status = false;
+    this.inline.change_status(false);
+    setTimeout(() => {
+      this.create_img_16_9();
+      this.inline.change_status(true);
+      // this.inline.status = true;
+    }, 500);
   }
 
   //组件销毁

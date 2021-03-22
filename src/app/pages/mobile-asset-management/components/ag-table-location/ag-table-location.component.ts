@@ -52,10 +52,10 @@ export class AgTableLocationComponent implements OnInit {
 
   // 分页
   current = 1; // 当前页
-  totalPageNumbers = 10; // 总数据条数
-  setPageCount = 10; // 默认每页10条数据
+  totalPageNumbers = 15; // 总数据条数
+  setPageCount = 15; // 默认每页10条数据
   private requestPageCount = 1; // 每次请求的页数
-  PageSize = "10"; // 下拉框中的数据
+  PageSize = "15"; // 下拉框中的数据
 
   selectedRows = []; // 行选择数据
 
@@ -329,7 +329,7 @@ export class AgTableLocationComponent implements OnInit {
 
   // this.PageSize   得到选中的页面
   get_pagesize() {
-    return this.PageSize ? this.PageSize : 10;
+    return this.PageSize ? this.PageSize : 15;
   }
 
   // 父组件调用，告诉该组件数值改变了！

@@ -26,7 +26,7 @@ export class TargetHourConfigComponent implements OnInit {
   TABLE = "device";
   METHOD = "dev_get_target_time_update"; // 批量修改工时！
 
-  lastupdatedby = this.userinfo.getLoginName(); // 域账号
+  lastupdatedby = this.userinfo.getName(); // 中文名称
   employeeid = this.userinfo.getEmployeeID(); // 用户id
 
   month_placeholder = "选择每日目标时长";

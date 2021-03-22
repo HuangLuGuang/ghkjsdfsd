@@ -124,12 +124,13 @@ export class AddEditTemperatureComponent implements OnInit {
         // 表单初始化
         var formdatar = that.rowData[0];
         formdatar["groups"] = formdatar["groupsid"];
-        form.val("device", formdatar);
 
         // 修改选择项
         setTimeout(() => {
+          form.val("device", formdatar);
           $('select[name="groups"]').val(formdatar["groupsid"]);
-        }, 100);
+          form.render("select");
+        }, 200);
         form.render("select");
       } else {
         // false: 表示add
