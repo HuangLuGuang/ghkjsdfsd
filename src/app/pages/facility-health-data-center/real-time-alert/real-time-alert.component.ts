@@ -72,13 +72,7 @@ export class RealTimeAlertComponent implements OnInit {
         cellRendererFramework: TableDevicenameComponent,
         sortable: true,
       },
-      {
-        field: "deviceid",
-        headerName: "设备ID",
-        resizable: true,
-        minWidth: 10,
-        sortable: true,
-      },
+
       {
         field: "group",
         headerName: "科室/用户组",
@@ -119,6 +113,13 @@ export class RealTimeAlertComponent implements OnInit {
         field: "pushtime",
         headerName: "推送时间",
         resizable: true,
+        sortable: true,
+      },
+      {
+        field: "deviceid",
+        headerName: "设备ID",
+        resizable: true,
+        minWidth: 10,
         sortable: true,
       },
       {

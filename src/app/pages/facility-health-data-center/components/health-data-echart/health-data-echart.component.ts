@@ -31,7 +31,14 @@ export class HealthDataEchartComponent implements OnInit {
     this.init_health();
   }
 
-  ngAfterViewInit() {}
+  ngAfterViewInit() {
+    setTimeout(() => {
+      console.error("this.item_echarts>>>>>>>>>>>", this.item_echarts);
+      this.item_echarts.forEach((item) => {
+        if (item) item.resize();
+      });
+    }, 500);
+  }
 
   //组件销毁
   ngOnDestroy() {

@@ -190,7 +190,8 @@ export class AddEditTemperatureComponent implements OnInit {
         this.RecordOperation("新增环境监测模块", 1, JSON.stringify(data));
       } else {
         this.dialogRef.close(false);
-        this.adddanger();
+        var data = JSON.stringify(res["message"]);
+        this.adddanger(data);
         this.RecordOperation("新增环境监测模块", 0, JSON.stringify(data));
       }
     });
@@ -206,7 +207,8 @@ export class AddEditTemperatureComponent implements OnInit {
         this.RecordOperation("编辑环境监测模块", 1, JSON.stringify(data));
       } else {
         this.dialogRef.close(false);
-        this.editdanger();
+        var data = JSON.stringify(res["message"]);
+        this.editdanger(data);
         this.RecordOperation("编辑环境监测模块", 0, JSON.stringify(data));
       }
     });
@@ -219,11 +221,11 @@ export class AddEditTemperatureComponent implements OnInit {
       conent: "添加成功!",
     });
   }
-  adddanger() {
+  adddanger(data) {
     this.publicservice.showngxtoastr({
       position: "toast-top-right",
       status: "danger",
-      conent: "添加失败!",
+      conent: "添加失败!" + data,
     });
   }
   editsuccess() {
@@ -233,11 +235,11 @@ export class AddEditTemperatureComponent implements OnInit {
       conent: "编辑成功!",
     });
   }
-  editdanger() {
+  editdanger(data) {
     this.publicservice.showngxtoastr({
       position: "toast-top-right",
       status: "danger",
-      conent: "编辑失败!",
+      conent: "编辑失败!" + data,
     });
   }
 

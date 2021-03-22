@@ -811,6 +811,7 @@ export class TemperatureManagementComponent implements OnInit {
       } catch (err) {
         this.RecordOperation("导入环境监测模块管理", 0, String(err));
         observale.next(false);
+        // var data = JSON.stringify(err);
         this.danger();
       }
     });
