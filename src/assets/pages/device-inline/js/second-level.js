@@ -7,7 +7,7 @@ let second_level = {
         // var mychart = echarts.init(document.querySelector(element));
         // var mychart = myChart;
         var option = {
-            color: ["#5D7FE5", "#26FF26"],
+            color: ["#5D7FE5", "#1F4E65"],
             tooltip: {
                 trigger: "item", //axis
                 axisPointer: {
@@ -128,7 +128,14 @@ let second_level = {
                     type: "bar",
                     barWidth: "60%",
                     // data: [10, 52, 20, 34, 39, 33, 22]
-                    data: afterdata.Series.data
+                    data: afterdata.Series.data,
+                    z:2
+                }, {
+                    type: "bar",
+                    barWidth: "60%",
+                    barGap:'-100%',
+                    z:1,
+                    data: afterdata.Series.data_plan,
                 },
                 {
                     type: "bar",
@@ -170,6 +177,7 @@ let second_level = {
                 end: 70,
             }]
         }
+        console.log(JSON.stringify(option));
 
         setInterval(function() {
             option.dataZoom[0].start++;

@@ -39,12 +39,7 @@
 
         <!-- 主体第二列 -->
         <div class="col-md-6 two_content" style="height: 100%;">
-            <div class="chunk info">
-                <div class="part_title">研究总院介绍</div>
-                <div class="part_title_image">
-                    <img src="assets/pages/device-inline/images/two/totalInfo.png">
-                </div>
-            </div>
+            
             <div class="nibo_map" style="position: relative;color: black;font-size: 0.7rem;">
                 <div class="w" style="top: 12%;left: 23%;" ></div>
                 <div class="w" style="top: 7%;left: 30%;" ></div>
@@ -94,7 +89,27 @@
 
 
             </div>
+            <div class="chunk info">
+                <div class="part_title">设备汇总信息</div>
+
+                <!-- 数量 -->
+                <div class="row numbers">
+                    <div class="alert_number">
+                        <span>监控设备数量: 40台</span>
+                        <span>当前报警数量: 200条</span>
+                        <span>已解除数量: 2000条</span>
+                    </div>
+                </div>
+                <!-- 数量echar -->
+                <div class="row numbers_echart">
+                    <div class="col-md-5" id="tj_test_number">
+                    </div>
+                    <div class="col-md-7" id="tj_test_number_line">
+                    </div>
+                </div>
+            </div>
         </div>
+
 
         <!-- 主题第三列 -->
         <div class="col-md-3" style="padding: 0px;height: 100%;">
@@ -105,8 +120,24 @@
                 </div>
             </div>
             <div class="chunk" style="height: 50%;">
-                <div class="part_title">VMDS</div>
-                <div class="geely-info "></div>
+                <div class="part_title">报警区域显示</div>
+                <div class="geely-info ">
+                    <div class="geely-info-left">
+                        <div *ngFor="let item of laboratory;let i = index" 
+                        [ngStyle]="{background: item.errornum > 0 ?'#F04E39':'',
+                        'border-right':i%3 == 2 || laboratory.length-1 == i?'2px solid #316093':''}">
+                            {{ item.name||'' }}
+                        </div>
+                    </div>
+                    <div class="geely-info-right">
+                        <div class="geely-info-right-top">切换监控</div>
+                        <div></div>
+                        <div>
+                            <div class="geely-info-right-bottom" [ngStyle]="{background: !laboratory_now_error?'#F04E39':''}">无报警</div>
+                            <div class="geely-info-right-bottom" [ngStyle]="{background: laboratory_now_error?'#F04E39':''}">有报警</div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>

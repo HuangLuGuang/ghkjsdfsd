@@ -217,20 +217,20 @@ export class ChartCurveV3Component implements OnInit {
             height:'60%',
 
         },
-        dataZoom : [
-            {
-                show: false,
-                realtime: true,
-                start: 100-((10/(series[0].data.length))*100),
-                end: 100,
-            },
-            {
-                type: 'inside',
-                realtime: true,
-                start:  100-((10/(series[0].data.length))*100),
-                end: 100,
-            }
-        ],
+        // dataZoom : [
+        //     {
+        //         show: false,
+        //         realtime: true,
+        //         start: 100-((10/(series[0].data.length))*100),
+        //         end: 100,
+        //     },
+        //     {
+        //         type: 'inside',
+        //         realtime: true,
+        //         start:  100-((10/(series[0].data.length))*100),
+        //         end: 100,
+        //     }
+        // ],
         legend: {
             show: true,
             icon: 'circle',
@@ -422,17 +422,17 @@ export class ChartCurveV3Component implements OnInit {
             color:colors[0]
         },
         itemStyle: {
-            normal: {
-                color: colors[1],
-                shadowColor: colors[1],
-                shadowBlur: 2,
-                borderWidth: 2,
-                borderColor: "#F8F8FF"
-            }
+            // normal: {
+            //     color: colors[1],
+            //     shadowColor: colors[1],
+            //     shadowBlur: 2,
+            //     borderWidth: 2,
+            //     borderColor: "#F8F8FF"
+            // }
         },
-        smooth: false,
-        symbol: "circle",
-        symbolSize: 6,
+        // smooth: false,
+        // symbol: "circle",
+        // symbolSize: 6,
     }
   }
 

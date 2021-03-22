@@ -272,12 +272,12 @@ export let  painting_time =(f,time,isthis,arr)=>{
         }
 
       //echart 数值显示是以数组下标做对应    判断x轴和数据是否是相同的数量
-      if(time == 1 && el.value.length > 10)
-          el.value.splice(0,el.value.length-10);
+      // if(time == 1 && el.value.length > 200)
+      //     el.value.splice(0,1);
     })
      //判断当前的x轴数组的值是否大于10 减去过长会导致显示拥挤
-     if(time == 1 && isthis[`attrs_${i+1}`].xData.length > 10 )
-      isthis[`attrs_${i+1}`].xData.splice(0,isthis[`attrs_${i+1}`].xData.length-10);
+    //  if(time == 1 && isthis[`attrs_${i+1}`].xData.length > 200 )
+    //   isthis[`attrs_${i+1}`].xData.splice(0,1);
 
   })
     // }
