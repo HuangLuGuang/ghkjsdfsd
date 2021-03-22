@@ -221,9 +221,16 @@ export class SecondLevelComponent implements OnInit {
     var title = "中央研究院";
     $("#head_title").text(title);
     //获取看板的实验室权限
-    this.items = this.items.find(f => 
-      f.link == '/pages/equipment/first-level').children.find(f=>
+    let items = this.items.find(f => 
+      f.link == '/pages/equipment/first-level');
+    //当没有找到 一级目录下单的子目录时 
+    if(items.children){
+      items = items.children.find(f=>
         f.link=='/pages/equipment/second-level').children;
+    }else{
+      items = this.items.find(f=>f.link=='/pages/equipment/second-level').children;
+    }
+    this.items = items;
     this.noAuthority(this.items);
     //获取影藏的菜单
     let menu = this.localstorage.get('hidden_menu');
@@ -607,3 +614,26 @@ export class SecondLevelComponent implements OnInit {
 
   }
 }
+
+
+// export const rate = [
+//   'device_mts_02':this.list[0],//整车耦合
+//   'device_mts_01':this.list[1],//四立柱道路模拟试验台
+//   'device_mts_03':this.list[2],//六自由度振动台
+//   "device_mts_04":this.list[3],//液压伺服
+//   'device_skylight_01':this.list[5],//天窗开闭
+//   'device_skylight_02':this.list[6],//玻璃升降
+//   'device_4d2c_05':this.list[7],//四门两盖01
+//   'device_4d2c_01':this.list[8],//四门两盖02
+//   'device_4d2c_02':this.list[9],//四门两盖03
+//   'device_4d2c_06':this.list[10],//四门两盖04
+//   'device_4d2c_07':this.list[11],//四门两盖05
+
+//   'device_auto_voc01'':this.list[0],//整车voc环境仓
+//   'device_atlas_4000':this.list[1],//氙灯集中监控ci4000
+//   'device_atlas_4400':this.list[1],//氙灯集中监控ci4400
+//   'device_purewater_01':this.list[2],//纯水
+//   'device_cabin_voc01':this.list[3],//晟微、4m3
+//   'device_4m3_01':this.list[3],//晟微、4m3
+//   'device_atec_06':this.list[4],//atec06
+// ]
