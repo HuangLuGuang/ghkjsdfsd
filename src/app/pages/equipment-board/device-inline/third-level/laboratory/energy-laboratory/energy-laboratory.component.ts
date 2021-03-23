@@ -20,6 +20,7 @@ export class EnergyLaboratoryComponent implements OnInit {
       src:'assets/eimdoard/equipment/images/dj1_1013.jpeg',//实验图片地址
       speed_name:[''],//实验编号
       router:'pages/equipment/motor/AVL电机测试台架8/device_avlmotor_01',
+      run:false,
     },
     {
       name:'AVL电机6',
@@ -28,7 +29,8 @@ export class EnergyLaboratoryComponent implements OnInit {
       speed:[],
       src:'assets/eimdoard/equipment/images/dj2_1014.jpeg',//实验图片地址
       speed_name:[''],//实验编号
-      router:'pages/equipment/motor2/AVL电机测试台架6/device_avlmotor_02'
+      router:'pages/equipment/motor2/AVL电机测试台架6/device_avlmotor_02',
+      run:false,
     },
     {
       name:'AVL电机3',
@@ -37,7 +39,8 @@ export class EnergyLaboratoryComponent implements OnInit {
       speed:[],
       src:'assets/eimdoard/equipment/images/dj3_1003.jpeg',//实验图片地址
       speed_name:[''],//实验编号
-      router:'pages/equipment/motor3/AVL电机测试台架3/device_avlmotor_03'
+      router:'pages/equipment/motor3/AVL电机测试台架3/device_avlmotor_03',
+      run:false,
     },
     {
       name:'AVL电机7',
@@ -46,7 +49,8 @@ export class EnergyLaboratoryComponent implements OnInit {
       speed:[],
       src:'assets/eimdoard/equipment/images/dj4_1010.jpeg',//实验图片地址
       speed_name:[''],//实验编号
-      router:'pages/equipment/motor4/AVL电机测试台架7/device_avlmotor_04'
+      router:'pages/equipment/motor4/AVL电机测试台架7/device_avlmotor_04',
+      run:false,
     },
     {
       name:'鲁交电机1',
@@ -55,7 +59,8 @@ export class EnergyLaboratoryComponent implements OnInit {
       speed:[],
       src:'assets/eimdoard/equipment/images/dj5_1008.jpeg',//实验图片地址
       speed_name:[''],//实验编号
-      router:'pages/equipment/motor5/鲁交电机测试台架1/device_andmotor_01'
+      router:'pages/equipment/motor5/鲁交电机测试台架1/device_andmotor_01',
+      run:false,
     },
     {
       name:'博阳电机5',
@@ -64,7 +69,8 @@ export class EnergyLaboratoryComponent implements OnInit {
       speed:[],
       src:'assets/eimdoard/equipment/images/dj6_1011.jpeg',//实验图片地址
       speed_name:[''],//实验编号
-      router:'pages/equipment/motor6/博阳电机测试台架5/six'
+      router:'pages/equipment/motor6/博阳电机测试台架5/six',
+      run:false,
     },
     {
       name:'博阳电机4',
@@ -74,6 +80,7 @@ export class EnergyLaboratoryComponent implements OnInit {
       src:'assets/eimdoard/equipment/images/dj7_1012.jpeg',//实验图片地址
       speed_name:[''],//实验编号
       router:'pages/equipment/motor7/博阳电机测试台架4/seven',
+      run:false,
       type:''
     },{},{},{},{},{}
   ]
@@ -91,9 +98,9 @@ export class EnergyLaboratoryComponent implements OnInit {
     'device_avlmotor_02':this.list[1],//AVL电机6
     'device_avlmotor_03':this.list[2],//AVL电机3
     "device_avlmotor_04":this.list[3],//AVL电机7
+    'device_andmotor_01':this.list[4],//鲁交电机1
     'device_boyang_01':this.list[5],//博阳电机5
     'device_boyang_02':this.list[6],//博阳电机4
-    'device_andmotor_01':this.list[4],//鲁交电机1
   }
   timer;
   constructor(private router:Router,private http:HttpserviceService,private thrid:ThirdLevelService,
@@ -110,9 +117,7 @@ export class EnergyLaboratoryComponent implements OnInit {
     let param = Object.keys(this.param);
     let now;
     let o =0;
-    // this.thrid.get_equipment_status( Object.keys(this.param)).subscribe(f=>{
-    //   console.log(f)
-    // })
+    
     this.timer = self.setInterval(f=>{
       this.get_center_data();
       
@@ -122,6 +127,13 @@ export class EnergyLaboratoryComponent implements OnInit {
         this.thrid.get_andon_status_year(param,this.left);
         this.thrid.get_andon_status_last_year(param,this.left);
       }
+
+      this.thrid.get_equipment_status( Object.keys(this.param)).subscribe((res:any)=>{
+        console.log(res)
+        for(let key in res){
+          this.param[key].run = res[key]
+        }
+      })
 
       this.thrid.get_device_taskinfo_list(param,this.right).subscribe((f:any)=>{
         // f.forEach(el => {

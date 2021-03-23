@@ -82,7 +82,7 @@
         <div class="col-md-4" style="padding: 0px 20px 0px 0px;">
             <div class="thrid">
                 <div class="part_title">{{'equipment.experimentParams'|translate}}</div>
-                <ngx-experiment-params [device]='deviceid' style="width: 100%;"></ngx-experiment-params>
+                <ngx-experiment-params [device]='deviceid_temp' style="width: 100%;"></ngx-experiment-params>
             </div>
             <div class="height_33 bo" style="margin-top: 20px;padding: 0%;">
                 <ngx-chart-curve-v3 #chart_2 [chartName]=" 'chart_2' " (clicEvent)="clicEvent($event,2) " dashboardName='dashboard_2' [list]="list_2 "></ngx-chart-curve-v3>

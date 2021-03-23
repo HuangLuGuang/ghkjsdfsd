@@ -732,7 +732,7 @@ let mapjs = {
       strokeWeight: "2", //设置线宽 2
     });
     // @ts-ignore
-    var icons = new BMap.IconSequence(sy, "10", "10");
+    // var icons = new BMap.IconSequence(sy, "10", "10");
     // @ts-ignore
     var polyline = new BMap.Polyline(points_list, {
       enableEditing: false, //是否启用线编辑，默认为false
@@ -766,7 +766,7 @@ let mapjs = {
         var marker = new BMap.Marker(item, { icon: myIcon }); // 创建标注
       } else if (points_list.indexOf(item) === points_list.length - 1) {
         // @ts-ignore
-        var myIcon = new BMap.Icon(
+        myIcon = new BMap.Icon(
           "assets/pages/mobile-asset-management/images/car/end_icon.png",
           // @ts-ignore
           new BMap.Size(26, 52),
@@ -780,10 +780,10 @@ let mapjs = {
           }
         );
         // @ts-ignore
-        var marker = new BMap.Marker(item, { icon: myIcon }); // 创建标注
+        marker = new BMap.Marker(item, { icon: myIcon }); // 创建标注
       } else {
         // @ts-ignore
-        var marker = new BMap.Marker(item); // 创建标注
+        marker = new BMap.Marker(item); // 创建标注
       }
 
       map.addOverlay(marker); // 添加Overlay

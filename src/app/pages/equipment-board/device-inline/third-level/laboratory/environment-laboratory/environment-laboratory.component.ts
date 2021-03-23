@@ -21,6 +21,7 @@ export class EnvironmentLaboratoryComponent implements OnInit {
       speed:[],
       speed_name:[''],//实验名称
       router:'pages/equipment/twodrive/两驱底盘测功机-1/device_avldyno_01',
+      run:false,
     },
     {
       name:'AVL耐久2驱-2',
@@ -29,7 +30,8 @@ export class EnvironmentLaboratoryComponent implements OnInit {
       src:'assets/eimdoard/equipment/images/lqdp.png',
       speed:[],
       speed_name:[''],
-      router:'pages/equipment/twodrive2/两驱底盘测功机-2/device_avldyno_02'
+      router:'pages/equipment/twodrive2/两驱底盘测功机-2/device_avldyno_02',
+      run:false,
     },
     {
       name:'AVL耐久4驱',
@@ -38,7 +40,8 @@ export class EnvironmentLaboratoryComponent implements OnInit {
       src:'assets/eimdoard/equipment/images/lqdp.png',//实验图片
       speed:[],
       speed_name:[''],
-      router:'pages/equipment/twodrive3/四驱底盘测功机-3/device_avl4dyno_01'
+      router:'pages/equipment/twodrive3/四驱底盘测功机-3/device_avl4dyno_01',
+      run:false,
     },
     {
       name:'AVL排放2驱',
@@ -47,7 +50,8 @@ export class EnvironmentLaboratoryComponent implements OnInit {
       src:'assets/eimdoard/equipment/images/hm_1074.png',//实验图片
       speed:[],
       speed_name:[''],
-      router:'pages/equipment/avl/AVL转毂+久鼎环境舱+排放分析'
+      router:'pages/equipment/avl/AVL转毂+久鼎环境舱+排放分析',
+      run:false,
     },
     {
       name:'AVL环模四驱',
@@ -56,7 +60,8 @@ export class EnvironmentLaboratoryComponent implements OnInit {
       src:'assets/eimdoard/equipment/images/sqdp.png',//实验图片
       speed:[],
       speed_name:[''],
-      router:'pages/equipment/central-jinhua/中置式四驱底盘测功机+锦华高低温环境舱'
+      router:'pages/equipment/central-jinhua/中置式四驱底盘测功机+锦华高低温环境舱',
+      run:false,
     },
     {
       name:'AVL排放2驱',
@@ -65,7 +70,8 @@ export class EnvironmentLaboratoryComponent implements OnInit {
       src:'assets/eimdoard/equipment/images/liangqu.jpg',//实验图片
       speed:[],
       speed_name:[''],
-      router:'pages/equipment/avl-etec/两驱AVL转毂+ATEC环境舱+排放分析/two'
+      router:'pages/equipment/avl-etec/两驱AVL转毂+ATEC环境舱+排放分析/two',
+      run:false,
     },
     {
       name:'AVL排放4驱',
@@ -74,7 +80,8 @@ export class EnvironmentLaboratoryComponent implements OnInit {
       src:'assets/eimdoard/equipment/images/siqu.jpg',//实验图片
       speed:[],
       speed_name:[''],
-      router:'pages/equipment/avl-etec2/四驱AVL转毂+ATEC环境舱+排放分析/four'
+      router:'pages/equipment/avl-etec2/四驱AVL转毂+ATEC环境舱+排放分析/four',
+      run:false,
     },
     {
       name:'常温浸车舱',
@@ -91,7 +98,8 @@ export class EnvironmentLaboratoryComponent implements OnInit {
       speed:[],
       speed_name:[''],
       type:'multiple',
-      router:'pages/equipment/monitoring/环境舱集中监控'
+      router:'pages/equipment/monitoring/环境舱集中监控',
+      run:false,
     },
     {},{},{},{}
   ]
@@ -148,6 +156,17 @@ export class EnvironmentLaboratoryComponent implements OnInit {
           this.param[key].speed_name = f[key].map(m=> (m.experiment));
         }
       });
+
+      this.thrid.get_equipment_status( Object.keys(this.param)).subscribe((res:any)=>{
+        console.log(res)
+        for(let key in res){
+          if(['device_jinhua_cabin02','device_atec_03'].includes(key)){
+            this.list[7].run = res['device_jinhua_cabin02'] || res['device_atec_03']? true:false;
+          }else{
+            this.param[key].run = res[key];
+          }
+        }
+      })
 
       now = new Date();
       if(now.getDate() == 1){

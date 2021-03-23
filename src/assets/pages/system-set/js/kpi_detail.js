@@ -995,21 +995,21 @@ let kpi_detail = {
     // @ts-ignore
     var mychart = echarts.init(document.getElementById(element));
     // @ts-ignore
-    var labelOption = {
-      show: true,
-      rotate: 90,
-      align: "left",
-      verticalAlign: "middle",
-      position: "top",
-      formatter: "{c}  {name|{a}}",
-      fontSize: 14,
-      rich: {
-        name: {
-          // textBorderColor: '#fff'
-          color: "black",
-        },
-      },
-    };
+    // var labelOption = {
+    //   show: true,
+    //   rotate: 90,
+    //   align: "left",
+    //   verticalAlign: "middle",
+    //   position: "top",
+    //   formatter: "{c}  {name|{a}}",
+    //   fontSize: 14,
+    //   rich: {
+    //     name: {
+    //       // textBorderColor: '#fff'
+    //       color: "black",
+    //     },
+    //   },
+    // };
     var option = {
       color: afterdata.colors,
       tooltip: {

@@ -81,7 +81,8 @@ export class EquipmentCtsBsrComponent implements OnInit {
         color:[colors[3], colors[3]]
       },
     ],
-    xdata:[]
+    xdata_left:[],
+    xdata_right:[],
   };
 
   //实验实时数据
@@ -160,6 +161,7 @@ export class EquipmentCtsBsrComponent implements OnInit {
     this.timer = setInterval(()=>{
       if(o%60 == 0){
         this.get_cts();
+        this.get_bsr_station_list_data();
       }
       this.get_bsr_station();
       this.get_bsr_station_real_data();
@@ -230,9 +232,8 @@ export class EquipmentCtsBsrComponent implements OnInit {
   }
 
   get_bsr_station_real_data(){
-    let res,data:any= {},dom,time = '00:00:00';
-    let left = 0;
-    let right = 0;
+    let res,data:any= {};
+    
     this.subscribeList._4400 = this.http.callRPC('get_device_mts_realtimedata',library+'get_device_mts_realtimedata',
     {"device":this.device_bsr,arr:bsr_chart.join(',')}).subscribe((g:any)=>{
       if(g.result.error || g.result.message[0].code == 0)return;
@@ -243,11 +244,10 @@ export class EquipmentCtsBsrComponent implements OnInit {
             data[key] = el[key][0][0];
           }
         });
-        time = dateformat(rTime(Object.values(g.result.message[0].message[0])[0][0][1]),'hh:mm:ss');
+       
       }
       let o = 0;
       this.bsr_temp.data.forEach(el => {
-        el.value.push(data[bsr_chart[o]]||0);
         this.create_gagao(`bsr_chart_g_${o+1}`,{
           value:(data[bsr_chart[o]]||0),name:el.name,max:100,color:[
             [0, '#203add'],
@@ -255,17 +255,8 @@ export class EquipmentCtsBsrComponent implements OnInit {
         });
         o++;
       });
-      setTimeout(() => {
-        this.bsr_temp.xdata.push(time);
-        this.chart_long_clear(this.bsr_temp);
-        dom = document.getElementById('bsr_chart_1');
-        if(dom){
-          equipment_four_road.create_real_discharge({attrs:this.bsr_temp.data,xData:this.bsr_temp.xdata,title:'左前/左后/右前/右后温度'},echarts.init(dom));
-        }
-        
-      }, 20);
+      
       this.bsr_displacement.data.forEach((el,c) => {
-        el.value.push(data[bsr_chart[o]]||0);
         this.create_gagao(`bsr_chart_g_${o+1}`,{
           value:(data[bsr_chart[o]]||0),name:el.name,max:100,color:[
             [0, '#203add'],
@@ -274,25 +265,85 @@ export class EquipmentCtsBsrComponent implements OnInit {
         o++;
       });
 
-      this.bsr_displacement.xdata.push(time);
-      this.chart_long_clear(this.bsr_displacement);
-      setTimeout(() => {
-        dom = document.getElementById('bsr_chart_3');
-        left = data[bsr_chart[6]]||0;
-        right = data[bsr_chart[7]]||0;
-        if(dom){
-          equipment_four_road.create_real_discharge({
-            attrs:this.bsr_displacement.data.filter((m,i) => i>1),xData:this.bsr_temp.xdata,title:`左前位移：${left}mm  左后位移:${right}mm`
-          },echarts.init(dom));
-        }
+    });
+  }
+  get_bsr_station_list_data(){
+    let dom,res;
+    let left = 0;
+    let right = 0;
+    let arr = this.bsr_displacement;
+    this.subscribeList.get_line_coolingWater = this.http.callRPC('device_realtime_list',library+'device_realtime_list',
+    {
+      deviceid:this.device_bsr,
+      arr:bsr_chart.join(',')
+    }).subscribe((f:any)=>{
+      if(f.result.error || f.result.message[0].code == 0)return;
+      console.log(f.result.message[0].message);
+      res = f.result.message[0].message;
+    //   time = dateformat(rTime(Object.values(g.result.message[0].message[0])[0][0][1]),'hh:mm:ss');
+    //   this.bsr_temp.xdata.push(time);
+      
 
-      }, 20);
+  //     'leftfronttemperaturea',//左前温度
+  // 'leftreartemperaturea',//左后温度
+  // 'rightfronttemperaturea',//右前温度
+  // 'rightreartemperaturea',//右后温度
 
+  // 'rightfrontdisplacement',//右前位移
+  // 'rightreardisplacement',//右后位移
+  // 'leftfrontdisplacement',//左前位移
+  // 'leftreardisplacement',//左后位移
+    setTimeout(() => {
+      
+      this.bsr_temp.data[0].value = res[0].leftfronttemperaturea.map(m => (m[0]));
+      this.bsr_temp.data[1].value = res[1].leftreartemperaturea.map(m => (m[0]));
+      this.bsr_temp.data[2].value = res[2].rightfronttemperaturea.map(m => (m[0]));
+      this.bsr_temp.data[3].value = res[3].rightreartemperaturea.map(m => (m[0]));
+      dom = document.getElementById('bsr_chart_1');
+      let i= 0,c = 'leftfronttemperaturea';
+      if(res[0].leftfronttemperaturea.length < res[1].leftreartemperaturea.length){
+        i= 1,c = 'leftreartemperaturea';
+      }else if(res[1].leftreartemperaturea.length < res[2].rightfronttemperaturea.length){
+        i= 2,c = 'rightfronttemperaturea';
+      }else {
+        i= 3,c = 'rightreartemperaturea';
+      }
+      this.bsr_temp.xdata = res[i][c].map(m => (dateformat(new Date(rTime(m[1])),'hh:mm:ss')));
+
+      if(dom){
+        equipment_four_road.create_real_discharge({attrs:this.bsr_temp.data,xData:this.bsr_temp.xdata,title:'左前/左后/右前/右后温度'},echarts.init(dom));
+      }
+    }, 10);
+    setTimeout(() => {
+
+      arr.data[0].value = res[4].rightfrontdisplacement.map(m => (m[0]));
+      arr.data[1].value = res[5].rightreardisplacement.map(m => (m[0]));
+      let i= 4,c = 'rightfrontdisplacement';
+      if(res[4].rightfrontdisplacement.length < res[5].rightreardisplacement.length){
+        i= 5,c = 'rightreardisplacement';
+      }
+      arr.xdata_right = res[i][c].map(m => (dateformat(new Date(rTime(m[1])),'hh:mm:ss')));
       dom = document.getElementById('bsr_chart_2');
       if(dom){
-        equipment_four_road.create_real_discharge({attrs:this.bsr_displacement.data.filter((m,i) => i<2),xData:this.bsr_displacement.xdata,title:'右前/右后位移'},echarts.init(dom));
+        equipment_four_road.create_real_discharge({attrs:arr.data.filter((m,i) => i>1),xData:arr.xdata_right,title:'右前/右后位移'},echarts.init(dom));
       }
-
+    }, 10);
+    
+      dom = document.getElementById('bsr_chart_3');
+      arr.data[2].value = res[6].leftfrontdisplacement.map(m => (m[0]));
+      arr.data[3].value = res[7].leftreardisplacement.map(m => (m[0]));
+      left = arr.data[2].value.length > 0? arr.data[2].value[arr.data[2].value.length -1]:0;
+      right = arr.data[3].value.length> 0?arr.data[2].value[arr.data[3].value.length -1] :0;
+      let i= 6,c = 'leftfrontdisplacement';
+      if(res[6].leftfrontdisplacement.length < res[7].leftreardisplacement.length){
+        i= 7,c = 'leftreardisplacement';
+      }
+      arr.xdata_left = res[i][c].map(m => (dateformat(new Date(rTime(m[1])),'hh:mm:ss')));
+      if(dom){
+        equipment_four_road.create_real_discharge({
+          attrs:arr.data.filter((m,i) => i>1),xData:arr.xdata_left,title:`左前位移：${left}mm  左后位移:${right}mm`
+        },echarts.init(dom));
+      }
     });
   }
 

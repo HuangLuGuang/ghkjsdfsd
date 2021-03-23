@@ -789,7 +789,7 @@ let equipment_four_road = {
         if (data.value) {
             color_dsada.unshift([data.value / data.max, '#99FF66'], );
         }
-        let option_m_t_fhahsah = option = {
+        let option_m_t_fhahsah = {
             grid: {
                 top: '15%',
                 // containLabel: true,

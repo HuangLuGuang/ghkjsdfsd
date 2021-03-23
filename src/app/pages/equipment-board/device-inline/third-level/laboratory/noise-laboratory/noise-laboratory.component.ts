@@ -20,6 +20,7 @@ export class NoiseLaboratoryComponent implements OnInit {
       src:'assets/eimdoard/equipment/images/ccts-bsr.jpg',//实验图片地址
       speed_name:[''],//实验编号
       router:'pages/equipment/ccts-bsr/整车异响',
+      run:false,
     },
     {
       name:'MAHA转毂',
@@ -29,6 +30,7 @@ export class NoiseLaboratoryComponent implements OnInit {
       src:'assets/eimdoard/equipment/images/maha.jpg',//实验图片地址
       speed_name:[''],//实验编号
       router:'pages/equipment/maha/MAHA-75英寸四驱四电机低噪音底盘测功机',
+      run:false,
     },
     {
       
@@ -83,6 +85,14 @@ export class NoiseLaboratoryComponent implements OnInit {
         this.thrid.get_andon_status_year(param,this.left);
         this.thrid.get_andon_status_last_year(param,this.left);
       }
+
+      this.thrid.get_equipment_status( Object.keys(this.param)).subscribe((res:any)=>{
+        console.log(res)
+        for(let key in res){
+          this.param[key].run = res[key]
+        }
+      })
+
       this.thrid.get_device_taskinfo_list(param,this.right).subscribe((f:any)=>{
         // f.forEach(el => {
         //   this.param[el.deviceid].speed[0] = el.rate;

@@ -267,8 +267,11 @@ let rtm3a = {
             grid: {
                 top: 20,
                 bottom: 40,
+                left:20,
                 // left: 100,
                 width: '90%',
+                height:'60%',
+                containLabel:true,
             },
             series: [{
                     name: '温度',

@@ -126,11 +126,11 @@
                         <div *ngFor="let item of laboratory;let i = index" 
                         [ngStyle]="{background: item.errornum > 0 ?'#F04E39':'',
                         'border-right':i%3 == 2 || laboratory.length-1 == i?'2px solid #316093':''}">
-                            {{ item.name||'' }}
+                            {{ item.title||'' }}
                         </div>
                     </div>
                     <div class="geely-info-right">
-                        <div class="geely-info-right-top">切换监控</div>
+                        <div class="geely-info-right-top"></div>
                         <div></div>
                         <div>
                             <div class="geely-info-right-bottom" [ngStyle]="{background: !laboratory_now_error?'#F04E39':''}">无报警</div>
