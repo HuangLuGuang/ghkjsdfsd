@@ -138,8 +138,8 @@ export class CentralizedMonitoringComponent implements OnInit {
 
     // 视频轮播
     // this.inline.status = false;
-    this.inline.change_status(false);
     setTimeout(() => {
+      this.inline.change_status(false);
       this.create_img_16_9();
       this.inline.change_status(true);
       // this.inline.status = true;
