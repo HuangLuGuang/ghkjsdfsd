@@ -138,7 +138,12 @@ export class MySelectTreeSingleComponent implements OnInit {
   }
   // 删除选择的
   delselect() {
-    $("[name='single_tree_title']").val("");
+    var department_list = [
+      { id: 1, label: "验证中心" },
+      { id: 2, label: "工程中心" },
+    ];
+    $("[name='single_tree_title']").val(department_list[0]["label"]);
+    // $("[name='single_tree_title']").val("");
   }
   // 清空下拉数据
   dropselect() {

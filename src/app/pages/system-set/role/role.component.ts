@@ -421,7 +421,7 @@ export class RoleComponent implements OnInit {
   // 刷新
   refresh_table() {
     // 重置 myinput
-    this.myinput.reset_myinput();
+    this.myinput?.reset_myinput();
     this.refresh = true;
     this.loading = true;
     this.gridData = [];

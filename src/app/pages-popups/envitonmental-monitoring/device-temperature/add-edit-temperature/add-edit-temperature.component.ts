@@ -128,9 +128,11 @@ export class AddEditTemperatureComponent implements OnInit {
         // 修改选择项
         setTimeout(() => {
           form.val("device", formdatar);
+          form.render("select");
           $('select[name="groups"]').val(formdatar["groupsid"]);
           form.render("select");
         }, 200);
+
         form.render("select");
       } else {
         // false: 表示add

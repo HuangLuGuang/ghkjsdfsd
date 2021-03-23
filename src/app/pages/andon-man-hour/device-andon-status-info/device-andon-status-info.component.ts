@@ -335,7 +335,7 @@ export class DeviceAndonStatusInfoComponent implements OnInit {
     // 是否 每页多少也，设置为默认值
     this.tableDatas.isno_refresh_page_size = true;
 
-    this.groups_devieces.delselect();
+    this.groups_devieces?.delselect();
     setTimeout(() => {
       // this.inttable();
       this.update_agGrid();

@@ -231,7 +231,7 @@ export class DeviceKpiTongjiComponent implements OnInit {
 
   refresh_table() {
     // 取消选择的数据 delselect
-    this.myinput.del_input_value();
+    this.myinput?.del_input_value();
 
     this.refresh = true;
     this.loading = true;

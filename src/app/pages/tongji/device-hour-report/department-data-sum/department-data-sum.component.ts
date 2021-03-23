@@ -187,7 +187,9 @@ export class DepartmentDataSumComponent implements OnInit {
 
   ngAfterViewInit() {
     // 初始化aggrid
-    this.inttable();
+    setTimeout(() => {
+      this.inttable();
+    }, 200);
   }
 
   // 得到下拉框的数据
@@ -265,6 +267,8 @@ export class DepartmentDataSumComponent implements OnInit {
 
   // 搜索
   query(inpuvalue?) {
+    this.loading = true;
+    this.tableDatas.isno_refresh_page_size = true;
     this.gridData = [];
     this.inttable();
   }
@@ -281,9 +285,10 @@ export class DepartmentDataSumComponent implements OnInit {
     // 是否 每页多少也，设置为默认值
     this.tableDatas.isno_refresh_page_size = true;
     // 取消选择的数据 delselect
-    this.myYear.reset_year();
-    this.myMonth.reset_month();
-    this.department.dropselect();
+    this.myYear?.reset_year();
+    this.myMonth?.reset_month();
+
+    this.department?.dropselect();
     this.inttable();
   }
 
@@ -330,8 +335,8 @@ export class DepartmentDataSumComponent implements OnInit {
     return {
       limit: this.agGrid.get_pagesize(),
       employeeid: this.userinfo.getEmployeeID(),
-      month: this.myMonth.getselect(),
-      year: this.myYear.getselect(),
+      month: this.myMonth?.getselect(),
+      year: this.myYear?.getselect(),
       start: get_start_end.start,
       end: get_start_end.end,
       department: department_[0] ? department_[0] : "验证中心",
@@ -364,6 +369,7 @@ export class DepartmentDataSumComponent implements OnInit {
     };
     var table = this.TABLE;
     var methond = this.METHOD;
+    this.loading = true;
     this.http.callRPC(table, methond, colmun).subscribe((res) => {
       // console.log("-----------man-kpi-table---", res)
       var get_employee_limit = res["result"]["message"][0];

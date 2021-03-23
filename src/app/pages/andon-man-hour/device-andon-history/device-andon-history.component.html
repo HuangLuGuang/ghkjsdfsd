@@ -43,15 +43,15 @@
                 <!-- 重置table -->
                 <div class="" style="text-align: right;">
                     <!-- loader-outline -->
-                    <button nbButton  size="small" (click)="refresh_table()">
+                    <button nbButton  size="small" (click)="refresh_table()" style="margin-bottom: 10px;">
                         <nb-icon icon="sync-outline"></nb-icon>
                     </button>
                 </div>
             </div>
         </div>
 
-        <!-- table -->
-        <div class="row" [nbSpinner]="loading" nbSpinnerStatus="basic" style="margin-top: 10px;">
+        <!-- table style="margin-top: 10px;" -->
+        <div class="row" [nbSpinner]="loading" nbSpinnerStatus="basic" >
             <div class="col-md-12">
                 <ngx-ag-table #ag_Grid   (nzpageindexchange)="nzpageindexchange($event)"></ngx-ag-table>
             </div>

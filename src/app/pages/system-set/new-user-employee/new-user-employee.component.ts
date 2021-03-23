@@ -521,7 +521,7 @@ export class NewUserEmployeeComponent implements OnInit {
 
   refresh_table() {
     // 重置 myinput
-    this.myinput.reset_myinput();
+    this.myinput?.reset_myinput();
     this.refresh = true;
 
     this.gridData = [];

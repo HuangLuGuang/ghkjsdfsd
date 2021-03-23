@@ -261,6 +261,8 @@ export class GroupDataSumComponent implements OnInit {
 
   // 搜索
   query(inpuvalue?) {
+    this.loading = true;
+    this.tableDatas.isno_refresh_page_size = true;
     this.gridData = [];
     this.inttable();
   }
@@ -278,9 +280,9 @@ export class GroupDataSumComponent implements OnInit {
     // 是否 每页多少也，设置为默认值
     this.tableDatas.isno_refresh_page_size = true;
     // 取消选择的数据 delselect
-    this.myYear.reset_year();
-    this.myMonth.reset_month();
-    this.groups_func.dropselect();
+    this.myYear?.reset_year();
+    this.myMonth?.reset_month();
+    this.groups_func?.dropselect();
     this.inttable();
   }
 

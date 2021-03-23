@@ -169,7 +169,9 @@ let mapjs = {
 
   //  清除自定义控件
   clearOverlay() {
-    map.clearOverlays();
+    if (map) {
+      map.clearOverlays();
+    }
   },
 
   // 创建图标，设备信息,点击左侧button生成  setweilan

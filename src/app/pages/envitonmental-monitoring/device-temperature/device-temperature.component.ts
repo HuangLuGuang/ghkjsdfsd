@@ -115,7 +115,7 @@ export class DeviceTemperatureComponent implements OnInit {
     // 得到pathname --在得到button
     var roleid = this.userinfo.getEmployeeRoleID();
     this.publicservice.get_buttons_bypath(roleid).subscribe((result) => {
-      console.log("result>>>>>>", result);
+      // console.log("result>>>>>>", result);
       this.button = result;
       localStorage.setItem("buttons_list", JSON.stringify(result));
     });
@@ -156,7 +156,7 @@ export class DeviceTemperatureComponent implements OnInit {
       { id: 23, label: "23:00" },
       { id: 24, label: "24:00" },
     ];
-    this.mytimepoint.init_select_tree(timepoints);
+    // this.mytimepoint?.init_select_tree(timepoints);
   }
 
   // 销毁组件时，删除 kpi_for_detail
@@ -204,6 +204,8 @@ export class DeviceTemperatureComponent implements OnInit {
 
   // 搜索按钮
   query() {
+    this.loading = true;
+    this.tableDatas.isno_refresh_page_size = true;
     var inittable_before = this.inittable_before();
     var offset = 0;
     var limit = inittable_before.limit;
@@ -218,6 +220,7 @@ export class DeviceTemperatureComponent implements OnInit {
       time: inittable_before.time,
       employeeid: this.employeeid,
     };
+
     this.http.callRPC(this.TABLE, this.METHOD, columns).subscribe((result) => {
       var tabledata = result["result"]["message"][0];
       if (tabledata["code"] === 1) {
@@ -250,9 +253,9 @@ export class DeviceTemperatureComponent implements OnInit {
 
   refresh_table() {
     // 取消选择的数据 delselect
-    this.mydaterange.reset_mydate(); // 时间范围
-    this.mytimepoint.dropselect(); // 时间点
-    this.linkage.reset_select(); // 联动选择，科室(group)-房间号(room)
+    this.mydaterange?.reset_mydate(); // 时间范围
+    this.mytimepoint?.dropselect(); // 时间点
+    this.linkage?.reset_select(); // 联动选择，科室(group)-房间号(room)
 
     this.refresh = true;
     this.loading = true;
@@ -280,14 +283,25 @@ export class DeviceTemperatureComponent implements OnInit {
     //     : this.mydateselect?.getselect();
 
     // 日期范围选择 ["2021-03-01", "2021-03-10"]
+    // 得到默认的日期
+    var get_curr_mounth_one = this.publicservice.get_curr_mounth_one();
+
     var daterange =
       this.mydaterange?.getselect() == undefined
-        ? ["", ""]
+        ? [get_curr_mounth_one[0], get_curr_mounth_one[1]]
         : this.mydaterange?.getselect(); // 日期范围选择
-    var mytimepoint = this.mytimepoint?.getselect(); // 时间点
+    var mytimepoint =
+      this.mytimepoint?.getselect() == undefined
+        ? []
+        : this.mytimepoint?.getselect(); // 时间点
 
-    var linkage = this.linkage?.getselect(); // 联动-科室-房间号
+    var linkage =
+      this.linkage?.getselect() === undefined
+        ? { groups: "", room: "" }
+        : this.linkage?.getselect(); // 联动-科室-房间号
     // console.error("联动-科室-房间号>>>>", linkage);
+    // console.error("日期范围选择>>>>", daterange);
+    // console.error("mytimepoint>>>>", mytimepoint);
     return {
       limit: this.agGrid.get_pagesize(),
       employeeid: this.userinfo.getEmployeeID(),

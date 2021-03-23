@@ -342,8 +342,8 @@ export class DeviceRunComponent implements OnInit {
   }
 
   refresh_table() {
-    this.timeinterval.reset();
-    this.timeoneday.reset_mydate();
+    this.timeinterval?.reset();
+    this.timeoneday?.reset_mydate();
     // this.linkageselect.reset_select();
     this.refresh = true;
     this.loading = true;

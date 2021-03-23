@@ -197,9 +197,9 @@ export class RealTimeAlertComponent implements OnInit {
     this.tableDatas.isno_refresh_page_size = true;
 
     // 取消选择的数据 delselect
-    this.myinput.del_input_value();
-    this.groups_func.dropselect();
-    this.eimdevicetpye.dropselect();
+    this.myinput?.del_input_value();
+    this.groups_func?.dropselect();
+    this.eimdevicetpye?.dropselect();
 
     this.inttable();
     this.loading = false;

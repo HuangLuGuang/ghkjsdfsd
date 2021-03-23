@@ -6,7 +6,9 @@
         <div class="row">
             <div class="col-lg-9" style="display: flex;">
                 <!-- 科室-房间号 -->
-                <ngx-my-linkage-select #linkage></ngx-my-linkage-select>
+                <div class="example-items-rows button_item"  *ngIf="button?.query">
+                    <ngx-my-linkage-select #linkage></ngx-my-linkage-select>
+                </div>
                 <!-- 安装位置 -->
                 <!-- <ngx-location-input #myinput (inpuvalue)="inpuvalue($event)" [placeholder]="myinput_placeholder"></ngx-location-input> -->
 
@@ -14,10 +16,14 @@
                 <!-- <ngx-my-date-select  #mydateselect (my_date_select)="my_date_select($event)"></ngx-my-date-select> -->
 
                 <!-- 时间范围 -->
-                <ngx-my-date-range #mydaterange></ngx-my-date-range>
+                <div class="example-items-rows button_item"  *ngIf="button?.query">
+                    <ngx-my-date-range #mydaterange ></ngx-my-date-range>
+                </div>
 
                 <!-- 时间点 -->
-                <ngx-my-time-point #mytimepoint [placeholder]="placeholder_title"></ngx-my-time-point>
+                <div class="example-items-rows button_item"  *ngIf="button?.query">
+                    <ngx-my-time-point #mytimepoint [placeholder]="placeholder_title"></ngx-my-time-point>
+                </div>
 
                 <!-- 搜索 -->
                 <div class="example-items-rows button_item query" *ngIf="button?.query">
@@ -42,7 +48,7 @@
                 
                 <div class="" style="text-align: right;">
                     <!-- loader-outline -->
-                    <button nbButton [nbSpinner]="refresh" nbSpinnerStatus="success" size="small" (click)="refresh_table()">
+                    <button nbButton [nbSpinner]="refresh" nbSpinnerStatus="success" size="small" (click)="refresh_table()" style="margin-bottom: 10px;">
                         <nb-icon icon="sync-outline"></nb-icon>
                     </button>
                 </div>
@@ -50,7 +56,7 @@
             </div>
         </div>
 
-        <div class="row">
+        <div class="row" [nbSpinner]="loading" nbSpinnerStatus="basic">
             <div class="col-md-12">
                 <ngx-ag-table #ag_Grid   (nzpageindexchange)="nzpageindexchange($event)"></ngx-ag-table>
             </div>

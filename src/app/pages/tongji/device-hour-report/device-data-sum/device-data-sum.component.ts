@@ -293,6 +293,8 @@ export class DeviceDataSumComponent implements OnInit {
 
   // 搜索
   query(inpuvalue?) {
+    this.loading = true;
+    this.tableDatas.isno_refresh_page_size = true;
     this.gridData = [];
     this.inttable();
   }
@@ -434,11 +436,11 @@ export class DeviceDataSumComponent implements OnInit {
     this.tableDatas.isno_refresh_page_size = true;
 
     // 取消选择的数据 delselect
-    this.myYear.reset_year();
-    this.myMonth.reset_month();
-    this.myinput.del_input_value();
-    this.groups_func.dropselect();
-    this.eimdevicetpye.dropselect();
+    this.myYear?.reset_year();
+    this.myMonth?.reset_month();
+    this.myinput?.del_input_value();
+    this.groups_func?.dropselect();
+    this.eimdevicetpye?.dropselect();
     this.inttable();
   }
 

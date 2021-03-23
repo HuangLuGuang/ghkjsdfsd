@@ -460,11 +460,11 @@ export class HourConfigComponent implements OnInit {
     this.tableDatas.isno_refresh_page_size = true;
 
     // 取消选择
-    this.myinput.del_input_value();
-    this.myYear.reset_year();
-    this.myMonth.reset_month();
-    this.groups_func.dropselect();
-    this.eimdevicetpye.dropselect();
+    this.myinput?.del_input_value();
+    this.myYear?.reset_year();
+    this.myMonth?.reset_month();
+    this.groups_func?.dropselect();
+    this.eimdevicetpye?.dropselect();
 
     this.inttable();
   }

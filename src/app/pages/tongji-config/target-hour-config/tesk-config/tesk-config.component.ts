@@ -441,11 +441,11 @@ export class TeskConfigComponent implements OnInit {
   refresh_table() {
     // 是否 每页多少也，设置为默认值
     // 取消选择的数据 delselect
-    this.myinput2.del_input_value(); // 任务子单号
-    this.group.dropselect();
+    this.myinput2?.del_input_value(); // 任务子单号
+    this.group?.dropselect();
 
-    this.myYear.reset_year();
-    this.myMonth.reset_month();
+    this.myYear?.reset_year();
+    this.myMonth?.reset_month();
 
     // this.inttable();
     this.tableDatas.isno_refresh_page_size = true;

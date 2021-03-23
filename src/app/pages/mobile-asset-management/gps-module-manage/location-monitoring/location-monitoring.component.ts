@@ -626,8 +626,8 @@ export class LocationMonitoringComponent implements OnInit {
         item["lng_lat"] = item["latlon"].split(",");
       });
       // 清除map地图上的所有的覆盖物
-      this.map.clearOverlay();
-      this.map.init_show_all(message_list);
+      this.map?.clearOverlay();
+      this.map?.init_show_all(message_list);
     }
   }
 
@@ -688,10 +688,10 @@ export class LocationMonitoringComponent implements OnInit {
     }, 500);
 
     // 取消选择的数据 delselect
-    this.myinput.del_input_value(); // input
+    this.myinput?.del_input_value(); // input
     // this.mydateselect.reset_month(); // 时间段
-    this.data_range.reset_mydate(); // 时间范围
-    this.myselect.reset_month(); // 下拉 关注
+    this.data_range?.reset_mydate(); // 时间范围
+    this.myselect?.reset_month(); // 下拉 关注
 
     this.refresh = true;
     this.loading = true;
