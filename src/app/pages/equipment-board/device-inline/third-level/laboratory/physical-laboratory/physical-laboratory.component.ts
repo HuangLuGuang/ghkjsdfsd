@@ -19,6 +19,7 @@ export class PhysicalLaboratoryComponent implements OnInit {
       src:'assets/eimdoard/equipment/images/vehicle.jpg',//实验图片地址
       speed_name:[''],//实验编号
       router:'/pages/equipment/vehicle/整车voc环境仓',
+      run:false,
     },
     {
       name:'氙灯集中监控',
@@ -28,6 +29,7 @@ export class PhysicalLaboratoryComponent implements OnInit {
       src:'',//实验图片地址
       speed_name:[''],//实验编号
       router:'/pages/equipment/xenon/氙灯老化设备集中监控',
+      run:false,
     },
     {
       name:'纯水系统',
@@ -37,6 +39,7 @@ export class PhysicalLaboratoryComponent implements OnInit {
       src:'',//实验图片地址
       speed_name:[''],//实验编号
       router:'/pages/equipment/pure/纯水系统',
+      run:false,
     },
     {
       name:'昇微、4m3',
@@ -46,6 +49,7 @@ export class PhysicalLaboratoryComponent implements OnInit {
       src:'',//实验图片地址
       speed_name:[''],//实验编号
       router:'/pages/equipment/shengwei/昇微、4m3环境仓集中监控',
+      run:false,
     },
     {
       name:'ATEC舱',
@@ -55,6 +59,7 @@ export class PhysicalLaboratoryComponent implements OnInit {
       src:'',//实验图片地址
       speed_name:[''],//实验编号
       router:'/pages/equipment/atec/ATEC舱',
+      run:false,
     },
     {
     },
@@ -109,6 +114,19 @@ export class PhysicalLaboratoryComponent implements OnInit {
         this.thrid.get_andon_status_year(param,this.left);
         this.thrid.get_andon_status_last_year(param,this.left);
       }
+
+      this.thrid.get_equipment_status( Object.keys(this.param)).subscribe((res:any)=>{
+        console.log(res)
+        for(let key in res){
+          if(['device_atlas_4000','device_atlas_4400'].includes(key)){
+            this.list[1].run = res['device_atlas_4000'] || res['device_atlas_4400']? true:false;
+          }else if(['device_cabin_voc01','device_4m3_01'].includes(key)){
+            this.list[3].run = res['device_atlas_4000'] || res['device_atlas_4400']? true:false;
+          }else{
+            this.param[key].run = res[key]
+          }
+        }
+      })
       o++;
     },1000)
     this.thrid.get_andon_status_year(param,this.left);

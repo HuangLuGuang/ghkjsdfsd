@@ -144,7 +144,7 @@ xData:[]
 
   click_list = [];//当前选中的tag
   deviceid='device_mts_04';//设备编号
-
+  deviceid_temp = 'sensor_temp_humi_22';
 
   timer:any;//定时器
   language = '';//语言 空为zh-CN中文

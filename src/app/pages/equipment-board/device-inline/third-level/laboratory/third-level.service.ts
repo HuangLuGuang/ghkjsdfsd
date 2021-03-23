@@ -171,10 +171,15 @@ export class ThirdLevelService {
    * @param deviceList 
    */
   get_equipment_status(deviceList:string[]){
+    
     return new Observable(s =>{
-      this.http.callRPC('get_task_numbers','public.get_device_status',{"deviceid":deviceList.join(',')}).subscribe((f:any)=>{
+      this.http.callRPC('get_task_numbers','public.get_device_status',{"deviceid":deviceList}).subscribe((f:any)=>{
         if(f.result.error || f.result.message[0].code == 0)return;
-        s.next(f.result.message);
+        let json:any = {},res = f.result.message[0].message;
+        for(let i = 0;i<res.length;i+=2){
+          json[res[i]] = res[i+1].length > 0 && res[i+1][0].status?true:false;
+        }
+        s.next(json);
       });
     });
   }

@@ -170,23 +170,28 @@ export class SecondLevelComponent implements OnInit {
   laboratory = [
     {
       errornum:0,//异常的数量
-      name:'结构实验室'
+      title:'结构实验室',
+      class:'structural',
     },
     {
       errornum:0,
-      name:'环模实验室'
+      title:'环模实验室',
+      class:'environment',
     },
     {
       errornum:0,
-      name:'电机实验室'
+      title:'电机实验室',
+      class:'energy',
     },
     {
       errornum:1,
-      name:'理化环保实验室'
+      title:'理化环保实验室',
+      class:'physical',
     },
     {
       errornum:0,
-      name:'NVH实验室'
+      title:'NVH实验室',
+      class:'noise',
     },
     
   ]
@@ -260,12 +265,15 @@ export class SecondLevelComponent implements OnInit {
       items = this.items.find(f=>f.link=='/pages/equipment/second-level').children;
     }
     this.items = items;
-    this.noAuthority(this.items);
+    this.noAuthority(this.items,'authorityList');
+    this.noAuthority(this.items,'laboratory');
     //获取影藏的菜单
     let menu = this.localstorage.get('hidden_menu');
     if(menu){
       menu = menu.filter(f => f.link.includes('third-level'));
-      this.noAuthority(menu ? menu:null,'hidden_menu');
+      this.noAuthority(menu ? menu:null,'authorityList','hidden_menu');
+      this.noAuthority(menu ? menu:null,'laboratory','hidden_menu');
+
     }
     console.log(this.authorityList)
     // this.listen_windows_resize();
@@ -557,18 +565,18 @@ export class SecondLevelComponent implements OnInit {
    * @param menu 
    * @param local 当值为'hidden_menu'为没有权限
    */
-  noAuthority(menu:any,local?:string){
+  noAuthority(menu:any,listName:string,local?:string){
     if(menu){
       menu.forEach(el => {
         let arr = el.link.split('/');
         if(arr.length>0){
           
-          let i = this.authorityList.findIndex(f => f.class == arr[arr.length-1])
+          let i = this[listName].findIndex(f => f.class == arr[arr.length-1])
           if(i != -1){
             //local == hidden_menu 不显示
-            this.authorityList[i].show = !local || this.authorityList[i].show  ?true:false;
-            this.authorityList[i].title = el.title;
-            this.authorityList[i].link = el.link;
+            this[listName][i].show = !local || this[listName][i].show  ?true:false;
+            this[listName][i].title = el.title;
+            this[listName][i].link = el.link;
             
           }
           

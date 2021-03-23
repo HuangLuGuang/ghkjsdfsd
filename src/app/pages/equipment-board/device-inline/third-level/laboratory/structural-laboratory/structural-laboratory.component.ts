@@ -20,6 +20,7 @@ export class StructuralLaboratoryComponent implements OnInit {
       speed:[],//实验编号
       speed_name:[''],//实验名称
       router:'pages/equipment/coupling/整车多轴轴耦合道路模拟试验台-329',
+      run:false,
     },
     {
       name:'MTS 320',
@@ -27,7 +28,8 @@ export class StructuralLaboratoryComponent implements OnInit {
       andon:0,
       speed:[],
       speed_name:[''],//实验名称
-      router:'pages/equipment/road/四立柱道路模拟试验台-320.5'
+      router:'pages/equipment/road/四立柱道路模拟试验台-320.5',
+      run:false,
     },
     {
       name:'MTS Mast table',
@@ -35,7 +37,8 @@ export class StructuralLaboratoryComponent implements OnInit {
       andon:0,
       speed:[],
       speed_name:[''],//实验名称
-      router:'pages/equipment/shock/六自由度振动台-353.2'
+      router:'pages/equipment/shock/六自由度振动台-353.2',
+      run:false,
     },
     {
       name:'MTS Testline',
@@ -43,7 +46,8 @@ export class StructuralLaboratoryComponent implements OnInit {
       andon:0,
       speed:[],
       speed_name:[],//实验名称
-      router:'pages/equipment/hydraulic/液压伺服系统扩展系统-Testline'
+      router:'pages/equipment/hydraulic/液压伺服系统扩展系统-Testline',
+      run:false,
     },
     {
       name:'MTS HPU',
@@ -53,7 +57,8 @@ export class StructuralLaboratoryComponent implements OnInit {
       type:'oil',
       speed:[],
       speed_name:[''],//实验名称
-      router:'pages/equipment/oilsrouce/油源健康监控系统'
+      router:'pages/equipment/oilsrouce/油源健康监控系统',
+      run:false,
     },
     {
       name:'天窗开闭',
@@ -61,7 +66,8 @@ export class StructuralLaboratoryComponent implements OnInit {
       andon:0,
       speed:[],
       speed_name:[''],//实验名称
-      router:'pages/equipment/skylight/天窗开闭件试验台'
+      router:'pages/equipment/skylight/天窗开闭件试验台',
+      run:false,
     },
     {
       name:'玻璃升降系统',
@@ -69,7 +75,8 @@ export class StructuralLaboratoryComponent implements OnInit {
       andon:0,
       speed:[],
       speed_name:[''],//实验名称
-      router:'pages/equipment/glass-lift/玻璃升降试验台'
+      router:'pages/equipment/glass-lift/玻璃升降试验台',
+      run:false,
     },
     {
       name:'四门两盖01',
@@ -77,7 +84,8 @@ export class StructuralLaboratoryComponent implements OnInit {
       andon:0,
       speed:[],
       speed_name:[''],//实验名称
-      router:'pages/equipment/jinhua-4d2c-01/四门两盖气动设备1/one'
+      router:'pages/equipment/jinhua-4d2c-01/四门两盖气动设备1/one',
+      run:false,
     },
     {
       name:'四门两盖02',
@@ -85,7 +93,8 @@ export class StructuralLaboratoryComponent implements OnInit {
       andon:0,
       speed:[],
       speed_name:[''],//实验名称
-      router:'pages/equipment/jinhua-4d2c-01/四门两盖气动设备2/two'
+      router:'pages/equipment/jinhua-4d2c-01/四门两盖气动设备2/two',
+      run:false,
     },
     {
       name:'四门两盖03',
@@ -93,7 +102,8 @@ export class StructuralLaboratoryComponent implements OnInit {
       andon:0,
       speed:[],
       speed_name:[''],//实验名称
-      router:'pages/equipment/jinhua-4d2c-01/四门两盖气动设备3/three'
+      router:'pages/equipment/jinhua-4d2c-01/四门两盖气动设备3/three',
+      run:false,
     },
     {
       name:'四门两盖04',
@@ -101,7 +111,8 @@ export class StructuralLaboratoryComponent implements OnInit {
       andon:0,
       speed:[],
       speed_name:[''],//实验名称
-      router:'pages/equipment/jinhua-4d2c-01/四门两盖气动设备4/four'
+      router:'pages/equipment/jinhua-4d2c-01/四门两盖气动设备4/four',
+      run:false,
     },
     {
       name:'四门两盖05',
@@ -109,7 +120,8 @@ export class StructuralLaboratoryComponent implements OnInit {
       andon:0,
       speed:[],
       speed_name:[''],//实验名称
-      router:'pages/equipment/jinhua-4d2c-01/四门两盖气动设备5/five'
+      router:'pages/equipment/jinhua-4d2c-01/四门两盖气动设备5/five',
+      run:false,
     },
     {
 
@@ -174,6 +186,19 @@ export class StructuralLaboratoryComponent implements OnInit {
         this.thrid.get_andon_status_year(param,this.left);
         this.thrid.get_andon_status_last_year(param,this.left);
       }
+
+      let hpu = ['device_hpu_01','device_hpu_01','device_hpu_01','device_hpu_01','device_hpu_01'];
+      let p = param.concat(hpu);
+      this.thrid.get_equipment_status(p).subscribe((res:any)=>{
+        console.log(res)
+        for(let key in res){
+          if(hpu.includes(key)){
+            this.list[4].run = Object.keys(res).filter(f => !res[f]).length == 0?true:false;
+          }else{
+            this.param[key].run = res[key]
+          }
+        }
+      })
       o++;
     },1000)
     
