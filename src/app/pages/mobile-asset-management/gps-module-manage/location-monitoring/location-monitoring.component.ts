@@ -368,6 +368,7 @@ export class LocationMonitoringComponent implements OnInit {
 
   // 销毁组件时，删除 kpi_for_detail
   ngOnDestroy() {
+    $("#is_map_api").remove();
     localStorage.removeItem("buttons_list");
     localStorage.removeItem("device_hour_report_kpi_for_detail");
     // 清除 echart
@@ -699,7 +700,7 @@ export class LocationMonitoringComponent implements OnInit {
     // 是否 每页多少也，设置为默认值
     this.tableDatas.isno_refresh_page_size = true;
     this.inttable();
-    this.loading = false;
+    // this.loading = false;
     this.refresh = false;
   }
   // nzpageindexchange 页码改变的回调

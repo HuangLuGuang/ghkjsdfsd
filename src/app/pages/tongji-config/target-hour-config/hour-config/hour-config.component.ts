@@ -257,6 +257,7 @@ export class HourConfigComponent implements OnInit {
     };
     var table = this.TABLE;
     var method = this.METHOD;
+    this.loading = true;
     this.http.callRPC(table, method, columns).subscribe((result) => {
       var tabledata = result["result"]["message"][0];
       this.loading = false;

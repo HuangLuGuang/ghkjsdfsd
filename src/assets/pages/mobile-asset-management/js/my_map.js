@@ -690,6 +690,9 @@ let mapjs = {
       });
 
       // 将 marker 添加到map
+      // if (map) {
+      //   map.addOverlay(noinline_marker);
+      // }
       map.addOverlay(noinline_marker);
 
       // 监听点击事件
@@ -733,6 +736,7 @@ let mapjs = {
       strokeColor: "#fff", //设置矢量图标的线填充颜色
       strokeWeight: "2", //设置线宽 2
     });
+    console.warn(sy);
     // @ts-ignore
     // var icons = new BMap.IconSequence(sy, "10", "10");
     // @ts-ignore

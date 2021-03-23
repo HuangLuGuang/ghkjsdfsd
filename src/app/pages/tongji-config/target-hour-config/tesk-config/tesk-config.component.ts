@@ -451,8 +451,10 @@ export class TeskConfigComponent implements OnInit {
     this.tableDatas.isno_refresh_page_size = true;
     this.gridData = [];
     this.loading = true;
-    this.update_agGrid();
-    this.loading = false;
+    setTimeout(() => {
+      this.update_agGrid();
+      this.loading = false;
+    }, 100);
   }
 
   // 得到buttons----------------------------------------------------------
@@ -736,7 +738,6 @@ export class TeskConfigComponent implements OnInit {
       end: inittable_before.end,
     };
     // 得到员工信息！
-
     this.http.callRPC("deveice", this.GETTABLE, colmun).subscribe((res) => {
       var result = res["result"]["message"][0];
       if (result["code"] === 1) {

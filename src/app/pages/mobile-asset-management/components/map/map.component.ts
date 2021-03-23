@@ -123,12 +123,7 @@ export class MapComponent implements OnInit {
 
   //   定时刷新
   refreshInterval: any;
-  constructor(private dialogService: NbDialogService) {}
-
-  // map api是否加载了
-  is_map_api = false;
-
-  ngOnInit(): void {
+  constructor(private dialogService: NbDialogService) {
     var p = new Ping({ timeout: 10000 }); // 10s
     var that = this;
     p.ping("https://api.map.baidu.com", function (err, data) {
@@ -141,14 +136,20 @@ export class MapComponent implements OnInit {
         span.innerText = "地图无法加载,请检查网络!";
         document.getElementById("map_map").appendChild(span);
       } else {
+        // console.error(" loading data>>>", data, err);
         that.is_map_api = true;
       }
     });
   }
 
+  // map api是否加载了
+  is_map_api = false;
+
+  ngOnInit(): void {}
+
   ngAfterViewInit() {
     setTimeout(() => {
-      // console.warn("++++++++000000++++++++", this.is_map_api);
+      console.warn("++++++++000000++++++++", this.is_map_api);
       if (this.is_map_api) {
         // 初始化地图
         mapjs.initmap("map_map", map_init_point);
@@ -190,7 +191,7 @@ export class MapComponent implements OnInit {
         // 点击获取点击的经纬度
         // mapjs.hitgit_lng_lat()
       }
-    }, 1000);
+    }, 2000);
   }
 
   ngOnDestroy() {

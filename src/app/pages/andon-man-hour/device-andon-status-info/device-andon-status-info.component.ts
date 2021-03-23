@@ -339,8 +339,8 @@ export class DeviceAndonStatusInfoComponent implements OnInit {
     setTimeout(() => {
       // this.inttable();
       this.update_agGrid();
-    }, 100);
-    this.loading = false;
+      this.loading = false;
+    }, 200);
     this.refresh = false;
 
     // 取消选择的数据 delselect
@@ -454,7 +454,7 @@ export class DeviceAndonStatusInfoComponent implements OnInit {
       // console.error("++++++++++++++++++++++++++++++", result);
       var res = result["result"]["message"][0];
       if (res["code"] === 1) {
-        this.loading = false;
+        // this.loading = false;
         var message = res["message"];
         this.tableDatas.PageSize = PageSize;
         this.gridData.push(...message);
