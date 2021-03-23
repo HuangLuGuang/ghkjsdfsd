@@ -56,11 +56,11 @@
                 <div class="four_d_tow_c" *ngFor="let item of list">
                     <div class="fon" style="justify-content: left;">{{item.position}}:</div>
                     <div class="fon">
-                        <div class="round {{ item.open_status == 0?'black':'red'}}"></div>
+                        <div class="round {{ item.open_status == 0?'green':'red'}}"></div>
                         <span>{{item.position}}开故障</span>
                     </div>
                     <div class="fon">
-                        <div class="round {{ item.close_status == 0?'black':'red'}}"></div>
+                        <div class="round {{ item.close_status == 0?'green':'red'}}"></div>
                         <span>{{item.position}}关故障</span>
                     </div>
                 </div>

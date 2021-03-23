@@ -42,15 +42,15 @@
         text-align: center;
     }
     .round {
-        width: 60px;
-        height: 60px;
+        width: 40px;
+        height: 40px;
         border-radius: 40px;
     }
     .cabin_layout {
         width: 100%;
         display: flex;
         flex-wrap: wrap;
-        justify-content: center;
+        justify-content: space-around;
         align-items: center;
     }
     .equipment_params {

@@ -62,6 +62,14 @@ export class PhysicalLaboratoryComponent implements OnInit {
       run:false,
     },
     {
+      name:'TC220腐蚀箱',
+      number:'',
+      andon:0,
+      speed:[],
+      src:'',//实验图片地址
+      speed_name:[''],//实验编号
+      router:'/pages/equipment/tc220/TC220型循环腐蚀箱',
+      run:false,
     },
     {
 
@@ -84,6 +92,7 @@ export class PhysicalLaboratoryComponent implements OnInit {
     'device_cabin_voc01':this.list[3],//晟微、4m3
     'device_4m3_01':this.list[3],//晟微、4m3
     'device_atec_06':this.list[4],//atec06
+    'device_tc220_01':this.list[5],//TC220型循环腐蚀箱
   }
   timer;
   constructor(private router:Router,private http:HttpserviceService,private thrid:ThirdLevelService,
@@ -121,7 +130,7 @@ export class PhysicalLaboratoryComponent implements OnInit {
           if(['device_atlas_4000','device_atlas_4400'].includes(key)){
             this.list[1].run = res['device_atlas_4000'] || res['device_atlas_4400']? true:false;
           }else if(['device_cabin_voc01','device_4m3_01'].includes(key)){
-            this.list[3].run = res['device_atlas_4000'] || res['device_atlas_4400']? true:false;
+            this.list[3].run = res['device_cabin_voc01'] || res['device_4m3_01']? true:false;
           }else{
             this.param[key].run = res[key]
           }

@@ -422,13 +422,13 @@ export class ChartCurveV3Component implements OnInit {
             color:colors[0]
         },
         itemStyle: {
-            // normal: {
-            //     color: colors[1],
-            //     shadowColor: colors[1],
-            //     shadowBlur: 2,
-            //     borderWidth: 2,
-            //     borderColor: "#F8F8FF"
-            // }
+            normal: {
+                color: colors[1],
+                // shadowColor: colors[1],
+                // shadowBlur: 2,
+                // borderWidth: 2,
+                // borderColor: "#F8F8FF"
+            }
         },
         // smooth: false,
         // symbol: "circle",

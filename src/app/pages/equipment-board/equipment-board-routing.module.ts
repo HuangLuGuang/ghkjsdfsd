@@ -227,6 +227,13 @@ const ROUTERS: Routes = [{
         .then(m=>m.EquipmentShengwei4m3Module),
 
       },
+      {
+        //tc220
+        path:'tc220/:title',
+        loadChildren:()=>import('./equipment-tc220/equipment-tc220.module')
+        .then(m=>m.EquipmentTc220Module),
+
+      },
 
       {//整车异响
         path:'ccts-bsr',

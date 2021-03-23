@@ -187,7 +187,7 @@ export class StructuralLaboratoryComponent implements OnInit {
         this.thrid.get_andon_status_last_year(param,this.left);
       }
 
-      let hpu = ['device_hpu_01','device_hpu_01','device_hpu_01','device_hpu_01','device_hpu_01'];
+      let hpu = ['device_hpu_01','device_hpu_02','device_hpu_03','device_hpu_04','device_hpu_05'];
       let p = param.concat(hpu);
       this.thrid.get_equipment_status(p).subscribe((res:any)=>{
         console.log(res)
