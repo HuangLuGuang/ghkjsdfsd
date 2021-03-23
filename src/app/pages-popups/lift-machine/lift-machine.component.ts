@@ -67,7 +67,10 @@ export class LiftMachineComponent implements OnInit {
   }
 
   ngAfterViewInit() {
-    this.layuiform();
+    // form 表单
+    setTimeout(() => {
+      this.layuiform();
+    }, 200);
   }
 
   layuiform() {

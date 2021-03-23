@@ -63,7 +63,8 @@ export class DeviceManageComponent implements OnInit {
   ];
 
   // 域账号
-  loginname = this.userinfo.getLoginName();
+  // loginname = this.userinfo.getLoginName();
+  loginname = this.userinfo.getName();
   employeeid = this.userinfo.getEmployeeID();
 
   ngAfterViewInit() {
@@ -71,8 +72,15 @@ export class DeviceManageComponent implements OnInit {
     // console.log("编辑----添加  content---",this.content)
 
     // form 表单
-    this.layuiform();
+    setTimeout(() => {
+      this.layuiform();
+    }, 200);
   }
+
+  ngOnDestroy() {
+    $("#groups").remove();
+  }
+
   // get groups
   get_groups() {
     var groups = JSON.parse(localStorage.getItem("Device_Groups"));
@@ -488,11 +496,13 @@ export class DeviceManageComponent implements OnInit {
 
   // × 关闭diallog   及关闭弹框
   closedialog() {
+    $("#groups").remove();
     this.dialogRef.close(false);
   }
 
   // 取消
   cancel() {
+    $("#groups").remove();
     this.dialogRef.close(false);
   }
 

@@ -60,7 +60,14 @@ export class AddEditTemperatureComponent implements OnInit {
   }
 
   ngAfterViewInit() {
-    this.layuiform();
+    // form 表单
+    setTimeout(() => {
+      this.layuiform();
+    }, 200);
+  }
+
+  ngOnDestroy() {
+    $("#groups").remove();
   }
 
   layuiform() {
@@ -125,6 +132,7 @@ export class AddEditTemperatureComponent implements OnInit {
         var formdatar = that.rowData[0];
         formdatar["groups"] = formdatar["groupsid"];
 
+        // console.error("表单初始化>>>>>", formdatar);
         // 修改选择项
         setTimeout(() => {
           form.val("device", formdatar);
@@ -241,7 +249,7 @@ export class AddEditTemperatureComponent implements OnInit {
     this.publicservice.showngxtoastr({
       position: "toast-top-right",
       status: "danger",
-      conent: "编辑失败!" + data,
+      conent: "编辑失败!",
     });
   }
 
@@ -253,11 +261,13 @@ export class AddEditTemperatureComponent implements OnInit {
 
   // × 关闭diallog   及关闭弹框
   closedialog() {
+    $("#groups").remove();
     this.dialogRef.close(false);
   }
 
   // 取消
   cancel() {
+    $("#groups").remove();
     this.dialogRef.close(false);
   }
 
