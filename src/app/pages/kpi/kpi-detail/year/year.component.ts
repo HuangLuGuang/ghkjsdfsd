@@ -87,6 +87,7 @@ export class YearComponent implements OnInit {
         that.select_year.emit(d.data.currentData.id);
         $("[name='kpi_single_title']").val(d.data.currentData.label);
         $(".kpi_single_ele5").hide();
+        that.kpi_xialaicon = "arrow-ios-downward-outline";
       });
       $(document).on("click", function () {
         $(".kpi_single_ele5").hide();
