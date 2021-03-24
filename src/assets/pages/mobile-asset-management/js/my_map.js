@@ -689,11 +689,15 @@ let mapjs = {
         icon: noinline_carIcon,
       });
 
+      // console.error("----------map>>>>>>>>>>>>>", map);
       // 将 marker 添加到map
-      // if (map) {
-      //   map.addOverlay(noinline_marker);
-      // }
-      map.addOverlay(noinline_marker);
+
+      setTimeout(() => {
+        if (map) {
+          map.addOverlay(noinline_marker);
+        }
+      }, 100);
+      // map.addOverlay(noinline_marker);
 
       // 监听点击事件
       addClickHandler(sContent, noinline_marker);

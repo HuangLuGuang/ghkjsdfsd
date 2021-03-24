@@ -156,7 +156,7 @@ export class DeviceAndonStatusInputComponent implements OnInit {
         this.RecordOperation("搜索", 1, "安灯状态:" + JSON.stringify(columns));
         this.init_table(message);
         var data = "查看当前设备运行状态";
-        this.success(data);
+        // this.success(data);
       } else {
         var message = {
           deviceid: undefined,
@@ -196,7 +196,7 @@ export class DeviceAndonStatusInputComponent implements OnInit {
         if (res["code"] === 1) {
           if (res["message"].length !== 0) {
             var data = "查看设备历史状态";
-            this.success(data);
+            // this.success(data);
             this.timeline.inint_timeline(res["message"]);
           } else {
             this.warning(JSON.stringify("设备状态历史为空"));

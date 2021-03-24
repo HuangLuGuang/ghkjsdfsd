@@ -290,7 +290,7 @@ export class LocationMonitoringComponent implements OnInit {
     // 会话过期
     localStorage.removeItem("alert401flag");
 
-    var p = new Ping({ timeout: 10000 }); // 10s
+    var p = new Ping({ timeout: 4000 }); // 5s
     var that = this;
     p.ping("https://api.map.baidu.com", function (err, data) {
       if (err) {
@@ -368,7 +368,6 @@ export class LocationMonitoringComponent implements OnInit {
 
   // 销毁组件时，删除 kpi_for_detail
   ngOnDestroy() {
-    $("#is_map_api").remove();
     localStorage.removeItem("buttons_list");
     localStorage.removeItem("device_hour_report_kpi_for_detail");
     // 清除 echart
@@ -567,7 +566,7 @@ export class LocationMonitoringComponent implements OnInit {
         setTimeout(() => {
           // console.error("++++++++++++++++", this.is_map_api);
           this.init_show_all(message);
-        }, 500);
+        }, 5000);
         // this.init_show_all(message);
 
         // *******************************
@@ -628,7 +627,7 @@ export class LocationMonitoringComponent implements OnInit {
       });
       // 清除map地图上的所有的覆盖物
       this.map?.clearOverlay();
-      this.map?.init_show_all(message_list);
+      this.map?.init_show_all(message_list, false);
     }
   }
 

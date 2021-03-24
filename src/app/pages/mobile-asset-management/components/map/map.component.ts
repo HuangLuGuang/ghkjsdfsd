@@ -124,7 +124,7 @@ export class MapComponent implements OnInit {
   //   定时刷新
   refreshInterval: any;
   constructor(private dialogService: NbDialogService) {
-    var p = new Ping({ timeout: 10000 }); // 10s
+    var p = new Ping({ timeout: 4000 }); // 5s
     var that = this;
     p.ping("https://api.map.baidu.com", function (err, data) {
       if (err) {
@@ -191,11 +191,12 @@ export class MapComponent implements OnInit {
         // 点击获取点击的经纬度
         // mapjs.hitgit_lng_lat()
       }
-    }, 2000);
+    }, 5000);
   }
 
   ngOnDestroy() {
     clearInterval(this.refreshInterval);
+    this.clearOverlay();
   }
 
   // 父组件执行，告诉该组件，需要在map上展示设备详情！
@@ -246,6 +247,11 @@ export class MapComponent implements OnInit {
 
   // 初始化全部小车！
   init_show_all(alldata: any[], isnorefresh?) {
+    console.error(
+      "初始化全部小车！alldata,isnorefresh>>>",
+      alldata,
+      isnorefresh
+    );
     if (isnorefresh) {
       mapjs.clearOverlay();
     }

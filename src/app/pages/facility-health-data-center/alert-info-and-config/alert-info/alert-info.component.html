@@ -1,14 +1,14 @@
 <div class="row">
     <div class="col-lg-9" style="display: flex;">
         <!-- 设备名称，input -->
-        <div class="example-items-rows button_item" >
+        <div class="example-items-rows button_item" *ngIf="button?.query">
             <div class="gongneng_keshi">
                 <ngx-my-input #myinput (inpuvalue)="inpuvalue($event)"  [placeholder]="myinput_placeholder"></ngx-my-input>
             </div>
         </div>
 
         <!-- 报警等级 -->
-        <div class="example-items-rows button_item query">
+        <div class="example-items-rows button_item query" *ngIf="button?.query">
             <ngx-my-select-tree-type #alertlevel [placeholder]="eimdevicetpye_placeholder"></ngx-my-select-tree-type>
         </div>
 

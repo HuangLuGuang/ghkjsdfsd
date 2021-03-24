@@ -192,34 +192,36 @@ export class AddEditTemperatureComponent implements OnInit {
 
   // 请求数据 新增
   update_install(data: FormData[]) {
+    var message = data;
     this.http.callRPC(this.TABLE, this.METHOD, data).subscribe((result) => {
       const res = result["result"]["message"][0];
       if (res["code"]) {
         this.dialogRef.close(true);
         this.addsuccess();
-        this.RecordOperation("新增环境监测模块", 1, JSON.stringify(data));
+        this.RecordOperation("新增环境监测模块", 1, JSON.stringify(message));
       } else {
         this.dialogRef.close(false);
         var data = JSON.stringify(res["message"]);
         this.adddanger(data);
-        this.RecordOperation("新增环境监测模块", 0, JSON.stringify(data));
+        this.RecordOperation("新增环境监测模块", 0, data);
       }
     });
   }
   // 请求数据 修改
   update_update(data: FormData) {
+    var message = data;
     this.http.callRPC(this.TABLE, this.METHOD2, data).subscribe((result) => {
       // console.log("更新举升机设备数据：", result);
       const res = result["result"]["message"][0];
       if (res["code"]) {
         this.dialogRef.close(true);
         this.editsuccess();
-        this.RecordOperation("编辑环境监测模块", 1, JSON.stringify(data));
+        this.RecordOperation("编辑环境监测模块", 1, JSON.stringify(message));
       } else {
         this.dialogRef.close(false);
         var data = JSON.stringify(res["message"]);
         this.editdanger(data);
-        this.RecordOperation("编辑环境监测模块", 0, JSON.stringify(data));
+        this.RecordOperation("编辑环境监测模块", 0, data);
       }
     });
   }

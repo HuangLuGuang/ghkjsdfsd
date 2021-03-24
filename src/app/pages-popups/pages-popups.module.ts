@@ -48,6 +48,7 @@ import { AddEditGpsComponent } from "./gps/add-edit-gps/add-edit-gps.component";
 import { LiftMachineComponent } from "./lift-machine/lift-machine.component";
 import { AddEditTemperatureComponent } from "./envitonmental-monitoring/device-temperature/add-edit-temperature/add-edit-temperature.component";
 import { SetPullConfigComponent } from "./facility-health-data-center/alert-info-and-config/set-pull-config/set-pull-config.component";
+import { SetRuleConfigComponent } from './facility-health-data-center/alert-info-and-config/set-rule-config/set-rule-config.component';
 
 // DateComponent
 @NgModule({
@@ -74,6 +75,7 @@ import { SetPullConfigComponent } from "./facility-health-data-center/alert-info
     LiftMachineComponent,
     AddEditTemperatureComponent,
     SetPullConfigComponent,
+    SetRuleConfigComponent,
   ],
   imports: [
     CommonModule,

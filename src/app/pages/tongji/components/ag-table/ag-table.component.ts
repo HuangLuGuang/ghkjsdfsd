@@ -272,6 +272,22 @@ export class AgTableComponent implements OnInit {
           } else {
             element["iscalkpi"] = "否";
           }
+          // level 报警等级 报警管理-报警信息管理
+          if (element["level"]) {
+            switch (element["level"]) {
+              case 1:
+                element["level"] = "一级报警";
+                break;
+              case 2:
+                element["level"] = "二级报警";
+                break;
+              case 3:
+                element["level"] = "三级级报警";
+                break;
+              default:
+                break;
+            }
+          }
 
           var data_item = [];
 

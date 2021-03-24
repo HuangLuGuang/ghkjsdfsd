@@ -1,0 +1,84 @@
+<nb-card class="set_rule_config">
+    <nb-card-header>
+        <div class="row">
+            <div class="col-md-10" style="text-align: left;font-size: small;">规则配置</div>
+            <div class="col-md-2" style="text-align: right;">
+                <nb-icon icon="close-outline" style="cursor: pointer;" (click)="closedialog()"></nb-icon>
+            </div>
+        </div>
+      </nb-card-header>
+
+    <nb-card-body>
+
+
+
+        <form class="layui-form" action="" lay-filter="ruleconfig">
+        
+            <div class="row" style="margin-bottom: 10px;">
+                <!-- <div class="col-lg-12">
+                    <label class="layui-form-label mylabel mulu_title">报警内容:</label>
+                    <div class="layui-input-block rule_config">
+                        <textarea name="message" class="layui-textarea" disabled></textarea>
+                    </div>
+                </div> -->
+                <div class="col-lg-6">
+                    <label class="layui-form-label mylabel mulu_title">设备ID:</label>
+                    <div class="layui-input-block rule_config">
+                        <input type="text" class="layui-input" name="deviceid" disabled autocomplete="off">
+                    </div>
+                </div>
+
+                <div class="col-lg-6">
+                    <label class="layui-form-label mylabel mulu_title">关键词</label>
+                    <div class="layui-input-block rule_config">
+                        <input type="text" class="layui-input" name="keyword" autocomplete="off">
+                        <!-- <textarea name="message" class="layui-textarea" disabled></textarea> -->
+                    </div>
+                </div>
+                
+            </div>
+
+
+            <div class="row">
+                <div class="col-lg-6">
+                    <label class="layui-form-label mylabel mulu_title">自定义报警规则:</label>
+                    <div class="layui-input-block rule_config">
+                        <input type="text" name="newmessage" lay-verify="required|newmessage" placeholder="请输入自定义报警规则" autocomplete="off" class="layui-input">
+                    </div>
+                </div>
+
+                <div class="col-lg-6">
+                    <label class="layui-form-label mylabel mulu_title">报警等级:</label>
+                    <div class="layui-input-block rule_config">
+                        <select name="level" lay-filter="aihao">
+                            <option value="1">一级</option>
+                            <option value="2">二级</option>
+                            <option value="3">三级</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            
+
+
+            <hr class="layui-bg-gray">
+
+            
+
+            <div class="row" style="margin-top: 20px;">
+                <div class="col-lg-12" style="display: flex;">
+                    <div style="flex: auto;">
+                    </div>
+                    <div class="example-items-rows button_item ">
+                        <button class="layui-btn layui-btn-primary" (click)="cancel()"  >取消</button>
+                    </div>
+                    <div class="example-items-rows button_item ">
+                        <button class="layui-btn" type="submit" lay-submit="" lay-filter="set_rule_config"  >确定</button>
+                    </div>
+    
+                </div>
+            </div>
+        </form>
+    </nb-card-body>
+
+</nb-card>

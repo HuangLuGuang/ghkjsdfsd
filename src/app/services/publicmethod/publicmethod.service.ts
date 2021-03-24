@@ -76,30 +76,35 @@ export class PublicmethodService {
       case "info":
         this.ngxtoastrservice.info(status, conent, {
           positionClass: position,
+          // timeOut: 300,
           onActivateTick: true,
         });
         break;
       case "success":
         this.ngxtoastrservice.success(status, conent, {
           positionClass: position,
+          // timeOut: 200,
           onActivateTick: true,
         });
         break;
       case "warning":
         this.ngxtoastrservice.warning(status, conent, {
           positionClass: position,
+          // timeOut: 200,
           onActivateTick: true,
         });
         break;
       case "danger":
         this.ngxtoastrservice.warning(status, conent, {
           positionClass: position,
+          // timeOut: 200,
           onActivateTick: true,
         });
         break;
       case "error":
         this.ngxtoastrservice.error(status, conent, {
           positionClass: position,
+          // timeOut: 200,
           onActivateTick: true,
         });
         break;

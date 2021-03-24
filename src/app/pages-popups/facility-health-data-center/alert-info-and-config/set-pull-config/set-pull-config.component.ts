@@ -38,7 +38,9 @@ export class SetPullConfigComponent implements OnInit {
     this.default_date = default_date;
     this.max_date = default_date.split(" - ")[1];
 
-    this.layuiform();
+    setTimeout(() => {
+      this.layuiform();
+    }, 200);
   }
 
   layuiform() {

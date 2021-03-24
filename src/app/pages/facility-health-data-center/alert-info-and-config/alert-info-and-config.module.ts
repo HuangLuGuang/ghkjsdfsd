@@ -15,6 +15,8 @@ import { AlertConfigComponent } from "./alert-config/alert-config.component";
 import { AgGridModule } from "ag-grid-angular";
 import { ComponentTModule } from "../../tongji/components/componentT.module";
 import { ActionComponent } from './alert-config/action/action.component';
+import { AlertInfoOptionComponent } from './alert-info-option/alert-info-option.component';
+import { DeviceLevelComponent } from './alert-info/device-level/device-level.component';
 
 @NgModule({
   declarations: [
@@ -22,6 +24,8 @@ import { ActionComponent } from './alert-config/action/action.component';
     AlertInfoComponent,
     AlertConfigComponent,
     ActionComponent,
+    AlertInfoOptionComponent,
+    DeviceLevelComponent,
   ],
   imports: [
     CommonModule,

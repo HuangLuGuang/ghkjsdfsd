@@ -1,0 +1,21 @@
+.set_rule_config{
+    width: 800px;
+    height: 350px;
+    overflow-y: auto;
+}
+
+.mylabel{
+    padding: 9px 0px;
+}
+.mylabel::before{
+    content: "*";
+    color: #ff4949;
+    margin-right: 4px;
+}
+.rule_config{
+    margin-left: 90px;
+}
+
+.button_item{
+    margin: 0px 10px 10px 0px;
+}
