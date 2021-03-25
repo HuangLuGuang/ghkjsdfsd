@@ -330,7 +330,7 @@ export class SecondLevelComponent implements OnInit {
     this.timer_data = setInterval(()=>{
       if(o%10 == 0)this.get_teststatus();
       // 50000秒更新一次
-      if(o%50000 == 0 ){
+      if(o%500 == 0 ){
         this.get_distribution_number();
         this.get_alarm_infor();
       }
@@ -355,7 +355,7 @@ export class SecondLevelComponent implements OnInit {
    */
   get_alarm_infor(){
     // SELECT get_alarm_data('{"day":"7"}')
-    // 7    特殊处理365 
+    // wweek特殊处理传6    year特殊处理穿365 
     let deviceline = {
       legend_data: ["三级", "二级", "一级"],
       series_datas: [
