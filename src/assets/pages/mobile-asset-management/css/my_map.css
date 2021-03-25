@@ -12,9 +12,17 @@
     background-color: rgb(110, 4, 4) !important;
 }
 
+
 .nb-theme-default nb-layout ::-webkit-scrollbar-thumb:hover {
     cursor: pointer !important;
 }
+
+/*火狐浏览器 */
+* {
+    scrollbar-color: #6e0404  #ecebeb00; /* 滑块颜色  滚动条背景颜色 */
+    scrollbar-width: thin; /* 滚动条宽度有三种：thin、auto、none */
+  }
+
 
 
 /* 骨架身体 */
