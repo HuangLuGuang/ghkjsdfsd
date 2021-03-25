@@ -18,8 +18,10 @@ export class PhysicalLaboratoryComponent implements OnInit {
       speed:[],
       src:'assets/eimdoard/equipment/images/vehicle.jpg',//实验图片地址
       speed_name:[''],//实验编号
-      router:'/pages/equipment/vehicle/整车voc环境仓',
+      // router:'/pages/equipment/vehicle/整车voc环境仓',
+      router:'',
       run:false,
+      mark:'vehicle'
     },
     {
       name:'氙灯集中监控',
@@ -28,8 +30,10 @@ export class PhysicalLaboratoryComponent implements OnInit {
       speed:[],
       src:'',//实验图片地址
       speed_name:[''],//实验编号
-      router:'/pages/equipment/xenon/氙灯老化设备集中监控',
+      // router:'/pages/equipment/xenon/氙灯老化设备集中监控',
+      router:'',
       run:false,
+      mark:'xenon'
     },
     {
       name:'纯水系统',
@@ -38,8 +42,10 @@ export class PhysicalLaboratoryComponent implements OnInit {
       speed:[],
       src:'',//实验图片地址
       speed_name:[''],//实验编号
-      router:'/pages/equipment/pure/纯水系统',
+      // router:'/pages/equipment/pure/纯水系统',
+      router:'',
       run:false,
+      mark:'pure'
     },
     {
       name:'昇微、4m3',
@@ -48,8 +54,10 @@ export class PhysicalLaboratoryComponent implements OnInit {
       speed:[],
       src:'',//实验图片地址
       speed_name:[''],//实验编号
-      router:'/pages/equipment/shengwei/昇微、4m3环境仓集中监控',
+      // router:'/pages/equipment/shengwei/昇微、4m3环境仓集中监控',
+      router:'',
       run:false,
+      mark:'shengwei'
     },
     {
       name:'ATEC舱',
@@ -58,8 +66,10 @@ export class PhysicalLaboratoryComponent implements OnInit {
       speed:[],
       src:'',//实验图片地址
       speed_name:[''],//实验编号
-      router:'/pages/equipment/atec/ATEC舱',
+      // router:'/pages/equipment/atec/ATEC舱',
+      router:'',
       run:false,
+      mark:'atec'
     },
     {
       name:'TC220腐蚀箱',
@@ -68,8 +78,10 @@ export class PhysicalLaboratoryComponent implements OnInit {
       speed:[],
       src:'',//实验图片地址
       speed_name:[''],//实验编号
-      router:'/pages/equipment/tc220/TC220型循环腐蚀箱',
+      // router:'/pages/equipment/tc220/TC220型循环腐蚀箱',
+      router:'',
       run:false,
+      mark:'tc220'
     },
     {
 
@@ -104,6 +116,9 @@ export class PhysicalLaboratoryComponent implements OnInit {
   }
 
   ngAfterViewInit(){
+    setTimeout(() => {
+      this.thrid.get_Authority(this.list,'/pages/equipment/third-level/physical');
+    }, 10);
     this.boardservice.sendLoad({close:false})
 
     let param = Object.keys(this.param);
@@ -155,7 +170,7 @@ export class PhysicalLaboratoryComponent implements OnInit {
   }
 
   goto_borad(map){
-    if(map.router){
+    if(map.router && map.show){
       this.router.navigate([map.router]);
       this.boardservice.sendLoad({close:true})
     }

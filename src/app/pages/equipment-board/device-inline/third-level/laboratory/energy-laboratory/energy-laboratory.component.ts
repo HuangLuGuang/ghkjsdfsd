@@ -19,8 +19,9 @@ export class EnergyLaboratoryComponent implements OnInit {
       speed:[],
       src:'assets/eimdoard/equipment/images/dj1_1013.jpeg',//实验图片地址
       speed_name:[''],//实验编号
-      router:'pages/equipment/motor/AVL电机测试台架8/device_avlmotor_01',
+      router:'',
       run:false,
+      mark:'motor',
     },
     {
       name:'AVL电机6',
@@ -29,8 +30,9 @@ export class EnergyLaboratoryComponent implements OnInit {
       speed:[],
       src:'assets/eimdoard/equipment/images/dj2_1014.jpeg',//实验图片地址
       speed_name:[''],//实验编号
-      router:'pages/equipment/motor2/AVL电机测试台架6/device_avlmotor_02',
+      router:'',
       run:false,
+      mark:'motor2',
     },
     {
       name:'AVL电机3',
@@ -39,8 +41,10 @@ export class EnergyLaboratoryComponent implements OnInit {
       speed:[],
       src:'assets/eimdoard/equipment/images/dj3_1003.jpeg',//实验图片地址
       speed_name:[''],//实验编号
-      router:'pages/equipment/motor3/AVL电机测试台架3/device_avlmotor_03',
+      // router:'/pages/equipment/motor3/AVL电机测试台架3/device_avlmotor_03',
+      router:'',
       run:false,
+      mark:'motor3',
     },
     {
       name:'AVL电机7',
@@ -49,8 +53,10 @@ export class EnergyLaboratoryComponent implements OnInit {
       speed:[],
       src:'assets/eimdoard/equipment/images/dj4_1010.jpeg',//实验图片地址
       speed_name:[''],//实验编号
-      router:'pages/equipment/motor4/AVL电机测试台架7/device_avlmotor_04',
+      // router:'/pages/equipment/motor4/AVL电机测试台架7/device_avlmotor_04',
+      router:'',
       run:false,
+      mark:'motor4',
     },
     {
       name:'鲁交电机1',
@@ -59,8 +65,10 @@ export class EnergyLaboratoryComponent implements OnInit {
       speed:[],
       src:'assets/eimdoard/equipment/images/dj5_1008.jpeg',//实验图片地址
       speed_name:[''],//实验编号
-      router:'pages/equipment/motor5/鲁交电机测试台架1/device_andmotor_01',
+      // router:'/pages/equipment/motor5/鲁交电机测试台架1/device_andmotor_01',
+      router:'',
       run:false,
+      mark:'motor5',
     },
     {
       name:'博阳电机5',
@@ -69,8 +77,10 @@ export class EnergyLaboratoryComponent implements OnInit {
       speed:[],
       src:'assets/eimdoard/equipment/images/dj6_1011.jpeg',//实验图片地址
       speed_name:[''],//实验编号
-      router:'pages/equipment/motor6/博阳电机测试台架5/six',
+      // router:'/pages/equipment/motor6/博阳电机测试台架5/six',
+      router:'',
       run:false,
+      mark:'motor6',
     },
     {
       name:'博阳电机4',
@@ -79,9 +89,11 @@ export class EnergyLaboratoryComponent implements OnInit {
       speed:[],
       src:'assets/eimdoard/equipment/images/dj7_1012.jpeg',//实验图片地址
       speed_name:[''],//实验编号
-      router:'pages/equipment/motor7/博阳电机测试台架4/seven',
+      // router:'/pages/equipment/motor7/博阳电机测试台架4/seven',
+      router:'',
       run:false,
-      type:''
+      type:'',
+      mark:'motor7',
     },{},{},{},{},{}
   ]
   @ViewChild('left')left:any;
@@ -112,6 +124,9 @@ export class EnergyLaboratoryComponent implements OnInit {
   }
 
   ngAfterViewInit(){
+    setTimeout(() => {
+      this.thrid.get_Authority(this.list,'/pages/equipment/third-level/energy');
+    }, 10);
     this.boardservice.sendLoad({close:false})
 
     let param = Object.keys(this.param);

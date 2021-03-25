@@ -19,8 +19,10 @@ export class StructuralLaboratoryComponent implements OnInit {
       andon:0,
       speed:[],//实验编号
       speed_name:[''],//实验名称
-      router:'pages/equipment/coupling/整车多轴轴耦合道路模拟试验台-329',
+      // router:'/pages/equipment/coupling/整车多轴轴耦合道路模拟试验台-329',
+      router:'',
       run:false,
+      mark:'coupling'
     },
     {
       name:'MTS 320',
@@ -28,8 +30,11 @@ export class StructuralLaboratoryComponent implements OnInit {
       andon:0,
       speed:[],
       speed_name:[''],//实验名称
-      router:'pages/equipment/road/四立柱道路模拟试验台-320.5',
+      // router:'/pages/equipment/road/四立柱道路模拟试验台-320.5',
+      router:'',
       run:false,
+      mark:'road'
+
     },
     {
       name:'MTS Mast table',
@@ -37,8 +42,11 @@ export class StructuralLaboratoryComponent implements OnInit {
       andon:0,
       speed:[],
       speed_name:[''],//实验名称
-      router:'pages/equipment/shock/六自由度振动台-353.2',
+      // router:'/pages/equipment/shock/六自由度振动台-353.2',
+      router:'',
       run:false,
+      mark:'shock'
+
     },
     {
       name:'MTS Testline',
@@ -46,8 +54,11 @@ export class StructuralLaboratoryComponent implements OnInit {
       andon:0,
       speed:[],
       speed_name:[],//实验名称
-      router:'pages/equipment/hydraulic/液压伺服系统扩展系统-Testline',
+      // router:'/pages/equipment/hydraulic/液压伺服系统扩展系统-Testline',
+      router:'',
       run:false,
+      mark:'hydraulic'
+
     },
     {
       name:'MTS HPU',
@@ -57,8 +68,11 @@ export class StructuralLaboratoryComponent implements OnInit {
       type:'oil',
       speed:[],
       speed_name:[''],//实验名称
-      router:'pages/equipment/oilsrouce/油源健康监控系统',
+      // router:'/pages/equipment/oilsrouce/油源健康监控系统',
+      router:'',
       run:false,
+      mark:'oilsrouce'
+
     },
     {
       name:'天窗开闭',
@@ -66,8 +80,11 @@ export class StructuralLaboratoryComponent implements OnInit {
       andon:0,
       speed:[],
       speed_name:[''],//实验名称
-      router:'pages/equipment/skylight/天窗开闭件试验台',
+      // router:'/pages/equipment/skylight/天窗开闭件试验台',
+      router:'',
       run:false,
+      mark:'skylight'
+
     },
     {
       name:'玻璃升降系统',
@@ -75,8 +92,11 @@ export class StructuralLaboratoryComponent implements OnInit {
       andon:0,
       speed:[],
       speed_name:[''],//实验名称
-      router:'pages/equipment/glass-lift/玻璃升降试验台',
+      // router:'/pages/equipment/glass-lift/玻璃升降试验台',
+      router:'',
       run:false,
+      mark:'glass-lift'
+
     },
     {
       name:'四门两盖01',
@@ -84,8 +104,12 @@ export class StructuralLaboratoryComponent implements OnInit {
       andon:0,
       speed:[],
       speed_name:[''],//实验名称
-      router:'pages/equipment/jinhua-4d2c-01/四门两盖气动设备1/one',
+      // router:'/pages/equipment/jinhua-4d2c-01/四门两盖气动设备1/one',
+      router:'',
       run:false,
+      mark:'jinhua-4d2c-01',
+      mark_other:'one',
+
     },
     {
       name:'四门两盖02',
@@ -93,8 +117,12 @@ export class StructuralLaboratoryComponent implements OnInit {
       andon:0,
       speed:[],
       speed_name:[''],//实验名称
-      router:'pages/equipment/jinhua-4d2c-01/四门两盖气动设备2/two',
+      // router:'/pages/equipment/jinhua-4d2c-01/四门两盖气动设备2/two',
+      router:'',
       run:false,
+      mark:'jinhua-4d2c-01',
+      mark_other:'two',
+
     },
     {
       name:'四门两盖03',
@@ -102,8 +130,12 @@ export class StructuralLaboratoryComponent implements OnInit {
       andon:0,
       speed:[],
       speed_name:[''],//实验名称
-      router:'pages/equipment/jinhua-4d2c-01/四门两盖气动设备3/three',
+      // router:'/pages/equipment/jinhua-4d2c-01/四门两盖气动设备3/three',
+      router:'',
       run:false,
+      mark:'jinhua-4d2c-01',
+      mark_other:'three',
+
     },
     {
       name:'四门两盖04',
@@ -111,8 +143,12 @@ export class StructuralLaboratoryComponent implements OnInit {
       andon:0,
       speed:[],
       speed_name:[''],//实验名称
-      router:'pages/equipment/jinhua-4d2c-01/四门两盖气动设备4/four',
+      // router:'/pages/equipment/jinhua-4d2c-01/四门两盖气动设备4/four',
+      router:'',
       run:false,
+      mark:'jinhua-4d2c-01',
+      mark_other:'four',
+
     },
     {
       name:'四门两盖05',
@@ -120,8 +156,12 @@ export class StructuralLaboratoryComponent implements OnInit {
       andon:0,
       speed:[],
       speed_name:[''],//实验名称
-      router:'pages/equipment/jinhua-4d2c-01/四门两盖气动设备5/five',
+      // router:'/pages/equipment/jinhua-4d2c-01/四门两盖气动设备5/five',
+      router:'',
       run:false,
+      mark:'jinhua-4d2c-01',
+      mark_other:'five',
+
     },
     {
 
@@ -164,6 +204,9 @@ export class StructuralLaboratoryComponent implements OnInit {
   }
 
   ngAfterViewInit(){
+    setTimeout(() => {
+      this.thrid.get_Authority(this.list,'/pages/equipment/third-level/structural');
+    });
     this.boardservice.sendLoad({close:false})
 
     let param = Object.keys(this.param);
@@ -207,7 +250,7 @@ export class StructuralLaboratoryComponent implements OnInit {
 
   goto_borad(map){
     console.log(map.router)
-    if(map.router){
+    if(map.router && map.show){
       this.router.navigate([map.router]);
       this.boardservice.sendLoad({close:true})
     }

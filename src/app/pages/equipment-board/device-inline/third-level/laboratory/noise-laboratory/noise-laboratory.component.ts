@@ -19,8 +19,11 @@ export class NoiseLaboratoryComponent implements OnInit {
       speed:[],
       src:'assets/eimdoard/equipment/images/ccts-bsr.jpg',//实验图片地址
       speed_name:[''],//实验编号
-      router:'pages/equipment/ccts-bsr/整车异响',
+      // router:'/pages/equipment/ccts-bsr/整车异响',
+      router:'',
       run:false,
+      mark:'ccts-bsr',
+
     },
     {
       name:'MAHA转毂',
@@ -29,8 +32,10 @@ export class NoiseLaboratoryComponent implements OnInit {
       speed:[],
       src:'assets/eimdoard/equipment/images/maha.jpg',//实验图片地址
       speed_name:[''],//实验编号
-      router:'pages/equipment/maha/MAHA-75英寸四驱四电机低噪音底盘测功机',
+      // router:'/pages/equipment/maha/MAHA-75英寸四驱四电机低噪音底盘测功机',
+      router:'',
       run:false,
+      mark:'maha',
     },
     {
       
@@ -71,6 +76,9 @@ export class NoiseLaboratoryComponent implements OnInit {
   }
 
   ngAfterViewInit(){
+    setTimeout(() => {
+      this.thrid.get_Authority(this.list,'/pages/equipment/third-level/noise');
+    }, 10);
     this.boardservice.sendLoad({close:false})
 
     let param = Object.keys(this.param);
@@ -114,7 +122,7 @@ export class NoiseLaboratoryComponent implements OnInit {
 
   goto_borad(map){
     console.log(map.router)
-    if(map.router){
+    if(map.router && map.show){
       this.router.navigate([map.router]);
       this.boardservice.sendLoad({close:true})
     }

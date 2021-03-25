@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { HttpserviceService } from '../../../../../services/http/httpservice.service';
+import { LocalStorageService } from '../../../../../services/local-storage/local-storage.service';
 import { dateformat, DEVICEID_TO_NAME, library, rTime } from '../../../equipment-board';
 
 @Injectable({
@@ -9,8 +10,31 @@ import { dateformat, DEVICEID_TO_NAME, library, rTime } from '../../../equipment
 export class ThirdLevelService {
 
   deviceid_to_name = DEVICEID_TO_NAME;
+  authorityItems = [];
+  constructor(private http:HttpserviceService,private localstorage :LocalStorageService) {
+    this.authorityItems = this.localstorage.get('mulu');
+    //获取权限
+    let items =  this.authorityItems.find(f => f.link == '/pages/equipment/first-level');
+    if(items){
+      console.log(items);
+      if(items.children){
+        items = items.children.find(f => '/pages/equipment/second-level');
+        this.authorityItems = items.children;
+      }else{
+        items = this.authorityItems.find(f => f.link == '/pages/equipment/second-level');
+        //当权限直接是实验室时
+        if(!items.children){
+          items = this.authorityItems.find(f => f.link == decodeURIComponent(window.location.pathname));
+          this.authorityItems = [items];
+        }else{
+          this.authorityItems = items.children;
+        }
+      }
+      console.log(items);
+    }
+   }
 
-  constructor(private http:HttpserviceService) { }
+
 
 
   //当前年安灯状态
@@ -168,6 +192,31 @@ export class ThirdLevelService {
         s.next(json);
       })
     });
+  }
+
+
+  get_Authority(list:any[],routerStr){
+    
+    let item = this.authorityItems.find(f=>f.link == routerStr);
+    let map;
+    if(item){
+      list.forEach(el => {
+        //四门两盖时特殊处理
+        if(el.mark == 'jinhua-4d2c-01'){
+          map = item.children.filter(f => f.link.includes(`/pages/equipment/${el.mark}/`)).find(f => f.link.includes(`/${el.mark_other}`));
+          [el.router,el.show ] = map?[map.link,true]:['',false];
+        }else if(el){
+          map = item.children.find(f => f.link.includes(`/pages/equipment/${el.mark}/`));
+          [el.router,el.show ] = map?[map.link,true]:['',false];
+          // el.router = item ? item.link:'';
+          // if(item){
+          //   el.show = item.children.find(f => el.router && f.link == el.router)?true:false;
+          // }
+        }else{
+          return;
+        }
+      });
+    }
   }
 
   

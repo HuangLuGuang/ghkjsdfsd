@@ -82,7 +82,11 @@ export class EquipmentBoardComponent implements OnInit {
 
   ngAfterViewInit() {
     let url = decodeURIComponent(window.location.pathname);
-    let parentid =  this.menu.find(f => f.link == url ).parentid
+    let parentid;
+    let parentitem =  this.menu.find(f => f.link == url );
+    if(parentitem){
+      parentid = parentitem.parentid
+    }
     let parent = this.menu.find(f => f.id == parentid);
     setTimeout(() => {
       if (!parent) {

@@ -156,3 +156,13 @@
       100% { border-color: #00FF00;box-shadow: 0 0 20px rgba(0,255,0,1), inset 0 0 10px rgba(0,255,0,1), 0 0 0 #FFF7FF;}
     }
 }
+.mobu{
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    z-index: 100;
+    top: 0;
+    left: 0;
+    background: rgba(1, 1, 1, 0.3);
+    pointer-events: none;
+}

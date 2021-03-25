@@ -4,7 +4,8 @@
     </div>
     <div class="col-md-6 height_100" style="padding:0 20px;">
         <div class="center">
-            <div class="one {{ map.run?'blinkgreen':''}}" *ngFor="let map of list" (click)="goto_borad(map)">
+            <div class="one {{ map.run?'blinkgreen':''}}" [ngStyle]="{cursor: !map.show?'no-drop':'pointer'}" *ngFor="let map of list" (click)="goto_borad(map)">
+                <div class="mobu" *ngIf="!map.show"></div>
                 <img [src]="map.src || 'assets/eimdoard/equipment/images/blue_beijing.png'" alt="" />
                 <div style="width: 100%;height: 10%;font-size: 1rem;">{{map.name}}</div>
                 <div style="width: 30%;height: 65%;margin-left: 20px;" *ngIf="!map.type && map.name">
