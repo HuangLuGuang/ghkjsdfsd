@@ -53,10 +53,19 @@
     
 }
 
+// // 谷歌 safari 浏览器
 .alert_info_alert_table_info_content::-webkit-scrollbar {/*滚动条整体样式*/
-
     width: 4px;     /*高宽分别对应横竖滚动条的尺寸*/
-
     height: 1px;
-
 }
+
+// // IE浏览器
+// .alert_info_alert_table_info_content::-ms-scrollbar {/*滚动条整体样式*/
+//     width: 4px;     /*高宽分别对应横竖滚动条的尺寸*/
+//     height: 1px;
+// }
+// // Opera浏览器
+// .alert_info_alert_table_info_content::-o-scrollbar {/*滚动条整体样式*/
+//     width: 4px;     /*高宽分别对应横竖滚动条的尺寸*/
+//     height: 1px;
+// }
