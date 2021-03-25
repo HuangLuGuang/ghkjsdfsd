@@ -129,7 +129,11 @@ export class ThirdLevelService {
     })
   }
 
-
+  /**
+   * 
+   * @param deviceList 
+   * @returns  sum总数 carryOut完成个数 undone未完成
+   */
   get_task_num(deviceList:string[]){
     return new Observable(s =>{
       this.http.callRPC('get_task_numbers','public.get_task_numbers',{"deviceid":deviceList}).subscribe((f:any)=>{
@@ -166,10 +170,12 @@ export class ThirdLevelService {
     });
   }
 
+  
   /**
    * 获取设备运行状态
    * @param deviceList 
-   */
+   * @returns 
+   */ 
   get_equipment_status(deviceList:string[]){
     
     return new Observable(s =>{

@@ -65,10 +65,10 @@ export const DEVICEID_TO_NAME  ={
   'device_avldyno_01':'AVL耐久2驱-1',//AVL耐久2驱-S1060
   'device_avldyno_02':'AVL耐久2驱-2',//AVL耐久2驱-S1060`
   'device_avl4dyno_01':'AVL耐久4驱-3',//
-  'device_avldyno_03':'AVL排放2驱',//AVL排放2驱-S1070
-  'device_avl4dyno_02':'AVL环模4驱',//AVL环模4驱-S1070
-  'device_avl2dyno_01':'AVL排放2驱',//AVL排放2驱-S1074
-  'device_avl4dyno_03':'AVL排放4驱',//AVL排放4驱-S1074
+  'device_avldyno_03':'AVL排放2驱S1070',//AVL排放2驱-S1070
+  'device_avl4dyno_02':'AVL环模4驱S1070',//AVL环模4驱-S1070
+  'device_avl2dyno_01':'AVL排放2驱S1074',//AVL排放2驱-S1074
+  'device_avl4dyno_03':'AVL排放4驱S1074',//AVL排放4驱-S1074
   'device_jinhua_cabin02':'锦华常温浸车舱',//锦华常温浸车舱
   'device_atec_03':'整车高低温试验舱',//整车高低温试验舱
 

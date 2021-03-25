@@ -91,7 +91,7 @@ export class RightLayoutComponent implements OnInit {
           }
       },
       grid: {
-          left: 20,
+          left: 50,
           right: '4%',
           height:'76%',
           top:'10%',

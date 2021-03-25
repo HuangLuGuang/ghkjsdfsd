@@ -113,8 +113,17 @@ export class PhysicalLaboratoryComponent implements OnInit {
       this.get_center_data();
       this.thrid.get_device_taskinfo_list(param,this.right).subscribe((f:any)=>{
         for(let key in f){
-          this.param[key].speed = f[key].map(m=> (m.speed));
-          this.param[key].speed_name = f[key].map(m=> (m.experiment));
+          
+          if(['device_atlas_4000','device_atlas_4400'].includes(key)){
+            this.param[key].speed = f['device_atlas_4000'].concat(f['device_atlas_4400']).map(m=> (m.speed));
+            this.param[key].speed_name = f['device_atlas_4000'].concat(f['device_atlas_4400']).map(m=> (m.experiment));
+          }else if(['device_cabin_voc01','device_4m3_01'].includes(key)){
+            this.param[key].speed = f['device_cabin_voc01'].concat(f['device_4m3_01']).map(m=> (m.speed)).con;
+            this.param[key].speed_name = f['device_cabin_voc01'].concat(f['device_4m3_01']).map(m=> (m.experiment));
+          }else{
+            this.param[key].speed = f[key].map(m=> (m.speed));
+            this.param[key].speed_name = f[key].map(m=> (m.experiment));
+          }
         }
       });
       if(o%3==0)this.thrid.get_log_list(param,this.left);

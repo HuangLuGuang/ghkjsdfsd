@@ -18,14 +18,14 @@
         <table id="table_body">
             <tr id="tr" class="body" *ngFor="let items of experiment.data">
                 <ng-container *ngFor="let item of items;let i = index">
-                    <div class="tr" *ngIf="item" title="{{items[i]}}">
+                    <div class="tr" *ngIf="i<5" title="{{items[i]}}">
                         <div *ngIf="i == 4;else fontTemp" class="progres_1">
                             <nz-progress [nzPercent]="item" nzSize="small" [nzShowInfo]="false" nzStatus="{{true?'active':'exception'}}"></nz-progress>
                             <div class="progres_2">
                                 {{item}}%
                             </div>
                         </div>
-                        <div *ngIf="i == 0 && device.includes(',')">{{ items[4] }}</div>
+                        <div *ngIf="i == 0 && device.includes(',')">{{ items[5] }}</div>
                         <div *ngIf="[0,1,2,3].includes(i)" class="font_tolong">
                             {{item}}
                         </div>

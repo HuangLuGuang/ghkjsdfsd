@@ -59,7 +59,7 @@ export class TestInformationComponent implements OnInit {
     now = new Date(`${now.getFullYear()}-${now.getMonth()+1}-${now.getDay()} 24:00:00`);
     let data = [];
     let data_next = [];
-    this.subscribeList.mts_p = this.http.callRPC('get_device_taskinfo','get_device_taskinfo',{"deviceid":this.device}).subscribe((f:any)=>{
+    this.subscribeList.mts_p = this.http.callRPC('get_device_taskinfo','get_device_taskinfo_list',{"deviceid":this.device}).subscribe((f:any)=>{
       if(f.result.error || f.result.message[0].code == 0)return;
       f.result.message[0].message.forEach(el => {
           data.push(this.return_data(el));

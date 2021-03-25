@@ -15,6 +15,7 @@ import { ThirdLevelService } from './laboratory/third-level.service';
 import { PhysicalLaboratoryComponent } from './laboratory/physical-laboratory/physical-laboratory.component';
 import { NoiseLaboratoryComponent } from './laboratory/noise-laboratory/noise-laboratory.component';
 import { SecondLevelComponent } from '../second-level/second-level.component';
+import { FormsModule } from '@angular/forms';
 
 
 @NgModule({
@@ -29,6 +30,7 @@ import { SecondLevelComponent } from '../second-level/second-level.component';
   ],
   imports: [
     CommonModule,
+    FormsModule,
     ThirdLevelRoutingModule,
     NbIconModule,
     ComponentTModule,
