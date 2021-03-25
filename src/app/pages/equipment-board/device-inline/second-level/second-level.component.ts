@@ -141,7 +141,7 @@ export class SecondLevelComponent implements OnInit {
         ],
       ],
     },
-    [1288, 1200, 93], // 当前在线数量、今日活跃数量、今日活跃率
+    ['-', '-', '-'], // 当前在线数量、今日活跃数量、今日活跃率
   ];
 
   // 试验条目状态
@@ -235,6 +235,8 @@ export class SecondLevelComponent implements OnInit {
 
   alert = {
     number:0,//当前报警数量
+    equip_number:'-',//TODO 监控设备数量 
+    dismiss_number:'-',//TODO 已解除数量
   }
   DataTime = 'week';//获取数据的时间
 
