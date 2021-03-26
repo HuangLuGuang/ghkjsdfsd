@@ -49,7 +49,7 @@ export class RealTimeAlertComponent implements OnInit {
   // =================================================agGrid
 
   TABLE = "device_log";
-  METHOD = "device_monitor.get_log_pc_search";
+  METHOD = "public.get_log_pc_search";
   employeeid = this.userinfo.getEmployeeID();
   init_value = "2019-12-01 - 2020-12-21"; // 默认日期
 
@@ -262,7 +262,7 @@ export class RealTimeAlertComponent implements OnInit {
   // 搜索按钮
   query(inpuvalue?) {
     // 是否 每页多少也，设置为默认值
-    // this.tableDatas.isno_refresh_page_size = true;
+    this.tableDatas.isno_refresh_page_size = true;
     var devicename;
     if (inpuvalue) {
       devicename = inpuvalue;
@@ -326,7 +326,7 @@ export class RealTimeAlertComponent implements OnInit {
           this.healthdataechart.init_health(this.gridData);
 
           // 刷新table后，改为原来的！
-          // this.tableDatas.isno_refresh_page_size = false;
+          this.tableDatas.isno_refresh_page_size = false;
         } else {
           this.RecordOperation("搜索", 0, "设备实时报警");
         }
