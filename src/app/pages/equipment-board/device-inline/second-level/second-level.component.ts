@@ -336,6 +336,7 @@ export class SecondLevelComponent implements OnInit {
         }
       });
       this.alert.number =  f.result.message[0].alarm_numbers[0].numbers||0;
+      this.alert.equip_number =  f.result.message[0].device_numbers[0].devicenumbers||0;
       console.log(deviceline.series_datas);
       // 初始化 echart
       setTimeout(() => {
@@ -699,7 +700,7 @@ export class SecondLevelComponent implements OnInit {
         echarts.init(dom).dispose();
       }
     })
-    this.myChart.dispose();
+    if(this.myChart)this.myChart.dispose();
     this.chartResize.unsubscribe();
     clearInterval(this.timer);
   }
