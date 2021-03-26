@@ -347,24 +347,25 @@ let second_level = {
               minTurnAngle: 45,
             },
             series: [
+               {
+                name:'已完成',
+                type: "bar",
+                // barWidth: "60%",
+                barGap:'-100%',
+                xAxisIndex: 0,
+                yAxisIndex: 0,
+                stack: "试验各状态每月变化趋势",
+                data: afterdata.data_carry_out,
+              },
                 {   
-                    name:'已完成',
+                    name:'未完成',
                     type: "bar",
                     // barWidth: "60%",
                     // data: [10, 52, 20, 34, 39, 33, 22]
                     xAxisIndex: 0,
                     yAxisIndex: 0,
-                    data: afterdata.data,
+                    data: afterdata.data_undone,
                     stack: "试验各状态每月变化趋势",
-                }, {
-                    name:'未完成',
-                    type: "bar",
-                    // barWidth: "60%",
-                    barGap:'-100%',
-                    xAxisIndex: 0,
-                    yAxisIndex: 0,
-                    stack: "试验各状态每月变化趋势",
-                    data: afterdata.data_plan,
                 },
                 {
                     type: "bar",
@@ -402,7 +403,7 @@ let second_level = {
     devicepie(element, data) {
         // @ts-ignore
         var mychart = echarts.init(document.getElementById(element));
-        var option = {
+        var option_pie = {
           //   color: ["#5470c6", "#91cc75"],
           // color: ["#5D920D", "#FF4E0D"], // 在线、异常
           color: ["#FF0000", "#FFA600", "#3CB371"],
@@ -489,7 +490,7 @@ let second_level = {
           ],
         };
         // @ts-ignore
-        mychart.setOption(option);
+        mychart.setOption(option_pie);
         // console.error(JSON.stringify(option));
         mychart.resize();
     },
@@ -497,7 +498,7 @@ let second_level = {
     deviceline(element, data) {
         // @ts-ignore
         var mychart = echarts.init(document.getElementById(element));
-        var option = {
+        var option_line = {
           //   color: ["#5470c6", "#91cc75"],
           color: ["#FF0000", "#FFA600", "#3CB371"],
           title: {
@@ -547,6 +548,7 @@ let second_level = {
                 color: "#fff",
               },
               axisTick: {
+                show:false,
                 color: "#fff",
                 // show: false,
               },
@@ -649,9 +651,110 @@ let second_level = {
           ],
         };
         // @ts-ignore
-        mychart.setOption(option);
+        mychart.setOption(option_line);
         mychart.resize();
-      },
+    },
+    deviceLeftLine(mychart,item){
+      // let item = {
+      //   color:['#66CCCC','white'],
+      //   xdata:['1月', '2月', '3月', '4月', '5月', '6月', '7月', '8月', '9月', '10月', '11月', '12月'],
+      //   active_number:[2.0, 4.9, 7.0, 23.2, 25.6, 76.7, 135.6, 162.2, 32.6, 20.0, 6.4, 3.3],
+      //   active_percentage:[2.0, 2.2, 3.3, 4.5, 6.3, 10.2, 20.3, 23.4, 23.0, 16.5, 12.0, 6.2]
+      // }
+      
+      let option_left_line = {
+          color:item.color,
+          tooltip: {
+              trigger: 'axis',
+          },
+          legend: {
+              data: ['活跃数量', '百分比'],
+              textStyle:{
+                color:'white'
+              },
+            bottom: "1%",
+          },
+          grid:{
+            containLabel:true,
+            left:'0%',
+            right:'0%',
+            bottom:'10%',
+            top:'2%'
+          },
+          xAxis: [
+              {
+                  type: 'category',
+                  data: item.xdata,
+                  axisPointer: {
+                      type: 'shadow'
+                  },
+                  axisLabel:{
+                    color:'white'
+                  },
+                  axisTick:{
+                    show:false,
+                  },
+                  axisLine:{
+                    lineStyle:{
+                      color:'white'
+                    }
+                  }
+              }
+          ],
+          yAxis: [
+              {
+                  type: 'value',
+                  show:false,
+                  name: '',
+                  min: 0,
+                  axisLabel:{
+                    color:'white'
+                  },
+                  axisTick:{
+                    show:false,
+                  },
+                  axisLine:{
+                    lineStyle:{
+                      color:'white'
+                    }
+                  }
+              },
+              {
+                  type: 'value',
+                  show:false,
+                  name: '',
+                  min: 0,
+                  axisLabel: {
+                      formatter: '{value} %',
+                      color:'white'
+                  },
+                  axisTick:{
+                    show:false,
+                  },
+                  axisLine:{
+                    lineStyle:{
+                      color:'white'
+                    }
+                  }
+              }
+          ],
+          series: [
+              {
+                  name: '活跃数量',
+                  type: 'bar',
+                  data: item.active_number
+              },
+              {
+                  name: '百分比',
+                  type: 'line',
+                  yAxisIndex: 1,
+                  data: item.active_percentage
+              }
+          ]
+      };
+      mychart.setOption(option_left_line)
+    
+    }
 };
 
 module.exports = second_level;

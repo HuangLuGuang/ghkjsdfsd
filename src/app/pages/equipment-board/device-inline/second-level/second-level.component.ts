@@ -4,7 +4,6 @@ import { LocalStorageService } from "../../../../services/local-storage/local-st
 
 // my-echart
 let second_level = require("../../../../../assets/pages/device-inline/js/second-level");
-var alert_management = require("../../../../../assets/pages/alert-management/js/alert_management");
 
 
 // 全屏
@@ -50,96 +49,14 @@ export class SecondLevelComponent implements OnInit {
     // { name: "新能源中心", value: 250 },
   ];
 
+
   // 设备活跃的 数据
-  device_active_data = [
+  device_active_data:any[] = [
     {
-      xdata: [
-        "一月",
-        "二月",
-        "三月",
-        "四月",
-        "五月",
-        "六月",
-        "七月",
-        "八月",
-        "九月",
-        "十月",
-        "十一月",
-        "十二月",
-      ],
-      name: ["结构", "环模", "理化", "噪声与震动", "新能源点击"],
-      value: [
-        [
-          49.9,
-          71.5,
-          106.4,
-          129.2,
-          144.0,
-          176.0,
-          135.6,
-          148.5,
-          216.4,
-          194.1,
-          95.6,
-          54.4,
-        ],
-        [
-          83.6,
-          78.8,
-          98.5,
-          93.4,
-          106.0,
-          84.5,
-          105.0,
-          104.3,
-          91.2,
-          83.5,
-          106.6,
-          92.3,
-        ],
-        [
-          48.9,
-          38.8,
-          39.3,
-          41.4,
-          47.0,
-          48.3,
-          59.0,
-          59.6,
-          52.4,
-          65.2,
-          59.3,
-          51.2,
-        ],
-        [
-          42.4,
-          33.2,
-          34.5,
-          39.7,
-          52.6,
-          75.5,
-          57.4,
-          60.4,
-          47.6,
-          39.1,
-          46.8,
-          51.1,
-        ],
-        [
-          42.4,
-          33.2,
-          36.5,
-          39.7,
-          52.6,
-          74.5,
-          57.4,
-          60.4,
-          47.6,
-          39.1,
-          46.8,
-          34.1,
-        ],
-      ],
+      color:['#1168BB','white'],
+      xdata:['1月', '2月', '3月', '4月', '5月', '6月', '7月', '8月', '9月', '10月', '11月', '12月'],
+      active_number:[2.0, 4.9, 7.0, 23.2, 25.6, 76.7, 135.6, 162.2, 32.6, 20.0, 6.4, 3.3],
+      active_percentage:[2.0, 2.2, 3.3, 4.5, 6.3, 10.2, 20.3, 23.4, 23.0, 16.5, 12.0, 6.2]
     },
     ['-', '-', '-'], // 当前在线数量、今日活跃数量、今日活跃率
   ];
@@ -157,12 +74,13 @@ export class SecondLevelComponent implements OnInit {
   // };
 
   teststatus = {
-    color:["#DBB70D","#5D920D"],
+    color:["#5D920D","#DBB70D"],
     xData:["1月","2月","3月","4月","5月","6月","7月","8月","9月","10月","11月","12月"],
-    
-    data:[4,3,0,0,0,0,2,0,0,0,0,0],
-    data_plan:[5,5,0,2,0,0,0,0,0,0,0,0],
-    name: "本年度已\t完成试验数量",
+    //已完成
+    data_carry_out:[0,0,0,0,0,0,0,0,0,0,0,0],
+    //w未完成
+    data_undone:[0,0,0,0,0,0,0,0,0,0,0,0],
+    name: "本年度已完成试验数量",
     totaldata:13
   }
 
@@ -294,13 +212,11 @@ export class SecondLevelComponent implements OnInit {
   ngAfterViewInit() {
     
     // 设备活跃的
-    this.deviceactive(this.device_active_data);
     this.chartResize = this.equipmentservice.chartResize().subscribe((result) => {
       setTimeout(() => {
-        this.device_active && this.device_active.reflow();
         this.key_index && this.key_index.reflow();
         this.myChart && this.myChart.resize();
-        ['tj_test_number','tj_test_number_line'].forEach(f=>{
+        ['tj_test_number','tj_test_number_line','device_active'].forEach(f=>{
           let dom  = document.getElementById(f);
           if(f){
             echarts.init(dom).resize();
@@ -312,26 +228,19 @@ export class SecondLevelComponent implements OnInit {
     // 设备开动率、完好lv
     setTimeout(() => {
       this.boardservice.sendLoad({ close: false });
-      this.createEchart();
-      this.myChart.resize();
-      this.device_active.reflow();
+      this.deviceactive();
       this.getData()
     }, 100);
 
     
 
-    // this.layoutService.onInitLayoutSize().subscribe((f) => {
-    //   this.key_index.reflow();
-    //   this.device_active.reflow();
-    //   this.myChart.resize();
-    // });
   }
 
   getData(){
     let o = 0;
     this.timer_data = setInterval(()=>{
       if(o%10 == 0)this.get_teststatus();
-      // 50000秒更新一次
+      // 500秒更新一次
       if(o%500 == 0 ){
         this.get_distribution_number();
         this.get_alarm_infor();
@@ -341,14 +250,26 @@ export class SecondLevelComponent implements OnInit {
   }
 
   get_teststatus(){
-    // let date = new Date()
-    // this.thirdLevelService.get_task_num(Object.keys(rate)).subscribe((f:any)=>{
-      // console.log(f)
-      // console.log(new Date().getTime() - date.getTime());
-      // this.teststatus.Series.data  = f.carryOut;
-      // this.teststatus.Series.data_plan  = f.sum;
-      // this.teststatus.Series.totaldata = f.carryOut.reduce((accumulator, currentValue) => accumulator + currentValue);
-    // })
+    let year = dateformat(new Date(),'yyyy');
+    this.http.callRPC('dev_task_count_kpi_year','public.dev_task_count_kpi_year',
+    {"start":`${year}-01-01`,"end":`${year}-12-31`}).subscribe((f:any)=>{
+      if(f.result.error || f.result.message[0].code == 0)return;
+      console.log(f.result.message)
+      f.result.message[0].bar.forEach(el => {
+
+        if(el.taskstatus == '已完成'){
+          this.teststatus.data_carry_out[parseInt(el.dates)-1] = el.numbers
+        }else if(el.taskstatus == '未完成'){
+          this.teststatus.data_undone[parseInt(el.dates)-1] = el.numbers;
+        }
+      });
+      this.teststatus.totaldata = f.result.message[0].pie.find(f => f.taskstatus == '已完成').numbers;
+      let dom = document.querySelector(".device-rate");
+      if(dom){
+        this.myChart = echarts.init(dom);
+        second_level.device_rate_v2(this.myChart, this.teststatus);
+      }
+    });
   }
 
 
@@ -375,7 +296,8 @@ export class SecondLevelComponent implements OnInit {
       day = 6;
       day_num = day+1;
       deviceline.xdata = Array.from(new Array(7), (v,i) => 
-        (date.setTime(new Date().getTime() - 1000 * 60 * 60 * 24 *(6-i)),dateformat(date,'MM-dd')))
+        (date.setTime(new Date().getTime() - 1000 * 60 * 60 * 24 *(6-i)),dateformat(date,'MM-dd')));
+
     }else if(this.DataTime == 'month' ){
       day = 30;
       day_num = 30;
@@ -385,6 +307,10 @@ export class SecondLevelComponent implements OnInit {
       day = 365;
       day_num  = 12;
     } 
+
+    //TODO x轴赋值
+    this.device_active_data[0].xdata = deviceline.xdata;
+    
     //创建数据
     deviceline.series_datas[0] = Array.from(new Array(day_num), (v,i) => (v = 0));
     deviceline.series_datas[1] = Array.from(new Array(day_num), (v,i) => (v = 0));
@@ -444,6 +370,7 @@ export class SecondLevelComponent implements OnInit {
   DataTimeChange(){
     console.log('------------------选择的时间改变')
     this.get_alarm_infor();
+    this.deviceactive();
   }
 
 
@@ -472,10 +399,10 @@ export class SecondLevelComponent implements OnInit {
     }
   }
 
-  createEchart() {
-    this.ngZone.runOutsideAngular(() => {
-      this.myChart = echarts.init(document.querySelector(".device-rate"));
-      let option = second_level.device_rate_v2(this.myChart, this.teststatus);
+  // createEchart() {
+    // this.ngZone.runOutsideAngular(() => {
+      // this.myChart = echarts.init(document.querySelector(".device-rate"));
+      // let option = second_level.device_rate_v2(this.myChart, this.teststatus);
       // let option = second_level.device_rate( this.teststatus);
       // this.timer = setInterval(()=> {
       //   // option  =echarts.init(document.querySelector(".device-rate")).getOption();
@@ -492,8 +419,8 @@ export class SecondLevelComponent implements OnInit {
       //   this.myChart.setOption(option);
       // }, 300);
        
-    });
-  }
+    // });
+  // }
 
    // 试验设备总数与分布
    testdevice(key_index_data) {
@@ -665,105 +592,108 @@ export class SecondLevelComponent implements OnInit {
     });
   }
   // 设备活跃度
-  deviceactive(device_active_data) {
-    this.device_active = this.Highcharts.chart("device_active", {
-      colors: [
-        "#50B432",
-        "#24CBE5",
-        "#abad05",
-        "#ED561B",
-        "#64E572",
-        "#FF9655",
-        "#FFF263",
-        "#6AF9C4",
-      ],
-      chart: {
-        type: "column",
-        // 顶部，右侧，底部和左侧
-        // margin: [0, 20, -5, 20],
-        // borderColor: 'red',
-        // borderWidth:3,
-        height: null,
-        spacing: [-20, 20, 0, 10], // 内边距
-        backgroundColor: "rgba(0,0,0,0)",
-        style: {
-          fontsSze: "30px",
-          fontWeight: "bole",
-        },
-      },
-      // 版本信息
-      credits: {
-        enabled: false,
-      },
-      // 关闭
-      legend: {
-        enabled: false,
-      },
-      title: {
-        text: "",
-      },
+  deviceactive() {
+    let dom = document.getElementById('device_active');
+    second_level.deviceLeftLine(echarts.init(dom),this.device_active_data[0]);
 
-      xAxis: {
-        categories: device_active_data[0].xdata,
-        crosshair: true,
-        labels: {
-          style: {
-            color: "#fff",
-          },
-        },
-      },
-      yAxis: {
-        // min: 0,
-        // title: {
-        //     text: '降雨量 (mm)'
-        // }
-        visible: false,
-      },
-      tooltip: {
-        // head + 每个 point + footer 拼接成完整的 table
-        headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
-        pointFormat:
-          '<tr><td style="color:{series.color};padding:0">{series.name}: </td>' +
-          '<td style="padding:0"><b>{point.y:.1f} %</b></td></tr>',
-        footerFormat: "</table>",
-        shared: true,
-        useHTML: true,
-      },
-      plotOptions: {
-        column: {
-          borderWidth: 0,
-        },
-      },
-      series: [
-        {
-          name: device_active_data[0].name[0],
-          data: device_active_data[0].value[0],
-        },
-        {
-          name: device_active_data[0].name[1],
-          data: device_active_data[0].value[1],
-        },
-        {
-          name: device_active_data[0].name[2],
-          data: device_active_data[0].value[2],
-        },
-        {
-          name: device_active_data[0].name[3],
-          data: device_active_data[0].value[3],
-        },
-        {
-          name: device_active_data[0].name[4],
-          data: device_active_data[0].value[4],
-        },
-      ],
-    });
+    // this.device_active = this.Highcharts.chart("device_active", {
+    //   colors: [
+    //     "#50B432",
+    //     "#24CBE5",
+    //     "#abad05",
+    //     "#ED561B",
+    //     "#64E572",
+    //     "#FF9655",
+    //     "#FFF263",
+    //     "#6AF9C4",
+    //   ],
+    //   chart: {
+    //     type: "column",
+    //     // 顶部，右侧，底部和左侧
+    //     // margin: [0, 20, -5, 20],
+    //     // borderColor: 'red',
+    //     // borderWidth:3,
+    //     height: null,
+    //     spacing: [-20, 20, 0, 10], // 内边距
+    //     backgroundColor: "rgba(0,0,0,0)",
+    //     style: {
+    //       fontsSze: "30px",
+    //       fontWeight: "bole",
+    //     },
+    //   },
+    //   // 版本信息
+    //   credits: {
+    //     enabled: false,
+    //   },
+    //   // 关闭
+    //   legend: {
+    //     enabled: false,
+    //   },
+    //   title: {
+    //     text: "",
+    //   },
+
+    //   xAxis: {
+    //     categories: device_active_data[0].xdata,
+    //     crosshair: true,
+    //     labels: {
+    //       style: {
+    //         color: "#fff",
+    //       },
+    //     },
+    //   },
+    //   yAxis: {
+    //     // min: 0,
+    //     // title: {
+    //     //     text: '降雨量 (mm)'
+    //     // }
+    //     visible: false,
+    //   },
+    //   tooltip: {
+    //     // head + 每个 point + footer 拼接成完整的 table
+    //     headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
+    //     pointFormat:
+    //       '<tr><td style="color:{series.color};padding:0">{series.name}: </td>' +
+    //       '<td style="padding:0"><b>{point.y:.1f} %</b></td></tr>',
+    //     footerFormat: "</table>",
+    //     shared: true,
+    //     useHTML: true,
+    //   },
+    //   plotOptions: {
+    //     column: {
+    //       borderWidth: 0,
+    //     },
+    //   },
+    //   series: [
+    //     {
+    //       name: device_active_data[0].name[0],
+    //       data: device_active_data[0].value[0],
+    //     },
+    //     {
+    //       name: device_active_data[0].name[1],
+    //       data: device_active_data[0].value[1],
+    //     },
+    //     {
+    //       name: device_active_data[0].name[2],
+    //       data: device_active_data[0].value[2],
+    //     },
+    //     {
+    //       name: device_active_data[0].name[3],
+    //       data: device_active_data[0].value[3],
+    //     },
+    //     {
+    //       name: device_active_data[0].name[4],
+    //       data: device_active_data[0].value[4],
+    //     },
+    //   ],
+    // });
   }
 
 
   ngOnDestroy() {
     // this.device_active.destroy();
     // this.key_index.destroy();
-    ['tj_test_number','tj_test_number_line'].forEach(f=>{
+    ['tj_test_number','tj_test_number_line','device_active'].forEach(f=>{
       let dom  = document.getElementById(f);
       if(f){
         echarts.init(dom).dispose();
@@ -839,47 +769,4 @@ export class SecondLevelComponent implements OnInit {
 }
 
 
-export const rate = {
-'device_mts_02':'整车耦合',//整车耦合
-'device_mts_01':'四立柱道路',//四立柱道路模拟试验台
-'device_mts_03':'六自由度',//六自由度振动台
-"device_mts_04":'液压伺服',//液压伺服
-'device_skylight_01':'天窗开闭',//天窗开闭
-'device_skylight_02':'玻璃升降',//玻璃升降
-'device_4d2c_05':'四门两盖01',//四门两盖01
-'device_4d2c_01':'四门两盖02',//四门两盖02
-'device_4d2c_02':'四门两盖03',//四门两盖03
-'device_4d2c_06':'四门两盖04',//四门两盖04
-'device_4d2c_07':'四门两盖05',//四门两盖05
 
-'device_auto_voc01':'整车voc环境仓',//整车voc环境仓
-'device_atlas_4000':'氙灯ci4000',//氙灯集中监控ci4000
-'device_atlas_4400':'氙灯ci4400',//氙灯集中监控ci4400
-'device_purewater_01':'纯水',//纯水
-'device_cabin_voc01':'晟微',//晟微、4m3
-'device_4m3_01':'4m3',//晟微、4m3
-'device_atec_06':'ATEC舱06',//atec06
-'device_tc220_01':'TC220型腐蚀箱',//
-
-'device_auto_bsr01':'整车异响',//异响
-'device_maha_dyno01':'MAHA转毂',//马哈
-
-'device_avldyno_01':'AVL耐久2驱-1',//AVL耐久2驱-S1060
-'device_avldyno_02':'AVL耐久2驱-2',//AVL耐久2驱-S1060`
-'device_avl4dyno_01':'AVL耐久4驱-3',//AVL耐久4驱 S1060
-
-'device_avldyno_03':'AVL排放2驱S1070',//AVL排放2驱-S1070
-'device_avl4dyno_02':'AVL环模4驱S1070',//AVL环模4驱-S1070
-'device_avl2dyno_01':'AVL排放2驱S1074',//AVL排放2驱-S1074
-'device_avl4dyno_03':'AVL排放4驱S1074',//AVL排放4驱-S1074
-'device_jinhua_cabin02':'锦华常温浸车舱',//锦华常温浸车舱
-'device_atec_03':'整车高低温试验舱',//整车高低温试验舱
-
-'device_avlmotor_01':'AVL电机8',//AVL电机8
-'device_avlmotor_02':'AVL电机6',//AVL电机6
-'device_avlmotor_03':'AVL电机3',//AVL电机3
-"device_avlmotor_04":'AVL电机7',//AVL电机7
-'device_andmotor_01':'鲁交电机1',//鲁交电机1
-'device_boyang_01':'博阳电机5',//博阳电机5
-'device_boyang_02':'博阳电机4',//博阳电机4
-}
