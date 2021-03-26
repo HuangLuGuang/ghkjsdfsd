@@ -257,6 +257,12 @@ export class EimFileUploadComponent implements OnInit, AfterViewInit {
             1,
             JSON.stringify(params.selected_file)
           );
+          const toastr = {
+            status: "info",
+            position: "toast-top-right",
+            conent: `发送到S3成功`,
+          };
+          this.publicservice.showngxtoastr(toastr);
         } else {
           const toastr = {
             status: "danger",
