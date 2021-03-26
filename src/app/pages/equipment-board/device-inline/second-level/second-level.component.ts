@@ -239,9 +239,9 @@ export class SecondLevelComponent implements OnInit {
   getData(){
     let o = 0;
     this.timer_data = setInterval(()=>{
-      if(o%10 == 0)this.get_teststatus();
+      if(o%5 == 0)this.get_teststatus();
       // 500秒更新一次
-      if(o%500 == 0 ){
+      if(o%60 == 0 ){
         this.get_distribution_number();
         this.get_alarm_infor();
       }
@@ -340,9 +340,13 @@ export class SecondLevelComponent implements OnInit {
       console.log(deviceline.series_datas);
       // 初始化 echart
       setTimeout(() => {
-        second_level.devicepie("tj_test_number", pie_data);
+        if(document.getElementById('tj_test_number')){
+          second_level.devicepie("tj_test_number", pie_data);
+        }
       }, 10);
-      second_level.deviceline("tj_test_number_line", deviceline);
+      if(document.getElementById('tj_test_number_line')){
+        second_level.deviceline("tj_test_number_line", deviceline);
+      }
     });
   }
 
@@ -595,7 +599,9 @@ export class SecondLevelComponent implements OnInit {
   // 设备活跃度
   deviceactive() {
     let dom = document.getElementById('device_active');
-    second_level.deviceLeftLine(echarts.init(dom),this.device_active_data[0]);
+    if(dom){
+      second_level.deviceLeftLine(echarts.init(dom),this.device_active_data[0]);
+    }
 
     // this.device_active = this.Highcharts.chart("device_active", {
     //   colors: [

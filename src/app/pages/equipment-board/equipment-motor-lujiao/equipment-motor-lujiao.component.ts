@@ -242,8 +242,8 @@ export class EquipmentMotorLujiaoComponent implements OnInit {
 
       setTimeout(() => {
           chart = document.getElementById('chart_line1');
-          this.speedTorque_attrs[0].data = res[4].tqdyno1.map(m => (m[0]));
-          this.speedTorque_attrs[1].data = res[3].spddyno1.map(m => (m[0]));
+          this.speedTorque_attrs[0].data = res[4].tqdyno1.map(m => (m[0]||0));
+          this.speedTorque_attrs[1].data = res[3].spddyno1.map(m => (m[0]||0));
           let i= 4,c = 'tqdyno1';
           if(res[4].tqdyno1.length < res[3].spddyno1.length){
             i= 1,c = 'spddyno1';
@@ -259,10 +259,10 @@ export class EquipmentMotorLujiaoComponent implements OnInit {
 
 
       chart = document.getElementById('chart_line2');
-      this.bearing_attrs[0].value = res[5].bearing_in_de.map(m => (m[0]));
-      this.bearing_attrs[1].value = res[6].bearing_in_nde.map(m => (m[0]));
-      this.bearing_attrs[2].value = res[7].bearing_out_de.map(m => (m[0]));
-      this.bearing_attrs[3].value = res[8].bearing_out_nde.map(m => (m[0]));
+      this.bearing_attrs[0].value = res[5].bearing_in_de.map(m => (m[0]||0));
+      this.bearing_attrs[1].value = res[6].bearing_in_nde.map(m => (m[0]||0));
+      this.bearing_attrs[2].value = res[7].bearing_out_de.map(m => (m[0]||0));
+      this.bearing_attrs[3].value = res[8].bearing_out_nde.map(m => (m[0]||0));
       let max_index = 0,max = [];
       for (let i = 0; i < this.bearing_attrs.length - 1; i++) {
         if(max.length < this.bearing_attrs[i].value.length){

@@ -74,11 +74,11 @@ export class EquipmentCtsBsrComponent implements OnInit {
       },
       {
         name: "左前位移",nameEn :'Displacement', unit: "mm",value: [],
-        color:[colors[2], colors[2]]
+        color:[colors[0], colors[0]]
       },
       {
         name: "左后位移",nameEn :'Displacement', unit: "mm",value: [],
-        color:[colors[3], colors[3]]
+        color:[colors[1], colors[1]]
       },
     ],
     xdata_left:[],
@@ -295,10 +295,10 @@ export class EquipmentCtsBsrComponent implements OnInit {
   // 'leftreardisplacement',//左后位移
     setTimeout(() => {
       
-      this.bsr_temp.data[0].value = res[0].leftfronttemperaturea.map(m => (m[0]));
-      this.bsr_temp.data[1].value = res[1].leftreartemperaturea.map(m => (m[0]));
-      this.bsr_temp.data[2].value = res[2].rightfronttemperaturea.map(m => (m[0]));
-      this.bsr_temp.data[3].value = res[3].rightreartemperaturea.map(m => (m[0]));
+      this.bsr_temp.data[0].value = res[0].leftfronttemperaturea.map(m => (m[0]||0));
+      this.bsr_temp.data[1].value = res[1].leftreartemperaturea.map(m => (m[0]||0));
+      this.bsr_temp.data[2].value = res[2].rightfronttemperaturea.map(m => (m[0]||0));
+      this.bsr_temp.data[3].value = res[3].rightreartemperaturea.map(m => (m[0]||0));
       dom = document.getElementById('bsr_chart_1');
       let i= 0,c = 'leftfronttemperaturea';
       if(res[0].leftfronttemperaturea.length < res[1].leftreartemperaturea.length){
@@ -316,8 +316,8 @@ export class EquipmentCtsBsrComponent implements OnInit {
     }, 10);
     setTimeout(() => {
 
-      arr.data[0].value = res[4].rightfrontdisplacement.map(m => (m[0]));
-      arr.data[1].value = res[5].rightreardisplacement.map(m => (m[0]));
+      arr.data[0].value = res[4].rightfrontdisplacement.map(m => (m[0]||0));
+      arr.data[1].value = res[5].rightreardisplacement.map(m => (m[0]||0));
       let i= 4,c = 'rightfrontdisplacement';
       if(res[4].rightfrontdisplacement.length < res[5].rightreardisplacement.length){
         i= 5,c = 'rightreardisplacement';
@@ -325,13 +325,13 @@ export class EquipmentCtsBsrComponent implements OnInit {
       arr.xdata_right = res[i][c].map(m => (dateformat(new Date(rTime(m[1])),'hh:mm:ss')));
       dom = document.getElementById('bsr_chart_2');
       if(dom){
-        equipment_four_road.create_real_discharge({attrs:arr.data.filter((m,i) => i>1),xData:arr.xdata_right,title:'右前/右后位移'},echarts.init(dom));
+        equipment_four_road.create_real_discharge({attrs:arr.data.filter((m,i) => i<2),xData:arr.xdata_right,title:'右前/右后位移'},echarts.init(dom));
       }
     }, 10);
     
       dom = document.getElementById('bsr_chart_3');
-      arr.data[2].value = res[6].leftfrontdisplacement.map(m => (m[0]));
-      arr.data[3].value = res[7].leftreardisplacement.map(m => (m[0]));
+      arr.data[2].value = res[6].leftfrontdisplacement.map(m => (m[0]||0));
+      arr.data[3].value = res[7].leftreardisplacement.map(m => (m[0]||0));
       left = arr.data[2].value.length > 0? arr.data[2].value[arr.data[2].value.length -1]:0;
       right = arr.data[3].value.length> 0?arr.data[2].value[arr.data[3].value.length -1] :0;
       let i= 6,c = 'leftfrontdisplacement';
@@ -341,7 +341,9 @@ export class EquipmentCtsBsrComponent implements OnInit {
       arr.xdata_left = res[i][c].map(m => (dateformat(new Date(rTime(m[1])),'hh:mm:ss')));
       if(dom){
         equipment_four_road.create_real_discharge({
-          attrs:arr.data.filter((m,i) => i>1),xData:arr.xdata_left,title:`左前位移：${left}mm  左后位移:${right}mm`
+          attrs:arr.data.filter((m,i) => i>1),xData:arr.xdata_left,
+          // title:`左前位移：${left}mm  左后位移:${right}mm`
+          title:'左前/左后位移'
         },echarts.init(dom));
       }
     });

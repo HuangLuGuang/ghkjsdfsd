@@ -323,7 +323,7 @@ export class CentralFourJinhuaComponent implements OnInit {
       if(g.result.error || g.result.message[0].code == 0)return;
       res = g.result.message[0].message;
       setTimeout(() => {
-        this.discharge_chart[0].value = res[0].p.map(m =>(m[0]));
+        this.discharge_chart[0].value = res[0].p.map(m =>(m[0]||0));
         this.discharge_xdata =  res[0].p.map(m => (dateformat(new Date(rTime(m[1])),'hh:mm:ss')));;
         if(document.getElementById('avl_discharge_chart')){
           let myChart_8 = echarts.init(document.getElementById('avl_discharge_chart'));;
@@ -337,7 +337,7 @@ export class CentralFourJinhuaComponent implements OnInit {
       }, 10);
 
       setTimeout(() => {
-        this.gauge_chart[0].value = res[1].v.map(m =>(m[0]));
+        this.gauge_chart[0].value = res[1].v.map(m =>(m[0]||0));
         // this.gauge_chart[1].value = res[2].a.map(m =>(m[0]));
         // if(this.gauge_chart[0].value.length > this.gauge_chart[1].value.length){
         //   this.gauge_xData = res[1].v.map(m => (dateformat(new Date(rTime(m[1])),'hh:mm:ss')));;
@@ -353,7 +353,7 @@ export class CentralFourJinhuaComponent implements OnInit {
           },echarts.init(document.getElementById('avl_param_chart_1')));
       }, 20);
 
-      this.gauge_chart_1[0].value = res[2].f.map(m =>(m[0]));
+      this.gauge_chart_1[0].value = res[2].f.map(m =>(m[0]||0));
       this.gauge_1_xData = res[2].f.map(m => (dateformat(new Date(rTime(m[1])),'hh:mm:ss')));;
       if(document.getElementById('avl_param_chart_2'))equipment_four_road.create_broken_line({
         series:this.gauge_chart_1,

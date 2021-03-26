@@ -194,8 +194,8 @@ export class EquipmentJinhua4d2cComponent implements OnInit {
     }).subscribe((g:any)=>{
       if(g.result.error || g.result.message[0].code == 0)return;
       res = g.result.message[0].message;
-      this.atec.attrs[0].value = res[0][this.cang_arr_list.temp].map(m =>(m[0]));
-      this.atec.attrs[1].value = res[1][this.cang_arr_list.rh].map(m =>(m[0]));
+      this.atec.attrs[0].value = res[0][this.cang_arr_list.temp].map(m =>(m[0]||0));
+      this.atec.attrs[1].value = res[1][this.cang_arr_list.rh].map(m =>(m[0]||0));
 
       if(this.atec.attrs[0].value.length > this.atec.attrs[1].value.length){
         xdata = res[0][this.cang_arr_list.temp].map(m =>(dateformat(new Date(rTime(m[1])),'hh:mm:ss')));
@@ -273,8 +273,8 @@ export class EquipmentJinhua4d2cComponent implements OnInit {
     ,{deviceid:t_h_deviceid || this.th_deviceid}).subscribe((g:any) =>{
       if(g.result.error || g.result.message[0].code == 0)return;
       g.result.message[0].message.forEach(el => {
-        yearPlanData.push(el.temperature);//温度
-        yearOrderData.push(el.humidity);//湿度
+        yearPlanData.push(el.temperature||0);//温度
+        yearOrderData.push(el.humidity||0);//湿度
         xAxisData.push(rTime(el.recordtime));
       });
 

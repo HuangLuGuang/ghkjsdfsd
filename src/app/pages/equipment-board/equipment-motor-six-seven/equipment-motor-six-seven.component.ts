@@ -393,9 +393,9 @@ export class EquipmentMotorSixSevenComponent implements OnInit {
       if(g.result.error || g.result.message[0].code == 0)return;
       res = g.result.message[0].message;
       chart = document.getElementById('threePhase_67');
-      this.threePhase_attrs[0].value = res[0].urms4.map(m =>(m[0]));
-      this.threePhase_attrs[1].value = res[1].irms4.map(m =>(m[0]));
-      this.threePhase_attrs[2].value = res[2].prms4.map(m =>(m[0]));
+      this.threePhase_attrs[0].value = res[0].urms4.map(m =>(m[0]||0));
+      this.threePhase_attrs[1].value = res[1].irms4.map(m =>(m[0]||0));
+      this.threePhase_attrs[2].value = res[2].prms4.map(m =>(m[0]||0));
 
       if(this.threePhase_attrs[0].value.length>this.threePhase_attrs[1].value.length){
         this.threePhase_xData = res[0].urms4.map(m =>(dateformat(new Date(rTime(m[1])),'hh:mm:ss')));
@@ -548,10 +548,10 @@ export class EquipmentMotorSixSevenComponent implements OnInit {
       // 'liquidsupplyflowdown',//冷却水流量下
       // 'liquidsupplytemperaturedown',//冷却水温度下
 
-      this.HealthParam_left_chart[0].value = res[0].liquidsupplytemperaturetop.map(m => (m[0]));
-      this.HealthParam_left_chart[1].value = res[1].liquidsupplyflowtop.map(m => (m[0]));
-      this.HealthParam_left_chart[2].value = res[2].liquidsupplytemperaturedown.map(m => (m[0]));
-      this.HealthParam_left_chart[3].value = res[3].liquidsupplyflowdown.map(m => (m[0]));
+      this.HealthParam_left_chart[0].value = res[0].liquidsupplytemperaturetop.map(m => (m[0]||0));
+      this.HealthParam_left_chart[1].value = res[1].liquidsupplyflowtop.map(m => (m[0]||0));
+      this.HealthParam_left_chart[2].value = res[2].liquidsupplytemperaturedown.map(m => (m[0]||0));
+      this.HealthParam_left_chart[3].value = res[3].liquidsupplyflowdown.map(m => (m[0]||0));
 
       let max:any = res[0];
       for (let i = 0; i < res.length - 1; i++) {
@@ -587,8 +587,8 @@ export class EquipmentMotorSixSevenComponent implements OnInit {
       let res = f.result.message[0].message;
       setTimeout(() => {
         chart = document.getElementById('line_chart_12_67');
-        this.speedTorque_attrs[0].data = res[1].torque.map(m => (m[0]));
-        this.speedTorque_attrs[1].data = res[0].speed.map(m => (m[0]));
+        this.speedTorque_attrs[0].data = res[1].torque.map(m => (m[0]||0));
+        this.speedTorque_attrs[1].data = res[0].speed.map(m => (m[0]||0));
         let i= 0,c = 'speed';
         if(res[0].speed.length < res[1].torque.length){
           i= 1,c = 'torque';

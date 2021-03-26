@@ -281,9 +281,9 @@ export class EquipmentAvlAtecComponent implements OnInit {
     }).subscribe((g:any)=>{
       if(g.result.error || g.result.message[0].code == 0)return;
       res = g.result.message[0].message;
-      data[0].value = res[0].realtime_temp.map(m =>(m[0]));
-      data[1].value = res[1].realtime_humidity.map(m =>(m[0]));
-      data[2].value = res[2].micro_pressure_pv.map(m =>(m[0]));
+      data[0].value = res[0].realtime_temp.map(m =>(m[0]||0));
+      data[1].value = res[1].realtime_humidity.map(m =>(m[0]||0));
+      data[2].value = res[2].micro_pressure_pv.map(m =>(m[0]||0));
 
       if(data[0].value.length > data[1].value.length){
         xdata = res[0].realtime_temp.map(m =>(dateformat(new Date(rTime(m[1])),'hh:mm:ss')));
@@ -356,7 +356,7 @@ export class EquipmentAvlAtecComponent implements OnInit {
     }).subscribe((g:any)=>{
       if(g.result.error || g.result.message[0].code == 0)return;
       res = g.result.message[0].message;
-      this.avl_chart[0].value = res[0].v.map(m =>(m[0]));
+      this.avl_chart[0].value = res[0].v.map(m =>(m[0]||0));
       // this.avl_chart[1].value = res[1].a.map(m =>(m[0]));
       // if(this.avl_chart[0].value.length > this.avl_chart[1].value.length){
       //   xdata  = res[0].v.map(m => (dateformat(new Date(rTime(m[1])),'hh:mm:ss')));

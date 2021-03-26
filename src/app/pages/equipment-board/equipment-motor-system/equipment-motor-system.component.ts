@@ -234,7 +234,7 @@ export class EquipmentMotorSystemComponent implements OnInit {
       if(i%60==0){
         this.get_line_coolingWater();
       }
-      if(i%600==0){
+      if(i%60==0){
         this.get_device_mts_timerangedata();
       }
       if(i%10==0){
@@ -388,8 +388,8 @@ torque: 0.151 扭矩
       if(f.result.error || f.result.message[0].code == 0)return;
       let res = f.result.message[0].message;
       chart = document.getElementById('line_chart_12');
-      this.speedTorque_attrs[0].data = res[1].torque.map(m => (m[0]));
-      this.speedTorque_attrs[1].data = res[0].speed.map(m => (m[0]));
+      this.speedTorque_attrs[0].data = res[1].torque.map(m => (m[0]||0));
+      this.speedTorque_attrs[1].data = res[0].speed.map(m => (m[0]||0));
       let i= 0,c = 'speed';
       if(res[0].speed.length < res[1].torque.length){
         i= 1,c = 'torque';

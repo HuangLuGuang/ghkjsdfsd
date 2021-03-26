@@ -293,7 +293,7 @@ export class EquipmentAvlComponent implements OnInit {
           j = i;
           xdata = arr
         }
-        f.value = arr.map(m =>(m[0]));
+        f.value = arr.map(m =>(m[0]||0));
       });
 
       this.discharge_xdata = xdata.map(m => (dateformat(new Date(rTime(m[1])),'hh:mm:ss')))
@@ -398,13 +398,13 @@ export class EquipmentAvlComponent implements OnInit {
       if(g.result.error || g.result.message[0].code == 0)return;
       res = g.result.message[0].message;
       //曲线图
-      data[0].value = res[0].ct_temp.map(m =>(m[0]));
-      data[1].value = res[1].ct_hum.map(m =>(m[0]));
-      data[2].value = res[2].ct_pressure_set.map(m =>(m[0]));
+      data[0].value = res[0].ct_temp.map(m =>(m[0]||0));
+      data[1].value = res[1].ct_hum.map(m =>(m[0]||0));
+      data[2].value = res[2].ct_pressure_set.map(m =>(m[0]||0));
       if(data[0].value.length >  data[1].value.length){
-        xdata = res[0].ct_temp.map(m =>(m[0]));
+        xdata = res[0].ct_temp.map(m =>(m[0]||0));
       }else if(data[1].value.length >  data[2].value.length){
-        xdata = res[1].ct_hum.map(m =>(m[0]));
+        xdata = res[1].ct_hum.map(m =>(m[0]||0));
       }else{
         xdata = res[2].ct_pressure_set.map(m =>(dateformat(new Date(rTime(m[1])),'hh:mm:ss')));
       }
@@ -455,10 +455,10 @@ export class EquipmentAvlComponent implements OnInit {
     }).subscribe((g:any)=>{
       if(g.result.error || g.result.message[0].code == 0)return;
       res = g.result.message[0].message;
-      this.avl_speed_chart[0].value = res[0].f.map(m =>(m[0]));
-      this.avl_speed_chart[1].value = res[1].v.map(m =>(m[0]));
+      this.avl_speed_chart[0].value = res[0].f.map(m =>(m[0]||0));
+      this.avl_speed_chart[1].value = res[1].v.map(m =>(m[0]||0));
       // this.avl_speed_chart[2].value = res[2].a.map(m =>(m[0]));
-      this.avl_speed_chart[2].value = res[2].p.map(m =>(m[0]));
+      this.avl_speed_chart[2].value = res[2].p.map(m =>(m[0]||0));
 
       let max_index = 0,max = [];
       for (let i = 0; i < res.length - 1; i++) {

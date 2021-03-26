@@ -336,9 +336,9 @@ export class CabinCentralizedMonitoringComponent implements OnInit {
     }).subscribe((g:any)=>{
       if(g.result.error || g.result.message[0].code == 0)return;
       res = g.result.message[0].message;
-      arr[0].value = res[0].mwsmart_main_soaking_s_vw208.map(m=>(m[0]));//冷却水温度
-      arr[1].value = res[1].mwsmart_main_soaking_s_vw206.map(m=>(m[0]));//冷却水压力
-      arr[2].value = res[2].mwsmart_main_soaking_s_vw200.map(m=>(m[0]));//温度
+      arr[0].value = res[0].mwsmart_main_soaking_s_vw208.map(m=>(m[0]||0));//冷却水温度
+      arr[1].value = res[1].mwsmart_main_soaking_s_vw206.map(m=>(m[0]||0));//冷却水压力
+      arr[2].value = res[2].mwsmart_main_soaking_s_vw200.map(m=>(m[0]||0));//温度
       let max_index = 0,max = [];
       for (let i = 0; i < res.length - 1; i++) {
         if(max.length < arr[i+1].value.length){
@@ -413,8 +413,8 @@ export class CabinCentralizedMonitoringComponent implements OnInit {
       if(g.result.error || g.result.message[0].code == 0)return;
       res = g.result.message[0].message;
 
-      this.atec_chart[0].value = res[0].realtime_temp.map(m => m[0]);
-      this.atec_chart[1].value = res[1].realtime_humidity.map(m => m[0]);
+      this.atec_chart[0].value = res[0].realtime_temp.map(m => (m[0]||0));
+      this.atec_chart[1].value = res[1].realtime_humidity.map(m => (m[0]||0));
       if(this.atec_chart[0].value.length > this.atec_chart[0].value.length){
         xdata = res[0].realtime_temp.map(m =>(dateformat(new Date(rTime(m[1])),'hh:mm:ss')));
       }else{

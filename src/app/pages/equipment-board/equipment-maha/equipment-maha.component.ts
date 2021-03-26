@@ -218,8 +218,8 @@ export class EquipmentMahaComponent implements OnInit {
         {name:'牵引力',data:[],color:'#FF66CC'},
       ],
       xdata = [];
-      attrs[0].data = res[0].speed_total.map( m=> m[0]);
-      attrs[1].data = res[1].tractive_force_total.map( m=> m[0]);
+      attrs[0].data = res[0].speed_total.map( m=> (m[0]||0));
+      attrs[1].data = res[1].tractive_force_total.map( m=> (m[0]||0));
 
       if(attrs[0].data.length > attrs[1].data.length){
         xdata = res[0].speed_total.map(m =>(dateformat(new Date(rTime(m[1])),'hh:mm:ss')));
