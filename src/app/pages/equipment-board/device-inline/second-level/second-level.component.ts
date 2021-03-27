@@ -17,6 +17,7 @@ import Highcharts3D from "highcharts/highcharts-3d";
 import { ThirdLevelService } from "../third-level/laboratory/third-level.service";
 import { HttpserviceService } from "../../../../services/http/httpservice.service";
 import { dateformat } from "../../equipment-board";
+import { Observable } from "rxjs";
 
 declare let $;
 
@@ -159,9 +160,9 @@ export class SecondLevelComponent implements OnInit {
   DataTime = 'week';//获取数据的时间
 
 
-  timer;
   timer_data;
   chartResize;//图表刷新订阅
+  sublists:any = {};
 
   constructor(
     private localstorage: LocalStorageService,
@@ -241,7 +242,8 @@ export class SecondLevelComponent implements OnInit {
     this.timer_data = setInterval(()=>{
       if(o%5 == 0)this.get_teststatus();
       // 500秒更新一次
-      if(o%60 == 0 ){
+      if(o%20 == 0 ){
+        console.log(this.DataTime)
         this.get_distribution_number();
         this.get_alarm_infor();
       }
@@ -251,10 +253,10 @@ export class SecondLevelComponent implements OnInit {
 
   get_teststatus(){
     let year = dateformat(new Date(),'yyyy');
-    this.http.callRPC('dev_task_count_kpi_year','public.dev_task_count_kpi_year',
+    this.sublists.teststauts = this.http.callRPC('dev_task_count_kpi_year','public.dev_task_count_kpi_year',
     {"start":`${year}-01-01`,"end":`${year}-12-31`}).subscribe((f:any)=>{
       if(f.result.error || f.result.message[0].code == 0)return;
-      console.log(f.result.message)
+      // console.log(f.result.message)
       f.result.message[0].bar.forEach(el => {
 
         if(el.taskstatus == '已完成'){
@@ -277,8 +279,13 @@ export class SecondLevelComponent implements OnInit {
    * 报警信息
    */
   get_alarm_infor(){
+    // return new Observable(s =>{
+
+    // });
     // SELECT get_alarm_data('{"day":"7"}')
     // wweek特殊处理传6    year特殊处理穿365 
+    console.log('当前选择的时间',this.DataTime)
+    // if(!this.DataTime)return;
     let deviceline = {
       legend_data: ["三级", "二级", "一级"],
       series_datas: [
@@ -291,25 +298,24 @@ export class SecondLevelComponent implements OnInit {
     let day = 0,//往后端穿的参数
         date = new Date(),//当前时间
         day_num;///生成数据的条数
-    console.log('当前选择的时间',this.DataTime)
-    if(this.DataTime == 'week'){
+    if(this.DataTime === 'week'){
       day = 6;
       day_num = day+1;
       deviceline.xdata = Array.from(new Array(7), (v,i) => 
         (date.setTime(new Date().getTime() - 1000 * 60 * 60 * 24 *(6-i)),dateformat(date,'MM-dd')));
 
-    }else if(this.DataTime == 'month' ){
+    }else if(this.DataTime === 'month' ){
       day = 30;
       day_num = 30;
       deviceline.xdata = Array.from(new Array(30), (v,i) => 
         (date.setTime(new Date().getTime() - 1000 * 60 * 60 * 24 *(29-i)),dateformat(date,'MM-dd')));
-    }else if(this.DataTime == 'year' ){
+    }else if(this.DataTime === 'year' ){
       day = 365;
       day_num  = 12;
     } 
 
     //TODO x轴赋值
-    this.device_active_data[0].xdata = deviceline.xdata;
+    // this.device_active_data[0].xdata = JSON.parse(JSON.stringify(deviceline.xdata));
     
     //创建数据
     deviceline.series_datas[0] = Array.from(new Array(day_num), (v,i) => (v = 0));
@@ -323,8 +329,9 @@ export class SecondLevelComponent implements OnInit {
         { value: 0, name: "一级" },
       ],
     };
-    this.http.callRPC('get_alarm_data','public.get_alarm_data',{day:day}).subscribe((f:any)=>{
+    this.sublists.alarm_infor = this.http.callRPC('get_alarm_data','public.get_alarm_data',{day:day}).subscribe((f:any)=>{
       if(f.result.error || f.result.message[0].code == 0)return;
+      this.sublists.alarm_infor.unsubscribe();
       console.log(f.result.message[0].message);
       f.result.message[0].message.forEach(el => {
         pie_data.data[el.level && el.level-1].value += el.count;
@@ -354,7 +361,7 @@ export class SecondLevelComponent implements OnInit {
    * 获取eim分布数量
    */
   get_distribution_number(){
-    this.http.callRPC('get_groups_devicenumbers','public.get_groups_devicenumbers',{}).subscribe((f:any)=>{
+    this.sublists.distribution = this.http.callRPC('get_groups_devicenumbers','public.get_groups_devicenumbers',{}).subscribe((f:any)=>{
       if(f.result.error || f.result.message[0].code == 0)return;
       console.log(f.result.message[0].message);
       this.key_index_data = f.result.message[0].message.map(m => {
@@ -363,7 +370,7 @@ export class SecondLevelComponent implements OnInit {
       });
       // 试验设备总量与分布
       this.testdevice(this.key_index_data);
-      this.key_index.reflow();
+      // this.key_index.reflow();
 
     })  
   }
@@ -372,8 +379,9 @@ export class SecondLevelComponent implements OnInit {
   /**
    * 当选择的时间变化
    */
-  DataTimeChange(){
-    console.log('------------------选择的时间改变')
+  DataTimeChange(e){
+    this.DataTime = e;
+    console.log('------------------选择的时间改变',e)
     this.get_alarm_infor();
     this.deviceactive();
   }
@@ -708,7 +716,11 @@ export class SecondLevelComponent implements OnInit {
     })
     if(this.myChart)this.myChart.dispose();
     this.chartResize.unsubscribe();
-    clearInterval(this.timer);
+    // clearInterval(this.timer);
+    clearInterval(this.timer_data);
+    for(let key in this.sublists){
+      if(this.sublists[key])this.sublists[key].unsubscribe();
+    }
   }
 
   // 跳转到具体的结构，

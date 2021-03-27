@@ -115,15 +115,17 @@
         align-items: center;
     }
     .quantity_number {
-        width: 50%;
-        height: 60%;
+        min-width: 35%;
+        min-height: 3rem;
+        // padding: 0 2%;
         font-size: 2rem;
         display: flex;
         justify-content: center;
         align-items: center;
-        border-radius: 5%;
-        background: #7dc1e8;
-        box-shadow: -1px -1px #6aa4c5, 3px 3px #90deff;
+        border: 2px solid #9dc3f1;
+        // border-radius: 5%;
+        background: #5d7fe5;
+        // box-shadow: -1px -1px #6aa4c5, 3px 3px #90deff;
     }
 }
 

@@ -92,7 +92,7 @@
             <div class="chunk info">
                 <div class="part_title">设备报警汇总信息</div>
                 <div class="select">
-                    <select [(ngModel)]="DataTime"  (ngModelChange)="DataTimeChange()">
+                    <select [ngModel]="DataTime"  (ngModelChange)="DataTimeChange($event)">
                         <option value ="week">近一周</option>
                         <option value ="month">近一月</option>
                         <option value="year">近一年</option>
@@ -102,7 +102,7 @@
                 <!-- 数量 -->
                 <div class="row numbers">
                     <div class="alert_number">
-                        <span>监控设备数量: {{alert.equip_number}}台</span>
+                        <span>监控设备数量: {{alert.equip_number}}台 {{DataTime}}</span>
                         <span>当前报警数量: {{ alert.number }}条</span>
                         <span>已解除数量: {{alert.dismiss_number}}条</span>
                     </div>

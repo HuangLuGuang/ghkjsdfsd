@@ -354,7 +354,7 @@ let second_level = {
                 barGap:'-100%',
                 xAxisIndex: 0,
                 yAxisIndex: 0,
-                stack: "试验各状态每月变化趋势",
+                stack: "11",
                 data: afterdata.data_carry_out,
               },
                 {   
@@ -365,7 +365,7 @@ let second_level = {
                     xAxisIndex: 0,
                     yAxisIndex: 0,
                     data: afterdata.data_undone,
-                    stack: "试验各状态每月变化趋势",
+                    stack: "11",
                 },
                 {
                     type: "bar",
