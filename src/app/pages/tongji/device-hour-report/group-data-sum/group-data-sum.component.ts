@@ -163,6 +163,8 @@ export class GroupDataSumComponent implements OnInit {
 
   private gridData = [];
 
+  default_groups = []; // 这是默认的goups
+
   constructor(
     private userinfo: UserInfoService,
     private datepip: DatePipe,
@@ -187,8 +189,13 @@ export class GroupDataSumComponent implements OnInit {
   }
 
   ngAfterViewInit() {
-    // 初始化aggrid
-    this.inttable();
+    setTimeout(() => {
+      this.loading = true;
+    }, 200);
+    setTimeout(() => {
+      // 初始化aggrid
+      this.inttable();
+    }, 1000);
   }
 
   // 得到下拉框的数据，科室/功能组
@@ -203,6 +210,10 @@ export class GroupDataSumComponent implements OnInit {
         var res = result["result"]["message"][0];
         if (res["code"] === 1) {
           var groups = res["message"][0]["groups"];
+          // 默认的科室功能组
+          groups.forEach((group) => {
+            this.default_groups.push(group["label"]);
+          });
           this.groups_func.init_select_tree(groups);
 
           // 月份
@@ -325,7 +336,8 @@ export class GroupDataSumComponent implements OnInit {
     var get_start_end = this.get_start_end();
     // 科室/功能组
     var groups_data = this.groups_func?.getselect();
-    var groups_data_ = groups_data === "" ? [] : groups_data.split(";");
+    var groups_data_ =
+      groups_data === "" ? this.default_groups : groups_data.split(";");
     return {
       limit: this.agGrid.get_pagesize(),
       employeeid: this.userinfo.getEmployeeID(),
@@ -333,7 +345,7 @@ export class GroupDataSumComponent implements OnInit {
       year: this.myYear.getselect(),
       start: get_start_end.start,
       end: get_start_end.end,
-      group: groups_data_ ? groups_data_ : [],
+      group: groups_data_,
     };
   }
 

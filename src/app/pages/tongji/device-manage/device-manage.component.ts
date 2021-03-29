@@ -33,6 +33,8 @@ export class DeviceManageComponent implements OnInit {
   @ViewChild("myinput") myinput: any;
   @ViewChild("ag_Grid") agGrid: any;
 
+  default_groups = []; // 这是默认的goups
+
   constructor(
     private publicservice: PublicmethodService,
     private dialogService: NbDialogService,
@@ -124,8 +126,12 @@ export class DeviceManageComponent implements OnInit {
     this.tableDatas.columnDefs.push(this.active);
     // 初始化table
     setTimeout(() => {
-      this.inttable();
+      this.loading = true;
     }, 200);
+    setTimeout(() => {
+      // 初始化aggrid
+      this.inttable();
+    }, 1000);
   }
 
   ngOnDestroy() {
@@ -343,7 +349,10 @@ export class DeviceManageComponent implements OnInit {
         // console.log("得到下拉框的数据---------------->", res)
         if (res["code"] === 1) {
           var groups = res["message"][0]["groups"];
-
+          // 默认的科室功能组
+          groups.forEach((group) => {
+            this.default_groups.push(group["label"]);
+          });
           this.groups_func.init_select_tree(groups);
           var eimdevicetpyedata = res["message"][0]["type"];
           this.eimdevicetpye.init_select_trees(eimdevicetpyedata);
@@ -379,7 +388,7 @@ export class DeviceManageComponent implements OnInit {
     var eimdevicetype = this.eimdevicetpye?.getselect()
       ? this.eimdevicetpye?.getselect()
       : []; // eim设备类型
-    var grops_data = groups != "" ? groups.split(";") : [];
+    var grops_data = groups != "" ? groups.split(";") : this.default_groups;
     if (devicename == "" && eimdevicetype.length < 1 && grops_data.length < 1) {
       // 未选中
       this.dialogService
@@ -1208,7 +1217,8 @@ export class DeviceManageComponent implements OnInit {
     // 设备类型
     var device_tpye_data = this.eimdevicetpye?.getselect();
     // 将科室/功能组，转为列表
-    var groups_data_ = groups_data === "" ? [] : groups_data.split(";");
+    var groups_data_ =
+      groups_data === "" ? this.default_groups : groups_data.split(";");
 
     return {
       limit: this.agGrid.get_pagesize(),

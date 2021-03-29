@@ -61,6 +61,8 @@ export class TeskConfigComponent implements OnInit {
 
   taskstatus; // aggrid 试验装填排序
 
+  default_groups = []; // 这是默认的goups
+
   constructor(
     private publicservice: PublicmethodService,
     private http: HttpserviceService,
@@ -143,7 +145,7 @@ export class TeskConfigComponent implements OnInit {
     };
 
     // 初始化日期
-    this.initdate();
+    // this.initdate();
 
     // ======= 使用 NbDialog 切换标签时，无法再次弹出问题！
     var dom = document.createElement("div");
@@ -156,8 +158,13 @@ export class TeskConfigComponent implements OnInit {
     this.tableDatas.columnDefs.push(this.active);
     this.tableDatas.columnDefs[6] = this.taskstatus;
 
-    // 初始化agGrid
-    this.inttable();
+    setTimeout(() => {
+      this.loading = true;
+    }, 200);
+    setTimeout(() => {
+      // 初始化aggrid
+      this.inttable();
+    }, 1000);
 
     // 得到pathname --在得到button
     var roleid = this.userinfo.getEmployeeRoleID();
@@ -238,7 +245,13 @@ export class TeskConfigComponent implements OnInit {
         // console.log("得到下拉框的数据", res)
         if (res["code"] === 1) {
           var groups = res["message"][0]["groups"];
+          // 默认的科室功能组
+          groups.forEach((group) => {
+            this.default_groups.push(group["label"]);
+          });
+
           this.group.init_select_tree(groups);
+
           // 月份
           var month = [
             { id: 1, label: "一月" },
@@ -394,7 +407,8 @@ export class TeskConfigComponent implements OnInit {
     // 科室/功能组
     var groups_data = this.group.getselect();
     // 将科室/功能组，转为列表
-    var groups_data_ = groups_data === "" ? [] : groups_data.split(";");
+    var groups_data_ =
+      groups_data === "" ? this.default_groups : groups_data.split(";");
 
     var columns = {
       offset: 0,
@@ -646,7 +660,8 @@ export class TeskConfigComponent implements OnInit {
     // 设备类型
     // 日期范围
     // 将科室/功能组，转为列表
-    var groups_data_ = groups_data === "" ? [] : groups_data.split(";");
+    var groups_data_ =
+      groups_data === "" ? this.default_groups : groups_data.split(";");
     var month = this.myMonth.getselect(); // 选择的月
 
     return {

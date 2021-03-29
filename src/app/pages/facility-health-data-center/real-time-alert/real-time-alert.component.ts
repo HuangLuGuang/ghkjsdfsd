@@ -30,6 +30,8 @@ export class RealTimeAlertComponent implements OnInit {
 
   groups_placeholder = "请选中科室/功能组"; // 下拉框---科室功能组
 
+  default_groups = []; // 这是默认的goups
+
   constructor(
     private userinfo: UserInfoService,
     private publicservice: PublicmethodService,
@@ -183,8 +185,12 @@ export class RealTimeAlertComponent implements OnInit {
   ngAfterViewInit() {
     // 初始化table
     setTimeout(() => {
-      this.inttable();
+      this.loading = true;
     }, 200);
+    setTimeout(() => {
+      // 初始化aggrid
+      this.inttable();
+    }, 1000);
     this.loading = false;
   }
 
@@ -243,6 +249,11 @@ export class RealTimeAlertComponent implements OnInit {
         // console.log("得到下拉框的数据---------------->", res)
         if (res["code"] === 1) {
           var groups = res["message"][0]["groups"];
+          // 默认的科室功能组
+          groups.forEach((group) => {
+            this.default_groups.push(group["label"]);
+          });
+
           this.groups_func.init_select_tree(groups);
 
           var eimdevicetpyedata = res["message"][0]["type"];
@@ -277,7 +288,8 @@ export class RealTimeAlertComponent implements OnInit {
     // 日期范围
     var daterange_data = this.data_range.getselect();
     // 将科室/功能组，转为列表
-    var groups_data_ = groups_data === "" ? [] : groups_data.split(";");
+    var groups_data_ =
+      groups_data === "" ? this.default_groups : groups_data.split(";");
 
     if (
       devicename == "" &&
@@ -350,7 +362,8 @@ export class RealTimeAlertComponent implements OnInit {
     // 日期范围
     var daterange_data = this.data_range.getselect();
     // 将科室/功能组，转为列表
-    var groups_data_ = groups_data === "" ? [] : groups_data.split(";");
+    var groups_data_ =
+      groups_data === "" ? this.default_groups : groups_data.split(";");
 
     return {
       limit: this.agGrid.get_pagesize(),
@@ -440,7 +453,7 @@ export class RealTimeAlertComponent implements OnInit {
       offset: offset,
       limit: limit,
       devicename: [],
-      group: [],
+      group: this.default_groups,
       eimdevicetype: [],
       employeeid: this.employeeid,
     };

@@ -130,6 +130,8 @@ export class HourConfigComponent implements OnInit {
 
   active; // aggrid 操作
 
+  default_groups = []; // 这是默认的goups
+
   constructor(
     private userinfo: UserInfoService,
     private http: HttpserviceService,
@@ -180,8 +182,13 @@ export class HourConfigComponent implements OnInit {
   ngAfterViewInit() {
     this.tableDatas.columnDefs.push(this.active);
 
-    // 初始化aggrid
-    this.inttable();
+    setTimeout(() => {
+      this.loading = true;
+    }, 200);
+    setTimeout(() => {
+      // 初始化aggrid
+      this.inttable();
+    }, 1000);
   }
 
   ngOnDestroy() {}
@@ -242,7 +249,8 @@ export class HourConfigComponent implements OnInit {
     var year = this.myYear.getselect().split("年")[0]; // 选择的年
     var month = this.myMonth.getselect(); // 选择的月
     var groups_data = this.groups_func.getselect(); // 科室功能组
-    var group = groups_data === "" ? [] : groups_data.split(";"); // 科室功能组转为列表
+    var group =
+      groups_data === "" ? this.default_groups : groups_data.split(";"); // 科室功能组转为列表
     var type = this.eimdevicetpye.getselect(); // 设备类型
 
     var columns = {
@@ -288,7 +296,8 @@ export class HourConfigComponent implements OnInit {
 
   inittable_before() {
     var groups_data = this.groups_func.getselect(); // 科室功能组
-    var group = groups_data === "" ? [] : groups_data.split(";"); // 科室功能组转为列表
+    var group =
+      groups_data === "" ? this.default_groups : groups_data.split(";"); // 科室功能组转为列表
 
     var devicename =
       this.myinput?.getinput() === undefined ? "" : this.myinput?.getinput(); // 设备名称
@@ -383,6 +392,11 @@ export class HourConfigComponent implements OnInit {
           this.eimdevicetpye.init_select_trees(eimdevicetpyedata);
 
           var groups = res["message"][0]["groups"];
+          // 默认的科室功能组
+          groups.forEach((group) => {
+            this.default_groups.push(group["label"]);
+          });
+
           this.groups_func.init_select_tree(groups);
 
           // 月份

@@ -29,6 +29,8 @@ export class DeviceTemperatureComponent implements OnInit {
   myinput_placeholder = "请选择设备安装位置";
   placeholder_title = "请选择时间点";
 
+  METHODGROUP = "dev_get_temperature_groups";
+
   // agGrid
   tableDatas = {
     // 新增，设置高度

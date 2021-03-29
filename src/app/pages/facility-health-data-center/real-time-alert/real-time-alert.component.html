@@ -66,13 +66,13 @@
 </div>
 
 <!-- 实时报警 table -->
-<div class="row" [nbSpinner]="loading" nbSpinnerStatus="basic">
-    <div class="col-md-9">
+<div class="row">
+    <div class="col-md-9"  [nbSpinner]="loading" nbSpinnerStatus="basic">
         <ngx-ag-table #ag_Grid   (nzpageindexchange)="nzpageindexchange_ag($event)"></ngx-ag-table>
     </div>
 
     <!-- echart -->
-    <div class="col-md-3" style="padding: 0px;border: 1px solid #BABFC7;">
+    <div class="col-md-3" style="padding: 0px;border: 1px solid #BABFC7;     height: 695px;">
         <ngx-health-data-echart #healthdataechart style="height: 100%;"></ngx-health-data-echart>
     </div>
 </div>
