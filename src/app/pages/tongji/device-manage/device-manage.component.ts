@@ -46,7 +46,7 @@ export class DeviceManageComponent implements OnInit {
     // 会话过期
     localStorage.removeItem("alert401flag");
 
-    this.get_tree_selecetdata();
+    // this.get_tree_selecetdata();
   }
 
   importdata: AOA = [
@@ -125,13 +125,20 @@ export class DeviceManageComponent implements OnInit {
   ngAfterViewInit() {
     this.tableDatas.columnDefs.push(this.active);
     // 初始化table
-    setTimeout(() => {
-      this.loading = true;
-    }, 200);
-    setTimeout(() => {
-      // 初始化aggrid
-      this.inttable();
-    }, 1000);
+    this.get_tree_selecetdata().subscribe((res) => {
+      if (res) {
+        // 初始化aggrid
+        this.inttable();
+      }
+    });
+
+    // setTimeout(() => {
+    //   this.loading = true;
+    // }, 200);
+    // setTimeout(() => {
+    //   // 初始化aggrid
+    //   this.inttable();
+    // }, 1000);
   }
 
   ngOnDestroy() {
@@ -339,25 +346,30 @@ export class DeviceManageComponent implements OnInit {
 
   // 得到下拉框的数据
   get_tree_selecetdata() {
-    var columns = {
-      employeeid: this.userinfo.getEmployeeID(),
-    };
-    this.http
-      .callRPC("deveice", "dev_get_device_groups", columns)
-      .subscribe((result) => {
-        var res = result["result"]["message"][0];
-        // console.log("得到下拉框的数据---------------->", res)
-        if (res["code"] === 1) {
-          var groups = res["message"][0]["groups"];
-          // 默认的科室功能组
-          groups.forEach((group) => {
-            this.default_groups.push(group["label"]);
-          });
-          this.groups_func.init_select_tree(groups);
-          var eimdevicetpyedata = res["message"][0]["type"];
-          this.eimdevicetpye.init_select_trees(eimdevicetpyedata);
-        }
-      });
+    return new Observable((Observable) => {
+      var columns = {
+        employeeid: this.userinfo.getEmployeeID(),
+      };
+      this.http
+        .callRPC("deveice", "dev_get_device_groups", columns)
+        .subscribe((result) => {
+          var res = result["result"]["message"][0];
+          // console.log("得到下拉框的数据---------------->", res)
+          if (res["code"] === 1) {
+            var groups = res["message"][0]["groups"];
+            // 默认的科室功能组
+            groups.forEach((group) => {
+              this.default_groups.push(group["label"]);
+            });
+            this.groups_func.init_select_tree(groups);
+            var eimdevicetpyedata = res["message"][0]["type"];
+            this.eimdevicetpye.init_select_trees(eimdevicetpyedata);
+            Observable.next(true);
+          } else {
+            Observable.next(false);
+          }
+        });
+    });
   }
 
   // 导入文件

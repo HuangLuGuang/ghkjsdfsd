@@ -11,6 +11,7 @@ import { ActionComponent } from "./action/action.component";
 // import { TableDevicenameComponent } from '../../components/table-devicename/table-devicename.component';
 import { TableGroupComponent } from "../../../tongji/components/table-group/table-group.component";
 import { TableDevicenameComponent } from "../../../tongji/components/table-devicename/table-devicename.component";
+import { Observable } from "rxjs";
 
 @Component({
   selector: "ngx-hour-config",
@@ -142,7 +143,7 @@ export class HourConfigComponent implements OnInit {
     localStorage.removeItem("alert401flag");
 
     // 选择框
-    this.get_tree_selecetdata();
+    // this.get_tree_selecetdata();
   }
 
   ngOnInit(): void {
@@ -182,13 +183,20 @@ export class HourConfigComponent implements OnInit {
   ngAfterViewInit() {
     this.tableDatas.columnDefs.push(this.active);
 
-    setTimeout(() => {
-      this.loading = true;
-    }, 200);
-    setTimeout(() => {
-      // 初始化aggrid
-      this.inttable();
-    }, 1000);
+    this.get_tree_selecetdata().subscribe((res) => {
+      if (res) {
+        // 初始化aggrid
+        this.inttable();
+      }
+    });
+
+    // setTimeout(() => {
+    //   this.loading = true;
+    // }, 200);
+    // setTimeout(() => {
+    //   // 初始化aggrid
+    //   this.inttable();
+    // }, 1000);
   }
 
   ngOnDestroy() {}
@@ -379,44 +387,49 @@ export class HourConfigComponent implements OnInit {
 
   // 得到设备类型
   get_tree_selecetdata() {
-    var columns = {
-      employeeid: this.employeeid,
-    };
-    this.http
-      .callRPC("deveice", "dev_get_device_type", columns)
-      .subscribe((result) => {
-        var res = result["result"]["message"][0];
-        // console.log("得到下拉框的数据---------------->", res)
-        if (res["code"] === 1) {
-          var eimdevicetpyedata = res["message"][0]["type"];
-          this.eimdevicetpye.init_select_trees(eimdevicetpyedata);
+    return new Observable((Observable) => {
+      var columns = {
+        employeeid: this.employeeid,
+      };
+      this.http
+        .callRPC("deveice", "dev_get_device_type", columns)
+        .subscribe((result) => {
+          var res = result["result"]["message"][0];
+          // console.log("得到下拉框的数据---------------->", res)
+          if (res["code"] === 1) {
+            var eimdevicetpyedata = res["message"][0]["type"];
+            this.eimdevicetpye.init_select_trees(eimdevicetpyedata);
 
-          var groups = res["message"][0]["groups"];
-          // 默认的科室功能组
-          groups.forEach((group) => {
-            this.default_groups.push(group["label"]);
-          });
+            var groups = res["message"][0]["groups"];
+            // 默认的科室功能组
+            groups.forEach((group) => {
+              this.default_groups.push(group["label"]);
+            });
 
-          this.groups_func.init_select_tree(groups);
+            this.groups_func.init_select_tree(groups);
 
-          // 月份
-          var month = [
-            { id: 1, label: "一月" },
-            { id: 2, label: "二月" },
-            { id: 3, label: "三月" },
-            { id: 4, label: "四月" },
-            { id: 5, label: "五月" },
-            { id: 6, label: "六月" },
-            { id: 7, label: "七月" },
-            { id: 8, label: "八月" },
-            { id: 9, label: "九月" },
-            { id: 10, label: "十月" },
-            { id: 11, label: "十一月" },
-            { id: 12, label: "十二月" },
-          ];
-          this.myMonth.init_select_tree(month);
-        }
-      });
+            // 月份
+            var month = [
+              { id: 1, label: "一月" },
+              { id: 2, label: "二月" },
+              { id: 3, label: "三月" },
+              { id: 4, label: "四月" },
+              { id: 5, label: "五月" },
+              { id: 6, label: "六月" },
+              { id: 7, label: "七月" },
+              { id: 8, label: "八月" },
+              { id: 9, label: "九月" },
+              { id: 10, label: "十月" },
+              { id: 11, label: "十一月" },
+              { id: 12, label: "十二月" },
+            ];
+            this.myMonth.init_select_tree(month);
+            Observable.next(true);
+          } else {
+            Observable.next(false);
+          }
+        });
+    });
   }
 
   // 修改目标工时

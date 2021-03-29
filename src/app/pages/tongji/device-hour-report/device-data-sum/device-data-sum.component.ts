@@ -1,6 +1,7 @@
 import { DatePipe } from "@angular/common";
 import { Component, OnInit, ViewChild } from "@angular/core";
 import { NbDialogService } from "@nebular/theme";
+import { Observable } from "rxjs";
 
 import { HttpserviceService } from "../../../../services/http/httpservice.service";
 import { PublicmethodService } from "../../../../services/publicmethod/publicmethod.service";
@@ -201,8 +202,6 @@ export class DeviceDataSumComponent implements OnInit {
   ) {
     // 会话过期
     localStorage.removeItem("alert401flag");
-    // 选择框
-    this.get_tree_selecetdata();
   }
 
   ngOnInit(): void {
@@ -216,55 +215,67 @@ export class DeviceDataSumComponent implements OnInit {
   }
 
   ngAfterViewInit() {
-    setTimeout(() => {
-      this.loading = true;
-    }, 200);
-    setTimeout(() => {
-      // 初始化aggrid
-      this.inttable();
-    }, 1000);
+    // 选择框
+    this.get_tree_selecetdata().subscribe((res) => {
+      if (res) {
+        // 初始化aggrid
+        this.inttable();
+      }
+    });
+    // setTimeout(() => {
+    //   this.loading = true;
+    // }, 200);
+    // setTimeout(() => {
+    //   // 初始化aggrid
+    //   this.inttable();
+    // }, 1000);
   }
 
   // 得到下拉框的数据
   get_tree_selecetdata() {
-    var columns = {
-      employeeid: this.employeeid,
-    };
-    // dev_get_device_type dev_get_device_groups
-    this.http
-      .callRPC("deveice", "dev_get_device_type", columns)
-      .subscribe((result) => {
-        var res = result["result"]["message"][0];
-        // console.log("得到下拉框的数据---------------->", res);
-        if (res["code"] === 1) {
-          var groups = res["message"][0]["groups"];
+    return new Observable((Observable) => {
+      var columns = {
+        employeeid: this.employeeid,
+      };
+      // dev_get_device_type dev_get_device_groups
+      this.http
+        .callRPC("deveice", "dev_get_device_type", columns)
+        .subscribe((result) => {
+          var res = result["result"]["message"][0];
+          // console.log("得到下拉框的数据---------------->", res);
+          if (res["code"] === 1) {
+            var groups = res["message"][0]["groups"];
 
-          // 默认的科室功能组
-          groups.forEach((group) => {
-            this.default_groups.push(group["label"]);
-          });
-          this.groups_func.init_select_tree(groups);
-          var eimdevicetpyedata = res["message"][0]["type"];
-          this.eimdevicetpye.init_select_trees(eimdevicetpyedata);
+            // 默认的科室功能组
+            groups.forEach((group) => {
+              this.default_groups.push(group["label"]);
+            });
+            this.groups_func.init_select_tree(groups);
+            var eimdevicetpyedata = res["message"][0]["type"];
+            this.eimdevicetpye.init_select_trees(eimdevicetpyedata);
 
-          // 月份
-          var month = [
-            { id: 1, label: "一月" },
-            { id: 2, label: "二月" },
-            { id: 3, label: "三月" },
-            { id: 4, label: "四月" },
-            { id: 5, label: "五月" },
-            { id: 6, label: "六月" },
-            { id: 7, label: "七月" },
-            { id: 8, label: "八月" },
-            { id: 9, label: "九月" },
-            { id: 10, label: "十月" },
-            { id: 11, label: "十一月" },
-            { id: 12, label: "十二月" },
-          ];
-          this.myMonth.init_select_tree(month);
-        }
-      });
+            // 月份
+            var month = [
+              { id: 1, label: "一月" },
+              { id: 2, label: "二月" },
+              { id: 3, label: "三月" },
+              { id: 4, label: "四月" },
+              { id: 5, label: "五月" },
+              { id: 6, label: "六月" },
+              { id: 7, label: "七月" },
+              { id: 8, label: "八月" },
+              { id: 9, label: "九月" },
+              { id: 10, label: "十月" },
+              { id: 11, label: "十一月" },
+              { id: 12, label: "十二月" },
+            ];
+            this.myMonth.init_select_tree(month);
+            Observable.next(true);
+          } else {
+            Observable.next(false);
+          }
+        });
+    });
   }
 
   // button按钮

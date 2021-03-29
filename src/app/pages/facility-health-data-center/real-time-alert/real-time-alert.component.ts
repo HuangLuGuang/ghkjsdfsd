@@ -1,6 +1,7 @@
 import { DatePipe } from "@angular/common";
 import { Component, OnInit, ViewChild } from "@angular/core";
 import { NbDialogService } from "@nebular/theme";
+import { Observable } from "rxjs";
 import { EditDelTooltipComponent } from "../../../pages-popups/prompt-diallog/edit-del-tooltip/edit-del-tooltip.component";
 import { HttpserviceService } from "../../../services/http/httpservice.service";
 import { PublicmethodService } from "../../../services/publicmethod/publicmethod.service";
@@ -42,7 +43,7 @@ export class RealTimeAlertComponent implements OnInit {
     // 会话过期
     localStorage.removeItem("alert401flag");
     // 下拉框
-    this.get_tree_selecetdata();
+    // this.get_tree_selecetdata();
   }
 
   loading = false; // 加载
@@ -184,13 +185,20 @@ export class RealTimeAlertComponent implements OnInit {
 
   ngAfterViewInit() {
     // 初始化table
-    setTimeout(() => {
-      this.loading = true;
-    }, 200);
-    setTimeout(() => {
-      // 初始化aggrid
-      this.inttable();
-    }, 1000);
+    // setTimeout(() => {
+    //   this.loading = true;
+    // }, 200);
+    // setTimeout(() => {
+    //   // 初始化aggrid
+    //   this.inttable();
+    // }, 1000);
+    this.get_tree_selecetdata().subscribe((res) => {
+      if (res) {
+        // 初始化aggrid
+        this.inttable();
+      }
+    });
+
     this.loading = false;
   }
 
@@ -239,27 +247,32 @@ export class RealTimeAlertComponent implements OnInit {
 
   // 得到下拉框的数据
   get_tree_selecetdata() {
-    var columns = {
-      employeeid: this.userinfo.getEmployeeID(),
-    };
-    this.http
-      .callRPC("deveice", "dev_get_device_groups", columns)
-      .subscribe((result) => {
-        var res = result["result"]["message"][0];
-        // console.log("得到下拉框的数据---------------->", res)
-        if (res["code"] === 1) {
-          var groups = res["message"][0]["groups"];
-          // 默认的科室功能组
-          groups.forEach((group) => {
-            this.default_groups.push(group["label"]);
-          });
+    return new Observable((Observable) => {
+      var columns = {
+        employeeid: this.userinfo.getEmployeeID(),
+      };
+      this.http
+        .callRPC("deveice", "dev_get_device_groups", columns)
+        .subscribe((result) => {
+          var res = result["result"]["message"][0];
+          // console.log("得到下拉框的数据---------------->", res)
+          if (res["code"] === 1) {
+            var groups = res["message"][0]["groups"];
+            // 默认的科室功能组
+            groups.forEach((group) => {
+              this.default_groups.push(group["label"]);
+            });
 
-          this.groups_func.init_select_tree(groups);
+            this.groups_func.init_select_tree(groups);
 
-          var eimdevicetpyedata = res["message"][0]["type"];
-          this.eimdevicetpye.init_select_trees(eimdevicetpyedata);
-        }
-      });
+            var eimdevicetpyedata = res["message"][0]["type"];
+            this.eimdevicetpye.init_select_trees(eimdevicetpyedata);
+            Observable.next(true);
+          } else {
+            Observable.next(false);
+          }
+        });
+    });
   }
 
   // input 传入的值
