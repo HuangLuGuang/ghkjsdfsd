@@ -1,5 +1,5 @@
 <ng-container *ngFor="let item of equipIntroduceList;let i = index">
-    <div *ngIf="eqIntShow == i" class="height_10 equipments_table_title flip">{{item.title }}</div>
+    <div *ngIf="eqIntShow == i" class="height_12 equipments_table_title flip">{{item.title }}</div>
     <div [ngStyle]="{display: eqIntShow != i?'none':''}" class="introduce  borad_introduction flip">
         <img src="assets/eimdoard/equipment/images/sbjs/{{name}}/{{item.src}}/{{i+1}}.png" alt="" />
     </div>
@@ -11,7 +11,7 @@
     <ng-container *ngIf="eqIntShow == 0">
         <div class="height_10 equipments_table_title"></div>
         <div class="introduce borad_introduction">
-            <p class="indent_2 p_white">四立柱轮耦合道路模拟试验主要在试验场采集车辆轮心加速度和螺旋弹簧应变（螺旋弹簧位移或者悬架位移）作为目标信号，在试验室台架上应用MTS RPC技术，来模拟4个车轮的垂向激励或者载荷，可以很精确地再现车辆在试验场道路的垂向工况，加快汽车产品耐久性的开发进度。同时，在试验室配备环境仓和红外灯的情况，可以对汽车内外饰的疲劳寿命和异响进行精确的考核。 </p>
+            <p class="indent_2 p_white">四立柱轮耦合道路模拟试验主要在试车辆轮心加速度和螺旋弹簧应变（螺旋弹簧位移或者悬架位移）作为目标信号，在试验室台架上应用MTS RPC技术，来模拟4个车轮的垂向激励或者载荷，可以很精确地再现车辆在试验场道路的垂向工况，加快汽车产品耐久性的开发进度。同时，在试验室配备环境仓和红外灯的情况，可以对汽车内外饰的疲劳寿命和异响进行精确的考核。 </p>
             <p class="p_white p_margin">适用标准规范： </p>
             <p class="indent_2 p_white">Q/JLY J7210680A-2017 带环境条件的四立柱耐久试验规范
             </p>

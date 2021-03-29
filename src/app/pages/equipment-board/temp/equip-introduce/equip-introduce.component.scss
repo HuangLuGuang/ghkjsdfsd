@@ -8,13 +8,16 @@
     position: relative;
     height: 88%;
     padding: 0% 1%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
     img {
-        // position: absolute;
+        position: absolute;
         height: 100%;
         width: 100%;
-        background-size: cover;
-        -webkit-background-size: cover;
-        -o-background-size: cover;
+        background-size: 100% 100%;
+        -webkit-background-size: 100% 100%;
+        -o-background-size: 100% 100%;
         background-position: center center;
     }
 }
