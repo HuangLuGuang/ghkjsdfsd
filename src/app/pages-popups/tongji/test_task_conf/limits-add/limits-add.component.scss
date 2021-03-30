@@ -1,0 +1,62 @@
+// 必填
+.mulu_title::before{
+    content: "*";
+    color: #ff4949;
+    margin-right: 4px;
+
+}
+
+.mylabel{
+    padding: 9px 0px;
+    text-align: inherit !important;
+    font-weight: bold;
+}
+
+
+// title
+.test_task_info_title{
+    margin-bottom: 10px;
+    span{
+        background-color: #4672c4;
+        padding: 3px 2px;
+        color: #fff;
+        font-size: small;
+    }
+}
+
+// form
+.layui-form-item{
+    // margin-bottom: -20px;
+    margin-bottom: -10px;
+}
+.test_task_info_left{
+    width: 47%;
+}
+.test_task_info_right{
+    width: 50%;
+}
+.add{
+    line-height: 33px;
+    top: -4px;
+    position: relative;
+    width: 63px;
+}
+
+// 预览
+.yulan_span{
+    padding: 9px 0px;
+    text-align: inherit !important;
+    font-size: smaller;
+}
+.yulan{
+    overflow-y: auto;
+    margin-left: 100px;
+    padding: 9px 0px;
+    text-align: inherit !important;
+    border: 1px #a69191 dashed;
+    height: 80px;
+    margin-bottom: 10px;
+
+    padding-left: 5px;
+    
+}

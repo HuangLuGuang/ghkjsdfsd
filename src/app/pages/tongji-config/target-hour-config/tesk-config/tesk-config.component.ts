@@ -19,6 +19,7 @@ import { EditComponent } from "../../../../pages-popups/tongji/test_task_conf/ed
 import { TableDevicenameComponent } from "../../../tongji/components/table-devicename/table-devicename.component";
 import { TimeScheduleComponent } from "./time-schedule/time-schedule.component";
 import { Observable } from "rxjs";
+import { LimitsAddComponent } from "../../../../pages-popups/tongji/test_task_conf/limits-add/limits-add.component";
 
 @Component({
   selector: "ngx-tesk-config",
@@ -304,15 +305,62 @@ export class TeskConfigComponent implements OnInit {
 
   // 新增试验任务
   add() {
-    this.dialogService
-      .open(AddComponent, { closeOnBackdropClick: false, context: {} })
-      .onClose.subscribe((res) => {
-        if (res) {
-          // 标识 插入数据
-          // 刷新tabel
-          this.refresh_table();
-        }
+    // 判断
+    this.tesk_over().subscribe((res) => {
+      console.error("新增试验任务,是否手动：", res);
+      if (res) {
+        this.dialogService
+          .open(AddComponent, { closeOnBackdropClick: false, context: {} })
+          .onClose.subscribe((res) => {
+            if (res) {
+              // 标识 插入数据
+              // 刷新tabel
+              this.refresh_table();
+            }
+          });
+      } else {
+        this.dialogService
+          .open(LimitsAddComponent, {
+            closeOnBackdropClick: false,
+            context: {},
+          })
+          .onClose.subscribe((res) => {
+            if (res) {
+              // 标识 插入数据
+              // 刷新tabel
+              // this.refresh_table();
+            }
+          });
+      }
+    });
+  }
+
+  // 选择是limits还是 手动的
+  tesk_over() {
+    return new Observable((observable) => {
+      layui.use("layer", function () {
+        var layer = layui.layer;
+        layer.open({
+          title: [
+            "提示",
+            "padding: 1rem 1.5rem;border-bottom: 1px solid #edf1f7;border-top-left-radius: 0.25rem;border-top-right-radius: 0.25rem;color: #222b45;font-family: Open Sans, sans-serif;font-size: 0.9375rem;font-weight: 600;line-height: 0.5rem;background: #fff;",
+          ],
+          id: "LAY_layuipro_Add", //设定一个id，防止重复弹出
+          btn: ["Limit添加", "手动添加"],
+          btnAlign: "r",
+          moveType: 1, //拖拽模式，0或者1
+          content: "选择添加模式",
+          yes: function () {
+            layer.closeAll();
+            observable.next(false);
+          },
+          btn2: function () {
+            layer.closeAll();
+            observable.next(true);
+          },
+        });
       });
+    });
   }
 
   // 编辑试验任务
