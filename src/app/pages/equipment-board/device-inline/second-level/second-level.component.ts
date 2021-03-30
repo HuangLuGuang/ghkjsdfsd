@@ -362,8 +362,10 @@ export class SecondLevelComponent implements OnInit {
   DataTimeChange(e){
     this.DataTime = e;
     console.log('------------------选择的时间改变',e)
+    setTimeout(() => {
+      this.deviceactive();
+    }, 10);
     this.get_alarm_infor();
-    this.deviceactive();
   }
 
 

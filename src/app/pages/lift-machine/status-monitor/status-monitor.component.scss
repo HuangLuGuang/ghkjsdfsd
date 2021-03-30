@@ -2,6 +2,11 @@
     // border: 1px rgb(89, 141, 255) solid;
     height: 100%;
 }
+.bo{
+    border-radius: 1px;
+    box-shadow: 2px 2px 6px #afbbc1, inset -2px -2px 6px #edfdff;
+    padding: 0 5px;
+}
 // 主题
 .lift_content{
     height: 91%;
@@ -19,7 +24,8 @@
             position: absolute;
             top: 11%;
             right: 6%;
-            width: 67px;
+            height: 14%;
+            width: 4%;
             transform: rotate( 
             -90deg
             );
@@ -42,16 +48,17 @@
             top: 123px;
             right: 11.4%;
             z-index: 1;
-            border: 2px #cacabd solid;
+            border: 2px #bfc6d5 solid;
             display: grid;
             background: #d2d2d2;
         }
 
         .lift_content_car2image{
             position: absolute;
-            top: 22%;
+            top: 22.4%;
             right: 6%;
-            width: 67px;
+            height: 14%;
+            width: 4%;
             transform: rotate( 
             -90deg
             );
@@ -74,7 +81,7 @@
             top: 217px;
             right: 11.35%;
             z-index: 1;
-            border: 2px #cacabd solid;
+            border: 2px #bfc6d5 solid;
             display: grid;
             background: #d2d2d2f2;
         }
@@ -83,7 +90,8 @@
             position: absolute;
             top: 11%;
             right: 21%;
-            width: 67px;
+            height: 14%;
+            width: 4%;
             transform: rotate( 
             -90deg
             );
@@ -106,7 +114,7 @@
             top: 123px;
             right: 26.9%;
             z-index: 1;
-            border: 2px #cacabd solid;
+            border: 2px #bfc6d5 solid;
             display: grid;
             background: #d2d2d2f2;
         }
@@ -115,7 +123,8 @@
             position: absolute;
             top: 14.5%;
             right: 50%;
-            width: 67px;
+            height: 14%;
+            width: 4%;
             transform: rotate( 
             -90deg
             );
@@ -138,16 +147,17 @@
             top: 153px;
             right: 55.9%;
             z-index: 1;
-            border: 2px #cacabd solid;
+            border: 2px #bfc6d5 solid;
             display: grid;
             background: #d2d2d2f2;
         }
 
         .lift_content_car5image{
             position: absolute;
-            top: 49%;
+            top: 50%;
             left: 47.59%;
-            width: 67px;
+            height: 14%;
+            width: 4%;
             transform: rotate( 
             0deg
             );
@@ -170,7 +180,7 @@
             top: 390px;
             right: 52.7%;
             z-index: 1;
-            border: 2px #cacabd solid;
+            border: 2px #bfc6d5 solid;
             display: grid;
             background: #d2d2d2f2;
         }
@@ -179,7 +189,8 @@
             position: absolute;
             top: 80.8%;
             right: 50%;
-            width: 67px;
+            height: 14%;
+            width: 4%;
             transform: rotate( 
             -90deg
             );
@@ -202,16 +213,17 @@
             top: 707px;
             right: 55.9%;
             z-index: 1;
-            border: 2px #cacabd solid;
+            border: 2px #bfc6d5 solid;
             display: grid;
             background: #d2d2d2;
         }
 
         .lift_content_car7image{
             position: absolute;
-            top: 49%;
-            left: 35.78%;
-            width: 67px;
+            top: 50%;
+            left: 35.48%;
+            height: 14%;
+            width: 4%;
             transform: rotate( 
             0deg
             );
@@ -235,15 +247,16 @@
             top: 390px;
             right: 64.7%;
             z-index: 1;
-            border: 2px #cacabd solid;
+            border: 2px #bfc6d5 solid;
             display: grid;
             background: #d2d2d2;
         }
         .lift_content_car8image{
             position: absolute;
-            top: 52.5%;
+            top: 53.3%;
             right: 72%;
-            width: 67px;
+            height: 14%;
+            width: 4%;
             transform: rotate( 
             -90deg
             );
@@ -267,7 +280,7 @@
             top: 478px;
             right: 77.5%;
             z-index: 1;
-            border: 2px #cacabd solid;
+            border: 2px #bfc6d5 solid;
             display: grid;
             background: #d2d2d2;
         }

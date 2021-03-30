@@ -66,7 +66,7 @@ export class EquipmentBoardService implements OnDestroy{
     // if(this.timeout)clearTimeout(this.timeout);
     this.timeout = setTimeout(() => {
       if(window.document.body.offsetHeight <= window.screen.height 
-        && window.screen.height > document.getElementsByTagName('ngx-equipment-board')[0].scrollHeight){
+        && window.screen.height > document.getElementsByTagName('ngx-equipment-board')[0]?.scrollHeight){
           console.log('--------------监听尺寸变化全屏功能---------')
           // alert('--------------f11取消全屏化---------')
           this.chart_subject.next('resize');

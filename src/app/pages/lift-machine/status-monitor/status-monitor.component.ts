@@ -18,6 +18,7 @@ export class StatusMonitorComponent implements OnInit {
   METHODALL = "dev_get_detector_numbers";
 
   detector_datas = [];
+  timer;// 定时器
 
   ngAfterViewInit() {
     setTimeout(() => {
@@ -27,6 +28,15 @@ export class StatusMonitorComponent implements OnInit {
     setTimeout(() => {
       this.get_all_num();
     }, 200);
+    // this.timer = setInterval(()=>{
+    //   setTimeout(() => {
+    //     this.get_init_table();
+    //   }, 100);
+  
+    //   setTimeout(() => {
+    //     this.get_all_num();
+    //   }, 200);
+    // },2000)
   }
 
   // 得到 总数
@@ -61,5 +71,9 @@ export class StatusMonitorComponent implements OnInit {
         }
       }
     });
+  }
+
+  ngOnDestroy(){
+    clearInterval(this.timer);
   }
 }
