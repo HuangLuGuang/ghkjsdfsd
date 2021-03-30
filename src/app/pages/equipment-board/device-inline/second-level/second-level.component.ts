@@ -16,7 +16,7 @@ import { EquipmentBoardService } from "../../serivice/equipment-board.service";
 import Highcharts3D from "highcharts/highcharts-3d";
 import { ThirdLevelService } from "../third-level/laboratory/third-level.service";
 import { HttpserviceService } from "../../../../services/http/httpservice.service";
-import { dateformat } from "../../equipment-board";
+import { copy, dateformat } from "../../equipment-board";
 import { Observable } from "rxjs";
 
 declare let $;
@@ -229,7 +229,6 @@ export class SecondLevelComponent implements OnInit {
     // 设备开动率、完好lv
     setTimeout(() => {
       this.boardservice.sendLoad({ close: false });
-      this.deviceactive();
       this.getData()
     }, 100);
 
@@ -246,6 +245,7 @@ export class SecondLevelComponent implements OnInit {
         console.log(this.DataTime)
         this.get_distribution_number();
         this.get_alarm_infor();
+        this.deviceactive();
       }
       o++;
     },1000)
@@ -295,32 +295,12 @@ export class SecondLevelComponent implements OnInit {
       ],
       xdata :["1月","2月","3月","4月","5月","6月","7月","8月","9月","10月","11月","12月",]
     };
-    let day = 0,//往后端穿的参数
-        date = new Date(),//当前时间
-        day_num;///生成数据的条数
-    if(this.DataTime === 'week'){
-      day = 6;
-      day_num = day+1;
-      deviceline.xdata = Array.from(new Array(7), (v,i) => 
-        (date.setTime(new Date().getTime() - 1000 * 60 * 60 * 24 *(6-i)),dateformat(date,'MM-dd')));
-
-    }else if(this.DataTime === 'month' ){
-      day = 30;
-      day_num = 30;
-      deviceline.xdata = Array.from(new Array(30), (v,i) => 
-        (date.setTime(new Date().getTime() - 1000 * 60 * 60 * 24 *(29-i)),dateformat(date,'MM-dd')));
-    }else if(this.DataTime === 'year' ){
-      day = 365;
-      day_num  = 12;
-    } 
-
-    //TODO x轴赋值
-    // this.device_active_data[0].xdata = JSON.parse(JSON.stringify(deviceline.xdata));
-    
+    let param = this.return_param();
+    deviceline.xdata = param.xarr;
     //创建数据
-    deviceline.series_datas[0] = Array.from(new Array(day_num), (v,i) => (v = 0));
-    deviceline.series_datas[1] = Array.from(new Array(day_num), (v,i) => (v = 0));
-    deviceline.series_datas[2] = Array.from(new Array(day_num), (v,i) => (v = 0));
+    deviceline.series_datas[0] = copy(param.arr);
+    deviceline.series_datas[1] = copy(param.arr);
+    deviceline.series_datas[2] = copy(param.arr);
     let pie_data = {
       subtext: '',
       data: [
@@ -329,7 +309,7 @@ export class SecondLevelComponent implements OnInit {
         { value: 0, name: "一级" },
       ],
     };
-    this.sublists.alarm_infor = this.http.callRPC('get_alarm_data','public.get_alarm_data',{day:day}).subscribe((f:any)=>{
+    this.sublists.alarm_infor = this.http.callRPC('get_alarm_data','public.get_alarm_data',{day:param.day}).subscribe((f:any)=>{
       if(f.result.error || f.result.message[0].code == 0)return;
       this.sublists.alarm_infor.unsubscribe();
       console.log(f.result.message[0].message);
@@ -384,6 +364,36 @@ export class SecondLevelComponent implements OnInit {
     console.log('------------------选择的时间改变',e)
     this.get_alarm_infor();
     this.deviceactive();
+  }
+
+
+  return_param(){
+    let day = 0,//往后端穿的参数
+        date = new Date(),//当前时间
+        day_num,///生成数据的条数
+        xarr=[],
+        arr = [];
+    if(this.DataTime === 'week'){
+      day = 6;
+      day_num = day+1;
+      xarr = Array.from(new Array(7), (v,i) => 
+        (date.setTime(new Date().getTime() - 1000 * 60 * 60 * 24 *(6-i)),dateformat(date,'MM-dd')));
+    }else if(this.DataTime === 'month' ){
+      day = 30;
+      day_num = 30;
+      xarr = Array.from(new Array(30), (v,i) => 
+        (date.setTime(new Date().getTime() - 1000 * 60 * 60 * 24 *(29-i)),dateformat(date,'MM-dd')));
+    }else if(this.DataTime === 'year' ){
+      day = 365;
+      day_num  = 12;
+      xarr = ["1月","2月","3月","4月","5月","6月","7月","8月","9月","10月","11月","12月",];
+    } 
+    return {
+      day:day,
+      day_num:day_num,
+      xarr:xarr,
+      arr : xarr.map(m=>(0))
+    }
   }
 
 
@@ -606,6 +616,8 @@ export class SecondLevelComponent implements OnInit {
   }
   // 设备活跃度
   deviceactive() {
+    let param = this.return_param();
+    this.device_active_data[0].xdata = param.xarr;
     let dom = document.getElementById('device_active');
     if(dom){
       second_level.deviceLeftLine(echarts.init(dom),this.device_active_data[0]);
