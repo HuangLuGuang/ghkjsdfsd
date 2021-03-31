@@ -45,7 +45,7 @@ export class RightLayoutComponent implements OnInit {
       if(o%4 == 0){
         this.thirdLevelService.get_task_num(this._list).subscribe((f:any)=>{
           this.initChart(f);
-          this.task_num = f.sum.reduce((total,cur)=>total+cur,0);
+          this.task_num = f.carryOut.reduce((total,cur)=>total+cur,0);
         })
       }
       o++;
