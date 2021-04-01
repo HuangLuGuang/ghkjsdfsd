@@ -131,7 +131,7 @@
         overflow: hidden;
         text-overflow: ellipsis;
         width: 100%;
-        position: absolute;
+        // position: absolute;
         top: 0;
         // width: 75px;
     }
@@ -154,8 +154,13 @@
                     padding: 5px;
                 }
             }
-            .body {
+            ._body {
                 font-size: 12px;
+                display: flex;
+                flex-wrap: wrap;
+                justify-content: center;
+                align-items: center;
+                height: 34px;
                 .progress_o {
                     border-radius: 3px;
                     width: 100%;

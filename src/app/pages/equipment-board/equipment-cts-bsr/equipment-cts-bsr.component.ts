@@ -158,6 +158,7 @@ export class EquipmentCtsBsrComponent implements OnInit {
 
   getData(){
     let o = 0;
+
     this.timer = setInterval(()=>{
       if(o%60 == 0){
         this.get_cts();
