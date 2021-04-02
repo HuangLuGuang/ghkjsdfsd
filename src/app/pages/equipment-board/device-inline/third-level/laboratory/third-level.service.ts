@@ -160,8 +160,10 @@ export class ThirdLevelService {
    */
   get_task_num(deviceList:string[]){
     return new Observable(s =>{
-      this.http.callRPC('get_task_numbers','public.get_task_numbers',{"deviceid":deviceList}).subscribe((f:any)=>{
+      let year = dateformat(new Date(),'yyyy');
+      this.http.callRPC('get_task_numbers','public.get_task_numbers',{"deviceid":deviceList,"start":`${year}-01-01`,"end":`${year}-12-31`}).subscribe((f:any)=>{
         if(f.result.error || f.result.message[0].code == 0)return;
+
         // 1.deviceid
         // 2.总数
         // 3.完成个数
@@ -228,7 +230,7 @@ export class ThirdLevelService {
   get_equipment_status(deviceList:string[]){
     
     return new Observable(s =>{
-      this.http.callRPC('get_task_numbers','public.get_device_status',{"deviceid":deviceList}).subscribe((f:any)=>{
+      this.http.callRPC('get_device_status','public.get_device_status',{"deviceid":deviceList}).subscribe((f:any)=>{
         if(f.result.error || f.result.message[0].code == 0)return;
         let json:any = {},res = f.result.message[0].message;
         for(let i = 0;i<res.length;i+=2){

@@ -89,31 +89,34 @@ export class SecondLevelComponent implements OnInit {
   laboratory = [
     {
       errornum:0,//异常的数量
-      title:'结构实验室',
-      class:'structural',
+      // title:'结构实验室',
+      // class:'structural',
     },
     {
       errornum:0,
-      title:'环模实验室',
-      class:'environment',
+      // title:'环模实验室',
+      // class:'environment',
     },
     {
       errornum:0,
-      title:'电机实验室',
-      class:'energy',
-    },
-    {
-      errornum:1,
-      title:'理化环保实验室',
-      class:'physical',
+      // title:'电机实验室',
+      // class:'energy',
     },
     {
       errornum:0,
-      title:'NVH实验室',
-      class:'noise',
+      // title:'理化环保实验室',
+      // class:'physical',
+    },
+    {
+      errornum:0,
+      // title:'NVH实验室',
+      // class:'noise',
     },
     
   ]
+
+
+
   laboratory_now_error = true;
 
   myChart;
@@ -154,10 +157,11 @@ export class SecondLevelComponent implements OnInit {
 
   alert = {
     number:0,//当前报警数量
-    equip_number:'-',//TODO 监控设备数量 
+    equip_number:'-',// 监控设备数量 
     dismiss_number:'-',//TODO 已解除数量
   }
   DataTime = 'week';//获取数据的时间
+  DataTimeError = 30;//获取报警时间
 
 
   timer_data;
@@ -240,9 +244,9 @@ export class SecondLevelComponent implements OnInit {
     let o = 0;
     this.timer_data = setInterval(()=>{
       if(o%5 == 0)this.get_teststatus();
+      if(o%10 == 0)this.get_alarm_infor_status();
       // 500秒更新一次
       if(o%20 == 0 ){
-        console.log(this.DataTime)
         this.get_distribution_number();
         this.get_alarm_infor();
         this.deviceactive();
@@ -279,12 +283,10 @@ export class SecondLevelComponent implements OnInit {
    * 报警信息
    */
   get_alarm_infor(){
-    // return new Observable(s =>{
-
-    // });
+    
     // SELECT get_alarm_data('{"day":"7"}')
     // wweek特殊处理传6    year特殊处理穿365 
-    console.log('当前选择的时间',this.DataTime)
+    // console.log('当前选择的时间',this.DataTime)
     // if(!this.DataTime)return;
     let deviceline = {
       legend_data: ["三级", "二级", "一级"],
@@ -311,8 +313,7 @@ export class SecondLevelComponent implements OnInit {
     };
     this.sublists.alarm_infor = this.http.callRPC('get_alarm_data','public.get_alarm_data',{day:param.day}).subscribe((f:any)=>{
       if(f.result.error || f.result.message[0].code == 0)return;
-      this.sublists.alarm_infor.unsubscribe();
-      console.log(f.result.message[0].message);
+      // console.log(f.result.message[0].message);
       f.result.message[0].message.forEach(el => {
         pie_data.data[el.level && el.level-1].value += el.count;
         if( this.DataTime != 'year'){
@@ -324,7 +325,7 @@ export class SecondLevelComponent implements OnInit {
       });
       this.alert.number =  f.result.message[0].alarm_numbers[0].numbers||0;
       this.alert.equip_number =  f.result.message[0].device_numbers[0].devicenumbers||0;
-      console.log(deviceline.series_datas);
+      // console.log(deviceline.series_datas);
       // 初始化 echart
       setTimeout(() => {
         if(document.getElementById('tj_test_number')){
@@ -343,7 +344,7 @@ export class SecondLevelComponent implements OnInit {
   get_distribution_number(){
     this.sublists.distribution = this.http.callRPC('get_groups_devicenumbers','public.get_groups_devicenumbers',{}).subscribe((f:any)=>{
       if(f.result.error || f.result.message[0].code == 0)return;
-      console.log(f.result.message[0].message);
+      // console.log(f.result.message[0].message);
       this.key_index_data = f.result.message[0].message.map(m => {
         let groups = m.groups && m.groups.split('-');
         return {name: groups && groups.length?groups[groups.length-1]:'', value: m.numbers};
@@ -357,6 +358,28 @@ export class SecondLevelComponent implements OnInit {
 
 
   /**
+   * 获取报警状态
+   */
+  get_alarm_infor_status(){
+    // get_groups_alarm_log('{"minutes": 10, "level": 1}')
+    let minutes = this.DataTimeError,level = 3;
+    
+    this.http.callRPC('get_groups_alarm_log','get_groups_alarm_log',{"minutes": minutes, "level": level}).subscribe((f:any)=>{
+      if(f.result.error || f.result.message[0].code == 0)return;
+      this.laboratory = f.result.message[0].message.map(m =>{
+
+        let title = m.groups.split('-');
+        return {
+          errornum:m.count||0,
+          title:title.length>2?title[2]:m.groups,
+        }
+      }
+      )
+    })
+  }
+
+
+  /**
    * 当选择的时间变化
    */
   DataTimeChange(e){
@@ -366,6 +389,16 @@ export class SecondLevelComponent implements OnInit {
       this.deviceactive();
     }, 10);
     this.get_alarm_infor();
+  }
+
+  /**
+   * 报警区域时间选择变化
+   * @param e 
+   */
+  DataTimeErrorChange(e){
+    this.DataTimeError = e;
+    console.log('选择',e);
+    this.get_alarm_infor_status();
   }
 
 
@@ -717,6 +750,7 @@ export class SecondLevelComponent implements OnInit {
     //   ],
     // });
   }
+  
 
 
   ngOnDestroy() {

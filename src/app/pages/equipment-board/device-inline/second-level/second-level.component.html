@@ -128,6 +128,15 @@
             </div>
             <div class="chunk" style="height: 50%;">
                 <div class="part_title">报警区域显示</div>
+                <div class="select" style="width:8rem;">
+                    <label>时间：</label>
+                    <select [ngModel]="DataTimeError"  (ngModelChange)="DataTimeErrorChange($event)">
+                        <option value ="30">半小时</option>
+                        <option value ="60">一小时</option>
+                        <option value="720">12小时</option>
+                        <option value="1440">一天</option>
+                    </select>
+                </div>
                 <div class="geely-info ">
                     <div class="geely-info-left">
                         <div *ngFor="let item of laboratory;let i = index" class="geely-info-left-one"
