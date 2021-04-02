@@ -379,6 +379,49 @@ export class SecondLevelComponent implements OnInit {
   }
 
 
+   // 设备活跃度
+   deviceactive() {
+    //     select get_board_device_heartbeat('{"date_interval": "7days"}')
+    // select get_board_device_heartbeat('{"date_interval": "30days"}')
+    // select get_board_device_heartbeat('{"date_interval": "1year"}')
+    let date_interval = '';
+    switch(this.DataTime){
+      case 'week':
+        date_interval = '7days';
+        break;
+      case 'month':
+        date_interval = '30days';
+        break;
+      case 'year':
+        date_interval = '1year';
+        break;
+    }
+    this.http.callRPC('get_board_device_heartbeat','get_board_device_heartbeat',{"date_interval": date_interval}).subscribe((f:any)=>{
+      if(f.result.error || f.result.message[0].code == 0)return;
+      // console.log(f.result.message[0])
+      let param = this.return_param();
+      let res = f.result.message[0];
+      // this.device_active_data[0]
+      this.device_active_data[0].active_number = res.active_count;
+      this.device_active_data[0].active_percentage = res.active_rate;
+      this.device_active_data[1][0] = res.current_total_device;
+      this.device_active_data[1][1] = res.today_active_device;
+      this.device_active_data[1][2] = ((res.current_total_device/res.today_active_device)*100).toFixed(2);
+      this.device_active_data[0].xdata = param.xarr;
+
+
+      this.device_active_data[1].xdata = param.xarr;
+      let dom = document.getElementById('device_active');
+      if(dom){
+        second_level.deviceLeftLine(echarts.init(dom),this.device_active_data[0]);
+      }
+    });
+    
+        
+  }
+      
+
+
   /**
    * 当选择的时间变化
    */
@@ -649,108 +692,7 @@ export class SecondLevelComponent implements OnInit {
       ],
     });
   }
-  // 设备活跃度
-  deviceactive() {
-    let param = this.return_param();
-    this.device_active_data[0].xdata = param.xarr;
-    let dom = document.getElementById('device_active');
-    if(dom){
-      second_level.deviceLeftLine(echarts.init(dom),this.device_active_data[0]);
-    }
-
-    // this.device_active = this.Highcharts.chart("device_active", {
-    //   colors: [
-    //     "#50B432",
-    //     "#24CBE5",
-    //     "#abad05",
-    //     "#ED561B",
-    //     "#64E572",
-    //     "#FF9655",
-    //     "#FFF263",
-    //     "#6AF9C4",
-    //   ],
-    //   chart: {
-    //     type: "column",
-    //     // 顶部，右侧，底部和左侧
-    //     // margin: [0, 20, -5, 20],
-    //     // borderColor: 'red',
-    //     // borderWidth:3,
-    //     height: null,
-    //     spacing: [-20, 20, 0, 10], // 内边距
-    //     backgroundColor: "rgba(0,0,0,0)",
-    //     style: {
-    //       fontsSze: "30px",
-    //       fontWeight: "bole",
-    //     },
-    //   },
-    //   // 版本信息
-    //   credits: {
-    //     enabled: false,
-    //   },
-    //   // 关闭
-    //   legend: {
-    //     enabled: false,
-    //   },
-    //   title: {
-    //     text: "",
-    //   },
-
-    //   xAxis: {
-    //     categories: device_active_data[0].xdata,
-    //     crosshair: true,
-    //     labels: {
-    //       style: {
-    //         color: "#fff",
-    //       },
-    //     },
-    //   },
-    //   yAxis: {
-    //     // min: 0,
-    //     // title: {
-    //     //     text: '降雨量 (mm)'
-    //     // }
-    //     visible: false,
-    //   },
-    //   tooltip: {
-    //     // head + 每个 point + footer 拼接成完整的 table
-    //     headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
-    //     pointFormat:
-    //       '<tr><td style="color:{series.color};padding:0">{series.name}: </td>' +
-    //       '<td style="padding:0"><b>{point.y:.1f} %</b></td></tr>',
-    //     footerFormat: "</table>",
-    //     shared: true,
-    //     useHTML: true,
-    //   },
-    //   plotOptions: {
-    //     column: {
-    //       borderWidth: 0,
-    //     },
-    //   },
-    //   series: [
-    //     {
-    //       name: device_active_data[0].name[0],
-    //       data: device_active_data[0].value[0],
-    //     },
-    //     {
-    //       name: device_active_data[0].name[1],
-    //       data: device_active_data[0].value[1],
-    //     },
-    //     {
-    //       name: device_active_data[0].name[2],
-    //       data: device_active_data[0].value[2],
-    //     },
-    //     {
-    //       name: device_active_data[0].name[3],
-    //       data: device_active_data[0].value[3],
-    //     },
-    //     {
-    //       name: device_active_data[0].name[4],
-    //       data: device_active_data[0].value[4],
-    //     },
-    //   ],
-    // });
-  }
-  
+ 
 
 
   ngOnDestroy() {
