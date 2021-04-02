@@ -3,6 +3,7 @@ import { Router } from "@angular/router";
 import * as screenfull from "screenfull";
 import { Screenfull } from "screenfull";
 import { LayoutService } from "../../../@core/utils";
+import { HttpserviceService } from "../../../services/http/httpservice.service";
 
 declare var $: any;
 
@@ -40,6 +41,15 @@ export class CentralizedMonitoringComponent implements OnInit {
     home: true, //主页按钮
   };
 
+  DataTime = "week"; //获取数据的时间
+
+  // 当前设备数量 device_numbers、当前报警数量 alarm_number 已解除数量
+  alert_number = [
+    { title: "当前设备数量", name: "device_numbers", value: "-" },
+    { title: "当前报警数量", name: "alarm_numbers", value: "-" },
+    { title: "已解除数量", name: "alarm_numbers3", value: "-" },
+  ];
+
   // 事件/报警信息
   log_warm = {
     // '时间','日志等级','日志信息'
@@ -71,7 +81,11 @@ export class CentralizedMonitoringComponent implements OnInit {
     error: 1,
   };
 
-  constructor(private layoutService: LayoutService, private router: Router) {
+  constructor(
+    private layoutService: LayoutService,
+    private router: Router,
+    private http: HttpserviceService
+  ) {
     // 会话过期
     localStorage.removeItem("alert401flag");
   }
@@ -125,6 +139,7 @@ export class CentralizedMonitoringComponent implements OnInit {
         [2.6, 9.0, 26.4, 175.6, 28.7, 5.9, 70.7, 182.2, 18.8, 6.0, 2.3, 48.7],
       ],
     };
+
     alert_management.deviceline("tj_test_number_line", deviceline);
 
     // 从别的界面，跳转进来
@@ -281,4 +296,76 @@ export class CentralizedMonitoringComponent implements OnInit {
   }
 
   // +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+  // 设备汇总信息 --选择
+  DataTimeChange(e) {
+    this.DataTime = e;
+    console.log("------------------选择的时间改变", e);
+
+    setTimeout(() => {
+      this.deviceline();
+    }, 10);
+    // this.get_alarm_infor();
+  }
+
+  // 填充 line的
+  deviceline() {
+    enum datatime {
+      week = 6,
+      month = 30,
+      year = 365,
+    }
+
+    var xdata = {
+      year: [
+        "01",
+        "02",
+        "03",
+        "04",
+        "05",
+        "06",
+        "07",
+        "08",
+        "09",
+        "10",
+        "11",
+        "12",
+      ],
+      month: [], // 当前时间如 04-02 到 30天前的
+      week: [], // 当前时间如 04-02 到 6天前的
+    };
+
+    var deviceline = {
+      legend_data: ["三级", "二级", "一级"],
+      series_datas: [
+        [2.0, 4.9, 7.0, 23.2, 25.6, 76.7, 135.6, 162.2, 32.6, 20.0, 6.4, 3.3],
+        [2.6, 5.9, 9.0, 26.4, 28.7, 70.7, 175.6, 182.2, 48.7, 18.8, 6.0, 2.3],
+        [2.6, 9.0, 26.4, 175.6, 28.7, 5.9, 70.7, 182.2, 18.8, 6.0, 2.3, 48.7],
+      ],
+    };
+
+    this.http
+      .callRPC("get_alarm_data", "public.get_alarm_data", {
+        day: datatime[this.DataTime],
+      })
+      .subscribe((result) => {
+        console.error("填充 line的------------->", result);
+        var res = result["result"]["message"][0];
+        if (res["code"] === 1) {
+          // 当前设备数量 device_numbers、当前报警数量 alarm_number 已解除数量
+          $("." + this.alert_number[0].name).text(
+            this.alert_number[0].title +
+              ":" +
+              res["device_numbers"][0]["devicenumbers"]
+          );
+          $("." + this.alert_number[1].name).text(
+            this.alert_number[1].title +
+              ":" +
+              res["alarm_numbers"][0]["numbers"]
+          );
+        }
+      });
+  }
+
+  // 传入间隔天数 6、30，返回列表，今天- 间隔的天数！
 }

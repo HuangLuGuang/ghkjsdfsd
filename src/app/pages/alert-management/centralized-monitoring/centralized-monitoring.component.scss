@@ -133,6 +133,7 @@
         position: relative;
         width: 100%;
         .alert_number{
+            width: 100%;
             margin-left: 20px;
             span{
                 margin-right: 20px;
@@ -152,6 +153,17 @@
             height: 100%;
             // max-height: 330px;
             // height: 300px;
+        }
+    }
+    .select{
+        position: absolute;
+        right: 0;
+        top: 0;
+        height: 3rem;
+        width: 6rem;
+        select{
+            background: #5d7fe5;
+            padding: 0px 2px;
         }
     }
 }

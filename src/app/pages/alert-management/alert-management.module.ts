@@ -14,8 +14,9 @@ import { InlineVideoComponent } from "./components/inline-video/inline-video.com
 
 import { NzCarouselModule } from "ng-zorro-antd/carousel";
 import { TestAllInfoComponent } from "./components/test-all-info/test-all-info.component";
-import { AlertInfoAlertComponent } from './components/alert-info-alert/alert-info-alert.component';
-import { AlerAreaShowComponent } from './components/aler-area-show/aler-area-show.component';
+import { AlertInfoAlertComponent } from "./components/alert-info-alert/alert-info-alert.component";
+import { AlerAreaShowComponent } from "./components/aler-area-show/aler-area-show.component";
+import { FormsModule } from "@angular/forms";
 
 @NgModule({
   declarations: [
@@ -34,6 +35,7 @@ import { AlerAreaShowComponent } from './components/aler-area-show/aler-area-sho
     NbIconModule,
     NbButtonModule,
     NzCarouselModule,
+    FormsModule,
   ],
 })
 export class AlertManagementModule {}

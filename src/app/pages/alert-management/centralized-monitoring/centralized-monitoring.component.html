@@ -30,14 +30,27 @@
                             <div class="device_all_info chunk" >
                                 <div class="part_title">设备汇总信息</div>
 
+                                <div class="select">
+                                    <select [ngModel]="DataTime"  (ngModelChange)="DataTimeChange($event)">
+                                        <option value ="week">近一周</option>
+                                        <option value ="month">近一月</option>
+                                        <option value="year">近一年</option>
+                                    </select>
+                                </div>
+
+
                                 <!-- 数量 -->
                                 <div class="row numbers">
                                     <div class="alert_number">
-                                        <span>监控设备数量: 40台</span>
-                                        <span>当前报警数量: 200条</span>
-                                        <span>已解除数量: 2000条</span>
+                                        <span *ngFor="let item of alert_number" [class]=item.name>
+                                            {{item.title}}: {{item.value}}台
+                                        </span>
+                                        <!-- <span>监控设备数量: 40台</span>
+                                        <span >当前报警数量: 200条</span>
+                                        <span>已解除数量: 2000条</span> -->
                                     </div>
                                 </div>
+                                
                                 <!-- 数量echar -->
                                 <div class="row numbers_echart">
                                     <div class="col-md-5" id="tj_test_number">
