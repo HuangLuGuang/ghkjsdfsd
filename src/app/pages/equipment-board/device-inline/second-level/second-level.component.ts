@@ -406,7 +406,7 @@ export class SecondLevelComponent implements OnInit {
       this.device_active_data[0].active_percentage = res.active_rate;
       this.device_active_data[1][0] = res.current_total_device;
       this.device_active_data[1][1] = res.today_active_device;
-      this.device_active_data[1][2] = ((res.current_total_device/res.today_active_device)*100).toFixed(2);
+      this.device_active_data[1][2] = res.today_active_device ?((res.current_total_device/res.today_active_device)*100).toFixed(2):0;
       this.device_active_data[0].xdata = param.xarr;
 
 
