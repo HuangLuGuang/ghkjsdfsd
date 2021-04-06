@@ -14,6 +14,7 @@ let first_level = require("../../../../../assets/pages/device-inline/js/first-le
 import * as screenfull from "screenfull";
 import { Screenfull } from "screenfull";
 import { SYSMENU } from "../../../../appconfig";
+import { HttpserviceService } from "../../../../services/http/httpservice.service";
 import { EquipmentBoardService } from "../../serivice/equipment-board.service";
 
 @Component({
@@ -28,7 +29,7 @@ export class FirstLevelComponent implements OnInit {
   myChart;
   subscribeList: any = {};
   isJump = true;//是否可以跳转下一个路由
-
+  timer;//定时器
   myChartData = {
     // card的数据
     LableData: [
@@ -54,7 +55,7 @@ export class FirstLevelComponent implements OnInit {
           [121.25158, 30.342533],
           [132, 27, 100],
         ],
-        value: [38, 50],
+        value: ['*', '60'],
       },
       {
         name: "盐城试车场",
@@ -278,7 +279,8 @@ export class FirstLevelComponent implements OnInit {
     private router: Router,
     private boardservice: EquipmentBoardService,
     private activateInfo: ActivatedRoute,
-    private ngZone: NgZone
+    private ngZone: NgZone,
+    private http:HttpserviceService
   ) {}
 
   ngOnInit(): void {
@@ -305,35 +307,57 @@ export class FirstLevelComponent implements OnInit {
   ngAfterViewInit() {
     setTimeout(() => {
       this.boardservice.sendLoad({ close: false });
-      this.createEchart();
+      let o = 0;
+      this.timer = setInterval(()=>{
+        if(o%60 == 0)this.getData();
+        o++;
+      },1000)
 
-      this.myChart.resize();
     }, 100);
+  }
+
+  getData(){
+    this.http.callRPC('get_board_device_heartbeat','get_board_device_heartbeat',{"date_interval": '7days'}).subscribe((f:any)=>{
+      if(f.result.error || f.result.message[0].code == 0)return;
+      let res = f.result.message[0];
+      this.myChartData.LableData[2].value[0] = res.current_total_device||0;
+      this.createEchart();
+      this.myChart.resize();
+    });
   }
 
   createEchart() {
     this.ngZone.runOutsideAngular(() => {
-      this.myChart = echarts.init(document.querySelector(".chian_map"));
-      first_level.chian_map(this.myChart, this.eclick, this.myChartData);
+      if(document.querySelector(".chian_map")){
+        this.myChart = echarts.init(document.querySelector(".chian_map"));
+        first_level.chian_map(this.myChart, this.eclick, this.myChartData);
+        this.myChart.resize();
+      }
     });
   }
 
   resize = () => {
     setTimeout(() => {
-      this.myChart.clear();
-      this.myChart.dispose();
-      if (this.myChart.isDisposed()) {
-        // 是否被释放
-        this.createEchart();
-        // first_level.chian_map(this.myChart,this.eclick);
-        // this.myChart.resize();
-      } else {
-        console.error("home示例未被释放");
-      }
+      this.createEchart();
+
+      // if(this.myChart){
+      //   debugger
+      //   this.myChart.clear();
+      //   this.myChart.dispose();
+      //   if (this.myChart.isDisposed()) {
+      //     // 是否被释放
+      //     this.createEchart();
+      //     // first_level.chian_map(this.myChart,this.eclick);
+      //     // this.myChart.resize();
+      //   } else {
+      //     console.error("home示例未被释放");
+      //   }
+      // }
     }, 100);
   };
 
   ngOnDestroy() {
+    clearInterval(this.timer);
     var my_echart = echarts.init(document.querySelector(".chian_map"));
     my_echart.clear();
     my_echart.dispose();
