@@ -1,55 +1,34 @@
-<div class="row" style="margin: 0px -11px;">
-
-    <div class="col-lg-9" style="display: flex; padding: 0px 11px;">
-        <!-- 部门信息 -->
-        <div class="example-items-rows button_item">
-            <ngx-my-select-tree #departmentselect [placeholder]="groups_placeholder"></ngx-my-select-tree>
-        </div>
-        <!-- 设备类型 -->
-        <div class="example-items-rows button_item">
-            <ngx-my-select-tree-type #devicetpye [placeholder]="eimdevicetpye_placeholder"></ngx-my-select-tree-type>
-        </div>
-        <!-- 边缘网关 -->
-        <div class="example-items-rows button_item">
-            <ngx-my-input #myinput (inpuvalue)="inpuvalue($event)"  [placeholder]="myinput_placeholder"></ngx-my-input>
-        </div>
-        <!-- 搜索 -->
-        <div class="example-items-rows button_item query" *ngIf="button?.query">
-            <button nbButton [status]="button?.query.class" size="small" (click)="action(button?.query.permission)"  [disabled]="button?.query.active == 0? true:false"><nb-icon [icon]="button?.query.icon"></nb-icon>{{button?.query.title}}</button>
-        </div>
-
-        <!-- 添加 -->
-        <div class="example-items-rows button_item add" *ngIf="button?.add">
-            <button nbButton [status]="button?.add.class" size="small" (click)="action(button?.add.permission)"  [disabled]="button?.add.active == 0? true:false"><nb-icon [icon]="button?.add.icon"></nb-icon>{{button?.add.title}}</button>
-        </div>
-        
-    </div>
-
-    <div class="col-lg-3" style="display: flex;">
-        <div style="flex: auto;">
-        </div>
-        <!-- 导出、重置 -->
-
-        <!-- 导出 -->
-        <div class=" button_item download" *ngIf="button?.download">
-            <button nbButton [status]="button?.download.class" size="small" (click)="action(button?.download.permission)"  [disabled]="button?.download.active == 0? true:false"><nb-icon [icon]="button?.download.icon"></nb-icon>{{button?.download.title}}</button>
-        </div>
-
-        <!-- 重置table -->
-        <div class="" style="text-align: right;">
-            <!-- loader-outline -->
-            <button nbButton [nbSpinner]="refresh" nbSpinnerStatus="success" size="small" (click)="refresh_table()">
-                <nb-icon icon="sync-outline"></nb-icon>
-            </button>
-        </div>
-
-    </div>
-    
-</div>
 
 <div class="row">
-    <div class="col-md-12" [nbSpinner]="loading" nbSpinnerStatus="info">
-        <ngx-ag-table #ag_Grid   (nzpageindexchange)="nzpageindexchange_ag($event)" (clickrow)="clickrow($event)"></ngx-ag-table>
-        
+    <div class="col-md-3"  style="height: 130px">
+        <nb-card accent="success"  style="height: 130px">
+            <nb-card-header >总数量</nb-card-header>
+            <nb-card-body style="text-align: center"><span class="h4 value" style="color: green">{{statusstat.total}}</span></nb-card-body>
+        </nb-card>
     </div>
+    <div class="col-md-3"  style="height: 130px">
+        <nb-card accent="primary" style="height: 130px">
+            <nb-card-header>在线数量</nb-card-header>
+            <nb-card-body style="text-align: center"><span class="h4 value" style="color: blue">{{statusstat.online}}</span></nb-card-body>
+        </nb-card>
+    </div>
+    <div class="col-md-3"  style="height: 130px">
+        <nb-card accent="danger"  style="height: 130px">
+            <nb-card-header>离线数量</nb-card-header>
+            <nb-card-body style="text-align: center"><span class="h4 value" style="color: red">{{statusstat.offline}}</span></nb-card-body>
+        </nb-card>
+    </div>
+    <div class="col-md-3" style="height: 130px">
+        <nb-card accent="primary" style="height: 130px">
+            <nb-card-header>更新时间</nb-card-header>
+            <nb-card-body style="text-align: center"><span class="h4 value" style="color: blue">{{statusstat.updatetime}}</span></nb-card-body>
+        </nb-card>
+    </div>
+</div>
+
+
+<div class="row" style="margin-top: 10px">
+  <div class="col-md-12">
+    <ngx-ag-table #gridtable></ngx-ag-table>
+  </div>
 </div>
