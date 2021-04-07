@@ -2,21 +2,36 @@
     <div class="alert_info_alert ">
         <table>
             <tr class="alert_info_alert_table_bo_header">
-                <td  *ngFor="let title of log_warm.title;let i =index" [ngStyle]="{'width':i<3?'20%':'40%'}">
-                    {{title}}
+                <td style="width: 20%;">
+                    <span>{{titles[0]}}</span>
+                </td>
+                <td style="width: 20%;">
+                    <span>{{titles[1]}}</span>
+                </td>
+                <td style="width: 40%;">
+                    <span>{{titles[2]}}</span>
                 </td>
             </tr>
         </table>
     </div>
     
-    <div class="alert_info_alert_table_info_content ">
+
+
+    <div class="alert_info_alert_table_info_content " *ngIf="datas.length>0">
         <table>
-            <tr class="table_info_center" *ngFor="let data of log_warm.data;let i =index" [ngStyle]="{'color':data[2] == '0'?'#f595ca':(data[2]=='1'?'yellow':'')}">
-                <td *ngFor="let item of data;let i = index" [ngStyle]="{'width':i<3?'20%':'40%'}">
-                    <span *ngIf="i < 3">{{item}}</span>
-                    
+            <tr class="table_info_center" *ngFor="let data of datas;" 
+            [ngStyle]="{'color':data['level'] == 'info'?'green':(data['level']=='warning'?'yellow':'red')}">
+                <td style="width: 20%;">
+                    <span style="font-size: smaller;">{{data['recordtime']}}</span>
+                </td>
+                <td style="width: 20%;">
+                    <span style="font-size: smaller;">{{data['level']}}</span>
+                </td>
+                <td style="width: 20%;">
+                    <span style="font-size: smaller;">{{data['message']}}</span>
                 </td>
             </tr>
         </table>
     </div>
+
 </div>

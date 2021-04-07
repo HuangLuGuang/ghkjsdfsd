@@ -124,12 +124,13 @@ let alert_management = {
           color: "#fff",
         },
         // data: ["三级", "二级", "一级"],
-        data: data.legend_data,
+        data: data.legend,
       },
 
       grid: {
         show: false,
         right: 0,
+        left: "15%",
         bottom: "15%",
         top: "20%",
       },
@@ -140,7 +141,7 @@ let alert_management = {
           type: "category",
 
           axisLabel: {
-            interval: 0,
+            // interval: 0,
             rotate: 20,
             fontSize: 10,
             color: "#fff",
@@ -154,21 +155,21 @@ let alert_management = {
             // show: false,
           },
 
-          data: [
-            "1月",
-            "2月",
-            "3月",
-            "4月",
-            "5月",
-            "6月",
-            "7月",
-            "8月",
-            "9月",
-            "10月",
-            "11月",
-            "12月",
-          ],
-          // data: data.xdata,
+          // data: [
+          //   "1月",
+          //   "2月",
+          //   "3月",
+          //   "4月",
+          //   "5月",
+          //   "6月",
+          //   "7月",
+          //   "8月",
+          //   "9月",
+          //   "10月",
+          //   "11月",
+          //   "12月",
+          // ],
+          data: data.date[0],
         },
       ],
       yAxis: [
@@ -201,7 +202,7 @@ let alert_management = {
       series: [
         {
           // name: "三级",
-          name: data.legend_data[0],
+          name: data.legend[2],
           type: "bar",
           stack: "total",
           // data: [
@@ -218,11 +219,11 @@ let alert_management = {
           //   6.4,
           //   3.3,
           // ],
-          data: data.series_datas[0],
+          data: data.data[2],
         },
         {
           // name: "二级",
-          name: data.legend_data[1],
+          name: data.legend[1],
           type: "bar",
           stack: "total",
           // data: [
@@ -239,11 +240,11 @@ let alert_management = {
           //   6.0,
           //   2.3,
           // ],
-          data: data.series_datas[1],
+          data: data.data[1],
         },
         {
           // name: "一级",
-          name: data.legend_data[2],
+          name: data.legend[0],
           type: "bar",
           stack: "total",
           // data: [
@@ -260,7 +261,7 @@ let alert_management = {
           //   2.3,
           //   48.7,
           // ],
-          data: data.series_datas[2],
+          data: data.data[0],
         },
       ],
     };

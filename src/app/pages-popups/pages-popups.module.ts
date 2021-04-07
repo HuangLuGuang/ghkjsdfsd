@@ -17,6 +17,7 @@ import {
   NbSelectModule,
   NbButtonModule,
   NbAccordionModule,
+  NbListModule,
 } from "@nebular/theme";
 import { RoleComponent } from "./system-set/role/role.component";
 import { FormsModule } from "@angular/forms";
@@ -48,8 +49,10 @@ import { AddEditGpsComponent } from "./gps/add-edit-gps/add-edit-gps.component";
 import { LiftMachineComponent } from "./lift-machine/lift-machine.component";
 import { AddEditTemperatureComponent } from "./envitonmental-monitoring/device-temperature/add-edit-temperature/add-edit-temperature.component";
 import { SetPullConfigComponent } from "./facility-health-data-center/alert-info-and-config/set-pull-config/set-pull-config.component";
-import { SetRuleConfigComponent } from './facility-health-data-center/alert-info-and-config/set-rule-config/set-rule-config.component';
-import { LimitsAddComponent } from './tongji/test_task_conf/limits-add/limits-add.component';
+import { SetRuleConfigComponent } from "./facility-health-data-center/alert-info-and-config/set-rule-config/set-rule-config.component";
+import { LimitsAddComponent } from "./tongji/test_task_conf/limits-add/limits-add.component";
+import { LimitsAddInitComponent } from "./tongji/test_task_conf/limits-add-init/limits-add-init.component";
+import { LimitsGroupDeviceComponent } from './tongji/test_task_conf/components/limits-group-device/limits-group-device.component';
 
 // DateComponent
 @NgModule({
@@ -78,6 +81,8 @@ import { LimitsAddComponent } from './tongji/test_task_conf/limits-add/limits-ad
     SetPullConfigComponent,
     SetRuleConfigComponent,
     LimitsAddComponent,
+    LimitsAddInitComponent,
+    LimitsGroupDeviceComponent,
   ],
   imports: [
     CommonModule,
@@ -85,6 +90,7 @@ import { LimitsAddComponent } from './tongji/test_task_conf/limits-add/limits-ad
 
     NbLayoutModule,
     NbCardModule,
+    NbListModule,
     NbTabsetModule,
     NbCheckboxModule,
     NbFormFieldModule,

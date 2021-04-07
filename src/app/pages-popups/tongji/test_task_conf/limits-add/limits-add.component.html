@@ -22,8 +22,8 @@
 
         <form class="layui-form" action="" lay-filter="test_task_info">
 
-            <!-- 先选择科室/功能组，在选择对应的设备信息，然后动态填充其它信息 -->
-            <ngx-group-devices #groups_devices></ngx-group-devices>
+            <!-- 设备编号，根据选的 设备名称自动填充 -->
+            <ngx-group-devices #groups_devices (device_info)="device_info($event)"></ngx-group-devices>
             
             <div class="layui-form-item">
                 <div class="layui-inline test_task_info_left">
@@ -35,7 +35,7 @@
                 <div class="layui-inline test_task_info_right">
                   <label class="layui-form-label mylabel mulu_title" style="width: auto;">样件编号：</label>
                   <div class="layui-input-block" style="margin-left: 120px;">
-                    <input type="text" name="exemplarnumbers"  lay-verify="required|exemplarnumbers" placeholder="YPxxxx-yyyymm" autocomplete="off" class="layui-input">
+                    <input type="text" name="exemplarno"  lay-verify="required|exemplarno" placeholder="YPxxxx-yyyymm" autocomplete="off" class="layui-input">
                   </div>
                 </div>
             </div>
@@ -44,7 +44,7 @@
                 <div class="layui-inline test_task_info_left">
                   <label class="layui-form-label mylabel mulu_title" style="width: auto;">试验条目编号：</label>
                   <div class="layui-input-block" style="margin-left: 120px;">
-                    <input type="text" name="taskitemnumbers"  lay-verify="required|taskitemnumbers" placeholder="请输入试验条目编号" autocomplete="off" class="layui-input">
+                    <input type="text" name="taskitemnumbers"  lay-verify="required|taskitemnumbers" placeholder="请输入试验条目编号(xxx)" autocomplete="off" class="layui-input">
                   </div>
                 </div>
                 <div class="layui-inline test_task_info_right">
@@ -82,7 +82,7 @@
                 <div class="layui-inline test_task_info_left">
                   <label class="layui-form-label mylabel mulu_title" style="width: auto;">样件三级编号：</label>
                   <div class="layui-input-block" style="margin-left: 120px;">
-                    <input type="text" name="exemplarchildnumbers"  lay-verify="required|exemplarchildnumbers" placeholder="请输入样件三级编号" autocomplete="off" class="layui-input">
+                    <input type="text" name="exemplarchildnumbers"  lay-verify="required|exemplarchildnumbers" placeholder="请输入样件三级编号(xxx)" autocomplete="off" class="layui-input">
                   </div>
                 </div>
                 <div class="layui-inline">
@@ -112,26 +112,26 @@
         <div class="row">
             <div class="col-md-6">
                 <label class="layui-form-label mylabel ">试验编号：</label>
-                <!-- <div class="yulan_span" >{{previewinfodata.taskchildnum}}</div> -->
+                <div class="yulan_span" >{{previewinfodata.taskchildnum}}</div>
             </div>
             <div class="col-md-6">
                 <label class="layui-form-label mylabel">设备编号：</label>
-                <!-- <div class="yulan_span ">{{previewinfodata.devicenum}}</div> -->
+                <div class="yulan_span ">{{previewinfodata.devicenum}}</div>
             </div>
         </div>
 
         <div class="row">
             <div class="col-md-4">
                 <label class="layui-form-label mylabel ">试验名称：</label>
-                <!-- <div class="yulan_span ">{{previewinfodata.devicetaskname}}</div> -->
+                <div class="yulan_span ">{{previewinfodata.devicetaskname}}</div>
             </div>
             <div class="col-md-4">
                 <label class="layui-form-label mylabel ">设备名称：</label>
-                <!-- <div class="yulan_span ">{{previewinfodata.devicename}}</div> -->
+                <div class="yulan_span ">{{previewinfodata.devicename}}</div>
             </div>
             <div class="col-md-4">
                 <label class="layui-form-label mylabel ">执行人：</label>
-                <!-- <div class="yulan_span ">{{previewinfodata.executor}}</div> -->
+                <div class="yulan_span ">{{previewinfodata.executor}}</div>
             </div>
         </div>
         
@@ -139,7 +139,7 @@
             <div class="col-md-12">
                 <label class="layui-form-label mylabel ">样件信息：</label>
                 <div class="exemplar yulan">
-                  <!-- <span style="display: block;font-size: smaller;" *ngFor= "let item of explarinfo_list">{{item}}</span> -->
+                  <span style="display: block;font-size: smaller;" *ngFor= "let item of explarinfo_list">{{item}}</span>
                 </div>
             </div>
         </div>

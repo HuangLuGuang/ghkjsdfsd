@@ -9,10 +9,11 @@
         margin: 0;
         padding-top: 25px;
         width: 100%;
+        position: absolute;
         table{
             width: 100%;
             height: 100%;
-            overflow-y: scroll;
+            
             border: 1px solid #4472c4;
             .alert_info_alert_table_bo_header {
                 // display: flex;
@@ -22,9 +23,10 @@
                 // width: 100%;
                 background: rgb(68, 114, 196);
                 padding: 3px 0;
-                td {
-                    width: 33%;
-                }
+                // position: relative;
+                // td {
+                //     width: 33%;
+                // }
             }
         }
     }
@@ -43,9 +45,12 @@
         width: 100%;
         table{
             width: 100%;
+            
             .table_info_center{
+                overflow-y: scroll;
                 height: 30px;
                 // td{
+                //     width: 33%;
                 // }
             }
         }

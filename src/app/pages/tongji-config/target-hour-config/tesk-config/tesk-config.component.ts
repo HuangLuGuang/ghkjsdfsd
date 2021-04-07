@@ -20,6 +20,7 @@ import { TableDevicenameComponent } from "../../../tongji/components/table-devic
 import { TimeScheduleComponent } from "./time-schedule/time-schedule.component";
 import { Observable } from "rxjs";
 import { LimitsAddComponent } from "../../../../pages-popups/tongji/test_task_conf/limits-add/limits-add.component";
+import { LimitsAddInitComponent } from "../../../../pages-popups/tongji/test_task_conf/limits-add-init/limits-add-init.component";
 
 @Component({
   selector: "ngx-tesk-config",
@@ -320,15 +321,25 @@ export class TeskConfigComponent implements OnInit {
           });
       } else {
         this.dialogService
-          .open(LimitsAddComponent, {
+          .open(LimitsAddInitComponent, {
             closeOnBackdropClick: false,
             context: {},
           })
           .onClose.subscribe((res) => {
             if (res) {
-              // 标识 插入数据
-              // 刷新tabel
-              // this.refresh_table();
+              // console.error("limis>>>>>>>要处理的数据：", res);
+              this.dialogService
+                .open(LimitsAddComponent, {
+                  closeOnBackdropClick: false,
+                  context: { res: res },
+                })
+                .onClose.subscribe((res) => {
+                  if (res) {
+                    // 标识 插入数据
+                    // 刷新tabel
+                    this.refresh_table();
+                  }
+                });
             }
           });
       }
