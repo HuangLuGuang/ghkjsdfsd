@@ -28,7 +28,10 @@
 
 
 <div class="row" style="margin-top: 10px">
+<div class="example-items-rows button_item add add_class" *ngIf="button?.add" >
+    <button nbButton [status]="button?.add.class" size="small" (click)="action(button?.add.permission)"  [disabled]="button?.add.active == 0? true:false"><nb-icon [icon]="button?.add.icon"></nb-icon>{{button?.add.title}}</button>
+</div>
   <div class="col-md-12">
-    <ngx-ag-table #gridtable></ngx-ag-table>
+    <ngx-ag-table #gridtable ></ngx-ag-table>
   </div>
 </div>

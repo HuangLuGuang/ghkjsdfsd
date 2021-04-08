@@ -16,10 +16,13 @@ import { ActionComponent } from './border-gateway/action/action.component';
 import { MySelectTreeComponent } from './components/my-select-tree/my-select-tree.component';
 import { MySelectTreeTypeComponent } from './components/my-select-tree-type/my-select-tree-type.component';
 import { MyInputComponent } from './components/my-input/my-input.component';
+import { BorderGetewayDialogComponent } from './border-gateway/border-geteway-dialog/border-geteway-dialog.component';
+import { BorderGetewayDialogEditComponent } from './border-gateway/border-geteway-dialog-edit/border-geteway-dialog-edit.component';
 
 @NgModule({
   declarations: [OperationManagementComponent, BorderGatewayComponent,VideoIntegrationComponent, 
-  AgTableComponent, ActionComponent, MySelectTreeComponent, MySelectTreeTypeComponent, MyInputComponent,   
+  AgTableComponent, ActionComponent, MySelectTreeComponent, MySelectTreeTypeComponent, MyInputComponent,BorderGetewayDialogComponent,
+  BorderGetewayDialogEditComponent
   ],
   imports: [
     CommonModule,
@@ -33,7 +36,6 @@ import { MyInputComponent } from './components/my-input/my-input.component';
     AgGridModule,
     NzPaginationModule,
     NbIconModule,
-    
 
     Ng2SmartTableModule,
 

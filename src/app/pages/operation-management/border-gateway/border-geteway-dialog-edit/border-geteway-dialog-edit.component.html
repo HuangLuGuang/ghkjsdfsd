@@ -1,0 +1,110 @@
+<nb-card style="width: 870px;" size="larger" [nbSpinner]="loading"
+    nbSpinnerStatus="danger"
+    nbSpinnerSize="large"
+    nbSpinnerMessage=""
+>
+  <nb-card-header>
+    <div class="row">
+      <div class="col-md-3">{{title}}</div>
+        <div class="col-md-7"></div>
+        <div class="col-md-2" style="text-align: right;">
+            <nb-icon icon="close-outline" style="cursor: pointer;" (click)="closedialog()"></nb-icon>
+        </div>
+    </div>
+  </nb-card-header>
+
+  <nb-card-body>
+      
+    <form class="layui-form" action="" lay-filter="lay_from">
+
+
+        <div class="layui-form-item">
+            <!-- 存放地点 location -->
+            <div class="layui-inline" style="width: 46%;">
+                <label class="layui-form-label mylabel mulu_title">存放地点</label>
+                <div class="layui-input-block">
+                <input type="text" name="location" required  lay-verify="required|location" placeholder="存放地点" autocomplete="off" class="layui-input">
+                </div>
+            </div>
+            <!-- 科室 groups -->
+            <div class="layui-inline" style="width: 46%;">
+                <label class="layui-form-label mylabel mulu_title">科室</label>
+                <div class="layui-input-block">
+                    <input type="text" name="groups" required  lay-verify="required|groups" placeholder="科室" autocomplete="off" class="layui-input">
+                </div>
+            </div>
+        </div>
+
+        <div class="layui-form-item">
+          <!-- 归属人 belonged -->
+          <div class="layui-inline" style="width: 46%;">
+              <label class="layui-form-label mylabel mulu_title">归属人</label>
+              <div class="layui-input-block">
+              <input type="text" name="belonged" required  lay-verify="required|belonged" placeholder="归属人" autocomplete="off" class="layui-input">
+              </div>
+          </div>
+          <!-- 边缘网关编号 edgeno -->
+          <div class="layui-inline" style="width: 46%;">
+              <label class="layui-form-label mylabel mulu_title">边缘网关编号</label>
+              <div class="layui-input-block">
+                  <input type="text" name="edgeno" required  lay-verify="required|edgeno" placeholder="边缘网关编号" autocomplete="off" class="layui-input">
+              </div>
+          </div>
+        </div>
+
+        <div class="layui-form-item">
+          <!-- 物理地址1(WAN口MAC地址) macaddress1 -->
+          <div class="layui-inline" style="width: 46%;">
+              <label class="layui-form-label mylabel mulu_title">物理地址1</label>
+              <div class="layui-input-block">
+              <input type="text" name="macaddress1" required  lay-verify="required|macaddress" placeholder="物理地址1(WAN口MAC地址)" autocomplete="off" class="layui-input">
+              </div>
+          </div>
+          <!-- 物理地址2(WAN口MAC地址) macaddress2 -->
+          <div class="layui-inline" style="width: 46%;">
+              <label class="layui-form-label mylabel ">物理地址2</label>
+              <div class="layui-input-block">
+                  <input type="text" name="macaddress2"   lay-verify="macaddress" placeholder="物理地址2(WAN口MAC地址)" autocomplete="off" class="layui-input">
+              </div>
+          </div>
+        </div>
+
+        <div class="layui-form-item">
+          <!-- p地址1(WAN口ip地址) ipaddress1 -->
+          <div class="layui-inline" style="width: 46%;">
+              <label class="layui-form-label mylabel mulu_title">ip地址1</label>
+              <div class="layui-input-block">
+              <input type="text" name="ipaddress1" required  lay-verify="required|ipaddress" placeholder="p地址1(WAN口ip地址)" autocomplete="off" class="layui-input">
+              </div>
+          </div>
+          <!-- ip地址2(WAN口ip地址) ipaddress2 -->
+          <div class="layui-inline" style="width: 46%;">
+              <label class="layui-form-label mylabel ">ip地址2</label>
+              <div class="layui-input-block">
+                  <input type="text" name="ipaddress2"   lay-verify="ipaddress" placeholder="ip地址2(WAN口ip地址)" autocomplete="off" class="layui-input">
+              </div>
+          </div>
+        </div>
+
+        
+        
+
+
+
+        <div class="layui-form-item">
+            <div class="layui-row"style="text-align: end;">
+                
+                <div class="layui-inline">
+                  <div class="layui-input-inline">
+                      <!-- (click)="confirm()" -->
+                      <button class="layui-btn layui-btn-primary" (click)="cancel()">取消</button>
+                      <button type="submit" class="submit_device layui-btn" lay-submit="" lay-filter="device" >确定</button>
+                  </div>
+                </div>
+                
+            </div>
+        </div>
+    </form>
+    
+  </nb-card-body>
+</nb-card>

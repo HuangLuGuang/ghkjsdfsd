@@ -1,6 +1,13 @@
 import { Component, OnInit, ViewChild } from "@angular/core";
 import { LocalDataSource } from "@mykeels/ng2-smart-table";
+import { NbDialogService } from "@nebular/theme";
 import { HttpserviceService } from "../../../services/http/httpservice.service";
+import { PublicmethodService } from "../../../services/publicmethod/publicmethod.service";
+import { UserInfoService } from "../../../services/user-info/user-info.service";
+import { ActionComponent } from "./action/action.component";
+import { BorderGetewayDialogEditComponent } from "./border-geteway-dialog-edit/border-geteway-dialog-edit.component";
+import { BorderGetewayDialogComponent } from "./border-geteway-dialog/border-geteway-dialog.component";
+import { BottomType } from "./border-getway";
 
 
 @Component({
@@ -28,8 +35,8 @@ export class BorderGatewayComponent implements OnInit {
   @ViewChild('gridtable')gridtable:any;
 
   // table配置及数据
-  tableDatas = {
-    style: "width: 100%; height: 641px",
+  tableDatas:any = {
+    style: "width: 100%; height: 561px",
     action: false,
     totalPageNumbers: 0, // 总页数
     PageSize: 15, // 每页 10条数据
@@ -148,7 +155,19 @@ export class BorderGatewayComponent implements OnInit {
         resizable: true,
         sortable: true,
       },
-      
+      { 
+        headerName: '操作',
+        field: 'name',
+        pinned: 'right',
+        width:150,
+        lockPinned:true,
+        cellRendererFramework: ActionComponent,
+        cellRendererParams: {
+          clicked:  (data: any)=> {
+           this.clickrow(data);
+          },
+        },
+       }
       // {
       //   field: "nic",
       //   headerName: "网卡信息",
@@ -170,20 +189,31 @@ export class BorderGatewayComponent implements OnInit {
       // },
 
     ],
-    rowData: [
-      
+    rowData: [``
     ],
   };
 
+  button:any;
   timer;//定时器
-
-  constructor(private httpservice: HttpserviceService) { }
+  constructor(private httpservice: HttpserviceService,
+    private dialogService: NbDialogService,
+    private userinfo: UserInfoService,
+    private publicservice:PublicmethodService
+    ) { }
 
   ngOnInit(): void {
     this.getData();
     setInterval(()=>{
       this.getData();
     },120000)
+
+    // 得到pathname --在得到button
+    var roleid = this.userinfo.getEmployeeRoleID();
+    this.publicservice.get_buttons_bypath(roleid).subscribe((result) => {
+      this.button = result;
+      localStorage.setItem("buttons_list", JSON.stringify(result));
+    });
+
   }
 
   ngOnDestroy(): void {
@@ -191,6 +221,9 @@ export class BorderGatewayComponent implements OnInit {
   }
 
   ngAfterViewInit(){
+    setTimeout(() => {
+      this.RecordOperation('查询',1,'边缘网关管理');
+    }, 10);
   }
 
   getData(){
@@ -208,6 +241,87 @@ export class BorderGatewayComponent implements OnInit {
       this.gridtable.init_agGrid(this.tableDatas); // 刷新组件
 
     })
+  }
+
+  clickrow(e){
+    if(e.data){
+      let title,content,type,component;
+      switch(e.active){
+        case BottomType.DEL:
+          title = '删除';
+          content = JSON.stringify({id:e.data[0].id,msg:'是否删除该条数据？'});
+          type = BottomType.DEL;
+          component = BorderGetewayDialogComponent;
+        break;
+        case BottomType.EDIT:
+          title = '修改';
+          content = JSON.stringify(e.data[0]);
+          type = BottomType.EDIT;
+          component = BorderGetewayDialogEditComponent;
+        break;
+      }
+      this.dialog_open(title,content,type,component);
+    }
+
+  }
+
+  action(e:string){
+    let title,content,type,component;
+    if(e.includes('add')){
+      title = '新增';
+      content = '{}';
+      type = BottomType.ADD;
+      component = BorderGetewayDialogEditComponent;
+      this.dialog_open(title,content,type,component);
+
+    }
+  }
+
+  /**
+   * 打开弹窗
+   * @param title 标题
+   * @param content json字符串
+   * @param type 状态
+   * @param component 弹窗组件
+   */
+  dialog_open(title,content,type,component){
+    this.dialogService
+        .open(component, {
+          closeOnBackdropClick: false,
+          autoFocus: true,
+          context: { title: title, content: content,type:type },
+        })
+        .onClose.subscribe((res) => {
+          if(res && res.code == 1){
+            this.getData();
+            this.publicservice.showngxtoastr({
+              position: "toast-top-right",
+              status: "success",
+              conent: res.conent,
+            });
+            this.RecordOperation(
+              res.conent && res.conent.slice(0, 2),1,'边缘网关管理');
+            }
+        });
+  }
+
+
+  // option_record
+  RecordOperation(option, result, infodata) {
+    if (this.userinfo.getLoginName()) {
+      var employeeid = this.userinfo.getEmployeeID();
+      var result = result; // 1:成功 0 失败
+      var transactiontype = option; // '新增用户';
+      var info = infodata;
+      var createdby = this.userinfo.getLoginName();
+      this.publicservice.option_record(
+        employeeid,
+        result,
+        transactiontype,
+        info,
+        createdby
+      );
+    }
   }
 
 }

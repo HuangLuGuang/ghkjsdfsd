@@ -315,12 +315,12 @@ export class SecondLevelComponent implements OnInit {
       if(f.result.error || f.result.message[0].code == 0)return;
       // console.log(f.result.message[0].message);
       f.result.message[0].message.forEach(el => {
-        pie_data.data[el.level && el.level-1].value += el.count;
+        pie_data.data[el.level && deviceline.series_datas.length-el.level].value += el.count;
         if( this.DataTime != 'year'){
           let i = deviceline.xdata.findIndex(f=> f == el.dates);
-          deviceline.series_datas[el.level-1][i] += i >-1 &&  el.count;
+          deviceline.series_datas[deviceline.series_datas.length - el.level][i] += i >-1 &&  el.count;
         }else{
-          deviceline.series_datas[el.level-1][parseInt(el.dates)-1] =  el.count;
+          deviceline.series_datas[deviceline.series_datas.length-el.level][parseInt(el.dates)-1] =  el.count;
         }
       });
       this.alert.number =  f.result.message[0].alarm_numbers[0].numbers||0;
@@ -406,7 +406,7 @@ export class SecondLevelComponent implements OnInit {
       this.device_active_data[0].active_percentage = res.active_rate;
       this.device_active_data[1][0] = res.current_total_device;
       this.device_active_data[1][1] = res.today_active_device;
-      this.device_active_data[1][2] = res.today_active_device ?((res.current_total_device/res.today_active_device)*100).toFixed(2):0;
+      this.device_active_data[1][2] = res.current_total_device ?((res.today_active_device/res.current_total_device)*100).toFixed(2):0;
       this.device_active_data[0].xdata = param.xarr;
 
 
