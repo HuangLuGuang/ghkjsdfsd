@@ -136,8 +136,8 @@ export class BorderGatewayComponent implements OnInit {
         width:150,
       },
       {
-        field: "virtualmemory",
-        headerName: "虚拟内存占用",
+        field: "memory_percent",
+        headerName: "内存占用",
         resizable: true,
         sortable: true,
         width:150,
