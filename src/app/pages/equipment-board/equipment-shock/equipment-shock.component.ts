@@ -197,9 +197,9 @@ export class EquipmentShockComponent implements OnInit {
 
   // 实验实时状态表的实时数据
   real_list = [
-    {name:'MAST',value:'关',color:'red'},
-    {name:'TIF 1',value:'关',color:'red'},
-    {name:'TIF 2',value:'关',color:'red'},
+    {name:'MAST',value:'关',color:'#f595ca'},
+    {name:'TIF 1',value:'关',color:'#f595ca'},
+    {name:'TIF 2',value:'关',color:'#f595ca'},
   ]
 
   //每一个ngx-chart-curve-v3 中有哪些tag
@@ -329,15 +329,15 @@ export class EquipmentShockComponent implements OnInit {
 
       // MAST分油器
       this.real_list[0].value = res.maston == 1?(res.masthigh==1?'高':'低'):'关';
-      this.real_list[0].color = res.maston == 0?'red':(res.masthigh == 0?'white':'yellow');
+      this.real_list[0].color = res.maston == 0?'#f595ca':(res.masthigh == 0?'white':'yellow');
 
       //TIF 1
       this.real_list[1].value = res.tif1on == 1?(res.tif1high==1?'高':'低'):'关';
-      this.real_list[1].color = res.tif1on == 0?'red':(res.tif1high == 0?'white':'yellow');
+      this.real_list[1].color = res.tif1on == 0?'#f595ca':(res.tif1high == 0?'white':'yellow');
 
       // TIF 2
       this.real_list[2].value = res.tif2on == 1?(res.tif2high==1?'高':'低'):'关';
-      this.real_list[2].color = res.tif2on == 0?'red':(res.tif2high == 0?'white':'yellow');
+      this.real_list[2].color = res.tif2on == 0?'#f595ca':(res.tif2high == 0?'white':'yellow');
     
     })
   }
