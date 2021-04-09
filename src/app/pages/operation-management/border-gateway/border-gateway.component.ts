@@ -37,7 +37,6 @@ export class BorderGatewayComponent implements OnInit {
   // table配置及数据
   tableDatas:any = {
     style: "width: 100%; height: 561px",
-    action: false,
     totalPageNumbers: 0, // 总页数
     PageSize: 15, // 每页 10条数据
     isno_refresh_page_size: false, // 是否重新将 每页多少条数据，赋值为默认值
@@ -63,28 +62,29 @@ export class BorderGatewayComponent implements OnInit {
       //   sortable: true,
       // },
       {
-        field: "status",
-        headerName: "状态",
-        resizable: true,
-        sortable: true,
-        width:100,
-        cellStyle: function (params) {
-          return params.value == '运行'?
-          {
-            background: "#5D920D",
-          }:
-          {
-            background: "red",
-          };
-          
-        },
-      },
-      {
         field: "edgeno",
         headerName: "边缘网关编号",
         resizable: true,
         sortable: true,
+        headerCheckboxSelection: true,
+        checkboxSelection: true,
+        autoHeight: true,
+        fullWidth: true,
+        minWidth: 50,
       },
+      {
+        field: "ipaddress1",
+        headerName: "ip地址1(WAN口ip地址)",
+        resizable: true,
+        sortable: true,
+      },
+      {
+        field: "ipaddress2",
+        headerName: "ip地址2(LAN口ip地址)",
+        resizable: true,
+        sortable: true,
+      },
+     
       {
         field: "location",
         headerName: "存放地点",
@@ -97,18 +97,36 @@ export class BorderGatewayComponent implements OnInit {
         resizable: true,
         sortable: true,
       },
-      {
-        field: "belonged",
-        headerName: "归属人",
-        resizable: true,
-        sortable: true,
-      },
+      
       {
         field: "cpu",
         headerName: "CPU占用率",
         resizable: true,
         sortable: true,
         width:150,
+      },
+      // {
+      //   field: "status",
+      //   headerName: "状态",
+      //   resizable: true,
+      //   sortable: true,
+      //   width:100,
+      //   cellStyle: function (params) {
+      //     return params.value == '运行'?
+      //     {
+      //       background: "#5D920D",
+      //     }:
+      //     {
+      //       background: "red",
+      //     };
+          
+      //   },
+      // },
+      {
+        field: "createdon",
+        headerName: "最后心跳时间",
+        resizable: true,
+        sortable: true,
       },
       {
         field: "disk",
@@ -124,13 +142,7 @@ export class BorderGatewayComponent implements OnInit {
         sortable: true,
         width:150,
       },
-      {
-        field:'swapmemory',
-        headerName: "交换空间",
-        resizable: true,
-        sortable: true,
-        width:150,
-      },
+      
       {
         field: "macaddress1",
         headerName: "物理地址1(WAN口MAC地址)",
@@ -144,16 +156,17 @@ export class BorderGatewayComponent implements OnInit {
         sortable: true,
       },
       {
-        field: "ipaddress1",
-        headerName: "ip地址1(WAN口ip地址)",
+        field: "belonged",
+        headerName: "归属人",
         resizable: true,
         sortable: true,
       },
       {
-        field: "ipaddress2",
-        headerName: "ip地址2(LAN口ip地址)",
+        field:'swapmemory',
+        headerName: "交换空间",
         resizable: true,
         sortable: true,
+        width:150,
       },
       { 
         headerName: '操作',
@@ -202,7 +215,7 @@ export class BorderGatewayComponent implements OnInit {
     ) { }
 
   ngOnInit(): void {
-    this.getData();
+    this.getData('init');
     setInterval(()=>{
       this.getData();
     },120000)
@@ -226,7 +239,7 @@ export class BorderGatewayComponent implements OnInit {
     }, 10);
   }
 
-  getData(){
+  getData(status?:string){
    
     this.httpservice.callRPC('get_edge_gateway','get_edge_gateway',{}).subscribe((f:any)=>{
       if(f.result.error || f.result.message[0].code == 0)return;
@@ -238,7 +251,11 @@ export class BorderGatewayComponent implements OnInit {
         'offline': res.offline,
         'updatetime': res.update_time,
       };
-      this.gridtable.init_agGrid(this.tableDatas); // 刷新组件
+      if(status == 'init'){
+        this.gridtable.init_agGrid(this.tableDatas); // 刷新组件
+      }else{
+        this.gridtable.update_agGrid(this.tableDatas); // 刷新组件
+      }
 
     })
   }
@@ -265,17 +282,66 @@ export class BorderGatewayComponent implements OnInit {
 
   }
 
-  action(e:string){
-    let title,content,type,component;
-    if(e.includes('add')){
-      title = '新增';
-      content = '{}';
-      type = BottomType.ADD;
-      component = BorderGetewayDialogEditComponent;
-      this.dialog_open(title,content,type,component);
-
+  action(actionmethod:string){
+    let title,content,type,component,rowdata;
+    var method = actionmethod.split(":")[1];
+    switch (method) {
+      case "add":
+        title = '新增';
+        content = '{}';
+        type = BottomType.ADD;
+        component = BorderGetewayDialogEditComponent;
+        break;
+      case "del":
+        [title,content,type,component] = this.del();
+        break;
+      case "edit":
+        [title,content,type,component] = this.edit();
+        break;
     }
+    this.dialog_open(title,content,type,component);
   }
+
+  /**
+   * 删除
+   */
+  del(){
+    let title ='提示',content,type = BottomType.DEL,component,rowdata;
+    
+    rowdata = this.gridtable.getselectedrows() || [];
+    if(rowdata.length == 0){
+      content = JSON.stringify({id:'',msg:'请选择一条数据！'});
+    }else if(rowdata.length == 1){
+      title = '删除'
+      content = JSON.stringify({id:rowdata[0].id,msg:'是否删除该条数据？'});
+    }else if(rowdata.length > 1){
+      content = JSON.stringify({id:'',msg:'删除最多只能选择一条数据！'});
+    }
+    component = BorderGetewayDialogComponent;
+    return [title,content,type,component];
+  }
+
+  /**
+   * 修改
+   */
+  edit(){
+    let title ='提示',content,type = BottomType.EDIT,component,rowdata;
+    
+    rowdata = this.gridtable.getselectedrows() || [];
+    if(rowdata.length == 0){
+      content = JSON.stringify({id:'',msg:'请选择一条数据！'});
+      component = BorderGetewayDialogComponent;
+    }else if(rowdata.length == 1){
+      title = '修改';
+      content = JSON.stringify(rowdata[0]);
+      component = BorderGetewayDialogEditComponent;
+    }else if(rowdata.length > 1){
+      content = JSON.stringify({id:'',msg:'修改最多只能选择一条数据！'});
+      component = BorderGetewayDialogComponent;
+    }
+    return [title,content,type,component];
+  }
+
 
   /**
    * 打开弹窗

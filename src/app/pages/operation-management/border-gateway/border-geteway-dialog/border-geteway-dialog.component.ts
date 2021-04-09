@@ -50,6 +50,10 @@ export class BorderGetewayDialogComponent implements OnInit {
     //   "id":1305,
     //   "deletedby":"huanglg"
     //  }')
+    if(!this._content.id){
+      this.dialogRef.close();
+      return;
+    }
     await this.http.callRPC('delete_edge_gateway','delete_edge_gateway'
     ,{id:this._content.id,deletedby:this.userinfo.getName()}).subscribe((f:any)=>{
       if(f.result.error || f.result.message[0].code == 0){

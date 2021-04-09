@@ -26,6 +26,7 @@ export class BorderGetewayDialogEditComponent implements OnInit {
   };
   @Input()type = '';
 
+  groups;//科室功能组
   btType = BottomType; 
   
   _content:any = {
@@ -45,6 +46,7 @@ export class BorderGetewayDialogEditComponent implements OnInit {
     ) { }
 
   ngOnInit() {
+    this.get_groups();
     this.frominit();
   }
 
@@ -55,6 +57,12 @@ export class BorderGetewayDialogEditComponent implements OnInit {
       var layer = layui.layer
       form.render(); // 刷新all
       form.val("lay_from", isThis._content);
+      form.render("select"); // 刷新select
+
+      setTimeout(() => {
+        $('select[name="groups"]').val(isThis._content["groups"]);
+        form.render("select");
+      }, 200);
 
       form.verify({
         ipaddress:function(value, item){
@@ -108,6 +116,14 @@ export class BorderGetewayDialogEditComponent implements OnInit {
     });
   }
 
+
+  // get groups
+  get_groups() {
+    var groups = JSON.parse(localStorage.getItem("Device_Groups"));
+    console.log(groups);
+    this.groups = groups;
+  }
+
   /**
    * 新增
    * @param data 
@@ -119,10 +135,12 @@ export class BorderGetewayDialogEditComponent implements OnInit {
     await this.http.callRPC('insert_edge_gateway','insert_edge_gateway',data).subscribe((f:any)=>{
       if(f.result.error || f.result.message[0].code == 0){
         this.loading = false;
-        layer.alert('保存失败,请稍后再试', {
+        let res = f.result.message[0]
+        layer.alert(this.errorMsg(res), {
           title: '保存失败'
         });
         this.RecordOperation('新增',0,'边缘网关管理');
+        $(".submit_device").removeAttr("disabled");
         return;
       };
       this.dialogRef.close({code:1,conent:'新增成功'});
@@ -142,14 +160,32 @@ export class BorderGetewayDialogEditComponent implements OnInit {
     await this.http.callRPC('update_edge_gateway','update_edge_gateway',data).subscribe((f:any)=>{
       if(f.result.error || f.result.message[0].code == 0){
         this.loading = false;
-        layer.alert('修改失败,请稍后再试', {
+        let res = f.result.message[0]
+        layer.alert(this.errorMsg(res), {
           title: '修改失败'
         })
         this.RecordOperation('修改',0,'边缘网关管理');
+        $(".submit_device").removeAttr("disabled");
         return;
       };
       this.dialogRef.close({code:1,conent:'修改成功'});
     })
+  }
+
+
+  errorMsg(res){
+    let context;
+    if(res.message.includes('mac1')){
+      context = 'MAC1地址'
+    }
+    if(res.message.includes('mac2')){
+      context?context += '、MAC2地址':context= 'MAC2地址';
+    }
+    if(res.message.includes('constraint') || res.message.includes('unique')){
+      context += '重复已存在'
+    }
+    return context || '保存失败，请稍后重试';
+    // "duplicate key value violates unique constraint "edge_gateway_mac1_uk""
   }
 
   closedialog(){

@@ -30,8 +30,13 @@
             <div class="layui-inline" style="width: 46%;">
                 <label class="layui-form-label mylabel mulu_title">科室</label>
                 <div class="layui-input-block">
-                    <input type="text" name="groups" required  lay-verify="required|sql" placeholder="科室" autocomplete="off" class="layui-input">
+                    <!-- <input type="text" name="groups" required  lay-verify="required|sql" placeholder="科室" autocomplete="off" class="layui-input"> -->
+                    <!-- 单选！ --> 
+                    <select id="groups" name="groups" lay-filter="groups" lay-verify="" class="caidantype">
+                        <option *ngFor="let item of groups" [value]=item.group>{{item.group}}</option>
+                    </select> 
                 </div>
+                
             </div>
         </div>
 
