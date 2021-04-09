@@ -1,5 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { NbDialogRef } from '@nebular/theme';
+import { Device } from '../../../../pages-popups/tongji/form_verification';
 import { HttpserviceService } from '../../../../services/http/httpservice.service';
 import { PublicmethodService } from '../../../../services/publicmethod/publicmethod.service';
 import { UserInfoService } from '../../../../services/user-info/user-info.service';
@@ -72,6 +73,20 @@ export class BorderGetewayDialogEditComponent implements OnInit {
         macaddress:function(value, item){
           if (value && !new RegExp(REG["mac"]).test(value)) {
             return '物理地址格式有误'
+          }
+        }
+        ,sql:function(value,item){
+          var special_sql = Device["special_sql"]["special_sql"];
+          var special_str = Device["special_sql"]["special_str"];
+
+          var sql = special_sql.test(value);
+          var str = special_str.test(value);
+
+          if (sql) {
+            return "防止SQL注入，请不要输入关于sql语句的特殊字符！";
+          }
+          if (!str) {
+            return "设备名称不能有特殊字符！";
           }
         }
       });

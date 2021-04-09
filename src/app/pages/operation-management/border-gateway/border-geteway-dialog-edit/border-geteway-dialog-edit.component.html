@@ -23,14 +23,14 @@
             <div class="layui-inline" style="width: 46%;">
                 <label class="layui-form-label mylabel mulu_title">存放地点</label>
                 <div class="layui-input-block">
-                <input type="text" name="location" required  lay-verify="required|location" placeholder="存放地点" autocomplete="off" class="layui-input">
+                <input type="text" name="location" required  lay-verify="required|sql" placeholder="存放地点" autocomplete="off" class="layui-input">
                 </div>
             </div>
             <!-- 科室 groups -->
             <div class="layui-inline" style="width: 46%;">
                 <label class="layui-form-label mylabel mulu_title">科室</label>
                 <div class="layui-input-block">
-                    <input type="text" name="groups" required  lay-verify="required|groups" placeholder="科室" autocomplete="off" class="layui-input">
+                    <input type="text" name="groups" required  lay-verify="required|sql" placeholder="科室" autocomplete="off" class="layui-input">
                 </div>
             </div>
         </div>
@@ -40,14 +40,14 @@
           <div class="layui-inline" style="width: 46%;">
               <label class="layui-form-label mylabel mulu_title">归属人</label>
               <div class="layui-input-block">
-              <input type="text" name="belonged" required  lay-verify="required|belonged" placeholder="归属人" autocomplete="off" class="layui-input">
+              <input type="text" name="belonged" required  lay-verify="required|sql" placeholder="归属人" autocomplete="off" class="layui-input">
               </div>
           </div>
           <!-- 边缘网关编号 edgeno -->
           <div class="layui-inline" style="width: 46%;">
               <label class="layui-form-label mylabel mulu_title">边缘网关编号</label>
               <div class="layui-input-block">
-                  <input type="text" name="edgeno" required  lay-verify="required|edgeno" placeholder="边缘网关编号" autocomplete="off" class="layui-input">
+                  <input type="text" name="edgeno" required  lay-verify="required|sql" placeholder="边缘网关编号" autocomplete="off" class="layui-input">
               </div>
           </div>
         </div>
@@ -57,14 +57,14 @@
           <div class="layui-inline" style="width: 46%;">
               <label class="layui-form-label mylabel mulu_title">物理地址1</label>
               <div class="layui-input-block">
-              <input type="text" name="macaddress1" required  lay-verify="required|macaddress" placeholder="物理地址1(WAN口MAC地址)" autocomplete="off" class="layui-input">
+              <input type="text" name="macaddress1" required  lay-verify="required|macaddress|sql" placeholder="物理地址1(WAN口MAC地址)" autocomplete="off" class="layui-input">
               </div>
           </div>
           <!-- 物理地址2(WAN口MAC地址) macaddress2 -->
           <div class="layui-inline" style="width: 46%;">
               <label class="layui-form-label mylabel ">物理地址2</label>
               <div class="layui-input-block">
-                  <input type="text" name="macaddress2"   lay-verify="macaddress" placeholder="物理地址2(WAN口MAC地址)" autocomplete="off" class="layui-input">
+                  <input type="text" name="macaddress2"   lay-verify="macaddress|sql" placeholder="物理地址2(WAN口MAC地址)" autocomplete="off" class="layui-input">
               </div>
           </div>
         </div>
@@ -74,14 +74,14 @@
           <div class="layui-inline" style="width: 46%;">
               <label class="layui-form-label mylabel mulu_title">ip地址1</label>
               <div class="layui-input-block">
-              <input type="text" name="ipaddress1" required  lay-verify="required|ipaddress" placeholder="p地址1(WAN口ip地址)" autocomplete="off" class="layui-input">
+              <input type="text" name="ipaddress1" required  lay-verify="required|ipaddress|sql" placeholder="p地址1(WAN口ip地址)" autocomplete="off" class="layui-input">
               </div>
           </div>
           <!-- ip地址2(WAN口ip地址) ipaddress2 -->
           <div class="layui-inline" style="width: 46%;">
               <label class="layui-form-label mylabel ">ip地址2</label>
               <div class="layui-input-block">
-                  <input type="text" name="ipaddress2"   lay-verify="ipaddress" placeholder="ip地址2(WAN口ip地址)" autocomplete="off" class="layui-input">
+                  <input type="text" name="ipaddress2"   lay-verify="ipaddress|sql" placeholder="ip地址2(WAN口ip地址)" autocomplete="off" class="layui-input">
               </div>
           </div>
         </div>
