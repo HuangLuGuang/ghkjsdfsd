@@ -1,4 +1,4 @@
-<nb-card style="width: 900px; height: 680px;">
+<nb-card style="width: 1200px; height: 680px;">
     <nb-card-header>
         <div class="row">
           <div class="col-md-4">待处理试验编号</div>
@@ -22,22 +22,80 @@
 
     <nb-card-body>
 
-        <!-- list -->
-        <div class="lists">
-            <div class="row list-item" *ngFor="let message of messages">
-                <div class="col-md-4">
-                    试验名称：{{message["devicetaskname"]}}
+        <div class="row" style="margin: 0px;padding: 0px;">
+            <!-- 未处理的 -->
+            <div class="col-md-5" style="margin: 0px;padding: 0px;">
+                <div class="lists">
+                    <div class="row list-item" >
+                        <div class="col-md-12"  style="text-align: center; background: cornflowerblue;">未处理的试验</div>
+                    </div>
+
+                    <div class="row list-item" >
+                        <div class="col-md-3">
+                            试验名称
+                        </div>
+                        <div class="col-md-3">
+                            科室
+                        </div>
+                        <div class="col-md-3">
+                            试验编号
+                        </div>
+                        <div class="col-md-3">
+
+                        </div>
+                    </div>
+                    <div class="row list-item" *ngFor="let message of messages" style="white-space: nowrap;margin-left: 0px;">
+                        <div class="col-md-3 list-item3_1">
+                            {{message["devicetaskname"]}}
+                        </div>
+                        <div class="col-md-3 list-item3">
+                            {{message["groups"]}}
+                        </div>
+                        <div class="col-md-3 list-item3">
+                            {{message["tasknum"]}}
+                        </div>
+                        <div class="col-md-3">
+                            <button nbButton size="small" (click)="handle(message)">处理</button>
+
+                        </div>
+                        
+                    </div>
                 </div>
-                <div class="col-md-4">
-                    科室：{{message["groups"]}}
+            </div>
+            <!-- 已处理的 -->
+            <div class="col-md-7" style="margin: 0px;padding: 0px;">
+                <div class="row list-item" >
+                    <div class="col-md-12" style="text-align: center;background: lavender;">已处理的试验</div>
                 </div>
-                <div class="col-md-4">
-                    试验编号：{{message["tasknum"]}}
-                    <button nbButton size="small" (click)="handle(message)">处理</button>
+
+                <div class="row list-item">
+                    <div class="col-md-4">
+                        试验名称
+                    </div>
+                    <div class="col-md-4">
+                        科室
+                    </div>
+                    <div class="col-md-4">
+                        试验编号
+                    </div>
+                    
                 </div>
-                
+                <div class="row list-item" *ngFor="let message of nmessages" style="white-space: nowrap;height: 41px;">
+
+                    <div class="col-md-4 list-item3">
+                        {{message["devicetaskname"]}}
+                    </div>
+                    <div class="col-md-4 list-item3">
+                        {{message["groups"]}}
+                    </div>
+                    <div class="col-md-4 list-item3">
+                        {{message["tasknum"]}}
+                    </div>
+                </div>
             </div>
         </div>
+
+        
 
         
 

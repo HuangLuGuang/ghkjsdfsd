@@ -134,6 +134,7 @@
         width: 100%;
         .alert_number{
             width: 100%;
+            display: flex;
             margin-left: 20px;
             span{
                 margin-right: 20px;
@@ -175,7 +176,7 @@
         padding: 0%;
     }
     #circular{
-        top: 10%;
+        top: 10px;
         position: relative;
         left: 265%;
         width: 20px;
@@ -184,7 +185,7 @@
         background: #3b3838;
     }
     span{
-        top: 10%;
+        top: 10px;
         position: absolute;
         left: 240%;
         width: 50%;

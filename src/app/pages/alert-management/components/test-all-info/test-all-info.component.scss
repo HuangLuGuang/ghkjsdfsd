@@ -56,7 +56,21 @@
 }
 
 
+
 .table_info_content::-webkit-scrollbar {/*滚动条整体样式*/
+
+    width: 4px;     /*高宽分别对应横竖滚动条的尺寸*/
+
+    height: 1px;
+
+}
+
+.device_name_div{
+    // height: 30px;
+    height: 65px;
+    overflow-y: scroll;
+}
+.device_name_div::-webkit-scrollbar {/*滚动条整体样式*/
 
     width: 4px;     /*高宽分别对应横竖滚动条的尺寸*/
 

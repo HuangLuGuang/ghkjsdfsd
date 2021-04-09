@@ -307,43 +307,28 @@ export class TeskConfigComponent implements OnInit {
   // 新增试验任务
   add() {
     // 判断
-    this.tesk_over().subscribe((res) => {
-      console.error("新增试验任务,是否手动：", res);
-      if (res) {
-        this.dialogService
-          .open(AddComponent, { closeOnBackdropClick: false, context: {} })
-          .onClose.subscribe((res) => {
-            if (res) {
-              // 标识 插入数据
-              // 刷新tabel
-              this.refresh_table();
-            }
-          });
-      } else {
-        this.dialogService
-          .open(LimitsAddInitComponent, {
-            closeOnBackdropClick: false,
-            context: {},
-          })
-          .onClose.subscribe((res) => {
-            if (res) {
-              // console.error("limis>>>>>>>要处理的数据：", res);
-              this.dialogService
-                .open(LimitsAddComponent, {
-                  closeOnBackdropClick: false,
-                  context: { res: res },
-                })
-                .onClose.subscribe((res) => {
-                  if (res) {
-                    // 标识 插入数据
-                    // 刷新tabel
-                    this.refresh_table();
-                  }
-                });
-            }
-          });
-      }
-    });
+    this.dialogService
+      .open(LimitsAddInitComponent, {
+        closeOnBackdropClick: false,
+        context: {},
+      })
+      .onClose.subscribe((res) => {
+        if (res) {
+          console.error("limis>>>>>>>要处理的数据：", res);
+          this.dialogService
+            .open(LimitsAddComponent, {
+              closeOnBackdropClick: false,
+              context: { res: res },
+            })
+            .onClose.subscribe((res) => {
+              if (res) {
+                // 标识 插入数据
+                // 刷新tabel
+                this.refresh_table();
+              }
+            });
+        }
+      });
   }
 
   // 选择是limits还是 手动的
@@ -538,7 +523,7 @@ export class TeskConfigComponent implements OnInit {
     setTimeout(() => {
       this.update_agGrid();
       this.loading = false;
-    }, 100);
+    }, 10);
   }
 
   // 得到buttons----------------------------------------------------------
@@ -826,6 +811,7 @@ export class TeskConfigComponent implements OnInit {
     this.http.callRPC("deveice", this.GETTABLE, colmun).subscribe((res) => {
       var result = res["result"]["message"][0];
       if (result["code"] === 1) {
+        this.loading = false;
         // 发布组件，编辑用户的组件
         var message = result["message"];
         this.tableDatas.PageSize = PageSize;

@@ -25,7 +25,7 @@
                 <div id="center" style="min-height: 828px;">
                     <!-- center -->
                     <div class="row" style="width: 100%;">
-                        <div class="col-md-4 ">
+                        <div class="col-md-4 " style="flex: 0 0 33.333333% !important; max-width: 33.633333% !important;">
                             <!-- 设备汇总信息 -->
                             <div class="device_all_info chunk" >
                                 <div class="part_title">设备汇总信息</div>
@@ -66,37 +66,26 @@
                                 <!-- 事件 -->
                                 <div class="row device_alert_info_event">
                                     <div class="col-md-4">
-                                        <div id="circular" [ngStyle]="{background: log_warm.error===1?'#ff0000':'#3b3838'}"></div>
+                                        <div id="circular" [ngStyle]="{background:'#848484'}"></div>
                                         <span>严重报警</span>
                                     </div>
                                     <div class="col-md-8" id="event_bar"></div>
                                 </div>
                                 <!-- 报警 -->
-                                <div class="row device_alert_info_elert">
-                                    <ngx-alert-info-alert style="width: 100%;height: 100%;"></ngx-alert-info-alert>
-                                    <!-- <div class="table_bo ">
-                                        <table>
-                                            <tr class="header">
-                                                <td class="center_center" *ngFor="let title of log_warm.title;let i =index" [ngStyle]="{'width':i == 0?'20%':i == 1?'20%':'60%'}">
-                                                    {{title}}
-                                                </td>
-                                            </tr>
-
-                                            <tr *ngFor="let data of log_warm.data;let i =index" [ngStyle]="{'color':data[1] == 'warning'?'#f595ca':(data[1]=='error'?'yellow':'')}">
-                                                <td *ngFor="let item of data;let i = index" [ngStyle]="{'width':i == 0?'20%':i == 1?'20%':'60%'}">
-                                                    {{item}}
-                                                </td>
-                                            </tr>
-                                        </table>
-                                    </div> -->
+                                <div class="row" style="padding: 0; margin: 0;">
+                                    <ngx-alert-info-alert style="width: 100%;height: 100%;" (serious_alert)="serious_alert($event)"></ngx-alert-info-alert>
                                 </div>
+                                <!-- <div class="row device_alert_info_elert">
+                                    
+                                    <ngx-alert-info-alert style="width: 100%;height: 100%;" (serious_alert)="serious_alert($event)"></ngx-alert-info-alert>
+                                </div> -->
                             </div>
 
                         </div>
 
                         
                         <!-- 视频轮播 -->
-                        <div class="col-md-5 "  style="padding-left: 0px;">
+                        <div class="col-md-5 "  style="padding-left: 0px;flex: 0 0 41.366667% !important;">
                             <div class="device_video chunk" >
                                 <div class="part_title">视频轮播</div>
                                 

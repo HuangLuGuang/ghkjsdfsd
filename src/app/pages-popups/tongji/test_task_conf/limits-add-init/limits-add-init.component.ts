@@ -27,6 +27,7 @@ export class LimitsAddInitComponent implements OnInit {
 
   ngOnInit(): void {
     this.init_list();
+    this.ninit_list(); // 未处理的
   }
 
   ngAfterViewInit() {}
@@ -43,7 +44,12 @@ export class LimitsAddInitComponent implements OnInit {
   TABLE = "get_lims_pendingdata";
   METHOD = "get_lims_pendingdata";
 
+  // 为处理的
+  NTABLE = "get_lims_processed";
+  NMETHOD = "get_lims_processed";
+
   messages = [];
+  nmessages = []; // 为处理的
 
   init_list() {
     this.http.callRPC(this.TABLE, this.METHOD, {}).subscribe((result) => {
@@ -54,6 +60,22 @@ export class LimitsAddInitComponent implements OnInit {
           this.dialogRef.close(false);
         } else {
           this.messages = res["message"];
+        }
+      }
+    });
+  }
+
+  // 未处理的
+  ninit_list() {
+    this.http.callRPC(this.NTABLE, this.NMETHOD, {}).subscribe((result) => {
+      var res = result["result"]["message"][0];
+      if (res["code"] === 1) {
+        if (res["message"].length < 1) {
+          this.not_null("没有数据！");
+          this.dialogRef.close(false);
+        } else {
+          this.nmessages = res["message"];
+          // console.error("this.nmessages", this.nmessages);
         }
       }
     });

@@ -19,6 +19,16 @@
         top: 50%;
     }
 }
+// 科室的2
+.alert_groups2{
+    width: 35%;
+    border: 1px  solid;
+    span{
+        position: relative;
+        top: 50%;
+    }
+}
+
 // 有无报警的
 .is_not_alert{
     width: 100%;
@@ -29,5 +39,82 @@
     span{
         position: relative;
         top: 29%;;
+    }
+}
+
+// 0 groups status
+.alert_groups_status0{
+    width: 20px;
+    height: 20px;
+    border-radius: 60px;
+    // background: antiquewhite;
+    position: absolute;
+    bottom: 6%;
+    right: 67%;
+}
+.alert_groups_status1{
+    width: 20px;
+    height: 20px;
+    border-radius: 60px;
+    // background: antiquewhite;
+    position: absolute;
+    bottom: 6%;
+    right: 36%;
+}
+.alert_groups_status2{
+    width: 20px;
+    height: 20px;
+    border-radius: 60px;
+    // background: antiquewhite;
+    position: absolute;
+    bottom: 6%;
+    right: 5%;
+}
+.alert_groups_status3{
+    width: 20px;
+    height: 20px;
+    border-radius: 60px;
+    // background: antiquewhite;
+    position: absolute;
+    bottom: 6%;
+    right: 51%;
+}
+.alert_groups_status4{
+    width: 20px;
+    height: 20px;
+    border-radius: 60px;
+    // background: antiquewhite;
+    position: absolute;
+    bottom: 6%;
+    right: 18.5%;
+}
+// 报警
+.alert_groups_status_true{
+    width: 20px;
+    height: 20px;
+    border-radius: 60px;
+    position: absolute;
+    bottom: 28%;
+    right: 107.5%;
+    border: 1px solid white;
+}
+.alert_groups_status_false{
+    width: 20px;
+    height: 20px;
+    border-radius: 60px;
+    position: absolute;
+    bottom: 28%;
+    right: 107.5%;
+    border: 1px solid #FF0000;
+}
+
+// 下拉框、时间选择
+.alert_area_select{
+    position: absolute;
+    top: -28px;
+    right: 11px;
+    select{
+        background: #5d7fe5;
+        padding: 0px 2px;
     }
 }

@@ -117,6 +117,12 @@ export class CentralizedMonitoringComponent implements OnInit {
         var item_echart = document.getElementById(item);
         if (item_echart) echarts.init(item_echart).resize();
       });
+
+      setTimeout(() => {
+        this.inline?.change_status(false);
+        this.create_img_16_9();
+        this.inline?.change_status(true);
+      }, 800);
     };
   }
 
@@ -155,12 +161,11 @@ export class CentralizedMonitoringComponent implements OnInit {
 
     // 视频轮播
     // this.inline.status = false;
-    setTimeout(() => {
-      this.inline.change_status(false);
-      this.create_img_16_9();
-      this.inline.change_status(true);
-      // this.inline.status = true;
-    }, 500);
+    // setTimeout(() => {
+    //   this.inline.change_status(false);
+    //   this.create_img_16_9();
+    //   this.inline.change_status(true);
+    // }, 500);
   }
 
   //组件销毁
@@ -255,7 +260,7 @@ export class CentralizedMonitoringComponent implements OnInit {
       setTimeout(() => {
         this.create_img_16_9();
         // this.change_height(this.testinfo.testinfo);
-      }, 100);
+      }, 300);
     }
   }
 
@@ -371,9 +376,9 @@ export class CentralizedMonitoringComponent implements OnInit {
           var pie_data = {
             subtext: 45,
             data: [
-              { value: this.sum(data_date["data"][2]), name: "三级" },
+              { value: this.sum(data_date["data"][0]), name: "三级" },
               { value: this.sum(data_date["data"][1]), name: "二级" },
-              { value: this.sum(data_date["data"][0]), name: "一级" },
+              { value: this.sum(data_date["data"][2]), name: "一级" },
             ],
           };
 
@@ -495,8 +500,8 @@ export class CentralizedMonitoringComponent implements OnInit {
       dates3.push(u["dates"]);
       datas3.push(u["data"]);
     });
-    dates.push(dates1, dates2, dates3);
-    datas.push(datas1, datas2, datas3);
+    dates = [dates1, dates2, dates3];
+    datas = [datas1, datas2, datas3];
     return { data: datas, date: dates };
   }
 
@@ -546,5 +551,15 @@ export class CentralizedMonitoringComponent implements OnInit {
       sum += element;
     });
     return sum;
+  }
+
+  // 事件/报警信息 --是否是严重报警
+  serious_alert(v) {
+    // console.error("事件/报警信息 --是否是严重报警>>>", v);
+    if (v) {
+      setTimeout(() => {
+        $("#circular").css("background", "#ff0000");
+      }, 500);
+    }
   }
 }

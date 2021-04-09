@@ -3,3 +3,25 @@
     margin-bottom: 10px;
     padding-bottom: 8px;
 }
+.list-item3{
+    padding-right: 0px;
+    overflow-x: overlay;
+    font-size: xx-small;
+    // padding-left: 0px;
+}
+
+.list-item3::-webkit-scrollbar {/*滚动条整体样式*/
+    width: 4px;     /*高宽分别对应横竖滚动条的尺寸*/
+    height: 2px;
+}
+
+.list-item3_1{
+    padding-right: 0px;
+    overflow-x: overlay;
+    font-size: xx-small;
+    padding-left: 0px;
+}
+.list-item3_1::-webkit-scrollbar {/*滚动条整体样式*/
+    width: 4px;     /*高宽分别对应横竖滚动条的尺寸*/
+    height: 2px;
+}

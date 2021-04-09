@@ -3,6 +3,7 @@
     margin-bottom: 20px;
     margin: 0px;
     height: 100%;
+    
     .alert_info_alert {
         height: 10%;
         padding: 0;
@@ -16,11 +17,8 @@
             
             border: 1px solid #4472c4;
             .alert_info_alert_table_bo_header {
-                // display: flex;
-                // height: 100%;
-                // height: 7%;
+                
                 height: 50px;
-                // width: 100%;
                 background: rgb(68, 114, 196);
                 padding: 3px 0;
                 // position: relative;
@@ -32,23 +30,23 @@
     }
 
     .alert_info_alert_table_info_content{
-        // height: 277px;
         height: 77%;
         position: absolute;
-        // top: 22%;
         top: 97px;
-
         padding: 0;
         margin: 0;
-        // height: 90%;
         overflow-y: scroll;
+        overflow-x: hidden;
         width: 100%;
         table{
             width: 100%;
-            
+            border-bottom: 1px solid #4472C4;
             .table_info_center{
-                overflow-y: scroll;
-                height: 30px;
+                display: flex;
+                // white-space: nowrap;
+                border: 1px solid #4472C4;
+                // overflow-y: scroll;
+                // height: 30px;
                 // td{
                 //     width: 33%;
                 // }
@@ -61,7 +59,12 @@
 // // 谷歌 safari 浏览器
 .alert_info_alert_table_info_content::-webkit-scrollbar {/*滚动条整体样式*/
     width: 4px;     /*高宽分别对应横竖滚动条的尺寸*/
-    height: 1px;
+    height: 40px !important;
+}
+
+.table_info_center_td::-webkit-scrollbar {/*滚动条整体样式*/
+    width: 4px;     /*高宽分别对应横竖滚动条的尺寸*/
+    height: 3px;
 }
 
 // // IE浏览器

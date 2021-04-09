@@ -1,12 +1,13 @@
-<div class="row video_inline_one"  *ngIf="status">
+<!--  *ngIf="status" -->
+<div class="row video_inline_one" >
   <div class="col-md-12" style="height: 100%; width: 100%; padding: 0;">
       <div style="height: 100%; width: 100%;" class="inline_video_video_parent">
           <!-- <span class="inline_video_title">
             01/13/2021 09:09:45 information Stmgr 'CS11_4poster_20180314.cfg' has connected to the station
           </span> -->
           <!-- 视频！ -->
-          <div class="inline_video_video">
-            <nz-carousel [nzAutoPlay]="nzAutoPlay" [nzAutoPlaySpeed]="nzAutoPlaySpeed" [nzDots]="nzDots" #carousel>
+          <div class="inline_video_video" *ngIf="status">
+            <nz-carousel [nzAutoPlay]="nzAutoPlay" [nzAutoPlaySpeed]="nzAutoPlaySpeed" [nzDots]="nzDots" #carousel >
               <div nz-carousel-content *ngFor="let index of array;let i=index">
                 <img [src]="index" style="height: 100%; width: 100%;" alt="" srcset="">
               </div>

@@ -22,20 +22,46 @@
 
         <form class="layui-form" action="" lay-filter="test_task_info">
 
-            <!-- 设备编号，根据选的 设备名称自动填充 -->
-            <ngx-group-devices #groups_devices (device_info)="device_info($event)"></ngx-group-devices>
+            <!-- 设备编号，根据选的 设备名称自动填充  这个是eim系统自带的-->
+            <!-- <ngx-group-devices #groups_devices (device_info)="device_info($event)"></ngx-group-devices> -->
+
+
+            <ngx-limits-group-device #limits_groups_devices *ngIf="limitd.device_name_no[0].id" (device_info)="device_info($event)"></ngx-limits-group-device>
             
+            <!-- 科室--设备名称--设备编号的 -->
+            <div class="layui-form-item" *ngIf="!limitd.device_name_no[0].id" style="margin-bottom: -4px;">
+                <div class="layui-inline" style="width: 35%;">
+                  <label class="layui-form-label mylabel mulu_title" style="width: auto;">功能组：</label>
+                  <div class="layui-input-block" style="margin-left: 85px;">
+                    <input disabled type="text" name="groups"  lay-verify="required|groups" placeholder="功能组" autocomplete="off" class="layui-input" style="width: 100%;">
+                  </div>
+                </div>
+
+                <div class="layui-inline" style="width: 31%;">
+                  <label class="layui-form-label mylabel mulu_title" style="width: auto;">设备名称：</label>
+                  <div class="layui-input-block" style="margin-left: 87px;">
+                    <input disabled type="text" name="devicename"  lay-verify="required|devicename" placeholder="设备名称" autocomplete="off" class="layui-input" style="width: 100%;">
+                  </div>
+                </div>
+                <div class="layui-inline" style="width: 30%;">
+                  <label class="layui-form-label mylabel mulu_title" style="width: auto;">设备编号：</label>
+                  <div class="layui-input-block" style="margin-left: 87px;">
+                    <input disabled type="text" name="deviceno"  lay-verify="required|deviceno" placeholder="设备编号" autocomplete="off" class="layui-input" style="width: 100%;">
+                  </div>
+                </div>
+            </div>
+
             <div class="layui-form-item">
                 <div class="layui-inline test_task_info_left">
                   <label class="layui-form-label mylabel mulu_title" style="width: auto;">试验任务编号：</label>
                   <div class="layui-input-block" style="margin-left: 120px;">
-                    <input type="text" name="tasknum"  lay-verify="required|tasknum" placeholder="WTxxxx-yyyymm" autocomplete="off" class="layui-input">
+                    <input disabled type="text" name="tasknum"  lay-verify="required|tasknum" placeholder="WTxxxx-yyyymm" autocomplete="off" class="layui-input">
                   </div>
                 </div>
                 <div class="layui-inline test_task_info_right">
                   <label class="layui-form-label mylabel mulu_title" style="width: auto;">样件编号：</label>
                   <div class="layui-input-block" style="margin-left: 120px;">
-                    <input type="text" name="exemplarno"  lay-verify="required|exemplarno" placeholder="YPxxxx-yyyymm" autocomplete="off" class="layui-input">
+                    <input disabled type="text" name="exemplarno"  lay-verify="required|exemplarno" placeholder="YPxxxx-yyyymm" autocomplete="off" class="layui-input">
                   </div>
                 </div>
             </div>
@@ -50,7 +76,7 @@
                 <div class="layui-inline test_task_info_right">
                   <label class="layui-form-label mylabel mulu_title" style="width: auto;">试验名称：</label>
                   <div class="layui-input-block"  style="margin-left: 120px;">
-                    <input type="text" name="devicetaskname"  lay-verify="required|devicetaskname" placeholder="" autocomplete="off" class="layui-input">
+                    <input disabled type="text" name="devicetaskname"  lay-verify="required|devicetaskname" placeholder="" autocomplete="off" class="layui-input">
                   </div>
                 </div>
             </div>

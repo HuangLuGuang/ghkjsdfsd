@@ -18,6 +18,8 @@ declare let layui;
 export class LimitsAddComponent implements OnInit {
   @Output("res") res: any;
   @ViewChild("groups_devices") groups_devices: any; // 当前主设备信息！
+
+  @ViewChild("limits_groups_devices") limits_groups_devices: any; // limits
   constructor(
     private dialogRef: NbDialogRef<LimitsAddComponent>,
     private http: HttpserviceService,
@@ -49,7 +51,8 @@ export class LimitsAddComponent implements OnInit {
   }
 
   TABLE = "get_lims_data";
-  METHOD = "get_lims_data";
+  // METHOD = "get_lims_data";
+  METHOD = "get_lims_data_bak";
 
   limitd: LimitD = {
     devicetaskname: "", // 试验名称
@@ -58,10 +61,18 @@ export class LimitsAddComponent implements OnInit {
     exemplarnum: "", // 样件数量
     tasknum: "", // 试验任务父编号
     taskstatus: "", // 试验状态
-    devicename: "", // 设备名称
-    deviceno: "", // 设备编号
+    devicename: "null", // 设备名称
+    groups: "null", // 科室
+    deviceno: "null", // 设备编号
     deviceid: "", // 设备ID
     exemplarnumbers: "", // 样件编号
+    device_name_no: [
+      {
+        id: "",
+        label: "",
+        deivce: [{ id: "", label: "", label_deviceno: "" }],
+      },
+    ], // 设备名称、设备标号
   };
 
   // 根据传来的res {devicetaskname: "测试三级条目", groups: "测试科22502", tasknum: "WT0003-202101"}  得到 对应的数据
@@ -88,17 +99,15 @@ export class LimitsAddComponent implements OnInit {
     this.http.callRPC(this.TABLE, this.METHOD, this.res).subscribe((result) => {
       var res = result["result"]["message"][0];
       if (res["code"] === 1) {
-        // console.error("++++++++++res>>>>", res);
+        console.error("get_lims_data++++++++++res>>>>", res);
+        var handle_get_message_for_device = this.handle_get_message_for_device(
+          res["message"]
+        );
         this.limitd.devicetaskname = res["message"][0]["devicetaskname"];
         this.limitd.executor = "";
-        this.limitd.executor =
-          // res["message"][0]["executor"] == "[]"
-          //   ? ""
-          //   : res["message"][0]["executor"];
-
-          // this.limitd.exemplarno = res["message"][0]["exemplarno"];
-          this.limitd.exemplarnum = res["message"][0]["exemplarnum"];
+        this.limitd.exemplarnum = res["message"][0]["exemplarnum"];
         this.limitd.tasknum = res["message"][0]["tasknum"];
+        this.limitd.device_name_no = handle_get_message_for_device;
         this.limitd.exemplarnumbers = res["message"][0]["tasknum"].replace(
           "WT",
           "YP"
@@ -108,8 +117,35 @@ export class LimitsAddComponent implements OnInit {
           "YP"
         );
         this.limitd.taskstatus = res["message"][0]["taskstatus"];
+
+        console.error("this.limitd>>>>>>>>>>>>>>>>>>>", this.limitd);
+        if (this.limitd.device_name_no[0]["id"] != null) {
+          // 科室--设备名称--设备编号的
+          setTimeout(() => {
+            this.limits_groups_devices?.layuiform(this.limitd.device_name_no);
+          }, 500);
+        }
+        this.layuiform(this.limitd);
       }
     });
+  }
+
+  // 要的得到 devicename：[]、deviceno: []
+  handle_get_message_for_device(res) {
+    var res_list = {};
+    var device = [];
+    res.forEach((element) => {
+      var item = {};
+      item["id"] = element["deviceno"];
+      item["label"] = element["devicename"];
+      item["deviceno"] = element["deviceno"];
+      device.push(item);
+    });
+    res_list["id"] = res[0]["groups"];
+    res_list["label"] = res[0]["groups"];
+    res_list["deivce"] = device;
+    // console.error("------------------->res_list", res_list);
+    return [res_list];
   }
 
   // 根据 datas 去重
@@ -127,16 +163,21 @@ export class LimitsAddComponent implements OnInit {
 
   // 当选择 设备时触发
   device_info(data) {
-    // console.error("当选择 设备时触发>>>>>>>", data);
+    console.error("当选择 设备时触发>>>>>>>", data);
     // console.error("++++++++++this.limitd>>>>", this.limitd);
     this.limitd.devicename = data["devicename"];
     this.limitd.deviceno = data["deviceno"];
-    this.limitd.deviceid = data["deviceid"];
+    this.limitd.deviceid = data["deviceno"];
+    this.limitd.groups = data["groups"];
+
+    // this.limitd.devicename = data["devicename"];
+    // this.limitd.deviceno = data["deviceno"];
+    // this.limitd.groups = data["groups"];
 
     // console.error("=================limitd>>>>", this.limitd);
     // var groups_devices = this.groups_devices?.get_form_val();
     // console.error("当选择 设备时触发groups_devices>>>>>>>", groups_devices);
-    this.layuiform(this.limitd);
+    // this.layuiform(this.limitd);
   }
   // 初始化表单
   layuiform(data) {
@@ -280,6 +321,13 @@ export class LimitsAddComponent implements OnInit {
           } else {
             that.is_taskchildnum = true; //重复
             that.not_null(res["message"] + ":" + info_taskchildnum);
+            // 清除 当前输入试验信息预览
+            that.previewinfodata.taskchildnum = "";
+            that.previewinfodata.devicenum = "";
+            that.previewinfodata.devicetaskname = "";
+            that.previewinfodata.devicename = "";
+            that.previewinfodata.executor = "";
+            that.explarinfo_list = [];
           }
         });
 
@@ -300,8 +348,8 @@ export class LimitsAddComponent implements OnInit {
           that.previewinfodata.exemplarchildnumbers;
         save_data["exemplarname"] = that.previewinfodata.exemplarname;
         save_data["taskitemnumbers"] = that.previewinfodata.taskitemnumbers;
-        save_data["taskchildnum"] = that.previewinfodata.taskchildnum;
-        save_data["devicenum"] = that.previewinfodata.devicenum;
+        save_data["taskchildnum"] = that.previewinfodata.taskchildnum; // 试验编号
+        save_data["devicenum"] = that.previewinfodata.devicenum; // 设备编号
         save_data["executor"] = that.previewinfodata.executor;
         save_data["deviceid"] = that.limitd.deviceno;
         save_data["deviceno"] = that.limitd.deviceid;
@@ -311,7 +359,7 @@ export class LimitsAddComponent implements OnInit {
         save_data["taskmessage"] = that.previewinfodata["taskmessage"].join(
           ","
         );
-        console.error("要保存的数据！>>>", save_data);
+        // console.error("要保存的数据！>>>", save_data);
         if (that.is_taskchildnum) {
           // 重复
           that.not_null("该试验编号已存在!");
@@ -321,6 +369,11 @@ export class LimitsAddComponent implements OnInit {
             var monthed = "dev_insert_task";
             var conlumns = save_data;
             $(".submit_confirm").attr("disabled", "disabled");
+            console.error(
+              "=================save_data=============>>>",
+              save_data
+            );
+
             that.http.callRPC(table, monthed, conlumns).subscribe((result) => {
               var res = result["result"]["message"][0];
               if (res["code"] === 1) {
@@ -472,7 +525,9 @@ interface LimitD {
   devicename: String; // 设备名称
   deviceno: String; // 设备编号
   deviceid: String; // 设备ID
+  groups: String; // 科功能组
   exemplarnumbers: String; // 样件编号 -
+  device_name_no: any[];
 }
 
 interface PreviewInfo {
