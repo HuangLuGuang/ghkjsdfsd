@@ -51,8 +51,8 @@ export class LimitsAddComponent implements OnInit {
   }
 
   TABLE = "get_lims_data";
-  // METHOD = "get_lims_data";
-  METHOD = "get_lims_data_bak";
+  METHOD = "get_lims_data";
+  // METHOD = "get_lims_data_bak";
 
   limitd: LimitD = {
     devicetaskname: "", // 试验名称
