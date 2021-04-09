@@ -23,7 +23,7 @@
             <div class="layui-row" style="text-align: end;">
                 <div class="layui-inline">
                   <div class="layui-input-inline">
-                      <button class="layui-btn layui-btn-primary" (click)="cancel()">关闭</button>
+                      <button *ngIf="_content.id" class="layui-btn layui-btn-primary" (click)="cancel()">关闭</button>
                       <button type="submit" class="layui-btn" lay-submit="" lay-filter="tooltip" (click)="carried()">确定</button>
                   </div>
                 </div>

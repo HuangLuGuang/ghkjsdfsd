@@ -229,10 +229,10 @@ export class EquipmentCouplingPathComponent implements OnInit {
   }
 
   real_list = [
-    {name:'LF',value:'关',color:'red'},
-    {name:'LR',value:'关',color:'red'},
-    {name:'RR',value:'关',color:'red'},
-    {name:'RF',value:'关',color:'red'},
+    {name:'LF',value:'关',color:'#f595ca'},
+    {name:'LR',value:'关',color:'#f595ca'},
+    {name:'RR',value:'关',color:'#f595ca'},
+    {name:'RF',value:'关',color:'re#f595cad'},
   ]
 
   str =`试验原理：底盘结构件台架试验如：副车架、摆臂、稳定杆、后桥等<br>
@@ -443,16 +443,16 @@ HSM 4 RR High
       });
       // console.log(f)
       this.real_list[0].value = !data.hsm1lfon || data.hsm1lfon == 0?'关':(data.hsm1lfhigh == 1?'高':'低');
-      this.real_list[0].color = !data.hsm1lfon || data.hsm1lfon == 0?'red':(data.hsm1lfhigh == 1?'yellow':'white');
+      this.real_list[0].color = !data.hsm1lfon || data.hsm1lfon == 0?'#f595ca':(data.hsm1lfhigh == 1?'yellow':'white');
 
       this.real_list[1].value = !data.hsm2rfon || data.hsm2rfon == 0?'关':(data.hsm2rfhigh == 1?'高':'低');
-      this.real_list[1].color = !data.hsm2rfon || data.hsm2rfon == 0?'red':(data.hsm2rfhigh == 1?'yellow':'white');
+      this.real_list[1].color = !data.hsm2rfon || data.hsm2rfon == 0?'#f595ca':(data.hsm2rfhigh == 1?'yellow':'white');
 
       this.real_list[2].value = !data.hsm3lron || data.hsm3lron == 0?'关':(data.hsm3lrhigh == 1?'高':'低');
-      this.real_list[2].color = !data.hsm3lron || data.hsm3lron == 0?'red':(data.hsm3lrhigh == 1?'yellow':'white');
+      this.real_list[2].color = !data.hsm3lron || data.hsm3lron == 0?'#f595ca':(data.hsm3lrhigh == 1?'yellow':'white');
 
       this.real_list[3].value = !data.hsm4rron || data.hsm4rron == 0?'关':(data.hsm4rrhigh == 1?'高':'低');
-      this.real_list[3].color = !data.hsm4rron || data.hsm4rron == 0?'red':(data.hsm4rrhigh == 1?'yellow':'white');
+      this.real_list[3].color = !data.hsm4rron || data.hsm4rron == 0?'#f595ca':(data.hsm4rrhigh == 1?'yellow':'white');
     })
   }
 

@@ -3,34 +3,42 @@
     <div class="col-md-3"  style="height: 130px">
         <nb-card accent="success"  style="height: 130px">
             <nb-card-header >总数量</nb-card-header>
-            <nb-card-body style="text-align: center"><span class="h4 value" style="color: green">{{statusstat.total}}</span></nb-card-body>
+            <nb-card-body style="text-align: center"><span class="h4 value" style="color: green;font-size: 1.2rem;">{{statusstat.total}}</span></nb-card-body>
         </nb-card>
     </div>
     <div class="col-md-3"  style="height: 130px">
         <nb-card accent="primary" style="height: 130px">
             <nb-card-header>在线数量</nb-card-header>
-            <nb-card-body style="text-align: center"><span class="h4 value" style="color: blue">{{statusstat.online}}</span></nb-card-body>
+            <nb-card-body style="text-align: center"><span class="h4 value" style="color: blue;font-size: 1.2rem;">{{statusstat.online}}</span></nb-card-body>
         </nb-card>
     </div>
     <div class="col-md-3"  style="height: 130px">
         <nb-card accent="danger"  style="height: 130px">
             <nb-card-header>离线数量</nb-card-header>
-            <nb-card-body style="text-align: center"><span class="h4 value" style="color: red">{{statusstat.offline}}</span></nb-card-body>
+            <nb-card-body style="text-align: center"><span class="h4 value" style="color: red;font-size: 1.2rem;">{{statusstat.offline}}</span></nb-card-body>
         </nb-card>
     </div>
     <div class="col-md-3" style="height: 130px">
         <nb-card accent="primary" style="height: 130px">
             <nb-card-header>更新时间</nb-card-header>
-            <nb-card-body style="text-align: center"><span class="h4 value" style="color: blue">{{statusstat.updatetime}}</span></nb-card-body>
+            <nb-card-body style="text-align: center"><span class="h4 value" style="color: blue;font-size: 1.2rem;">{{statusstat.updatetime}}</span></nb-card-body>
         </nb-card>
     </div>
 </div>
 
 
 <div class="row" style="margin-top: 10px">
-<div class="example-items-rows button_item add add_class" *ngIf="button?.add" >
-    <button nbButton [status]="button?.add.class" size="small" (click)="action(button?.add.permission)"  [disabled]="button?.add.active == 0? true:false"><nb-icon [icon]="button?.add.icon"></nb-icon>{{button?.add.title}}</button>
-</div>
+    <div class="add_class">
+        <div class="example-items-rows button_item add " *ngIf="button?.add" style="margin-right: 10px;">
+           <button nbButton [status]="button?.add.class" size="small" (click)="action(button?.add.permission)"  [disabled]="button?.add.active == 0? true:false"><nb-icon [icon]="button?.add.icon"></nb-icon>{{button?.add.title}}</button>
+       </div>
+       <div class="example-items-rows button_item edit" *ngIf="button?.edit" style="margin-right: 10px;">
+           <button nbButton [status]="button?.edit.class" size="small" (click)="action(button?.edit.permission)"  [disabled]="button?.edit.active == 0? true:false"><nb-icon [icon]="button?.edit.icon"></nb-icon>{{button?.edit.title}}</button>
+       </div>
+       <div class="example-items-rows button_item del" *ngIf="button?.del">
+           <button nbButton [status]="button?.del.class" size="small" (click)="action(button?.del.permission)"  [disabled]="button?.del.active == 0? true:false"><nb-icon [icon]="button?.del.icon"></nb-icon>{{button?.del.title}}</button>
+       </div>
+    </div>
   <div class="col-md-12">
     <ngx-ag-table #gridtable ></ngx-ag-table>
   </div>
