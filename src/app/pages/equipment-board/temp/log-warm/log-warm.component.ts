@@ -144,15 +144,17 @@ export class LogWarmComponent implements OnInit {
     });
     this.subscribeList.his_log = this.http.callRPC('get_log_warning',library+'get_log_warnings',{"deviceid":this.device,"recordtime":this.getFirstDayOfWeek()}).subscribe((g:any) =>{
       if(g.result.error || g.result.message[0].code == 0)return;
-      let arr = g.result.message[0].message[0];
-      for(let i = 0;i<arr.length;i++){
-        let j = new Date(arr[i].recordtime).getDay();
-        if(arr[i].level == 1)data[arr[i].deviceid].LV1Warn[j == 0?6:j-1] += arr[i].numbers;
-        if(arr[i].level == 2)data[arr[i].deviceid].LV2Warn[j == 0?6:j-1] += arr[i].numbers;
-      }
-    this.ngzone.runOutsideAngular(()=>{
-      this.initLogChart(data);
-    })
+      let arr = g.result.message[0].message;
+      arr.forEach(el => {
+        for(let i = 0;i<el.length;i++){
+          let j = new Date(el[i].recordtime).getDay();
+          if(el[i].level == 1)data[el[i].deviceid].LV1Warn[j == 0?6:j-1] += el[i].numbers;
+          if(el[i].level == 2)data[el[i].deviceid].LV2Warn[j == 0?6:j-1] += el[i].numbers;
+        }
+      });
+      this.ngzone.runOutsideAngular(()=>{
+        this.initLogChart(data);
+      })
       this.subscribeList.his_log.unsubscribe();
 
     });
