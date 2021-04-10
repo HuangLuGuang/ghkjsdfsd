@@ -2,6 +2,7 @@ import { Component, OnInit } from "@angular/core";
 import { LayoutService } from "../../@core/utils";
 
 import { NgZone } from "@angular/core";
+import { HttpserviceService } from "../../services/http/httpservice.service";
 
 let home = require("../../../assets/pages/home/js/home");
 
@@ -39,7 +40,7 @@ export class HomeComponent implements OnInit {
           [121.25158, 30.342533],
           [132, 27, 100],
         ],
-        value: [38, 50],
+        value: ['*', 60],
       },
       {
         name: "盐城试车场",
@@ -253,7 +254,7 @@ export class HomeComponent implements OnInit {
       ],
     },
   };
-  constructor(private layoutService: LayoutService, private ngZone: NgZone) {}
+  constructor(private layoutService: LayoutService, private ngZone: NgZone,private http:HttpserviceService) {}
 
   ngOnInit(): void {
     this.createEchart();
@@ -273,7 +274,6 @@ export class HomeComponent implements OnInit {
       // let chian_map = document.querySelector('.home_chian_map');
       // if(chian_map) echarts.init(chian_map).resize();
     });
-
     window.addEventListener("resize", this.resize);
   }
   createEchart() {
@@ -299,6 +299,17 @@ export class HomeComponent implements OnInit {
   ngAfterViewInit() {
     home.chian_map(this.myChart, this.myChartData);
     // this.resize();
+    this.getData();
+  }
+
+  getData(){
+    this.http.callRPC('get_board_device_heartbeat','get_board_device_heartbeat',{"date_interval": '7days'}).subscribe((f:any)=>{
+      if(f.result.error || f.result.message[0].code == 0)return;
+      let res = f.result.message[0];
+      this.myChartData.LableData[2].value[0] = res.current_total_device||0;
+      home.chian_map(this.myChart, this.myChartData);
+
+    });
   }
 
   resize = () => {
