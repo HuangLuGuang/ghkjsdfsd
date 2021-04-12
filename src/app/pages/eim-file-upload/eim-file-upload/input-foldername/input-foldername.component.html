@@ -1,7 +1,7 @@
 <nb-card>
   <nb-card-header>
     <div class="row">
-        <div class="col-md-10" style="text-align: left;"> 新建文件夹</div>
+        <div class="col-md-10" style="text-align: left;"> 新建{{input_type}}</div>
         <div class="col-md-2" style="text-align: right;">
             <nb-icon icon="close-outline" style="cursor: pointer;" (click)="cancel()"></nb-icon>
         </div>
@@ -12,9 +12,17 @@
     <form nz-form [formGroup]="validateForm" (ngSubmit)="submit()">
 
       <nz-form-item>
-        <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="name" nzRequired>文件夹名称</nz-form-label>
-        <nz-form-control [nzSm]="14" [nzXs]="24" nzErrorTip="请输入文件夹名称">
-          <input nz-input id="name" formControlName="name" placeholder="请输入文件夹名称" />
+        <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="name" nzRequired>{{input_type}}</nz-form-label>
+        <nz-form-control [nzSm]="14" [nzXs]="24" [nzErrorTip]="nameErrorTpl">
+          <input nz-input id="name" formControlName="name" placeholder="请输入{{input_type}}名称" />
+          <ng-template #nameErrorTpl let-control>
+            <ng-container *ngIf="control.hasError('required')">
+              请输入{{input_type}}名称!
+            </ng-container>
+            <ng-container *ngIf="control.hasError('confirm')">
+              请检查试验编号是否符合 SYxxxx-xxxxxx-xxx
+            </ng-container>
+          </ng-template>
         </nz-form-control>
       </nz-form-item>
       <nz-form-item nz-row class="register-area">

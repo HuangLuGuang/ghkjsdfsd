@@ -179,7 +179,7 @@ export class EimFileUploadComponent implements OnInit, AfterViewInit {
 
   onCreateFolder() {
     this.dialogService
-      .open(InputFoldernameComponent)
+      .open(InputFoldernameComponent, {context: {current_path: this.current_path}})
       .onClose.subscribe((name) => {
         if (!name || name.trim().length === 0) {
           return;
@@ -234,7 +234,7 @@ export class EimFileUploadComponent implements OnInit, AfterViewInit {
       const toastr = {
         status: "info",
         position: "toast-top-right",
-        conent: `请选择要上传的文件或文件夹`,
+        conent: `请选择要上传的试验条目`,
       };
       this.publicservice.showngxtoastr(toastr);
       return;

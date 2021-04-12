@@ -20,7 +20,8 @@
 
                 <!-- 新建文件夹-->
                 <div class=" button_item my_import "  (click)="onCreateFolder()">
-                    <button nbButton status="info" size="small"   ><nb-icon icon="folder-add-outline"></nb-icon>创建试验条目</button>
+                    <button nbButton status="info" size="small" *ngIf="!current_path.length"  ><nb-icon icon="folder-add-outline"></nb-icon>创建试验条目</button>
+                    <button nbButton status="info" size="small" *ngIf="current_path.length"    ><nb-icon icon="folder-add-outline"></nb-icon>创建文件夹</button>
                 </div>
 
 
@@ -43,7 +44,7 @@
 
                 <!-- 上传到MaDaM -->
                 <div class=" button_item my_import " (click)="onSendToS3()">
-                    <button nbButton status="success" size="small"   ><nb-icon icon="navigation-2-outline"></nb-icon>发送到s3</button>
+                    <button nbButton status="success" size="small"  [disabled]="current_path.length" ><nb-icon icon="navigation-2-outline"></nb-icon>发送到s3</button>
                 </div>
 
                 <!-- 刷新table -->
