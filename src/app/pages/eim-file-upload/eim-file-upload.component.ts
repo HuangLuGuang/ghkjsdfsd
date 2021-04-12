@@ -24,6 +24,7 @@ import { ssotoken } from "../../appconfig";
 import { NbDialogService } from "@nebular/theme";
 import { InputFoldernameComponent } from "./eim-file-upload/input-foldername/input-foldername.component";
 import { NzMessageService } from "ng-zorro-antd/message";
+import {HttpserviceService} from "../../services/http/httpservice.service";
 
 @Component({
   selector: "ngx-eim-file-upload",
@@ -33,6 +34,8 @@ import { NzMessageService } from "ng-zorro-antd/message";
 export class EimFileUploadComponent implements OnInit, AfterViewInit {
   @ViewChild("ag_Grid") agGrid: any;
   @ViewChild("mybreadcrumb") mybreadcrumb: any; // 面包屑
+  @ViewChild("timeline") timeline: any;
+
   token = localStorage.getItem(ssotoken)
     ? JSON.parse(localStorage.getItem(ssotoken)).token
     : "";
@@ -48,6 +51,9 @@ export class EimFileUploadComponent implements OnInit, AfterViewInit {
   button; // 权限button
   current_path = [];
   rowSelection = [];
+    // 历史时间选择器
+  selectedItem = "3";
+  send_history = [];
 
   tableDatas = {
     style: "width: 100%; height: 588px",
@@ -101,6 +107,7 @@ export class EimFileUploadComponent implements OnInit, AfterViewInit {
     private datepipe: DatePipe,
     private message: NzMessageService,
     private http: HttpClient,
+    private httpservice: HttpserviceService,
     private dialogService: NbDialogService
   ) {
     // 会话过期
@@ -167,6 +174,7 @@ export class EimFileUploadComponent implements OnInit, AfterViewInit {
   ngAfterViewInit() {
     // 初始化table
     this.get_current_path_files();
+    this.get_send_s3_history();
     this.loading = false;
     this.tableDatas.columnDefs.unshift(this.filename_col);
     this.tableDatas.columnDefs.push(this.del_file_col);
@@ -262,6 +270,7 @@ export class EimFileUploadComponent implements OnInit, AfterViewInit {
             position: "toast-top-right",
             conent: `发送到S3成功`,
           };
+          this.get_send_s3_history();
           this.publicservice.showngxtoastr(toastr);
         } else {
           const toastr = {
@@ -402,6 +411,22 @@ export class EimFileUploadComponent implements OnInit, AfterViewInit {
     } else {
       this.RecordOperation("更新", 0, "试验结果");
     }
+  }
+
+  get_send_s3_history() {
+    this.httpservice.callRPC('', 'get_send_s3_history', {interval_day: this.selectedItem})
+      .subscribe(result => {
+        const res = result["result"]["message"][0];
+        if (res.code === 1) {
+          this.send_history = res.message;
+        } else {
+            this.publicservice.showngxtoastr({
+                position: "toast-top-right",
+                status: "warning",
+                conent: '设备状态历史为空',
+              });
+        }
+      });
   }
 
   // option_record

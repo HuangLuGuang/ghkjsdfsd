@@ -1,71 +1,115 @@
 
-<nb-card>
+<div class="row">
+  <div class="col-md-9">
+    <nb-card>
     <!-- <nb-card-header style="font-size: small;">
         试验文件传输
     </nb-card-header> -->
-    <nb-card-body>
-        <div class="row">
-            <div class="col-lg-6" style="display: flex;">
+        <nb-card-body>
+            <div class="row">
+                <div class="col-lg-6" style="display: flex;">
 
-                <div class="example-items-rows button_item"  ngClass="button?.query?ngClass_show:ngClass_hide">
-                    <div class="gongneng_keshi">
-                        <ngx-file-breadcrumb #mybreadcrumb [current_path]="current_path" (breadcrumbClick)="onBreadcrumbClick($event)"></ngx-file-breadcrumb>
+                    <div class="example-items-rows button_item"  ngClass="button?.query?ngClass_show:ngClass_hide">
+                        <div class="gongneng_keshi">
+                            <ngx-file-breadcrumb #mybreadcrumb [current_path]="current_path" (breadcrumbClick)="onBreadcrumbClick($event)"></ngx-file-breadcrumb>
+                        </div>
                     </div>
                 </div>
+
+                <div class="col-lg-6" style="display: flex;">
+                    <div style="flex: auto;">
+                    </div>
+
+                    <!-- 新建文件夹-->
+                    <div class=" button_item my_import "  (click)="onCreateFolder()">
+                        <button nbButton status="info" size="small" *ngIf="!current_path.length"  ><nb-icon icon="folder-add-outline"></nb-icon>创建试验条目</button>
+                        <button nbButton status="info" size="small" *ngIf="current_path.length"    ><nb-icon icon="folder-add-outline"></nb-icon>创建文件夹</button>
+                    </div>
+
+
+
+                    <!-- 上传按钮  [nzAccept]="nzFileType"-->
+                    <div class=" button_item my_import " >
+                        <nz-upload nzAction="/api/v1/upload_file"
+                        [nzShowUploadList]="false"
+                        [nzMultiple]="true"
+                        [nzFileList]="fileList"
+                        (nzChange)="uploadStatus($event)"
+                        [nzName]="nzName"
+                        [nzCustomRequest]="customReq"
+                        >
+
+                          <button nbButton status="success" size="small" ><nb-icon icon="cloud-upload-outline"></nb-icon>上传文件</button>
+                        </nz-upload>
+
+                    </div>
+
+                    <!-- 上传到MaDaM -->
+                    <div class=" button_item my_import " (click)="onSendToS3()">
+                        <button nbButton status="success" size="small"  [disabled]="current_path.length" ><nb-icon icon="navigation-2-outline"></nb-icon>发送到s3</button>
+                    </div>
+
+                    <!-- 刷新table -->
+                    <div class="" style="text-align: right;">
+                        <!-- loader-outline -->
+                        <button nbButton [nbSpinner]="refresh" nbSpinnerStatus="success" size="small" (click)="refresh_table()" style="margin-bottom: 10px;">
+                            <nb-icon icon="sync-outline"></nb-icon>
+                        </button>
+
+
+                    </div>
+                </div>
+
             </div>
 
-            <div class="col-lg-6" style="display: flex;">
-                <div style="flex: auto;">
-                </div>
-
-                <!-- 新建文件夹-->
-                <div class=" button_item my_import "  (click)="onCreateFolder()">
-                    <button nbButton status="info" size="small" *ngIf="!current_path.length"  ><nb-icon icon="folder-add-outline"></nb-icon>创建试验条目</button>
-                    <button nbButton status="info" size="small" *ngIf="current_path.length"    ><nb-icon icon="folder-add-outline"></nb-icon>创建文件夹</button>
-                </div>
-
-
-
-                <!-- 上传按钮  [nzAccept]="nzFileType"-->
-                <div class=" button_item my_import " >
-                    <nz-upload nzAction="/api/v1/upload_file"
-                    [nzShowUploadList]="false"
-                    [nzMultiple]="true"
-                    [nzFileList]="fileList"
-                    (nzChange)="uploadStatus($event)"
-                    [nzName]="nzName"
-                    [nzCustomRequest]="customReq"
-                    >
-
-                      <button nbButton status="success" size="small" ><nb-icon icon="cloud-upload-outline"></nb-icon>上传文件</button>
-                    </nz-upload>
-
-                </div>
-
-                <!-- 上传到MaDaM -->
-                <div class=" button_item my_import " (click)="onSendToS3()">
-                    <button nbButton status="success" size="small"  [disabled]="current_path.length" ><nb-icon icon="navigation-2-outline"></nb-icon>发送到s3</button>
-                </div>
-
-                <!-- 刷新table -->
-                <div class="" style="text-align: right;">
-                    <!-- loader-outline -->
-                    <button nbButton [nbSpinner]="refresh" nbSpinnerStatus="success" size="small" (click)="refresh_table()" style="margin-bottom: 10px;">
-                        <nb-icon icon="sync-outline"></nb-icon>
-                    </button>
-
-
+            <div class="row">
+                <div class="col-lg-12">
+                    <ngx-ag-table #ag_Grid></ngx-ag-table>
                 </div>
             </div>
 
-        </div>
+    <!--         <router-outlet></router-outlet> -->
+        </nb-card-body>
+    </nb-card>
+  </div>
+  <div class="col-md-3 " style="padding-left: 0px;">
+        <nb-card  style="height: 100%; width: 100%; position: absolute;">
+            <nb-card-header>
+                <div class="row">
+                    <div class="col-md-6" style="font-size: small;">上传到S3历史</div>
+                    <div class="col-md-4" style="text-align: end;">
+                        <nb-select placeholder="请选择时间" [(selected)]="selectedItem"  (selectedChange)="get_send_s3_history($event)"
+                            size="small" status="info">
+                            <!-- <nb-option value="">Option empty</nb-option> -->
+                            <nb-option value="1">最近1天</nb-option>
+                            <nb-option value="3">最近3天</nb-option>
+                            <nb-option value="7">最近1周</nb-option>
+                            <nb-option value="30">最近1月</nb-option>
+                        </nb-select>
+                    </div>
 
-        <div class="row">
-            <div class="col-lg-12">
-                <ngx-ag-table #ag_Grid></ngx-ag-table>
-            </div>
-        </div>
+                    <div class="col-md-2" style="display: flex;">
+                        <div style="flex: auto;">
+                        </div>
+                        <button nbButton size="small" (click)="get_send_s3_history()">
+                            <nb-icon icon="sync-outline"></nb-icon>
+                        </button>
+                    </div>
 
-<!--         <router-outlet></router-outlet> -->
-    </nb-card-body>
-</nb-card>
+                </div>
+            </nb-card-header>
+            <nb-card-body>
+                <nz-timeline>
+                  <nz-timeline-item *ngFor="let item of send_history">
+                    <span>{{item.sendtime}}</span><br>
+                    试验条目:<span>{{item.filename}}</span><br>
+                    操作人:<span>{{item.sendby}}</span>
+                  </nz-timeline-item>
+                </nz-timeline>
+            </nb-card-body>
+
+        </nb-card>
+
+    </div>
+
+</div>

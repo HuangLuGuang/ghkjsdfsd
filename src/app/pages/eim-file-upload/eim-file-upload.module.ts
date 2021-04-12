@@ -5,7 +5,14 @@ import { EimFileUploadRoutingModule } from './eim-file-upload-routing.module';
 import { EimFileUploadComponent } from './eim-file-upload.component';
 import { NbButtonModule, NbCardModule, NbIconModule, NbLayoutModule, NbSelectModule,
   NbSpinnerModule, NbDialogModule } from '@nebular/theme';
-import { NzBreadCrumbModule, NzPaginationModule, NzButtonModule, NzIconModule, NzUploadModule} from 'ng-zorro-antd';
+import {
+  NzBreadCrumbModule,
+  NzPaginationModule,
+  NzButtonModule,
+  NzIconModule,
+  NzUploadModule,
+  NzTimePickerModule
+} from 'ng-zorro-antd';
 import { AgGridModule } from 'ag-grid-angular';
 import { NzInputModule } from 'ng-zorro-antd/input';
 import { NzModalModule } from 'ng-zorro-antd/modal';
@@ -19,6 +26,7 @@ import { InputFoldernameComponent } from './eim-file-upload/input-foldername/inp
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import { NzFormModule } from 'ng-zorro-antd/form';
 import { NbEvaIconsModule } from '@nebular/eva-icons';
+import { NzTimelineModule } from 'ng-zorro-antd/timeline';
 
 
 
@@ -37,6 +45,8 @@ import { NbEvaIconsModule } from '@nebular/eva-icons';
     ReactiveFormsModule,
     EimFileUploadRoutingModule,
     NzButtonModule,
+    NzTimelineModule,
+    NzTimePickerModule,
     NzIconModule,
     NzMessageModule,
     NzInputModule,
