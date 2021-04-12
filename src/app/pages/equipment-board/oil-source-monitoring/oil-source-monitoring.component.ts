@@ -518,10 +518,10 @@ export class OilSourceMonitoringComponent implements OnInit {
       let color = 'white';
       let s = '';
       this.equip_alarm = f.result.message[0].message.sort((h,c)=> c-h).map(g=>{
-        
+        let time =  dateformat(new Date(g.recordtime),'MM-dd hh:mm:ss');
         if(g.level == 2)color = 'yellow',s ='warm';
         if(g.level == 3)color = '#f595ca',s ='error';//红
-        return {data:[g.source.split(' ')[0],g.message],s:'',color:color};
+        return {data:[g.source.split(' ')[0],g.message,time],s:'',color:color};
       })
     })
   }

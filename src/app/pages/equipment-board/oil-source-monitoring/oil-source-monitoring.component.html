@@ -36,13 +36,16 @@
                 <div class="part_title">{{'equipment.EquipmentAlarm'|translate}}</div>
                 <div class="w_100 height_83" style="position: relative;">
                     <div class="bo" style="height: 16%">
-                        <div class="w_30">{{ 'equipment.Source' | translate}}</div>
-                        <div>{{ 'equipment.CurrentAlarmList' | translate}}</div>
+                        <div class="w_25">{{ 'equipment.time' | translate}}</div>
+
+                        <div class="w_15">{{ 'equipment.Source' | translate}}</div>
+                        <div class="w_60">{{ 'equipment.CurrentAlarmList' | translate}}</div>
                     </div>
                     <div class='scrollbar' style="height: 84%;overflow: auto;position: absolute;width: 100%;">
                         <ng-container *ngFor="let item of equip_alarm;let i = index;">
                             <div class="bo" [ngStyle]="{color:item.color}">
-                                <div class="w_30">{{item.data[0]}}</div>
+                                <div class="w_25">{{item.data[2]}}</div>
+                                <div class="w_15">{{item.data[0]}}</div>
                                 <div id="line_{{i}}" class="line_1 ">{{ item.data[1] }}</div>
                             </div>
 

@@ -292,6 +292,21 @@
 .w_30 {
     width: 30%;
 }
+.w_20{
+    width: 20%;
+}
+.w_10{
+    width: 10%;
+}
+.w_25{
+    width: 25%;
+}
+.w_15{
+    width: 15%;
+}
+.w_70{
+    width: 70%;
+}
 
 .scrollbar_l::-webkit-scrollbar {
     z-index: 10;
@@ -382,7 +397,7 @@
 }
 
 .line_1 {
-    max-width: 67%;
+    max-width: 60%;
     text-align: left;
     word-break: break-all;
 }
