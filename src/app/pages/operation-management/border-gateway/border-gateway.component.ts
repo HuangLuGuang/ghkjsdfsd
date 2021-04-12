@@ -251,6 +251,7 @@ export class BorderGatewayComponent implements OnInit {
         'offline': res.offline,
         'updatetime': res.update_time,
       };
+      this.tableDatas.totalPageNumbers = this.tableDatas.rowData.length;
       if(status == 'init'){
         this.gridtable.init_agGrid(this.tableDatas); // 刷新组件
       }else{
