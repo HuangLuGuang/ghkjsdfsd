@@ -249,13 +249,13 @@ export class EquipmentGlassLiftComponent implements OnInit {
       this.sky_rate.three = res.results_data03[0];
       this.sky_rate.four = res.results_data04[0];
       if(document.getElementById('progress_1'))
-          equipment_four_road.progress({plan:100,now:this.sky_rate.one.rate ||0},echarts.init(document.getElementById('progress_1')));
+          equipment_four_road.progress({plan:100,now:this.sky_rate.one?.rate ||0},echarts.init(document.getElementById('progress_1')));
       if(document.getElementById('progress_2'))
-          equipment_four_road.progress({plan:100,now:this.sky_rate.two.rate ||0},echarts.init(document.getElementById('progress_2')));
+          equipment_four_road.progress({plan:100,now:this.sky_rate.two?.rate ||0},echarts.init(document.getElementById('progress_2')));
       if(document.getElementById('progress_3'))
-          equipment_four_road.progress({plan:100,now:this.sky_rate.three.rate ||0},echarts.init(document.getElementById('progress_3')));
+          equipment_four_road.progress({plan:100,now:this.sky_rate.three?.rate ||0},echarts.init(document.getElementById('progress_3')));
       if(document.getElementById('progress_4'))
-          equipment_four_road.progress({plan:100,now:this.sky_rate.four.rate ||0},echarts.init(document.getElementById('progress_4')));
+          equipment_four_road.progress({plan:100,now:this.sky_rate.four?.rate ||0},echarts.init(document.getElementById('progress_4')));
 
 
     })

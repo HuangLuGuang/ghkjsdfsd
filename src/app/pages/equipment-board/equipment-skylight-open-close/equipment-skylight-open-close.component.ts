@@ -257,9 +257,9 @@ export class EquipmentSkylightOpenCloseComponent implements OnInit {
       this.sky_rate.one = res.results_data01[0];
       this.sky_rate.two = res.results_data02[0];
       if(document.getElementById('progress_1'))
-          equipment_four_road.progress({plan:100,now:this.sky_rate.one.rate ||0},echarts.init(document.getElementById('progress_1')));
+          equipment_four_road.progress({plan:100,now:this.sky_rate.one?.rate ||0},echarts.init(document.getElementById('progress_1')));
       if(document.getElementById('progress_4'))
-          equipment_four_road.progress({plan:100,now:this.sky_rate.two.rate ||0},echarts.init(document.getElementById('progress_4')));
+          equipment_four_road.progress({plan:100,now:this.sky_rate.two?.rate ||0},echarts.init(document.getElementById('progress_4')));
 
 
     })

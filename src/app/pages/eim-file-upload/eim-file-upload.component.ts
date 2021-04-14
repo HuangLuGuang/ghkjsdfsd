@@ -413,7 +413,7 @@ export class EimFileUploadComponent implements OnInit, AfterViewInit {
     }
   }
 
-  get_send_s3_history() {
+  get_send_s3_history(e?) {
     this.httpservice.callRPC('', 'get_send_s3_history', {interval_day: this.selectedItem})
       .subscribe(result => {
         const res = result["result"]["message"][0];
