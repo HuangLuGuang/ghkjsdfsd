@@ -11,6 +11,7 @@ import {
   NbProgressBarModule,
   NbSelectModule,
   NbSpinnerModule,
+  NbTooltipModule,
 } from "@nebular/theme";
 import { YearSelectComponent } from "./year-select/year-select.component";
 import { MonthSelectComponent } from "./month-select/month-select.component";
@@ -24,6 +25,7 @@ import { NzDrawerModule, NzTimelineModule, NzIconModule } from "ng-zorro-antd";
 
 import { AntTimeLineComponent } from "./ant-time-line/ant-time-line.component";
 import { TimeScheduleComponent } from "./tesk-config/time-schedule/time-schedule.component";
+import { ExemplarnameComponent } from "./tesk-config/exemplarname/exemplarname.component";
 
 @NgModule({
   declarations: [
@@ -35,6 +37,7 @@ import { TimeScheduleComponent } from "./tesk-config/time-schedule/time-schedule
     ActionComponent,
     AntTimeLineComponent,
     TimeScheduleComponent,
+    ExemplarnameComponent,
   ],
   imports: [
     CommonModule,
@@ -55,6 +58,9 @@ import { TimeScheduleComponent } from "./tesk-config/time-schedule/time-schedule
 
     // 进度条
     NbProgressBarModule,
+
+    // tootip
+    NbTooltipModule,
   ],
   entryComponents: [MonthSelectComponent],
 })

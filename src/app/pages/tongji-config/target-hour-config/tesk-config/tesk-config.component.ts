@@ -21,6 +21,7 @@ import { TimeScheduleComponent } from "./time-schedule/time-schedule.component";
 import { Observable } from "rxjs";
 import { LimitsAddComponent } from "../../../../pages-popups/tongji/test_task_conf/limits-add/limits-add.component";
 import { LimitsAddInitComponent } from "../../../../pages-popups/tongji/test_task_conf/limits-add-init/limits-add-init.component";
+import { ExemplarnameComponent } from "./exemplarname/exemplarname.component";
 
 @Component({
   selector: "ngx-tesk-config",
@@ -180,6 +181,8 @@ export class TeskConfigComponent implements OnInit {
       this.button = result;
       localStorage.setItem("buttons_list", JSON.stringify(result));
     });
+
+    // -----------------测试海康api
   }
 
   // 初始化日期范围
@@ -314,7 +317,7 @@ export class TeskConfigComponent implements OnInit {
       })
       .onClose.subscribe((res) => {
         if (res) {
-          console.error("limis>>>>>>>要处理的数据：", res);
+          // console.error("limis>>>>>>>要处理的数据：", res);
           this.dialogService
             .open(LimitsAddComponent, {
               closeOnBackdropClick: false,
@@ -520,10 +523,11 @@ export class TeskConfigComponent implements OnInit {
     this.tableDatas.isno_refresh_page_size = true;
     this.gridData = [];
     this.loading = true;
-    setTimeout(() => {
-      this.update_agGrid();
-      this.loading = false;
-    }, 10);
+    this.update_agGrid();
+    // setTimeout(() => {
+    //   this.loading = false;
+    // }, 10);
+    // this.loading = false;
   }
 
   // 得到buttons----------------------------------------------------------
@@ -569,6 +573,7 @@ export class TeskConfigComponent implements OnInit {
         headerName: "样件名称",
         resizable: true,
         width: 100,
+        cellRendererFramework: ExemplarnameComponent,
         sortable: true,
       },
       {

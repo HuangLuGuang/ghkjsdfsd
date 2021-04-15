@@ -52,8 +52,10 @@ import { SetPullConfigComponent } from "./facility-health-data-center/alert-info
 import { SetRuleConfigComponent } from "./facility-health-data-center/alert-info-and-config/set-rule-config/set-rule-config.component";
 import { LimitsAddComponent } from "./tongji/test_task_conf/limits-add/limits-add.component";
 import { LimitsAddInitComponent } from "./tongji/test_task_conf/limits-add-init/limits-add-init.component";
-import { LimitsGroupDeviceComponent } from './tongji/test_task_conf/components/limits-group-device/limits-group-device.component';
+import { LimitsGroupDeviceComponent } from "./tongji/test_task_conf/components/limits-group-device/limits-group-device.component";
 
+import { ExemplarNoNameComponent } from "./tongji/test_task_conf/components/exemplar-no-name/exemplar-no-name.component";
+import { NzTreeModule } from "ng-zorro-antd";
 // DateComponent
 @NgModule({
   declarations: [
@@ -83,6 +85,7 @@ import { LimitsGroupDeviceComponent } from './tongji/test_task_conf/components/l
     LimitsAddComponent,
     LimitsAddInitComponent,
     LimitsGroupDeviceComponent,
+    ExemplarNoNameComponent,
   ],
   imports: [
     CommonModule,
@@ -108,6 +111,8 @@ import { LimitsGroupDeviceComponent } from './tongji/test_task_conf/components/l
 
     NzSelectModule,
     FormsModule,
+    // select选择器
+    NzSelectModule,
   ],
   exports: [PreinstallDialogComponent, DailyTargetDurationComponent],
 })

@@ -1,4 +1,4 @@
-<nb-card style="width: 1200px; height: 680px;">
+<nb-card style="width: 1600px; height: 680px;">
     <nb-card-header>
         <div class="row">
           <div class="col-md-4">待处理试验编号</div>
@@ -34,13 +34,13 @@
                         <div class="col-md-3">
                             试验名称
                         </div>
-                        <div class="col-md-3">
+                        <div class="col-md-4">
                             科室
                         </div>
                         <div class="col-md-3">
                             试验编号
                         </div>
-                        <div class="col-md-3">
+                        <div class="col-md-1">
 
                         </div>
                     </div>
@@ -48,13 +48,13 @@
                         <div class="col-md-3 list-item3_1">
                             {{message["devicetaskname"]}}
                         </div>
-                        <div class="col-md-3 list-item3">
+                        <div class="col-md-4 list-item3">
                             {{message["groups"]}}
                         </div>
                         <div class="col-md-3 list-item3">
                             {{message["tasknum"]}}
                         </div>
-                        <div class="col-md-3">
+                        <div class="col-md-1">
                             <button nbButton size="small" (click)="handle(message)">处理</button>
 
                         </div>
@@ -69,27 +69,32 @@
                 </div>
 
                 <div class="row list-item">
-                    <div class="col-md-4">
+                    <div class="col-md-3">
                         试验名称
                     </div>
-                    <div class="col-md-4">
+                    <div class="col-md-3">
                         科室
                     </div>
-                    <div class="col-md-4">
+                    <div class="col-md-3">
                         试验编号
+                    </div>
+                    <div class="col-md-1">
                     </div>
                     
                 </div>
                 <div class="row list-item" *ngFor="let message of nmessages" style="white-space: nowrap;height: 41px;">
 
-                    <div class="col-md-4 list-item3">
+                    <div class="col-md-3 list-item3">
                         {{message["devicetaskname"]}}
                     </div>
                     <div class="col-md-4 list-item3">
                         {{message["groups"]}}
                     </div>
-                    <div class="col-md-4 list-item3">
+                    <div class="col-md-3 list-item3">
                         {{message["tasknum"]}}
+                    </div>
+                    <div class="col-md-1">
+                        <button nbButton size="small" (click)="edit(message)">编辑</button>
                     </div>
                 </div>
             </div>

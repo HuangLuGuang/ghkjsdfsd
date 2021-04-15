@@ -39,7 +39,7 @@
     line-height: 33px;
     top: -4px;
     position: relative;
-    width: 63px;
+    // width: 63px;
 }
 
 // 预览
@@ -59,4 +59,15 @@
 
     padding-left: 5px;
     
+}
+// 谷歌 safari 浏览器
+.yulan::-webkit-scrollbar {/*滚动条整体样式*/
+    width: 4px;     /*高宽分别对应横竖滚动条的尺寸*/
+    height: 40px !important;
+}
+
+// 禁止点击
+
+.mouse_forbid{
+    cursor: not-allowed;
 }

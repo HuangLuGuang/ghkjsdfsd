@@ -1,31 +1,28 @@
 <div class="row" style="padding:0px 0px 0px 11px;">
-    <form action="" class="layui-form" lay-filter="test_task_conf_add_inline_groups">
-        <!-- 功能组 -->
-        <div class="layui-form-item">
-            <div class="layui-input-inline test_task_conf_add_inline_group">
+    <form action="" style="width: 100%;" class="layui-form" lay-filter="test_task_conf_add_inline_groups">
+        
+        <div class="row" style="margin: 0px;">
+            <!-- 功能组 -->
+            <div class="col-md-6">
                 <label class="layui-form-label mylabel">功能组：</label>
                 <div class="layui-input-block">
                     <select id="test_task_conf_add_group" name="test_task_conf_add_group" lay-filter="test_task_conf_add_group">
                     </select>
                 </div>
             </div>
-            
-            <!-- 设备名称 -->
-            <div class="layui-input-inline test_task_conf_add_inline">
-                <label class="layui-form-label mylabel">设备名称：</label>
-                <div class="layui-input-block">
-                    <select id="test_task_conf_add_devicename" name="test_task_conf_add_devicename" lay-filter="test_task_conf_add_devicename">
-                    </select>
-                </div>
-            </div>
-            
-            <!-- 设备编号 -->
-            <div class="layui-input-inline test_task_conf_add_inline">
-                <label class="layui-form-label mylabel">设备编号：</label>
-                <div class="layui-input-block">
-                    <input id="test_task_conf_add_deviceno" type="text" name="title" disabled lay-verify="title" autocomplete="off" placeholder="请输入设备编号" class="layui-input">
+            <!-- 设备名称-设备编号 -->
+            <div class="col-md-6">
+                <label class="layui-form-label mylabel">设备：</label>
+                <div class="layui-input-block ele7_parent" style="margin-left: 80px;">
+                    <input title="可搜索" type="text" name="select_search" required=""  lay-verify="required" autocomplete="off" class="layui-input select_search">
+                    <div class="eleTree ele7" lay-filter="data7"></div>
                 </div>
             </div>
         </div>
+            
+
+        <div class="layui-form-item">
+        </div>
+
     </form>
 </div>

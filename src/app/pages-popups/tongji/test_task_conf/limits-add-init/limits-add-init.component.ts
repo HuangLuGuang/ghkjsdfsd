@@ -56,8 +56,8 @@ export class LimitsAddInitComponent implements OnInit {
       var res = result["result"]["message"][0];
       if (res["code"] === 1) {
         if (res["message"].length < 1) {
-          this.not_null("没有数据！");
-          this.dialogRef.close(false);
+          // this.not_null("没有数据！");
+          // this.dialogRef.close(false);
         } else {
           this.messages = res["message"];
         }
@@ -71,8 +71,8 @@ export class LimitsAddInitComponent implements OnInit {
       var res = result["result"]["message"][0];
       if (res["code"] === 1) {
         if (res["message"].length < 1) {
-          this.not_null("没有数据！");
-          this.dialogRef.close(false);
+          // this.not_null("没有数据！");
+          // this.dialogRef.close(false);
         } else {
           this.nmessages = res["message"];
           // console.error("this.nmessages", this.nmessages);
@@ -83,7 +83,20 @@ export class LimitsAddInitComponent implements OnInit {
 
   // 处理按钮
   handle(message) {
-    this.dialogRef.close(message);
+    var result = {
+      type: "handle",
+      message: message,
+    };
+    this.dialogRef.close(result);
+  }
+
+  // 编辑按钮
+  edit(message) {
+    var result = {
+      type: "edit",
+      message: message,
+    };
+    this.dialogRef.close(result);
   }
 
   // 弹出提示，不为空！
@@ -114,6 +127,8 @@ export class LimitsAddInitComponent implements OnInit {
       console.error("++++刷新数据++++", res);
       if (res["succeed"] == "成功") {
         this.success();
+        this.init_list();
+        this.ninit_list(); // 未处理的
       } else {
         var data = res["succeed"];
         this.danger(data);

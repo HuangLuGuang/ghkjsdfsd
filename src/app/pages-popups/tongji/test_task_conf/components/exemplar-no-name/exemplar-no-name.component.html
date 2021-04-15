@@ -1,0 +1,25 @@
+
+<!-- 样件三级编号，全选、多选，样件名称 -->
+<form action="" style="width: 100%;" class="layui-form" lay-filter="exemplar_no_name">
+
+
+
+</form>
+<div class="row">
+    <div class="col-md-6" style="padding-right:0px">
+        <label class="layui-form-label mylabel">样件三级编号：</label>
+        <div class="layui-input-block" style="margin-left: 80px;">
+            <input type="text" name="exemplar_select_all"
+            lay-verify="required"
+            required autocomplete="off" class="layui-input exemplar_select_all" readonly>
+
+
+            <div class="eleTree ele8" lay-filter="eexemplar_select_all_data8"></div>
+        </div>
+    </div>
+    <div class="col-md-6" style="padding-right: 0px;">
+        <label class="layui-form-label mylabel">设备名称：</label>
+        <input type="text" name="exemplar_devicename" 
+        lay-verify="required" id="exemplar_devicename" class="layui-input mouse_forbid exemplar_devicename" disabled autocomplete="off" >
+    </div>
+</div>

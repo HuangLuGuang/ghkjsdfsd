@@ -1,7 +1,7 @@
 <nb-card style="width: 900px; height: 680px;">
     <nb-card-header>
         <div class="row">
-          <div class="col-md-4">新增Limits传入的试验任务信息</div>
+          <div class="col-md-4">新增试验任务信息</div>
             <div class="col-md-6"></div>
             <div class="col-md-2" style="text-align: right;">
                 <nb-icon icon="close-outline" style="cursor: pointer;" (click)="closedialog()"></nb-icon>
@@ -55,10 +55,18 @@
                 <div class="layui-inline test_task_info_left">
                   <label class="layui-form-label mylabel mulu_title" style="width: auto;">试验任务编号：</label>
                   <div class="layui-input-block" style="margin-left: 120px;">
-                    <input disabled type="text" name="tasknum"  lay-verify="required|tasknum" placeholder="WTxxxx-yyyymm" autocomplete="off" class="layui-input">
+                    <input disabled type="text" name="tasknum"  lay-verify="required|tasknum" placeholder="WTxxxx-yyyymm" autocomplete="off" class="layui-input mouse_forbid">
                   </div>
                 </div>
+
                 <div class="layui-inline test_task_info_right">
+                  <label class="layui-form-label mylabel mulu_title" style="width: auto;">试验名称：</label>
+                  <div class="layui-input-block"  style="margin-left: 120px;">
+                    <input style=" width: 95%;" disabled type="text" name="devicetaskname"  lay-verify="required|devicetaskname" placeholder="" autocomplete="off" class="layui-input mouse_forbid">
+                  </div>
+                </div>
+
+                <div class="layui-inline test_task_info_right" style="display: none;">
                   <label class="layui-form-label mylabel mulu_title" style="width: auto;">样件编号：</label>
                   <div class="layui-input-block" style="margin-left: 120px;">
                     <input disabled type="text" name="exemplarno"  lay-verify="required|exemplarno" placeholder="YPxxxx-yyyymm" autocomplete="off" class="layui-input">
@@ -70,25 +78,22 @@
                 <div class="layui-inline test_task_info_left">
                   <label class="layui-form-label mylabel mulu_title" style="width: auto;">试验条目编号：</label>
                   <div class="layui-input-block" style="margin-left: 120px;">
-                    <input type="text" name="taskitemnumbers"  lay-verify="required|taskitemnumbers" placeholder="请输入试验条目编号(xxx)" autocomplete="off" class="layui-input">
+                    <input disabled type="text" name="taskitemnumbers"  lay-verify="required|taskitemnumbers" placeholder="请输入试验条目编号(xxx)" autocomplete="off" class="layui-input mouse_forbid">
                   </div>
                 </div>
-                <div class="layui-inline test_task_info_right">
-                  <label class="layui-form-label mylabel mulu_title" style="width: auto;">试验名称：</label>
-                  <div class="layui-input-block"  style="margin-left: 120px;">
-                    <input disabled type="text" name="devicetaskname"  lay-verify="required|devicetaskname" placeholder="" autocomplete="off" class="layui-input">
-                  </div>
-                </div>
-            </div>
 
-            <div class="layui-form-item">
                 <div class="layui-inline test_task_info_left">
                   <label class="layui-form-label mylabel mulu_title" style="width: auto;">试验执行人：</label>
                   <div class="layui-input-block"  style="margin-left: 120px;">
-                    <input type="text" name="executor"  lay-verify="required|executor" placeholder="" autocomplete="off" class="layui-input">
+                    <input style=" width: 104%;" type="text" name="executor"  lay-verify="required|executor" placeholder="" autocomplete="off" class="layui-input">
                   </div>
                 </div>
+                
             </div>
+
+            <!-- <div class="layui-form-item">
+                
+            </div> -->
 
             <!-- 当前主设备信息 -->
             <div class="row">
@@ -104,23 +109,23 @@
             <!-- 设备编号，根据选的 设备名称自动填充 -->
             <!-- <ngx-group-devices #groups_devices></ngx-group-devices> -->
 
-            <div class="layui-form-item">
-                <div class="layui-inline test_task_info_left">
-                  <label class="layui-form-label mylabel mulu_title" style="width: auto;">样件三级编号：</label>
-                  <div class="layui-input-block" style="margin-left: 120px;">
-                    <input type="text" name="exemplarchildnumbers"  lay-verify="required|exemplarchildnumbers" placeholder="请输入样件三级编号(xxx)" autocomplete="off" class="layui-input">
-                  </div>
-                </div>
-                <div class="layui-inline">
-                  <label class="layui-form-label mylabel mulu_title" style="width: auto;">样件名称：</label>
-                  <div class="layui-input-block"  style="margin-left: 120px;">
-                    <input type="text" name="exemplarname"  lay-verify="required|exemplarname" placeholder="" autocomplete="off" class="layui-input">
-                  </div>
-                </div>
+            
 
-                <div class="layui-inline">
-                    <button type="submit" class="add layui-btn" lay-submit="" lay-filter="add">新增</button>
-                </div>
+            <!-- <div class="row">
+              <div class="col-md-10">
+                
+              </div>
+              <div class="col-md-2" style="text-align: end;">
+                
+              </div>
+            </div> -->
+            <div class="layui-form-item">
+              <div class="layui-inline" style="width: 90%;">
+                <ngx-exemplar-no-name #exemplar_no_name></ngx-exemplar-no-name>
+              </div>
+              <div class="layui-inline">
+                <button type="submit" class="add layui-btn" lay-submit="" lay-filter="add">新增</button>
+              </div>
             </div>
         </form>
 

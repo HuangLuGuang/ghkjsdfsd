@@ -122,7 +122,7 @@ export class CentralizedMonitoringComponent implements OnInit {
         this.inline?.change_status(false);
         this.create_img_16_9();
         this.inline?.change_status(true);
-      }, 800);
+      }, 200);
     };
   }
 
@@ -157,7 +157,7 @@ export class CentralizedMonitoringComponent implements OnInit {
         var item_echart = document.getElementById(item);
         if (item_echart) echarts.init(item_echart).resize();
       });
-    }, 500);
+    }, 300);
 
     // 视频轮播
     // this.inline.status = false;
@@ -211,7 +211,7 @@ export class CentralizedMonitoringComponent implements OnInit {
   creatDateInterval() {
     this.dateInterval = self.setInterval((f) => {
       this.date = this.getDate();
-    }, 1000);
+    }, 500);
   }
 
   //获取当前时间字符串
