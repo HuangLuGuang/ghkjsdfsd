@@ -12,21 +12,21 @@ import { UserInfoService } from "../../../services/user-info/user-info.service";
 export class AlertInfoAndConfigComponent implements OnInit {
   tabs = [
     {
-      title: "报警信息",
+      title: "数采报警",
       url: "/pages/datacenter/alert-info-config/info",
       toggle: "info",
     },
     {
-      title: "推送设置",
-      url: "/pages/datacenter/alert-info-config/config",
-      toggle: "config",
+      title: "数采后报警",
+      url: "/pages/datacenter/alert-info-config/infoafter",
+      toggle: "infoafter",
     },
   ];
 
   // 根据url最后一个路径确定 index的值
   url_after_path = {
     info: 0,
-    config: 1,
+    infoafter: 1,
   };
 
   index = 0;
@@ -38,25 +38,25 @@ export class AlertInfoAndConfigComponent implements OnInit {
     private userinfo: UserInfoService
   ) {
     // 得到url
-    // this.publicservice.get_current_url().subscribe((res: string) => {
-    //   this.index = this.url_after_path[res.split("/").pop()];
-    // });
+    this.publicservice.get_current_url().subscribe((res: string) => {
+      this.index = this.url_after_path[res.split("/").pop()];
+    });
   }
 
   ngOnInit(): void {
     // 监听路由
-    // this.isDocument = this.router.events.subscribe((event: Event) => {
-    //   if (event instanceof NavigationEnd) {
-    //     var url = event.url;
-    //     this.index = this.url_after_path[url.split("/").pop()];
-    //   }
-    // });
-    // // ======= 使用 NbDialog 切换标签时，无法再次弹出问题！
-    // if (document.getElementsByClassName("cdk-overlay-container").length < 1) {
-    //   var dom = document.createElement("div");
-    //   dom.className = "cdk-overlay-container";
-    //   document.getElementsByTagName("nb-layout")[0].appendChild(dom);
-    // }
+    this.isDocument = this.router.events.subscribe((event: Event) => {
+      if (event instanceof NavigationEnd) {
+        var url = event.url;
+        this.index = this.url_after_path[url.split("/").pop()];
+      }
+    });
+    // ======= 使用 NbDialog 切换标签时，无法再次弹出问题！
+    if (document.getElementsByClassName("cdk-overlay-container").length < 1) {
+      var dom = document.createElement("div");
+      dom.className = "cdk-overlay-container";
+      document.getElementsByTagName("nb-layout")[0].appendChild(dom);
+    }
   }
 
   // 切换页签------------------
@@ -65,7 +65,7 @@ export class AlertInfoAndConfigComponent implements OnInit {
     if (type.toggle === "info") {
       // 切换到报警信息
       this.router.navigate([type.url]);
-    } else if (type.toggle === "config") {
+    } else if (type.toggle === "infoafter") {
       // 切换到推送设置
       this.router.navigate([type.url]);
     } else {

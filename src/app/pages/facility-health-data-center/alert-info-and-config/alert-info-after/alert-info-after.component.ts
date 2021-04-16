@@ -8,20 +8,19 @@ import { NbDialogService } from "@nebular/theme";
 
 import { SetRuleConfigComponent } from "../../../../pages-popups/facility-health-data-center/alert-info-and-config/set-rule-config/set-rule-config.component";
 import { AlertMessageComponent } from "../../real-time-alert/alert-message/alert-message.component";
-import { DeviceLevelComponent } from "./device-level/device-level.component";
+import { DeviceLevelComponent } from "../alert-info/device-level/device-level.component";
 import { TableGroupComponent } from "../../../tongji/components/table-group/table-group.component";
 import { TableDevicenameComponent } from "../../../tongji/components/table-devicename/table-devicename.component";
 
 import { Event, NavigationEnd, Router } from "@angular/router";
 
 declare let $;
-
 @Component({
-  selector: "ngx-alert-info",
-  templateUrl: "./alert-info.component.html",
-  styleUrls: ["./alert-info.component.scss"],
+  selector: "ngx-alert-info-after",
+  templateUrl: "./alert-info-after.component.html",
+  styleUrls: ["./alert-info-after.component.scss"],
 })
-export class AlertInfoComponent implements OnInit {
+export class AlertInfoAfterComponent implements OnInit {
   @ViewChild("ag_Grid") agGrid: any;
   @ViewChild("data_range") data_range: any; // 日期范围
   @ViewChild("myinput") devicename: any; // 设备名称
@@ -43,7 +42,7 @@ export class AlertInfoComponent implements OnInit {
   // 用户id
   employeeid = this.userinfo.getEmployeeID();
   TABLE = "device_monitor.device_log";
-  METHOD = "get_alarm";
+  METHOD = "get_alarm_new";
 
   tableDatas = {
     style: "width: 100%; height: 640px",
@@ -136,35 +135,9 @@ export class AlertInfoComponent implements OnInit {
     });
   }
 
-  // 操作列
-  option;
-
-  ngOnInit(): void {
-    var that = this;
-    this.option = {
-      field: "option",
-      headerName: "操作",
-      resizable: true,
-      fullWidth: true,
-      pinned: "right",
-      width: 200,
-      cellRendererFramework: AlertInfoOptionComponent,
-      cellRendererParams: {
-        clicked: function (data: any) {
-          console.log("--添加操作列---", data);
-          if (data["active"] === "config") {
-            that.config([data["data"]]);
-          } else {
-            that.push([data["data"]]);
-          }
-        },
-      },
-    };
-  }
+  ngOnInit(): void {}
 
   ngAfterViewInit() {
-    this.tableDatas.columnDefs.push(this.option);
-
     setTimeout(() => {
       var button = localStorage.getItem("buttons_list");
       this.button = JSON.parse(button);
@@ -179,7 +152,6 @@ export class AlertInfoComponent implements OnInit {
     setTimeout(() => {
       this.loading = true;
       this.inttable();
-      // this.loading = false;
     }, 200);
   }
 
@@ -190,41 +162,8 @@ export class AlertInfoComponent implements OnInit {
         this.query();
         break;
       case "download":
-        this.download("数采报警");
+        this.download("数采后报警");
         break;
-    }
-  }
-
-  // 规则配置
-  config(active_data) {
-    var rowdata;
-    if (active_data) {
-      rowdata = active_data[0];
-    } else {
-      rowdata = this.agGrid.getselectedrows();
-    }
-    this.dialogService
-      .open(SetRuleConfigComponent, {
-        closeOnBackdropClick: false,
-        context: { rowdata: rowdata[0] },
-      })
-      .onClose.subscribe((res) => {
-        if (res) {
-          this.gridData = [];
-          this.loading = true;
-          this.update_agGrid();
-          this.loading = false;
-        }
-      });
-  }
-
-  // 报警推送
-  push(active_data) {
-    var rowdata;
-    if (active_data) {
-      rowdata = active_data[0];
-    } else {
-      rowdata = this.agGrid.getselectedrows();
     }
   }
 
@@ -240,24 +179,6 @@ export class AlertInfoComponent implements OnInit {
     this.agGrid.download(title);
   }
 
-  inittable_before() {
-    // var devicename =
-    //   this.myinput?.getinput() === undefined ? "" : this.myinput?.getinput(); // 设备名称
-    // console.error("this.agGrid>>>>>>>>>>>>.", this.agGrid?.get_pagesize());
-
-    var data_range = this.data_range.getselect();
-    console.error("getselect--------------->", data_range);
-
-    return {
-      limit: this.agGrid.get_pagesize(),
-      employeeid: this.userinfo.getEmployeeID(),
-      start: data_range[0],
-      end: data_range[1],
-      level: this.alertlevel.getselect() ? this.alertlevel.getselect() : [],
-      devicename: this.devicename.getinput() ? this.devicename.getinput() : "",
-    };
-  }
-
   // 重置、刷新
   refresh_table() {
     this.data_range.reset_mydate();
@@ -269,13 +190,24 @@ export class AlertInfoComponent implements OnInit {
     // 是否 每页多少也，设置为默认值
     this.tableDatas.isno_refresh_page_size = true;
     this.inttable();
-    // this.loading = false;
     this.refresh = false;
   }
 
   // 设备名称的输入框
   inpuvalue(inputdata) {
     console.error("inputdata>>>>>>>>", inputdata);
+  }
+
+  inittable_before() {
+    var data_range = this.data_range.getselect();
+    return {
+      limit: this.agGrid.get_pagesize(),
+      employeeid: this.userinfo.getEmployeeID(),
+      start: data_range[0],
+      end: data_range[1],
+      level: this.alertlevel.getselect() ? this.alertlevel.getselect() : [],
+      devicename: this.devicename.getinput() ? this.devicename.getinput() : "",
+    };
   }
 
   // 初始化table
@@ -319,9 +251,9 @@ export class AlertInfoComponent implements OnInit {
         // 刷新table后，改为原来的！
         this.tableDatas.isno_refresh_page_size = false;
 
-        this.RecordOperation("数采报警", 1, JSON.stringify(columns));
+        this.RecordOperation("数采后报警", 1, JSON.stringify(columns));
       } else {
-        this.RecordOperation("数采报警", 0, JSON.stringify(columns));
+        this.RecordOperation("数采后报警", 0, JSON.stringify(columns));
       }
     });
   }
@@ -365,9 +297,9 @@ export class AlertInfoComponent implements OnInit {
         // 刷新table后，改为原来的！
         this.tableDatas.isno_refresh_page_size = false;
 
-        this.RecordOperation("更新数采报警", 1, JSON.stringify(columns));
+        this.RecordOperation("更新报警信息管理", 1, JSON.stringify(columns));
       } else {
-        this.RecordOperation("更新数采报警", 0, JSON.stringify(columns));
+        this.RecordOperation("更新报警信息管理", 0, JSON.stringify(columns));
       }
     });
   }

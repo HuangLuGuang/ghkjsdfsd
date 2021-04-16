@@ -17,6 +17,7 @@ import { ComponentTModule } from "../../tongji/components/componentT.module";
 import { ActionComponent } from './alert-config/action/action.component';
 import { AlertInfoOptionComponent } from './alert-info-option/alert-info-option.component';
 import { DeviceLevelComponent } from './alert-info/device-level/device-level.component';
+import { AlertInfoAfterComponent } from './alert-info-after/alert-info-after.component';
 
 @NgModule({
   declarations: [
@@ -26,6 +27,7 @@ import { DeviceLevelComponent } from './alert-info/device-level/device-level.com
     ActionComponent,
     AlertInfoOptionComponent,
     DeviceLevelComponent,
+    AlertInfoAfterComponent,
   ],
   imports: [
     CommonModule,

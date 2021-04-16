@@ -7,15 +7,15 @@
             </div>
         </div>
 
-        <!-- 设备id，input -->
-        <div class="example-items-rows button_item" >
+        <!-- 设备名称，input -->
+        <div class="example-items-rows button_item" *ngIf="button?.query">
             <div class="gongneng_keshi">
                 <ngx-my-input #myinput (inpuvalue)="inpuvalue($event)"  [placeholder]="myinput_placeholder"></ngx-my-input>
             </div>
         </div>
 
         <!-- 报警等级 -->
-        <div class="example-items-rows button_item query">
+        <div class="example-items-rows button_item query" *ngIf="button?.query">
             <ngx-my-select-tree-type #alertlevel [placeholder]="eimdevicetpye_placeholder"></ngx-my-select-tree-type>
         </div>
 
@@ -24,27 +24,11 @@
             <button nbButton [status]="button?.query.class" size="small" (click)="action(button?.query.permission)"  [disabled]="button?.query.active == 0? true:false"><nb-icon [icon]="button?.query.icon"></nb-icon>{{button?.query.title}}</button>
         </div>
 
-        <!-- 添加 -->
-        <div class="example-items-rows button_item add" *ngIf="button?.add" >
-            <button nbButton [status]="button?.add.class" size="small" (click)="action(button?.add.permission)"  [disabled]="button?.add.active == 0? true:false"><nb-icon [icon]="button?.add.icon"></nb-icon>{{button?.add.title}}</button>
-        </div>
-
-        <!-- 删除 -->
-        <div class="example-items-rows button_item del" *ngIf="button?.del">
-            <button nbButton [status]="button?.del.class" size="small" (click)="action(button?.del.permission)"  [disabled]="button?.del.active == 0? true:false"><nb-icon [icon]="button?.del.icon"></nb-icon>{{button?.del.title}}</button>
-        </div>
-
-        <!-- 推送配置 -->
-        <div class="example-items-rows button_item edit" *ngIf="button?.edit">
-            <button nbButton [status]="button?.edit.class" size="small" (click)="action(button?.edit.permission)"  [disabled]="button?.edit.active == 0? true:false"><nb-icon [icon]="button?.edit.icon"></nb-icon>{{button?.edit.title}}</button>
-        </div>
-
     </div>
 
     <div class="col-lg-3" style="display: flex;">
         <div style="flex: auto;">
         </div>
-        
         
         <!-- 导出 -->
         <div class=" button_item my_import " *ngIf="button?.download">
@@ -53,7 +37,7 @@
         <!-- 刷新table -->
         <div class="" style="text-align: right;">
             <!-- loader-outline -->
-            <button nbButton  nbSpinnerStatus="success" size="small" (click)="refresh_table()" style="margin-bottom: 10px;">
+            <button nbButton  nbSpinnerStatus="success" size="small" (click)="refresh_table()">
                 <nb-icon icon="sync-outline"></nb-icon>
             </button>
         </div>

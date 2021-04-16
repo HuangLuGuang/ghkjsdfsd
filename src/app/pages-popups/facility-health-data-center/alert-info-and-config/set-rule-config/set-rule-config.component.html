@@ -1,7 +1,7 @@
 <nb-card class="set_rule_config">
     <nb-card-header>
         <div class="row">
-            <div class="col-md-10" style="text-align: left;font-size: small;">规则配置</div>
+            <div class="col-md-10" style="text-align: left;font-size: small;">修改规则配置</div>
             <div class="col-md-2" style="text-align: right;">
                 <nb-icon icon="close-outline" style="cursor: pointer;" (click)="closedialog()"></nb-icon>
             </div>
@@ -15,13 +15,14 @@
         <form class="layui-form" action="" lay-filter="ruleconfig">
         
             <div class="row" style="margin-bottom: 10px;">
-                <!-- <div class="col-lg-12">
-                    <label class="layui-form-label mylabel mulu_title">报警内容:</label>
-                    <div class="layui-input-block rule_config">
-                        <textarea name="message" class="layui-textarea" disabled></textarea>
-                    </div>
-                </div> -->
-                <div class="col-lg-6">
+               <!-- 新增 -->
+                <div class="col-lg-6" *ngIf="rowdata.length === 0">
+                    <label class="layui-form-label mylabel mulu_title">设备ID:</label>
+                    <ngx-select #select (device_info)="device_info($event)"></ngx-select>
+                </div>
+
+                <!-- 编辑 -->
+                <div class="col-lg-6" *ngIf="rowdata.length !== 0">
                     <label class="layui-form-label mylabel mulu_title">设备ID:</label>
                     <div class="layui-input-block rule_config">
                         <input type="text" class="layui-input" name="deviceid" disabled autocomplete="off">
@@ -29,9 +30,9 @@
                 </div>
 
                 <div class="col-lg-6">
-                    <label class="layui-form-label mylabel mulu_title">关键词</label>
+                    <label class="layui-form-label mylabel mulu_title">关键字</label>
                     <div class="layui-input-block rule_config">
-                        <input type="text" class="layui-input" name="keyword" autocomplete="off">
+                        <input type="text" class="layui-input" name="message" autocomplete="off">
                         <!-- <textarea name="message" class="layui-textarea" disabled></textarea> -->
                     </div>
                 </div>

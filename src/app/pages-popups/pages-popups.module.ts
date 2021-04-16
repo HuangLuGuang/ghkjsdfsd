@@ -56,6 +56,7 @@ import { LimitsGroupDeviceComponent } from "./tongji/test_task_conf/components/l
 
 import { ExemplarNoNameComponent } from "./tongji/test_task_conf/components/exemplar-no-name/exemplar-no-name.component";
 import { NzTreeModule } from "ng-zorro-antd";
+import { SelectComponent } from './facility-health-data-center/alert-info-and-config/set-rule-config/select/select.component';
 // DateComponent
 @NgModule({
   declarations: [
@@ -86,6 +87,7 @@ import { NzTreeModule } from "ng-zorro-antd";
     LimitsAddInitComponent,
     LimitsGroupDeviceComponent,
     ExemplarNoNameComponent,
+    SelectComponent,
   ],
   imports: [
     CommonModule,

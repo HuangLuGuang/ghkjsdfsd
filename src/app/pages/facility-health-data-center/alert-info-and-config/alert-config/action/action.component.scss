@@ -11,6 +11,7 @@
     }
 }
 
+
 .disable_edit{
     height: -webkit-fill-available;
 
@@ -24,3 +25,26 @@
     }
 }
 
+
+.buremove{
+    height: -webkit-fill-available;
+
+    border-color: #00ffff00;
+    background: #ff000000;
+    .remove:hover{
+        cursor: pointer;
+        color: rgb(253, 57, 90) !important;
+    }
+}
+
+.disable_remove{
+    height: -webkit-fill-available;
+
+    cursor: not-allowed;
+    border-color: #00ffff00;
+    background: #ff000000;
+    .remove:hover{
+        cursor: not-allowed;
+        // color: rgb(0, 123, 255) !important;
+    }
+}

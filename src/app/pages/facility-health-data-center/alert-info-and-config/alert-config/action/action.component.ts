@@ -67,4 +67,8 @@ export class ActionComponent implements OnInit, ICellRendererAngularComp {
   edit() {
     this.params.clicked({ action: "edit", data: this.params.data });
   }
+
+  remove() {
+    this.params.clicked({ action: "remove", data: this.params.data });
+  }
 }

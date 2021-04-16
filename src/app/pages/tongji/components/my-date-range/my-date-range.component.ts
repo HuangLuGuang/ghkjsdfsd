@@ -19,16 +19,19 @@ export class MyDateRangeComponent implements OnInit {
 
   ngOnInit(): void {}
 
-  init_value = "2019-12-01 - 2020-12-21"; // 默认日期
-
+  // init_value = "2019-12-01 - 2020-12-21"; // 默认日期
+  init_value; // 默认日期
+  default_date;
   ngAfterViewInit() {
-    // 初始化 日期范围！
-    this.initdate();
-
     // 得到默认的日期
     var get_curr_mounth_one = this.publicservice.get_curr_mounth_one();
     var default_date = get_curr_mounth_one[0] + " - " + get_curr_mounth_one[1];
+    this.init_value = default_date;
+    this.default_date = default_date;
     console.log("得到默认的日期:>>", default_date); // 2020-12-01 - 2020-12-15
+
+    // 初始化 日期范围！
+    this.initdate();
   }
 
   ngOnDestroy() {
@@ -86,7 +89,7 @@ export class MyDateRangeComponent implements OnInit {
 
   // 重置日期范围 到默认的日期！
   reset_mydate() {
-    this.init_value = "2019-12-01 - 2020-12-21";
+    this.init_value = this.default_date;
     this.initdate();
   }
 
