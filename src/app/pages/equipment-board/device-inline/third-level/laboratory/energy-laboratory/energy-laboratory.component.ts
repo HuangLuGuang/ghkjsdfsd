@@ -144,7 +144,7 @@ export class EnergyLaboratoryComponent implements OnInit {
       }
 
       this.thrid.get_equipment_status( Object.keys(this.param)).subscribe((res:any)=>{
-        console.log(res)
+        // console.log(res)
         for(let key in res){
           this.param[key].run = res[key]
         }

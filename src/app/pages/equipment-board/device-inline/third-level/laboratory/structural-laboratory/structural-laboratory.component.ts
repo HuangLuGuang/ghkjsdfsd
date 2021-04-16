@@ -233,7 +233,7 @@ export class StructuralLaboratoryComponent implements OnInit {
       let hpu = ['device_hpu_01','device_hpu_02','device_hpu_03','device_hpu_04','device_hpu_05'];
       let p = param.concat(hpu);
       this.thrid.get_equipment_status(p).subscribe((res:any)=>{
-        console.log(res)
+        // console.log(res)
         for(let key in res){
           if(hpu.includes(key)){
             this.list[4].run = Object.keys(res).filter(f => !res[f]).length == 0?true:false;

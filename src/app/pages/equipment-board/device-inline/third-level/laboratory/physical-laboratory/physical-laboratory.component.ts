@@ -149,7 +149,7 @@ export class PhysicalLaboratoryComponent implements OnInit {
       }
 
       this.thrid.get_equipment_status( Object.keys(this.param)).subscribe((res:any)=>{
-        console.log(res)
+        // console.log(res)
         for(let key in res){
           if(['device_atlas_4000','device_atlas_4400'].includes(key)){
             this.list[1].run = res['device_atlas_4000'] || res['device_atlas_4400']? true:false;

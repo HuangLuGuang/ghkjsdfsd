@@ -184,7 +184,7 @@ export class EnvironmentLaboratoryComponent implements OnInit {
       });
 
       this.thrid.get_equipment_status( Object.keys(this.param)).subscribe((res:any)=>{
-        console.log(res)
+        // console.log(res)
         for(let key in res){
           if(['device_jinhua_cabin02','device_atec_03'].includes(key)){
             this.list[7].run = res['device_jinhua_cabin02'] || res['device_atec_03']? true:false;
