@@ -20,7 +20,8 @@
     </nb-card-header>
 
 
-    <nb-card-body  ngDefaultControl [(ngModel)]="loading" [nbSpinner]="loading" nbSpinnerStatus="basic">
+    <!--   ngDefaultControl [(ngModel)]="loading" [nbSpinner]="loading" nbSpinnerStatus="basic" -->
+    <nb-card-body>
 
         <div class="row" style="margin: 0px;padding: 0px;">
             <!-- 未处理的 -->
@@ -30,6 +31,22 @@
                         <div class="col-md-12"  style="text-align: center; background: cornflowerblue;">未处理的试验</div>
                     </div>
 
+                    <!-- 搜索功能 -->
+                    <div class="row list-item" >
+                        <div class="col-md-4">
+                            <!-- 试验名称 -->
+                            <input style="width: 90%;" type="text"nbInput status="info" fieldSize="small" name="devicetaskname" placeholder="试验名称" id="devicetaskname" (keyup)="diviceonCodeup($event)">
+                        </div>
+                        <div class="col-md-4">
+                            <!-- 科室 -->
+                            <input style="width: 90%;" type="text"nbInput status="info" fieldSize="small" name="groups" placeholder="科室" id="groups" (keyup)="diviceonCodeup($event)">
+                        </div>
+                        <div class="col-md-4">
+                            <!-- 试验编号 -->
+                            <input style="width: 90%;" type="text"nbInput status="info" fieldSize="small" name="tasknum" placeholder="试验编号" id="tasknum" (keyup)="diviceonCodeup($event)">
+                        </div>
+                        
+                    </div>
                     <div class="row list-item" >
                         <div class="col-md-3">
                             试验名称

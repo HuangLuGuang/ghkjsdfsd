@@ -148,7 +148,7 @@ export class LimitsAddComponent implements OnInit {
       // 样件三级编号 exemplarchildnumbers
       this.limitd.exemplarchildnumbers = res["message"][0]["exemplarno"];
 
-      console.error("this.limitd>>>>>>>>>>>>>>>>>>>", this.limitd);
+      // console.error("this.limitd>>>>>>>>>>>>>>>>>>>", this.limitd);
       var is_device_name_no = this.limitd.device_name_no[0]["deivce"].filter(
         (item) => {
           if (item["deviceno"] !== null) {
@@ -183,7 +183,7 @@ export class LimitsAddComponent implements OnInit {
             var res = result["result"]["message"][0];
             if (res["code"] === 1) {
               var message = res["message"];
-              console.error("device 为Null>>>>>>>>>>>>>>>>>>>>", message);
+              // console.error("device 为Null>>>>>>>>>>>>>>>>>>>>", message);
               var handle_get_message_for_device = this.handle_get_message_for_device(
                 message
               );
@@ -384,9 +384,9 @@ export class LimitsAddComponent implements OnInit {
         //   title: "最终的提交信息",
         // });
 
-        console.error("data.field>>>", data.field);
+        // console.error("data.field>>>", data.field);
         var data_ = that.limits_groups_devices.get_form_val();
-        console.error("监听提交,Add>>>", data_);
+        // console.error("监听提交,Add>>>", data_);
         that.limitd.devicename = data_["devicename"];
         that.limitd.deviceno = data_["deviceno"];
         that.limitd.deviceid = data_["deviceno"];
@@ -394,7 +394,7 @@ export class LimitsAddComponent implements OnInit {
 
         // 得到样件三级编号-样件名称
         var exemplar_no_name = that.exemplar_no_name.get_form_val();
-        console.error("监听提交 编号,Add2>>>", exemplar_no_name);
+        // console.error("监听提交 编号,Add2>>>", exemplar_no_name);
 
         var exemplarnumbers = data.field.exemplarno.replace("YP", "SY");
         var info_taskchildnum =

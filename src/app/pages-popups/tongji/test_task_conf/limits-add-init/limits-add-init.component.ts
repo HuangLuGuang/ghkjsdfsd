@@ -1,4 +1,10 @@
-import { ChangeDetectionStrategy, Component, OnInit } from "@angular/core";
+import {
+  ChangeDetectionStrategy,
+  Component,
+  OnInit,
+  NgZone,
+  ChangeDetectorRef,
+} from "@angular/core";
 
 import { NbDialogRef, NbDialogService } from "@nebular/theme";
 
@@ -22,7 +28,9 @@ export class LimitsAddInitComponent implements OnInit {
     private http: HttpserviceService,
     private userinfo: UserInfoService,
     private publicmethod: PublicmethodService,
-    private dialogService: NbDialogService
+    private dialogService: NbDialogService,
+    private ngZone: NgZone,
+    private cd: ChangeDetectorRef
   ) {
     // 会话过期
     localStorage.removeItem("alert401flag");
@@ -56,28 +64,57 @@ export class LimitsAddInitComponent implements OnInit {
 
   loading = false; // 加载
 
+  input_dic = {
+    devicetaskname: "",
+    groups: "",
+    tasknum: "",
+  };
+
+  diviceonCodeup(event) {
+    var keycode = event.keyCode ? event.keyCode : 0;
+    switch (keycode) {
+      case 13:
+        // enter, 得到输入值，调用父组件函数搜索
+        this.input_dic.devicetaskname = $("#devicetaskname").val();
+        this.input_dic.groups = $("#groups").val();
+        this.input_dic.tasknum = $("#tasknum").val();
+        this.init_list();
+        break;
+      case 27:
+        break;
+      default:
+        break;
+    }
+  }
+
   // 未处理的试验
   init_list() {
-    this.http.callRPC(this.TABLE, this.METHOD, {}).subscribe((result) => {
-      this.loading = false;
-      console.error("未处理的试验>>>", result);
-      var res = result["result"]["message"][0];
-      if (res["code"] === 1) {
-        if (res["message"].length < 1) {
-          // this.not_null("没有数据！");
-          // this.dialogRef.close(false);
-          this.messages = [];
-        } else {
-          this.messages = res["message"];
+    this.http
+      .callRPC(this.TABLE, this.METHOD, this.input_dic)
+      .subscribe((result) => {
+        this.loading = false;
+        // console.error("未处理的试验>>>", result);
+        var res = result["result"]["message"][0];
+        if (res["code"] === 1) {
+          if (res["message"].length < 1) {
+            // this.not_null("没有数据！");
+            // this.dialogRef.close(false);
+            this.messages = [];
+          } else {
+            this.ngZone.runOutsideAngular(() => {
+              this.messages = res["message"];
+              //强刷一次自己及子树.这个方法忽略了自己的ChecksEnabled状态.
+              this.cd.detectChanges();
+            });
+          }
         }
-      }
-    });
+      });
   }
 
   // 正在处理的试验
   ninit_list() {
     this.http.callRPC(this.NTABLE, this.NMETHOD, {}).subscribe((result) => {
-      console.error("正在处理的试验>>>", result);
+      // console.error("正在处理的试验>>>", result);
       this.loading = false;
       var res = result["result"]["message"][0];
       if (res["code"] === 1) {
@@ -86,7 +123,11 @@ export class LimitsAddInitComponent implements OnInit {
           // this.dialogRef.close(false);
           this.nmessages = [];
         } else {
-          this.nmessages = res["message"];
+          this.ngZone.runOutsideAngular(() => {
+            this.nmessages = res["message"];
+            //强刷一次自己及子树.这个方法忽略了自己的ChecksEnabled状态.
+            this.cd.detectChanges();
+          });
           // console.error("this.nmessages", this.nmessages);
         }
       }
@@ -109,7 +150,6 @@ export class LimitsAddInitComponent implements OnInit {
       })
       .onClose.subscribe((res) => {
         if (res) {
-          console.error("********处理按钮***********", res);
           this.loading = true;
           this.ninit_list(); // 正在处理的试验
           this.init_list(); // 未处理的试验
@@ -130,7 +170,6 @@ export class LimitsAddInitComponent implements OnInit {
         context: { res: result },
       })
       .onClose.subscribe((res) => {
-        console.error("********编辑按钮***********", res);
         if (res) {
           this.ninit_list(); // 正在处理的试验
           this.init_list(); // 未处理的试验
@@ -150,11 +189,6 @@ export class LimitsAddInitComponent implements OnInit {
           if (res["code"] === 1) {
             this.ninit_list(); // 正在处理的试验
             this.init_list(); // 未处理的试验
-            console.error(
-              "********messages,nmessages ***********",
-              this.messages,
-              this.nmessages
-            );
           }
         });
     }
@@ -162,7 +196,7 @@ export class LimitsAddInitComponent implements OnInit {
 
   // 正在处理的试验---确定
   test_confirm(nmessages) {
-    console.error("正在处理的试验---确定", nmessages);
+    // console.error("正在处理的试验---确定", nmessages);
     var table = "get_lims_processed_confirm";
     var method = "get_lims_processed_confirm";
     if (nmessages.length > 0) {
@@ -204,6 +238,13 @@ export class LimitsAddInitComponent implements OnInit {
 
   // 刷新数据
   refresh() {
+    $("#devicetaskname").val("");
+    $("#groups").val("");
+    $("#tasknum").val("");
+    this.input_dic.devicetaskname = "";
+    this.input_dic.groups = "";
+    this.input_dic.tasknum = "";
+
     var url = "/api/v1/lims";
     this.http.get(url).subscribe((res) => {
       console.error("++++刷新数据++++", res);

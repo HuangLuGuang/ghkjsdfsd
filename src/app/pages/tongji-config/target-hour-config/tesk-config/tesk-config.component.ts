@@ -333,7 +333,7 @@ export class TeskConfigComponent implements OnInit {
 
     // 订阅 发不方的数据
     this.publicservice.TeskMessage.subscribe((res) => {
-      console.error("------订阅 发不方的数据--------->", res);
+      // console.error("------订阅 发不方的数据--------->", res);
       if (res) {
         // 标识 插入数据
         // 刷新tabel
