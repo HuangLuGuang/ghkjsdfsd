@@ -56,7 +56,7 @@ import { LimitsGroupDeviceComponent } from "./tongji/test_task_conf/components/l
 
 import { ExemplarNoNameComponent } from "./tongji/test_task_conf/components/exemplar-no-name/exemplar-no-name.component";
 import { NzTreeModule } from "ng-zorro-antd";
-import { SelectComponent } from './facility-health-data-center/alert-info-and-config/set-rule-config/select/select.component';
+import { SelectComponent } from "./facility-health-data-center/alert-info-and-config/set-rule-config/select/select.component";
 // DateComponent
 @NgModule({
   declarations: [
@@ -115,6 +115,7 @@ import { SelectComponent } from './facility-health-data-center/alert-info-and-co
     FormsModule,
     // select选择器
     NzSelectModule,
+    NbSpinnerModule,
   ],
   exports: [PreinstallDialogComponent, DailyTargetDurationComponent],
 })

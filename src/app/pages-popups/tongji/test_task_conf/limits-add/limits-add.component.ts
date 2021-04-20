@@ -450,6 +450,8 @@ export class LimitsAddComponent implements OnInit {
         save_data["taskmessage"] = that.previewinfodata["taskmessage"].join(
           ","
         );
+        save_data["type"] = that.res["type"];
+
         // console.error("要保存的数据！>>>", save_data);
         if (that.is_taskchildnum) {
           // 重复
@@ -465,6 +467,8 @@ export class LimitsAddComponent implements OnInit {
             //   save_data
             // );
 
+            // this.res["type"] !== "handle" 表示编辑，不在table中展示！
+
             that.http.callRPC(table, monthed, conlumns).subscribe((result) => {
               var res = result["result"]["message"][0];
               if (res["code"] === 1) {
@@ -475,7 +479,7 @@ export class LimitsAddComponent implements OnInit {
                   1,
                   "试验任务配置：" + JSON.stringify(conlumns)
                 );
-                that.success();
+                // that.success();
               } else {
                 // 保存失败
                 that.dialogRef.close(false);

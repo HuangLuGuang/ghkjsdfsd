@@ -310,28 +310,36 @@ export class TeskConfigComponent implements OnInit {
   // 新增试验任务
   add() {
     // 判断
-    this.dialogService
-      .open(LimitsAddInitComponent, {
-        closeOnBackdropClick: false,
-        context: {},
-      })
-      .onClose.subscribe((res) => {
-        if (res) {
-          // console.error("limis>>>>>>>要处理的数据：", res);
-          this.dialogService
-            .open(LimitsAddComponent, {
-              closeOnBackdropClick: false,
-              context: { res: res },
-            })
-            .onClose.subscribe((res) => {
-              if (res) {
-                // 标识 插入数据
-                // 刷新tabel
-                this.refresh_table();
-              }
-            });
-        }
-      });
+    this.dialogService.open(LimitsAddInitComponent, {
+      closeOnBackdropClick: false,
+      context: {},
+    });
+    // .onClose.subscribe((res) => {
+    //   if (res) {
+    //     this.dialogService
+    //       .open(LimitsAddComponent, {
+    //         closeOnBackdropClick: false,
+    //         context: { res: res },
+    //       })
+    //       .onClose.subscribe((res) => {
+    //         if (res) {
+    //           // 标识 插入数据
+    //           // 刷新tabel
+    //           this.refresh_table();
+    //         }
+    //       });
+    //   }
+    // });
+
+    // 订阅 发不方的数据
+    this.publicservice.TeskMessage.subscribe((res) => {
+      console.error("------订阅 发不方的数据--------->", res);
+      if (res) {
+        // 标识 插入数据
+        // 刷新tabel
+        this.refresh_table();
+      }
+    });
   }
 
   // 选择是limits还是 手动的

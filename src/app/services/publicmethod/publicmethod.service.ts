@@ -383,6 +383,14 @@ export class PublicmethodService {
     this.currentmethod.next(method);
   }
 
+  // 试验任务配置--新增--待处理试验和 新增试验任务信息组件 通讯
+
+  public TeskMessage = new BehaviorSubject<Boolean>(false);
+
+  TeskChangeMessage(message: Boolean): void {
+    this.TeskMessage.next(message);
+  }
+
   // ==========================================
 
   // -----------------------------------------页面得到 权限buttons

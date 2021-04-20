@@ -192,10 +192,10 @@ export class AlertConfigComponent implements OnInit {
       .onClose.subscribe((res) => {
         if (res) {
           // 标识 插入数据
-          this.loading = true;
           setTimeout(() => {
-            this.refresh_table();
-          }, 10);
+            this.gridData = [];
+            this.update_agGrid();
+          }, 100);
         }
       });
   }
@@ -216,11 +216,10 @@ export class AlertConfigComponent implements OnInit {
         })
         .onClose.subscribe((res) => {
           if (res) {
-            this.loading = true;
+            // this.loading = true;
             // 标识 插入数据
-            setTimeout(() => {
-              this.refresh_table();
-            }, 10);
+
+            this.refresh_table();
           }
         });
     } else {
@@ -365,7 +364,7 @@ export class AlertConfigComponent implements OnInit {
     this.gridData = [];
     // 是否 每页多少也，设置为默认值
     this.tableDatas.isno_refresh_page_size = true;
-    this.inttable();
+    this.update_agGrid();
     // this.loading = false;
     this.refresh = false;
   }
@@ -420,6 +419,7 @@ export class AlertConfigComponent implements OnInit {
   }
   // 更新table
   update_agGrid(event?) {
+    this.loading = true;
     var inittable_before = this.inittable_before();
     var offset;
     var limit;

@@ -21,7 +21,12 @@ import { HourConfigComponent } from "./hour-config/hour-config.component";
 import { TeskConfigComponent } from "./tesk-config/tesk-config.component";
 import { ActionComponent } from "./hour-config/action/action.component";
 import { NzTabsModule } from "ng-zorro-antd/tabs";
-import { NzDrawerModule, NzTimelineModule, NzIconModule } from "ng-zorro-antd";
+import {
+  NzDrawerModule,
+  NzTimelineModule,
+  NzIconModule,
+  NzModalModule,
+} from "ng-zorro-antd";
 
 import { AntTimeLineComponent } from "./ant-time-line/ant-time-line.component";
 import { TimeScheduleComponent } from "./tesk-config/time-schedule/time-schedule.component";
