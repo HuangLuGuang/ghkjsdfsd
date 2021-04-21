@@ -50,7 +50,9 @@ export class LimitsAddComponent implements OnInit {
   }
   // 取消
   cancel() {
-    this.dialogRef.close(false);
+    if (this.res["type"] !== "edit") {
+      this.dialogRef.close(false);
+    }
   }
 
   TABLE = "get_lims_data";
@@ -115,15 +117,17 @@ export class LimitsAddComponent implements OnInit {
         });
     } else {
       // 编辑
+      console.error("***编辑***this.res", this.res);
       this.http
         .callRPC(this.ETABLE, this.EMETHOD, this.res["message"])
         .subscribe((result) => {
           this.analysis_handle_edit(result);
+          // this.edit_check(result);
         });
     }
   }
 
-  // 解析：处理 编辑 按钮 传入的数据，得到科室=设备名称=设备编号
+  // 解析：处理 编辑 按钮 传入的数据，得到科室=设备名称=设备编号---改为查看
   analysis_handle_edit(result) {
     var res = result["result"]["message"][0];
     if (res["code"] === 1) {
@@ -133,7 +137,11 @@ export class LimitsAddComponent implements OnInit {
         res["message"]
       );
       this.limitd.devicetaskname = res["message"][0]["devicetaskname"];
-      this.limitd.executor = "";
+      if (this.res["executors"]) {
+        this.limitd.executor = this.res["executors"].join(",");
+      } else {
+        this.limitd.executor = "";
+      }
       this.limitd.exemplarnum = res["message"][0]["exemplarnum"];
       this.limitd.tasknum = res["message"][0]["tasknum"];
       this.limitd.device_name_no = handle_get_message_for_device;
@@ -164,6 +172,10 @@ export class LimitsAddComponent implements OnInit {
       );
 
       setTimeout(() => {
+        // console.error(
+        //   "样件三级编号-样件名称>>>>>>>>>>>",
+        //   handle_exemplar_no_name
+        // );
         this.exemplar_no_name.init_layuiform(handle_exemplar_no_name);
       }, 500);
 
@@ -171,6 +183,10 @@ export class LimitsAddComponent implements OnInit {
       if (is_device_name_no.length > 0) {
         // 科室--设备名称--设备编号的
         setTimeout(() => {
+          // console.error(
+          //   "科室--设备名称--设备编号的>>>>>>>>>>>",
+          //   this.limitd.device_name_no
+          // );
           this.limits_groups_devices?.layuiform(this.limitd.device_name_no);
         }, 500);
       } else {
@@ -187,6 +203,10 @@ export class LimitsAddComponent implements OnInit {
               var handle_get_message_for_device = this.handle_get_message_for_device(
                 message
               );
+              console.error(
+                "科室--设备名称--设备编号的>>>>>>>>>>>",
+                handle_get_message_for_device
+              );
               this.limits_groups_devices?.layuiform(
                 handle_get_message_for_device
               );
@@ -194,6 +214,20 @@ export class LimitsAddComponent implements OnInit {
           });
       }
       this.layuiform(this.limitd);
+
+      if (this.res["type"] !== "handle") {
+        $(".add").addClass("layui-btn-disabled");
+        $(".add").addClass("mouse_forbid");
+
+        $(".submit_cancel").addClass("layui-btn-disabled");
+        $(".submit_cancel").addClass("mouse_forbid");
+
+        $(".submit_confirm").addClass("layui-btn-disabled");
+        $(".submit_confirm").addClass("mouse_forbid");
+        setTimeout(() => {
+          this.edit_check(result);
+        }, 300);
+      }
     }
   }
 
@@ -219,6 +253,11 @@ export class LimitsAddComponent implements OnInit {
     res_list["label"] = res[0]["groups"];
     res_list["deivce"] = this.unique(device, "id");
     res_list["exemplar_no_name"] = exemplar_no_name;
+    if (this.res["checked"]) {
+      res_list["checkgroupid"] = this.res["checked"]["checkgroupid"];
+    } else {
+      res_list["checkgroupid"] = [];
+    }
     return [res_list];
   }
 
@@ -237,10 +276,15 @@ export class LimitsAddComponent implements OnInit {
 
   // 处理 exemplar_no_name 样件三级编号-样件名称
   handle_exemplar_no_name(datas) {
+    var checkedid = [];
+    if (this.res["checked"]) {
+      checkedid = this.res["checked"]["checkid"];
+    }
     return [
       {
         id: "all",
         label: "全选",
+        checkedid: checkedid,
         children: datas,
       },
     ];
@@ -334,9 +378,9 @@ export class LimitsAddComponent implements OnInit {
             return verify_sql_str;
           }
           // 格式是否匹配
-          if (!new RegExp(tesk_info.executor).test(value)) {
-            return "试验执行人格式不符：不包含数字";
-          }
+          // if (!new RegExp(tesk_info.executor).test(value)) {
+          //   return "试验执行人格式不符：不包含数字";
+          // }
         },
 
         // 样件三级编号 exemplarchildnumbers
@@ -366,140 +410,189 @@ export class LimitsAddComponent implements OnInit {
         },
       });
 
-      //监听提交
-      form.on("submit(add)", function (data) {
-        // 隐藏下拉框
-        that.exemplar_no_name.hide_exemplar_no_name();
-        that.explarinfo_list = [];
-        // 得到当前主设备信息！
-        var get_form_val = that.limits_groups_devices.get_form_val();
+      if (that.res["type"] !== "edit") {
+        //监听提交
+        form.on("submit(add)", function (data) {
+          // 隐藏下拉框
+          that.exemplar_no_name.hide_exemplar_no_name();
+          that.explarinfo_list = [];
+          // 得到当前主设备信息！
+          var get_form_val = that.limits_groups_devices.get_form_val();
 
-        data.field["devicename"] = get_form_val["devicename"];
-        data.field["devicenum"] = get_form_val["deviceno"];
-        // 得到当前主设备信息！
-        data.field.taskchildnum =
-          data.field.exemplarno + "-" + data.field.taskitemnumbers;
+          data.field["devicename"] = get_form_val["devicename"];
+          data.field["devicenum"] = get_form_val["deviceno"];
+          // 得到当前主设备信息！
+          data.field.taskchildnum =
+            data.field.exemplarno + "-" + data.field.taskitemnumbers;
 
-        // layer.alert(JSON.stringify(data.field), {
-        //   title: "最终的提交信息",
-        // });
+          // layer.alert(JSON.stringify(data.field), {
+          //   title: "最终的提交信息",
+          // });
 
-        // console.error("data.field>>>", data.field);
-        var data_ = that.limits_groups_devices.get_form_val();
-        // console.error("监听提交,Add>>>", data_);
-        that.limitd.devicename = data_["devicename"];
-        that.limitd.deviceno = data_["deviceno"];
-        that.limitd.deviceid = data_["deviceno"];
-        that.limitd.groups = data_["groups"];
+          // console.error("data.field>>>", data.field);
+          var data_ = that.limits_groups_devices.get_form_val();
+          // console.error("监听提交,Add>>>", data_);
+          that.limitd.devicename = data_["devicename"];
+          that.limitd.deviceno = data_["deviceno"];
+          that.limitd.deviceid = data_["deviceno"];
+          that.limitd.groups = data_["groups"];
 
-        // 得到样件三级编号-样件名称
-        var exemplar_no_name = that.exemplar_no_name.get_form_val();
-        // console.error("监听提交 编号,Add2>>>", exemplar_no_name);
+          // 得到样件三级编号-样件名称
+          var exemplar_no_name = that.exemplar_no_name.get_form_val();
+          // console.error("监听提交 编号,Add2>>>", exemplar_no_name);
 
-        var exemplarnumbers = data.field.exemplarno.replace("YP", "SY");
-        var info_taskchildnum =
-          exemplarnumbers + "-" + data.field.taskitemnumbers;
+          var exemplarnumbers = data.field.exemplarno.replace("YP", "SY");
+          var info_taskchildnum =
+            exemplarnumbers + "-" + data.field.taskitemnumbers;
 
-        var table = "device";
-        var method = "get_task_checkout";
-        var colums = {
-          taskchildnum: info_taskchildnum,
-        };
-        that.http.callRPC(table, method, colums).subscribe((result) => {
-          var res = result["result"]["message"][0];
-          if (res["code"] === 1) {
-            that.is_taskchildnum = false;
-          } else {
-            that.is_taskchildnum = true; //重复
-            that.not_null(res["message"] + ":" + info_taskchildnum);
-            // 清除 当前输入试验信息预览
-            that.previewinfodata.taskchildnum = "";
-            that.previewinfodata.devicenum = "";
-            that.previewinfodata.devicetaskname = "";
-            that.previewinfodata.devicename = "";
-            that.previewinfodata.executor = "";
-            that.explarinfo_list = [];
-          }
+          var table = "device";
+          var method = "get_task_checkout";
+          var colums = {
+            taskchildnum: info_taskchildnum,
+          };
+          that.http.callRPC(table, method, colums).subscribe((result) => {
+            var res = result["result"]["message"][0];
+            if (res["code"] === 1) {
+              that.is_taskchildnum = false;
+            } else {
+              that.is_taskchildnum = true; //重复
+              that.not_null(res["message"] + ":" + info_taskchildnum);
+              // 清除 当前输入试验信息预览
+              that.previewinfodata.taskchildnum = "";
+              that.previewinfodata.devicenum = "";
+              that.previewinfodata.devicetaskname = "";
+              that.previewinfodata.devicename = "";
+              that.previewinfodata.executor = "";
+              that.explarinfo_list = [];
+            }
+          });
+
+          that.previewinfo(data.field);
+          return false;
         });
 
-        that.previewinfo(data.field);
-        return false;
-      });
+        form.on("submit(confirm)", function (data) {
+          // layer.alert(JSON.stringify(that.previewinfodata), {
+          //   title: "最终的提交信息",
+          // });
 
-      form.on("submit(confirm)", function (data) {
-        // layer.alert(JSON.stringify(that.previewinfodata), {
-        //   title: "最终的提交信息",
-        // });
+          // 要保存的数据！
+          var save_data = {};
+          save_data["tasknum"] = that.previewinfodata.tasknum;
+          save_data["exemplarnumbers"] = that.previewinfodata.exemplarnumbers;
+          save_data["exemplarchildnumbers"] =
+            that.previewinfodata.exemplarchildnumbers;
+          save_data["exemplarname"] = that.previewinfodata.exemplarname;
+          save_data["taskitemnumbers"] = that.previewinfodata.taskitemnumbers;
+          save_data["taskchildnum"] = that.previewinfodata.taskchildnum; // 试验编号
+          save_data["devicenum"] = that.previewinfodata.devicenum; // 设备编号
+          save_data["executor"] = that.previewinfodata.executor;
+          save_data["deviceid"] = that.limitd.deviceno;
+          save_data["deviceno"] = that.limitd.deviceid;
+          save_data["devicename"] = that.limitd.devicename;
+          save_data["devicetaskname"] = that.limitd.devicetaskname;
+          save_data["createdby"] = that.userinfo.getName();
+          save_data["taskmessage"] = that.previewinfodata["taskmessage"].join(
+            ","
+          );
+          save_data["type"] = that.res["type"];
 
-        // 要保存的数据！
-        var save_data = {};
-        save_data["tasknum"] = that.previewinfodata.tasknum;
-        save_data["exemplarnumbers"] = that.previewinfodata.exemplarnumbers;
-        save_data["exemplarchildnumbers"] =
-          that.previewinfodata.exemplarchildnumbers;
-        save_data["exemplarname"] = that.previewinfodata.exemplarname;
-        save_data["taskitemnumbers"] = that.previewinfodata.taskitemnumbers;
-        save_data["taskchildnum"] = that.previewinfodata.taskchildnum; // 试验编号
-        save_data["devicenum"] = that.previewinfodata.devicenum; // 设备编号
-        save_data["executor"] = that.previewinfodata.executor;
-        save_data["deviceid"] = that.limitd.deviceno;
-        save_data["deviceno"] = that.limitd.deviceid;
-        save_data["devicename"] = that.limitd.devicename;
-        save_data["devicetaskname"] = that.limitd.devicetaskname;
-        save_data["createdby"] = that.userinfo.getName();
-        save_data["taskmessage"] = that.previewinfodata["taskmessage"].join(
-          ","
-        );
-        save_data["type"] = that.res["type"];
-
-        // console.error("要保存的数据！>>>", save_data);
-        if (that.is_taskchildnum) {
-          // 重复
-          that.not_null("该试验编号已存在!");
-        } else {
-          if (save_data["tasknum"] !== "") {
-            var table = "device";
-            var monthed = "dev_insert_task";
-            var conlumns = save_data;
-            $(".submit_confirm").attr("disabled", "disabled");
-            // console.error(
-            //   "=================save_data=============>>>",
-            //   save_data
-            // );
-
-            // this.res["type"] !== "handle" 表示编辑，不在table中展示！
-
-            that.http.callRPC(table, monthed, conlumns).subscribe((result) => {
-              var res = result["result"]["message"][0];
-              if (res["code"] === 1) {
-                // 保存成功
-                that.dialogRef.close(true);
-                that.RecordOperation(
-                  "新增",
-                  1,
-                  "试验任务配置：" + JSON.stringify(conlumns)
-                );
-                // that.success();
-              } else {
-                // 保存失败
-                that.dialogRef.close(false);
-                that.RecordOperation(
-                  "新增",
-                  0,
-                  "试验任务配置:" + JSON.stringify(conlumns)
-                );
-                that.danger(JSON.stringify(res["message"]));
-              }
-              $(".submit_confirm").removeAttr("disabled");
-            });
+          // console.error("要保存的数据！>>>", save_data);
+          if (that.is_taskchildnum) {
+            // 重复
+            that.not_null("该试验编号已存在!");
           } else {
-            that.not_null("试验信息必填!");
-            $(".submit_confirm").removeAttr("disabled");
+            if (save_data["tasknum"] !== "") {
+              var table = "device";
+              var monthed = "dev_insert_task";
+              var conlumns = save_data;
+              $(".submit_confirm").attr("disabled", "disabled");
+              // console.error(
+              //   "=================save_data=============>>>",
+              //   save_data
+              // );
+
+              // this.res["type"] !== "handle" 表示编辑，不在table中展示！
+
+              that.http
+                .callRPC(table, monthed, conlumns)
+                .subscribe((result) => {
+                  var res = result["result"]["message"][0];
+                  if (res["code"] === 1) {
+                    // 保存成功
+                    that.dialogRef.close(true);
+                    that.RecordOperation(
+                      "新增",
+                      1,
+                      "试验任务配置：" + JSON.stringify(conlumns)
+                    );
+                    // that.success();
+                  } else {
+                    // 保存失败
+                    that.dialogRef.close(false);
+                    that.RecordOperation(
+                      "新增",
+                      0,
+                      "试验任务配置:" + JSON.stringify(conlumns)
+                    );
+                    that.danger(JSON.stringify(res["message"]));
+                  }
+                  $(".submit_confirm").removeAttr("disabled");
+                });
+            } else {
+              that.not_null("试验信息必填!");
+              $(".submit_confirm").removeAttr("disabled");
+            }
           }
+          return false;
+        });
+      }
+    });
+  }
+
+  // 编辑---改为查看
+  edit_check(data) {
+    var res = data["result"]["message"][0];
+    var handle_get_message_for_device = this.handle_get_message_for_device(
+      res["message"]
+    );
+
+    var checkgroupid = handle_get_message_for_device[0]["checkgroupid"];
+    var device = handle_get_message_for_device[0]["deivce"];
+    var devicenames = [];
+    checkgroupid.forEach((cid) => {
+      device.forEach((d) => {
+        if (cid === d["id"]) {
+          devicenames.push(d["label"].split("&")[1]);
         }
-        return false;
       });
     });
+    // 设备名称  设备编号 去重
+    devicenames = Array.from(new Set(devicenames));
+    checkgroupid = Array.from(new Set(checkgroupid));
+
+    var taskitemnumbers = $("input[name='taskitemnumbers']").val(); // 试验条目编号
+    var exemplarno = $("input[name='exemplarno']").val(); // 样件编号
+    var devicetaskname = this.res["message"]["devicetaskname"]; // 试验名称
+
+    var executor = $("input[name='executor']").val(); // 试验执行人
+    var taskmessage = this.res["taskmessage"]; // 样件信息
+
+    var taskchildnum = exemplarno.replace("YP", "SY") + "-" + taskitemnumbers;
+    // console.error("试验编号", taskchildnum);
+    // console.error("设备编号", checkgroupid);
+    // console.error("试验名称", devicetaskname);
+    // console.error("设备名称", devicenames);
+    // console.error("试验执行人", executor);
+    // console.error("样件信息", taskmessage);
+    this.previewinfodata.taskchildnum = taskchildnum; // 试验编号
+    this.previewinfodata.devicenum = checkgroupid.join(","); // 设备编号
+    this.previewinfodata.devicetaskname = devicetaskname; // 试验名称
+    // this.previewinfodata.devicename = this.unique(devicenames, "name"); // 设备名称
+    this.previewinfodata.devicename = devicenames.join(","); // 设备名称
+    this.previewinfodata.executor = executor; // 试验执行人
+
+    this.explarinfo_list = taskmessage;
   }
 
   // 弹出提示，不为空！

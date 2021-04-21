@@ -24,32 +24,7 @@
 
             <!-- 设备编号，根据选的 设备名称自动填充  这个是eim系统自带的-->
             <!-- <ngx-group-devices #groups_devices (device_info)="device_info($event)"></ngx-group-devices> -->
-
-
-            <ngx-limits-group-device #limits_groups_devices *ngIf="limitd.device_name_no[0].id" (device_info)="device_info($event)"></ngx-limits-group-device>
             
-            <!-- 科室--设备名称--设备编号的 -->
-            <div class="layui-form-item" *ngIf="!limitd.device_name_no[0].id" style="margin-bottom: -4px;">
-                <div class="layui-inline" style="width: 35%;">
-                  <label class="layui-form-label mylabel mulu_title" style="width: auto;">功能组：</label>
-                  <div class="layui-input-block" style="margin-left: 85px;">
-                    <input disabled type="text" name="groups"  lay-verify="required|groups" placeholder="功能组" autocomplete="off" class="layui-input" style="width: 100%;">
-                  </div>
-                </div>
-
-                <div class="layui-inline" style="width: 31%;">
-                  <label class="layui-form-label mylabel mulu_title" style="width: auto;">设备名称：</label>
-                  <div class="layui-input-block" style="margin-left: 87px;">
-                    <input disabled type="text" name="devicename"  lay-verify="required|devicename" placeholder="设备名称" autocomplete="off" class="layui-input" style="width: 100%;">
-                  </div>
-                </div>
-                <div class="layui-inline" style="width: 30%;">
-                  <label class="layui-form-label mylabel mulu_title" style="width: auto;">设备编号：</label>
-                  <div class="layui-input-block" style="margin-left: 87px;">
-                    <input disabled type="text" name="deviceno"  lay-verify="required|deviceno" placeholder="设备编号" autocomplete="off" class="layui-input" style="width: 100%;">
-                  </div>
-                </div>
-            </div>
 
             <div class="layui-form-item">
                 <div class="layui-inline test_task_info_left">
@@ -91,14 +66,46 @@
                 
             </div>
 
-            <!-- <div class="layui-form-item">
-                
-            </div> -->
-
-            <!-- 当前主设备信息 -->
+            <!-- 关联设备信息 -->
             <div class="row">
               <div class="col-lg-3 test_task_info_title" >
-                  <span>当前主设备信息：</span>
+                  <span>关联设备信息：</span>
+              </div>
+              <div class="col-lg-9" >
+              </div>
+            </div>
+
+            <ngx-limits-group-device #limits_groups_devices *ngIf="limitd.device_name_no[0].id" (device_info)="device_info($event)"></ngx-limits-group-device>
+            
+            <!-- 科室--设备名称--设备编号的 -->
+            <div class="layui-form-item" *ngIf="!limitd.device_name_no[0].id" style="margin-bottom: -4px;">
+                <div class="layui-inline" style="width: 35%;">
+                  <label class="layui-form-label mylabel mulu_title" style="width: auto;">功能组：</label>
+                  <div class="layui-input-block" style="margin-left: 85px;">
+                    <input disabled type="text" name="groups"  lay-verify="required|groups" placeholder="功能组" autocomplete="off" class="layui-input" style="width: 100%;">
+                  </div>
+                </div>
+
+                <div class="layui-inline" style="width: 31%;">
+                  <label class="layui-form-label mylabel mulu_title" style="width: auto;">设备名称：</label>
+                  <div class="layui-input-block" style="margin-left: 87px;">
+                    <input disabled type="text" name="devicename"  lay-verify="required|devicename" placeholder="设备名称" autocomplete="off" class="layui-input" style="width: 100%;">
+                  </div>
+                </div>
+                <div class="layui-inline" style="width: 30%;">
+                  <label class="layui-form-label mylabel mulu_title" style="width: auto;">设备编号：</label>
+                  <div class="layui-input-block" style="margin-left: 87px;">
+                    <input disabled type="text" name="deviceno"  lay-verify="required|deviceno" placeholder="设备编号" autocomplete="off" class="layui-input" style="width: 100%;">
+                  </div>
+                </div>
+            </div>
+
+
+
+            <!-- 关联样件信息 -->
+            <div class="row">
+              <div class="col-lg-3 test_task_info_title" >
+                  <span>关联样件信息：</span>
               </div>
               <div class="col-lg-9" >
               </div>
@@ -109,18 +116,8 @@
             <!-- 设备编号，根据选的 设备名称自动填充 -->
             <!-- <ngx-group-devices #groups_devices></ngx-group-devices> -->
 
-            
-
-            <!-- <div class="row">
-              <div class="col-md-10">
-                
-              </div>
-              <div class="col-md-2" style="text-align: end;">
-                
-              </div>
-            </div> -->
-            <div class="layui-form-item">
-              <div class="layui-inline" style="width: 90%;">
+            <div class="layui-form-item" style="margin-bottom: 0px;">
+              <div class="layui-inline" style="width: 88%;">
                 <ngx-exemplar-no-name #exemplar_no_name></ngx-exemplar-no-name>
               </div>
               <div class="layui-inline">
@@ -132,7 +129,7 @@
 
         
         <!-- 当前输入试验信息预览 -->
-        <div class="row" style="margin-top: 10px;">
+        <div class="row" style="margin-top: 0px;">
             <div class="col-lg-3 test_task_info_title" >
                 <span>当前输入试验信息预览：</span>
             </div>
@@ -184,7 +181,7 @@
                 </div>
                 <div class="layui-inline">
                   <div class="layui-input-inline">
-                      <button class="layui-btn layui-btn-primary" (click)="cancel()">取消</button>
+                      <button type="button" class="submit_cancel layui-btn layui-btn-primary" (click)="cancel()">取消</button>
                       <button type="submit" class="submit_confirm layui-btn" lay-submit="" lay-filter="confirm" >确定</button>
                   </div>
                 </div>

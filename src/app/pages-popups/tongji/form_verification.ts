@@ -54,7 +54,7 @@ export const Tesk_Info = {
   exemplarnumbers: "^YP[0-9]{4}-[0-9]{6}", // 样件编号
   taskitemnumbers: "^[0-9]{3}", // 试验条目编号
   devicetaskname: "[^0-9]+", // 试验名称
-  executor: "[^0-9]+", // 试验执行人
+  executor: "[^0-9[]]+", // 试验执行人
 
   exemplarchildnumbers: "^[0-9]{3}", // 样件三级编号
   exemplarname: "", // 样件名称

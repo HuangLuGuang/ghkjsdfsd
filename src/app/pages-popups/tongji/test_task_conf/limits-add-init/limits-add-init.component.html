@@ -1,4 +1,4 @@
-<nb-card style="width: 1600px; height: 680px;">
+<nb-card style="width: 1600px; height: 704px;">
     <nb-card-header>
         <div class="row">
           <div class="col-md-4">待处理试验编号</div>
@@ -21,7 +21,7 @@
 
 
     <!--   ngDefaultControl [(ngModel)]="loading" [nbSpinner]="loading" nbSpinnerStatus="basic" -->
-    <nb-card-body>
+    <nb-card-body style="overflow-y: hidden;">
 
         <div class="row" style="margin: 0px;padding: 0px;">
             <!-- 未处理的 -->
@@ -33,7 +33,7 @@
 
                     <!-- 搜索功能 -->
                     <div class="row list-item" >
-                        <div class="col-md-4">
+                        <div class="col-md-3">
                             <!-- 试验名称 -->
                             <input style="width: 90%;" type="text"nbInput status="info" fieldSize="small" name="devicetaskname" placeholder="试验名称" id="devicetaskname" (keyup)="diviceonCodeup($event)">
                         </div>
@@ -41,96 +41,109 @@
                             <!-- 科室 -->
                             <input style="width: 90%;" type="text"nbInput status="info" fieldSize="small" name="groups" placeholder="科室" id="groups" (keyup)="diviceonCodeup($event)">
                         </div>
-                        <div class="col-md-4">
+                        <div class="col-md-3">
                             <!-- 试验编号 -->
                             <input style="width: 90%;" type="text"nbInput status="info" fieldSize="small" name="tasknum" placeholder="试验编号" id="tasknum" (keyup)="diviceonCodeup($event)">
                         </div>
                         
                     </div>
                     <div class="row list-item" >
-                        <div class="col-md-3">
+                        <div class="col-md-3" style="text-align: center;">
                             试验名称
                         </div>
-                        <div class="col-md-4">
+                        <div class="col-md-4" style="text-align: center;">
                             科室
                         </div>
-                        <div class="col-md-3">
+                        <div class="col-md-3" style="text-align: center;">
                             试验编号
                         </div>
                         <div class="col-md-1">
 
                         </div>
                     </div>
-                    <div class="row list-item" ngDefaultControl [(ngModel)]="messages" *ngFor="let message of messages;" style="white-space: nowrap;margin-left: 0px;">
-                        <div class="col-md-3 list-item3_1">
-                            {{message["devicetaskname"]}}
+                    <div class="message">
+                        <div class="row list-item" ngDefaultControl [(ngModel)]="messages" *ngFor="let message of messages;" style="white-space: nowrap;margin-left: 0px;">
+                            <div class="col-md-3 list-item3_1">
+                                {{message["devicetaskname"]}}
+                            </div>
+                            <div class="col-md-4 list-item3">
+                                {{message["groups"]}}
+                            </div>
+                            <div class="col-md-3 list-item3">
+                                {{message["tasknum"]}}
+                            </div>
+                            <div class="col-md-1">
+                                <button nbButton size="small" (click)="handle(message)">处理</button>
+    
+                            </div>
+                            
                         </div>
-                        <div class="col-md-4 list-item3">
-                            {{message["groups"]}}
-                        </div>
-                        <div class="col-md-3 list-item3">
-                            {{message["tasknum"]}}
-                        </div>
-                        <div class="col-md-1">
-                            <button nbButton size="small" (click)="handle(message)">处理</button>
 
-                        </div>
-                        
                     </div>
                 </div>
             </div>
             <!-- 已处理的 -->
             <div class="col-md-7" style="margin: 0px;padding: 0px;">
-                <div class="row list-item" >
-                    <div class="col-md-12" style="text-align: center;background: lavender;">正在处理的试验</div>
-                </div>
-
-                <div class="row list-item">
-                    <div class="col-md-3">
-                        试验名称
+                <div class="lists">
+                    <div class="row list-item" >
+                        <div class="col-md-12" style="text-align: center;background: lavender;">正在处理的试验</div>
                     </div>
-                    <div class="col-md-3">
-                        科室
-                    </div>
-                    <div class="col-md-3">
-                        试验编号
-                    </div>
-                    <div class="col-md-1">
-                    </div>
-                    
-                </div>
-                <div class="row list-item" ngDefaultControl [(ngModel)]="nmessages" *ngFor="let message of nmessages" style="white-space: nowrap;height: 41px;">
-
-                    <div class="col-md-3 list-item3" >
-                        {{message["devicetaskname"]}}
-                    </div>
-                    <div class="col-md-4 list-item3" >
-                        {{message["groups"]}}
-                    </div>
-                    <div class="col-md-3 list-item3" >
-                        {{message["tasknum"]}}
-                    </div>
-                    <div class="col-md-1" *ngIf="nmessages.length>0">
-                        <button nbButton size="tiny" (click)="edit(message)">编辑</button>
-                    </div>
-                </div>
-
-                <!-- 取消,确定 -->
-                <div class="row list-item">
-                    <div class="col-lg-9"></div>
-                    <div class="col-lg-3" style="display: flex;" *ngIf="nmessages.length>0">
-                        <div style="flex: auto;">
+    
+                    <div class="row list-item">
+                        <div class="col-md-3" style="text-align: center;">
+                            试验名称
                         </div>
-
-                        <div style="width: 39%;">
-                            <button nbButton size="tiny" status="info" (click)="test_cancle(nmessages)">取消</button>
-
+                        <div class="col-md-3" style="text-align: center;">
+                            科室
                         </div>
-                        <div >
-                            <button nbButton size="tiny" status="success" (click)="test_confirm(nmessages)">确定</button>
-
+                        <div class="col-md-3" style="text-align: center;">
+                            试验编号
                         </div>
+                        <div class="col-md-1">
+                        </div>
+                        
                     </div>
+    
+                    <div class="message">
+                        <div class="row list-item" ngDefaultControl [(ngModel)]="nmessages" *ngFor="let message of nmessages" style="white-space: nowrap;height: 41px;">
+        
+                            <div class="col-md-3 list-item3" >
+                                {{message["devicetaskname"]}}
+                            </div>
+                            <div class="col-md-4 list-item3" >
+                                {{message["groups"]}}
+                            </div>
+                            <div class="col-md-3 list-item3" >
+                                {{message["tasknum"]}}
+                            </div>
+                            <div class="col-md-1" *ngIf="nmessages.length>0">
+                                <button nbButton size="tiny" (click)="check(message)">查看</button>
+                            </div>
+                            <div class="col-md-1" *ngIf="nmessages.length>0">
+                                <button nbButton size="tiny" (click)="remove(message)">删除</button>
+                            </div>
+                        </div>
+        
+                        <!-- 取消,确定 -->
+                        <div class="row list-item">
+                            <div class="col-lg-9"></div>
+                            <div class="col-lg-3" style="display: flex;" *ngIf="nmessages.length>0">
+                                <div style="flex: auto;">
+                                </div>
+        
+                                <div style="width: 39%;">
+                                    <button nbButton size="tiny" status="info" (click)="test_cancle(nmessages)">取消</button>
+        
+                                </div>
+                                <div >
+                                    <button nbButton size="tiny" status="success" (click)="test_confirm(nmessages)">确定</button>
+        
+                                </div>
+                            </div>
+                        </div>
+    
+                    </div>
+
                 </div>
             </div>
         </div>

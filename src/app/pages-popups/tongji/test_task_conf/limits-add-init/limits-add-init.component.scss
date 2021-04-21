@@ -15,6 +15,26 @@
     height: 2px;
 }
 
+.lists{
+    height: 71%;
+    padding-right: 15px;
+}
+
+// 未处理的试验
+.message{
+    padding-right: 0px;
+    overflow-x: overlay;
+    overflow-y: overlay;
+    font-size: xx-small;
+    // height: 600px;
+    height: 71%;;
+    padding-right: 15px;
+}
+.message::-webkit-scrollbar {/*滚动条整体样式*/
+    width: 4px;     /*高宽分别对应横竖滚动条的尺寸*/
+    height: 2px;
+}
+
 .list-item3_1{
     padding-right: 0px;
     overflow-x: overlay;

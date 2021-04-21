@@ -45,11 +45,30 @@ export class ExemplarNoNameComponent implements OnInit {
   exemplar_name; // 样件名称
   el8;
   init_layuiform(datas) {
-    // console.error("-----------------init_layuiform-------------------", datas);
+    console.error("-----------------init_layuiform-------------------", datas);
 
     var that = this;
     layui.use(["eleTree"], function () {
       var eleTree = layui.eleTree;
+      // 默认选中的数据 - 样件三级编号
+      $("[name='exemplar_select_all']").val(datas[0]["checkedid"].join(","));
+      $("[name='exemplar_select_all']").attr(
+        "title",
+        datas[0]["checkedid"].join(",")
+      );
+      // 默认选中的数据 - 设备名称
+      var checked_name = [];
+      datas[0]["checkedid"].forEach((element) => {
+        datas[0]["children"].forEach((child) => {
+          if (child["id"] === element) {
+            checked_name.push(child["label"].split("&")[1]);
+          }
+        });
+      });
+      // console.error("^^^^^^^^^^checked_name^^^^^", checked_name);
+
+      $("[name='exemplar_devicename']").val(checked_name.join(","));
+      $("[name='exemplar_devicename']").attr("title", checked_name.join(","));
 
       $("[name='exemplar_select_all']").on("click", function (e) {
         e.stopPropagation();
@@ -62,9 +81,11 @@ export class ExemplarNoNameComponent implements OnInit {
             highlightCurrent: true,
             showCheckbox: true,
             checkStrictly: true,
+            defaultCheckedKeys: datas[0]["checkedid"],
             checkOnClickNode: true, // 点击节点，选中
           });
         }
+
         // 样式！不展示树状结构！
         var childnodes = $(
           ".ele8>.eleTree-node>.eleTree-node-group"

@@ -11,6 +11,7 @@ import { NbDialogRef, NbDialogService } from "@nebular/theme";
 import { HttpserviceService } from "../../../../services/http/httpservice.service";
 import { PublicmethodService } from "../../../../services/publicmethod/publicmethod.service";
 import { UserInfoService } from "../../../../services/user-info/user-info.service";
+import { EditDelTooltipComponent } from "../../../prompt-diallog/edit-del-tooltip/edit-del-tooltip.component";
 import { LimitsAddComponent } from "../limits-add/limits-add.component";
 
 declare let $;
@@ -157,22 +158,92 @@ export class LimitsAddInitComponent implements OnInit {
       });
   }
 
-  // 编辑按钮
-  edit(message) {
-    var result = {
+  // 查看按钮- 需要得到 试验执行人executor；样件三级编号exemplarchildnumbers；设备名称exemplarname；样件信息taskmessage等
+  check(message) {
+    // console.error("查看按钮>>>>", message);
+    var results = {
       type: "edit",
       message: message,
+      checked: {
+        checkid: [],
+        checkgroupid: [],
+      },
+      executors: [],
+      taskmessage: [],
     };
+    // 得到选择的样件三级编号-设备名称数据格式，
+    this.http
+      .callRPC("device_task_info", "get_lims_processed_check", message)
+      .subscribe((result) => {
+        var res = result["result"]["message"][0];
+        // console.error("得到其它信息>>>", res["message"]);
+        if (res["code"] === 1) {
+          var message = res["message"];
+          var checkid = []; // 点击选中的样件三级编号！
+          var checkgroupid = []; // 点击选中的功能组
+          var executors = []; // 负责人列表
+          var taskmessage = []; // 样件信息列表
+          message.forEach((m) => {
+            // checkid.push(m["exemplarchildnumbers"]);
+            checkid = checkid.concat(m["exemplarchildnumbers"].split(","));
+            checkgroupid.push(m["deviceid"]);
+            executors.push(m["executor"]);
+            taskmessage.push(m["taskmessage"]);
+          });
+
+          this.ngZone.runOutsideAngular(() => {
+            // results.checked.checkid = checkid;
+            // results.checked.checkgroupid = checkgroupid;
+            // results.executors = executors;
+            results.checked.checkid = Array.from(new Set(checkid));
+            results.checked.checkgroupid = Array.from(new Set(checkgroupid));
+            results.executors = Array.from(new Set(executors));
+            results.taskmessage = taskmessage;
+
+            //强刷一次自己及子树.这个方法忽略了自己的ChecksEnabled状态.
+            this.cd.detectChanges();
+          });
+        }
+      });
+
     // this.dialogRef.close(result);
     this.dialogService
       .open(LimitsAddComponent, {
         closeOnBackdropClick: false,
-        context: { res: result },
+        context: { res: results },
       })
       .onClose.subscribe((res) => {
         if (res) {
           this.ninit_list(); // 正在处理的试验
           this.init_list(); // 未处理的试验
+        }
+      });
+  }
+
+  // 删除按钮   get_lims_processed_remove
+  remove(message) {
+    console.error("删除按钮>>>>", message);
+    var table = "lims_data";
+    var method = "get_lims_processed_remove";
+    this.dialogService
+      .open(EditDelTooltipComponent, {
+        closeOnBackdropClick: false,
+        context: {
+          title: "提示",
+          content: `确定要删除这条数据吗？`,
+          rowData: JSON.stringify([message]),
+        },
+      })
+      .onClose.subscribe((istrue) => {
+        console.error("删除按钮>>>istrue", istrue);
+        if (istrue) {
+          this.http.callRPC(table, method, message).subscribe((result) => {
+            var res = result["result"]["message"][0];
+            if (res["code"] === 1) {
+              this.ninit_list(); // 正在处理的试验
+              this.init_list(); // 未处理的试验
+            }
+          });
         }
       });
   }
