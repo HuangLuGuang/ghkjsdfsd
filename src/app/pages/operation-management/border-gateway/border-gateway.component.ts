@@ -38,7 +38,7 @@ export class BorderGatewayComponent implements OnInit {
   tableDatas:any = {
     style: "width: 100%; height: 561px",
     totalPageNumbers: 0, // 总页数
-    PageSize: 15, // 每页 10条数据
+    PageSize: 10, // 每页 10条数据
     isno_refresh_page_size: false, // 是否重新将 每页多少条数据，赋值为默认值
     columnDefs: [
       // {
