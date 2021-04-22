@@ -260,6 +260,7 @@ export class LimitsAddInitComponent implements OnInit {
           if (res["code"] === 1) {
             this.ninit_list(); // 正在处理的试验
             this.init_list(); // 未处理的试验
+            this.dialogRef.close(false);
           }
         });
     }
@@ -278,6 +279,7 @@ export class LimitsAddInitComponent implements OnInit {
           if (res["code"] === 1) {
             this.ninit_list(); // 正在处理的试验
             this.init_list(); // 未处理的试验
+            this.dialogRef.close(false);
             this.addsuccess();
             // 发不方
             this.publicmethod.TeskChangeMessage(true);

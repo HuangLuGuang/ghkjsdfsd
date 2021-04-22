@@ -118,11 +118,26 @@ export class CentralizedMonitoringComponent implements OnInit {
         if (item_echart) echarts.init(item_echart).resize();
       });
 
-      setTimeout(() => {
+      let dom = document.getElementById("img_id");
+      if (dom) {
         this.inline?.change_status(false);
-        this.create_img_16_9();
+        let dom = document.getElementById("img_id"); // 子
+        if (!dom) return;
+        dom = null;
+        let center_img = $(".diveo_image"); // 父
+        let img = $("#img_id"); // 子
+
+        let height;
+        let i = 9;
+        for (i; i > 0; i--) {
+          height = ((center_img.width() * i * 0.1) / 16) * 9;
+          if (height < center_img.height()) break;
+        }
+        img.height(height);
+        img.width((height / 9) * 16);
+        console.log("图片收缩16/9");
         this.inline?.change_status(true);
-      }, 200);
+      }
     };
   }
 
