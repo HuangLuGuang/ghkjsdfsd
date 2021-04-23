@@ -203,10 +203,10 @@ export class LimitsAddComponent implements OnInit {
               var handle_get_message_for_device = this.handle_get_message_for_device(
                 message
               );
-              console.error(
-                "科室--设备名称--设备编号的>>>>>>>>>>>",
-                handle_get_message_for_device
-              );
+              // console.error(
+              //   "科室--设备名称--设备编号的>>>>>>>>>>>",
+              //   handle_get_message_for_device
+              // );
               this.limits_groups_devices?.layuiform(
                 handle_get_message_for_device
               );

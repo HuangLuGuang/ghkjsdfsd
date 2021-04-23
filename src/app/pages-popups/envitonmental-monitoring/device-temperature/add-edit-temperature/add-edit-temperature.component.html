@@ -39,6 +39,24 @@
             
         </div>
 
+        <!-- 主站编号 busid; 从站id  deviceid -->
+        <div class="layui-form-item">
+            <div class="layui-inline" style="width: 46%;">
+                <label class="layui-form-label mylabel mulu_title">网关主站编号</label>
+                <div class="layui-input-block">
+                    <input type="text" name="busid" required  lay-verify="required|busid" placeholder="网关主站编号" autocomplete="off" class="layui-input">
+                </div>
+            </div>
+
+            <div class="layui-inline" style="width: 46%;">
+                <label class="layui-form-label mylabel mulu_title">传感器从站id</label>
+                <div class="layui-input-block">
+                    <input type="text" name="deviceid" required  lay-verify="required|deviceid" placeholder="传感器从站id" autocomplete="off" class="layui-input">
+                </div>
+            </div>
+            
+        </div>
+
         <div class="layui-form-item">
             <!-- 传感器序列号 deviceno -->
             <div class="layui-inline" style="width: 46%;">

@@ -83,6 +83,20 @@ export class TemperatureManagementComponent implements OnInit {
         minWidth: 30,
         sortable: true,
       },
+      {
+        field: "busid",
+        headerName: "主站编号",
+        resizable: true,
+        minWidth: 30,
+        sortable: true,
+      },
+      {
+        field: "deviceid",
+        headerName: "从站id",
+        resizable: true,
+        minWidth: 30,
+        sortable: true,
+      },
 
       {
         field: "createdon",
@@ -643,7 +657,7 @@ export class TemperatureManagementComponent implements OnInit {
         );
       } else {
         // 插入数据库之前 处理数据
-        // console.log("插入数据库之前 处理数据", rowData);
+        console.log("插入数据库之前 处理数据", rowData);
         var datas = this.option_table_before(rowData);
         // console.log("插入数据库之前 处理数据---->", datas);
         // 将导入的数据存入数据库
@@ -676,6 +690,9 @@ export class TemperatureManagementComponent implements OnInit {
         lastupdatedby: name, // 更新人
         active: data["active"] === "是" ? 1 : 0, // 是否启用
         groups: data.groups, // 科室
+
+        busid: data.busid, // 主站编号
+        deviceid: data.deviceid, // 从站id
       };
       after_datas.push(after_data);
     });
@@ -688,6 +705,8 @@ export class TemperatureManagementComponent implements OnInit {
       var deviceno = rowdata["deviceno"];
       var room = rowdata["room"];
       var groups = rowdata["groups"];
+      var busid = rowdata["busid"];
+      var deviceid = rowdata["deviceid"];
 
       // 验证！deviceno
       var verify_deviceno = this.verify_deviceno(deviceno);
@@ -704,6 +723,17 @@ export class TemperatureManagementComponent implements OnInit {
       var verify_groups = this.verify_groups(groups);
       if (verify_groups != 1) {
         verify_err.push({ err: verify_groups });
+      }
+
+      // 验证！ busid
+      var verify_busid = this.verify_busid(busid);
+      if (verify_busid != 1) {
+        verify_err.push({ err: verify_busid });
+      }
+      // 验证！ deviceid
+      var verify_deviceid = this.verify_deviceid(deviceid);
+      if (verify_deviceid != 1) {
+        verify_err.push({ err: verify_deviceid });
       }
     });
     return verify_err;
@@ -776,6 +806,49 @@ export class TemperatureManagementComponent implements OnInit {
     } else {
       if (groups.length > 225) {
         return "科室最大长度不超过225！";
+      }
+    }
+
+    return 1; // 返回1，表示 通过验证！
+  }
+  // 验证 busid 网关主站编号
+  verify_busid(busid) {
+    // console.error("----------busid-----------", busid);
+
+    // sql注入和特殊字符 special_str
+    var verify_sql_str = this.verify_sql_str(busid, "网关主站编号");
+    if (verify_sql_str != 1) {
+      return verify_sql_str;
+    }
+    if (!busid) {
+      return "网关主站编号不能为空！";
+    } else {
+      if (!new RegExp("^[a-zA-Z0-9]{1,255}$").test(busid)) {
+        if (busid.length > 255) {
+          return "网关主站编号最大长度不超过255！";
+        }
+        return "网关主站编号不能有中文！";
+      }
+    }
+
+    return 1; // 返回1，表示 通过验证！
+  }
+  // 验证 busid 传感器从站id
+  verify_deviceid(deviceid) {
+    // console.error("----------deviceid-----------", deviceid);
+    // sql注入和特殊字符 special_str
+    var verify_sql_str = this.verify_sql_str(deviceid, "传感器从站id");
+    if (verify_sql_str != 1) {
+      return verify_sql_str;
+    }
+    if (!deviceid) {
+      return "传感器从站id不能为空！";
+    } else {
+      if (!new RegExp("^[a-zA-Z0-9]{1,255}$").test(deviceid)) {
+        if (deviceid.length > 255) {
+          return "传感器从站id最大长度不超过255！";
+        }
+        return "传感器从站id不能有中文！";
       }
     }
 
@@ -906,4 +979,7 @@ interface FormData {
   active: Number; // 是否启用
   id?: number; // ID
   groups: string; // 科室
+
+  busid: string; // 主站编号
+  deviceid: string; // 从站id
 }

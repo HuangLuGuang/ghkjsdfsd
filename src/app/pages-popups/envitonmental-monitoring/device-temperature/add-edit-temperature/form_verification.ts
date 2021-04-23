@@ -15,7 +15,10 @@ export const special_sql = {
 };
 
 export const Temperature = {
+  // deviceno: "^[a-zA-Z0-9_\u4e00-\u9fa5\\s·]{1,50}$", // 不能为中文！
   deviceno: "^[a-zA-Z0-9_\u4e00-\u9fa5\\s·]{1,50}$", // 不能为中文！
   room: "^[a-zA-Z0-9\u4e00-\u9fa5\\s·]{1,255}$", // 可中文
+  busid: "^[\u4e00-\u9fa5\\s·]{1,255}$", // 不能为中文！
+  deviceid: "^[\u4e00-\u9fa5\\s·]{1,255}$", // 不能为中文！
   special_sql: special_sql, // sql 注入
 };

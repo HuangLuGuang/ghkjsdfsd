@@ -123,6 +123,46 @@ export class AddEditTemperatureComponent implements OnInit {
             return "房间号不能有中文！";
           }
         },
+        busid: function (value, item) {
+          // sql注入和特殊字符 special_str
+          var special_sql = Temperature["special_sql"]["special_sql"];
+          var special_str = Temperature["special_sql"]["special_str"];
+
+          var sql = special_sql.test(value);
+          var str = special_str.test(value);
+          if (sql) {
+            return "防止SQL注入，请不要输入关于sql语句的特殊字符！";
+          }
+          if (!str) {
+            return "网关主站编号不能有特殊字符！";
+          }
+          if (new RegExp(Temperature["busid"]).test(value)) {
+            if (value.length > 255) {
+              return "网关主站编号最大长度不超过255！";
+            }
+            return "网关主站编号不能有中文！";
+          }
+        },
+        deviceid: function (value, item) {
+          // sql注入和特殊字符 special_str
+          var special_sql = Temperature["special_sql"]["special_sql"];
+          var special_str = Temperature["special_sql"]["special_str"];
+
+          var sql = special_sql.test(value);
+          var str = special_str.test(value);
+          if (sql) {
+            return "防止SQL注入，请不要输入关于sql语句的特殊字符！";
+          }
+          if (!str) {
+            return "传感器从站id不能有特殊字符！";
+          }
+          if (new RegExp(Temperature["deviceid"]).test(value)) {
+            if (value.length > 255) {
+              return "传感器从站id最大长度不超过255！";
+            }
+            return "传感器从站id不能有中文！";
+          }
+        },
       });
 
       // 判断是 新增还是编辑
@@ -132,7 +172,7 @@ export class AddEditTemperatureComponent implements OnInit {
         var formdatar = that.rowData[0];
         formdatar["groups"] = formdatar["groupsid"];
 
-        // console.error("表单初始化>>>>>", formdatar);
+        console.error("表单初始化--编辑>>>>>", formdatar);
         // 修改选择项
         setTimeout(() => {
           form.val("device", formdatar);
@@ -157,6 +197,9 @@ export class AddEditTemperatureComponent implements OnInit {
           active: 0, // 是否启用
           groups: "", // 科室
           groupsid: "", // 科室ID
+
+          busid: null, // 主站编号
+          deviceid: null, // 从站id
         };
         // layer.alert(JSON.stringify(data.field), {
         //   title: "得到的编辑表单的数据",
@@ -164,6 +207,9 @@ export class AddEditTemperatureComponent implements OnInit {
         // 将表单的数据赋值个默认的数据，
         formdata.deviceno = data.field.deviceno;
         formdata.room = data.field.room;
+
+        formdata.busid = data.field.busid;
+        formdata.deviceid = data.field.deviceid;
 
         if (data.field.active != undefined) {
           formdata.active = Number(data.field.active);
@@ -218,7 +264,7 @@ export class AddEditTemperatureComponent implements OnInit {
         this.editsuccess();
         this.RecordOperation("编辑环境监测模块", 1, JSON.stringify(message));
       } else {
-        this.dialogRef.close(false);
+        // this.dialogRef.close(false);
         var data = JSON.stringify(res["message"]);
         this.editdanger(data);
         this.RecordOperation("编辑环境监测模块", 0, data);
@@ -251,7 +297,7 @@ export class AddEditTemperatureComponent implements OnInit {
     this.publicservice.showngxtoastr({
       position: "toast-top-right",
       status: "danger",
-      conent: "编辑失败!",
+      conent: "编辑失败!" + data,
     });
   }
 
@@ -314,4 +360,7 @@ interface FormData {
   id?: number; // ID
   groups: string; // 科室
   groupsid: string; // 科室id
+
+  busid: string; // 主站编号
+  deviceid: string; // 从站id
 }
