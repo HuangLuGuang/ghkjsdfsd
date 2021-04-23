@@ -1,11 +1,22 @@
 <div class="row">
-    <div class="col-lg-6" style="padding: 0px;">
+    <div class="col-lg-4" style="padding: 0px;">
         
         <button nbButton  status="success" size="small" class="tesk_detail" (click)="detail()">详情</button>
     </div>
-    <div class="col-lg-6" style="padding: 0px;">
-        <button class="buedit edit-edit" (click)="change_target_hour()" type="button">
-            <a class="edit action"  ><i class="nb-edit" style="font-size: 35px;"></i></a>
+    <div class="col-lg-4" style="padding: 0px;">
+        <button nbButton status="info" size="small" (click)="change_target_hour()" class="tesk_execute">试验执行
+            <!-- <a class="edit action"  >
+                <i class="nb-edit" style="font-size: 35px;"></i>
+            </a> -->
         </button>
     </div>
+    <!-- 编辑 -->
+    <div class="col-lg-4" style="padding: 0px;">
+        <button class="buedit edit-edit" (click)="edit()" type="button">
+            <a class="edit action"  >
+                <i class="nb-edit" style="font-size: 35px;"></i>
+            </a>
+        </button>
+    </div>
+
 </div>

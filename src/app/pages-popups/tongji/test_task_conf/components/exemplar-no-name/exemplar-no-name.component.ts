@@ -45,7 +45,7 @@ export class ExemplarNoNameComponent implements OnInit {
   exemplar_name; // 样件名称
   el8;
   init_layuiform(datas) {
-    console.error("-----------------init_layuiform-------------------", datas);
+    // console.error("-----------------init_layuiform-------------------", datas);
 
     var that = this;
     layui.use(["eleTree"], function () {

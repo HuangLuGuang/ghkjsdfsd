@@ -1,0 +1,12 @@
+// 必填
+.mulu_title::before{
+    content: "*";
+    color: #ff4949;
+    margin-right: 4px;
+}
+.mulu_title{
+    font-weight: bold;
+}
+.mulu_title ~ div>input{
+    cursor: not-allowed;
+}

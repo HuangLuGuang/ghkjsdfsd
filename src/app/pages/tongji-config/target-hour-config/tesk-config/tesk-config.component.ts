@@ -22,6 +22,8 @@ import { Observable } from "rxjs";
 import { LimitsAddComponent } from "../../../../pages-popups/tongji/test_task_conf/limits-add/limits-add.component";
 import { LimitsAddInitComponent } from "../../../../pages-popups/tongji/test_task_conf/limits-add-init/limits-add-init.component";
 import { ExemplarnameComponent } from "./exemplarname/exemplarname.component";
+import { TaskEditComponent } from "../../../../pages-popups/tongji/test_task_conf/task-edit/task-edit.component";
+import { ExemplarchildnumbersComponent } from "./exemplarchildnumbers/exemplarchildnumbers.component";
 
 @Component({
   selector: "ngx-tesk-config",
@@ -109,6 +111,21 @@ export class TeskConfigComponent implements OnInit {
     });
   }
 
+  // 编辑新增的试验任务 TaskEditComponent
+  tesk_edit(data) {
+    this.dialogService
+      .open(TaskEditComponent, {
+        closeOnBackdropClick: false,
+        context: { rowdata: data },
+      })
+      .onClose.subscribe((res) => {
+        if (res) {
+          // 刷新tabel
+          this.refresh_table();
+        }
+      });
+  }
+
   close(): void {
     this.visible = false;
   }
@@ -121,15 +138,19 @@ export class TeskConfigComponent implements OnInit {
       headerName: "操作",
       resizable: true,
       fullWidth: true,
-      width: 100,
+      width: 200,
       pinned: "right",
       cellRendererFramework: ActionComponent,
       cellRendererParams: {
         clicked: function (data: any) {
           if (data.action === "edit") {
             that.edit(data.data);
-          } else {
+          } else if (data.action === "detail") {
             that.open(data.data);
+          } else {
+            // tesk_edit 主要式编辑样件名称-样件编号！
+            // console.error("tesk_edit>>>", data.data);
+            that.tesk_edit(data.data);
           }
           // that.change_target_hour([data]);
         },
@@ -577,10 +598,18 @@ export class TeskConfigComponent implements OnInit {
         sortable: true,
       }, // 试验名称
       {
+        field: "exemplarchildnumbers",
+        headerName: "样件三级编号",
+        resizable: true,
+        width: 300,
+        cellRendererFramework: ExemplarchildnumbersComponent,
+        sortable: true,
+      },
+      {
         field: "exemplarname",
         headerName: "样件名称",
         resizable: true,
-        width: 100,
+        width: 300,
         cellRendererFramework: ExemplarnameComponent,
         sortable: true,
       },

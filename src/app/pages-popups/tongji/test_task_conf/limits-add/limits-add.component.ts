@@ -117,7 +117,7 @@ export class LimitsAddComponent implements OnInit {
         });
     } else {
       // 编辑
-      console.error("***编辑***this.res", this.res);
+      // console.error("***编辑***this.res", this.res);
       this.http
         .callRPC(this.ETABLE, this.EMETHOD, this.res["message"])
         .subscribe((result) => {
@@ -276,6 +276,8 @@ export class LimitsAddComponent implements OnInit {
 
   // 处理 exemplar_no_name 样件三级编号-样件名称
   handle_exemplar_no_name(datas) {
+    // console.error("处理 exemplar_no_name 样件三级编号-样件名称", datas);
+
     var checkedid = [];
     if (this.res["checked"]) {
       checkedid = this.res["checked"]["checkid"];

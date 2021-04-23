@@ -1,0 +1,103 @@
+<nb-card style="width: 900px; height: 480px;">
+    <nb-card-header>
+        <div class="row">
+          <div class="col-md-4">编辑试验任务信息</div>
+            <div class="col-md-6"></div>
+            <div class="col-md-2" style="text-align: right;">
+                <nb-icon icon="close-outline" style="cursor: pointer;" (click)="closedialog()"></nb-icon>
+            </div>
+        </div>
+    </nb-card-header>
+
+
+    <nb-card-body>
+        <form class="layui-form" action="" lay-filter="edit_task_info">
+            <!-- 设备名称  设备编号 -->
+            <div class="layui-form-item">
+                <div class="layui-inline " style="width: 48%;">
+                  <label class="layui-form-label mylabel mulu_title" style="width: auto;">设备名称：</label>
+                  <div class="layui-input-block" style="margin-left: 120px;">
+                    <input disabled type="text" name="devicename"  lay-verify="required|devicename" placeholder="WTxxxx-yyyymm" autocomplete="off" class="layui-input ">
+                  </div>
+                </div>
+
+                <div class="layui-inline " style="width: 48%;">
+                  <label class="layui-form-label mylabel mulu_title" style="width: auto;">设备编号：</label>
+                  <div class="layui-input-block"  style="margin-left: 120px;">
+                    <input disabled type="text" name="deviceno"  lay-verify="required|deviceno" placeholder="" autocomplete="off" class="layui-input ">
+                  </div>
+                </div>
+                
+            </div>
+            <!-- 试验名称  执行人 -->
+            <div class="layui-form-item">
+                <div class="layui-inline " style="width: 48%;">
+                  <label class="layui-form-label mylabel mulu_title" style="width: auto;">试验名称：</label>
+                  <div class="layui-input-block" style="margin-left: 120px;">
+                    <input disabled type="text" name="devicetaskname"  lay-verify="required|devicetaskname" placeholder="WTxxxx-yyyymm" autocomplete="off" class="layui-input ">
+                  </div>
+                </div>
+
+                <div class="layui-inline " style="width: 48%;">
+                  <label class="layui-form-label mylabel mulu_title" style="width: auto;">执行人：</label>
+                  <div class="layui-input-block"  style="margin-left: 120px;">
+                    <input style=" width: 95%;" disabled type="text" name="executor"  lay-verify="required|executor" placeholder="" autocomplete="off" class="layui-input ">
+                  </div>
+                </div>
+                
+            </div>
+            <!-- 样件名称  样件编号 *主要修改的* -->
+            <div class="layui-form-item">
+                <ngx-exemplar-no-name #exemplar_no_name></ngx-exemplar-no-name>
+                <!-- <div class="layui-inline " style="width: 48%;">
+                  <label class="layui-form-label mylabel mulu_title" style="width: auto;">样件名称：</label>
+                  <div class="layui-input-block" style="margin-left: 120px;">
+                    <input disabled type="text" name="exemplarname"  lay-verify="required|exemplarname" placeholder="WTxxxx-yyyymm" autocomplete="off" class="layui-input ">
+                  </div>
+                </div>
+
+                <div class="layui-inline " style="width: 48%;">
+                  <label class="layui-form-label mylabel mulu_title" style="width: auto;">样件编号：</label>
+                  <div class="layui-input-block"  style="margin-left: 120px;">
+                    <input disabled type="text" name="exemplarnumbers"  lay-verify="required|exemplarnumbers" placeholder="" autocomplete="off" class="layui-input ">
+                  </div>
+                </div> -->
+                
+            </div>
+            <!-- 试验编号  试验任务编号  -->
+            <div class="layui-form-item">
+                <div class="layui-inline " style="width: 48%;">
+                  <label class="layui-form-label mylabel mulu_title" style="width: auto;">试验编号：</label>
+                  <div class="layui-input-block" style="margin-left: 120px;">
+                    <input disabled type="text" name="taskchildnum"  lay-verify="required|taskchildnum" placeholder="WTxxxx-yyyymm" autocomplete="off" class="layui-input ">
+                  </div>
+                </div>
+
+                <div class="layui-inline " style="width: 48%;">
+                  <label class="layui-form-label mylabel mulu_title" style="width: 105px;
+                  text-align: inherit!important;">试验任务编号：</label>
+                  <div class="layui-input-block"  style="margin-left: 120px;">
+                    <input disabled type="text" name="tasknum"  lay-verify="required|tasknum" placeholder="" autocomplete="off" class="layui-input ">
+                  </div>
+                </div>
+                
+            </div>
+            
+            <!-- button 取消、确定 -->
+            <div class="layui-form-item">
+                <div class="layui-row" style="text-align: end;">
+                    <div class="layui-inline">
+                      <div class="layui-input-inline">
+                      </div>
+                    </div>
+                    <div class="layui-inline">
+                      <div class="layui-input-inline">
+                          <button type="button" class="submit_cancel layui-btn layui-btn-primary" (click)="cancel()">取消</button>
+                          <button type="submit" class="submit_confirm layui-btn" lay-submit="" lay-filter="confirm" >确定</button>
+                      </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </nb-card-body>
+</nb-card>

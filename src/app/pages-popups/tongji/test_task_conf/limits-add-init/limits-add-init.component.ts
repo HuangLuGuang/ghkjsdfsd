@@ -222,7 +222,7 @@ export class LimitsAddInitComponent implements OnInit {
 
   // 删除按钮   get_lims_processed_remove
   remove(message) {
-    console.error("删除按钮>>>>", message);
+    // console.error("删除按钮>>>>", message);
     var table = "lims_data";
     var method = "get_lims_processed_remove";
     this.dialogService

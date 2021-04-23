@@ -31,6 +31,7 @@ import {
 import { AntTimeLineComponent } from "./ant-time-line/ant-time-line.component";
 import { TimeScheduleComponent } from "./tesk-config/time-schedule/time-schedule.component";
 import { ExemplarnameComponent } from "./tesk-config/exemplarname/exemplarname.component";
+import { ExemplarchildnumbersComponent } from './tesk-config/exemplarchildnumbers/exemplarchildnumbers.component';
 
 @NgModule({
   declarations: [
@@ -43,6 +44,7 @@ import { ExemplarnameComponent } from "./tesk-config/exemplarname/exemplarname.c
     AntTimeLineComponent,
     TimeScheduleComponent,
     ExemplarnameComponent,
+    ExemplarchildnumbersComponent,
   ],
   imports: [
     CommonModule,

@@ -57,6 +57,7 @@ import { LimitsGroupDeviceComponent } from "./tongji/test_task_conf/components/l
 import { ExemplarNoNameComponent } from "./tongji/test_task_conf/components/exemplar-no-name/exemplar-no-name.component";
 import { NzTreeModule } from "ng-zorro-antd";
 import { SelectComponent } from "./facility-health-data-center/alert-info-and-config/set-rule-config/select/select.component";
+import { TaskEditComponent } from './tongji/test_task_conf/task-edit/task-edit.component';
 // DateComponent
 @NgModule({
   declarations: [
@@ -88,6 +89,7 @@ import { SelectComponent } from "./facility-health-data-center/alert-info-and-co
     LimitsGroupDeviceComponent,
     ExemplarNoNameComponent,
     SelectComponent,
+    TaskEditComponent,
   ],
   imports: [
     CommonModule,
