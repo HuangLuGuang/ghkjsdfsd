@@ -1,17 +1,17 @@
 {
   "/api/task": {
-    "target": "http://172.22.122.51:5920"
+    "target": "http://172.22.122.85:5920"
   },
   "/api/v1": {
-    "target": "http://172.22.122.51"
+    "target": "http://172.22.122.85"
   },
   "/rpc/v1": {
-    "target": "http://172.22.122.51"
+    "target": "http://172.22.122.85"
   },
   "/geely-info": {
-    "target": "http://172.22.122.51"
+    "target": "http://172.22.122.85"
   },
   "/geely-cancel-token": {
-    "target": "http://172.22.122.51"
+    "target": "http://172.22.122.85"
   }
 }

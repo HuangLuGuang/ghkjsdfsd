@@ -39,7 +39,7 @@
                         [nzCustomRequest]="customReq"
                         >
 
-                          <button nbButton status="success" size="small" ><nb-icon icon="cloud-upload-outline"></nb-icon>上传文件</button>
+                          <button nbButton status="success" size="small"  [disabled]="!current_path.length"><nb-icon icon="cloud-upload-outline"></nb-icon>上传文件</button>
                         </nz-upload>
 
                     </div>
