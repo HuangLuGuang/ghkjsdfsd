@@ -112,18 +112,35 @@ export class TeskConfigComponent implements OnInit {
   }
 
   // 编辑新增的试验任务 TaskEditComponent
-  tesk_edit(data) {
-    this.dialogService
-      .open(TaskEditComponent, {
-        closeOnBackdropClick: false,
-        context: { rowdata: data },
-      })
-      .onClose.subscribe((res) => {
-        if (res) {
-          // 刷新tabel
-          this.refresh_table();
-        }
-      });
+  tesk_edit(data?) {
+    var rowdata;
+    if (data) {
+      rowdata = [data];
+    } else {
+      rowdata = this.agGrid.getselectedrows();
+    }
+
+    if (rowdata.length === 1) {
+      this.dialogService
+        .open(TaskEditComponent, {
+          closeOnBackdropClick: false,
+          context: { rowdata: rowdata[0] },
+        })
+        .onClose.subscribe((res) => {
+          if (res) {
+            // 刷新tabel
+            this.refresh_table();
+          }
+        });
+    } else {
+      this.dialogService
+        .open(EditDelTooltipComponent, {
+          closeOnBackdropClick: false,
+          autoFocus: true,
+          context: { title: "提示", content: `请选择一行数据！` },
+        })
+        .onClose.subscribe((istrue) => {});
+    }
   }
 
   close(): void {
@@ -145,6 +162,7 @@ export class TeskConfigComponent implements OnInit {
         clicked: function (data: any) {
           if (data.action === "edit") {
             that.edit(data.data);
+            // that.tesk_edit(data.data);
           } else if (data.action === "detail") {
             that.open(data.data);
           } else {
@@ -152,7 +170,6 @@ export class TeskConfigComponent implements OnInit {
             // console.error("tesk_edit>>>", data.data);
             that.tesk_edit(data.data);
           }
-          // that.change_target_hour([data]);
         },
       },
     };
@@ -181,7 +198,7 @@ export class TeskConfigComponent implements OnInit {
   ngAfterViewInit() {
     $(".single_xiala").css("top", "5px");
     this.tableDatas.columnDefs.push(this.active);
-    this.tableDatas.columnDefs[6] = this.taskstatus;
+    this.tableDatas.columnDefs[8] = this.taskstatus;
     this.get_tree_selecetdata().subscribe((res) => {
       if (res) {
         // 初始化aggrid
@@ -251,7 +268,8 @@ export class TeskConfigComponent implements OnInit {
         this.del();
         break;
       case "edit":
-        this.edit();
+        // this.edit();
+        this.tesk_edit();
         break;
       case "query":
         this.query();

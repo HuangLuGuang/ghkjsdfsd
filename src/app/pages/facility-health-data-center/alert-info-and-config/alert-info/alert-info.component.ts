@@ -163,7 +163,7 @@ export class AlertInfoComponent implements OnInit {
   }
 
   ngAfterViewInit() {
-    this.tableDatas.columnDefs.push(this.option);
+    // this.tableDatas.columnDefs.push(this.option);
 
     setTimeout(() => {
       var button = localStorage.getItem("buttons_list");
@@ -246,7 +246,7 @@ export class AlertInfoComponent implements OnInit {
     // console.error("this.agGrid>>>>>>>>>>>>.", this.agGrid?.get_pagesize());
 
     var data_range = this.data_range.getselect();
-    console.error("getselect--------------->", data_range);
+    // console.error("getselect--------------->", data_range);
 
     return {
       limit: this.agGrid.get_pagesize(),

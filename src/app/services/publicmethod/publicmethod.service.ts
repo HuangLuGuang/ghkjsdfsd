@@ -391,6 +391,12 @@ export class PublicmethodService {
     this.TeskMessage.next(message);
   }
 
+  // 报警管理---》集中监控 点击查看视频时，切换视频
+  public VideoMessage = new BehaviorSubject<any>({});
+  ChangeVideo(message: any): void {
+    this.VideoMessage.next(message);
+  }
+
   // ==========================================
 
   // -----------------------------------------页面得到 权限buttons

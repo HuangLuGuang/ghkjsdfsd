@@ -19,7 +19,7 @@ export class AlertConfigComponent implements OnInit {
   @ViewChild("ag_Grid") agGrid: any;
   @ViewChild("myinput") devicename: any; // 设备名称
   @ViewChild("alertlevel") alertlevel: any; // 报警等级
-  @ViewChild("data_range") data_range: any; // 日期范围
+  // @ViewChild("data_range") data_range: any; // 日期范围
 
   active; // aggrid 操作
 
@@ -342,12 +342,12 @@ export class AlertConfigComponent implements OnInit {
   }
 
   inittable_before() {
-    var data_range = this.data_range.getselect();
+    // var data_range = this.data_range.getselect();
     return {
       limit: this.agGrid.get_pagesize(),
       employeeid: this.userinfo.getEmployeeID(),
-      start: data_range[0],
-      end: data_range[1],
+      // start: data_range[0],
+      // end: data_range[1],
       level: this.alertlevel.getselect() ? this.alertlevel.getselect() : [],
       deviceid: this.devicename.getinput() ? this.devicename.getinput() : "",
     };
@@ -355,7 +355,7 @@ export class AlertConfigComponent implements OnInit {
 
   // 重置、刷新
   refresh_table() {
-    this.data_range.reset_mydate();
+    // this.data_range.reset_mydate();
     this.alertlevel.dropselect();
     this.devicename.reset_myinput();
 
@@ -390,8 +390,8 @@ export class AlertConfigComponent implements OnInit {
     var columns = {
       offset: offset,
       limit: limit,
-      start: inittable_before.start,
-      end: inittable_before.end,
+      // start: inittable_before.start,
+      // end: inittable_before.end,
       deviceid: inittable_before.deviceid,
       level: inittable_before.level,
     };
@@ -436,8 +436,8 @@ export class AlertConfigComponent implements OnInit {
     var columns = {
       offset: offset,
       limit: limit,
-      start: inittable_before.start,
-      end: inittable_before.end,
+      // start: inittable_before.start,
+      // end: inittable_before.end,
       deviceid: inittable_before.deviceid,
       level: inittable_before.level,
     };

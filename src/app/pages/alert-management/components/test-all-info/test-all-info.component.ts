@@ -1,5 +1,6 @@
-import { Component, OnInit } from "@angular/core";
+import { Component, Input, OnInit } from "@angular/core";
 import { HttpserviceService } from "../../../../services/http/httpservice.service";
+import { PublicmethodService } from "../../../../services/publicmethod/publicmethod.service";
 import { UserInfoService } from "../../../../services/user-info/user-info.service";
 
 @Component({
@@ -8,6 +9,7 @@ import { UserInfoService } from "../../../../services/user-info/user-info.servic
   styleUrls: ["./test-all-info.component.scss"],
 })
 export class TestAllInfoComponent implements OnInit {
+  visible = false; // 抽屉
   test_all_info_height = false;
   // 试验汇总信息
   titles = ["设备名称", "设备位置", "是否报警", "用户操作"];
@@ -15,7 +17,8 @@ export class TestAllInfoComponent implements OnInit {
 
   constructor(
     private http: HttpserviceService,
-    private userinfo: UserInfoService
+    private userinfo: UserInfoService,
+    private publicservice: PublicmethodService
   ) {
     // 会话过期
     localStorage.removeItem("alert401flag");
@@ -23,6 +26,9 @@ export class TestAllInfoComponent implements OnInit {
   }
   TABLE = "alarm_device";
   METHOD = "alarm_device";
+  // 历史记录
+  HTABLE = "get_history_alarm_log";
+  HMETHOD = "get_history_alarm_log";
 
   ngOnInit(): void {}
 
@@ -51,11 +57,20 @@ export class TestAllInfoComponent implements OnInit {
 
   // 查看视频按钮
   lookvideo(item) {
-    console.error("查看视频按钮>>>>", item);
+    this.publicservice.ChangeVideo(item);
   }
 
-  // 取消报警
+  // 取消报警---》历史记录
   cancelalert(item) {
-    console.error("取消报警>>>>", item);
+    this.visible = true;
+    console.error("历史记录>>>>", item);
+    this.http.callRPC(this.HTABLE, this.HMETHOD, item).subscribe((result) => {
+      var res = result["result"]["message"][0];
+      console.error("得到的历史记录>>>>>>>>>>>>>>>>>>>", res["message"]);
+    });
+  }
+
+  close(): void {
+    this.visible = false;
   }
 }

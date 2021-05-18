@@ -125,8 +125,8 @@
 
 // 设备汇总信息
 .device_all_info{
-    height: 40%;
-    // height: 300px;
+    // height: 40%;
+    height: 47%;
     .numbers{
         margin: 0px;
         top: 35px;
@@ -246,7 +246,8 @@
 }
 // 报警区域显示
 .alert_area{
-    height: 47%;
+    // height: 47%;
+    height: 40%;
     .video_inline_two{
         // border: solid 1px rgb(83, 175, 40);
         display: flex;

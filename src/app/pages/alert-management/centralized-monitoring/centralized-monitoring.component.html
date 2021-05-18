@@ -27,35 +27,13 @@
                     <div class="row" style="width: 100%;">
                         <div class="col-md-4 " style="flex: 0 0 33.333333% !important; max-width: 33.633333% !important;">
                             <!-- 设备汇总信息 -->
-                            <div class="device_all_info chunk" >
-                                <div class="part_title">设备汇总信息</div>
+                            
 
-                                <div class="select">
-                                    <select [ngModel]="DataTime"  (ngModelChange)="DataTimeChange($event)">
-                                        <option value ="week">近一周</option>
-                                        <option value ="month">近一月</option>
-                                        <option value="year">近一年</option>
-                                    </select>
-                                </div>
-
-
-                                <!-- 数量 -->
-                                <div class="row numbers">
-                                    <div class="alert_number">
-                                        <span *ngFor="let item of alert_number" [class]=item.name>
-                                            {{item.title}}: {{item.value}}台
-                                        </span>
-                                        <!-- <span>监控设备数量: 40台</span>
-                                        <span >当前报警数量: 200条</span>
-                                        <span>已解除数量: 2000条</span> -->
-                                    </div>
-                                </div>
-                                
-                                <!-- 数量echar -->
-                                <div class="row numbers_echart">
-                                    <div class="col-md-5" id="tj_test_number">
-                                    </div>
-                                    <div class="col-md-7" id="tj_test_number_line">
+                            <div class="alert_area chunk" >
+                                <div class="part_title">报警区域显示</div>
+                                <div class="row video_inline_two">
+                                    <div id="alert_area_id">
+                                        <ngx-aler-area-show></ngx-aler-area-show>
                                     </div>
                                 </div>
                             </div>
@@ -103,12 +81,44 @@
 
 
                             <!-- 报警区域显示 -->
-                            <div class="alert_area chunk" >
+                            <!-- 非科室的视频 -->
+                            <!-- <div class="alert_area chunk" >
                                 <div class="part_title">报警区域显示</div>
-                                <!-- 非科室的视频 -->
                                 <div class="row video_inline_two">
                                     <div id="alert_area_id">
                                         <ngx-aler-area-show></ngx-aler-area-show>
+                                    </div>
+                                </div>
+                            </div> -->
+                            <div class="device_all_info chunk" >
+                                <div class="part_title">设备汇总信息</div>
+
+                                <div class="select">
+                                    <select [ngModel]="DataTime"  (ngModelChange)="DataTimeChange($event)">
+                                        <option value ="week">近一周</option>
+                                        <option value ="month">近一月</option>
+                                        <option value="year">近一年</option>
+                                    </select>
+                                </div>
+
+
+                                <!-- 数量 -->
+                                <div class="row numbers">
+                                    <div class="alert_number">
+                                        <span *ngFor="let item of alert_number" [class]=item.name>
+                                            {{item.title}}: {{item.value}}台
+                                        </span>
+                                        <!-- <span>监控设备数量: 40台</span>
+                                        <span >当前报警数量: 200条</span>
+                                        <span>已解除数量: 2000条</span> -->
+                                    </div>
+                                </div>
+                                
+                                <!-- 数量echar -->
+                                <div class="row numbers_echart">
+                                    <div class="col-md-5" id="tj_test_number">
+                                    </div>
+                                    <div class="col-md-7" id="tj_test_number_line">
                                     </div>
                                 </div>
                             </div>

@@ -44,8 +44,8 @@
         </div>
         <div class="example-items-rows button_item edit" *ngIf="button?.edit">
             <button nbButton [status]="button?.edit.class" size="small" (click)="action(button?.edit.permission)"  [disabled]="button?.edit.active == 0? true:false"><nb-icon [icon]="button?.edit.icon"></nb-icon>
-                <!-- {{button?.edit.title}} -->
-                试验执行
+                {{button?.edit.title}}
+                <!-- 编辑 -->
             </button>
         </div>
         <div class="example-items-rows button_item del" *ngIf="button?.del">

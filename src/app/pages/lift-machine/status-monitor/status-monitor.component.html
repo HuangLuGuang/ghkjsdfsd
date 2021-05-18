@@ -10,89 +10,38 @@
             </ngx-one-layout>
 
             <!-- 主题 -->
-            <div class="lift_content">
-                <div class="lift_content_cont">
+            <div class="row" style="height: 90%;">
+                <div class="col-md-3">
+                    <span class="all_runing">当日累计时长：{{runing_all}}H</span>
+                    <div id="pie">饼状图</div>
+                    <div id="bar">柱状图</div>
                 </div>
+                <div class="col-md-9">
 
-                <div class="lift_content_car1">
-                    
-                    <!-- <img *ngFor="let item of [1,2,3,4,5,6,7,8]" class="lift_content_car{{item}}image" src="../../../../assets/pages/lift-machine/images/car.png" alt="" srcset=""> -->
+                    <div class="lift_content">
+                        <div class="lift_content_cont">
+                        </div>
+        
+                        <div class="lift_content_car1">
+                            <div *ngFor="let item of detector_datas let index=index">
+                                <!-- *ngIf="item.status===1" -->
+                                <img *ngIf="item.status===1"  class="lift_content_car{{index+1}}image" src="../../../../assets/pages/lift-machine/images/car.png" alt="" srcset="">
+                            </div>
+        
+                            <!-- <span *ngFor="let item of [1,2,3,4,5,6,7,8]" class="bo shuidi{{item}}title "> -->
 
-                    <div *ngFor="let item of detector_datas let index=index">
-                        <img *ngIf="item.status===1"  class="lift_content_car{{index+1}}image" src="../../../../assets/pages/lift-machine/images/car.png" alt="" srcset="">
+                            <span *ngFor="let item of [1,2,3,4,5]" class="bo shuidi{{item}}title ">
+                                <span class="sm_span_{{item}}1">举升机工位：1</span>
+                                <span class="sm_span_{{item}}2">当前状态：占位</span>
+                                <span class="sm_span_{{item}}3">已使用时长：2h</span>
+                            </span>
+                        </div>
+
+                        <!-- 有车、无车 -->
+                        <p class="placeon_p">有车</p>
+                        <img class="placeonimage" src="../../../../../assets/pages/lift-machine/images/car.png" alt="" srcset="">
+                        <p class="stop_p">无车</p>
                     </div>
-
-                    <span *ngFor="let item of [1,2,3,4,5,6,7,8]" class="bo shuidi{{item}}title ">
-                        <span class="sm_span_{{item}}1">举升机工位：1</span>
-                        <span class="sm_span_{{item}}2">当前状态：占位</span>
-                        <span class="sm_span_{{item}}3">已使用时长：2h</span>
-                    </span>
-
-                    <!-- car1 水滴1 水滴1-title-->
-                    <!-- <img class="lift_content_car1image" src="../../../../assets/pages/lift-machine/images/car.png" alt="" srcset=""> -->
-                    <!-- <span class="shuidi1title">
-                        <span class="">举升机工位：1</span>
-                        <span >当前状态：占位</span>
-                        <span >已使用时长：2h</span>
-                    </span> -->
-
-                    <!-- car2 -->
-                    <!-- <img class="lift_content_car2image" src="../../../../assets/pages/lift-machine/images/car.png" alt="" srcset=""> -->
-                    <!-- <span class="shuidi2title">
-                        <span>举升机工位：2</span>
-                        <span>当前状态：占位</span>
-                        <span>已使用时长：2h</span>
-                    </span> -->
-
-                    <!-- car3 -->
-                    <!-- <img class="lift_content_car3image" src="../../../../assets/pages/lift-machine/images/car.png" alt="" srcset=""> -->
-                    <!-- <span class="shuidi3title">
-                        <span>举升机工位：3</span>
-                        <span>当前状态：占位</span>
-                        <span>已使用时长：3h</span>
-                    </span> -->
-
-                    <!-- car4 -->
-                    <!-- <img class="lift_content_car4image" src="../../../../assets/pages/lift-machine/images/car.png" alt="" srcset=""> -->
-                    <!-- <span class="shuidi4title">
-                        <span>举升机工位：4</span>
-                        <span>当前状态：占位</span>
-                        <span>已使用时长：4h</span>
-                    </span> -->
-
-                    <!-- car5 -->
-                    <!-- <img class="lift_content_car5image" src="../../../../assets/pages/lift-machine/images/car.png" alt="" srcset=""> -->
-                    <!-- <span class="shuidi5title">
-                        <span>举升机工位：5</span>
-                        <span>当前状态：占位</span>
-                        <span>已使用时长：5h</span>
-                    </span> -->
-
-                    <!-- car6 -->
-                    <!-- <img class="lift_content_car6image" src="../../../../assets/pages/lift-machine/images/car.png" alt="" srcset=""> -->
-                    <!-- <span class="shuidi6title">
-                        <span>举升机工位：6</span>
-                        <span>当前状态：占位</span>
-                        <span>已使用时长：6h</span>
-                    </span> -->
-
-                    <!-- car7 -->
-                    <!-- <img class="lift_content_car7image" src="../../../../assets/pages/lift-machine/images/car.png" alt="" srcset=""> -->
-                    <!-- <span class="shuidi7title">
-                        <span>举升机工位：7</span>
-                        <span>当前状态：占位</span>
-                        <span>已使用时长：7h</span>
-                    </span> -->
-
-                    <!-- car8 -->
-                    <!-- <img class="lift_content_car8image" src="../../../../assets/pages/lift-machine/images/car.png" alt="" srcset=""> -->
-                    <!-- <span class="shuidi8title">
-                        <span>举升机工位：8</span>
-                        <span>当前状态：占位</span>
-                        <span>已使用时长：8h</span>
-                    </span> -->
-
-
                 </div>
             </div>
         </div>

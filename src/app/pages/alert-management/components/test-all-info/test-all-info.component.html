@@ -38,7 +38,8 @@
                             <button nbButton status="success" size="tiny" (click)="lookvideo(data)">查看视频</button>
                         </div>
                         <div class="col-md-6" style="margin: 0px;padding: 0px;">
-                            <button nbButton status="warning" size="tiny" (click)="cancelalert(data)">消除报警</button>
+                            <!-- <button nz-button nzType="primary" (click)="cancelalert(data)">历史记录</button> -->
+                            <button nbButton status="warning" size="tiny" (click)="cancelalert(data)">历史记录</button>
                         </div>
                     </div>
                 </td>
@@ -46,3 +47,22 @@
         </table>
     </div>
 </div>
+
+
+<nz-drawer
+      [nzClosable]="false"
+      [nzVisible]="visible"
+      nzPlacement="left"
+      nzTitle="报警日志"
+      (nzOnClose)="close()"
+    >
+      <!-- <p>Some contents...</p>
+      <p>Some contents...</p>
+      <p>Some contents...</p> -->
+      <nz-timeline>
+        <nz-timeline-item>Create a services site 2015-09-01</nz-timeline-item>
+        <nz-timeline-item>Solve initial network problems 2015-09-01</nz-timeline-item>
+        <nz-timeline-item>Technical testing 2015-09-01</nz-timeline-item>
+        <nz-timeline-item>Network problems being solved 2015-09-01</nz-timeline-item>
+      </nz-timeline>
+</nz-drawer>

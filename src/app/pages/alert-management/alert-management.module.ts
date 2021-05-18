@@ -17,6 +17,10 @@ import { TestAllInfoComponent } from "./components/test-all-info/test-all-info.c
 import { AlertInfoAlertComponent } from "./components/alert-info-alert/alert-info-alert.component";
 import { AlerAreaShowComponent } from "./components/aler-area-show/aler-area-show.component";
 import { FormsModule } from "@angular/forms";
+import { NzDrawerModule, NzTimelineModule } from "ng-zorro-antd";
+
+// 视频 videos
+import { VideosModule } from "../videos/videos.modules";
 
 @NgModule({
   declarations: [
@@ -36,6 +40,13 @@ import { FormsModule } from "@angular/forms";
     NbButtonModule,
     NzCarouselModule,
     FormsModule,
+
+    // 抽屉
+    NzDrawerModule,
+    // 时间轴
+    NzTimelineModule,
+    // 视频video
+    VideosModule,
   ],
 })
 export class AlertManagementModule {}

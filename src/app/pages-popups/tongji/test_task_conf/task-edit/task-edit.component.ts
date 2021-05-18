@@ -26,8 +26,10 @@ export class TaskEditComponent implements OnInit {
   }
 
   // 编辑
-  ETABLE = "get_lims_data_processed";
-  EMETHOD = "get_lims_data_processed";
+  ETABLE = "get_lims_data";
+  EMETHOD = "get_lims_data";
+  // ETABLE = "get_lims_data_processed";
+  // EMETHOD = "get_lims_data_processed";
 
   createdby = this.userinfo.getName();
 

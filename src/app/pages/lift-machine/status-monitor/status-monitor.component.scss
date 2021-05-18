@@ -7,46 +7,60 @@
     box-shadow: 2px 2px 6px #afbbc1, inset -2px -2px 6px #edfdff;
     padding: 0 5px;
 }
+
+// 饼状图，
+#pie{
+    width: 100%;
+    height: 30%;
+}
+// 柱状图
+#bar{
+    width: 100%;
+    height: 65%;
+}
 // 主题
 .lift_content{
-    height: 91%;
+    height: 100%;
     // padding: 0px 10px 5px;
     .lift_content_cont{
         // border: 1px solid;
         height: 100%;
         
-        background-image:url("../../../../assets/pages/lift-machine/images/bg_two.png");
+        // background-image:url("../../../../assets/pages/lift-machine/images/bg_two.png");
+        background-image:url("../../../../assets/pages/lift-machine/images/bg_three.png");
         background-repeat: no-repeat;
         background-size: 100% 100%;
     }
     .lift_content_car1{
         .lift_content_car1image{
             position: absolute;
-            top: 11%;
-            right: 6%;
+            top: 46.8%;
+            right: 60%;
             height: 14%;
-            width: 4%;
-            transform: rotate( 
-            -90deg
+            width: 5%;
+            transform: rotate(
+                0deg
             );
         }
         .shuidi1image{
+            
+
             transform: rotate(
-                90deg
+                180deg
             );
             height: 24px;
             width: 40px;
             position: absolute;
-            top: 111px;
-            left: 87%;
+            top: 672px;
+            left: 49.5%;
             z-index: 1;
             cursor: pointer;
         }
         .shuidi1title{
             height: 65px;
             position: absolute;
-            top: 123px;
-            right: 11.4%;
+            top: 382px;
+            right: 64.9%;
             z-index: 1;
             border: 2px #bfc6d5 solid;
             display: grid;
@@ -55,12 +69,12 @@
 
         .lift_content_car2image{
             position: absolute;
-            top: 22.4%;
-            right: 6%;
+            top: 79.8%;
+            right: 50%;
             height: 14%;
-            width: 4%;
-            transform: rotate( 
-            -90deg
+            width: 5%;
+            transform: rotate(
+                -90deg
             );
         }
         .shuidi2image{
@@ -78,8 +92,8 @@
         .shuidi2title{
             height: 65px;
             position: absolute;
-            top: 217px;
-            right: 11.35%;
+            top: 628px;
+            right: 56.35%;
             z-index: 1;
             border: 2px #bfc6d5 solid;
             display: grid;
@@ -88,11 +102,11 @@
 
         .lift_content_car3image{
             position: absolute;
-            top: 11%;
-            right: 21%;
+            top: 6%;
+            right: 50%;
             height: 14%;
-            width: 4%;
-            transform: rotate( 
+            width: 5%;
+            transform: rotate(
             -90deg
             );
         }
@@ -111,8 +125,8 @@
         .shuidi3title{
             height: 65px;
             position: absolute;
-            top: 123px;
-            right: 26.9%;
+            top: 61px;
+            right: 55.9%;
             z-index: 1;
             border: 2px #bfc6d5 solid;
             display: grid;
@@ -121,11 +135,11 @@
 
         .lift_content_car4image{
             position: absolute;
-            top: 14.5%;
-            right: 50%;
+            top: 1.5%;
+            right: 21%;
             height: 14%;
-            width: 4%;
-            transform: rotate( 
+            width: 5%;
+            transform: rotate(
             -90deg
             );
         }
@@ -144,8 +158,8 @@
         .shuidi4title{
             height: 65px;
             position: absolute;
-            top: 153px;
-            right: 55.9%;
+            top: 34px;
+            right: 26.9%;
             z-index: 1;
             border: 2px #bfc6d5 solid;
             display: grid;
@@ -154,12 +168,12 @@
 
         .lift_content_car5image{
             position: absolute;
-            top: 50%;
-            left: 47.59%;
+            top: 2%;
+            left: 89.59%;
             height: 14%;
-            width: 4%;
-            transform: rotate( 
-            0deg
+            width: 5%;
+            transform: rotate(
+            -90deg
             );
         }
         .shuidi5image{
@@ -177,8 +191,8 @@
         .shuidi5title{
             height: 65px;
             position: absolute;
-            top: 390px;
-            right: 52.7%;
+            top: 104px;
+            right: 3.7%;
             z-index: 1;
             border: 2px #bfc6d5 solid;
             display: grid;
@@ -187,8 +201,8 @@
 
         .lift_content_car6image{
             position: absolute;
-            top: 80.8%;
-            right: 50%;
+            top: 11%;
+            right: 6%;
             height: 14%;
             width: 4%;
             transform: rotate( 
@@ -197,21 +211,21 @@
         }
         .shuidi6image{
             transform: rotate(
-                180deg
+                90deg
             );
             height: 24px;
             width: 40px;
             position: absolute;
-            top: 672px;
-            left: 49.5%;
+            top: 111px;
+            left: 87%;
             z-index: 1;
             cursor: pointer;
         }
         .shuidi6title{
             height: 65px;
             position: absolute;
-            top: 707px;
-            right: 55.9%;
+            top: 123px;
+            right: 11.4%;
             z-index: 1;
             border: 2px #bfc6d5 solid;
             display: grid;
@@ -285,4 +299,32 @@
             background: #d2d2d2;
         }
     }
+
+    // 有车、无车
+    .placeon_p{
+        font-weight: 600;
+        position: absolute;
+        bottom: -6px;
+        right: 13%;
+    }
+    .placeonimage{
+        width: 5%;
+        position: absolute;
+        bottom: 50px;
+        right: 11.8%;
+        height: 14%;
+    }
+    .stop_p{
+        font-weight: 600;
+        position: absolute;
+        bottom: -6px;
+        right: 5%;
+    }
+
+}
+// 当日累计时长：
+.all_runing{
+    font-size: large;
+    font-weight: 600;
+    margin-left: 6px;
 }

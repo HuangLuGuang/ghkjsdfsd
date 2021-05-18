@@ -1,57 +1,26 @@
-import { Component, OnInit, ViewChild } from "@angular/core";
-import { LayoutService } from "../../../../@core/utils";
-import { HttpserviceService } from "../../../../services/http/httpservice.service";
-import { PublicmethodService } from "../../../../services/publicmethod/publicmethod.service";
+import { Component, OnInit } from "@angular/core";
+import { HttpserviceService } from "../../../services/http/httpservice.service";
 
 declare var $;
+
 @Component({
-  selector: "ngx-inline-video",
-  templateUrl: "./inline-video.component.html",
-  styleUrls: ["./inline-video.component.scss"],
+  selector: "ngx-pubvideo",
+  templateUrl: "./pubvideo.component.html",
+  styleUrls: ["./pubvideo.component.scss"],
 })
-export class InlineVideoComponent implements OnInit {
-  array = [
-    "assets/eimdoard/equipment/images/lqdp.png",
-    "assets/eimdoard/equipment/images/dj2_1014.jpeg",
-    "assets/eimdoard/equipment/images/dj3_1003.jpeg",
-    "assets/eimdoard/equipment/images/dj4_1010.jpeg",
-  ];
-  status = true;
+export class PubvideoComponent implements OnInit {
+  constructor(private httpservice: HttpserviceService) {}
 
-  nzAutoPlay = true; // 自动切换
-  nzAutoPlaySpeed = 10000; // 时间间隔
-  nzDots = false; // 是否显示面板指示点
-  @ViewChild("carousel") carousel: any;
-
-  // 视频 video
-  @ViewChild("pubvideo") pubvideo: any;
-
-  constructor(
-    private layout: LayoutService,
-    private httpservice: HttpserviceService,
-    private publicservice: PublicmethodService
-  ) {}
-
-  ngOnInit(): void {
-    this.layout.onInitLayoutSize().subscribe((f) => {
-      // this.resize();
-    });
-  }
+  ngOnInit(): void {}
 
   ngAfterViewInit() {
-    // var url = "https://test-streams.mux.dev/x36xhzz/x36xhzz.m3u8";
-    var url = "http://10.34.78.237:83/openUrl/p7q8HiU/live.m3u8";
-    this.get_url();
-
-    // 视频
-    // var cameraName = "III研究总院试验主通道中看东4";
-    // this.pubvideo.get_url(cameraName);
-
-    this.inline_lookvideo();
+    // this.get_url();
   }
 
   // 得到视屏url 测试
-  get_url() {
+  get_url(cameraName) {
+    console.error("得到视屏url 测试>>>>", cameraName);
+
     var url = "/api/v1/video",
       // 分页获取监控点资源
       params = {
@@ -98,44 +67,6 @@ export class InlineVideoComponent implements OnInit {
         });
       }
     });
-  }
-
-  // 查看视频, 当点击试验汇总时，调用
-  inline_lookvideo() {
-    this.publicservice.VideoMessage.subscribe((res) => {
-      console.error("查看视频-视频轮播-res>>>>", res);
-    });
-  }
-
-  // 父组件调用，修改status
-  change_status(status) {
-    this.status = status;
-  }
-
-  resize = () => {
-    this.status = false;
-    setTimeout(() => {
-      this.status = true;
-    }, 40);
-  };
-
-  ngOnDestroy() {
-    // window.removeEventListener('resize',this.resize);
-  }
-
-  // 4-9
-  // 切换到下一面板
-  next() {
-    this.carousel.next();
-  }
-  // 切换到上一面板
-  pre() {
-    this.carousel.pre();
-  }
-  // 切换到指定面板
-  goTo() {
-    console.error("跳转");
-    this.carousel.goTo(3);
   }
 }
 
