@@ -41,7 +41,7 @@ export class PubvideoComponent implements OnInit {
     var params_url = {
       path: "/artemis/api/video/v1/cameras/previewURLs",
       params: {
-        cameraIndexCode: "5446a47728214aba81a2768bc5d79813",
+        cameraIndexCode: "",
         streamType: 0,
         protocol: "hls",
         transmode: 1,
@@ -61,6 +61,7 @@ export class PubvideoComponent implements OnInit {
               "分页获取监控点资源:cameraIndexCode>>>>",
               cameraIndexCode
             );
+            params_url.params.cameraIndexCode = cameraIndexCode;
             this.httpservice.post(url, params_url).subscribe((res) => {
               if (res["code"] === 1) {
                 var hls_url = res["message"]["data"]["url"];
@@ -68,10 +69,16 @@ export class PubvideoComponent implements OnInit {
                 var url = "https://test-streams.mux.dev/x36xhzz/x36xhzz.m3u8";
                 this.play_hls(hls_url);
                 // this.play_hls(url);
+              } else {
+                // 请求视频失败
+                alert("Err:\n" + JSON.stringify(res));
               }
             });
           }
         });
+      } else {
+        // 请求视频失败
+        alert("Err:\n" + JSON.stringify(result));
       }
     });
   }
