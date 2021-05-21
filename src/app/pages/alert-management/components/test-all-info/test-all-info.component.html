@@ -49,20 +49,48 @@
 </div>
 
 
-<nz-drawer
+<!-- <nz-drawer
       [nzClosable]="false"
       [nzVisible]="visible"
       nzPlacement="left"
       nzTitle="报警日志"
       (nzOnClose)="close()"
     >
-      <!-- <p>Some contents...</p>
-      <p>Some contents...</p>
-      <p>Some contents...</p> -->
+      
       <nz-timeline>
-        <nz-timeline-item>Create a services site 2015-09-01</nz-timeline-item>
-        <nz-timeline-item>Solve initial network problems 2015-09-01</nz-timeline-item>
-        <nz-timeline-item>Technical testing 2015-09-01</nz-timeline-item>
-        <nz-timeline-item>Network problems being solved 2015-09-01</nz-timeline-item>
+        <nz-timeline-item *ngFor="let item of histoery_data">
+            <div>
+                <strong>{{item.to_char}}</strong>
+            </div>
+
+            <div>
+                <span style="font-weight: 500;">{{item.message}}</span>
+            </div>
+        </nz-timeline-item>
       </nz-timeline>
-</nz-drawer>
+</nz-drawer> -->
+
+<div class="row abc" style="display: block;
+position: absolute;
+    top: -4%;
+    left: -295%;
+    background: #15121063;
+    height: 104%;
+    width: 400%;">
+    <div class="col-md-3 history_data_div" style="background: #fff;
+    height: 100%;overflow-y: scroll;">
+        <nz-timeline>
+            <h4 style="color: rgb(19, 18, 18);">报警日志</h4>
+            <nz-timeline-item *ngFor="let item of histoery_data" [nzColor]='item.statusColor'>
+                <div style="text-align: start;">
+                    <strong>{{item.to_char}}</strong>
+                </div>
+        
+                <div style="text-align: start;">
+                    <span style="font-weight: 500;">{{item.message}}</span>
+                </div>
+            </nz-timeline-item>
+        </nz-timeline>
+    </div>
+    <div class="col-md-9"></div>
+</div>

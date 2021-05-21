@@ -57,15 +57,15 @@ export class PubvideoComponent implements OnInit {
         list.forEach((item) => {
           if (item["cameraName"] === "III研究总院试验主通道中看东4") {
             cameraIndexCode = item["cameraIndexCode"];
-            console.error(
-              "分页获取监控点资源:cameraIndexCode>>>>",
-              cameraIndexCode
-            );
+            // console.error(
+            //   "分页获取监控点资源:cameraIndexCode>>>>",
+            //   cameraIndexCode
+            // );
             params_url.params.cameraIndexCode = cameraIndexCode;
             this.httpservice.post(url, params_url).subscribe((res) => {
               if (res["code"] === 1) {
                 var hls_url = res["message"]["data"]["url"];
-                console.error("获取监控点预览取流URL:hls_url>>>>", hls_url);
+                // console.error("获取监控点预览取流URL:hls_url>>>>", hls_url);
                 var url = "https://test-streams.mux.dev/x36xhzz/x36xhzz.m3u8";
                 this.play_hls(hls_url);
                 // this.play_hls(url);

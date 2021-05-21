@@ -279,6 +279,8 @@ export class CentralizedMonitoringComponent implements OnInit {
     }
   }
 
+  // testinfo  在全屏模式下， 点击历史记录时，自动退出全屏
+
   // 4-9
   create_img_16_9 = () => {
     let dom = document.getElementById("img_id"); // 子
