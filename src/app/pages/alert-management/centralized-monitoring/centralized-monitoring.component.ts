@@ -272,9 +272,17 @@ export class CentralizedMonitoringComponent implements OnInit {
       // this.boradservice.sendChartResize();
       console.log("-------------按钮全屏功能-----------");
 
+      // 视频的 宽高 重置
       setTimeout(() => {
         this.create_img_16_9();
         // this.change_height(this.testinfo.testinfo);
+
+        // 设备汇总信息-图表 宽高 汇总
+        var ids = ["tj_test_number", "tj_test_number_line"];
+        ids.forEach((item) => {
+          var item_echart = document.getElementById(item);
+          if (item_echart) echarts.init(item_echart).resize();
+        });
       }, 300);
     }
   }
