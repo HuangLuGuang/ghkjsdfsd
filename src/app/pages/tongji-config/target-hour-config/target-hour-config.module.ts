@@ -7,6 +7,7 @@ import {
   NbButtonModule,
   NbCardModule,
   NbIconModule,
+  NbInputModule,
   NbPopoverModule,
   NbProgressBarModule,
   NbSelectModule,
@@ -26,13 +27,20 @@ import {
   NzTimelineModule,
   NzIconModule,
   NzModalModule,
+  NzSelectModule,
+  NzInputModule,
+  NzButtonModule
 } from "ng-zorro-antd";
-
 import { AntTimeLineComponent } from "./ant-time-line/ant-time-line.component";
 import { TimeScheduleComponent } from "./tesk-config/time-schedule/time-schedule.component";
 import { ExemplarnameComponent } from "./tesk-config/exemplarname/exemplarname.component";
 import { ExemplarchildnumbersComponent } from './tesk-config/exemplarchildnumbers/exemplarchildnumbers.component';
-
+import { LimisAddDialogComponent } from "./tesk-config/dialog/limis-add-dialog/limis-add-dialog.component";
+import { Ng2SmartTableModule } from "@mykeels/ng2-smart-table";
+import { AComponent } from "./tesk-config/dialog/limis-add-dialog/a/a.component";
+import { FormsModule } from "@angular/forms";
+import { DelComponent } from "./tesk-config/dialog/table-temp/del/del.component";
+import { FilterComponent } from "./tesk-config/dialog/table-temp/filter/filter.component";
 @NgModule({
   declarations: [
     TargetHourConfigComponent,
@@ -45,6 +53,10 @@ import { ExemplarchildnumbersComponent } from './tesk-config/exemplarchildnumber
     TimeScheduleComponent,
     ExemplarnameComponent,
     ExemplarchildnumbersComponent,
+    LimisAddDialogComponent,
+    AComponent,
+    DelComponent,
+    FilterComponent
   ],
   imports: [
     CommonModule,
@@ -53,19 +65,24 @@ import { ExemplarchildnumbersComponent } from './tesk-config/exemplarchildnumber
     NbButtonModule,
     NbIconModule,
     NbSelectModule,
+    NbInputModule,
     NbSpinnerModule,
     ComponentTModule,
     NzTabsModule,
+    FormsModule,
 
     // 抽屉
     NzDrawerModule,
     // 时间轴
     NzTimelineModule,
     NzIconModule,
+    NzInputModule,
+    NzSelectModule,
+    NzButtonModule,
 
     // 进度条
     NbProgressBarModule,
-
+    Ng2SmartTableModule,
     // tootip
     NbTooltipModule,
   ],

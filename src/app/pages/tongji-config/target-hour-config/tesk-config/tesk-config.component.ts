@@ -24,6 +24,7 @@ import { LimitsAddInitComponent } from "../../../../pages-popups/tongji/test_tas
 import { ExemplarnameComponent } from "./exemplarname/exemplarname.component";
 import { TaskEditComponent } from "../../../../pages-popups/tongji/test_task_conf/task-edit/task-edit.component";
 import { ExemplarchildnumbersComponent } from "./exemplarchildnumbers/exemplarchildnumbers.component";
+import { LimisAddDialogComponent } from "./dialog/limis-add-dialog/limis-add-dialog.component";
 
 @Component({
   selector: "ngx-tesk-config",
@@ -349,7 +350,7 @@ export class TeskConfigComponent implements OnInit {
   // 新增试验任务
   add() {
     // 判断
-    this.dialogService.open(LimitsAddInitComponent, {
+    this.dialogService.open(LimisAddDialogComponent, {
       closeOnBackdropClick: false,
       context: {},
     });
