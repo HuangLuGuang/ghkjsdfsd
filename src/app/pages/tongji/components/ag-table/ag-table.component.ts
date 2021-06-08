@@ -44,7 +44,7 @@ export class AgTableComponent implements OnInit {
   suppressRowClickSelection = false; // true 则单击行时将不会发生行选择 仅在需要复选框选择时使用
 
   rowSelection; // 选中行
-  frameworkComponents; // 表格渲染组件！
+  @Input() frameworkComponents; // 表格渲染组件！
 
   defaultColDef;
 

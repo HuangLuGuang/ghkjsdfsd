@@ -1,0 +1,146 @@
+<nb-card  [nbSpinner]="loading_dialog" nbSpinnerStatus="basic" nbSpinnerSize="tiny"  style="width: 105.2rem;height: 53rem;">
+  <nb-card-header class="dialog-header" style="padding-bottom: 0;">
+    <div style="padding-left: 1.6rem;">
+      <button nz-button [nzType]="dialog_button == 'notstart'? 'primary':'default'" (click)="click_dialog('notstart');">
+        未处理试验
+      </button>
+      <button nz-button [nzType]="dialog_button == 'start'? 'primary':'default'" (click)="click_dialog('start');">
+        已处理试验
+      </button>
+    </div>
+    <div>
+      <button nbButton  nbSpinnerStatus="success" size="medium" (click)="refresh()" style="margin-right: 0.3rem;background: white;">
+        <nb-icon icon="sync-outline" size="large"></nb-icon>
+      </button>
+      <button nbButton  nbSpinnerStatus="success" size="medium" (click)="close_dialog()" style="background: white;">
+        <nb-icon icon="close" size="large"></nb-icon>
+      </button>
+    </div>
+  </nb-card-header>
+  <nb-card-body class="dialog-body" >
+    <ng-template #search>
+      <i nz-icon nzType="search"></i>
+    </ng-template>
+    <nz-input-group  [nzPrefix]="search" style="width: 14.5rem;">
+      <input type="text" nz-input placeholder="委托单号,申请人,部门,执行人" [(ngModel)]="searchstr"  (change)="no_change()"/>
+    </nz-input-group>
+    <ngx-ag-table #gridtable (nzpageindexchange)="nzpageindexchange_ag($event)" 
+    ></ngx-ag-table>
+   <div class="drawer "[ngClass]="[visible?'drawer-w-max':'drawer-w-min']">
+     <nb-card *ngIf="visible" [nbSpinner]="loading_drawer" nbSpinnerStatus="basic" nbSpinnerSize="tiny" style="height: 100%;">
+        <nb-card-body>
+          <nb-card class="height_50" style="margin: 0;">
+            <nb-card-header >试验任务信息</nb-card-header>
+            <nb-card-body>
+             <div class="form_layout">
+               <div class="one">
+                  <label>试验任务单号</label>
+                  <input style="width: 73%;" nz-input placeholder="" [disabled]="true" [(ngModel)]="current.wtorderno"/>
+                </div>
+               <div class="one">
+                  <label><span style="color: red;">*</span>试验条目名称</label>
+                  <nz-select
+                  style="width: 73%;"
+                  nzMode="multiple"
+                    [nzMaxTagCount]="3"
+                    nzPlaceHolder=""
+                    [(ngModel)]="current.entry"
+                  >
+                    <nz-option *ngFor="let item of entry_listOfOption" [nzLabel]="item" [nzValue]="item"></nz-option>
+                  </nz-select>
+               </div>
+               <div class="one">
+                  <label>执行人</label>
+                  <input style="width: 73%;" nz-input placeholder="" [(ngModel)]="current.executor"/>
+               </div>
+               <div class="one">
+                  <label>样品编号</label>
+                  <nz-select
+                  style="width: 73%;"
+                    nzMode="multiple"
+                    [nzMaxTagCount]="3"
+                    nzPlaceHolder=""
+                    [(ngModel)]="current.l_no"
+                    (ngModelChange)="l_change($event,'key')"
+                  >
+                    <nz-option *ngFor="let item of l_listOfOption" [nzLabel]="item.key" [nzValue]="item"></nz-option>
+                  </nz-select>
+               </div>
+               <div class="one">
+                  <label>样品名称</label>
+                  <nz-select
+                  style="width: 73%;"
+                    nzMode="multiple"
+                    [nzMaxTagCount]="3"
+                    nzPlaceHolder=""
+                    [(ngModel)]="current.l_name"
+                    (ngModelChange)="l_change($event,'value')"
+                  >
+                    <nz-option *ngFor="let item of l_listOfOption" [nzLabel]="item.value" [nzValue]="item"></nz-option>
+                  </nz-select>
+               </div>
+               <div class="one"></div>
+               <div class="one">
+                  <label>设备功能组</label>
+                  <nz-select style="width: 73%;max-width: 65%;" [nzDropdownMatchSelectWidth]="false" nzShowSearch nzAllowClear nzPlaceHolder="" [(ngModel)]="current.groups">
+                    <nz-option *ngFor="let item of groups_listOfOption"  [nzLabel]="item" [nzValue]="item"></nz-option>
+                  </nz-select>
+               </div>
+               <div class="one">
+                  <label>设备名称</label>
+                  <!-- <input style="width: 73%;" nz-input placeholder="" [(ngModel)]="current.e_context"/> -->
+                  <nz-select style="width: 73%;max-width: 65%;" nzShowSearch nzAllowClear nzPlaceHolder="" [(ngModel)]="current.e_context">
+                    <!-- <nz-option nzLabel="110001234电机测试台架" nzValue="110001234电机测试台架"></nz-option> -->
+                    <nz-option *ngFor="let item of e_context_listOfOption"  [nzLabel]="item.devicename" [nzValue]="item"></nz-option>
+                  </nz-select>
+               </div>
+               <div class="one footer">
+                <button nz-button nzType="default" [disabled]="task_route != 'now'" (click)="add()" style="background: rgb(196,133,255);color: white;">新增</button>
+               </div>
+               <!-- <div class="footer">
+               </div> -->
+             </div>
+            </nb-card-body>
+          </nb-card>
+          <nb-card class="height_50" style="margin: 0;">
+            <nb-card-header >
+              <!-- <button nz-button [nzType]="task_route=='now'?'primary':'default'" (click)="task_click('now')"> -->
+                试验任务信息
+              <!-- </button> -->
+              <!-- <button nz-button [nzType]="task_route=='his'?'primary':'default'" (click)="task_click('his')">
+                历史试验任务
+              </button> -->
+            </nb-card-header>
+            <nb-card-body>
+              <ng2-smart-table style="width: 100%;"  *ngIf="task_route =='now';else his;" 
+              [settings]="setting" [source]="source"></ng2-smart-table>
+              <ng-template #his>
+                <ng2-smart-table #his style="width: 100%;" [settings]="hisSetting" [source]="hisSource" ></ng2-smart-table>
+              </ng-template>
+            </nb-card-body>
+          </nb-card>
+        </nb-card-body>
+        <nb-card-footer style="display: flex;justify-content: flex-end;padding: 0 1.23rem 0 0;">
+          <button nz-button nzType="default" (click)="save_drawer()" style="margin-right: 1rem;">确认</button>
+          <button nz-button nzType="default" (click)="close()">取消</button>
+        </nb-card-footer>
+     </nb-card>
+   </div>
+  </nb-card-body>
+  <nb-card-footer>
+
+  </nb-card-footer>
+</nb-card>
+
+
+<ng-template #dialog let-data let-ref="dialogRef">
+  <nb-card>
+    <nb-card-header><h5>提示</h5></nb-card-header>
+    <nb-card-body>{{ data }}</nb-card-body>
+    <nb-card-footer style="display: flex;justify-content: flex-end;">
+      <button nbButton status="primary"  (click)="ref.close(1)">确认</button>
+
+      <button style="margin-left: 20px;" *ngIf="!data.includes('!')" nbButton status="danger" (click)="ref.close(0)">取消</button>
+    </nb-card-footer>
+  </nb-card>
+</ng-template>

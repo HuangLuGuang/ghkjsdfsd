@@ -1,0 +1,66 @@
+.drawer{
+    position: absolute;
+    right: 0;
+    top: 1rem;
+    height: 91%;
+    width: 84.5%;
+    transition: width 0.5s;
+    // transition: opacity 0.6s, right 0.3s;
+    background: white;
+}
+.drawer-w-min{
+    width: 0;
+    // right: -100%;
+    // opacity: 0;
+}
+.drawer-w-max{
+    width: 84.5%;
+    // right: 0%;
+    // opacity: 1;
+    // border: 1px solid;
+}
+nb-icon{
+    height: 1.5rem;
+    width: 1.5rem;
+    cursor: pointer;
+    background: white;
+}
+.dialog-header{
+    display: flex;
+    justify-content: space-between;
+    padding: 0.9rem 1rem 0.9rem 0; 
+    background: rgb(242,242,242);
+}
+.dialog-body{
+    position: relative;
+    overflow: inherit;
+    background: rgb(242,242,242);
+}
+.form_layout{
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    flex-wrap: wrap;
+    height: 100%;
+    label{
+        width: 40%;
+        overflow: hidden;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+    }
+    .one{
+        width: 30%;
+        height: 25%;
+        display: flex;
+        justify-content: space-around;
+        align-items: center;
+    }
+    .footer{
+        // width: 100%;
+        // height: 20%;
+        // padding-right: 5.7rem;
+        display: flex;
+        align-items: center;
+        justify-content: flex-end;
+    }
+}
