@@ -202,7 +202,8 @@ export class AgTableComponent implements OnInit {
 
   // 过滤器已修改，但未应用。当过滤器具有“应用”按钮时使用。
   onfilterModified(event) {
-    this.totalPageNumbers = this.gridApi.getModel().rootNode.childrenAfterFilter.length;
+    this.totalPageNumbers =
+      this.gridApi.getModel().rootNode.childrenAfterFilter.length;
     this.is_filter_data =
       this.totalPageNumbers === this.tableDatas.rowData.length ? false : true;
   }
@@ -305,6 +306,7 @@ export class AgTableComponent implements OnInit {
         });
         // console.log("table_data=====", table_data);
         this.export(table_data);
+        this.RecordOperation("导出" + title, 1, "设备台账模板");
         // this.selectedRows = [];
       } else {
         table_data.push(table_header);
