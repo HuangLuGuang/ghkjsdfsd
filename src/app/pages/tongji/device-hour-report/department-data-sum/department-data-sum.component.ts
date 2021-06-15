@@ -188,6 +188,7 @@ export class DepartmentDataSumComponent implements OnInit {
   ngAfterViewInit() {
     // 初始化aggrid
     setTimeout(() => {
+      this.querytitle = "";
       this.inttable();
     }, 200);
   }
@@ -266,7 +267,9 @@ export class DepartmentDataSumComponent implements OnInit {
   }
 
   // 搜索
+  querytitle = "";
   query(inpuvalue?) {
+    this.querytitle = "搜索";
     this.loading = true;
     this.tableDatas.isno_refresh_page_size = true;
     this.gridData = [];
@@ -280,6 +283,7 @@ export class DepartmentDataSumComponent implements OnInit {
 
   // 重置
   refresh_table() {
+    this.querytitle = "";
     this.loading = true;
     this.gridData = [];
     // 是否 每页多少也，设置为默认值
@@ -390,8 +394,14 @@ export class DepartmentDataSumComponent implements OnInit {
         this.agGrid.init_agGrid(this.tableDatas); // 告诉组件刷新！
         // 刷新table后，改为原来的！
         this.tableDatas.isno_refresh_page_size = false;
+        if (this.querytitle !== "") {
+          this.RecordOperation(this.querytitle, 1, JSON.stringify(colmun));
+        }
         this.RecordOperation("查看", 1, "部门数据汇总");
       } else {
+        if (this.querytitle !== "") {
+          this.RecordOperation(this.querytitle, 1, JSON.stringify(colmun));
+        }
         this.RecordOperation("查看", 0, "部门数据汇总");
       }
     });
@@ -416,6 +426,7 @@ export class DepartmentDataSumComponent implements OnInit {
   // nzpageindexchange 页码改变的回调
   nzpageindexchange_ag(event) {
     // console.log("页码改变的回调", event);
+    this.querytitle = "";
     this.gridData = [];
     this.loading = true;
     this.inttable(event);

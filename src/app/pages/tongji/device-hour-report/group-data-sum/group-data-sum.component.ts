@@ -194,17 +194,10 @@ export class GroupDataSumComponent implements OnInit {
     this.get_tree_selecetdata().subscribe((res) => {
       if (res) {
         // 初始化aggrid
+        this.querytitle = "";
         this.inttable();
       }
     });
-
-    // setTimeout(() => {
-    //   this.loading = true;
-    // }, 200);
-    // setTimeout(() => {
-    //   // 初始化aggrid
-    //   this.inttable();
-    // }, 1000);
   }
 
   // 得到下拉框的数据，科室/功能组
@@ -285,7 +278,9 @@ export class GroupDataSumComponent implements OnInit {
   }
 
   // 搜索
+  querytitle = "";
   query(inpuvalue?) {
+    this.querytitle = "搜索";
     this.loading = true;
     this.tableDatas.isno_refresh_page_size = true;
     this.gridData = [];
@@ -300,6 +295,7 @@ export class GroupDataSumComponent implements OnInit {
 
   // 重置
   refresh_table() {
+    this.querytitle = "";
     this.loading = true;
     this.gridData = [];
     // 是否 每页多少也，设置为默认值
@@ -408,8 +404,14 @@ export class GroupDataSumComponent implements OnInit {
         this.agGrid.init_agGrid(this.tableDatas); // 告诉组件刷新！
         // 刷新table后，改为原来的！
         this.tableDatas.isno_refresh_page_size = false;
+        if (this.querytitle !== "") {
+          this.RecordOperation("搜索 ", 1, JSON.stringify(colmun));
+        }
         this.RecordOperation("查看", 1, "功能组数据汇总");
       } else {
+        if (this.querytitle !== "") {
+          this.RecordOperation("搜索 ", 0, JSON.stringify(colmun));
+        }
         this.RecordOperation("查看", 0, "功能组数据汇总");
       }
     });
@@ -427,6 +429,7 @@ export class GroupDataSumComponent implements OnInit {
   // nzpageindexchange 页码改变的回调
   nzpageindexchange_ag(event) {
     // console.log("页码改变的回调", event);
+    this.querytitle = "";
     this.gridData = [];
     this.loading = true;
     this.inttable(event);

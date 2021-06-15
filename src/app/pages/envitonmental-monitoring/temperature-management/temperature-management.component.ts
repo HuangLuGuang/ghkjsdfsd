@@ -335,25 +335,25 @@ export class TemperatureManagementComponent implements OnInit {
                     this.update_agGrid();
                     this.loading = false;
                     this.RecordOperation(
-                      "删除环境监测模块",
+                      "删除",
                       1,
-                      JSON.stringify(id_list)
+                      "环境监测模块:" + JSON.stringify(id_list)
                     );
                   } else {
                     this.deldanger(JSON.stringify(status["message"]));
                     this.RecordOperation(
-                      "删除环境监测模块",
+                      "删除",
                       0,
-                      JSON.stringify(id_list)
+                      "环境监测模块:" + JSON.stringify(id_list)
                     );
                     throw "error, 删除失败！";
                   }
                 });
             } catch (err) {
               this.RecordOperation(
-                "删除环境监测模块",
+                "删除",
                 0,
-                JSON.stringify(id_list)
+                "环境监测模块:" + JSON.stringify(id_list)
               );
               this.deldanger(JSON.stringify(status["message"]));
             }
@@ -401,15 +401,15 @@ export class TemperatureManagementComponent implements OnInit {
         this.tableDatas.isno_refresh_page_size = false;
 
         this.RecordOperation(
-          "搜索环境监测模块管理",
+          "搜索",
           1,
-          JSON.stringify(columns)
+          "环境监测模块管理:" + JSON.stringify(columns)
         );
       } else {
         this.RecordOperation(
-          "搜索环境监测模块管理",
+          "搜索",
           0,
-          JSON.stringify(columns)
+          "环境监测模块管理:" + JSON.stringify(columns)
         );
       }
     });
@@ -494,15 +494,15 @@ export class TemperatureManagementComponent implements OnInit {
         this.tableDatas.isno_refresh_page_size = false;
 
         this.RecordOperation(
-          "查看环境监测模块管理",
+          "查看",
           1,
-          JSON.stringify(columns)
+          "环境监测模块管理:" + JSON.stringify(columns)
         );
       } else {
         this.RecordOperation(
-          "查看环境监测模块管理",
+          "查看",
           0,
-          JSON.stringify(columns)
+          "环境监测模块管理:" + JSON.stringify(columns)
         );
       }
     });
@@ -546,16 +546,16 @@ export class TemperatureManagementComponent implements OnInit {
         this.tableDatas.isno_refresh_page_size = false;
 
         this.RecordOperation(
-          "更新环境监测模块管理",
+          "更新",
           1,
-          JSON.stringify(columns)
+          "环境监测模块管理:" + JSON.stringify(columns)
         );
       } else {
         this.querydanger(JSON.stringify(tabledata["message"]));
         this.RecordOperation(
-          "更新环境监测模块管理",
+          "更新",
           0,
-          JSON.stringify(columns)
+          "环境监测模块管理:" + JSON.stringify(columns)
         );
       }
     });
@@ -651,9 +651,9 @@ export class TemperatureManagementComponent implements OnInit {
       if (verify_after.length > 0) {
         this.verify_import(verify_after);
         this.RecordOperation(
-          "导入环境监测模块管理",
+          "导入",
           0,
-          JSON.stringify(verify_after)
+          "环境监测模块管理:" + JSON.stringify(verify_after)
         );
       } else {
         // 插入数据库之前 处理数据
@@ -669,9 +669,17 @@ export class TemperatureManagementComponent implements OnInit {
             this.loading = true;
             this.update_agGrid(); // 告诉组件刷新！
             this.loading = false;
-            this.RecordOperation("导入环境监测模块管理", 1, "导入excel表");
+            this.RecordOperation(
+              "导入",
+              1,
+              "环境监测模块管理:" + "导入excel表"
+            );
           } else {
-            this.RecordOperation("导入环境监测模块管理", 0, "导入excel表");
+            this.RecordOperation(
+              "导入",
+              0,
+              "环境监测模块管理:" + "导入excel表"
+            );
           }
         });
       }
@@ -882,7 +890,7 @@ export class TemperatureManagementComponent implements OnInit {
 
         this.loading = false;
       } catch (err) {
-        this.RecordOperation("导入环境监测模块管理", 0, String(err));
+        this.RecordOperation("导入", 0, "环境监测模块管理:" + String(err));
         observale.next(false);
         // var data = JSON.stringify(err);
         this.danger();

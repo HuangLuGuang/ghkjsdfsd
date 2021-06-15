@@ -287,7 +287,11 @@ export class AlertConfigComponent implements OnInit {
                   const status = result["result"]["message"][0];
                   switch (status["code"]) {
                     case 1:
-                      this.RecordOperation("删除(报警规则配置)", 1, data_info);
+                      this.RecordOperation(
+                        "删除",
+                        1,
+                        "报警规则配置:" + data_info
+                      );
                       this.delsuccess();
                       this.gridData = [];
                       this.loading = true;
@@ -298,9 +302,9 @@ export class AlertConfigComponent implements OnInit {
                     default:
                       var err_date = "error:" + status["message"];
                       this.RecordOperation(
-                        "删除(报警规则配置)",
+                        "删除",
                         0,
-                        String(err_date)
+                        "报警规则配置:" + String(err_date)
                       );
                       this.deldanger(String(err_date));
                       break;
@@ -325,11 +329,9 @@ export class AlertConfigComponent implements OnInit {
     return result;
   }
 
+  querytitle = "";
   query() {
-    // console.error(
-    //   "this.devicename.getinput()>>>>>",
-    //   this.devicename.getinput()
-    // );
+    this.querytitle = "搜索";
 
     this.gridData = [];
     this.loading = true;
@@ -355,6 +357,7 @@ export class AlertConfigComponent implements OnInit {
 
   // 重置、刷新
   refresh_table() {
+    this.querytitle = "";
     // this.data_range.reset_mydate();
     this.alertlevel.dropselect();
     this.devicename.reset_myinput();
@@ -411,9 +414,17 @@ export class AlertConfigComponent implements OnInit {
         // 刷新table后，改为原来的！
         this.tableDatas.isno_refresh_page_size = false;
 
-        this.RecordOperation("报警规则配置", 1, JSON.stringify(columns));
+        this.RecordOperation(
+          "查看",
+          1,
+          "报警规则配置:" + JSON.stringify(columns)
+        );
       } else {
-        this.RecordOperation("报警规则配置", 0, JSON.stringify(columns));
+        this.RecordOperation(
+          "查看",
+          0,
+          "报警规则配置:" + JSON.stringify(columns)
+        );
       }
     });
   }
@@ -456,10 +467,31 @@ export class AlertConfigComponent implements OnInit {
         this.agGrid.update_agGrid(this.tableDatas); // 告诉组件刷新！
         // 刷新table后，改为原来的！
         this.tableDatas.isno_refresh_page_size = false;
-
-        this.RecordOperation("报警规则配置", 1, JSON.stringify(columns));
+        if (this.querytitle !== "") {
+          this.RecordOperation(
+            "搜索",
+            1,
+            "报警规则配置:" + JSON.stringify(columns)
+          );
+        }
+        this.RecordOperation(
+          "更新",
+          1,
+          "报警规则配置:" + JSON.stringify(columns)
+        );
       } else {
-        this.RecordOperation("报警规则配置", 0, JSON.stringify(columns));
+        if (this.querytitle !== "") {
+          this.RecordOperation(
+            "搜索",
+            0,
+            "报警规则配置:" + JSON.stringify(columns)
+          );
+        }
+        this.RecordOperation(
+          "更新",
+          0,
+          "报警规则配置:" + JSON.stringify(columns)
+        );
       }
     });
   }

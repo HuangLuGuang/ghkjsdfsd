@@ -465,7 +465,7 @@ export class LocationMonitoringComponent implements OnInit {
         this.agGrid.init_agGrid(this.tableDatas); // 告诉组件刷新！true
         // 刷新table后，改为原来的！
         this.tableDatas.isno_refresh_page_size = false;
-        this.RecordOperation("搜索定位监控", 1, JSON.stringify(columns));
+        this.RecordOperation("搜索", 1, "定位监控:" + JSON.stringify(columns));
 
         // *******************************
         // 初始化得到的gps，在map地图上展示！
@@ -475,7 +475,7 @@ export class LocationMonitoringComponent implements OnInit {
       } else {
         var data = tabledata["message"];
         this.querydanger(JSON.stringify(data));
-        this.RecordOperation("搜索定位监控", 0, JSON.stringify(columns));
+        this.RecordOperation("搜索", 0, "定位监控:" + JSON.stringify(columns));
       }
     });
   }
@@ -559,7 +559,7 @@ export class LocationMonitoringComponent implements OnInit {
         this.agGrid.init_agGrid(this.tableDatas); // 告诉组件刷新！
         // 刷新table后，改为原来的！
         this.tableDatas.isno_refresh_page_size = false;
-        this.RecordOperation("查看定位监控", 1, JSON.stringify(columns));
+        this.RecordOperation("查看", 1, "定位监控:" + JSON.stringify(columns));
 
         // *******************************
         // 初始化得到的gps，在map地图上展示！
@@ -571,7 +571,7 @@ export class LocationMonitoringComponent implements OnInit {
 
         // *******************************
       } else {
-        this.RecordOperation("查看定位监控", 0, JSON.stringify(columns));
+        this.RecordOperation("查看", 0, "定位监控:" + JSON.stringify(columns));
       }
     });
   }
@@ -671,9 +671,9 @@ export class LocationMonitoringComponent implements OnInit {
         this.agGrid.update_agGrid(this.tableDatas); // 告诉组件刷新！
         // 刷新table后，改为原来的！
         this.tableDatas.isno_refresh_page_size = false;
-        this.RecordOperation("更新定位监控", 1, JSON.stringify(columns));
+        this.RecordOperation("更新", 1, "定位监控:" + JSON.stringify(columns));
       } else {
-        this.RecordOperation("更新定位监控", 0, JSON.stringify(columns));
+        this.RecordOperation("更新", 0, "定位监控:" + JSON.stringify(columns));
       }
     });
   }
@@ -829,7 +829,11 @@ export class LocationMonitoringComponent implements OnInit {
         this.agGrid.init_agGrid(this.tableDatas); // 告诉组件刷新！
         // 刷新table后，改为原来的！
         this.tableDatas.isno_refresh_page_size = false;
-        this.RecordOperation("异常设备定位监控", 1, JSON.stringify(columns));
+        this.RecordOperation(
+          "异常",
+          1,
+          "设备定位监控:" + JSON.stringify(columns)
+        );
 
         // *******************************
         // 初始化得到的gps，在map地图上展示！
@@ -837,7 +841,11 @@ export class LocationMonitoringComponent implements OnInit {
 
         // *******************************
       } else {
-        this.RecordOperation("异常设备定位监控", 0, JSON.stringify(columns));
+        this.RecordOperation(
+          "异常",
+          0,
+          "设备定位监控:" + JSON.stringify(columns)
+        );
       }
     });
   }

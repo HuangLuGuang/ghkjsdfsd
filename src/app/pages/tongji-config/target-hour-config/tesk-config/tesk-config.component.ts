@@ -542,12 +542,12 @@ export class TeskConfigComponent implements OnInit {
           : "未得到总条数";
         this.tableDatas.totalPageNumbers = totalpagenumbers;
         this.agGrid.update_agGrid(this.tableDatas); // 告诉组件刷新！
-        this.RecordOperation("搜索", 1, "设备报表");
+        this.RecordOperation("搜索", 1, JSON.stringify(columns));
         if (message.length < 1) {
           this.searchdanger();
         }
       } else {
-        this.RecordOperation("搜索", 0, "设备报表");
+        this.RecordOperation("搜索", 0, JSON.stringify(columns));
       }
     });
   }

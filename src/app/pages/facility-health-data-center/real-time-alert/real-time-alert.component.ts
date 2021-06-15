@@ -346,14 +346,22 @@ export class RealTimeAlertComponent implements OnInit {
             : "未得到总条数";
           this.tableDatas.totalPageNumbers = totalpagenumbers;
           this.agGrid.init_agGrid(this.tableDatas); // 告诉组件刷新！
-          this.RecordOperation("搜索", 1, "设备实时报警");
+          this.RecordOperation(
+            "搜索",
+            1,
+            "设备实时报警:" + JSON.stringify(columns)
+          );
           // 更新Echart
           this.healthdataechart.init_health(this.gridData);
 
           // 刷新table后，改为原来的！
           this.tableDatas.isno_refresh_page_size = false;
         } else {
-          this.RecordOperation("搜索", 0, "设备实时报警");
+          this.RecordOperation(
+            "搜索",
+            0,
+            "设备实时报警:" + JSON.stringify(columns)
+          );
         }
       });
     }

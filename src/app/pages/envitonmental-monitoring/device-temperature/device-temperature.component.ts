@@ -239,11 +239,19 @@ export class DeviceTemperatureComponent implements OnInit {
         this.agGrid.init_agGrid(this.tableDatas); // 告诉组件刷新！
         // 刷新table后，改为原来的！
         this.tableDatas.isno_refresh_page_size = false;
-        this.RecordOperation("搜索温湿度数据统计", 1, JSON.stringify(columns));
+        this.RecordOperation(
+          "搜索",
+          1,
+          "温湿度数据统计:" + JSON.stringify(columns)
+        );
       } else {
         var data = tabledata["message"];
         this.querydanger(JSON.stringify(data));
-        this.RecordOperation("搜索温湿度数据统计", 0, JSON.stringify(columns));
+        this.RecordOperation(
+          "搜索",
+          0,
+          "温湿度数据统计:" + JSON.stringify(columns)
+        );
       }
     });
   }
@@ -356,9 +364,17 @@ export class DeviceTemperatureComponent implements OnInit {
         // 刷新table后，改为原来的！
         this.tableDatas.isno_refresh_page_size = false;
 
-        this.RecordOperation("查看温湿度数据统计", 1, JSON.stringify(columns));
+        this.RecordOperation(
+          "查看",
+          1,
+          "温湿度数据统计:" + JSON.stringify(columns)
+        );
       } else {
-        this.RecordOperation("查看温湿度数据统计", 0, JSON.stringify(columns));
+        this.RecordOperation(
+          "查看",
+          0,
+          "温湿度数据统计:" + JSON.stringify(columns)
+        );
       }
     });
   }
@@ -404,9 +420,17 @@ export class DeviceTemperatureComponent implements OnInit {
         // 刷新table后，改为原来的！
         this.tableDatas.isno_refresh_page_size = false;
 
-        this.RecordOperation("更新温湿度数据统计", 1, JSON.stringify(columns));
+        this.RecordOperation(
+          "更新",
+          1,
+          "温湿度数据统计:" + JSON.stringify(columns)
+        );
       } else {
-        this.RecordOperation("更新温湿度数据统计", 0, JSON.stringify(columns));
+        this.RecordOperation(
+          "更新",
+          0,
+          "温湿度数据统计:" + JSON.stringify(columns)
+        );
       }
     });
   }

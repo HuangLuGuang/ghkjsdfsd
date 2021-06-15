@@ -228,7 +228,9 @@ export class AlertInfoComponent implements OnInit {
     }
   }
 
+  querytitle = "";
   query() {
+    this.querytitle = "搜索";
     // var inittable_before = this.inittable_before();
     // console.error("搜索>>>>", inittable_before);
     this.gridData = [];
@@ -260,6 +262,7 @@ export class AlertInfoComponent implements OnInit {
 
   // 重置、刷新
   refresh_table() {
+    this.querytitle = "";
     this.data_range.reset_mydate();
     this.alertlevel.dropselect();
     this.devicename.reset_myinput();
@@ -319,9 +322,9 @@ export class AlertInfoComponent implements OnInit {
         // 刷新table后，改为原来的！
         this.tableDatas.isno_refresh_page_size = false;
 
-        this.RecordOperation("数采报警", 1, JSON.stringify(columns));
+        this.RecordOperation("查看", 1, "数采报警:" + JSON.stringify(columns));
       } else {
-        this.RecordOperation("数采报警", 0, JSON.stringify(columns));
+        this.RecordOperation("查看", 0, "数采报警:" + JSON.stringify(columns));
       }
     });
   }
@@ -365,9 +368,31 @@ export class AlertInfoComponent implements OnInit {
         // 刷新table后，改为原来的！
         this.tableDatas.isno_refresh_page_size = false;
 
-        this.RecordOperation("更新数采报警", 1, JSON.stringify(columns));
+        if (this.querytitle !== "") {
+          this.RecordOperation(
+            "搜索",
+            1,
+            "更新数采报警:" + JSON.stringify(columns)
+          );
+        }
+        this.RecordOperation(
+          "更新",
+          1,
+          "更新数采报警:" + JSON.stringify(columns)
+        );
       } else {
-        this.RecordOperation("更新数采报警", 0, JSON.stringify(columns));
+        if (this.querytitle !== "") {
+          this.RecordOperation(
+            "搜索",
+            0,
+            "更新数采报警:" + JSON.stringify(columns)
+          );
+        }
+        this.RecordOperation(
+          "更新",
+          0,
+          "更新数采报警:" + JSON.stringify(columns)
+        );
       }
     });
   }
@@ -375,6 +400,7 @@ export class AlertInfoComponent implements OnInit {
   // nzpageindexchange 页码改变的回调
   nzpageindexchange_ag(event) {
     // console.log("页码改变的回调", event);
+    this.querytitle = "";
     this.gridData = [];
     this.loading = true;
     this.inttable(event);

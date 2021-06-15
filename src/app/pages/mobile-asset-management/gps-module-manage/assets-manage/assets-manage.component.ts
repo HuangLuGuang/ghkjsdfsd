@@ -316,22 +316,26 @@ export class AssetsManageComponent implements OnInit {
                     this.update_agGrid();
                     this.loading = false;
                     this.RecordOperation(
-                      "删除gps设备",
+                      "删除",
                       1,
-                      JSON.stringify(id_list)
+                      "gps设备:" + JSON.stringify(id_list)
                     );
                   } else {
                     this.deldanger(JSON.stringify(status["message"]));
                     this.RecordOperation(
-                      "删除gps设备",
+                      "删除",
                       0,
-                      JSON.stringify(id_list)
+                      "gps设备:" + JSON.stringify(id_list)
                     );
                     throw "error, 删除失败！";
                   }
                 });
             } catch (err) {
-              this.RecordOperation("删除gps设备", 0, JSON.stringify(id_list));
+              this.RecordOperation(
+                "删除",
+                0,
+                "gps设备:" + JSON.stringify(id_list)
+              );
               this.deldanger(JSON.stringify(status["message"]));
             }
           }
@@ -416,11 +420,19 @@ export class AssetsManageComponent implements OnInit {
             this.agGrid.init_agGrid(this.tableDatas); // 告诉组件刷新！
             // 刷新table后，改为原来的！
             this.tableDatas.isno_refresh_page_size = false;
-            this.RecordOperation("搜索gps设备", 1, JSON.stringify(columns));
+            this.RecordOperation(
+              "搜索",
+              1,
+              "gps设备:" + JSON.stringify(columns)
+            );
           } else {
             var data = tabledata["message"];
             this.querydanger(JSON.stringify(data));
-            this.RecordOperation("搜索gps设备", 0, JSON.stringify(columns));
+            this.RecordOperation(
+              "搜索",
+              0,
+              "gps设备:" + JSON.stringify(columns)
+            );
           }
         });
     } else {
@@ -512,9 +524,9 @@ export class AssetsManageComponent implements OnInit {
         // 刷新table后，改为原来的！
         this.tableDatas.isno_refresh_page_size = false;
 
-        this.RecordOperation("查看gps设备", 1, JSON.stringify(columns));
+        this.RecordOperation("查看", 1, "gps设备:" + JSON.stringify(columns));
       } else {
-        this.RecordOperation("查看gps设备", 0, JSON.stringify(columns));
+        this.RecordOperation("查看", 0, "gps设备:" + JSON.stringify(columns));
       }
     });
   }
@@ -555,9 +567,9 @@ export class AssetsManageComponent implements OnInit {
         // 刷新table后，改为原来的！
         this.tableDatas.isno_refresh_page_size = false;
 
-        this.RecordOperation("更新gps设备", 1, JSON.stringify(columns));
+        this.RecordOperation("更新", 1, "gps设备:" + JSON.stringify(columns));
       } else {
-        this.RecordOperation("更新gps设备", 0, JSON.stringify(columns));
+        this.RecordOperation("更新", 0, "gps设备:" + JSON.stringify(columns));
       }
     });
   }
@@ -647,7 +659,11 @@ export class AssetsManageComponent implements OnInit {
       var verify_after = this.verify_rowdatas(rowData, verify_err); // 验证后的数据 得到的是验证的 错误信息！
       if (verify_after.length > 0) {
         this.verify_import(verify_after);
-        this.RecordOperation("导入gps设备", 0, JSON.stringify(verify_after));
+        this.RecordOperation(
+          "导入",
+          0,
+          "gps设备:" + JSON.stringify(verify_after)
+        );
       } else {
         // 插入数据库之前 处理数据
         console.log("插入数据库之前 处理数据", rowData);
@@ -662,9 +678,9 @@ export class AssetsManageComponent implements OnInit {
             this.loading = true;
             this.update_agGrid(); // 告诉组件刷新！
             this.loading = false;
-            this.RecordOperation("导入gps设备", 1, "导入excel表");
+            this.RecordOperation("导入", 1, "gps设备:" + "导入excel表");
           } else {
-            this.RecordOperation("导入gps设备", 0, "导入excel表");
+            this.RecordOperation("导入", 0, "gps设备:" + "导入excel表");
           }
         });
       }
