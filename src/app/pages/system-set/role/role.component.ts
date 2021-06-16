@@ -356,7 +356,7 @@ export class RoleComponent implements OnInit {
   //  button导出未excel
   download(title) {
     this.agGrid.download(title);
-    this.RecordOperation("导出" + title, 1, "导出excel表格");
+    // this.RecordOperation("导出" + title, 1, "导出excel表格");
   }
 
   // input 传入的值

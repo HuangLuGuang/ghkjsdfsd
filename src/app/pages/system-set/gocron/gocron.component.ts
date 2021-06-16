@@ -4,6 +4,9 @@ import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { EditDelTooltipComponent } from "../../../pages-popups/prompt-diallog/edit-del-tooltip/edit-del-tooltip.component";
 import { NbDialogService } from "@nebular/theme";
 
+import { UserInfoService } from "../../../services/user-info/user-info.service";
+import { PublicmethodService } from "../../../services/publicmethod/publicmethod.service";
+
 @Component({
   selector: "ngx-gocron",
   templateUrl: "./gocron.component.html",
@@ -13,7 +16,9 @@ export class GocronComponent implements OnInit {
   constructor(
     private httpservice: HttpserviceService,
     private http: HttpClient,
-    private dialogService: NbDialogService
+    private dialogService: NbDialogService,
+    private userinfo: UserInfoService,
+    private publicmethod: PublicmethodService
   ) {
     // 会话过期
     localStorage.removeItem("alert401flag");
@@ -87,6 +92,7 @@ export class GocronComponent implements OnInit {
       console.warn("res", res);
       if (res["message"] === "操作成功") {
         console.warn("禁用成功", res);
+        this.RecordOperation("禁用", 1, "任务:" + JSON.stringify(res));
         this.dialogService
           .open(EditDelTooltipComponent, {
             closeOnBackdropClick: false,
@@ -99,6 +105,7 @@ export class GocronComponent implements OnInit {
         this.datatasknode();
       } else {
         console.warn("禁用失败", res);
+        this.RecordOperation("禁用", 0, "任务:" + JSON.stringify(res));
         this.dialogService
           .open(EditDelTooltipComponent, {
             closeOnBackdropClick: false,
@@ -123,6 +130,7 @@ export class GocronComponent implements OnInit {
       console.warn("res启用", res);
       if (res["message"] === "操作成功") {
         console.warn("启用成功", res);
+        this.RecordOperation("启用", 1, "任务:" + JSON.stringify(res));
         this.dialogService
           .open(EditDelTooltipComponent, {
             closeOnBackdropClick: false,
@@ -135,6 +143,7 @@ export class GocronComponent implements OnInit {
         this.datatasknode();
       } else {
         console.warn("启用失败", res);
+        this.RecordOperation("启用", 0, "任务:" + JSON.stringify(res));
         this.dialogService
           .open(EditDelTooltipComponent, {
             closeOnBackdropClick: false,
@@ -159,6 +168,7 @@ export class GocronComponent implements OnInit {
       console.warn("删除res", res);
       if (res["message"] === "操作成功") {
         console.warn("删除任务成功", res);
+        this.RecordOperation("删除", 1, "任务:" + JSON.stringify(res));
         this.dialogService
           .open(EditDelTooltipComponent, {
             closeOnBackdropClick: false,
@@ -171,6 +181,7 @@ export class GocronComponent implements OnInit {
         this.datatasknode();
       } else {
         console.warn("删除任务失败", res);
+        this.RecordOperation("删除", 0, "任务:" + JSON.stringify(res));
         this.dialogService
           .open(EditDelTooltipComponent, {
             closeOnBackdropClick: false,
@@ -195,6 +206,7 @@ export class GocronComponent implements OnInit {
       console.warn("res", res);
       if (res["message"] === "操作成功") {
         console.warn("删除任务节点成功", res);
+        this.RecordOperation("删除", 1, "任务节点:" + JSON.stringify(res));
         this.dialogService
           .open(EditDelTooltipComponent, {
             closeOnBackdropClick: false,
@@ -207,6 +219,7 @@ export class GocronComponent implements OnInit {
         this.datatasknode();
       } else {
         console.warn("删除任务节点失败", res);
+        this.RecordOperation("删除", 0, "任务节点:" + JSON.stringify(res));
         this.dialogService
           .open(EditDelTooltipComponent, {
             closeOnBackdropClick: false,
@@ -258,5 +271,23 @@ export class GocronComponent implements OnInit {
       console.warn("res", res);
       this.listTaskNodeData = res["data"]["data"];
     });
+  }
+
+  // option_record
+  RecordOperation(option, result, infodata) {
+    if (this.userinfo.getLoginName()) {
+      var employeeid = this.userinfo.getEmployeeID();
+      var result = result; // 1:成功 0 失败
+      var transactiontype = option; // '新增用户';
+      var info = infodata;
+      var createdby = this.userinfo.getLoginName();
+      this.publicmethod.option_record(
+        employeeid,
+        result,
+        transactiontype,
+        info,
+        createdby
+      );
+    }
   }
 }
