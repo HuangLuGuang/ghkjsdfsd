@@ -124,22 +124,22 @@ export class MapComponent implements OnInit {
   //   定时刷新
   refreshInterval: any;
   constructor(private dialogService: NbDialogService) {
-    var p = new Ping({ timeout: 4000 }); // 5s
-    var that = this;
-    p.ping("https://api.map.baidu.com", function (err, data) {
-      if (err) {
-        // console.error("error loading resource>>>", err);
-        // $("#map_map").text("地图无法加载,请检查网络");
-        var span = document.createElement("span");
-        span.setAttribute("style", "color: red; font-size: 18px");
-        span.innerText = "";
-        span.innerText = "地图无法加载,请检查网络!";
-        document.getElementById("map_map").appendChild(span);
-      } else {
-        // console.error(" loading data>>>", data, err);
-        that.is_map_api = true;
-      }
-    });
+    // var p = new Ping({ timeout: 3000 }); // 5s
+    // var that = this;
+    // p.ping("https://api.map.baidu.com", function (err, data) {
+    //   if (err) {
+    //     // console.error("error loading resource>>>", err);
+    //     // $("#map_map").text("地图无法加载,请检查网络");
+    //     var span = document.createElement("span");
+    //     span.setAttribute("style", "color: red; font-size: 18px");
+    //     span.innerText = "";
+    //     span.innerText = "地图无法加载,请检查网络!";
+    //     document.getElementById("map_map").appendChild(span);
+    //   } else {
+    //     console.error(" loading data>>>", data, err);
+    //     that.is_map_api = true;
+    //   }
+    // });
   }
 
   // map api是否加载了
@@ -148,6 +148,17 @@ export class MapComponent implements OnInit {
   ngOnInit(): void {}
 
   ngAfterViewInit() {
+    // ----
+    if (document.getElementById("is_map_api")) {
+      this.is_map_api = true;
+    } else {
+      var span = document.createElement("span");
+      span.setAttribute("style", "color: red; font-size: 18px");
+      span.innerText = "";
+      span.innerText = "地图无法加载,请检查网络!";
+      document.getElementById("map_map").appendChild(span);
+    }
+
     setTimeout(() => {
       console.warn("++++++++000000++++++++", this.is_map_api);
       if (this.is_map_api) {
@@ -191,7 +202,7 @@ export class MapComponent implements OnInit {
         // 点击获取点击的经纬度
         // mapjs.hitgit_lng_lat()
       }
-    }, 5000);
+    }, 1000);
   }
 
   ngOnDestroy() {
@@ -208,26 +219,6 @@ export class MapComponent implements OnInit {
   show_info_in_map(info) {
     // 创建图标，设备信息
     // 创建图标，设备信息
-
-    // for (let index = 0; index < info.listitem.children.length; index++) {
-    //   var user_deviceInfo_ = {
-    //     it: "",
-    //     listitem: {
-    //       title: "",
-    //       lng_lat: [],
-    //       info: "",
-    //     },
-    //   };
-    //   const childrenitem = info.listitem.children[index];
-    //   if (childrenitem == info.it) {
-    //     var device_info_item = info.listitem.device_info[index];
-    //     user_deviceInfo_.it = info.it;
-    //     user_deviceInfo_.listitem = device_info_item;
-    //     // mapjs.device_info(user_deviceInfo_, this.setweilan);
-    //     mapjs.device_info(user_deviceInfo_);
-    //   }
-    // }
-
     for (let index = 0; index < info.length; index++) {
       const element = info[index];
       mapjs.device_info(element);
@@ -247,11 +238,11 @@ export class MapComponent implements OnInit {
 
   // 初始化全部小车！
   init_show_all(alldata: any[], isnorefresh?) {
-    console.error(
-      "初始化全部小车！alldata,isnorefresh>>>",
-      alldata,
-      isnorefresh
-    );
+    // console.error(
+    //   "初始化全部小车！alldata,isnorefresh>>>",
+    //   alldata,
+    //   isnorefresh
+    // );
     if (isnorefresh) {
       mapjs.clearOverlay();
     }

@@ -158,8 +158,8 @@ export class DeviceAndonStatusInfoComponent implements OnInit {
         headerName: "执行人",
         resizable: true,
         sortable: true,
-        width: 100,
-        flex: 1,
+        minWidth: 10,
+        // flex: 1,
       },
 
       // { field: 'taskstatus', headerName: '当前试验状态', resizable: true,minWidth:10, sortable: true,flex:1,},

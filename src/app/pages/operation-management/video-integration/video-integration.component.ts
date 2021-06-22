@@ -8,6 +8,11 @@ import { HttpserviceService } from "../../../services/http/httpservice.service";
 import { PublicmethodService } from "../../../services/publicmethod/publicmethod.service";
 import { ActionComponent } from "./action/action.component";
 
+// add edit
+import { AddEditVideoIntegrationComponent } from "../../../pages-popups/operation-management/add-edit-video-integration/add-edit-video-integration.component";
+import { NbDialogService } from "@nebular/theme";
+import { EditDelTooltipComponent } from "../../../pages-popups/prompt-diallog/edit-del-tooltip/edit-del-tooltip.component";
+
 @Component({
   selector: "ngx-video-integration",
   templateUrl: "./video-integration.component.html",
@@ -381,7 +386,8 @@ export class VideoIntegrationComponent implements OnInit {
   constructor(
     private userinfo: UserInfoService,
     private http: HttpserviceService,
-    private publicmethod: PublicmethodService
+    private publicmethod: PublicmethodService,
+    private dialogService: NbDialogService
   ) {
     // 会话过期
     localStorage.removeItem("alert401flag");
@@ -438,6 +444,7 @@ export class VideoIntegrationComponent implements OnInit {
       .callRPC("deveice", "dev_get_device_type", columns)
       .subscribe((result) => {
         var res = result["result"]["message"][0];
+
         if (res["code"] === 1) {
           // 部门信息
           var department_list = [
@@ -445,7 +452,7 @@ export class VideoIntegrationComponent implements OnInit {
             { id: 6, label: "资产" },
             { id: 7, label: "新能源" },
           ];
-          this.department.init_select_tree(department_list);
+          this.department.init_select_tree(res["message"][0]["groups"]);
           // 设备类别  devicetpye
           var devicetpye = [
             { id: 1, label: "GT-2030-123" },
@@ -454,7 +461,7 @@ export class VideoIntegrationComponent implements OnInit {
             { id: 4, label: "GT-2030-359" },
             { id: 5, label: "GT-2030-666" },
           ];
-          this.devicetpye.init_select_trees(devicetpye);
+          this.devicetpye.init_select_trees(res["message"][0]["type"]);
         }
       });
   }
@@ -484,16 +491,87 @@ export class VideoIntegrationComponent implements OnInit {
     }
   }
   // 新增、添加
-  add() {}
+  add() {
+    this.dialogService.open(AddEditVideoIntegrationComponent, {
+      closeOnBackdropClick: false,
+      context: {
+        title: "新增视频服务器",
+        content: false,
+        rowData: [],
+      },
+    });
+  }
 
   // 删除
   del(active_data?) {
     console.log("视频集成服务器管理：删除>>>", active_data);
+    var rowdata;
+    if (active_data) {
+      rowdata = active_data;
+    } else {
+      rowdata = this.agGrid.getselectedrows();
+    }
+
+    // 删除，至少一行数据
+    if (rowdata.length < 1) {
+      this.dialogService
+        .open(EditDelTooltipComponent, {
+          closeOnBackdropClick: false,
+          autoFocus: true,
+          context: {
+            title: "提示",
+            content: "请选择一行数据！",
+          },
+        })
+        .onClose.subscribe((istrue) => {});
+    } else {
+      this.dialogService
+        .open(EditDelTooltipComponent, {
+          closeOnBackdropClick: false,
+          autoFocus: true,
+          context: {
+            title: "提示",
+            content: `是否确认删除？`,
+            rowData: JSON.stringify(rowdata),
+          },
+        })
+        .onClose.subscribe((istrue) => {
+          console.error("istrue, rowdata", istrue, rowdata);
+        });
+    }
   }
 
   // 修改、编辑
   edit(active_data?) {
     console.log("视频集成服务器管理：修改、编辑>>>", active_data);
+    var rowdata;
+    if (active_data) {
+      rowdata = active_data;
+    } else {
+      rowdata = this.agGrid.getselectedrows();
+    }
+    // 每次编辑一条
+    if (rowdata.length == 1) {
+      this.dialogService.open(AddEditVideoIntegrationComponent, {
+        closeOnBackdropClick: false,
+        context: {
+          title: "编辑视频服务器",
+          content: true,
+          rowData: rowdata,
+        },
+      });
+    } else {
+      this.dialogService
+        .open(EditDelTooltipComponent, {
+          closeOnBackdropClick: false,
+          autoFocus: true,
+          context: {
+            title: "提示",
+            content: "请选择一行数据！",
+          },
+        })
+        .onClose.subscribe((istrue) => {});
+    }
   }
 
   // input 传入的值

@@ -290,34 +290,33 @@ export class LocationMonitoringComponent implements OnInit {
     // 会话过期
     localStorage.removeItem("alert401flag");
 
-    var p = new Ping({ timeout: 4000 }); // 5s
-    var that = this;
-    p.ping("https://api.map.baidu.com", function (err, data) {
-      if (err) {
-        // console.error("error loading resource>>>", err);
-      } else {
-        // console.error("data loading resource>>>", data);
-        that.is_map_api = true;
-        if (!document.getElementById("is_map_api")) {
-          // 动态创建script元素
-          var body = document.getElementsByTagName("body")[0];
-          var bodysrcipt = document.createElement("script");
-          bodysrcipt.type = "text/javascript";
-          bodysrcipt.src =
-            "https://api.map.baidu.com/api?v=2.0&ak=4TBS12lmsagsuOBKhPTx3QQGbp19Y78Q&callback=initialize";
-          bodysrcipt.id = "is_map_api";
-          body.appendChild(bodysrcipt);
-        }
-      }
-    });
+    // var p = new Ping({ timeout: 3000 }); // 5s
+    // var that = this;
+    // p.ping("https://api.map.baidu.com", function (err, data) {
+    //   if (err) {
+    //     // console.error("error loading resource>>>", err);
+    //   } else {
+    //     // console.error("data loading resource>>>", data);
+    //     that.is_map_api = true;
+    //     if (!document.getElementById("is_map_api")) {
+    //       // 动态创建script元素
+    //       var body = document.getElementsByTagName("body")[0];
+    //       var bodysrcipt = document.createElement("script");
+    //       bodysrcipt.type = "text/javascript";
+    //       bodysrcipt.src =
+    //         "https://api.map.baidu.com/api?v=2.0&ak=4TBS12lmsagsuOBKhPTx3QQGbp19Y78Q&callback=initialize";
+    //       bodysrcipt.id = "is_map_api";
+    //       body.appendChild(bodysrcipt);
+    //     }
+    //   }
+    // });
+
+    if (document.getElementById("is_map_api")) {
+      this.is_map_api = true;
+    }
   }
 
   ngOnInit(): void {
-    // button 按钮
-    // this.button = localStorage.getItem("buttons_list")
-    //   ? JSON.parse(localStorage.getItem("buttons_list"))
-    //   : {};
-
     // 得到pathname --在得到button
     var roleid = this.userinfo.getEmployeeRoleID();
     this.publicservice.get_buttons_bypath(roleid).subscribe((result) => {
@@ -564,11 +563,10 @@ export class LocationMonitoringComponent implements OnInit {
         // *******************************
         // 初始化得到的gps，在map地图上展示！
         setTimeout(() => {
+          // console.error("++++++++++++++++", message);
           // console.error("++++++++++++++++", this.is_map_api);
           this.init_show_all(message);
-        }, 5000);
-        // this.init_show_all(message);
-
+        }, 2000);
         // *******************************
       } else {
         this.RecordOperation("查看", 0, "定位监控:" + JSON.stringify(columns));
@@ -681,11 +679,12 @@ export class LocationMonitoringComponent implements OnInit {
   // 刷新table
   refresh_table() {
     setTimeout(() => {
+      // console.error("++++++++++++++++", this.is_map_api);
       if (this.is_map_api) {
         // 清除map地图上的所有的覆盖物
         this.map.clearOverlay();
       }
-    }, 500);
+    }, 200);
 
     // 取消选择的数据 delselect
     this.myinput?.del_input_value(); // input
@@ -765,10 +764,6 @@ export class LocationMonitoringComponent implements OnInit {
           if (resdata["code"] === 1) {
             var message = result["result"]["message"][0]["message"];
             var handle_history_for_line = this.handle_history_for_line(message);
-            // console.error(
-            //   "handle_history_for_line**************************",
-            //   handle_history_for_line
-            // );
             if (this.is_map_api) {
               this.map.hit_to_show_line(handle_history_for_line);
             }
@@ -776,13 +771,21 @@ export class LocationMonitoringComponent implements OnInit {
           }
         });
     }
-
-    // this.map.hit_to_show_line(latlon[event[0]["deviceid"]]);
   }
 
   // 解析历史数据
   handle_history_for_line(message: any[]) {
     var latlon_list = [];
+    // console.error("解析历史数据>>>>", message);
+    // message 排序
+    message.sort((item1, item2) => {
+      return (
+        new Date(item1.recordtime).getTime() -
+        new Date(item2.recordtime).getTime()
+      );
+    });
+    // console.error("排序>>>>", message);
+
     message.forEach((item) => {
       var latlon = item["latlon"] + "," + item["recordtime"];
       latlon_list.push(latlon);

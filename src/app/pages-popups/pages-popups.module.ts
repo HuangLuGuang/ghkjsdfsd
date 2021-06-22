@@ -58,6 +58,7 @@ import { ExemplarNoNameComponent } from "./tongji/test_task_conf/components/exem
 import { NzTreeModule } from "ng-zorro-antd";
 import { SelectComponent } from "./facility-health-data-center/alert-info-and-config/set-rule-config/select/select.component";
 import { TaskEditComponent } from './tongji/test_task_conf/task-edit/task-edit.component';
+import { AddEditVideoIntegrationComponent } from './operation-management/add-edit-video-integration/add-edit-video-integration.component';
 // DateComponent
 @NgModule({
   declarations: [
@@ -90,6 +91,7 @@ import { TaskEditComponent } from './tongji/test_task_conf/task-edit/task-edit.c
     ExemplarNoNameComponent,
     SelectComponent,
     TaskEditComponent,
+    AddEditVideoIntegrationComponent,
   ],
   imports: [
     CommonModule,

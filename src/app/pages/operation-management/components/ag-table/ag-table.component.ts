@@ -192,7 +192,8 @@ export class AgTableComponent implements OnInit {
 
   // 过滤器已修改，但未应用。当过滤器具有“应用”按钮时使用。
   onfilterModified(event) {
-    this.totalPageNumbers = this.gridApi.getModel().rootNode.childrenAfterFilter.length;
+    this.totalPageNumbers =
+      this.gridApi.getModel().rootNode.childrenAfterFilter.length;
     this.is_filter_data =
       this.totalPageNumbers === this.tableDatas.rowData.length ? false : true;
   }
@@ -268,6 +269,7 @@ export class AgTableComponent implements OnInit {
       });
       // console.log("table_data=====", table_data);
       this.export(table_data);
+      this.RecordOperation("导出", 1, title);
       // this.selectedRows = [];
     } else {
       table_data.push(table_header);
@@ -284,7 +286,7 @@ export class AgTableComponent implements OnInit {
         .onClose.subscribe((name) => {
           if (name) {
             this.export(table_data);
-            this.RecordOperation("导出" + title, 1, "导出excel表格");
+            this.RecordOperation("导出", 1, title);
           }
         });
     }

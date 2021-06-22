@@ -1,0 +1,139 @@
+<nb-card style="width: 870px;" size="larger" [nbSpinner]="loading"
+    nbSpinnerStatus="danger"
+    nbSpinnerSize="large"
+    nbSpinnerMessage=""
+>
+  <nb-card-header>
+    <div class="row">
+      <div class="col-md-3">{{title}}</div>
+        <div class="col-md-7"></div>
+        <div class="col-md-2" style="text-align: right;">
+            <nb-icon icon="close-outline" style="cursor: pointer;" (click)="closedialog()"></nb-icon>
+        </div>
+    </div>
+  </nb-card-header>
+
+  <nb-card-body>
+      
+    <form class="layui-form" action="" lay-filter="device">
+
+
+        <div class="layui-form-item">
+            <!-- 摄像头IP cameraIP -->
+            <div class="layui-inline" style="width: 46%;">
+                <label class="layui-form-label mylabel mulu_title">摄像头IP</label>
+                <div class="layui-input-block">
+                <input type="text" name="cameraIP" required  lay-verify="required|cameraIP" placeholder="摄像头IP" autocomplete="off" class="layui-input">
+                </div>
+            </div>
+            <!-- 负责区域 territory -->
+            <div class="layui-inline" style="width: 46%;">
+                <label class="layui-form-label mylabel mulu_title">负责区域</label>
+                <div class="layui-input-block">
+                <input type="text" name="territory" required  lay-verify="required|territory" placeholder="负责区域" autocomplete="off" class="layui-input">
+                </div>
+            </div>
+            
+        </div>
+
+        <div class="layui-form-item">
+            <!-- 部门信息 imei -->
+            <div class="layui-inline" style="width: 46%;">
+                <label class="layui-form-label mylabel mulu_title">部门信息</label>
+                <div class="layui-input-block">
+                    <input type="text" name="departmentInfo" required  lay-verify="required|departmentInfo" placeholder="部门信息" autocomplete="off" class="layui-input">
+                </div>
+            </div>
+
+            <!-- 描述  sim -->
+            <div class="layui-inline" style="width: 46%;">
+                <label class="layui-form-label mylabel mulu_title">描述</label>
+                <div class="layui-input-block">
+                    <input type="text" name="description" required  lay-verify="required|description" placeholder="描述" autocomplete="off" class="layui-input">
+                </div>
+            </div>
+
+            
+
+        </div>
+        
+        <div class="layui-form-item">
+            
+            <!-- 视频服务器状态 videoServiceStatus -->
+            <div class="layui-inline" style="width: 46%;">
+                <label class="layui-form-label mylabel mulu_title">视频服务器状态</label>
+                <div class="layui-input-block">
+                    <input type="text" name="videoServiceStatus" required  lay-verify="required|videoServiceStatus" placeholder="视频服务器状态" autocomplete="off" class="layui-input">
+                </div>
+            </div>
+
+            <!-- IP地址 ipAddress -->
+            <div class="layui-inline" style="width: 46%;height: 66px;">
+                <label class="layui-form-label mylabel mulu_title">IP地址&nbsp;&nbsp;</label>
+                <div class="layui-input-block">
+                    <input type="text" name="ipAddress" required  lay-verify="required|ipAddress" placeholder="IP地址" autocomplete="off" class="layui-input">
+                </div>
+            </div>
+
+            <!-- 创建人 createdby -->
+            <!-- <div class="layui-inline" style="width: 46%;height: 66px;">
+                <label class="layui-form-label mylabel mulu_title">创建人&nbsp;&nbsp;</label>
+                <div class="layui-input-block">
+                    <input type="text" name="createdby" required  lay-verify="required|createdby" placeholder="创建人" autocomplete="off" class="layui-input">
+                </div>
+            </div> -->
+            
+        </div>
+
+        <div class="layui-form-item">
+            <!-- 持续时间 continueTime -->
+            <div class="layui-inline" style="width: 46%;">
+                <label class="layui-form-label mylabel mulu_title">持续时间</label>
+                <div class="layui-input-block">
+                    <input type="text" name="continueTime" required  lay-verify="required|continueTime" placeholder="持续时间" autocomplete="off" class="layui-input">
+                </div>
+            </div>
+
+            <!-- 负责人 principal -->
+            <div class="layui-inline" style="width: 46%;">
+                <label class="layui-form-label mylabel mulu_title">负责人&nbsp;&nbsp;</label>
+                <div class="layui-input-block">
+                    <input type="text" name="principal" required  lay-verify="required|principal" placeholder="负责人" autocomplete="off" class="layui-input">
+                </div>
+            </div>
+
+            <!-- 是否启用 active -->
+            <!-- <div class="layui-inline" style="width: 46%;">
+                <label class="layui-form-label mylabel mulu_title">是否启用</label>
+                <div class="layui-input-block">
+                    <input type="checkbox" name="active" lay-skin="switch" lay-text="是|否" value="1">
+                </div>
+            </div> -->
+            <!-- 是否关注 isfavor -->
+            <!-- <div class="layui-inline" style="width: 46%;">
+                <label class="layui-form-label mylabel mulu_title">是否关注</label>
+                <div class="layui-input-block">
+                    <input type="checkbox" name="isfavor" lay-skin="switch" lay-text="是|否" value="1">
+                </div>
+            </div> -->
+
+            
+        </div>
+
+
+        <div class="layui-form-item">
+            <div class="layui-row"style="text-align: end;">
+                
+                <div class="layui-inline">
+                  <div class="layui-input-inline">
+                      <button class="layui-btn layui-btn-primary" (click)="cancel()">取消</button>
+                      <button type="submit" class="submit_device layui-btn" lay-submit="" lay-filter="gpsvideo" >确定</button>
+                  </div>
+                </div>
+                
+            </div>
+        </div>
+    </form>
+    
+  </nb-card-body>
+</nb-card>

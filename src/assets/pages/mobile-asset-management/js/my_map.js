@@ -11,7 +11,7 @@ let mapjs = {
     map = new BMap.Map(map_trace, { enableMapClick: false }); //创建地图实例, 添加object配置，关闭地图可点功能
     // @ts-ignore
     const point = new BMap.Point(initpoint[0], initpoint[1]); //创建点坐标
-    map.centerAndZoom(point, 18); //初始化地图，设置中心点坐标和地图级别， 11表示地图的展示级别
+    map.centerAndZoom(point, 4); //初始化地图，设置中心点坐标和地图级别， 11表示地图的展示级别, 4:国级别
     map.enableScrollWheelZoom(true); //开启鼠标滚轮缩放
   },
 
@@ -180,6 +180,7 @@ let mapjs = {
     if (user_deviceInfo != undefined) {
       var pt = user_deviceInfo.latlon.split(",");
       var lng_lat = user_deviceInfo.latlon.split(",");
+
       var car_path =
         "assets/pages/mobile-asset-management/images/car/ico_car_blue.png";
       var isfavor = user_deviceInfo.isfavor === 1 ? "是" : "否";

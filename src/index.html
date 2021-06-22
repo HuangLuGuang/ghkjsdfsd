@@ -118,7 +118,7 @@
     <!-- <script type="text/javascript" src="https://api.map.baidu.com/api?v=2.0&ak=4TBS12lmsagsuOBKhPTx3QQGbp19Y78Q&callback=initialize"></script> -->
 
     <script>
-        var p = new Ping({timeout: 5000}); // 5s
+        var p = new Ping({timeout: 2000}); // 5s
         p.ping("https://api.map.baidu.com", function(err, data){
             if (err){
                 console.error("error loading resource>>>", err)
