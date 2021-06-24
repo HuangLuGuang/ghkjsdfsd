@@ -116,7 +116,7 @@ export class InlineVideoComponent implements OnInit {
   inline_lookvideo() {
     this.publicservice.VideoMessage.subscribe((res) => {
       if (JSON.stringify(res) !== "{}") {
-        console.error("查看视频-视频轮播-res>>>>", res);
+        console.log("查看视频-视频轮播-res>>>>", res);
       }
     });
   }
@@ -247,7 +247,7 @@ export class InlineVideoComponent implements OnInit {
         var errorFatal = data.fatal;
 
         if (errorFatal) {
-          console.error("errorType>>>>>>>>>>>>", errorFatal);
+          // console.error("errorType>>>>>>>>>>>>", errorFatal);
           switch (errorDetails) {
             // @ts-ignore
             case Hls.ErrorDetails.MANIFEST_LOAD_TIMEOUT:
@@ -313,7 +313,7 @@ export class InlineVideoComponent implements OnInit {
             // @ts-ignore网络相关的错误
             case Hls.ErrorTypes.NETWORK_ERROR:
               // try to recover network error
-              console.error("网络相关的错误");
+              console.warn("网络相关的错误");
 
               // 提示视频加载报错--网络问题
               $work_error.show();
@@ -326,7 +326,7 @@ export class InlineVideoComponent implements OnInit {
               $work_error.hide();
               break;
             default:
-              console.error("类型》》》》》》cannot recover");
+              // console.error("类型》》》》》》cannot recover");
               // cannot recover
               $work_error.hide();
               this.hls_ob.destroy();
@@ -367,7 +367,7 @@ export class InlineVideoComponent implements OnInit {
   }
   // 切换到指定面板
   goTo() {
-    console.error("跳转");
+    // console.error("跳转");
     this.carousel.goTo(3);
   }
 }
@@ -481,7 +481,7 @@ function play_hls(url) {
       var errorFatal = data.fatal;
 
       if (errorFatal) {
-        console.error("errorType>>>>>>>>>>>>", errorFatal);
+        // console.error("errorType>>>>>>>>>>>>", errorFatal);
         switch (errorDetails) {
           // @ts-ignore
           case Hls.ErrorDetails.MANIFEST_LOAD_TIMEOUT:
@@ -544,7 +544,7 @@ function play_hls(url) {
           // @ts-ignore网络相关的错误
           case Hls.ErrorTypes.NETWORK_ERROR:
             // try to recover network error
-            console.error("网络相关的错误");
+            console.warn("网络相关的错误");
 
             // 提示视频加载报错--网络问题
             $work_error.show();
@@ -557,7 +557,7 @@ function play_hls(url) {
             $work_error.hide();
             break;
           default:
-            console.error("类型》》》》》》cannot recover");
+            // console.error("类型》》》》》》cannot recover");
             // cannot recover
             $work_error.hide();
             hls.destroy();

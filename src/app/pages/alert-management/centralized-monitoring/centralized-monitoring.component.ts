@@ -312,11 +312,11 @@ export class CentralizedMonitoringComponent implements OnInit {
 
   // 改变heignht
   change_height(testinfo) {
-    console.error(
-      "*testinfo******************",
-      this.testinfo.testinfo,
-      testinfo
-    );
+    // console.error(
+    //   "*testinfo******************",
+    //   this.testinfo.testinfo,
+    //   testinfo
+    // );
     if (!testinfo) {
       $(".test_all_info").attr("style", "height:840px");
       $(".table_info_content").attr("style", "top:2%");

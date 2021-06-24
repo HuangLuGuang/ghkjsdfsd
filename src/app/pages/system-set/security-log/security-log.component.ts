@@ -216,7 +216,7 @@ export class SecurityLogComponent implements OnInit {
           // 刷新table后，改为原来的！
           this.tableDatas.isno_refresh_page_size = false;
         } else {
-          console.error("未得到日志", get_sys_login_log);
+          console.warn("未得到日志", get_sys_login_log);
         }
       });
   }

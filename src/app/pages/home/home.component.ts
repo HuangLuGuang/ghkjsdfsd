@@ -40,7 +40,7 @@ export class HomeComponent implements OnInit {
           [121.25158, 30.342533],
           [132, 27, 100],
         ],
-        value: ['*', 60],
+        value: ["*", 60],
       },
       {
         name: "盐城试车场",
@@ -254,7 +254,11 @@ export class HomeComponent implements OnInit {
       ],
     },
   };
-  constructor(private layoutService: LayoutService, private ngZone: NgZone,private http:HttpserviceService) {}
+  constructor(
+    private layoutService: LayoutService,
+    private ngZone: NgZone,
+    private http: HttpserviceService
+  ) {}
 
   ngOnInit(): void {
     this.createEchart();
@@ -268,7 +272,7 @@ export class HomeComponent implements OnInit {
         home.chian_map(this.myChart, this.myChartData);
         this.myChart.resize();
       } else {
-        console.error("home示例未被释放");
+        console.warn("home示例未被释放");
       }
 
       // let chian_map = document.querySelector('.home_chian_map');
@@ -280,7 +284,7 @@ export class HomeComponent implements OnInit {
     // return this.ngZone.runOutsideAngular(() => {this.myChart = echarts.init(document.querySelector('.home_chian_map'))});
     this.ngZone.runOutsideAngular(() => {
       let dom = document.querySelector(".home_chian_map");
-      if(dom){
+      if (dom) {
         this.myChart = echarts.init(dom);
       }
     });
@@ -288,7 +292,7 @@ export class HomeComponent implements OnInit {
 
   ngOnDestroy() {
     if (this.myChart.isDisposed()) {
-      console.error("home示例已经被释放");
+      console.warn("home示例已经被释放");
       this.myChart.resize();
     } else {
       this.myChart.clear();
@@ -302,14 +306,17 @@ export class HomeComponent implements OnInit {
     this.getData();
   }
 
-  getData(){
-    this.http.callRPC('get_board_device_heartbeat','get_board_device_heartbeat',{"date_interval": '7days'}).subscribe((f:any)=>{
-      if(f.result.error || f.result.message[0].code == 0)return;
-      let res = f.result.message[0];
-      this.myChartData.LableData[2].value[0] = res.current_total_device||0;
-      home.chian_map(this.myChart, this.myChartData);
-
-    });
+  getData() {
+    this.http
+      .callRPC("get_board_device_heartbeat", "get_board_device_heartbeat", {
+        date_interval: "7days",
+      })
+      .subscribe((f: any) => {
+        if (f.result.error || f.result.message[0].code == 0) return;
+        let res = f.result.message[0];
+        this.myChartData.LableData[2].value[0] = res.current_total_device || 0;
+        home.chian_map(this.myChart, this.myChartData);
+      });
   }
 
   resize = () => {

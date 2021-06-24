@@ -167,9 +167,8 @@ export class LimitsAddComponent implements OnInit {
 
       // 样件三级编号-样件名称
       var exemplar_no_name = this.limitd.device_name_no[0]["exemplar_no_name"];
-      var handle_exemplar_no_name = this.handle_exemplar_no_name(
-        exemplar_no_name
-      );
+      var handle_exemplar_no_name =
+        this.handle_exemplar_no_name(exemplar_no_name);
 
       setTimeout(() => {
         // console.error(
@@ -200,9 +199,8 @@ export class LimitsAddComponent implements OnInit {
             if (res["code"] === 1) {
               var message = res["message"];
               // console.error("device 为Null>>>>>>>>>>>>>>>>>>>>", message);
-              var handle_get_message_for_device = this.handle_get_message_for_device(
-                message
-              );
+              var handle_get_message_for_device =
+                this.handle_get_message_for_device(message);
               // console.error(
               //   "科室--设备名称--设备编号的>>>>>>>>>>>",
               //   handle_get_message_for_device
@@ -294,7 +292,7 @@ export class LimitsAddComponent implements OnInit {
 
   // 当选择 设备时触发
   device_info(data) {
-    console.error("当选择 设备时触发>>>>>>>", data);
+    // console.error("当选择 设备时触发>>>>>>>", data);
     // console.error("++++++++++this.limitd>>>>", this.limitd);
     this.limitd.devicename = data["devicename"];
     this.limitd.deviceno = data["deviceno"];
@@ -494,9 +492,8 @@ export class LimitsAddComponent implements OnInit {
           save_data["devicename"] = that.limitd.devicename;
           save_data["devicetaskname"] = that.limitd.devicetaskname;
           save_data["createdby"] = that.userinfo.getName();
-          save_data["taskmessage"] = that.previewinfodata["taskmessage"].join(
-            ","
-          );
+          save_data["taskmessage"] =
+            that.previewinfodata["taskmessage"].join(",");
           save_data["type"] = that.res["type"];
 
           // console.error("要保存的数据！>>>", save_data);

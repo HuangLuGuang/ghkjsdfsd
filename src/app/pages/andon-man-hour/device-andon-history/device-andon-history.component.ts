@@ -406,7 +406,7 @@ export class DeviceAndonHistoryComponent implements OnInit {
     ); // end
     return {
       start: start + " 00:00:00",
-      end: end + " 00:00:00",
+      end: end + " 23:59:59",
     };
   }
 

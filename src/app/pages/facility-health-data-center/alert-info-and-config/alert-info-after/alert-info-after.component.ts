@@ -195,7 +195,7 @@ export class AlertInfoAfterComponent implements OnInit {
 
   // 设备名称的输入框
   inpuvalue(inputdata) {
-    console.error("inputdata>>>>>>>>", inputdata);
+    // console.error("inputdata>>>>>>>>", inputdata);
   }
 
   inittable_before() {
@@ -213,7 +213,7 @@ export class AlertInfoAfterComponent implements OnInit {
   // 初始化table
   inttable(event?) {
     var inittable_before = this.inittable_before();
-    console.error("inittable_before>>>>>>>>", inittable_before);
+    // console.error("inittable_before>>>>>>>>", inittable_before);
 
     var offset;
     var limit;

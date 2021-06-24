@@ -25,7 +25,7 @@ export class PubvideoComponent implements OnInit {
 
   // 得到视屏url 测试
   get_url(cameraName) {
-    console.error("得到视屏url 测试>>>>", cameraName);
+    // console.error("得到视屏url 测试>>>>", cameraName);
 
     var url = "/api/v1/video",
       // 分页获取监控点资源
@@ -192,7 +192,7 @@ export class PubvideoComponent implements OnInit {
         var errorFatal = data.fatal;
 
         if (errorFatal) {
-          console.error("errorType>>>>>>>>>>>>", errorFatal);
+          // console.error("errorType>>>>>>>>>>>>", errorFatal);
           switch (errorDetails) {
             // @ts-ignore
             case Hls.ErrorDetails.MANIFEST_LOAD_TIMEOUT:
@@ -258,7 +258,7 @@ export class PubvideoComponent implements OnInit {
             // @ts-ignore网络相关的错误
             case Hls.ErrorTypes.NETWORK_ERROR:
               // try to recover network error
-              console.error("网络相关的错误");
+              console.warn("网络相关的错误");
 
               // 提示视频加载报错--网络问题
               $work_error.show();
@@ -271,7 +271,7 @@ export class PubvideoComponent implements OnInit {
               $work_error.hide();
               break;
             default:
-              console.error("类型》》》》》》cannot recover");
+              // console.error("类型》》》》》》cannot recover");
               // cannot recover
               $work_error.hide();
               this.hls_ob.destroy();
@@ -411,7 +411,7 @@ function play_hls(url) {
       var errorFatal = data.fatal;
 
       if (errorFatal) {
-        console.error("errorType>>>>>>>>>>>>", errorFatal);
+        // console.error("errorType>>>>>>>>>>>>", errorFatal);
         switch (errorDetails) {
           // @ts-ignore
           case Hls.ErrorDetails.MANIFEST_LOAD_TIMEOUT:
@@ -474,7 +474,7 @@ function play_hls(url) {
           // @ts-ignore网络相关的错误
           case Hls.ErrorTypes.NETWORK_ERROR:
             // try to recover network error
-            console.error("网络相关的错误");
+            console.warn("网络相关的错误");
 
             // 提示视频加载报错--网络问题
             $work_error.show();
@@ -487,7 +487,7 @@ function play_hls(url) {
             $work_error.hide();
             break;
           default:
-            console.error("类型》》》》》》cannot recover");
+            // console.error("类型》》》》》》cannot recover");
             // cannot recover
             $work_error.hide();
             hls.destroy();

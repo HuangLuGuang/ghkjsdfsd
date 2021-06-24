@@ -6,7 +6,7 @@
     "target": "http://172.22.122.85"
   },
   "/rpc/v1": {
-    "target": "http://127.0.0.1:5000"
+    "target": "http://172.22.122.85"
   },
   "/geely-info": {
     "target": "http://172.22.122.85"

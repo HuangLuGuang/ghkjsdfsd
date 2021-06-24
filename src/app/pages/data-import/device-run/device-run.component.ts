@@ -337,7 +337,7 @@ export class DeviceRunComponent implements OnInit {
   }
   import() {}
   download(title) {
-    console.error("--------columnDefs-------", this.tableDatas.columnDefs);
+    // console.error("--------columnDefs-------", this.tableDatas.columnDefs);
     this.agGrid.download_for_device_run(title, this.tableDatas.columnDefs);
   }
 
@@ -368,11 +368,11 @@ export class DeviceRunComponent implements OnInit {
       this.timeoneday?.getselect() === undefined
         ? get_curr_mounth_one[1]
         : this.timeoneday?.getselect();
-    console.error(
-      "初始化前确保 搜索条件,timeinterval,timeoneday",
-      timeinterval,
-      timeoneday
-    );
+    // console.error(
+    //   "初始化前确保 搜索条件,timeinterval,timeoneday",
+    //   timeinterval,
+    //   timeoneday
+    // );
     return {
       limit: this.agGrid.get_pagesize(),
       employeeid: this.userinfo.getEmployeeID(),
@@ -489,7 +489,7 @@ export class DeviceRunComponent implements OnInit {
 
   // 选择设备名称时触发
   my_date_select(deviceInfo) {
-    console.error("----选择设备名称时触发---", deviceInfo);
+    // console.error("----选择设备名称时触发---", deviceInfo);
   }
 }
 

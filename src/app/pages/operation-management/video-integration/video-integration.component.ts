@@ -28,7 +28,7 @@ export class VideoIntegrationComponent implements OnInit {
 
   groups_placeholder = "请选择部门信息";
   eimdevicetpye_placeholder = "请选择设备类型";
-  myinput_placeholder = "请输入摄像头";
+  myinput_placeholder = "请输入摄像头名称";
 
   // 加载数据
   loading = false;
@@ -36,8 +36,10 @@ export class VideoIntegrationComponent implements OnInit {
   button; // 权限button
   // 用户id
   employeeid = this.userinfo.getEmployeeID();
-  TABLE = "device";
-  METHOD = "dev_get_device_ratio";
+  TABLE = "video_integration";
+  METHOD = "get_video_integration";
+  DMETHOD = "delete_video_integration";
+
   // agGrid
   tableDatas = {
     style: "width: 100%; height: 700px",
@@ -58,8 +60,20 @@ export class VideoIntegrationComponent implements OnInit {
         sortable: true,
       },
       {
-        field: "cameraIP",
+        field: "cameraip",
         headerName: "摄像头IP",
+        resizable: true,
+        sortable: true,
+      },
+      {
+        field: "cameraindexcode",
+        headerName: "摄像头唯一标识符",
+        resizable: true,
+        sortable: true,
+      },
+      {
+        field: "cameraname",
+        headerName: "摄像头名称",
         resizable: true,
         sortable: true,
       },
@@ -70,7 +84,19 @@ export class VideoIntegrationComponent implements OnInit {
         sortable: true,
       },
       {
-        field: "departmentInfo",
+        field: "deviceid",
+        headerName: "设备ID",
+        resizable: true,
+        sortable: true,
+      },
+      {
+        field: "devicename",
+        headerName: "设备名称",
+        resizable: true,
+        sortable: true,
+      },
+      {
+        field: "departmentinfo",
         headerName: "部门信息",
         resizable: true,
         sortable: true,
@@ -82,21 +108,21 @@ export class VideoIntegrationComponent implements OnInit {
         sortable: true,
       },
       {
-        field: "videoServiceStatus",
+        field: "videoservicestatus",
         headerName: "视频服务器状态",
         resizable: true,
         sortable: true,
       },
       {
-        field: "ipAddress",
+        field: "ipaddress",
         headerName: "IP地址",
         resizable: true,
         minWidth: 10,
         sortable: true,
       },
       {
-        field: "continueTime",
-        headerName: "持续时间",
+        field: "lastupdateon",
+        headerName: "更新时间",
         resizable: true,
         minWidth: 10,
         sortable: true,
@@ -117,266 +143,266 @@ export class VideoIntegrationComponent implements OnInit {
   message = [
     {
       id: "1",
-      cameraIP: "192.168.3.3",
+      cameraip: "192.168.3.3",
       territory: "电机测试系统台架",
       departmentInfo: "新能源电机测试试验室",
       description: "海康",
-      videoServiceStatus: "运行",
-      ipAddress: "192.168.34.32",
-      continueTime: "76d",
+      videoservicestatus: "运行",
+      ipaddress: "192.168.34.32",
+      createtime: "76d",
       principal: "王霸天",
     },
     {
       id: "2",
-      cameraIP: "192.168.3.3",
+      cameraip: "192.168.3.3",
       territory: "电机测试系统台架",
       departmentInfo: "新能源电机测试试验室",
       description: "海康",
-      videoServiceStatus: "停止",
-      ipAddress: "192.168.34.32",
-      continueTime: "76d",
+      videoservicestatus: "停止",
+      ipaddress: "192.168.34.32",
+      createtime: "76d",
       principal: "王霸天",
     },
     {
       id: "3",
-      cameraIP: "192.168.3.3",
+      cameraip: "192.168.3.3",
       territory: "电机测试系统台架",
       departmentInfo: "新能源电机测试试验室",
       description: "海康",
-      videoServiceStatus: "维护",
-      ipAddress: "192.168.34.32",
-      continueTime: "76d",
+      videoservicestatus: "维护",
+      ipaddress: "192.168.34.32",
+      createtime: "76d",
       principal: "王霸天",
     },
     {
       id: "4",
-      cameraIP: "192.168.3.3",
+      cameraip: "192.168.3.3",
       territory: "电机测试系统台架",
       departmentInfo: "新能源电机测试试验室",
       description: "海康",
-      videoServiceStatus: "故障",
-      ipAddress: "192.168.34.32",
-      continueTime: "76d",
+      videoservicestatus: "故障",
+      ipaddress: "192.168.34.32",
+      createtime: "76d",
       principal: "王霸天",
     },
     {
       id: "5",
-      cameraIP: "192.168.3.3",
+      cameraip: "192.168.3.3",
       territory: "电机测试系统台架",
       departmentInfo: "新能源电机测试试验室",
       description: "海康",
-      videoServiceStatus: "运行",
-      ipAddress: "192.168.34.32",
-      continueTime: "76d",
+      videoservicestatus: "运行",
+      ipaddress: "192.168.34.32",
+      createtime: "76d",
       principal: "王霸天",
     },
     {
       id: "6",
-      cameraIP: "192.168.3.3",
+      cameraip: "192.168.3.3",
       territory: "电机测试系统台架",
       departmentInfo: "新能源电机测试试验室",
       description: "海康",
-      videoServiceStatus: "运行",
-      ipAddress: "192.168.34.32",
-      continueTime: "76d",
+      videoservicestatus: "运行",
+      ipaddress: "192.168.34.32",
+      createtime: "76d",
       principal: "王霸天",
     },
     {
       id: "7",
-      cameraIP: "192.168.3.3",
+      cameraip: "192.168.3.3",
       territory: "电机测试系统台架",
       departmentInfo: "新能源电机测试试验室",
       description: "海康",
-      videoServiceStatus: "运行",
-      ipAddress: "192.168.34.32",
-      continueTime: "76d",
+      videoservicestatus: "运行",
+      ipaddress: "192.168.34.32",
+      createtime: "76d",
       principal: "王霸天",
     },
     {
       id: "8",
-      cameraIP: "192.168.3.3",
+      cameraip: "192.168.3.3",
       territory: "电机测试系统台架",
       departmentInfo: "新能源电机测试试验室",
       description: "海康",
-      videoServiceStatus: "运行",
-      ipAddress: "192.168.34.32",
-      continueTime: "76d",
+      videoservicestatus: "运行",
+      ipaddress: "192.168.34.32",
+      createtime: "76d",
       principal: "王霸天",
     },
     {
       id: "9",
-      cameraIP: "192.168.3.3",
+      cameraip: "192.168.3.3",
       territory: "电机测试系统台架",
       departmentInfo: "新能源电机测试试验室",
       description: "海康",
-      videoServiceStatus: "运行",
-      ipAddress: "192.168.34.32",
-      continueTime: "76d",
+      videoservicestatus: "运行",
+      ipaddress: "192.168.34.32",
+      createtime: "76d",
       principal: "王霸天",
     },
     {
       id: "10",
-      cameraIP: "192.168.3.3",
+      cameraip: "192.168.3.3",
       territory: "电机测试系统台架",
       departmentInfo: "新能源电机测试试验室",
       description: "海康",
-      videoServiceStatus: "运行",
-      ipAddress: "192.168.34.32",
-      continueTime: "76d",
+      videoservicestatus: "运行",
+      ipaddress: "192.168.34.32",
+      createtime: "76d",
       principal: "王霸天",
     },
     {
       id: "11",
-      cameraIP: "192.168.3.3",
+      cameraip: "192.168.3.3",
       territory: "电机测试系统台架",
       departmentInfo: "新能源电机测试试验室",
       description: "海康",
-      videoServiceStatus: "运行",
-      ipAddress: "192.168.34.32",
-      continueTime: "76d",
+      videoservicestatus: "运行",
+      ipaddress: "192.168.34.32",
+      createtime: "76d",
       principal: "王霸天",
     },
     {
       id: "12",
-      cameraIP: "192.168.3.3",
+      cameraip: "192.168.3.3",
       territory: "电机测试系统台架",
       departmentInfo: "新能源电机测试试验室",
       description: "海康",
-      videoServiceStatus: "运行",
-      ipAddress: "192.168.34.32",
-      continueTime: "76d",
+      videoservicestatus: "运行",
+      ipaddress: "192.168.34.32",
+      createtime: "76d",
       principal: "王霸天",
     },
     {
       id: "13",
-      cameraIP: "192.168.3.3",
+      cameraip: "192.168.3.3",
       territory: "电机测试系统台架",
       departmentInfo: "新能源电机测试试验室",
       description: "海康",
-      videoServiceStatus: "运行",
-      ipAddress: "192.168.34.32",
-      continueTime: "76d",
+      videoservicestatus: "运行",
+      ipaddress: "192.168.34.32",
+      createtime: "76d",
       principal: "王霸天",
     },
     {
       id: "14",
-      cameraIP: "192.168.3.3",
+      cameraip: "192.168.3.3",
       territory: "电机测试系统台架",
       departmentInfo: "新能源电机测试试验室",
       description: "海康",
-      videoServiceStatus: "运行",
-      ipAddress: "192.168.34.32",
-      continueTime: "76d",
+      videoservicestatus: "运行",
+      ipaddress: "192.168.34.32",
+      createtime: "76d",
       principal: "王霸天",
     },
     {
       id: "15",
-      cameraIP: "192.168.3.3",
+      cameraip: "192.168.3.3",
       territory: "电机测试系统台架",
       departmentInfo: "新能源电机测试试验室",
       description: "海康",
-      videoServiceStatus: "运行",
-      ipAddress: "192.168.34.32",
-      continueTime: "76d",
+      videoservicestatus: "运行",
+      ipaddress: "192.168.34.32",
+      createtime: "76d",
       principal: "王霸天",
     },
     {
       id: "16",
-      cameraIP: "192.168.3.3",
+      cameraip: "192.168.3.3",
       territory: "电机测试系统台架",
       departmentInfo: "新能源电机测试试验室",
       description: "海康",
-      videoServiceStatus: "运行",
-      ipAddress: "192.168.34.32",
-      continueTime: "76d",
+      videoservicestatus: "运行",
+      ipaddress: "192.168.34.32",
+      createtime: "76d",
       principal: "王霸天",
     },
     {
       id: "17",
-      cameraIP: "192.168.3.3",
+      cameraip: "192.168.3.3",
       territory: "电机测试系统台架",
       departmentInfo: "新能源电机测试试验室",
       description: "海康",
-      videoServiceStatus: "运行",
-      ipAddress: "192.168.34.32",
-      continueTime: "76d",
+      videoservicestatus: "运行",
+      ipaddress: "192.168.34.32",
+      createtime: "76d",
       principal: "王霸天",
     },
     {
       id: "18",
-      cameraIP: "192.168.3.3",
+      cameraip: "192.168.3.3",
       territory: "电机测试系统台架",
       departmentInfo: "新能源电机测试试验室",
       description: "海康",
-      videoServiceStatus: "运行",
-      ipAddress: "192.168.34.32",
-      continueTime: "76d",
+      videoservicestatus: "运行",
+      ipaddress: "192.168.34.32",
+      createtime: "76d",
       principal: "王霸天",
     },
     {
       id: "19",
-      cameraIP: "192.168.3.3",
+      cameraip: "192.168.3.3",
       territory: "电机测试系统台架",
       departmentInfo: "新能源电机测试试验室",
       description: "海康",
-      videoServiceStatus: "运行",
-      ipAddress: "192.168.34.32",
-      continueTime: "76d",
+      videoservicestatus: "运行",
+      ipaddress: "192.168.34.32",
+      createtime: "76d",
       principal: "王霸天",
     },
     {
       id: "20",
-      cameraIP: "192.168.3.3",
+      cameraip: "192.168.3.3",
       territory: "电机测试系统台架",
       departmentInfo: "新能源电机测试试验室",
       description: "海康",
-      videoServiceStatus: "运行",
-      ipAddress: "192.168.34.32",
-      continueTime: "76d",
+      videoservicestatus: "运行",
+      ipaddress: "192.168.34.32",
+      createtime: "76d",
       principal: "王霸天",
     },
     {
       id: "21",
-      cameraIP: "192.168.3.3",
+      cameraip: "192.168.3.3",
       territory: "电机测试系统台架",
       departmentInfo: "新能源电机测试试验室",
       description: "海康",
-      videoServiceStatus: "运行",
-      ipAddress: "192.168.34.32",
-      continueTime: "76d",
+      videoservicestatus: "运行",
+      ipaddress: "192.168.34.32",
+      createtime: "76d",
       principal: "王霸天",
     },
     {
       id: "22",
-      cameraIP: "192.168.3.3",
+      cameraip: "192.168.3.3",
       territory: "电机测试系统台架",
       departmentInfo: "新能源电机测试试验室",
       description: "海康",
-      videoServiceStatus: "运行",
-      ipAddress: "192.168.34.32",
-      continueTime: "76d",
+      videoservicestatus: "运行",
+      ipaddress: "192.168.34.32",
+      createtime: "76d",
       principal: "王霸天",
     },
     {
       id: "23",
-      cameraIP: "192.168.3.3",
+      cameraip: "192.168.3.3",
       territory: "电机测试系统台架",
       departmentInfo: "新能源电机测试试验室",
       description: "海康",
-      videoServiceStatus: "运行",
-      ipAddress: "192.168.34.32",
-      continueTime: "76d",
+      videoservicestatus: "运行",
+      ipaddress: "192.168.34.32",
+      createtime: "76d",
       principal: "王霸天",
     },
     {
       id: "24",
-      cameraIP: "192.168.3.3",
+      cameraip: "192.168.3.3",
       territory: "电机测试系统台架",
       departmentInfo: "新能源电机测试试验室",
       description: "海康",
-      videoServiceStatus: "运行",
-      ipAddress: "192.168.34.32",
-      continueTime: "76d",
+      videoservicestatus: "运行",
+      ipaddress: "192.168.34.32",
+      createtime: "76d",
       principal: "王霸天",
     },
   ];
@@ -492,14 +518,24 @@ export class VideoIntegrationComponent implements OnInit {
   }
   // 新增、添加
   add() {
-    this.dialogService.open(AddEditVideoIntegrationComponent, {
-      closeOnBackdropClick: false,
-      context: {
-        title: "新增视频服务器",
-        content: false,
-        rowData: [],
-      },
-    });
+    this.dialogService
+      .open(AddEditVideoIntegrationComponent, {
+        closeOnBackdropClick: false,
+        context: {
+          title: "新增视频服务器",
+          content: false,
+          rowData: [],
+        },
+      })
+      .onClose.subscribe((res) => {
+        if (res) {
+          // 更新数据
+          this.gridData = [];
+          this.loading = true;
+          this.update_agGrid();
+          this.loading = false;
+        }
+      });
   }
 
   // 删除
@@ -536,7 +572,23 @@ export class VideoIntegrationComponent implements OnInit {
           },
         })
         .onClose.subscribe((istrue) => {
-          console.error("istrue, rowdata", istrue, rowdata);
+          this.http
+            .callRPC(this.TABLE, this.DMETHOD, rowdata)
+            .subscribe((result) => {
+              var res = result["result"]["message"][0];
+              if (res["code"] === 1) {
+                this.delsuccess();
+                this.RecordOperation("删除", 1, "视频集成服务器管理");
+                // 更新数据
+                this.gridData = [];
+                this.loading = true;
+                this.update_agGrid();
+                this.loading = false;
+              } else {
+                this.deldanger();
+                this.RecordOperation("删除", 1, "视频集成服务器管理");
+              }
+            });
         });
     }
   }
@@ -552,14 +604,24 @@ export class VideoIntegrationComponent implements OnInit {
     }
     // 每次编辑一条
     if (rowdata.length == 1) {
-      this.dialogService.open(AddEditVideoIntegrationComponent, {
-        closeOnBackdropClick: false,
-        context: {
-          title: "编辑视频服务器",
-          content: true,
-          rowData: rowdata,
-        },
-      });
+      this.dialogService
+        .open(AddEditVideoIntegrationComponent, {
+          closeOnBackdropClick: false,
+          context: {
+            title: "编辑视频服务器",
+            content: true,
+            rowData: rowdata,
+          },
+        })
+        .onClose.subscribe((res) => {
+          if (res) {
+            // 更新数据
+            this.gridData = [];
+            this.loading = true;
+            this.update_agGrid();
+            this.loading = false;
+          }
+        });
     } else {
       this.dialogService
         .open(EditDelTooltipComponent, {
@@ -584,15 +646,59 @@ export class VideoIntegrationComponent implements OnInit {
 
   // 搜索按钮
   query() {
-    var department = this.department.getselect();
-    var devicetpye_data = this.devicetpye.getselect();
-    var myinput = this.myinput.getinput();
-    console.log(
-      "<------------搜索----------->",
-      department,
-      devicetpye_data,
-      myinput
-    );
+    var inittable_before = this.inittable_before();
+    // console.error("inittable_before>>>>>>>>>>>>>>", inittable_before);
+
+    if (
+      inittable_before.cameraname == "" &&
+      inittable_before.group.length == 0 &&
+      inittable_before.devicetpye.length == 0
+    ) {
+      this.dialogService.open(EditDelTooltipComponent, {
+        closeOnBackdropClick: false,
+        context: { title: "提示", content: `缺少搜索条件！` },
+      });
+    } else {
+      var offset;
+      var limit;
+      var PageSize;
+
+      offset = 0;
+      limit = inittable_before.limit;
+      PageSize = inittable_before.limit;
+      var colmun = {
+        offset: offset,
+        limit: limit,
+        employeeid: inittable_before.employeeid,
+        group: inittable_before.group,
+        devicetype: inittable_before.devicetpye,
+        cameraname: inittable_before.cameraname,
+      };
+      var table = this.TABLE;
+      var methond = this.METHOD;
+      this.http.callRPC(table, methond, colmun).subscribe((res) => {
+        var get_employee_limit = res["result"]["message"][0];
+        this.loading = false;
+        if (get_employee_limit["code"] === 1) {
+          // 发布组件，编辑用户的组件
+          var message = res["result"]["message"][0]["message"];
+          this.tableDatas.PageSize = PageSize;
+          this.gridData = [];
+          this.gridData.push(...message);
+          this.tableDatas.rowData = this.gridData;
+          var totalpagenumbers = get_employee_limit["numbers"]
+            ? get_employee_limit["numbers"][0]["numbers"]
+            : "未得到总条数";
+          this.tableDatas.totalPageNumbers = totalpagenumbers;
+          this.agGrid.init_agGrid(this.tableDatas); // 告诉组件刷新！
+          // 刷新table后，改为原来的！
+          this.tableDatas.isno_refresh_page_size = false;
+          this.RecordOperation("搜索", 1, "视频集成服务器管理");
+        } else {
+          this.RecordOperation("搜索", 0, "视频集成服务器管理");
+        }
+      });
+    }
   }
 
   // 导出
@@ -607,9 +713,6 @@ export class VideoIntegrationComponent implements OnInit {
     // 是否 每页多少也，设置为默认值
     this.tableDatas.isno_refresh_page_size = true;
 
-    // 取消选择的数据 delselect
-    // this.myYear.reset_year();
-    // this.myMonth.reset_month();
     this.myinput.del_input_value();
     this.department.dropselect();
     this.devicetpye.dropselect();
@@ -636,9 +739,9 @@ export class VideoIntegrationComponent implements OnInit {
     return {
       limit: this.agGrid.get_pagesize(),
       employeeid: this.userinfo.getEmployeeID(),
-      department: department,
+      group: department.split(";")[0] == [""] ? [] : department.split(";"),
       devicetpye: devicetpye,
-      asset_number: asset_number,
+      cameraname: asset_number,
     };
   }
 
@@ -659,9 +762,10 @@ export class VideoIntegrationComponent implements OnInit {
     var colmun = {
       offset: offset,
       limit: limit,
-      departmentselect: inittable_before.department,
-      device_tpye: inittable_before.devicetpye,
-      asset_number: inittable_before.asset_number,
+      employeeid: inittable_before.employeeid,
+      group: inittable_before.group,
+      devicetype: inittable_before.devicetpye,
+      cameraname: inittable_before.cameraname,
     };
     var table = this.TABLE;
     var methond = this.METHOD;
@@ -682,15 +786,58 @@ export class VideoIntegrationComponent implements OnInit {
         this.agGrid.init_agGrid(this.tableDatas); // 告诉组件刷新！
         // 刷新table后，改为原来的！
         this.tableDatas.isno_refresh_page_size = false;
-        // this.RecordOperation('查看', 1,  "设备/工时报表");
+        this.RecordOperation("查看", 1, "视频集成服务器管理");
       } else {
-        // this.RecordOperation('查看', 0,  "设备/工时报表");
-        this.gridData.push(...this.message);
+        this.RecordOperation("查看", 0, "视频集成服务器管理");
+      }
+    });
+  }
+
+  update_agGrid(event?) {
+    var inittable_before = this.inittable_before();
+    // 是否 每页多少也，设置为默认值
+    this.tableDatas.isno_refresh_page_size = true;
+    var offset;
+    var limit;
+    var PageSize;
+    if (event != undefined) {
+      offset = event.offset;
+      limit = event.limit;
+      PageSize = event.PageSize ? Number(event.PageSize) : 10;
+    } else {
+      offset = 0;
+      limit = inittable_before.limit;
+      PageSize = inittable_before.limit;
+    }
+    var colmun = {
+      offset: offset,
+      limit: limit,
+      employeeid: inittable_before.employeeid,
+      group: inittable_before.group,
+      devicetype: inittable_before.devicetpye,
+      cameraname: inittable_before.cameraname,
+    };
+    var table = this.TABLE;
+    var methond = this.METHOD;
+    this.http.callRPC(table, methond, colmun).subscribe((res) => {
+      var get_employee_limit = res["result"]["message"][0];
+      this.loading = false;
+      if (get_employee_limit["code"] === 1) {
+        // 发布组件，编辑用户的组件
+        var message = res["result"]["message"][0]["message"];
+        this.tableDatas.PageSize = PageSize;
+        this.gridData.push(...message);
         this.tableDatas.rowData = this.gridData;
-        this.tableDatas.totalPageNumbers = this.message.length;
-        this.agGrid.init_agGrid(this.tableDatas); // 告诉组件刷新！
+        var totalpagenumbers = get_employee_limit["numbers"]
+          ? get_employee_limit["numbers"][0]["numbers"]
+          : "未得到总条数";
+        this.tableDatas.totalPageNumbers = totalpagenumbers;
+        this.agGrid.update_agGrid(this.tableDatas); // 告诉组件刷新！
         // 刷新table后，改为原来的！
         this.tableDatas.isno_refresh_page_size = false;
+        this.RecordOperation("查看", 1, "视频集成服务器管理");
+      } else {
+        this.RecordOperation("查看", 0, "视频集成服务器管理");
       }
     });
   }
@@ -698,5 +845,38 @@ export class VideoIntegrationComponent implements OnInit {
   // 点击行数据 子组件调用
   clickrow(data) {
     // localStorage.setItem("man_kpi_for_detail", JSON.stringify(data))
+  }
+
+  delsuccess() {
+    this.publicmethod.showngxtoastr({
+      position: "toast-top-right",
+      status: "success",
+      conent: "删除成功!",
+    });
+  }
+  deldanger() {
+    this.publicmethod.showngxtoastr({
+      position: "toast-top-right",
+      status: "danger",
+      conent: "删除失败!",
+    });
+  }
+
+  // option_record
+  RecordOperation(option, result, infodata) {
+    if (this.userinfo.getLoginName()) {
+      var employeeid = this.userinfo.getEmployeeID();
+      var result = result; // 1:成功 0 失败
+      var transactiontype = option; // '新增用户';
+      var info = infodata;
+      var createdby = this.userinfo.getLoginName();
+      this.publicmethod.option_record(
+        employeeid,
+        result,
+        transactiontype,
+        info,
+        createdby
+      );
+    }
   }
 }

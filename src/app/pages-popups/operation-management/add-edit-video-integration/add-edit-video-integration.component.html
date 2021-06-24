@@ -19,15 +19,45 @@
 
 
         <div class="layui-form-item">
-            <!-- 摄像头IP cameraIP -->
+            <!-- 功能组 -->
+            <div class="layui-input-inline"style="width: 46%;">
+                <label class="layui-form-label mylabel">功能组：</label>
+                <div class="layui-input-block">
+                    <select id="group" name="group" lay-filter="group" >
+                    </select>
+                </div>
+            </div>
+
+            <!-- 设备名称 -->
+            <div class="layui-input-inline"style="width: 46%;">
+                <label class="layui-form-label mylabel">设备名称：</label>
+                <div class="layui-input-block">
+                    <select  id="devicename" name="devicename" >
+                    </select>
+                </div>
+            </div>
+
+            <!-- 设备ID deviceid -->
+            <div class="layui-inline" style="width: 46%;">
+                <label class="layui-form-label mylabel mulu_title">设备ID</label>
+                <div class="layui-input-block">
+                    <input disabled type="text" name="deviceid" required  lay-verify="deviceid" placeholder="设备ID" autocomplete="off" class="layui-input">
+                    <!-- <input *ngIf="!content" type="text" name="deviceid" required  lay-verify="required|deviceid" placeholder="设备ID" autocomplete="off" class="layui-input"> -->
+                </div>
+            </div>
+        </div>
+
+        <div class="layui-form-item">
+            <!-- 摄像头IP cameraip -->
             <div class="layui-inline" style="width: 46%;">
                 <label class="layui-form-label mylabel mulu_title">摄像头IP</label>
                 <div class="layui-input-block">
-                <input type="text" name="cameraIP" required  lay-verify="required|cameraIP" placeholder="摄像头IP" autocomplete="off" class="layui-input">
+                <!-- content true: edit -->
+                <input  required type="text" name="cameraip"  lay-verify="required|cameraip" placeholder="摄像头IP" autocomplete="off" class="layui-input">
                 </div>
             </div>
             <!-- 负责区域 territory -->
-            <div class="layui-inline" style="width: 46%;">
+            <div class="layui-inline" style="width: 46%;height: 66px;">
                 <label class="layui-form-label mylabel mulu_title">负责区域</label>
                 <div class="layui-input-block">
                 <input type="text" name="territory" required  lay-verify="required|territory" placeholder="负责区域" autocomplete="off" class="layui-input">
@@ -37,70 +67,61 @@
         </div>
 
         <div class="layui-form-item">
-            <!-- 部门信息 imei -->
+            <!-- 摄像头唯一标识符 cameraindexcode -->
             <div class="layui-inline" style="width: 46%;">
-                <label class="layui-form-label mylabel mulu_title">部门信息</label>
+                <label class="layui-form-label mylabel mulu_title">摄像头唯一标识符</label>
                 <div class="layui-input-block">
-                    <input type="text" name="departmentInfo" required  lay-verify="required|departmentInfo" placeholder="部门信息" autocomplete="off" class="layui-input">
+                    <input type="text" name="cameraindexcode" required  lay-verify="required|cameraindexcode" placeholder="摄像头唯一标识符" autocomplete="off" class="layui-input">
                 </div>
             </div>
 
-            <!-- 描述  sim -->
-            <div class="layui-inline" style="width: 46%;">
+            <!-- 描述  description -->
+            <div class="layui-inline" style="width: 46%;height: 66px;">
                 <label class="layui-form-label mylabel mulu_title">描述</label>
                 <div class="layui-input-block">
                     <input type="text" name="description" required  lay-verify="required|description" placeholder="描述" autocomplete="off" class="layui-input">
                 </div>
             </div>
-
-            
-
         </div>
         
         <div class="layui-form-item">
-            
-            <!-- 视频服务器状态 videoServiceStatus -->
+            <!-- 视频服务器状态 videoservicestatus -->
             <div class="layui-inline" style="width: 46%;">
+                <!-- <label class="layui-form-label mylabel mulu_title">视频服务器状态</label>
+                <div class="layui-input-block">
+                    <input type="text" name="videoservicestatus" required  lay-verify="required|videoservicestatus" placeholder="视频服务器状态" autocomplete="off" class="layui-input">
+                </div> -->
                 <label class="layui-form-label mylabel mulu_title">视频服务器状态</label>
                 <div class="layui-input-block">
-                    <input type="text" name="videoServiceStatus" required  lay-verify="required|videoServiceStatus" placeholder="视频服务器状态" autocomplete="off" class="layui-input">
+                    <input type="checkbox" name="videoservicestatus" lay-skin="switch" lay-text="是|否" value="1">
                 </div>
             </div>
 
-            <!-- IP地址 ipAddress -->
-            <div class="layui-inline" style="width: 46%;height: 66px;">
+            <!-- IP地址 ipaddress -->
+            <div class="layui-inline" style="width: 46%;height: 66px;height: 66px;">
                 <label class="layui-form-label mylabel mulu_title">IP地址&nbsp;&nbsp;</label>
                 <div class="layui-input-block">
-                    <input type="text" name="ipAddress" required  lay-verify="required|ipAddress" placeholder="IP地址" autocomplete="off" class="layui-input">
+                    <input type="text" name="ipaddress" required  lay-verify="required|ipaddress" placeholder="IP地址" autocomplete="off" class="layui-input">
                 </div>
             </div>
-
-            <!-- 创建人 createdby -->
-            <!-- <div class="layui-inline" style="width: 46%;height: 66px;">
-                <label class="layui-form-label mylabel mulu_title">创建人&nbsp;&nbsp;</label>
-                <div class="layui-input-block">
-                    <input type="text" name="createdby" required  lay-verify="required|createdby" placeholder="创建人" autocomplete="off" class="layui-input">
-                </div>
-            </div> -->
-            
         </div>
 
         <div class="layui-form-item">
-            <!-- 持续时间 continueTime -->
+            <!-- 摄像头名称 cameraname -->
             <div class="layui-inline" style="width: 46%;">
-                <label class="layui-form-label mylabel mulu_title">持续时间</label>
+                <label class="layui-form-label mylabel mulu_title">摄像头名称</label>
                 <div class="layui-input-block">
-                    <input type="text" name="continueTime" required  lay-verify="required|continueTime" placeholder="持续时间" autocomplete="off" class="layui-input">
+                    <input type="text" name="cameraname" required  lay-verify="required|cameraname" placeholder="摄像头名称" autocomplete="off" class="layui-input">
                 </div>
             </div>
 
-            <!-- 负责人 principal -->
-            <div class="layui-inline" style="width: 46%;">
-                <label class="layui-form-label mylabel mulu_title">负责人&nbsp;&nbsp;</label>
+            <!-- 摄像头IP cameraip -->
+            <!-- <div class="layui-inline" style="width: 46%;height: 66px;">
+                <label class="layui-form-label mylabel mulu_title">摄像头IP&nbsp;&nbsp;</label>
                 <div class="layui-input-block">
-                    <input type="text" name="principal" required  lay-verify="required|principal" placeholder="负责人" autocomplete="off" class="layui-input">
+                    <input type="text" name="cameraip" required  lay-verify="required|cameraip" placeholder="摄像头IP" autocomplete="off" class="layui-input">
                 </div>
-            </div>
+            </div> -->
 
             <!-- 是否启用 active -->
             <!-- <div class="layui-inline" style="width: 46%;">

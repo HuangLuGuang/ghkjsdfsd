@@ -263,7 +263,7 @@ export class MapComponent implements OnInit {
 
   //   监听 点击设置围栏
   setweilan = (params) => {
-    console.error(params, "+++++++++++++++", "监听 点击设置围栏");
+    // console.error(params, "+++++++++++++++", "监听 点击设置围栏");
     this.dialogService
       .open(
         SetWeilanComponent,

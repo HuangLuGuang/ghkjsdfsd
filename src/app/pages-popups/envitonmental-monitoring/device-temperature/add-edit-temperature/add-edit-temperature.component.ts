@@ -172,7 +172,7 @@ export class AddEditTemperatureComponent implements OnInit {
         var formdatar = that.rowData[0];
         formdatar["groups"] = formdatar["groupsid"];
 
-        console.error("表单初始化--编辑>>>>>", formdatar);
+        // console.error("表单初始化--编辑>>>>>", formdatar);
         // 修改选择项
         setTimeout(() => {
           form.val("device", formdatar);

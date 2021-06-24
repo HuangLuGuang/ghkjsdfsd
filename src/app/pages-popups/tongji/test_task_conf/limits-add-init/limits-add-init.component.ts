@@ -222,7 +222,7 @@ export class LimitsAddInitComponent implements OnInit {
 
   // 删除按钮   get_lims_processed_remove
   remove(message) {
-    console.error("删除按钮>>>>", message);
+    // console.error("删除按钮>>>>", message);
     var table = "lims_data";
     var method = "get_lims_processed_remove";
     this.dialogService
@@ -235,7 +235,7 @@ export class LimitsAddInitComponent implements OnInit {
         },
       })
       .onClose.subscribe((istrue) => {
-        console.error("删除按钮>>>istrue", istrue);
+        // console.error("删除按钮>>>istrue", istrue);
         if (istrue) {
           this.http.callRPC(table, method, message).subscribe((result) => {
             var res = result["result"]["message"][0];
@@ -320,7 +320,6 @@ export class LimitsAddInitComponent implements OnInit {
 
     var url = "/api/v1/lims";
     this.http.get(url).subscribe((res) => {
-      console.error("++++刷新数据++++", res);
       if (res["succeed"] == "成功") {
         this.success();
         this.init_list();

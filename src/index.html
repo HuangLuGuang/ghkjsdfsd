@@ -121,7 +121,7 @@
         var p = new Ping({timeout: 2000}); // 5s
         p.ping("https://api.map.baidu.com", function(err, data){
             if (err){
-                console.error("error loading resource>>>", err)
+                console.error("error loading 百度api resource>>>", err)
             }else{
                 if (!document.getElementById("is_map_api")) {
                     // 动态创建script元素
