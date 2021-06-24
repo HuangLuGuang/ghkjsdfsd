@@ -503,7 +503,7 @@ export class LimisAddDialogComponent implements OnInit, AfterViewInit {
         .onClose.subscribe((g) => {});
       return;
     }
-    this.loading_dialog = true;
+    this.loading_dialog = true;  
     this.get_drawer_table_data().subscribe((id) => {
       console.log(id);
       let wtorderno:string[]  = this.current.wtorderno.split('WT');
