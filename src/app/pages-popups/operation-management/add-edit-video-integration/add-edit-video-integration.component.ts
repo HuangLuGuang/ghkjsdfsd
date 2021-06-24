@@ -188,7 +188,7 @@ export class AddEditVideoIntegrationComponent implements OnInit {
           videoservicestatus = savedata["videoservicestatus"];
         }
         savedata["videoservicestatus"] = videoservicestatus;
-        console.error("======?savedata", savedata);
+        // console.error("======?savedata", savedata);
 
         if (that.content) {
           savedata["id"] = that.rowData[0].id;
