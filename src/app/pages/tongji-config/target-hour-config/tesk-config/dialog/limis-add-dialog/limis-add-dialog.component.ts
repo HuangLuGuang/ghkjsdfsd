@@ -507,7 +507,7 @@ export class LimisAddDialogComponent implements OnInit, AfterViewInit {
     this.get_drawer_table_data().subscribe((id) => {
       console.log(id);
       let wtorderno:string[]  = this.current.wtorderno.split('WT');
-      this.current.no = (wtorderno && wtorderno.length>1 ?'SY'+wtorderno[1]:wtorderno)  + '-' + id;
+      this.current.no = (wtorderno && wtorderno.length>1 ?'SY'+wtorderno[1]:this.current.wtorderno)  + '-' + id;
       this.insert_drawer_table_data();
       // this.source.prepend(JSON.parse(JSON.stringify(this.current)));
       this.current = {
