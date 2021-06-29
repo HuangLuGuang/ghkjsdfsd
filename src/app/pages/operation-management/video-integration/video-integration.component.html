@@ -38,6 +38,15 @@
     <div class="col-lg-3" style="display: flex; padding: 0px 11px;">
         <div style="flex: auto;">
         </div>
+        <!-- 导入 -->
+        <div class=" button_item my_import " *ngIf="button?.import">
+            <button nbButton [status]="button?.import.class" size="small" (click)="import_module_download()"  [disabled]="button?.import.active == 0? true:false">导入模板下载</button>
+        </div>
+        <div class=" button_item my_import " *ngIf="button?.import">
+            <button nbButton [status]="button?.import.class" size="small" (click)="action(button?.import.permission)"  [disabled]="button?.import.active == 0? true:false"><nb-icon [icon]="button?.import.icon"></nb-icon>{{button?.import.title}}</button>
+            <input type="file" class="import" id="import" (change)="onFileChange($event)" multiple="false" >
+        </div>
+
         <!-- 导出、重置 -->
         <!-- 导出 -->
         <div class=" button_item download" *ngIf="button?.download">

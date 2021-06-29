@@ -13,6 +13,12 @@ import { AddEditVideoIntegrationComponent } from "../../../pages-popups/operatio
 import { NbDialogService } from "@nebular/theme";
 import { EditDelTooltipComponent } from "../../../pages-popups/prompt-diallog/edit-del-tooltip/edit-del-tooltip.component";
 
+import * as XLSX from "xlsx";
+
+import { VideoIntegration } from "../../../pages-popups/operation-management/form_verification";
+
+type AOA = any[][];
+
 @Component({
   selector: "ngx-video-integration",
   templateUrl: "./video-integration.component.html",
@@ -39,6 +45,7 @@ export class VideoIntegrationComponent implements OnInit {
   TABLE = "video_integration";
   METHOD = "get_video_integration";
   DMETHOD = "delete_video_integration";
+  IMETHOD = "insert_video_integration";
 
   // agGrid
   tableDatas = {
@@ -92,6 +99,12 @@ export class VideoIntegrationComponent implements OnInit {
       {
         field: "devicename",
         headerName: "设备名称",
+        resizable: true,
+        sortable: true,
+      },
+      {
+        field: "menu",
+        headerName: "目录菜单",
         resizable: true,
         sortable: true,
       },
@@ -421,6 +434,11 @@ export class VideoIntegrationComponent implements OnInit {
     this.get_tree_selecetdata();
   }
 
+  importdata: AOA = [
+    [1, 2],
+    [3, 4],
+  ];
+
   ngOnInit(): void {
     // agGrid
     var that = this;
@@ -508,9 +526,9 @@ export class VideoIntegrationComponent implements OnInit {
       case "query":
         this.query();
         break;
-      // case 'import':
-      //   this.import();
-      //   break;
+      case "import":
+        this.importfile();
+        break;
       case "download":
         this.download("视频集成服务器管理");
         break;
@@ -705,6 +723,359 @@ export class VideoIntegrationComponent implements OnInit {
   download(title) {
     this.agGrid.download(title);
   }
+
+  // ======================== 导入
+  // 导入模板下载
+  import_module_download() {
+    var title = "设备台账";
+    var ismodule = true;
+    this.agGrid.download(title, ismodule);
+  }
+
+  // 导入文件
+  importfile() {
+    var input = document.getElementById("import");
+    // js执行点击input
+    input.click();
+  }
+
+  onFileChange(evt: any) {
+    const target: DataTransfer = <DataTransfer>evt.target;
+    // console.log("导入：---------------------------", target);
+    const reader: FileReader = new FileReader();
+    reader.onload = (e: any) => {
+      /* read workbook */
+      const bstr: string = e.target.result;
+      const wb: XLSX.WorkBook = XLSX.read(bstr, { type: "binary" });
+
+      /* grab first sheet */
+      const wsname: string = wb.SheetNames[0];
+      const ws: XLSX.WorkSheet = wb.Sheets[wsname];
+
+      /* save data */
+      this.importdata = <AOA>XLSX.utils.sheet_to_json(ws, { header: 1 });
+
+      this.analysis_sheet_to_json_to_ng2(this.importdata);
+    };
+    reader.readAsBinaryString(target.files[0]);
+  }
+
+  analysis_sheet_to_json_to_ng2(importdata) {
+    // console.log("这是导入的Excel的原始数据！", importdata, "\n");
+    var rowData_list = importdata.slice(1, importdata.length);
+    var excel_title = importdata.slice(0, 1)[0];
+    // console.log("rowData_list----excel 除了表头的数据>", rowData_list);
+
+    var ag_Grid_columns = this.tableDatas.columnDefs.slice(
+      0,
+      excel_title.length
+    );
+
+    var agGridTitle = [];
+    var noexist_title = [];
+
+    var agGridTitle = [];
+    var noexist_title = [];
+    for (let index = 0; index < ag_Grid_columns.length; index++) {
+      const agitem = ag_Grid_columns[index];
+      const exitem = excel_title[index];
+
+      if (agitem.headerName === exitem) {
+        agGridTitle.push(agitem.field);
+      } else {
+        // console.log("字段不一致", "agTitle != exetitle", agitem.headerName, '!=', exitem);
+        noexist_title.push(agitem.headerName);
+      }
+    }
+
+    if (noexist_title.length > 0) {
+      this.importdanger(noexist_title);
+      // console.log("-----noexist_title----------", noexist_title);
+    } else {
+      var rowData = []; // rowData 就是table需要的source
+      // console.error("rowData_list>>>>", rowData_list);
+
+      rowData_list.forEach((element) => {
+        // rowData_list excel 除了第一列字段，其它的数据！
+        var item = {};
+        if (element.length != 0) {
+          for (let index = 0; index < element.length; index++) {
+            item[agGridTitle[index]] = element[index];
+            item["createdby"] = this.userinfo.getName();
+            if (agGridTitle[index] == "menu" && element[index] !== undefined) {
+              // console.error("element[index]>>>", element[index]);
+              var title = element[index];
+              this.publicmethod.get_menu_withid(title).subscribe((result) => {
+                if (result !== undefined) {
+                  // console.error("result======++++>>>", result);
+                  var menu = result["title"];
+                  var menuid = result["id"];
+                  item["menuid"] = menuid;
+                }
+              });
+            }
+          }
+          rowData.push(item);
+        }
+      });
+
+      // 检查导入数据验证
+      var verify_err = [];
+      var verify_after = this.verify_rowdatas(rowData, verify_err); // 验证后的数据 得到的是验证的 错误信息！
+      if (verify_after.length > 0) {
+        // console.error("Error>>>>>>", verify_after);
+        this.verify_import(verify_after);
+        this.RecordOperation(
+          "导入",
+          0,
+          "视频集成服务器管理:" + JSON.stringify(verify_after)
+        );
+      } else {
+        // console.error("-----错误信息！----------", rowData);
+        this.http
+          .callRPC(this.TABLE, this.IMETHOD, rowData)
+          .subscribe((result) => {
+            var res = result["result"]["message"][0];
+            if (res["code"] === 1) {
+              this.addsuccess();
+              this.RecordOperation("导入", 1, "视频集成服务器管理");
+              // 更新数据
+              this.gridData = [];
+              this.loading = true;
+              this.update_agGrid();
+              this.loading = false;
+            } else {
+              this.adddanger();
+              this.RecordOperation(
+                "导入",
+                0,
+                "视频集成服务器管理" + JSON.stringify(result)
+              );
+            }
+          });
+      }
+    }
+  }
+
+  // 验证每一行数据！ 验证excel导入的数据！
+  verify_rowdatas(rowDatas, verify_err) {
+    rowDatas.forEach((rowdata) => {
+      var deviceid = rowdata["deviceid"];
+      var cameraip = rowdata["cameraip"];
+      var territory = rowdata["territory"];
+      var cameraindexcode = rowdata["cameraindexcode"];
+      var description = rowdata["description"];
+      var ipaddress = rowdata["ipaddress"];
+      var cameraname = rowdata["cameraname"];
+      // 验证！ deviceid
+      var verify_deviceid = this.verify_deviceid(deviceid);
+      if (verify_deviceid != 1) {
+        verify_err.push({ err: verify_deviceid });
+      }
+      // 验证！ cameraip
+      var verify_cameraip = this.verify_cameraip(cameraip);
+      if (verify_cameraip != 1) {
+        verify_err.push({ err: verify_cameraip });
+      }
+      // 验证！ territory
+      var verify_territory = this.verify_territory(territory);
+      if (verify_territory != 1) {
+        verify_err.push({ err: verify_territory });
+      }
+      // 验证！ cameraindexcode
+      var verify_cameraindexcode = this.verify_cameraindexcode(cameraindexcode);
+      if (verify_cameraindexcode != 1) {
+        verify_err.push({ err: verify_cameraindexcode });
+      }
+      // 验证！ description
+      var verify_description = this.verify_description(description);
+      if (verify_description != 1) {
+        verify_err.push({ err: verify_description });
+      }
+      // 验证！ ipaddress
+      var verify_ipaddress = this.verify_ipaddress(ipaddress);
+      if (verify_ipaddress != 1) {
+        verify_err.push({ err: verify_ipaddress });
+      }
+      // 验证！ cameraname
+      var verify_cameraname = this.verify_cameraname(cameraname);
+      if (verify_cameraname != 1) {
+        verify_err.push({ err: verify_cameraname });
+      }
+    });
+    return verify_err;
+  }
+
+  // 验证 sql 注入、 特殊字符！
+  verify_sql_str(data, title) {
+    var special_sql = VideoIntegration["special_sql"]["special_sql"];
+    var special_str = VideoIntegration["special_sql"]["special_str"];
+    var sql = special_sql.test(data);
+    var str = special_str.test(data);
+    if (sql) {
+      return "防止SQL注入，请不要输入关于sql语句的特殊字符！";
+    }
+
+    if (!str) {
+      // console.log("==============>",data, data.length)
+      return title + "不能有特殊字符！";
+    }
+    return 1;
+  }
+
+  // 验证 deviceid 设备ID
+  verify_deviceid(deviceid) {
+    // sql注入和特殊字符 special_str
+    var verify_sql_str = this.verify_sql_str(deviceid, "设备ID");
+    if (verify_sql_str != 1) {
+      return verify_sql_str;
+    }
+    if (deviceid == "") {
+      return "设备ID不能为空";
+    }
+    // 格式验证
+    if (!new RegExp(VideoIntegration.deviceid).test(deviceid)) {
+      return "设备ID 格式不对";
+    }
+    return 1; // 返回1，表示 通过验证！
+  }
+
+  // 验证 cameraip 摄像头IP
+  verify_cameraip(cameraip) {
+    // sql注入和特殊字符 special_str
+    var verify_sql_str = this.verify_sql_str(cameraip, "摄像头IP");
+    if (verify_sql_str != 1) {
+      return verify_sql_str;
+    }
+    if (cameraip == "") {
+      return "摄像头IP不能为空";
+    }
+    // 格式验证
+    if (!new RegExp(VideoIntegration.cameraip).test(cameraip)) {
+      return "摄像头IP 格式不对";
+    }
+    return 1; // 返回1，表示 通过验证！
+  }
+  // 验证 territory 负责区域
+  verify_territory(territory) {
+    // sql注入和特殊字符 special_str
+    var verify_sql_str = this.verify_sql_str(territory, "负责区域");
+    if (verify_sql_str != 1) {
+      return verify_sql_str;
+    }
+    if (territory == "") {
+      return "负责区域不能为空";
+    }
+    // 格式验证
+    if (!new RegExp(VideoIntegration.territory).test(territory)) {
+      return "负责区域 格式不对";
+    }
+    return 1; // 返回1，表示 通过验证！
+  }
+  // 验证 cameraindexcode 摄像头唯一标识符
+  verify_cameraindexcode(cameraindexcode) {
+    // sql注入和特殊字符 special_str
+    var verify_sql_str = this.verify_sql_str(
+      cameraindexcode,
+      "摄像头唯一标识符"
+    );
+    if (verify_sql_str != 1) {
+      return verify_sql_str;
+    }
+    if (cameraindexcode == "") {
+      return "摄像头唯一标识符不能为空";
+    }
+    // 是32 位的
+    if (cameraindexcode.length !== 32) {
+      return "摄像头唯一标识符,长度必须是32位";
+    }
+    // 格式验证
+    if (!new RegExp(VideoIntegration.cameraindexcode).test(cameraindexcode)) {
+      return "摄像头唯一标识符 格式不对";
+    }
+    return 1; // 返回1，表示 通过验证！
+  }
+  // 验证 description 描述
+  verify_description(description) {
+    // sql注入和特殊字符 special_str
+    var verify_sql_str = this.verify_sql_str(description, "描述");
+    if (verify_sql_str != 1) {
+      return verify_sql_str;
+    }
+    if (description == "") {
+      return "描述不能为空";
+    }
+    // 格式验证
+    if (!new RegExp(VideoIntegration.description).test(description)) {
+      return "描述 格式不对";
+    }
+    return 1; // 返回1，表示 通过验证！
+  }
+  // 验证 ipaddress IP地址
+  verify_ipaddress(ipaddress) {
+    // sql注入和特殊字符 special_str
+    var verify_sql_str = this.verify_sql_str(ipaddress, "IP地址");
+    if (verify_sql_str != 1) {
+      return verify_sql_str;
+    }
+    if (ipaddress == "") {
+      return "IP地址不能为空";
+    }
+    // 格式验证
+    if (!new RegExp(VideoIntegration.ipaddress).test(ipaddress)) {
+      return "IP地址 格式不对";
+    }
+    return 1; // 返回1，表示 通过验证！
+  }
+  // 验证 cameraname 摄像头名称
+  verify_cameraname(cameraname) {
+    // sql注入和特殊字符 special_str
+    var verify_sql_str = this.verify_sql_str(cameraname, "摄像头名称");
+    if (verify_sql_str != 1) {
+      return verify_sql_str;
+    }
+    if (cameraname == "") {
+      return "摄像头名称不能为空";
+    }
+    // 格式验证
+    if (!new RegExp(VideoIntegration.cameraname).test(cameraname)) {
+      return "摄像头名称 格式不对";
+    }
+    return 1; // 返回1，表示 通过验证！
+  }
+
+  verify_import(data) {
+    this.publicmethod.showngxtoastr({
+      position: "toast-top-right",
+      status: "danger",
+      conent: "验证不通过：" + JSON.stringify(data),
+    });
+  }
+
+  addsuccess() {
+    this.publicmethod.showngxtoastr({
+      position: "toast-top-right",
+      status: "success",
+      conent: "添加成功!",
+    });
+  }
+  adddanger() {
+    this.publicmethod.showngxtoastr({
+      position: "toast-top-right",
+      status: "danger",
+      conent: "添加失败!",
+    });
+  }
+
+  importdanger(data) {
+    this.publicmethod.showngxtoastr({
+      position: "toast-top-right",
+      status: "danger",
+      conent: "缺少：" + data.join(","),
+    });
+  }
+
+  // ========================
 
   // 刷新table----
   refresh_table() {

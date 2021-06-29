@@ -1,27 +1,34 @@
-import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { EquipmentVehicleVocComponent } from './equipment-vehicle-voc.component';
-import { RouterModule } from '@angular/router';
-import { TranslateModule } from '@ngx-translate/core';
-import { BoardTempModule } from '../temp/board-temp.module';
+import { NgModule } from "@angular/core";
+import { CommonModule } from "@angular/common";
+import { EquipmentVehicleVocComponent } from "./equipment-vehicle-voc.component";
+import { RouterModule } from "@angular/router";
+import { TranslateModule } from "@ngx-translate/core";
+import { BoardTempModule } from "../temp/board-temp.module";
+
+// 视频 videos
+import { VideosModule } from "../../videos/videos.modules";
 
 const ROUTE = [
   {
-    path:'',
-    children:[
+    path: "",
+    children: [
       {
-        path:':title',
-        component:EquipmentVehicleVocComponent
-      }
-    ]
-  }
-]
+        path: ":title",
+        component: EquipmentVehicleVocComponent,
+      },
+    ],
+  },
+];
 
 @NgModule({
-  declarations: [EquipmentVehicleVocComponent,],
+  declarations: [EquipmentVehicleVocComponent],
   imports: [
-    CommonModule,RouterModule.forChild(ROUTE),TranslateModule,BoardTempModule
+    CommonModule,
+    RouterModule.forChild(ROUTE),
+    TranslateModule,
+    BoardTempModule,
+    VideosModule,
   ],
-  exports:[RouterModule]
+  exports: [RouterModule],
 })
-export class EquipmentVehicleVocModule { }
+export class EquipmentVehicleVocModule {}

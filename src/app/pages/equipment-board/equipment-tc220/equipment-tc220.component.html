@@ -22,7 +22,13 @@
             </div>
             <div class="center_img backgrond " style="padding: 0;">
                 <div class="part_title">{{'equipment.OnlineVideo'|translate}}</div>
-                <img id="img" [src]="img.url">
+                <!-- <img id="img" [src]="img.url"> -->
+                <div id="img">
+                    <ngx-pubvideo #pubvideo style="width: 100%;
+                    height: 100%;"></ngx-pubvideo>
+
+                </div>
+                
             </div>
             <div class="backgrond height_33" >
                 <div class="part_title">温湿度</div>

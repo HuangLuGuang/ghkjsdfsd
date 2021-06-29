@@ -32,7 +32,12 @@
                 </div>
                 <div class="backgroud center_img">
                     <div class="part_title">在线视频</div>
-                    <img id="img" [src]="imgsrc.center" />
+                    <!-- <img id="img" [src]="imgsrc.center" /> -->
+                    <div id="img">
+                        <ngx-pubvideo #pubvideo style="width: 100%;
+                        height: 100%;"></ngx-pubvideo>
+
+                    </div>
                 </div>
                 <div class="backgroud height_35 center_thr">
                     <div class="part_title">实验参数</div>

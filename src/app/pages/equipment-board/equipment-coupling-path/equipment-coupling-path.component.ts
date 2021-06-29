@@ -8,6 +8,7 @@ import {
 } from "@angular/core";
 import { ActivatedRoute } from "@angular/router";
 import { HttpserviceService } from "../../../services/http/httpservice.service";
+import { PublicmethodService } from "../../../services/publicmethod/publicmethod.service";
 import {
   colors,
   rgb_del_red,
@@ -544,7 +545,8 @@ export class EquipmentCouplingPathComponent implements OnInit {
     private activateInfo: ActivatedRoute,
     private http: HttpserviceService,
     private boardservice: EquipmentBoardService,
-    private ngzone: NgZone
+    private ngzone: NgZone,
+    private publicmethod: PublicmethodService
   ) {}
 
   ngOnInit(): void {
@@ -598,8 +600,21 @@ export class EquipmentCouplingPathComponent implements OnInit {
     }, 1000);
 
     // 视频
-    var cameraName = "III研究总院试验主通道中看东4";
-    this.pubvideo.get_url(cameraName);
+    // var cameraName = "III研究总院试验主通道中看东4";
+    // this.pubvideo.get_url(cameraName);
+
+    // 视频播放-----！
+    this.subscribeList.router = this.activateInfo.params.subscribe((f) => {
+      if (document.getElementById("head_title"))
+        document.getElementById("head_title").innerText = f.title;
+      // console.error("f.title>>>>>>>>>>>>>", f.title);
+      this.publicmethod.get_url_withid(f.title).subscribe((res) => {
+        if (res !== undefined) {
+          var id = res["id"];
+          this.pubvideo.get_url_menuid(id);
+        }
+      });
+    });
   }
 
   //生成实时数据需要的参数

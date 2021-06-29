@@ -1,27 +1,31 @@
-import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { EquipmentAvlComponent } from './equipment-avl.component';
-import { RouterModule } from '@angular/router';
-import { TranslateModule } from '@ngx-translate/core';
-import { ShareModule } from '../../../share/share.module';
-import { BoardTempModule } from '../temp/board-temp.module';
+import { NgModule } from "@angular/core";
+import { CommonModule } from "@angular/common";
+import { EquipmentAvlComponent } from "./equipment-avl.component";
+import { RouterModule } from "@angular/router";
+import { TranslateModule } from "@ngx-translate/core";
+import { ShareModule } from "../../../share/share.module";
+import { BoardTempModule } from "../temp/board-temp.module";
+
+// 视频 videos
+import { VideosModule } from "../../videos/videos.modules";
 
 const router = [
   {
-    path:'',
-    component:EquipmentAvlComponent
-  }
-]
+    path: "",
+    component: EquipmentAvlComponent,
+  },
+];
 
 @NgModule({
-  declarations: [
-    EquipmentAvlComponent
-  ],
+  declarations: [EquipmentAvlComponent],
   imports: [
-    CommonModule,RouterModule.forChild(router),BoardTempModule,ShareModule,TranslateModule
+    CommonModule,
+    RouterModule.forChild(router),
+    BoardTempModule,
+    ShareModule,
+    TranslateModule,
+    VideosModule,
   ],
-  exports:[
-    RouterModule
-  ]
+  exports: [RouterModule],
 })
-export class EquipmentAvlModule { }
+export class EquipmentAvlModule {}

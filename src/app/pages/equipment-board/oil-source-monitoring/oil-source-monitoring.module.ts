@@ -1,26 +1,31 @@
-import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { RouterModule } from '@angular/router';
-import { TranslateModule } from '@ngx-translate/core';
-import { BoardTempModule } from '../temp/board-temp.module';
-import { OilSourceMonitoringComponent } from './oil-source-monitoring.component';
-import { NbIconModule } from '@nebular/theme';
+import { NgModule } from "@angular/core";
+import { CommonModule } from "@angular/common";
+import { RouterModule } from "@angular/router";
+import { TranslateModule } from "@ngx-translate/core";
+import { BoardTempModule } from "../temp/board-temp.module";
+import { OilSourceMonitoringComponent } from "./oil-source-monitoring.component";
+import { NbIconModule } from "@nebular/theme";
+
+// 视频 videos
+import { VideosModule } from "../../videos/videos.modules";
 
 const router = [
   {
-    path: '',
-    component:OilSourceMonitoringComponent
-  }
-]
+    path: "",
+    component: OilSourceMonitoringComponent,
+  },
+];
 
 @NgModule({
-  declarations: [
-    OilSourceMonitoringComponent
-  ],
+  declarations: [OilSourceMonitoringComponent],
   imports: [
-    CommonModule,RouterModule.forChild(router),TranslateModule,BoardTempModule,
-    NbIconModule
+    CommonModule,
+    RouterModule.forChild(router),
+    TranslateModule,
+    BoardTempModule,
+    NbIconModule,
+    VideosModule,
   ],
-  exports:[RouterModule]
+  exports: [RouterModule],
 })
-export class OilSourceMonitoringModule { }
+export class OilSourceMonitoringModule {}

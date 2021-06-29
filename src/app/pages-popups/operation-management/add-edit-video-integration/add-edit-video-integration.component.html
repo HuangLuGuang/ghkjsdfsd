@@ -32,11 +32,14 @@
             <div class="layui-input-inline"style="width: 46%;">
                 <label class="layui-form-label mylabel">设备名称：</label>
                 <div class="layui-input-block">
-                    <select  id="devicename" name="devicename" >
+                    <select  id="devicename" name="devicename" lay-filter="devicename" >
                     </select>
                 </div>
             </div>
 
+        </div>
+        
+        <div class="layui-form-item">
             <!-- 设备ID deviceid -->
             <div class="layui-inline" style="width: 46%;">
                 <label class="layui-form-label mylabel mulu_title">设备ID</label>
@@ -44,8 +47,20 @@
                     <input disabled type="text" name="deviceid" required  lay-verify="deviceid" placeholder="设备ID" autocomplete="off" class="layui-input">
                     <!-- <input *ngIf="!content" type="text" name="deviceid" required  lay-verify="required|deviceid" placeholder="设备ID" autocomplete="off" class="layui-input"> -->
                 </div>
+                
             </div>
+            <!-- 目录菜单 -->
+            <div class="layui-inline" style="width: 46%;">
+                <label class="layui-form-label mylabel mulu_title">目录菜单</label>
+                <div class="layui-input-block">
+                    <input type="text" name="menu" required="" lay-verify="required" placeholder="请输入标题" readonly="" autocomplete="off" class="layui-input">
+                    <div class="eleTree mulu_ele5" lay-filter="menu"></div>
+                </div>
+            </div>
+
         </div>
+
+
 
         <div class="layui-form-item">
             <!-- 摄像头IP cameraip -->

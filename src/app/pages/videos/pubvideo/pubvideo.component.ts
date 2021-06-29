@@ -1,4 +1,5 @@
 import { Component, OnInit } from "@angular/core";
+import { warn } from "console";
 import { HttpserviceService } from "../../../services/http/httpservice.service";
 
 declare var $;
@@ -20,7 +21,9 @@ export class PubvideoComponent implements OnInit {
 
   // 销毁组件
   ngOnDestroy() {
-    this.hls_ob.destroy();
+    if (this.hls_ob !== undefined) {
+      this.hls_ob.destroy();
+    }
   }
 
   // 得到视屏url 测试
@@ -57,10 +60,6 @@ export class PubvideoComponent implements OnInit {
         list.forEach((item) => {
           if (item["cameraName"] === "III研究总院试验主通道中看东4") {
             cameraIndexCode = item["cameraIndexCode"];
-            // console.error(
-            //   "分页获取监控点资源:cameraIndexCode>>>>",
-            //   cameraIndexCode
-            // );
             params_url.params.cameraIndexCode = cameraIndexCode;
             this.httpservice.post(url, params_url).subscribe((res) => {
               if (res["code"] === 1) {
@@ -81,6 +80,60 @@ export class PubvideoComponent implements OnInit {
         alert("Err:\n" + JSON.stringify(result));
       }
     });
+  }
+
+  // 根据menuid得到视频url
+  get_url_menuid(menuid) {
+    var url = "/api/v1/video",
+      // 分页获取监控点资源
+      params = {
+        path: "/artemis/api/resource/v1/cameras",
+        params: {
+          pageNo: 1,
+          pageSize: 1000,
+        },
+        headers: {},
+      };
+    // 获取监控点预览取流URL
+    var params_url = {
+      path: "/artemis/api/video/v1/cameras/previewURLs",
+      params: {
+        cameraIndexCode: "",
+        streamType: 0,
+        protocol: "hls",
+        transmode: 1,
+      },
+      headers: {},
+    };
+    this.httpservice
+      .callRPC("video_integration", "cameraindexcode_video_integration", {
+        menuid: menuid,
+      })
+      .subscribe((result) => {
+        var res = result["result"]["message"][0];
+        // console.error("res----->", res);
+        // console.error("menuid----->", menuid);
+
+        if (res["code"] === 1 && res["message"].length !== 0) {
+          params_url.params.cameraIndexCode =
+            res["message"][0]["cameraindexcode"];
+          this.httpservice.post(url, params_url).subscribe((res) => {
+            // console.error("get_url_menuid========>", res);
+            console.warn("video--get_url_menuid---->", res);
+            if (res["code"] === 1) {
+              if (res["message"]["data"] == null) {
+                console.error("code：" + res["message"]);
+              } else {
+                var hls_url = res["message"]["data"]["url"];
+                this.play_hls(hls_url);
+              }
+            } else {
+              // 请求视频失败
+              alert("Err:\n" + JSON.stringify(res));
+            }
+          });
+        }
+      });
   }
 
   // -------------------

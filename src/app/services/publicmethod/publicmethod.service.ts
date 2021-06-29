@@ -121,6 +121,47 @@ export class PublicmethodService {
       }
     }
   }
+
+  // 得到当前界面的 url对应的 id
+  get_url_withid(title) {
+    // console.error("title>>>>", title);
+
+    return new Observable((observe) => {
+      var sysmenu =
+        localStorage.getItem(SYSMENU) === null
+          ? []
+          : JSON.parse(localStorage.getItem(SYSMENU));
+
+      sysmenu.forEach((element) => {
+        if (element["type"] === 1 && element["link"].indexOf(title) !== -1) {
+          observe.next(element);
+        } else {
+          observe.next();
+        }
+      });
+    });
+  }
+
+  // 目录 title对应的 id
+  get_menu_withid(title) {
+    // console.error("title>>>>", title);
+
+    return new Observable((observe) => {
+      var sysmenu =
+        localStorage.getItem(SYSMENU) === null
+          ? []
+          : JSON.parse(localStorage.getItem(SYSMENU));
+
+      sysmenu.forEach((element) => {
+        if (element["type"] === 1 && element["title"] == title) {
+          observe.next(element);
+        } else {
+          observe.next();
+        }
+      });
+    });
+  }
+
   // 得到当前的url 文件路径
   public get_current_pathname() {
     return new Observable((observe) => {

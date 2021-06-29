@@ -65,7 +65,12 @@
             <div class="center_img">
                 <div class="part_title">{{'equipment.OnlineVideo'|translate}}</div>
                 <div class="img_div">
-                    <img id="img" [src]="img.url" [alt]="img.name">
+                    <!-- <img id="img" [src]="img.url" [alt]="img.name"> -->
+                    <div id="img">
+                        <ngx-pubvideo #pubvideo style="width: 100%;
+                        height: 100%;"></ngx-pubvideo>
+
+                    </div>
                 </div>
             </div>
             <div class="cleanliness height_33 backgroud">

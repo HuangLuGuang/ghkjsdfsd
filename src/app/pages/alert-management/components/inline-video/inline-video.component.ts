@@ -92,12 +92,13 @@ export class InlineVideoComponent implements OnInit {
             params_url.params.cameraIndexCode = cameraIndexCode;
             this.httpservice.post(url, params_url).subscribe((res) => {
               if (res["code"] === 1) {
-                var hls_url = res["message"]["data"]["url"];
-                // console.error("获取监控点预览取流URL:hls_url>>>>", hls_url);
-                var url = "https://test-streams.mux.dev/x36xhzz/x36xhzz.m3u8";
-                // play_hls(hls_url);
-                this.play_hls(hls_url);
-                // this.play_hls(url);
+                if (res["message"]["data"] == null) {
+                  console.error("code：" + res["message"]);
+                } else {
+                  var hls_url = res["message"]["data"]["url"];
+                  console.error("获取监控点预览取流URL:hls_url>>>>", hls_url);
+                  this.play_hls(hls_url);
+                }
               } else {
                 // 请求视频失败
                 alert("Err:\n" + JSON.stringify(res));
@@ -117,6 +118,46 @@ export class InlineVideoComponent implements OnInit {
     this.publicservice.VideoMessage.subscribe((res) => {
       if (JSON.stringify(res) !== "{}") {
         console.log("查看视频-视频轮播-res>>>>", res);
+        var deviceid = res["deviceid"];
+        this.httpservice
+          .callRPC("video_integration", "cameraindexcode_video_integration", {
+            deviceid: deviceid,
+          })
+          .subscribe((result) => {
+            var resu = result["result"]["message"][0];
+            if (resu["code"] == 1 && resu["message"].length > 0) {
+              var cameraIndexCode = resu["message"][0]["cameraindexcode"];
+              var params_url = {
+                path: "/artemis/api/video/v1/cameras/previewURLs",
+                params: {
+                  cameraIndexCode: cameraIndexCode,
+                  streamType: 0,
+                  protocol: "hls",
+                  transmode: 1,
+                },
+                headers: {},
+              };
+              var url = "/api/v1/video";
+
+              this.httpservice.post(url, params_url).subscribe((res) => {
+                if (res["code"] === 1) {
+                  if (res["message"]["data"] == null) {
+                    console.error("code：" + res["message"]);
+                  } else {
+                    var hls_url = res["message"]["data"]["url"];
+                    console.error("获取监控点预览取流URL:hls_url>>>>", hls_url);
+                    this.play_hls(hls_url);
+                  }
+                } else {
+                  // 请求视频失败
+                  alert("Err:\n" + JSON.stringify(res));
+                }
+              });
+            } else {
+              alert(`${deviceid}没有对应的url`);
+            }
+            console.error("----result--->", resu["message"]);
+          });
       }
     });
   }
@@ -134,7 +175,9 @@ export class InlineVideoComponent implements OnInit {
   };
 
   ngOnDestroy() {
-    this.hls_ob.destroy();
+    if (this.hls_ob !== undefined) {
+      this.hls_ob.destroy();
+    }
     // window.removeEventListener('resize',this.resize);
   }
 
