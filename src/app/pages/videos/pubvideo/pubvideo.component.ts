@@ -1,5 +1,4 @@
 import { Component, OnInit } from "@angular/core";
-import { warn } from "console";
 import { HttpserviceService } from "../../../services/http/httpservice.service";
 
 declare var $;

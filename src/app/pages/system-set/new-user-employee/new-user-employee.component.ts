@@ -729,6 +729,7 @@ export class NewUserEmployeeComponent implements OnInit {
       } else {
         try {
           // 插入数据库之前 处理数据
+          // console.log("插入数据库之前 处理数据rowData---->", rowData);
           var datas = this.option_table_before(rowData);
           // console.log("插入数据库之前 处理数据---->", datas);
           // 将导入的数据存入数据库
@@ -739,8 +740,6 @@ export class NewUserEmployeeComponent implements OnInit {
               this.loading = true;
               this.update_agGrid();
               this.loading = false;
-              // this.tableDatas.rowData = rowData
-              // this.agGrid.update_agGrid(this.tableDatas);
             }
           });
         } catch (err) {
@@ -808,6 +807,11 @@ export class NewUserEmployeeComponent implements OnInit {
         password: "3bf6e666ad793b1e2c69b3da472504d4", // 默认密码
         phone: data["phoneno"],
         createdby: this.userinfo.getName(), // 创建人
+        createdon: data["createdon"] == undefined ? null : data["createdon"], // 创建时间
+        lastupdateon:
+          data["lastupdateon"] == undefined ? null : data["lastupdateon"], // 更新时间
+        lastsignondate:
+          data["lastsignondate"] == undefined ? null : data["lastsignondate"], // 登录时间
       };
       after_datas.push(after_data_);
       // console.log("得到科室/功能组--角色之前！",data)
@@ -869,6 +873,9 @@ export class NewUserEmployeeComponent implements OnInit {
       var email = rowdata["email"];
       var role_name = rowdata["role_name"];
       var groups_name = rowdata["groups_name"];
+      var createdon = rowdata["createdon"];
+      var lastupdateon = rowdata["lastupdateon"];
+      var lastsignondate = rowdata["lastsignondate"];
 
       // 验证！ employeeno 员工编号
 
@@ -897,6 +904,24 @@ export class NewUserEmployeeComponent implements OnInit {
       var verify_groups_name = this.verify_groups_name(groups_name);
       if (verify_groups_name != 1) {
         verify_err.push({ err: verify_groups_name });
+      }
+
+      // 验证！ createdon 创建时间
+      var verify_groups_createdon = this.verify_groups_createdon(createdon);
+      if (verify_groups_createdon != 1) {
+        verify_err.push({ err: verify_groups_createdon });
+      }
+      // 验证！ lastsignondate 登录时间
+      var verify_groups_lastsignondate =
+        this.verify_groups_lastsignondate(lastsignondate);
+      if (verify_groups_lastsignondate != 1) {
+        verify_err.push({ err: verify_groups_lastsignondate });
+      }
+      // 验证！ lastupdateon 更新时间
+      var verify_groups_lastupdateon =
+        this.verify_groups_lastupdateon(lastupdateon);
+      if (verify_groups_lastupdateon != 1) {
+        verify_err.push({ err: verify_groups_lastupdateon });
       }
     });
     return verify_err;
@@ -991,6 +1016,70 @@ export class NewUserEmployeeComponent implements OnInit {
     return 1; // 返回1，表示 通过验证！
   }
 
+  // 验证 createdon 创建时间
+  verify_groups_createdon(createdon) {
+    // sql注入和特殊字符 special_str
+    var verify_sql_str = this.verify_sql_str(createdon, "创建时间");
+    if (verify_sql_str != 1) {
+      return verify_sql_str;
+    }
+    if (createdon) {
+      if (createdon.length > 50) {
+        return "创建时间最大长度不超过50！";
+      }
+    }
+    if (
+      !new RegExp(
+        "^[1-9]{1}[0-9]{3}-[0-9]{2}-[0-9]{2} [0-9]{2}:[0-9]{2}:[0-9]{2}$"
+      )
+    ) {
+      return "创建时间 格式不对！";
+    }
+    return 1; // 返回1，表示 通过验证！
+  }
+  // 验证 lastsignondate 登录时间
+  verify_groups_lastsignondate(lastsignondate) {
+    // sql注入和特殊字符 special_str
+    var verify_sql_str = this.verify_sql_str(lastsignondate, "登录时间");
+    if (verify_sql_str != 1) {
+      return verify_sql_str;
+    }
+    if (lastsignondate) {
+      if (lastsignondate.length > 50) {
+        return "登录时间最大长度不超过50！";
+      }
+    }
+    if (
+      !new RegExp(
+        "^[1-9]{1}[0-9]{3}-[0-9]{2}-[0-9]{2} [0-9]{2}:[0-9]{2}:[0-9]{2}$"
+      )
+    ) {
+      return "登录时间 格式不对！";
+    }
+    return 1; // 返回1，表示 通过验证！
+  }
+  // 验证 lastupdateon 更新时间
+  verify_groups_lastupdateon(lastupdateon) {
+    // sql注入和特殊字符 special_str
+    var verify_sql_str = this.verify_sql_str(lastupdateon, "更新时间");
+    if (verify_sql_str != 1) {
+      return verify_sql_str;
+    }
+    if (lastupdateon) {
+      if (lastupdateon.length > 50) {
+        return "更新时间最大长度不超过50！";
+      }
+    }
+    if (
+      !new RegExp(
+        "^[1-9]{1}[0-9]{3}-[0-9]{2}-[0-9]{2} [0-9]{2}:[0-9]{2}:[0-9]{2}$"
+      )
+    ) {
+      return "更新时间 格式不对！";
+    }
+    return 1; // 返回1，表示 通过验证！
+  }
+
   // 删除
   success() {
     this.publicmethod.showngxtoastr({
@@ -1081,4 +1170,7 @@ interface OptionEmployeeData {
   password: string;
   phone: string;
   createdby: string;
+  createdon: string;
+  lastupdateon: string;
+  lastsignondate: string;
 }
