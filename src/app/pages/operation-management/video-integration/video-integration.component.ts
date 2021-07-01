@@ -558,7 +558,7 @@ export class VideoIntegrationComponent implements OnInit {
 
   // 删除
   del(active_data?) {
-    console.log("视频集成服务器管理：删除>>>", active_data);
+    // console.log("视频集成服务器管理：删除>>>", active_data);
     var rowdata;
     if (active_data) {
       rowdata = active_data;
@@ -613,7 +613,7 @@ export class VideoIntegrationComponent implements OnInit {
 
   // 修改、编辑
   edit(active_data?) {
-    console.log("视频集成服务器管理：修改、编辑>>>", active_data);
+    // console.log("视频集成服务器管理：修改、编辑>>>", active_data);
     var rowdata;
     if (active_data) {
       rowdata = active_data;
@@ -1124,7 +1124,7 @@ export class VideoIntegrationComponent implements OnInit {
     if (event != undefined) {
       offset = event.offset;
       limit = event.limit;
-      PageSize = event.PageSize ? Number(event.PageSize) : 10;
+      PageSize = event.PageSize ? Number(event.PageSize) : 15;
     } else {
       offset = 0;
       limit = inittable_before.limit;
@@ -1141,7 +1141,7 @@ export class VideoIntegrationComponent implements OnInit {
     var table = this.TABLE;
     var methond = this.METHOD;
     this.http.callRPC(table, methond, colmun).subscribe((res) => {
-      console.log("-----------man-kpi-table---", res);
+      // console.log("-----------man-kpi-table---", res);
       var get_employee_limit = res["result"]["message"][0];
       this.loading = false;
       if (get_employee_limit["code"] === 1) {
@@ -1174,7 +1174,7 @@ export class VideoIntegrationComponent implements OnInit {
     if (event != undefined) {
       offset = event.offset;
       limit = event.limit;
-      PageSize = event.PageSize ? Number(event.PageSize) : 10;
+      PageSize = event.PageSize ? Number(event.PageSize) : 15;
     } else {
       offset = 0;
       limit = inittable_before.limit;

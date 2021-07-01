@@ -242,7 +242,7 @@ export class UserLoginComponent implements OnInit {
         localStorage.setItem("SSO", "true"); // important notice
         window.location.href = url; // 重定向到外部的url
       } else {
-        // console.log("currenturl+++++++++++++", currenturl);
+        console.log("currenturl+++++++++++++", currenturl);
         var ticket_1 = this.getTicket(currenturl, "?");
         var ticket_2 = ticket_1.split("&")[0];
         var ticket = this.getTicket(ticket_2, "=");
@@ -274,9 +274,8 @@ export class UserLoginComponent implements OnInit {
               var ssouserinfo_default = {};
 
               ssouserinfo["token"] = response["data"]["token"];
-              var loginname = response["data"]["domainAccountList"][0].split(
-                "@"
-              )[0];
+              var loginname =
+                response["data"]["domainAccountList"][0].split("@")[0];
 
               ssouserinfo["loginname"] = loginname; // 当前登录的用户名, 可能是 邮箱，sdfsf@sss.xx
               // ssouserinfo["loginname"] = response["data"]["account"]; // 当前登录的用户名, 可能是 邮箱，sdfsf@sss.xx
@@ -284,9 +283,8 @@ export class UserLoginComponent implements OnInit {
               ssouserinfo["employeeno"] = response["data"]["empNo"]; //工号
               ssouserinfo["name"] = response["data"]["nickName"]; // 姓名
               ssouserinfo["phoneno"] = response["data"]["phone"]; // 手机号
-              ssouserinfo["email"] = response["data"]["domainAccountList"].join(
-                ","
-              ); // 域账号清单 list 转换为str
+              ssouserinfo["email"] =
+                response["data"]["domainAccountList"].join(","); // 域账号清单 list 转换为str
               ssouserinfo["userid"] = response["data"]["userId"]; // 用户中心用户ID // 将id改为 userid
               ssouserinfo["lastupdatedby"] = response["data"]["nickName"]; // 操作人
               ssouserinfo["active"] = 1;

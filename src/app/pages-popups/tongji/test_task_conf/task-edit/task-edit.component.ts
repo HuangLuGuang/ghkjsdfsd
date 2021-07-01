@@ -93,9 +93,9 @@ export class TaskEditComponent implements OnInit {
         if (res["code"] === 1) {
           var message = res["message"];
           // console.error("****init_exemplar message****", message);
-          var handle_get_message_for_device = this.handle_get_message_for_device(
-            message
-          );
+          var handle_get_message_for_device =
+            this.handle_get_message_for_device(message);
+
           this.exemplar_no_name.init_layuiform([handle_get_message_for_device]);
           // console.error("init_exemplar>>", handle_get_message_for_device);
         }
@@ -136,10 +136,14 @@ export class TaskEditComponent implements OnInit {
         children: exemplar_no_name,
       };
     }
+
     return {
       id: "all",
       label: "全选",
-      checkedid: this.rowdata["exemplarchildnumbers"].split(","),
+      checkedid:
+        this.rowdata["exemplarchildnumbers"] == null
+          ? [""]
+          : this.rowdata["exemplarchildnumbers"].split(","),
       children: exemplar_no_name,
     };
   }
