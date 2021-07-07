@@ -135,6 +135,7 @@ export class MySelectTreeComponent implements OnInit {
     // 设备统计下拉框
     $(".eletype").hide();
     $(".single_ele5").hide();
+    $(".single_tree_ele5").hide();
     var eletype = $(".eletype").css("display");
     if (eletype == "none") {
       $("#eletype_i").attr("class", "layui-icon layui-icon-down xiala");
@@ -154,6 +155,20 @@ export class MySelectTreeComponent implements OnInit {
         "layui-icon layui-icon-up  single_xiala"
       );
     }
+    // 状态指标 single_tree_data5
+    var single_tree_ele5 = $(".single_tree_ele5").css("display");
+    if (single_tree_ele5 == "none") {
+      $("#single_tree_ele5_i").attr(
+        "class",
+        "layui-icon layui-icon-down single_tree_xiala"
+      );
+    } else {
+      $("#single_tree_ele5_i").attr(
+        "class",
+        "layui-icon layui-icon-up  single_tree_xiala"
+      );
+    }
+
     // 日期选择器
     $(".layui-laydate").remove();
   }

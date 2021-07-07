@@ -405,14 +405,20 @@ export class GroupDataSumComponent implements OnInit {
         // 刷新table后，改为原来的！
         this.tableDatas.isno_refresh_page_size = false;
         if (this.querytitle !== "") {
-          this.RecordOperation("搜索 ", 1, JSON.stringify(colmun));
+          this.RecordOperation(
+            "搜索 ",
+            1,
+            "功能组数据汇总:" + JSON.stringify(colmun)
+          );
+        } else {
+          this.RecordOperation("查看", 1, "功能组数据汇总");
         }
-        this.RecordOperation("查看", 1, "功能组数据汇总");
       } else {
         if (this.querytitle !== "") {
           this.RecordOperation("搜索 ", 0, JSON.stringify(colmun));
+        } else {
+          this.RecordOperation("查看", 0, "功能组数据汇总");
         }
-        this.RecordOperation("查看", 0, "功能组数据汇总");
       }
     });
   }

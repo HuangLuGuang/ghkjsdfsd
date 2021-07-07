@@ -412,7 +412,6 @@ export class DeviceDataSumComponent implements OnInit {
     var table = this.TABLE;
     var methond = this.METHOD;
     this.http.callRPC(table, methond, colmun).subscribe((res) => {
-      // console.log("-----------man-kpi-table---", res)
       var get_employee_limit = res["result"]["message"][0];
       this.loading = false;
       if (get_employee_limit["code"] === 1) {

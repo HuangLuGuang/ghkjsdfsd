@@ -52,6 +52,9 @@ export class MyDateRangeComponent implements OnInit {
         show: false,
         format: "yyyy-MM-dd",
         btns: ["confirm"],
+        // min: that.init_value.split(" - ")[0],
+        max: that.init_value.split(" - ")[1],
+
         // 初始化日期范围
         value: that.init_value,
         // ,trigger: 'click'//呼出事件改成click  控件选择完毕回调

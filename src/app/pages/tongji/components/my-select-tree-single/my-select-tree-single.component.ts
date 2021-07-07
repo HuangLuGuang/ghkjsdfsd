@@ -145,6 +145,18 @@ export class MySelectTreeSingleComponent implements OnInit {
     $("[name='single_tree_title']").val(department_list[0]["label"]);
     // $("[name='single_tree_title']").val("");
   }
+  // 设备工时明细--状态指标
+  delselect2() {
+    var statusdata = [
+      { id: "running", label: "运行" },
+      { id: "stop", label: "空闲" },
+      { id: "warning", label: "维修" },
+      { id: "placeon", label: "占位" },
+    ];
+    // $("[name='single_tree_title']").val(statusdata[0]["label"]);
+    $("[name='single_tree_title']").val("");
+  }
+
   // 清空下拉数据
   dropselect() {
     this.delselect();

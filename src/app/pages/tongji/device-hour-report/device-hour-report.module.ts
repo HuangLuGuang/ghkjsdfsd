@@ -12,10 +12,11 @@ import { DeviceDataSumComponent } from './device-data-sum/device-data-sum.compon
 import { GroupDataSumComponent } from './group-data-sum/group-data-sum.component';
 import { DepartmentDataSumComponent } from './department-data-sum/department-data-sum.component';
 import { NzTabsModule  } from 'ng-zorro-antd/tabs';
+import { DeviceHourDetailComponent } from './device-hour-detail/device-hour-detail.component';
 
 
 @NgModule({
-  declarations: [DeviceHourReportComponent, MonthSelectComponent, YearSelectComponent, ActionComponent, DeviceDataSumComponent, GroupDataSumComponent, DepartmentDataSumComponent,],
+  declarations: [DeviceHourReportComponent, MonthSelectComponent, YearSelectComponent, ActionComponent, DeviceDataSumComponent, GroupDataSumComponent, DepartmentDataSumComponent, DeviceHourDetailComponent,],
   imports: [
     CommonModule,
     DeviceHourReportRoutingModule,
