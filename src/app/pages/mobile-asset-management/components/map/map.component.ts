@@ -219,6 +219,7 @@ export class MapComponent implements OnInit {
   show_info_in_map(info) {
     // 创建图标，设备信息
     // 创建图标，设备信息
+    console.log("show_info_in_map>>>", info);
     for (let index = 0; index < info.length; index++) {
       const element = info[index];
       mapjs.device_info(element);

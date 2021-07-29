@@ -3,8 +3,8 @@
 
     <nb-card-body style="background-color: #ffffff;padding-bottom: 0px;">
         <!-- button -->
-        <div class="row">
-            <div class="col-lg-9" style="display: flex;">
+        <div class="row"  style=" margin: 0px">
+            <!-- <div class="col-lg-9" style="display: flex;"> -->
                 <!-- 科室-房间号 -->
                 <div class="example-items-rows button_item"  *ngIf="button?.query">
                     <ngx-my-linkage-select #linkage></ngx-my-linkage-select>
@@ -30,13 +30,10 @@
                     <button nbButton [status]="button?.query.class" size="small" (click)="action(button?.query.permission)"  [disabled]="button?.query.active == 0? true:false"><nb-icon [icon]="button?.query.icon"></nb-icon>{{button?.query.title}}</button>
                 </div>
 
-            </div>
-
-            <div class="col-lg-3" style="display: flex;">
                 <!-- 导入、导出 -->
                 <div style="flex: auto;">
                 </div>
-
+    
                 <div class=" button_item my_import " *ngIf="button?.import">
                     <button nbButton [status]="button?.import.class" size="small" (click)="action(button?.import.permission)"  [disabled]="button?.import.active == 0? true:false"><nb-icon [icon]="button?.import.icon"></nb-icon>{{button?.import.title}}</button>
                     <input type="file" class="import" id="import" (change)="onFileChange($event)" multiple="false" >
@@ -52,8 +49,11 @@
                         <nb-icon icon="sync-outline"></nb-icon>
                     </button>
                 </div>
+            <!-- </div> -->
 
-            </div>
+            <!-- <div class="col-lg-3" style="display: flex;">
+
+            </div> -->
         </div>
 
         <div class="row" [nbSpinner]="loading" nbSpinnerStatus="basic">

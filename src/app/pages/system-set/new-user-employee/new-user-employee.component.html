@@ -6,8 +6,8 @@
 
     <nb-card-body style="background-color: #ffffff;padding-bottom: 0px;">
         <!-- buttons -->
-        <div class="row" style="height: 42px">
-            <div class="col-lg-9" style="display: flex;">
+        <div class="row" style="margin: 0px;">
+            <!-- <div class="col-lg-9" style="display: flex;"> -->
                 <div class="example-items-rows button_item loginname" *ngIf="button?.query">
                     <!-- <input nbInput shape="rectangle"  placeholder="域账号" status="success" type="text" id="employeenumber"  [disabled]="button?.query.active == 0? true:false"> -->
                     <ngx-my-input #myinput (inpuvalue)="inpuvalue($event)"  [placeholder]="myinput_placeholder"></ngx-my-input>
@@ -26,9 +26,6 @@
                 <div class="example-items-rows button_item del" *ngIf="button?.del">
                     <button nbButton [status]="button?.del.class" size="small" (click)="action(button?.del.permission)"  [disabled]="button?.del.active == 0? true:false"><nb-icon [icon]="button?.del.icon"></nb-icon>{{button?.del.title}}</button>
                 </div>
-            </div>
-
-            <div class="col-lg-3" style="display: flex;">
                 <!-- 导入、导出 -->
                 <div style="flex: auto;">
                 </div>
@@ -52,8 +49,11 @@
                         <nb-icon icon="sync-outline"></nb-icon>
                     </button>
                 </div>
+            <!-- </div>
 
-            </div>
+            <div class="col-lg-3" style="display: flex;">
+
+            </div> -->
             
         </div>
 

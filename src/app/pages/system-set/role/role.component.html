@@ -6,8 +6,8 @@
             </nb-card-header>
             <nb-card-body [nbSpinner]="loading" nbSpinnerStatus="basic" style="background-color: #ffffff;padding-bottom: 0px;">
                 <!-- buttons -->
-                <div class="row">
-                    <div class="col-lg-9" style="display: flex;">
+                <div class="row" style="margin: 0px;">
+                    <!-- <div class="col-lg-9" style="display: flex;"> -->
                         <div class="example-items-rows button_item loginname" *ngIf="button?.query">
                             <ngx-my-input #myinput (inpuvalue)="inpuvalue($event)"  [placeholder]="myinput_placeholder"></ngx-my-input>
                             <!-- <input nbInput shape="rectangle" style="margin-left: 2px;" placeholder="角色名称" status="success" type="text" id="employeenumber"  [disabled]="button?.query.active == 0? true:false"> -->
@@ -27,9 +27,6 @@
                             <button nbButton [status]="button?.del.class" size="small" (click)="action(button?.del.permission)"  [disabled]="button?.del.active == 0? true:false"><nb-icon [icon]="button?.del.icon"></nb-icon>{{button?.del.title}}</button>
                         </div>
                         
-                    </div>
-
-                    <div class="col-lg-3" style="display: flex;">
                         <!-- 导入、导出 -->
                         <div style="flex: auto;">
                         </div>
@@ -48,8 +45,11 @@
                                 <nb-icon icon="sync-outline"></nb-icon>
                             </button>
                         </div>
+                    <!-- </div>
 
-                    </div>
+                    <div class="col-lg-3" style="display: flex;">
+
+                    </div> -->
                     
                 </div>
 

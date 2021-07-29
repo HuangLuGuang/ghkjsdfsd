@@ -1,10 +1,13 @@
 import { DatePipe } from "@angular/common";
 import { Component, OnInit, ViewChild } from "@angular/core";
+import { Observable } from "rxjs";
 import { HttpserviceService } from "../../../../services/http/httpservice.service";
 import { PublicmethodService } from "../../../../services/publicmethod/publicmethod.service";
 import { UserInfoService } from "../../../../services/user-info/user-info.service";
+import { TableDevicenameComponent } from "../../components/table-devicename/table-devicename.component";
 
 import { TableGroupComponent } from "../../components/table-group/table-group.component";
+import { AndonstatusComponent } from "./andonstatus/andonstatus.component";
 
 @Component({
   selector: "ngx-device-hour-detail",
@@ -176,7 +179,7 @@ export class DeviceHourDetailComponent implements OnInit {
       fullWidth: true,
       resizable: true,
       width: 200,
-      cellRendererFramework: TableGroupComponent,
+      cellRendererFramework: TableDevicenameComponent,
       sortable: true,
     },
     {
@@ -212,6 +215,16 @@ export class DeviceHourDetailComponent implements OnInit {
       width: 130,
       sortable: true,
     },
+    // 状态指标
+    {
+      field: "andonstatus",
+      headerName: "状态指标",
+      resizable: true,
+      fullWidth: true,
+      width: 130,
+      sortable: true,
+      cellRendererFramework: AndonstatusComponent,
+    },
     {
       field: "totaltime",
       headerName: "统计总时长(h)",
@@ -241,36 +254,44 @@ export class DeviceHourDetailComponent implements OnInit {
       this.button = result;
     });
     // // 选择框
-    this.get_tree_selecetdata();
+    this.get_tree_selecetdata().subscribe((res) => {
+      if (res) {
+        this.querytitle = "";
+        this.inttable();
+      }
+    });
   }
 
-  ngAfterViewInit() {
-    this.inttable();
-  }
+  ngAfterViewInit() {}
 
   // 得到下拉框的数据
   get_tree_selecetdata() {
-    var columns = {
-      employeeid: this.employeeid,
-    };
-    this.http
-      .callRPC("deveice", "dev_get_device_type", columns)
-      .subscribe((result) => {
-        var res = result["result"]["message"][0];
-        if (res["code"] === 1) {
-          var groups = res["message"][0]["groups"];
-          // 默认的科室功能组
-          groups.forEach((group) => {
-            this.default_groups.push(group["label"]);
-          });
-          this.groups_func.init_select_tree(groups);
-          var eimdevicetpyedata = res["message"][0]["type"];
-          this.eimdevicetpye.init_select_trees(eimdevicetpyedata);
+    return new Observable((Observable) => {
+      var columns = {
+        employeeid: this.employeeid,
+      };
+      this.http
+        .callRPC("deveice", "dev_get_device_type", columns)
+        .subscribe((result) => {
+          var res = result["result"]["message"][0];
+          if (res["code"] === 1) {
+            var groups = res["message"][0]["groups"];
+            // 默认的科室功能组
+            groups.forEach((group) => {
+              this.default_groups.push(group["label"]);
+            });
+            this.groups_func.init_select_tree(groups);
+            var eimdevicetpyedata = res["message"][0]["type"];
+            this.eimdevicetpye.init_select_trees(eimdevicetpyedata);
 
-          // 状态指标
-          this.status.init_select_tree(this.statusdata);
-        }
-      });
+            // 状态指标
+            this.status.init_select_tree(this.statusdata);
+            Observable.next(true);
+          } else {
+            Observable.next(false);
+          }
+        });
+    });
   }
 
   // button按钮
@@ -299,7 +320,12 @@ export class DeviceHourDetailComponent implements OnInit {
     }
   }
 
-  inpuvalue(device) {}
+  // input设备 时间范围 状态指标
+  inpuvalue(data) {
+    if (data != "") {
+      this.query();
+    }
+  }
 
   querytitle = "";
   query() {
@@ -324,17 +350,14 @@ export class DeviceHourDetailComponent implements OnInit {
     var start = date[0];
     var end = date[1];
     var differ = (Date.parse(end) - Date.parse(start)) / (24 * 3600 * 1000);
-    // console.error("start>>>", this.datapipe.transform(start, "MM-dd"));
-    // console.error("start>>>", this.datapipe.transform(start, "Mdd"));
-    // console.error("differ>>>", differ);
-    for (let index = 0; index <= differ; index++) {
+    for (let index = 0; index < differ; index++) {
       var field = this.datapipe.transform(
         new Date(start).getTime() + 86400000 * index,
         "MM-dd"
       );
       var date_differ = this.datapipe.transform(
         new Date(start).getTime() + 86400000 * index,
-        "Mdd"
+        "MM-dd"
       );
       // console.error("间隔的日期 field, date_differ>>>", field, date_differ);
       var column: columnDefsType = {

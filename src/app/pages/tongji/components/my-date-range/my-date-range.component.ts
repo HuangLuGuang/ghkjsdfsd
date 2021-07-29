@@ -1,5 +1,5 @@
 import { DatePipe } from "@angular/common";
-import { Component, OnInit } from "@angular/core";
+import { Component, OnInit, Output, EventEmitter } from "@angular/core";
 import { PublicmethodService } from "../../../../services/publicmethod/publicmethod.service";
 
 declare let $;
@@ -12,6 +12,8 @@ declare let layui;
   styleUrls: ["./my-date-range.component.scss"],
 })
 export class MyDateRangeComponent implements OnInit {
+  @Output() private inpuvalue = new EventEmitter<number>();
+
   constructor(
     private publicservice: PublicmethodService,
     private datepipe: DatePipe
@@ -49,7 +51,7 @@ export class MyDateRangeComponent implements OnInit {
       laydate.render({
         elem: ".divice_kpi_report_date",
         range: true,
-        show: false,
+        // show: false,
         format: "yyyy-MM-dd",
         btns: ["confirm"],
         // min: that.init_value.split(" - ")[0],
@@ -57,25 +59,22 @@ export class MyDateRangeComponent implements OnInit {
 
         // 初始化日期范围
         value: that.init_value,
-        // ,trigger: 'click'//呼出事件改成click  控件选择完毕回调
+        trigger: "click", //呼出事件改成click  控件选择完毕回调
         ready: function (date) {
-          // console.log("得到初始的日期时间对象:",init_value); //得到初始的日期时间对象：{year: 2017, month: 8, date: 18, hours: 0, minutes: 0, seconds: 0}
-          console.log("得到初始的日期时间对象:", this.value); //得到初始的日期时间对象：{year: 2017, month: 8, date: 18, hours: 0, minutes: 0, seconds: 0}
+          // console.log("得到初始的日期时间对象:", this.value); //得到初始的日期时间对象：{year: 2017, month: 8, date: 18, hours: 0, minutes: 0, seconds: 0}
         },
 
         done: function (value, date, endDate) {
+          // console.log("done:", value); //得到初始的日期时间对象：{year: 2017, month: 8, date: 18, hours: 0, minutes: 0, seconds: 0}
           that.init_value = value;
-
+          that.inpuvalue.emit(value);
           if (value === "") {
             this.show = true;
-            // that.delet_default();
-
-            // console.log("得到初始的日期时间对象  已经清空了:",that.init_value , "value", this.value  ); //得到初始的日期时间对象：{year: 2017, month: 8, date: 18, hours: 0, minutes: 0, seconds: 0}
             this.value = that.init_value;
           }
         },
         change: function (value, date, endDate) {
-          console.log("在控件上弹出value值--------------------");
+          // console.log("在控件上弹出value值--------------------", value);
         },
       });
     });

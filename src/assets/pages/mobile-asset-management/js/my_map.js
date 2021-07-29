@@ -176,7 +176,7 @@ let mapjs = {
 
   // 创建图标，设备信息,点击左侧button生成  setweilan
   device_info(user_deviceInfo) {
-    // console.log("动态创建图表、信息窗口： ", user_deviceInfo);
+    console.log("动态创建图表、信息窗口： ", user_deviceInfo);
     if (user_deviceInfo != undefined) {
       var pt = user_deviceInfo.latlon.split(",");
       var lng_lat = user_deviceInfo.latlon.split(",");
@@ -277,43 +277,24 @@ let mapjs = {
         );
 
         marker.openInfoWindow(infoWindow);
+        infoWindow.redraw();
 
         // console.error("监听点击事件", infoWindow.isOpen());
         //判断窗口的打开状态
         if (!infoWindow.isOpen()) {
           infoWindow.addEventListener("open", function () {
-            // @ts-ignore
-            $(".setweilan").on("click", (params) => {
-              // console.log(
-              //   "*********监听点击设置围栏*********",
-              //   infoWindow.isOpen()
-              // );
-              // setweilan(params);
-            });
+            // console.log("打开窗口");
           });
         } else {
-          // 监听点击设置围栏
-          // @ts-ignore
-          $(".setweilan").on("click", (params) => {
-            // console.log(
-            //   "*********监听点击设置围栏*********",
-            //   infoWindow.isOpen()
-            // );
-            // setweilan(params);
-          });
+          console.log("已经打开窗口", infoWindow.isOpen());
         }
 
         // 监听点击事件
         marker.addEventListener("click", function () {
-          this.openInfoWindow(infoWindow);
+          // this.openInfoWindow(infoWindow);
+          marker.openInfoWindow(infoWindow);
           infoWindow.redraw(); // 防止在网速较慢时生成的信息框高度比图片总高度小，导致图片部分被隐
         });
-
-        // 监听点击设置围栏
-        // $(".setweilan").on("click", (params) => {
-        //   console.log("*********监听点击设置围栏*********");
-        //   setweilan(params);
-        // });
       });
     }
   },

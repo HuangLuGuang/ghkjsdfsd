@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from "@angular/core";
+import { Component, OnInit, Input, Output, EventEmitter } from "@angular/core";
 declare let $;
 declare let layui;
 @Component({
@@ -7,6 +7,7 @@ declare let layui;
   styleUrls: ["./my-select-tree-single.component.scss"],
 })
 export class MySelectTreeSingleComponent implements OnInit {
+  @Output() private inpuvalue = new EventEmitter<any>();
   @Input("placeholder") placeholder: any;
 
   // 下拉 icon
@@ -69,6 +70,7 @@ export class MySelectTreeSingleComponent implements OnInit {
       eleTree.on("nodeClick(single_tree_data5)", function (d) {
         // console.error("select_data",d.data.currentData)
         $("[name='single_tree_title']").val(d.data.currentData.label);
+        that.inpuvalue.emit(d.data.currentData.label);
         $(".single_tree_ele5").hide();
         // that.xialaicon = "arrow-ios-downward-outline";
         that.toggle();
@@ -155,6 +157,7 @@ export class MySelectTreeSingleComponent implements OnInit {
     ];
     // $("[name='single_tree_title']").val(statusdata[0]["label"]);
     $("[name='single_tree_title']").val("");
+    this.single_tree_el5s?.reload({ data: this.tree_data }); // 重新加载树
   }
 
   // 清空下拉数据

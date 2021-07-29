@@ -1,5 +1,5 @@
-<div class="row">
-    <div class="col-lg-9" style="display: flex;">
+<div class="row"style="margin: 0px;">
+    <!-- <div class="col-lg-9" style="display: flex;"> -->
 
         <!-- 年下拉框 -->
         <div class="example-items-rows button_item">
@@ -45,10 +45,6 @@
         <div class="example-items-rows button_item query" *ngIf="button?.query">
             <button nbButton [status]="button?.query.class" size="small" (click)="action(button?.query.permission)"  [disabled]="button?.query.active == 0? true:false"><nb-icon [icon]="button?.query.icon"></nb-icon>{{button?.query.title}}</button>
         </div>
-    </div>
-
-
-    <div class="col-lg-3" style="display: flex;">
         <div style="flex: auto;">
         </div>
         <!-- 导出 -->
@@ -62,9 +58,13 @@
                 <nb-icon icon="sync-outline"></nb-icon>
             </button>
         </div>
+    <!-- </div> -->
 
 
-    </div>
+    <!-- <div class="col-lg-3" style="display: flex;">
+
+
+    </div> -->
 </div>
 
 <div class="row">
