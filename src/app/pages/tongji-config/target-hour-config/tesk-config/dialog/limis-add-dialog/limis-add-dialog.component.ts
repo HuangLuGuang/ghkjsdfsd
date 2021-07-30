@@ -21,7 +21,7 @@ export class LimisAddDialogComponent implements OnInit, AfterViewInit {
   visible = false;
   // table配置及数据
   tableDatas: any = {
-    style: "width: 100%; height: 44rem",
+    style: "width: 100%; height: 75vh",
     totalPageNumbers: 0, // 总页数
     PageSize: 15, // 每页 10条数据
     isno_refresh_page_size: false, // 是否重新将 每页多少条数据，赋值为默认值
