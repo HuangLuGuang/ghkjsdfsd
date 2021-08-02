@@ -59,6 +59,9 @@ export class TestAllInfoComponent implements OnInit {
       var res = result["result"]["message"][0];
       if (res["code"] === 1) {
         this.datas = res["message"];
+
+        // 初始化显示第一条数据！
+        this.publicservice.ChangeVideo(res["message"][0]);
       }
     });
   }

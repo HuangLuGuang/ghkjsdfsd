@@ -182,7 +182,8 @@ let mapjs = {
       var lng_lat = user_deviceInfo.latlon.split(",");
 
       var car_path =
-        "assets/pages/mobile-asset-management/images/car/ico_car_blue.png";
+        // "assets/pages/mobile-asset-management/images/car/ico_car_blue.png";
+        "assets/pages/mobile-asset-management/images/car/GPS.svg";
       var isfavor = user_deviceInfo.isfavor === 1 ? "是" : "否";
       // if (user_deviceInfo.info.search("在线") === 0) {
       //   car_path =
@@ -246,11 +247,12 @@ let mapjs = {
         var carIcon = new BMap.Icon(
           car_path,
           // @ts-ignore
-          new BMap.Size(26, 52),
+          // new BMap.Size(26, 52),
+          new BMap.Size(32, 32),
           // var carIcon = new BMap.Icon('assets/pages/mobile-asset-management/images/car/car_gray.png', new BMap.Size(26,52),
           {
             // @ts-ignore
-            anchor: new BMap.Size(13, 13),
+            anchor: new BMap.Size(6, 6),
           }
         );
         // 创建图标marker
@@ -384,9 +386,11 @@ let mapjs = {
       // 离线设备图标
       // @ts-ignore
       var noinline_carIcon = new BMap.Icon(
-        "assets/pages/mobile-asset-management/images/car/car_red.png",
+        // "assets/pages/mobile-asset-management/images/car/car_red.png",
+        "assets/pages/mobile-asset-management/images/car/GPSLI.svg",
         // @ts-ignore
-        new BMap.Size(26, 52),
+        // new BMap.Size(26, 52),
+        new BMap.Size(48, 48),
         {
           // @ts-ignore
           anchor: new BMap.Size(13, 13),
@@ -533,9 +537,11 @@ let mapjs = {
       // 在线设备图标
       // @ts-ignore
       var noinline_carIcon = new BMap.Icon(
-        "assets/pages/mobile-asset-management/images/car/ico_car_green.png",
+        // "assets/pages/mobile-asset-management/images/car/ico_car_green.png",
+        "assets/pages/mobile-asset-management/images/car/GPS.svg",
         // @ts-ignore
-        new BMap.Size(26, 52),
+        // new BMap.Size(26, 52),
+        new BMap.Size(48, 48),
         {
           // @ts-ignore
           anchor: new BMap.Size(13, 13),
@@ -656,9 +662,11 @@ let mapjs = {
       // 其它设备图标
       // @ts-ignore
       var noinline_carIcon = new BMap.Icon(
-        "assets/pages/mobile-asset-management/images/car/ico_car_yellow.png",
+        // "assets/pages/mobile-asset-management/images/car/ico_car_yellow.png",
+        "assets/pages/mobile-asset-management/images/car/GPS.svg",
         // @ts-ignore
-        new BMap.Size(26, 52),
+        // new BMap.Size(26, 52),
+        new BMap.Size(48, 48),
         {
           // @ts-ignore
           anchor: new BMap.Size(13, 13),

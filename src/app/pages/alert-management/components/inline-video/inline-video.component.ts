@@ -44,7 +44,7 @@ export class InlineVideoComponent implements OnInit {
   ngAfterViewInit() {
     // var url = "https://test-streams.mux.dev/x36xhzz/x36xhzz.m3u8";
     var url = "http://10.34.78.237:83/openUrl/p7q8HiU/live.m3u8";
-    this.get_url();
+    // this.get_url(); 指定摄像头名称去得到url
 
     // 视频
     // var cameraName = "III研究总院试验主通道中看东4";
@@ -154,7 +154,7 @@ export class InlineVideoComponent implements OnInit {
                 }
               });
             } else {
-              alert(`${deviceid}没有对应的url`);
+              alert(`${deviceid}没有对应的视频url`);
             }
             console.error("----result--->", resu["message"]);
           });
