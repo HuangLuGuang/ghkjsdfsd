@@ -61,7 +61,9 @@ export class TestAllInfoComponent implements OnInit {
         this.datas = res["message"];
 
         // 初始化显示第一条数据！
-        this.publicservice.ChangeVideo(res["message"][0]);
+        if (res["message"][0]) {
+          this.publicservice.ChangeVideo(res["message"][0]);
+        }
       }
     });
   }

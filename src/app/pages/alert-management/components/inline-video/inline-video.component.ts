@@ -29,6 +29,9 @@ export class InlineVideoComponent implements OnInit {
   // 视频 video
   @ViewChild("pubvideo") pubvideo: any;
 
+  // 订阅的视频url
+  first_url;
+
   constructor(
     private layout: LayoutService,
     private httpservice: HttpserviceService,
@@ -115,7 +118,7 @@ export class InlineVideoComponent implements OnInit {
 
   // 查看视频, 当点击试验汇总时，调用
   inline_lookvideo() {
-    this.publicservice.VideoMessage.subscribe((res) => {
+    this.first_url = this.publicservice.VideoMessage.subscribe((res) => {
       if (JSON.stringify(res) !== "{}") {
         console.log("查看视频-视频轮播-res>>>>", res);
         var deviceid = res["deviceid"];
@@ -145,20 +148,32 @@ export class InlineVideoComponent implements OnInit {
                     console.error("code：" + res["message"]);
                   } else {
                     var hls_url = res["message"]["data"]["url"];
-                    console.error("获取监控点预览取流URL:hls_url>>>>", hls_url);
+                    // console.error("获取监控点预览取流URL:hls_url>>>>", hls_url);
                     this.play_hls(hls_url);
                   }
                 } else {
                   // 请求视频失败
-                  alert("Err:\n" + JSON.stringify(res));
+                  // alert("Err:\n" + JSON.stringify(res));
+                  var data = JSON.stringify(`${deviceid}没有对应的视频url`);
+                  this.deldanger(data);
                 }
               });
             } else {
-              alert(`${deviceid}没有对应的视频url`);
+              // alert(`${deviceid}没有对应的视频url`);
+              var data = JSON.stringify(`${deviceid}没有对应的视频url`);
+              this.deldanger(data);
             }
-            console.error("----result--->", resu["message"]);
+            // console.error("----result--->", resu["message"]);
           });
       }
+    });
+  }
+
+  deldanger(data) {
+    this.publicservice.showngxtoastr({
+      position: "toast-top-right",
+      status: "warning",
+      conent: data,
     });
   }
 
@@ -179,6 +194,7 @@ export class InlineVideoComponent implements OnInit {
       this.hls_ob.destroy();
     }
     // window.removeEventListener('resize',this.resize);
+    this.first_url.unsubscribe();
   }
 
   // -----------------------

@@ -310,6 +310,8 @@ export class AlertInfoComponent implements OnInit {
       var tabledata = result["result"]["message"][0];
       this.loading = false;
       if (tabledata["code"] === 1) {
+        console.error("数采报警-----------》", tabledata);
+
         var message = result["result"]["message"][0]["message"];
         this.tableDatas.PageSize = PageSize;
         this.gridData.push(...message);

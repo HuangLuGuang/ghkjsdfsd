@@ -4,7 +4,7 @@ import { NbDialogService, NbToastrService } from "@nebular/theme";
 import { Data } from "../../appconfig";
 
 import { PlatformLocation } from "@angular/common";
-import { observable, Observable } from "rxjs";
+import { observable, Observable, Subject } from "rxjs";
 import { HttpserviceService } from "../http/httpservice.service";
 import { HttpHeaders } from "@angular/common/http";
 import {
@@ -433,7 +433,7 @@ export class PublicmethodService {
   }
 
   // 报警管理---》集中监控 点击查看视频时，切换视频
-  public VideoMessage = new BehaviorSubject<any>({});
+  public VideoMessage = new Subject<any>();
   ChangeVideo(message: any): void {
     this.VideoMessage.next(message);
   }
