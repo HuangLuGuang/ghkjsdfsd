@@ -58,7 +58,7 @@ export class EnvironmentLaboratoryComponent implements OnInit {
       src:'assets/eimdoard/equipment/images/hm_1074.png',//实验图片
       speed:[],
       speed_name:[''],
-      // router:'/pages/equipment/avl/AVL转毂+久鼎环境舱+排放分析',
+      // router:'/pages/equipment/avl/AVL转鼓+久鼎环境舱+排放分析',
       router:'',
       run:false,
       mark:'avl',
@@ -84,7 +84,7 @@ export class EnvironmentLaboratoryComponent implements OnInit {
       src:'assets/eimdoard/equipment/images/liangqu.jpg',//实验图片
       speed:[],
       speed_name:[''],
-      // router:'/pages/equipment/avl-etec/两驱AVL转毂+ATEC环境舱+排放分析/two',
+      // router:'/pages/equipment/avl-etec/两驱AVL转鼓+ATEC环境舱+排放分析/two',
       router:'',
       run:false,
       mark:'avl-etec',
@@ -97,7 +97,7 @@ export class EnvironmentLaboratoryComponent implements OnInit {
       src:'assets/eimdoard/equipment/images/siqu.jpg',//实验图片
       speed:[],
       speed_name:[''],
-      // router:'/pages/equipment/avl-etec2/四驱AVL转毂+ATEC环境舱+排放分析/four',
+      // router:'/pages/equipment/avl-etec2/四驱AVL转鼓+ATEC环境舱+排放分析/four',
       router:'',
       run:false,
       mark:'avl-etec2',

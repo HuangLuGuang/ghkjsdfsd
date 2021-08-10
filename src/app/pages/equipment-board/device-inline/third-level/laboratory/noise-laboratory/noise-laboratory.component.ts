@@ -26,7 +26,7 @@ export class NoiseLaboratoryComponent implements OnInit {
 
     },
     {
-      name:'MAHA转毂',
+      name:'MAHA转鼓',
       number:'',
       andon:0,
       speed:[],

@@ -103,19 +103,19 @@ const ROUTERS: Routes = [{
         component:EquipmentMotorSixSevenComponent
       },
       {
-        //AVL转毂+久鼎环境舱+排放分析
+        //AVL转鼓+久鼎环境舱+排放分析
         path:'avl/:title',
         loadChildren:()=>import('./equipment-avl/equipment-avl.module')
         .then(m=>m.EquipmentAvlModule),
 
       },
       {
-        //两驱AVL转毂+ATEC环境舱+排放分析
+        //两驱AVL转鼓+ATEC环境舱+排放分析
         path:'avl-etec/:title/:deviceid',
         component:EquipmentAvlAtecComponent
       },
       {
-        //四驱AVL转毂+ATEC环境舱+排放分析
+        //四驱AVL转鼓+ATEC环境舱+排放分析
         path:'avl-etec2/:title/:deviceid',
         component:EquipmentAvlAtecComponent
       },
