@@ -131,14 +131,19 @@ export class EquipmentShengweiComponent implements OnInit {
   getData() {
     let i = 0;
     this.timer = setInterval(() => {
-      this.fourMthree();
-      this.voc();
-      if (i % 60 == 0) {
+      if( i % 5 == 0){
+        this.fourMthree();
+        setTimeout(() => {
+          this.voc();
+        }, 300);
+      }
+      if (i % 61 == 0) {
         this.fourMthreeList();
         setTimeout(() => {
           this.vocList();
-        }, 200);
+        }, 300);
       }
+      i++;
     }, 1000);
   }
 

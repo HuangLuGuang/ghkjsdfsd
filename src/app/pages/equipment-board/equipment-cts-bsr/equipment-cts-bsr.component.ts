@@ -230,12 +230,19 @@ export class EquipmentCtsBsrComponent implements OnInit {
     let o = 0;
 
     this.timer = setInterval(() => {
-      if (o % 60 == 0) {
-        this.get_cts();
-        this.get_bsr_station_list_data();
+      if(o%5 == 0){
+        this.get_bsr_station();
+        setTimeout(() => {
+          this.get_bsr_station_real_data();
+        }, 300);
       }
-      this.get_bsr_station();
-      this.get_bsr_station_real_data();
+      if (o % 61 == 0) {
+        this.get_cts();
+        setTimeout(() => {
+          this.get_bsr_station_list_data();
+        }, 300);
+      }
+
       o++;
     }, 1000);
   }

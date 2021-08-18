@@ -308,16 +308,23 @@ export class EquipmentAvlComponent implements OnInit {
   getData() {
     let i = 0;
     this.timer = self.setInterval(() => {
-      this.get_avl_discharge();
-      this.get_avl_environmental_warehouse();
-      this.get_avl_speed();
-      if (i % 60 == 0) {
+      if(i%5 == 0){
+        this.get_avl_discharge();
+        setTimeout(() => {
+          this.get_avl_environmental_warehouse();
+        }, 300);
+        setTimeout(() => {
+          this.get_avl_speed();
+        }, 600);
+      }
+      
+      if (i % 61 == 0) {
         setTimeout(() => {
           this.get_avl_env_list();
-        }, 10);
+        }, 300);
         setTimeout(() => {
           this.get_avl_speed_list();
-        }, 20);
+        }, 600);
         this.get_avl_discharge_list();
       }
       i++;

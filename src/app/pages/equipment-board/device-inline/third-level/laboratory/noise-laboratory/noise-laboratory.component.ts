@@ -85,32 +85,41 @@ export class NoiseLaboratoryComponent implements OnInit {
     let now;
     let o = 0;
     this.timer = self.setInterval(f=>{
-      this.get_center_data();
+      if(o % 5 == 0){
+        this.thrid.get_equipment_status( Object.keys(this.param)).subscribe((res:any)=>{
+          // console.log(res)
+          for(let key in res){
+            this.param[key].run = res[key]
+          }
+        })
+
+        setTimeout(() => {
+          this.get_center_data();
+        }, 300);
+        setTimeout(() => {
+          this.thrid.get_device_taskinfo_list(param,this.right).subscribe((f:any)=>{
+            // f.forEach(el => {
+            //   this.param[el.deviceid].speed[0] = el.rate;
+            //   this.param[el.deviceid].speed_name[0] = el.taskchildnum;
+            // });
+            for(let key in f){
+              this.param[key].speed = f[key].map(m=> (m.speed));
+              this.param[key].speed_name = f[key].map(m=> (m.experiment));
+            }
+          });
+        }, 600);
+      }
       
-      if(o%3 ==0 )this.thrid.get_log_list(param,this.left);
+      if(o%8 ==0 )this.thrid.get_log_list(param,this.left);
       now = new Date();
       if(now.getDate() == 1){
         this.thrid.get_andon_status_year(param,this.left);
         this.thrid.get_andon_status_last_year(param,this.left);
       }
 
-      this.thrid.get_equipment_status( Object.keys(this.param)).subscribe((res:any)=>{
-        // console.log(res)
-        for(let key in res){
-          this.param[key].run = res[key]
-        }
-      })
+      
 
-      this.thrid.get_device_taskinfo_list(param,this.right).subscribe((f:any)=>{
-        // f.forEach(el => {
-        //   this.param[el.deviceid].speed[0] = el.rate;
-        //   this.param[el.deviceid].speed_name[0] = el.taskchildnum;
-        // });
-        for(let key in f){
-          this.param[key].speed = f[key].map(m=> (m.speed));
-          this.param[key].speed_name = f[key].map(m=> (m.experiment));
-        }
-      });
+      
       o++;
     },1000);
     this.thrid.get_andon_status_year(param,this.left);

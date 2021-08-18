@@ -516,14 +516,26 @@ export class OilSourceMonitoringComponent implements OnInit {
 
     let i = 0;
     this.timer = self.setInterval((f) => {
-      this.get_HPU();
-      this.get_Error_Message();
-      this.get_cleanlinss();
-      this.get_Water();
-      this.get_Radar();
-      if (i % 60 == 0 || this.linesRefresh) {
+      if(i%5 == 0){
+        this.get_HPU();
+        setTimeout(() => {
+          this.get_Radar();
+        }, 300);
+        setTimeout(() => {
+          this.get_cleanlinss();
+        }, 600);
+        setTimeout(() => {
+          this.get_Water();
+        }, 900);
+        setTimeout(() => {
+          this.get_Error_Message();
+        }, 1200);
+      }
+      if (i % 61 == 0 || this.linesRefresh) {
         this.get_cleanlinss_list();
-        this.get_water_list();
+        setTimeout(() => {
+          this.get_water_list();
+        }, 300);
         this.linesRefresh = false;
       }
       if (i == 2) {

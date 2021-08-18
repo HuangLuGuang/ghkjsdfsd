@@ -171,9 +171,13 @@ export class EquipmentJinhua4d2cComponent implements OnInit {
     let i = 0;
     if (this.device_atec) {
       this.timer = setInterval(() => {
-        this.get_4d2c();
-        this.get_atec();
-        if (i % 60 == 0) {
+        if( i%5 == 0){
+          this.get_4d2c();
+          setTimeout(() => {
+            this.get_atec();
+          }, 300);
+        }
+        if (i % 61 == 0) {
           this.get_atec_list();
         }
         i++;
@@ -181,7 +185,7 @@ export class EquipmentJinhua4d2cComponent implements OnInit {
     } else {
       this.timer = setInterval(() => {
         this.get_4d2c();
-        if (i % 60 == 0) {
+        if (i % 61 == 0) {
           this.get_Temp_Hum();
         }
         i++;

@@ -257,13 +257,20 @@ export class EquipmentAvlAtecComponent implements OnInit {
   getData() {
     let i = 0;
     this.timer = self.setInterval(() => {
-      this.get_avl_igem();
-      this.get_atec();
-      this.get_avl_d();
-      if (i % 60 == 0) {
+      if(i%5 == 0){
+        this.get_avl_igem();
+        setTimeout(() => {
+          this.get_atec();
+        }, 300);
+        setTimeout(() => {
+          this.get_avl_d();
+        }, 300);
+      }
+      
+      if (i % 61 == 0) {
         setTimeout(() => {
           this.get_atec_list();
-        }, 10);
+        }, 300);
         this.get_avl_d_list();
       }
       i++;

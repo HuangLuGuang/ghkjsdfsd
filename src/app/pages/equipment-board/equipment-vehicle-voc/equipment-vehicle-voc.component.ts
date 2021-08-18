@@ -172,8 +172,10 @@ export class EquipmentVehicleVocComponent implements OnInit {
       });
     let i = 0;
     this.timer = setInterval(() => {
-      this.getData();
-      if (i % 60 == 0) {
+      if(i%5 == 0){
+        this.getData();
+      }
+      if (i % 61 == 0) {
         this.get_chart_list();
       }
       i++;

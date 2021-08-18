@@ -144,14 +144,21 @@ export class EquipmentSkylightOpenCloseComponent implements OnInit {
     // this.get_log();
     let i = 0;
     this.timer = setInterval(() => {
-      this.get_sky_rate();
-      this.get_atec_temp();
-      this.get_log();
-      if (i % 60 == 0) {
+      if( i% 5 == 0){
+        this.get_sky_rate();
+        setTimeout(() => {
+          this.get_atec_temp();
+        }, 300);
+        setTimeout(() => {
+          this.get_log();
+        }, 600);
+      }
+      
+      if (i % 61 == 0) {
         this.get_atec_temp_list();
         setTimeout(() => {
           this.get_sky();
-        }, 10);
+        }, 300);
       }
       i++;
     }, 1000);

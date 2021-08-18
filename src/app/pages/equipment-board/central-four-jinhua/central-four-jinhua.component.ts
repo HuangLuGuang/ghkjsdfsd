@@ -291,9 +291,13 @@ export class CentralFourJinhuaComponent implements OnInit {
   getData() {
     let i = 0;
     this.timer = self.setInterval(() => {
-      this.get_four();
-      this.get_jinhua();
-      if (i % 60 == 0) {
+      if(i%5 == 0){
+        this.get_four();
+        setTimeout(() => {
+          this.get_jinhua();
+        }, 500);
+      }
+      if (i % 61 == 0) {
         this.get_four_list();
       }
       i++;

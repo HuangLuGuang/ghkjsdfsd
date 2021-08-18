@@ -490,12 +490,15 @@ export class EquipmentShockComponent implements OnInit {
       method,
       o = 0;
     this.timer = self.setInterval((f) => {
-      this.get_equip_real();
+      if( o % 5 == 0){
+        this.get_equip_real();
+
+      }
 
       // if(param[0].length > 0){
 
       // }
-      if (o % 3 == 0) {
+      if (o % 23 == 0) {
         let param = this.create_param();
         (table = "get_device_mts_time"),
           (method = library + "get_device_mts_timerangedata");

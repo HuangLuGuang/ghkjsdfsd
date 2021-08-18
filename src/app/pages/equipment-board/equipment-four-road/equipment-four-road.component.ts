@@ -460,8 +460,10 @@ export class EquipmentFourRoadComponent implements OnInit {
       method = "";
     let o = 0;
     this.timer = self.setInterval((f) => {
-      setTimeout(() => {
+      if( o%5 ==0){
         this.get_device_mts_status();
+
+      }
 
         // if(param[0].length > 0){
         //   table = 'get_device_mts_time',method = library+'get_device_mts_timerangedata';
@@ -471,9 +473,8 @@ export class EquipmentFourRoadComponent implements OnInit {
         //   table = 'get_device_mts_realtimedata',method = library+'get_device_mts_realtimedata';
         //   this.get_device_mts_realtimedata(table,method,param,this.deviceid,['chart_1','chart_2']);
         // }
-      }, 10);
       //三秒查一下
-      if (o % 3 == 0) {
+      if (o % 23 == 0) {
         let param = this.create_param([
           { value: this.click_list[0], index: 1 },
           { value: this.click_list[1], index: 2 },
@@ -486,7 +487,7 @@ export class EquipmentFourRoadComponent implements OnInit {
               "chart_1",
               "chart_2",
             ]);
-          }, 10);
+          }, 300);
         }
         let param_1 = this.create_param([
           { value: [this.click_list[2]], index: 3 },

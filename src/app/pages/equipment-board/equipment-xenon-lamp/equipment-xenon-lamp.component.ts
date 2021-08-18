@@ -152,13 +152,17 @@ export class EquipmentXenonLampComponent implements OnInit {
     }, 10);
     let i = 0;
     this.timer = setInterval(()=>{
-      this.get_4400();
-      this.get_4000();
-      if(i%60 == 0){
+      if(i%5 == 0){
+        this.get_4400();
+        setTimeout(() => {
+          this.get_4000();
+        }, 300);
+      }
+      if(i%61 == 0){
+        this.get_4000_list();
         setTimeout(() => {
           this.get_4400_list();
-        }, 10);
-        this.get_4000_list();
+        }, 300);
       }
       i++;
     },1000)

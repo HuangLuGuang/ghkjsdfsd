@@ -262,22 +262,27 @@ export class EquipmentMotorSystemComponent implements OnInit {
 
     let i = 0;
     this.timer = self.setInterval((f) => {
-      this.get_experimentParams();
-      this.get_right();
+      if( i%5 == 0){
+        this.get_experimentParams();
+        setTimeout(() => {
+          this.get_right();
+        }, 300);
+      }
+      
       // this.get_device_Temp_hum();
-      if (i % 60 == 0) {
+      if (i % 61 == 0) {
         this.get_line_coolingWater();
+        setTimeout(() => {
+          this.get_device_mts_timerangedata();
+        }, 300);
       }
-      if (i % 60 == 0) {
-        this.get_device_mts_timerangedata();
-      }
-      if (i % 10 == 0) {
+      if (i % 12 == 0) {
         this.get_line_speed_torque();
       }
-      if (i % 20 == 0) {
+      if (i % 22 == 0) {
         setTimeout(() => {
           this.get_line_busbar();
-        }, 100);
+        }, 300);
       }
       i++;
     }, 1000);

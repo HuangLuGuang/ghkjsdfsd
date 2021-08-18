@@ -170,36 +170,33 @@ export class EnvironmentLaboratoryComponent implements OnInit {
     let now;
     let o = 0;
     this.timer = self.setInterval(f=>{
-      this.get_center_data();
-      this.thrid.get_device_taskinfo_list(param,this.right).subscribe((f:any)=>{
-        // f.forEach(el => {
-        //   if(this.param[el.deviceid].speed)return;
-        //   this.param[el.deviceid].speed[0] = el.rate;
-        //   this.param[el.deviceid].speed_name[0] = el.taskchildnum;
-        // });
-        for(let key in f){
-          this.param[key].speed = f[key].map(m=> (m.speed));
-          this.param[key].speed_name = f[key].map(m=> (m.experiment));
-        }
-      });
+      if(o %5 ==0){
+        this.get_center_data();
+        setTimeout(() => {
+          this.thrid.get_device_taskinfo_list(param,this.right).subscribe((f:any)=>{
+            // f.forEach(el => {
+            //   if(this.param[el.deviceid].speed)return;
+            //   this.param[el.deviceid].speed[0] = el.rate;
+            //   this.param[el.deviceid].speed_name[0] = el.taskchildnum;
+            // });
+            for(let key in f){
+              this.param[key].speed = f[key].map(m=> (m.speed));
+              this.param[key].speed_name = f[key].map(m=> (m.experiment));
+            }
+          });
+    
+        }, 300);
 
-      this.thrid.get_equipment_status( Object.keys(this.param)).subscribe((res:any)=>{
-        // console.log(res)
-        for(let key in res){
-          if(['device_jinhua_cabin02','device_atec_03'].includes(key)){
-            this.list[7].run = res['device_jinhua_cabin02'] || res['device_atec_03']? true:false;
-          }else{
-            this.param[key].run = res[key];
-          }
-        }
-      })
+      }
+      
+      
 
       now = new Date();
       if(now.getDate() == 1){
         this.thrid.get_andon_status_year(param,this.left);
         this.thrid.get_andon_status_last_year(param,this.left);
       }
-      if(o%3 ==0 )this.thrid.get_log_list(param,this.left);
+      if(o%8 ==0 )this.thrid.get_log_list(param,this.left);
       o++;
     },1000)
     

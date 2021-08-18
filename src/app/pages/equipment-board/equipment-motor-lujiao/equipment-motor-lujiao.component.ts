@@ -162,10 +162,14 @@ export class EquipmentMotorLujiaoComponent implements OnInit {
   getData() {
     let o = 0;
     this.timer = setInterval(() => {
-      this.get_real_data();
-      if (o % 60 == 0) {
+      if(o%5 == 0){
+        this.get_real_data();
+      }
+      if (o % 61 == 0) {
         this.get_device_mts_timerangedata();
-        this.get_list();
+        setTimeout(() => {
+          this.get_list();
+        }, 300);
       }
       o++;
     }, 1000);

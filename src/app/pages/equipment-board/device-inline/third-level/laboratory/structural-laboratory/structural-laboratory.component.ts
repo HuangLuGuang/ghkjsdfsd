@@ -215,33 +215,46 @@ export class StructuralLaboratoryComponent implements OnInit {
     this.thrid.get_andon_status_year(param,this.left);
     this.thrid.get_andon_status_last_year(param,this.left);
     this.timer = self.setInterval(f=>{
-      this.get_oil_status();
-      this.get_center_data();
-      if(o%3 ==0 )this.thrid.get_log_list(param,this.left)
-      this.thrid.get_device_taskinfo_list(param,this.right).subscribe((f:any)=>{
-        for(let key in f){
-          this.param[key].speed = f[key].map(m=> (m.speed));
-          this.param[key].speed_name = f[key].map(m=> (m.experiment));
-        }
-      });
+      if(o%5 == 0){
+        this.get_oil_status();
+        setTimeout(() => {
+          this.get_center_data();
+        }, 300);
+        setTimeout(() => {
+          let hpu = ['device_hpu_01','device_hpu_02','device_hpu_03','device_hpu_04','device_hpu_05'];
+          let p = param.concat(hpu);
+          this.thrid.get_equipment_status(p).subscribe((res:any)=>{
+            // console.log(res)
+            for(let key in res){
+              if(hpu.includes(key)){
+                this.list[4].run = Object.keys(res).filter(f => !res[f]).length == 0?true:false;
+              }else{
+                this.param[key].run = res[key]
+              }
+            }
+          })
+        }, 600);
+        
+        setTimeout(() => {
+          this.thrid.get_device_taskinfo_list(param,this.right).subscribe((f:any)=>{
+            for(let key in f){
+              this.param[key].speed = f[key].map(m=> (m.speed));
+              this.param[key].speed_name = f[key].map(m=> (m.experiment));
+            }
+            });
+        }, 900);
+      }
+      if(o%8 ==0 ){
+        this.thrid.get_log_list(param,this.left);
+      }
+        
       now = new Date();
       if(now.getDate() == 1){
         this.thrid.get_andon_status_year(param,this.left);
         this.thrid.get_andon_status_last_year(param,this.left);
       }
 
-      let hpu = ['device_hpu_01','device_hpu_02','device_hpu_03','device_hpu_04','device_hpu_05'];
-      let p = param.concat(hpu);
-      this.thrid.get_equipment_status(p).subscribe((res:any)=>{
-        // console.log(res)
-        for(let key in res){
-          if(hpu.includes(key)){
-            this.list[4].run = Object.keys(res).filter(f => !res[f]).length == 0?true:false;
-          }else{
-            this.param[key].run = res[key]
-          }
-        }
-      })
+      
       o++;
     },1000)
     

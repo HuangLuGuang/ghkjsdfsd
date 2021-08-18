@@ -51,10 +51,12 @@ export class LogWarmComponent implements OnInit {
     let language = localStorage.getItem('currentLanguage');
     if(language!='zh-CN')this.language = language;
     let date;
+    let o = 0;
     this.timer = self.setInterval(f=>{
-      if(this.device)this.get_device_mts_log();
+      if(this.device && o%13 ==0)this.get_device_mts_log();
       date = new Date();
       if(date.getDay() == 1)this.get_device_mts_log_his();
+      o++;
     },1000)
 
     this.get_device_mts_log_his();

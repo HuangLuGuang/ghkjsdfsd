@@ -276,8 +276,12 @@ export class EquipmentPureWaterComponent implements OnInit {
 
   ngAfterViewInit(){
     this.boardservice.sendLoad({close:false});
+    let i = 0;
     this.timer = setInterval(f=>{
-      this.getdata();
+      if(i%5 ==0){
+        this.getdata();
+      }
+      i++;
       
     },1000)
     setTimeout(() => {

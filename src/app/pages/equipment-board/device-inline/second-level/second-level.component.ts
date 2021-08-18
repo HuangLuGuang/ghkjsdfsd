@@ -246,9 +246,13 @@ export class SecondLevelComponent implements OnInit {
       if(o%5 == 0)this.get_teststatus();
       if(o%10 == 0)this.get_alarm_infor_status();
       // 500秒更新一次
-      if(o%20 == 0 ){
-        this.get_distribution_number();
-        this.get_alarm_infor();
+      if(o%21 == 0 ){
+        setTimeout(() => {
+          this.get_distribution_number();
+        }, 300);
+        setTimeout(() => {
+          this.get_alarm_infor();
+        }, 600);
         this.deviceactive();
       }
       o++;

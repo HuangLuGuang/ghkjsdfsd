@@ -37,19 +37,17 @@ export class ExperimentParamsComponent implements OnInit {
     // }, 1000);
     let i = 0;
     this.timer = self.setInterval(f =>{
-      if(this.device.includes('weiss')){
-        this.get_device_mts_weiss();
-        if(i == 5){
-          this.get_device_mts_timerangedata();
-          i = 0;
-        }
-      }
-      else
-      {
-        this.get_device_Temp_hum();
-        if(i == 5){
-          this.get_device_his_Temp_hum();
-          i = 0;
+      if(i% 7 == 0){
+        if(this.device.includes('weiss')){
+          this.get_device_mts_weiss();
+          if(i % 22 == 0 ){
+            this.get_device_mts_timerangedata();
+          }
+        }else{
+          this.get_device_Temp_hum();
+          if(i % 22 == 0){
+            this.get_device_his_Temp_hum();
+          }
         }
       }
       i++;

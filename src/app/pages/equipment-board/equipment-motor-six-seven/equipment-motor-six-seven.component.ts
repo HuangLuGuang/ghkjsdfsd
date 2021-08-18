@@ -331,19 +331,20 @@ export class EquipmentMotorSixSevenComponent implements OnInit {
     let i = 0;
     this.timer = self.setInterval((f) => {
       // this.initChart();
-
-      this.get_motor_param();
-      if (i % 60 == 0) {
-        setTimeout(() => {
-          this.get_left_data();
-        }, 10);
+      if( i%5 ==0){
+        this.get_motor_param();
+      }
+      if (i % 61 == 0) {
+        this.get_motor_list();
         setTimeout(() => {
           this.get_Temp_Hum();
-        }, 10);
+        }, 300);
         setTimeout(() => {
           this.get_line_speed_torque();
-        }, 10);
-        this.get_motor_list();
+        }, 600);
+        setTimeout(() => {
+          this.get_left_data();
+        }, 900);
       }
       i++;
     }, 1000);

@@ -188,13 +188,17 @@ export class EquipmentGlassLiftComponent implements OnInit {
   ngAfterViewInit() {
     let i = 0;
     this.timer = setInterval(() => {
-      this.get_atec_temp();
-      this.get_sky();
-      if (i % 60 == 0) {
+      if(i%5 == 0){
+        this.get_atec_temp();
+        setTimeout(() => {
+          this.get_sky();
+        }, 300);
+      }
+      if (i % 61 == 0) {
         this.get_atec_temp_list();
         setTimeout(() => {
           this.get_sky_list();
-        }, 20);
+        }, 300);
       }
       i++;
     }, 1000);

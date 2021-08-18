@@ -134,12 +134,20 @@ export class EquipmentMahaComponent implements OnInit {
   getData() {
     let i = 0;
     this.timer = setInterval(() => {
-      if (i % 60 == 0) {
+      if( i%5==0){
+        this.get_langde();
+        setTimeout(() => {
+          this.get_gas();
+        }, 300);
+        setTimeout(() => {
+          this.get_maha();
+        }, 300);
+      }
+      if (i % 61 == 0) {
         this.get_maha_list();
       }
-      this.get_langde();
-      this.get_gas();
-      this.get_maha();
+     
+      
       i++;
     }, 1000);
   }

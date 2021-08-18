@@ -51,7 +51,9 @@ export class EquipmentStatusComponent implements OnInit {
     let i = 0;
     let now ;//当前时间
     this.interval= self.setInterval(f=>{
-      this.get_andon_status();
+      if(i % 6 == 0){
+        this.get_andon_status();
+      }
 
       now = new Date();
       //十分钟调用一次

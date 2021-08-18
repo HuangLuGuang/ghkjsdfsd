@@ -296,36 +296,37 @@ export class CabinCentralizedMonitoringComponent implements OnInit {
   getData() {
     let i = 0;
     this.timer = self.setInterval(() => {
-      setTimeout(() => {
+      if(i%5 == 0){
         this.get_environmental_warehouse_jinhua();
-      }, 10);
-      setTimeout(() => {
-        this.get_ATEC();
-      }, 20);
-      setTimeout(() => {
-        this.get_TempHumidity("sensor_t_h_01", [
-          this.TempHumidity[0],
-          this.TempHumidity[3],
-        ]);
-      }, 25);
-      setTimeout(() => {
-        this.get_TempHumidity("sensor_t_h_02", [
-          this.TempHumidity[1],
-          this.TempHumidity[4],
-        ]);
-      }, 30);
-      setTimeout(() => {
-        this.get_TempHumidity("sensor_t_h_03", [
-          this.TempHumidity[2],
-          this.TempHumidity[5],
-        ]);
-      }, 35);
+        setTimeout(() => {
+          this.get_ATEC();
+        }, 300);
+        setTimeout(() => {
+          this.get_TempHumidity("sensor_t_h_01", [
+            this.TempHumidity[0],
+            this.TempHumidity[3],
+          ]);
+        }, 500);
+        setTimeout(() => {
+          this.get_TempHumidity("sensor_t_h_02", [
+            this.TempHumidity[1],
+            this.TempHumidity[4],
+          ]);
+        }, 700);
+        setTimeout(() => {
+          this.get_TempHumidity("sensor_t_h_03", [
+            this.TempHumidity[2],
+            this.TempHumidity[5],
+          ]);
+        }, 900);
+      }
+      
 
-      if (i % 60 == 0) {
+      if (i % 61 == 0) {
+        this.get_ATEC_list();
         setTimeout(() => {
           this.get_jinhua_list();
-        }, 10);
-        this.get_ATEC_list();
+        }, 300);
       }
       i++;
       // this.TempHumidity.forEach(f=>{

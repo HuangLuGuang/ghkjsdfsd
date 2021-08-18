@@ -311,13 +311,17 @@ export class EquipmentHydraulicPressureComponent implements OnInit {
       method = "";
     let o = 0;
     this.timer = self.setInterval((f) => {
-      this.get_device_mts_status(); //实时状态表
-      this.get_device_mst_oilseparator(); //开油器
+      if(o%5==0){
+        this.get_device_mts_status(); //实时状态表
+        setTimeout(() => {
+          this.get_device_mst_oilseparator(); //开油器
+        }, 300);
+      }
       // if(param[1].length > 0){
       //   table = 'get_device_mts_realtimedata',method = library+'get_device_mts_realtimedata';
       //   this.get_device_mts_realtimedata(table,method,param);
       // }
-      if (o % 3 == 0) {
+      if (o % 23 == 0) {
         let param = this.create_param();
         if (param[0].length > 0) {
           (table = "get_device_mts_timerangedata"),

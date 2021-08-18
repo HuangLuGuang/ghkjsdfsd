@@ -575,9 +575,13 @@ export class EquipmentCouplingPathComponent implements OnInit {
     let table, method;
     let o = 0;
     this.timer = self.setInterval((f) => {
-      this.get_device_status();
-      this.get_device_mst_oilseparator();
-      if (o % 3 == 0) {
+      if(o%5 ==0){
+        this.get_device_status();
+        setTimeout(() => {
+          this.get_device_mst_oilseparator();
+        }, 300);
+      }
+      if (o % 23 == 0) {
         let param = this.create_param();
         if (param[0].length > 0) {
           (table = "get_device_mts_time"),

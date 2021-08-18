@@ -108,8 +108,10 @@ export class EquipmentAtecComponent implements OnInit {
   getData() {
     let o = 0;
     this.timer = setInterval(() => {
-      this.get_atec();
-      if (o % 60 == 0) {
+      if(o%5 == 0){
+        this.get_atec();
+      }
+      if (o % 61 == 0) {
         this.get_atec_list();
       }
       o++;
