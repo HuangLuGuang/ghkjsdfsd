@@ -9,7 +9,7 @@ let equipment_four_road = {
             myChart.resize();
             return;
         }
-        var xData = data.xData.map(f =>( f.substring(0,f.length-1))),
+        var xData = data.xData.map(f => (f.substring(0, f.length - 1))),
             borderData = [],
             legend = data.title_arr,
             borderHeight = 0,
@@ -24,7 +24,7 @@ let equipment_four_road = {
                 bottom: 0,
                 width: '90%',
                 height: '75%',
-                containLabel:true,
+                containLabel: true,
             }
             // option_s.yAxis[0].name = '小时';
             // option_s.yAxis[0].nameLocation = 'end';
@@ -56,7 +56,7 @@ let equipment_four_road = {
         }, {
             text: '月',
             right: '4%',
-            bottom:'1%',
+            bottom: '1%',
             textStyle: {
                 color: COLOR,
                 fontSize: 12,
@@ -325,8 +325,8 @@ let equipment_four_road = {
                     zlevel: 3,
                     style: {
                         image: img,
-                        width: gauge_data.level?80:63,
-                        height: gauge_data.level?80:63
+                        width: gauge_data.level ? 80 : 63,
+                        height: gauge_data.level ? 80 : 63
                     },
                     left: 'center',
                     top: 'center',
@@ -1502,7 +1502,7 @@ let equipment_four_road = {
     },
 
     /**
-     * avl 环境仓参数实时温湿度仓压力
+     * avl 环境舱参数实时温湿度舱压力
      * @param {*} data  {text:'',unit:'',value:''}
      * @param {*} myChart 
      */
@@ -2426,7 +2426,7 @@ let equipment_four_road = {
                     rich: {},
                     offsetCenter: [0, '65%'],
                     formatter: function(value) {
-                        return (data.value ? data.value : 0)+data.unit;
+                        return (data.value ? data.value : 0) + data.unit;
                     }
                 },
                 data: [{

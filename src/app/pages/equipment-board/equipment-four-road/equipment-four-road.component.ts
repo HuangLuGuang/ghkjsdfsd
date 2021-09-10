@@ -400,8 +400,8 @@ export class EquipmentFourRoadComponent implements OnInit {
   equipIntroduceList = [
     { title: "" },
     { title: "四立柱参数" },
-    { title: "环境仓及光照参数" },
-    { title: "环境仓及光照参数" },
+    { title: "环境舱及光照参数" },
+    { title: "环境舱及光照参数" },
   ];
   //当前的页数
   eqIntShow = 0;
@@ -514,6 +514,15 @@ export class EquipmentFourRoadComponent implements OnInit {
           this[`attrs_${i}`][f].xData = [];
         });
     });
+    let param = this.create_param([
+      { value: this.click_list[i-1], index: i },
+    ]);
+    if(param[0].length>0){
+      this.get_device_mts_time('get_device_mts_time', library + "get_device_mts_timerangedata", param, this.deviceid, [
+        `chart_${i}`,
+      ]);
+    }
+    
   }
 
   //颜色的赋值

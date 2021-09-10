@@ -306,7 +306,7 @@ export class EquipmentAvlAtecComponent implements OnInit {
       });
   }
 
-  //环境仓参数
+  //环境舱参数
   get_atec() {
     let res,
       data: any = {};
@@ -351,7 +351,7 @@ export class EquipmentAvlAtecComponent implements OnInit {
       });
   }
 
-  //环境仓 曲线
+  //环境舱 曲线
   get_atec_list() {
     let res,
       xdata = [],

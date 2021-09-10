@@ -91,8 +91,8 @@
               </button> -->
                         </nb-card-header>
                         <nb-card-body>
-                            <ng2-smart-table style="width: 100%;" *ngIf="task_route =='now';else his;" [settings]="setting" [source]="source"></ng2-smart-table>
-                            <ng-template #his>
+                            <ng2-smart-table style="width: 100%;" *ngIf="task_route =='now';else his_temp;" [settings]="setting" [source]="source"></ng2-smart-table>
+                            <ng-template #his_temp>
                                 <ng2-smart-table #his style="width: 100%;" [settings]="hisSetting" [source]="hisSource"></ng2-smart-table>
                             </ng-template>
                         </nb-card-body>

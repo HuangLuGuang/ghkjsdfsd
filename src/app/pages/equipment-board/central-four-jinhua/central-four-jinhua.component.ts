@@ -121,7 +121,7 @@ export class CentralFourJinhuaComponent implements OnInit {
   gauge_1_xData = [];
 
   jinhua: any = {};
-  //环境仓
+  //环境舱
   EnvironBin = [
     {
       id: "en_gauge_1",

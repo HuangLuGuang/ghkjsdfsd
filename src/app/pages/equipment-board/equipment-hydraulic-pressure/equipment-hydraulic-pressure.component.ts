@@ -344,6 +344,10 @@ export class EquipmentHydraulicPressureComponent implements OnInit {
           this[`attrs_${i}`][f].xData = [];
         });
     });
+    let param = this.create_param();
+    if (param[0].length > 0) {
+      this.get_device_mts_time("get_device_mts_timerangedata", library + "get_device_mts_timerangedata", param);
+    }
   }
 
   //颜色的赋值

@@ -270,13 +270,17 @@ export class LimisAddDialogComponent implements OnInit, AfterViewInit {
       taskstatus: this.dialog_button,
       ...pagejson,
     };
+    if(s !='init'){
+      params.limit =  (this.gridtable.current ) * this.gridtable.setPageCount;
+      params.offset =   (this.gridtable.current - 1) * this.gridtable.setPageCount;
+    }
     this.loading_dialog = true;
     this.http
       .callRPC("lims_get_wt_order", "lims_get_wt_order", params)
       .subscribe((f: any) => {
         console.log(f);
         if (!f || f.result.message[0].code == 0) return;
-        this.rowData = f.result.message[0].message.map((m) => ({
+        this.tableDatas.rowData = f.result.message[0].message.map((m) => ({
           wtorderno: m.wtorderno,
           applicant: m.applicant,
           application_time_format: dateformat(
@@ -298,14 +302,16 @@ export class LimisAddDialogComponent implements OnInit, AfterViewInit {
           taskendon: m.taskendon,
           count: m.count,
         }));
-        this.tableDatas.rowData = this.rowData;
+        // this.tableDatas.rowData = this.rowData;
         this.tableDatas.totalPageNumbers =
           f.result.message[0].numbers[0].numbers;
-        if (s == "init") {
           this.gridtable.init_agGrid(this.tableDatas); // 刷新组件
-        } else {
-          this.gridtable.update_agGrid(this.tableDatas); // 刷新组件
-        }
+
+        // if (s == "init") {
+          // this.gridtable.init_agGrid(this.tableDatas); // 刷新组件
+        // } else {
+          // this.gridtable.update_agGrid(this.tableDatas); // 刷新组件
+        // }
         this.loading_dialog = false;
       });
   }
@@ -463,6 +469,7 @@ export class LimisAddDialogComponent implements OnInit, AfterViewInit {
     this.pageIndexJson = e;
     e.searchstr = this.searchstr;
     // e.wtorderno = '004';
+    console.log(e)
     this.get_dialog_data("update", e);
   }
 

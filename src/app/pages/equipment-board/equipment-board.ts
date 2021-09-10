@@ -80,7 +80,7 @@ export const DEVICEID_TO_NAME  ={
   'device_boyang_02':'博阳电机4',//博阳电机4
   'device_andmotor_01':'鲁交电机1',//鲁交电机1
 
-  'device_auto_voc01':'整车voc',//整车voc环境仓
+  'device_auto_voc01':'整车voc',//整车voc环境舱
   'device_atlas_4000':'氙灯Ci4000',//氙灯集中监控Ci4000
   'device_atlas_4400':'氙灯Ci4400',//氙灯集中监控Ci4400
   'device_purewater_01':'纯水',//纯水

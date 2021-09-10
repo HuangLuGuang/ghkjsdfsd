@@ -230,7 +230,7 @@ export class EquipmentVehicleVocComponent implements OnInit {
         this.cang_hot.list[4].value = data.irside3pv || 0;
         this.cang_hot.list[5].value = data.irside4pv || 0;
 
-        //仓1
+        //舱1
         setTimeout(() => {
           this.assignment(1, data);
           this.cang_1.inner = data.plc_innercircleonoff2; //内循环
@@ -238,7 +238,7 @@ export class EquipmentVehicleVocComponent implements OnInit {
           this.cang_1.outside = data.plc_outercircleonoff2; //外循环
           this.cang_1.fan = data.plc_gasonoff2; //尾气排扇
         }, 10);
-        //仓2
+        //舱2
         setTimeout(() => {
           this.assignment(2, data);
           this.cang_2.inner = data.plc_innercircleonoff2; //内循环
@@ -246,7 +246,7 @@ export class EquipmentVehicleVocComponent implements OnInit {
           this.cang_2.outside = data.plc_outercircleonoff2; //外循环
           this.cang_2.fan = data.plc_gasonoff2; //尾气排扇
         }, 10);
-        //仓3
+        //舱3
         setTimeout(() => {
           this.assignment(3, data);
         }, 10);
@@ -297,7 +297,7 @@ export class EquipmentVehicleVocComponent implements OnInit {
       .subscribe((f: any) => {
         if (f.result.error || f.result.message[0].code == 0) return;
         let res = f.result.message[0].message;
-        //仓1
+        //舱1
         setTimeout(() => {
           let xdata_1 = [];
           if (res[0].chb1_temppv.length > res[1].chb1_humipv.length) {
@@ -318,7 +318,7 @@ export class EquipmentVehicleVocComponent implements OnInit {
             xdata_1
           );
         }, 10);
-        //仓2
+        //舱2
         setTimeout(() => {
           let xdata_2 = [];
           if (res[2].chb2_temppv.length > res[3].chb2_humipv.length) {
@@ -339,7 +339,7 @@ export class EquipmentVehicleVocComponent implements OnInit {
             xdata_2
           );
         }, 20);
-        //仓3
+        //舱3
         let xdata_3 = [];
         if (res[4].chb3_temppv.length > res[5].chb3_humipv.length) {
           xdata_3 = res[4].chb3_temppv.map((m) =>
@@ -362,7 +362,7 @@ export class EquipmentVehicleVocComponent implements OnInit {
   }
 
   /**
-   * 仓1-3赋值
+   * 舱1-3赋值
    * @param cang_name 全局对象名
    * @param data
    * @param time x轴时间
@@ -538,30 +538,30 @@ export class EquipmentVehicleVocComponent implements OnInit {
 }
 
 export let voc = [
-  "chb1_tempsv", //仓1温度设定值
-  "chb1_temppv", //仓1温度实际值
-  "chb1_humisv", //仓1湿度设定值
-  "chb1_humipv", //仓1湿度实际值
+  "chb1_tempsv", //舱1温度设定值
+  "chb1_temppv", //舱1温度实际值
+  "chb1_humisv", //舱1湿度设定值
+  "chb1_humipv", //舱1湿度实际值
   "chb1_run", //启动状态
-  "plc_outercircleonoff1", //仓1外循环
-  "plc_innercircleonoff1", //仓1内循环
-  "plc_exhaustonoff1", //仓1强排气
-  "plc_gasonoff1", //仓1尾气排放
+  "plc_outercircleonoff1", //舱1外循环
+  "plc_innercircleonoff1", //舱1内循环
+  "plc_exhaustonoff1", //舱1强排气
+  "plc_gasonoff1", //舱1尾气排放
 
-  "chb2_tempsv", //仓2温度设定值
-  "chb2_temppv", //仓2温度实际值
-  "chb2_humisv", //仓2湿度设定值
-  "chb2_humipv", //仓2湿度实际值
+  "chb2_tempsv", //舱2温度设定值
+  "chb2_temppv", //舱2温度实际值
+  "chb2_humisv", //舱2湿度设定值
+  "chb2_humipv", //舱2湿度实际值
   "chb2_run", //启动状态
-  "plc_outercircleonoff2", //仓2外循环
-  "plc_innercircleonoff2", //仓2内循环
-  "plc_exhaustonoff2", //仓2强排气
-  "plc_gasonoff2", //仓2尾气排放
+  "plc_outercircleonoff2", //舱2外循环
+  "plc_innercircleonoff2", //舱2内循环
+  "plc_exhaustonoff2", //舱2强排气
+  "plc_gasonoff2", //舱2尾气排放
 
-  "chb3_tempsv", //仓3温度设定值
-  "chb3_temppv", //仓3温度实际值
-  "chb3_humisv", //仓3湿度设定值
-  "chb3_humipv", //仓3湿度实际值
+  "chb3_tempsv", //舱3温度设定值
+  "chb3_temppv", //舱3温度实际值
+  "chb3_humisv", //舱3湿度设定值
+  "chb3_humipv", //舱3湿度实际值
   "chb3_run", //启动状态
 
   // 'irtoppv3',//红外顶板3

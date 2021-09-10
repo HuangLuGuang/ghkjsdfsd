@@ -12,13 +12,13 @@ import { ThirdLevelService } from '../third-level.service';
 export class PhysicalLaboratoryComponent implements OnInit {
   list = [
     {
-      name:'整车voc环境仓',
+      name:'整车voc环境舱',
       number:'',
       andon:0,
       speed:[],
       src:'assets/eimdoard/equipment/images/vehicle.jpg',//实验图片地址
       speed_name:[''],//实验编号
-      // router:'/pages/equipment/vehicle/整车voc环境仓',
+      // router:'/pages/equipment/vehicle/整车voc环境舱',
       router:'',
       run:false,
       mark:'vehicle'
@@ -54,7 +54,7 @@ export class PhysicalLaboratoryComponent implements OnInit {
       speed:[],
       src:'',//实验图片地址
       speed_name:[''],//实验编号
-      // router:'/pages/equipment/shengwei/昇微、4m3环境仓集中监控',
+      // router:'/pages/equipment/shengwei/昇微、4m3环境舱集中监控',
       router:'',
       run:false,
       mark:'shengwei'
@@ -97,7 +97,7 @@ export class PhysicalLaboratoryComponent implements OnInit {
       {name:'维修',color:'red',t:4},
   ];
   param = {
-    'device_auto_voc01':this.list[0],//整车voc环境仓
+    'device_auto_voc01':this.list[0],//整车voc环境舱
     'device_atlas_4000':this.list[1],//氙灯集中监控ci4000
     'device_atlas_4400':this.list[1],//氙灯集中监控ci4400
     'device_purewater_01':this.list[2],//纯水

@@ -223,7 +223,7 @@ export class EquipmentAvlComponent implements OnInit {
   equipIntroduceList = [
     { title: "" },
     { title: "底盘测功机" },
-    { title: "环境模拟仓" },
+    { title: "环境模拟舱" },
     { title: "排放分析仪" },
     { title: "排放分析仪" },
     { title: "排放分析仪" },
@@ -402,7 +402,7 @@ export class EquipmentAvlComponent implements OnInit {
   }
 
   /**
-   * 环境仓参数
+   * 环境舱参数
    */
   get_avl_environmental_warehouse() {
     let res,
@@ -501,7 +501,7 @@ export class EquipmentAvlComponent implements OnInit {
   }
 
   /**
-   * 环境仓表 获取一段时间
+   * 环境舱表 获取一段时间
    */
   get_avl_env_list() {
     let res,

@@ -143,7 +143,7 @@ export class CabinCentralizedMonitoringComponent implements OnInit {
     },
   ];
 
-  //锦华环境仓
+  //锦华环境舱
   jinhua_en = [
     {
       id: "real_temperature_8",
@@ -337,7 +337,7 @@ export class CabinCentralizedMonitoringComponent implements OnInit {
   }
 
   /**
-   * 锦华环境仓
+   * 锦华环境舱
    */
   get_environmental_warehouse_jinhua() {
     let res,

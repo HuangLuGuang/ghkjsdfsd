@@ -689,6 +689,8 @@ export class EquipmentShockComponent implements OnInit {
           this[`attrs_${i}`][f].xData = [];
         });
     });
+    let param = this.create_param();
+    this.get_device_mts_time("get_device_mts_time", library + "get_device_mts_timerangedata", param);
   }
 
   //生成实时数据需要的参数
