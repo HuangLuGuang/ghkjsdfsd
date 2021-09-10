@@ -478,6 +478,28 @@ export class AgTableComponent implements OnInit {
     this.agGrid.api.setRowData(this.rowData);
   }
 
+  update_new_agGrid(tableDatas){
+     // 改变当前页码
+    //  this.current = 1;
+     // 刷新
+     this.agGrid.api.refreshView();
+     this.selectedRows = []; // 清除选择的行数据！
+     this.rowData = tableDatas.rowData;
+     // this.totalPageNumbers = tableDatas.rowData.length;
+     this.totalPageNumbers = tableDatas.totalPageNumbers;
+     this.alltotalPageNumbers = tableDatas.totalPageNumbers; // 数据库中的总条数
+     // this.agGrid.api.setRowData(this.rowData);
+     // console.log("------------agGrid-------------", this.agGrid);
+     // 动态修改--每页的条数
+ 
+     if (tableDatas["isno_refresh_page_size"]) {
+       this.PageSize = tableDatas["PageSize"];
+       this.setPageCount = Number(this.PageSize);
+     }
+ 
+     this.agGrid.api.setRowData(this.rowData);
+  }
+
   // 父组件调用！ 填充表格
   init_agGrid(employee_agGrid) {
     // console.log("初始化-------父组件调用！ 填充表格=======", employee_agGrid)

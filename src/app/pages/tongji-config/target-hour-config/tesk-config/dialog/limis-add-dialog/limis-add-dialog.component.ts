@@ -253,7 +253,7 @@ export class LimisAddDialogComponent implements OnInit, AfterViewInit {
   ngAfterViewInit(): void {}
 
   /**
-   * 弹窗数据查询
+   * 弹窗数据查询 
    * @param s init 初始化
    * @param pagejson
    */
@@ -305,13 +305,13 @@ export class LimisAddDialogComponent implements OnInit, AfterViewInit {
         // this.tableDatas.rowData = this.rowData;
         this.tableDatas.totalPageNumbers =
           f.result.message[0].numbers[0].numbers;
-          this.gridtable.init_agGrid(this.tableDatas); // 刷新组件
-
-        // if (s == "init") {
           // this.gridtable.init_agGrid(this.tableDatas); // 刷新组件
-        // } else {
-          // this.gridtable.update_agGrid(this.tableDatas); // 刷新组件
-        // }
+
+        if (s == "init") {
+          this.gridtable.init_agGrid(this.tableDatas); // 刷新组件
+        } else {
+          this.gridtable.update_new_agGrid(this.tableDatas); // 刷新组件
+        }
         this.loading_dialog = false;
       });
   }
